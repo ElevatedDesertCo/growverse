@@ -34,7 +34,6 @@ export function BaseGrid() {
     }
 
     if (!occupant) {
-      console.log("[diag] Cell tapped:", x, y);
       openBuildMenu(x, y);
     }
   };
