@@ -3,6 +3,7 @@ import { BaseGrid } from "./BaseGrid";
 import { ActionButtons } from "./ActionButtons";
 import { BottomNav } from "./BottomNav";
 import { SplashScreen } from "./SplashScreen";
+import { BuildMenu } from "./BuildMenu";
 
 export function GameShell() {
   return (
@@ -17,6 +18,8 @@ export function GameShell() {
       </main>
 
       <BottomNav />
+
+      <BuildMenu />
     </div>
   );
 }
