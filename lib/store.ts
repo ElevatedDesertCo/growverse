@@ -31,22 +31,29 @@ export const useGameStore = create<GameState>((set, get) => ({
   selectedCell: null,
   selectedPlacedId: null,
 
-  openBuildMenu: (x, y) =>
-    set({
-      buildMenuOpen: true,
-      selectedCell:
-        x !== undefined && y !== undefined ? { x, y } : null,
-    }),
+  openBuildMenu: (x, y) => {
+    const next = x !== undefined && y !== undefined ? { x, y } : null;
+    console.log("[diag] openBuildMenu called, selectedCell now:", next);
+    set({ buildMenuOpen: true, selectedCell: next });
+  },
 
   closeBuildMenu: () => set({ buildMenuOpen: false, selectedCell: null }),
 
   placeBuilding: (type) => {
     const cell = get().selectedCell;
-    if (!cell) return;
+    const before = get().buildings.length;
+    console.log("[diag] placeBuilding called:", { type, cell, buildingsBefore: before });
+    if (!cell) {
+      console.log("[diag] placeBuilding ABORTED: no selectedCell");
+      return;
+    }
     const occupied = get().buildings.some(
       (b) => b.x === cell.x && b.y === cell.y,
     );
-    if (occupied) return;
+    if (occupied) {
+      console.log("[diag] placeBuilding ABORTED: cell occupied");
+      return;
+    }
     set((state) => ({
       buildings: [
         ...state.buildings,
@@ -61,6 +68,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       buildMenuOpen: false,
       selectedCell: null,
     }));
+    console.log("[diag] placeBuilding committed, buildings after:", get().buildings.length);
   },
 
   moveBuilding: (id, x, y) => {

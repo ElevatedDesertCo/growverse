@@ -72,7 +72,14 @@ export function BuildMenu() {
                     key={type}
                     def={BUILDINGS[type]}
                     disabled={!ready}
-                    onPlace={() => placeBuilding(type)}
+                    onPlace={() => {
+                      console.log("[diag] Place clicked:", {
+                        type,
+                        selectedCell,
+                        ready,
+                      });
+                      placeBuilding(type);
+                    }}
                   />
                 ))}
               </div>
