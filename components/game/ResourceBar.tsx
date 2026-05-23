@@ -29,7 +29,7 @@ function ResourcePill({ iconSrc, alt, value, colorClass }: ResourceProps) {
 export function ResourceBar() {
   return (
     <header className="sticky top-0 z-30 border-b border-gold/15 bg-bg-deep/95 backdrop-blur supports-[backdrop-filter]:bg-bg-deep/70">
-      <div className="mx-auto flex max-w-md items-center justify-between gap-2 px-3 py-3">
+      <div className="mx-auto flex max-w-md items-center justify-between gap-2 px-3 py-3 md:max-w-3xl md:px-6">
         <div className="flex flex-col items-start leading-none">
           <span
             className="font-display text-[17px] font-bold tracking-[0.22em] text-leaf"

@@ -11,7 +11,7 @@ export function GameShell() {
 
       <ResourceBar />
 
-      <main className="mx-auto flex max-w-md flex-col gap-6 px-4 pb-28 pt-6">
+      <main className="mx-auto flex max-w-md flex-col gap-6 px-4 pb-28 pt-6 md:max-w-3xl md:gap-8 md:pt-10">
         <BaseGrid />
         <ActionButtons />
       </main>
