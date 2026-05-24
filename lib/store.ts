@@ -159,6 +159,34 @@ export function buildingAtCell(
   });
 }
 
+/**
+ * True if a building of `type` is already placed on the grid.
+ * Used for singleton enforcement.
+ */
+export function isAlreadyPlaced(
+  type: BuildingType,
+  buildings: PlacedBuilding[],
+): boolean {
+  return buildings.some((b) => b.type === type);
+}
+
+/**
+ * Combined gate: canPlace (footprint fits + no collision) AND singleton
+ * rule (if BUILDINGS[type].singleton, no existing instance). Use this
+ * for NEW placements; `canPlace` alone is correct for moves.
+ */
+export function canPlaceNew(
+  type: BuildingType,
+  x: number,
+  y: number,
+  buildings: PlacedBuilding[],
+): boolean {
+  if (BUILDINGS[type].singleton && isAlreadyPlaced(type, buildings)) {
+    return false;
+  }
+  return canPlace(type, x, y, buildings);
+}
+
 // ─── Grid coordinate translation (module-level, no React context) ───
 let gridEl: HTMLElement | null = null;
 
@@ -214,7 +242,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     const cell = get().selectedCell;
     if (!cell) return;
     const state = get();
-    if (!canPlace(type, cell.x, cell.y, state.buildings)) return;
+    if (!canPlaceNew(type, cell.x, cell.y, state.buildings)) return;
     const cost = BUILDINGS[type].baseCost;
     if (state.resources.leaf < cost) return;
     set((s) => ({
@@ -230,7 +258,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
 
   placeBuildingAt: (type, x, y) => {
     const state = get();
-    if (!canPlace(type, x, y, state.buildings)) return false;
+    if (!canPlaceNew(type, x, y, state.buildings)) return false;
     const cost = BUILDINGS[type].baseCost;
     if (state.resources.leaf < cost) return false;
     set((s) => ({
@@ -282,7 +310,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
       if (ds.kind === "place") {
         const cost = BUILDINGS[ds.type].baseCost;
         if (
-          canPlace(ds.type, cell.x, cell.y, state.buildings) &&
+          canPlaceNew(ds.type, cell.x, cell.y, state.buildings) &&
           state.resources.leaf >= cost
         ) {
           set((s) => ({

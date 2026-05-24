@@ -150,11 +150,11 @@ function UpgradePanel({
             {afford ? (
               <>
                 Upgrade to Level {level + 1}
-                <span className="font-sans tabular-nums">· {cost} Leaf</span>
+                <span className="font-sans tabular-nums">· {cost} Bloom</span>
               </>
             ) : (
               <>
-                Need {cost - leaf} more Leaf
+                Need {cost - leaf} more Bloom
                 <span className="font-sans tabular-nums opacity-70">
                   ({cost} total)
                 </span>
@@ -184,7 +184,7 @@ function StatComparison({
 
   if (def.harvestYield !== undefined) {
     rows.push({
-      label: "Leaf per harvest",
+      label: "Bloom per harvest",
       current: `+${intStatAtLevel(def.harvestYield, level)}`,
       next: `+${intStatAtLevel(def.harvestYield, nextLevel)}`,
     });
@@ -200,7 +200,7 @@ function StatComparison({
     const cur = statAtLevel(def.firePerSecond, level);
     const nxt = statAtLevel(def.firePerSecond, nextLevel);
     rows.push({
-      label: "Fire per second",
+      label: "Amber per second",
       current: cur.toFixed(2),
       next: nxt.toFixed(2),
     });

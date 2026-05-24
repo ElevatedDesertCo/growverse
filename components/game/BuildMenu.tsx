@@ -10,7 +10,12 @@ import {
   type BuildingDef,
   type BuildingType,
 } from "@/lib/buildings";
-import { canPlace, cellFromClientPoint, useGameStore } from "@/lib/store";
+import {
+  canPlace,
+  cellFromClientPoint,
+  isAlreadyPlaced,
+  useGameStore,
+} from "@/lib/store";
 import { canAfford } from "@/lib/economy";
 
 export function BuildMenu() {
@@ -90,22 +95,27 @@ export function BuildMenu() {
               <div className="mt-4 grid grid-cols-2 gap-3">
                 {BUILDING_TYPES.map((type) => {
                   const def = BUILDINGS[type];
+                  const singletonBlocked =
+                    def.singleton === true && isAlreadyPlaced(type, buildings);
                   const fits =
                     ready &&
                     canPlace(type, selectedCell!.x, selectedCell!.y, buildings);
                   const afford = canAfford(leaf, def.baseCost);
-                  const reason = !ready
-                    ? null
-                    : !fits
-                      ? "No room here"
-                      : !afford
-                        ? `Need ${def.baseCost - leaf} Leaf`
-                        : null;
+                  const reason = singletonBlocked
+                    ? "Already placed"
+                    : !ready
+                      ? null
+                      : !fits
+                        ? "No room here"
+                        : !afford
+                          ? `Need ${def.baseCost - leaf} Bloom`
+                          : null;
                   return (
                     <BuildingCard
                       key={type}
                       def={def}
-                      tapDisabled={!ready || !fits || !afford}
+                      tapDisabled={singletonBlocked || !ready || !fits || !afford}
+                      dragDisabled={singletonBlocked}
                       reason={reason}
                       onTap={() => placeBuilding(type)}
                       type={type}
@@ -124,12 +134,14 @@ export function BuildMenu() {
 function BuildingCard({
   def,
   tapDisabled,
+  dragDisabled = false,
   reason,
   onTap,
   type,
 }: {
   def: BuildingDef;
   tapDisabled: boolean;
+  dragDisabled?: boolean;
   reason: string | null;
   onTap: () => void;
   type: BuildingType;
@@ -143,7 +155,7 @@ function BuildingCard({
   return (
     <motion.button
       type="button"
-      drag
+      drag={!dragDisabled}
       dragSnapToOrigin
       dragElastic={0}
       dragMomentum={false}
@@ -215,7 +227,7 @@ function BuildingCard({
           {def.size.w} × {def.size.h}
         </p>
         <p className="mt-1 font-sans text-[11px] font-bold tabular-nums text-leaf">
-          {def.baseCost} <span className="text-text-muted">Leaf</span>
+          {def.baseCost} <span className="text-text-muted">Bloom</span>
         </p>
       </div>
 

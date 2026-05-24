@@ -94,7 +94,7 @@ export function WelcomeBackToast() {
                     {summary.readyTents}
                   </span>
                   <span className="text-text-muted">
-                    {summary.readyTents === 1 ? "tent" : "tents"}
+                    {summary.readyTents === 1 ? "garden" : "gardens"}
                   </span>
                 </span>
               )}

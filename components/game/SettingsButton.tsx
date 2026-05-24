@@ -83,7 +83,7 @@ export function SettingsButton() {
                     </h3>
                     <p className="mt-1 text-[11px] leading-snug text-text-muted">
                       Wipes all buildings, resources, and progress. Starts
-                      a fresh game with 100 Leaf, 50 Fire, 0 Mushroom.
+                      a fresh game with 100 Bloom, 50 Amber, 0 Myco.
                       Cannot be undone.
                     </p>
                     {!confirming ? (

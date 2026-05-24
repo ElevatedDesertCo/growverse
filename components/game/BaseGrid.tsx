@@ -183,7 +183,7 @@ export function BaseGrid() {
               <p className="mt-2 max-w-[16rem] px-4 text-[11px] leading-snug text-text-muted">
                 Tap{" "}
                 <span className="font-bold text-gold">BUILD</span>{" "}
-                below to place your first Grow Tent.
+                below to place your first Bloom Garden.
               </p>
             </div>
           )}

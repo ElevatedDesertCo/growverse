@@ -307,7 +307,12 @@ export const BUILDINGS: Record<BuildingType, BuildingDef> = {
  * BuildMenu code reads this array (not ALL_BUILDING_TYPES) so new types
  * stay invisible until their phase wires them in.
  */
+/**
+ * Buildings currently surfaced in the BuildMenu.
+ * Order matters — first shown is the foundation (Guild Core).
+ */
 export const BUILDING_TYPES: BuildingType[] = [
+  "guildCore", // v2 P2 — singleton foundation
   "growTent",
   "bloomExtractor",
   "amberForge",

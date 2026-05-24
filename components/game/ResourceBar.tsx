@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { RESOURCES } from "@/lib/data";
 import { useGameStore } from "@/lib/store";
 import { SettingsButton } from "./SettingsButton";
 
@@ -66,20 +67,20 @@ export function ResourceBar() {
 
         <div className="flex items-center gap-1">
           <ResourcePill
-            iconSrc="/icons/leaf.png"
-            alt="Leaf"
+            iconSrc={RESOURCES.bloomEssence.iconPath ?? "/icons/leaf.png"}
+            alt={RESOURCES.bloomEssence.name}
             value={leaf}
             colorClass="text-leaf"
           />
           <ResourcePill
-            iconSrc="/icons/fire.png"
-            alt="Fire"
+            iconSrc={RESOURCES.amberShards.iconPath ?? "/icons/fire.png"}
+            alt={RESOURCES.amberShards.name}
             value={fire}
             colorClass="text-fire"
           />
           <ResourcePill
-            iconSrc="/icons/mushroom.png"
-            alt="Mushroom"
+            iconSrc={RESOURCES.mycoDust.iconPath ?? "/icons/mushroom.png"}
+            alt={RESOURCES.mycoDust.name}
             value={mushroom}
             colorClass="text-mushroom"
           />
