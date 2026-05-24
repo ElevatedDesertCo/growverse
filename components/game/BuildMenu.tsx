@@ -22,7 +22,7 @@ export function BuildMenu() {
   const open = useGameStore((s) => s.buildMenuOpen);
   const selectedCell = useGameStore((s) => s.selectedCell);
   const buildings = useGameStore((s) => s.buildings);
-  const leaf = useGameStore((s) => s.resources.leaf);
+  const leaf = useGameStore((s) => s.resources.bloomEssence);
   const placeBuilding = useGameStore((s) => s.placeBuilding);
   const closeBuildMenu = useGameStore((s) => s.closeBuildMenu);
   const dragState = useGameStore((s) => s.dragState);

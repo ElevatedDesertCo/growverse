@@ -39,9 +39,9 @@ function ResourcePill({ iconSrc, alt, value, colorClass }: ResourceProps) {
 
 export function ResourceBar() {
   // Three independent selectors → each pill only re-renders when its slice changes.
-  const leaf = useGameStore((s) => s.resources.leaf);
-  const fire = useGameStore((s) => s.resources.fire);
-  const mushroom = useGameStore((s) => s.resources.mushroom);
+  const leaf = useGameStore((s) => s.resources.bloomEssence);
+  const fire = useGameStore((s) => s.resources.amberShards);
+  const mushroom = useGameStore((s) => s.resources.mycoDust);
 
   return (
     <header className="sticky top-0 z-30 border-b border-gold/15 bg-bg-deep/95 backdrop-blur supports-[backdrop-filter]:bg-bg-deep/70">

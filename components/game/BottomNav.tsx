@@ -37,7 +37,7 @@ export function BottomNav() {
   const toggleEditMode = useGameStore((s) => s.toggleEditMode);
   const openBuildMenu = useGameStore((s) => s.openBuildMenu);
   const hasBuildings = useGameStore((s) => s.buildings.length > 0);
-  const leaf = useGameStore((s) => s.resources.leaf);
+  const leaf = useGameStore((s) => s.resources.bloomEssence);
 
   // First-run hook: pulse the Build button if the player has 0 buildings
   // and can afford at least one. Stops as soon as anything is placed.

@@ -14,9 +14,20 @@ import {
   MAX_LEVEL,
   statAtLevel,
 } from "./economy";
+import {
+  addResource,
+  INITIAL_RESOURCES,
+  migrateResourcesV1toV2,
+  type Resources,
+} from "./systems/resourceSystem";
 
-export const SAVE_VERSION = 1;
-export const SAVE_KEY = `growverse-save-v${SAVE_VERSION}`;
+/**
+ * SAVE_KEY is fixed (no version suffix) so zustand-persist can find the
+ * existing v1 saves and run `migrate()` against them. SAVE_VERSION is the
+ * schema version inside that key.
+ */
+export const SAVE_VERSION = 2;
+export const SAVE_KEY = "growverse-save-v1";
 
 export interface PlacedBuilding {
   id: string;
@@ -31,11 +42,7 @@ export interface PlacedBuilding {
   lastGenerated?: number;
 }
 
-export interface Resources {
-  leaf: number;
-  fire: number;
-  mushroom: number;
-}
+export type { Resources } from "./systems/resourceSystem";
 
 export type DragState =
   | { kind: "place"; type: BuildingType }
@@ -214,8 +221,6 @@ export function cellFromClientPoint(
   return { x, y };
 }
 
-const INITIAL_RESOURCES: Resources = { leaf: 100, fire: 50, mushroom: 0 };
-
 export const useGameStore = create<GameState>()(persist((set, get) => ({
   buildings: [],
   resources: { ...INITIAL_RESOURCES },
@@ -244,13 +249,13 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     const state = get();
     if (!canPlaceNew(type, cell.x, cell.y, state.buildings)) return;
     const cost = BUILDINGS[type].baseCost;
-    if (state.resources.leaf < cost) return;
+    if (state.resources.bloomEssence < cost) return;
     set((s) => ({
       buildings: [
         ...s.buildings,
         createPlacedBuilding(type, cell.x, cell.y),
       ],
-      resources: { ...s.resources, leaf: s.resources.leaf - cost },
+      resources: { ...s.resources, bloomEssence: s.resources.bloomEssence - cost },
       buildMenuOpen: false,
       selectedCell: null,
     }));
@@ -260,10 +265,10 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     const state = get();
     if (!canPlaceNew(type, x, y, state.buildings)) return false;
     const cost = BUILDINGS[type].baseCost;
-    if (state.resources.leaf < cost) return false;
+    if (state.resources.bloomEssence < cost) return false;
     set((s) => ({
       buildings: [...s.buildings, createPlacedBuilding(type, x, y)],
-      resources: { ...s.resources, leaf: s.resources.leaf - cost },
+      resources: { ...s.resources, bloomEssence: s.resources.bloomEssence - cost },
     }));
     return true;
   },
@@ -311,7 +316,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
         const cost = BUILDINGS[ds.type].baseCost;
         if (
           canPlaceNew(ds.type, cell.x, cell.y, state.buildings) &&
-          state.resources.leaf >= cost
+          state.resources.bloomEssence >= cost
         ) {
           set((s) => ({
             buildings: [
@@ -320,7 +325,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
             ],
             resources: {
               ...s.resources,
-              leaf: s.resources.leaf - cost,
+              bloomEssence: s.resources.bloomEssence - cost,
             },
             buildMenuOpen: false,
             selectedCell: null,
@@ -369,7 +374,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
       buildings: s.buildings.map((x) =>
         x.id === id ? { ...x, plantedAt: now } : x,
       ),
-      resources: { ...s.resources, leaf: s.resources.leaf + yieldAtThisLevel },
+      resources: addResource(s.resources, "bloomEssence", yieldAtThisLevel, 0).next,
     }));
   },
 
@@ -390,7 +395,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
       buildings: s.buildings.map((x) =>
         x.id === id ? { ...x, lastGenerated: newLastGenerated } : x,
       ),
-      resources: { ...s.resources, fire: s.resources.fire + pending },
+      resources: addResource(s.resources, "amberShards", pending, 0).next,
     }));
   },
 
@@ -405,12 +410,12 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     if (b.level >= MAX_LEVEL) return;
     const def = BUILDINGS[b.type];
     const cost = costAtLevel(def.baseCost, b.level, def.costMultiplier);
-    if (state.resources.leaf < cost) return;
+    if (state.resources.bloomEssence < cost) return;
     set((s) => ({
       buildings: s.buildings.map((x) =>
         x.id === id ? { ...x, level: x.level + 1 } : x,
       ),
-      resources: { ...s.resources, leaf: s.resources.leaf - cost },
+      resources: { ...s.resources, bloomEssence: s.resources.bloomEssence - cost },
     }));
   },
 
@@ -444,6 +449,22 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     buildings: s.buildings,
     resources: s.resources,
   }),
+  /**
+   * Save migrations. v1 stored 3-resource {leaf, fire, mushroom}; v2 stores
+   * the full 8-resource canonical bag. v1 saves' balances port over via
+   * migrateResourcesV1toV2.
+   */
+  migrate: (persistedState: unknown, version: number) => {
+    const state = persistedState as { resources?: unknown; buildings?: unknown } | null;
+    if (!state) return state as never;
+    if (version < 2) {
+      return {
+        ...state,
+        resources: migrateResourcesV1toV2(state.resources as Parameters<typeof migrateResourcesV1toV2>[0]),
+      };
+    }
+    return state as never;
+  },
   // Skip SSR hydration — only rehydrate on the client after mount.
   // The splash screen covers the brief default-state flash.
   skipHydration: true,

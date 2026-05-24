@@ -16,7 +16,7 @@ import { useGameStore } from "@/lib/store";
 export function UpgradeModal() {
   const id = useGameStore((s) => s.upgradeModalId);
   const buildings = useGameStore((s) => s.buildings);
-  const leaf = useGameStore((s) => s.resources.leaf);
+  const leaf = useGameStore((s) => s.resources.bloomEssence);
   const close = useGameStore((s) => s.closeUpgradeModal);
   const upgrade = useGameStore((s) => s.upgrade);
 
