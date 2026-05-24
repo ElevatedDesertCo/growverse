@@ -180,10 +180,12 @@ export function BaseGrid() {
               >
                 Your Realm Awaits
               </p>
-              <p className="mt-2 max-w-[16rem] px-4 text-[11px] leading-snug text-text-muted">
+              <p className="mt-2 max-w-[18rem] px-4 text-[11px] leading-snug text-text-muted">
                 Tap{" "}
                 <span className="font-bold text-gold">BUILD</span>{" "}
-                below to place your first Bloom Garden.
+                below and place your{" "}
+                <span className="font-bold text-gold">Guild Core</span> to
+                begin. Upgrade it to unlock more buildings.
               </p>
             </div>
           )}
