@@ -16,7 +16,7 @@ export function BuildMenu() {
 
   return (
     <>
-      {open && (
+      {open && ready && (
         <div
           onClick={closeBuildMenu}
           className="fixed inset-0 z-40 bg-black/60 transition-opacity"
@@ -48,10 +48,16 @@ export function BuildMenu() {
                   >
                     BUILD
                   </h2>
-                  <p className="mt-1 text-[10px] uppercase tracking-[0.25em] text-text-muted">
+                  <p
+                    className={`mt-1 text-[11px] uppercase tracking-[0.22em] ${
+                      ready
+                        ? "text-text-muted"
+                        : "animate-pulse text-gold"
+                    }`}
+                  >
                     {ready
                       ? `Cell ${selectedCell!.x + 1}, ${selectedCell!.y + 1}`
-                      : "Tap an empty cell first"}
+                      : "↑ Tap a glowing cell to choose where"}
                   </p>
                 </div>
                 <button

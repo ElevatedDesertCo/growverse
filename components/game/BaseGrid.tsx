@@ -55,6 +55,9 @@ export function BaseGrid() {
             const isMoveTarget =
               editMode && selectedPlacedId !== null && !occupant;
 
+            const isAwaitingCellPick =
+              buildMenuOpen && selectedCell === null && !occupant;
+
             return (
               <button
                 key={i}
@@ -68,9 +71,11 @@ export function BaseGrid() {
                 className={`aspect-square border transition-colors ${
                   isMenuOpenForCell
                     ? "border-gold/80 bg-gold/15 ring-2 ring-gold/70 ring-inset"
-                    : isMoveTarget
-                      ? "border-gold/40 bg-gold/10 hover:bg-gold/15"
-                      : "border-gold-muted/20 bg-bg-deep/40"
+                    : isAwaitingCellPick
+                      ? "animate-pulse border-gold/60 bg-gold/10 hover:bg-gold/20"
+                      : isMoveTarget
+                        ? "border-gold/40 bg-gold/10 hover:bg-gold/15"
+                        : "border-gold-muted/20 bg-bg-deep/40"
                 }`}
               >
                 {occupant && (
