@@ -16,6 +16,15 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Growverse",
   description: "A mystical base-building grow simulator",
+  applicationName: "Growverse",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "Growverse",
+  },
+  formatDetection: {
+    telephone: false,
+  },
 };
 
 export const viewport: Viewport = {
@@ -24,6 +33,7 @@ export const viewport: Viewport = {
   maximumScale: 1,
   userScalable: false,
   themeColor: "#0f0a06",
+  viewportFit: "cover",
 };
 
 export default function RootLayout({

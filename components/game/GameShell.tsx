@@ -6,12 +6,14 @@ import { BuildMenu } from "./BuildMenu";
 import { TickMount } from "./TickMount";
 import { UpgradeModal } from "./UpgradeModal";
 import { WelcomeBackToast } from "./WelcomeBackToast";
+import { SWRegister } from "./SWRegister";
 
 export function GameShell() {
   return (
     <div className="fixed inset-0 flex flex-col bg-gradient-to-b from-bg-mid to-bg-deep">
       <SplashScreen />
       <TickMount />
+      <SWRegister />
 
       <ResourceBar />
 
