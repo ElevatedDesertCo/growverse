@@ -11,7 +11,6 @@ import {
   Hammer,
   Check,
 } from "lucide-react";
-import { BUILDINGS } from "@/lib/buildings";
 import { useGameStore } from "@/lib/store";
 
 type TabKey = "base" | "train" | "raid" | "heroes" | "pets";
@@ -37,14 +36,10 @@ export function BottomNav() {
   const toggleEditMode = useGameStore((s) => s.toggleEditMode);
   const openBuildMenu = useGameStore((s) => s.openBuildMenu);
   const hasBuildings = useGameStore((s) => s.buildings.length > 0);
-  const leaf = useGameStore((s) => s.resources.bloomEssence);
 
-  // First-run hook: pulse the Build button if the player has 0 buildings
-  // and can afford at least one. Stops as soon as anything is placed.
-  const cheapestBuild = Math.min(
-    ...Object.values(BUILDINGS).map((d) => d.baseCost),
-  );
-  const shouldPulseBuild = !hasBuildings && !editMode && leaf >= cheapestBuild;
+  // First-run hook: pulse the Build button if the player has 0 buildings.
+  // Guild Core is free, so they can always afford SOMETHING when empty.
+  const shouldPulseBuild = !hasBuildings && !editMode;
 
   const handleTap = (key: TabKey) => {
     if (key === ACTIVE) return;

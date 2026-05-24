@@ -83,20 +83,31 @@ export function DraggableBuilding({
 
   // ─── Time-aware computed values ──────────────────────────────────────
   const now = Date.now();
-  const isGrowTent = def.growDurationMs !== undefined;
-  const isAmberForge = def.firePerSecond !== undefined;
+  const hasGrowCycle = def.growDurationMs !== undefined;
+  const hasPassiveCollect = def.firePerSecond !== undefined;
+
+  // Color for floater/particles: prefer producesResource color if set,
+  // else fall back to the building's own accent color.
+  const collectColor = (() => {
+    if (!def.producesResource) return def.color;
+    const r = def.producesResource;
+    if (r === "bloomEssence") return "#7fb069";
+    if (r === "amberShards") return "#e8964c";
+    if (r === "mycoDust") return "#a875d4";
+    return def.color;
+  })();
 
   const growProgress =
-    isGrowTent && building.plantedAt !== undefined
+    hasGrowCycle && building.plantedAt !== undefined
       ? getGrowProgress(building.plantedAt, def.growDurationMs!, now)
       : undefined;
   const isReady =
-    isGrowTent && building.plantedAt !== undefined
+    hasGrowCycle && building.plantedAt !== undefined
       ? isReadyToHarvest(building.plantedAt, def.growDurationMs!, now)
       : false;
 
   const pendingFire =
-    isAmberForge && building.lastGenerated !== undefined
+    hasPassiveCollect && building.lastGenerated !== undefined
       ? getPendingFire(
           building.lastGenerated,
           statAtLevel(def.firePerSecond!, building.level),
@@ -193,18 +204,18 @@ export function DraggableBuilding({
     //   1) harvest (growTent ready)
     //   2) collect (amberForge has pending fire)
     //   3) open upgrade modal (anything else)
-    if (isGrowTent && isReady) {
+    if (hasGrowCycle && isReady) {
       const yieldNow = def.harvestYield
         ? intStatAtLevel(def.harvestYield, building.level)
         : 0;
-      spawnFloater(yieldNow, def.color);
-      spawnParticles(def.color);
+      spawnFloater(yieldNow, collectColor);
+      spawnParticles(collectColor);
       harvest(building.id);
       return;
     }
-    if (isAmberForge && pendingFire >= 1) {
-      spawnFloater(pendingFire, "#e8964c");
-      spawnParticles("#e8964c");
+    if (hasPassiveCollect && pendingFire >= 1) {
+      spawnFloater(pendingFire, collectColor);
+      spawnParticles(collectColor);
       collectFire(building.id);
       return;
     }

@@ -16,10 +16,14 @@ import {
 } from "./economy";
 import {
   addResource,
+  canAffordCost,
   INITIAL_RESOURCES,
   migrateResourcesV1toV2,
+  spendResources,
   type Resources,
 } from "./systems/resourceSystem";
+import { getTotalStorageBonus } from "./systems/buildingSystem";
+import { getUpgradeCost } from "./systems/upgradeSystem";
 
 /**
  * SAVE_KEY is fixed (no version suffix) so zustand-persist can find the
@@ -248,14 +252,15 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     if (!cell) return;
     const state = get();
     if (!canPlaceNew(type, cell.x, cell.y, state.buildings)) return;
-    const cost = BUILDINGS[type].baseCost;
-    if (state.resources.bloomEssence < cost) return;
+    const def = BUILDINGS[type];
+    const cost = def.buildCost ?? { bloomEssence: def.baseCost };
+    if (!canAffordCost(state.resources, cost)) return;
     set((s) => ({
       buildings: [
         ...s.buildings,
         createPlacedBuilding(type, cell.x, cell.y),
       ],
-      resources: { ...s.resources, bloomEssence: s.resources.bloomEssence - cost },
+      resources: spendResources(s.resources, cost),
       buildMenuOpen: false,
       selectedCell: null,
     }));
@@ -264,11 +269,12 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
   placeBuildingAt: (type, x, y) => {
     const state = get();
     if (!canPlaceNew(type, x, y, state.buildings)) return false;
-    const cost = BUILDINGS[type].baseCost;
-    if (state.resources.bloomEssence < cost) return false;
+    const def = BUILDINGS[type];
+    const cost = def.buildCost ?? { bloomEssence: def.baseCost };
+    if (!canAffordCost(state.resources, cost)) return false;
     set((s) => ({
       buildings: [...s.buildings, createPlacedBuilding(type, x, y)],
-      resources: { ...s.resources, bloomEssence: s.resources.bloomEssence - cost },
+      resources: spendResources(s.resources, cost),
     }));
     return true;
   },
@@ -313,20 +319,18 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
 
     if (ds && cell) {
       if (ds.kind === "place") {
-        const cost = BUILDINGS[ds.type].baseCost;
+        const def = BUILDINGS[ds.type];
+        const cost = def.buildCost ?? { bloomEssence: def.baseCost };
         if (
           canPlaceNew(ds.type, cell.x, cell.y, state.buildings) &&
-          state.resources.bloomEssence >= cost
+          canAffordCost(state.resources, cost)
         ) {
           set((s) => ({
             buildings: [
               ...s.buildings,
               createPlacedBuilding(ds.type, cell.x, cell.y),
             ],
-            resources: {
-              ...s.resources,
-              bloomEssence: s.resources.bloomEssence - cost,
-            },
+            resources: spendResources(s.resources, cost),
             buildMenuOpen: false,
             selectedCell: null,
           }));
@@ -370,11 +374,18 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     }
     const yieldAtThisLevel = intStatAtLevel(def.harvestYield, b.level);
     const now = Date.now();
+    const target = def.producesResource ?? "bloomEssence";
+    const storageBonus = getTotalStorageBonus(state.buildings);
     set((s) => ({
       buildings: s.buildings.map((x) =>
         x.id === id ? { ...x, plantedAt: now } : x,
       ),
-      resources: addResource(s.resources, "bloomEssence", yieldAtThisLevel, 0).next,
+      resources: addResource(
+        s.resources,
+        target as keyof Resources,
+        yieldAtThisLevel,
+        storageBonus,
+      ).next,
     }));
   },
 
@@ -391,11 +402,18 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     if (pending < 1) return;
     const consumedMs = (pending / ratePerSec) * 1000;
     const newLastGenerated = b.lastGenerated + consumedMs;
+    const target = def.producesResource ?? "amberShards";
+    const storageBonus = getTotalStorageBonus(state.buildings);
     set((s) => ({
       buildings: s.buildings.map((x) =>
         x.id === id ? { ...x, lastGenerated: newLastGenerated } : x,
       ),
-      resources: addResource(s.resources, "amberShards", pending, 0).next,
+      resources: addResource(
+        s.resources,
+        target as keyof Resources,
+        pending,
+        storageBonus,
+      ).next,
     }));
   },
 
@@ -407,15 +425,17 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     const state = get();
     const b = state.buildings.find((x) => x.id === id);
     if (!b) return;
-    if (b.level >= MAX_LEVEL) return;
     const def = BUILDINGS[b.type];
-    const cost = costAtLevel(def.baseCost, b.level, def.costMultiplier);
-    if (state.resources.bloomEssence < cost) return;
+    const cap = def.maxLevel ?? MAX_LEVEL;
+    if (b.level >= cap) return;
+    const cost = getUpgradeCost(b.type, b.level);
+    if (!cost) return;
+    if (!canAffordCost(state.resources, cost)) return;
     set((s) => ({
       buildings: s.buildings.map((x) =>
         x.id === id ? { ...x, level: x.level + 1 } : x,
       ),
-      resources: { ...s.resources, bloomEssence: s.resources.bloomEssence - cost },
+      resources: spendResources(s.resources, cost),
     }));
   },
 

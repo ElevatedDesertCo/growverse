@@ -4,18 +4,38 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { RESOURCES } from "@/lib/data";
 import { useGameStore } from "@/lib/store";
+import {
+  getTotalStorageBonus,
+} from "@/lib/systems/buildingSystem";
+import {
+  isCapped,
+  maxFor,
+  type Resources,
+} from "@/lib/systems/resourceSystem";
 import { SettingsButton } from "./SettingsButton";
 
 type ResourceProps = {
   iconSrc: string;
   alt: string;
   value: number;
+  max: number | null; // null = uncapped
   colorClass: string;
 };
 
-function ResourcePill({ iconSrc, alt, value, colorClass }: ResourceProps) {
+function ResourcePill({ iconSrc, alt, value, max, colorClass }: ResourceProps) {
+  const display = max !== null
+    ? `${value.toLocaleString()} / ${max.toLocaleString()}`
+    : value.toLocaleString();
+  const atCap = max !== null && value >= max;
   return (
-    <div className="flex items-center gap-1 rounded-full border border-gold/40 bg-bg-deep/80 px-1.5 py-0.5 shadow-[0_0_0_1px_rgba(212,160,74,0.05)_inset]">
+    <div
+      className={`flex items-center gap-1 rounded-full border px-1.5 py-0.5 shadow-[0_0_0_1px_rgba(212,160,74,0.05)_inset] ${
+        atCap
+          ? "border-red-400/60 bg-bg-deep/80"
+          : "border-gold/40 bg-bg-deep/80"
+      }`}
+      title={`${alt}: ${display}${atCap ? " (full — build/upgrade a Storage Vault)" : ""}`}
+    >
       <Image
         src={iconSrc}
         alt={alt}
@@ -23,25 +43,38 @@ function ResourcePill({ iconSrc, alt, value, colorClass }: ResourceProps) {
         height={275}
         className="h-5 w-5 flex-shrink-0 drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]"
       />
-      {/* key changes when value changes → motion remounts and replays the scale bump */}
       <motion.span
         key={value}
         initial={{ scale: 1 }}
         animate={{ scale: [1, 1.18, 1] }}
         transition={{ duration: 0.32, ease: "easeOut" }}
-        className={`font-sans text-xs font-semibold tabular-nums ${colorClass}`}
+        className={`font-sans text-[11px] font-semibold tabular-nums ${colorClass}`}
       >
-        {value.toLocaleString()}
+        {display}
       </motion.span>
     </div>
   );
 }
 
 export function ResourceBar() {
-  // Three independent selectors → each pill only re-renders when its slice changes.
-  const leaf = useGameStore((s) => s.resources.bloomEssence);
-  const fire = useGameStore((s) => s.resources.amberShards);
-  const mushroom = useGameStore((s) => s.resources.mycoDust);
+  const resources = useGameStore((s) => s.resources);
+  // Subscribe to buildings so storage bonus recomputes on Vault changes.
+  const buildings = useGameStore((s) => s.buildings);
+  const storageBonus = getTotalStorageBonus(buildings);
+
+  const pillFor = (field: keyof Resources, fallbackIcon: string, colorClass: string) => {
+    const def = RESOURCES[field as keyof typeof RESOURCES];
+    const max = isCapped(field) ? maxFor(field, storageBonus) : null;
+    return (
+      <ResourcePill
+        iconSrc={def?.iconPath ?? fallbackIcon}
+        alt={def?.name ?? field}
+        value={resources[field]}
+        max={max}
+        colorClass={colorClass}
+      />
+    );
+  };
 
   return (
     <header className="sticky top-0 z-30 border-b border-gold/15 bg-bg-deep/95 backdrop-blur supports-[backdrop-filter]:bg-bg-deep/70">
@@ -66,24 +99,9 @@ export function ResourceBar() {
         </div>
 
         <div className="flex items-center gap-1">
-          <ResourcePill
-            iconSrc={RESOURCES.bloomEssence.iconPath ?? "/icons/leaf.png"}
-            alt={RESOURCES.bloomEssence.name}
-            value={leaf}
-            colorClass="text-leaf"
-          />
-          <ResourcePill
-            iconSrc={RESOURCES.amberShards.iconPath ?? "/icons/fire.png"}
-            alt={RESOURCES.amberShards.name}
-            value={fire}
-            colorClass="text-fire"
-          />
-          <ResourcePill
-            iconSrc={RESOURCES.mycoDust.iconPath ?? "/icons/mushroom.png"}
-            alt={RESOURCES.mycoDust.name}
-            value={mushroom}
-            colorClass="text-mushroom"
-          />
+          {pillFor("bloomEssence", "/icons/leaf.png", "text-leaf")}
+          {pillFor("amberShards", "/icons/fire.png", "text-fire")}
+          {pillFor("mycoDust", "/icons/mushroom.png", "text-mushroom")}
         </div>
       </div>
     </header>

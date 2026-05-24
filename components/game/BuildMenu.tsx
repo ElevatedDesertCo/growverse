@@ -9,23 +9,54 @@ import {
   BUILDING_TYPES,
   type BuildingDef,
   type BuildingType,
+  type ResourceCost,
 } from "@/lib/buildings";
+import { Lock } from "lucide-react";
+import { RESOURCES } from "@/lib/data";
+import type { Resources } from "@/lib/systems/resourceSystem";
+
+/** Display label for a resource field (canon short name). */
+function labelFor(field: string): string {
+  switch (field as keyof Resources) {
+    case "bloomEssence": return "Bloom";
+    case "amberShards": return "Amber";
+    case "mycoDust": return "Myco";
+    case "relicFragments": return "Relic";
+    case "spiritSeeds": return "Seeds";
+    case "portalEnergy": return "Portal";
+    case "guildXp": return "XP";
+    case "cardShards": return "Shards";
+    default: return field;
+  }
+}
+
+/** Color tint for a resource field. */
+function colorFor(field: string): string {
+  return (
+    RESOURCES[field as keyof typeof RESOURCES]?.color ?? "#d4a04a"
+  );
+}
 import {
   canPlace,
   cellFromClientPoint,
   isAlreadyPlaced,
   useGameStore,
 } from "@/lib/store";
-import { canAfford } from "@/lib/economy";
+import {
+  getGuildCoreLevel,
+  isUnlockedAtCoreLevel,
+} from "@/lib/systems/buildingSystem";
+import { canAffordCost, missingFor } from "@/lib/systems/resourceSystem";
 
 export function BuildMenu() {
   const open = useGameStore((s) => s.buildMenuOpen);
   const selectedCell = useGameStore((s) => s.selectedCell);
   const buildings = useGameStore((s) => s.buildings);
-  const leaf = useGameStore((s) => s.resources.bloomEssence);
+  const resources = useGameStore((s) => s.resources);
   const placeBuilding = useGameStore((s) => s.placeBuilding);
   const closeBuildMenu = useGameStore((s) => s.closeBuildMenu);
   const dragState = useGameStore((s) => s.dragState);
+  const coreLevel = getGuildCoreLevel(buildings);
 
   const ready = selectedCell !== null;
   const draggingPlace = dragState?.kind === "place";
@@ -95,27 +126,43 @@ export function BuildMenu() {
               <div className="mt-4 grid grid-cols-2 gap-3">
                 {BUILDING_TYPES.map((type) => {
                   const def = BUILDINGS[type];
+                  const cost = def.buildCost ?? { bloomEssence: def.baseCost };
+                  const unlocked = isUnlockedAtCoreLevel(type, coreLevel);
                   const singletonBlocked =
                     def.singleton === true && isAlreadyPlaced(type, buildings);
                   const fits =
                     ready &&
                     canPlace(type, selectedCell!.x, selectedCell!.y, buildings);
-                  const afford = canAfford(leaf, def.baseCost);
-                  const reason = singletonBlocked
-                    ? "Already placed"
-                    : !ready
-                      ? null
-                      : !fits
-                        ? "No room here"
-                        : !afford
-                          ? `Need ${def.baseCost - leaf} Bloom`
-                          : null;
+                  const afford = canAffordCost(resources, cost);
+                  let reason: string | null = null;
+                  if (!unlocked) {
+                    reason = `Needs Core L${def.unlockCoreLevel}`;
+                  } else if (singletonBlocked) {
+                    reason = "Already placed";
+                  } else if (ready) {
+                    if (!fits) reason = "No room here";
+                    else if (!afford) {
+                      const missing = missingFor(resources, cost);
+                      const first = Object.entries(missing)[0];
+                      reason = first
+                        ? `Need ${first[1]} more ${labelFor(first[0])}`
+                        : "Insufficient";
+                    }
+                  }
                   return (
                     <BuildingCard
                       key={type}
                       def={def}
-                      tapDisabled={singletonBlocked || !ready || !fits || !afford}
-                      dragDisabled={singletonBlocked}
+                      cost={cost}
+                      tapDisabled={
+                        !unlocked ||
+                        singletonBlocked ||
+                        !ready ||
+                        !fits ||
+                        !afford
+                      }
+                      dragDisabled={!unlocked || singletonBlocked}
+                      locked={!unlocked}
                       reason={reason}
                       onTap={() => placeBuilding(type)}
                       type={type}
@@ -133,15 +180,19 @@ export function BuildMenu() {
 
 function BuildingCard({
   def,
+  cost,
   tapDisabled,
   dragDisabled = false,
+  locked = false,
   reason,
   onTap,
   type,
 }: {
   def: BuildingDef;
+  cost: ResourceCost;
   tapDisabled: boolean;
   dragDisabled?: boolean;
+  locked?: boolean;
   reason: string | null;
   onTap: () => void;
   type: BuildingType;
@@ -205,7 +256,7 @@ function BuildingCard({
           alt={def.name}
           fill
           sizes="80px"
-          className="object-contain p-1"
+          className={`object-contain p-1 ${locked ? "grayscale" : ""}`}
           draggable={false}
           onError={(e) => {
             console.error(
@@ -214,6 +265,11 @@ function BuildingCard({
             );
           }}
         />
+        {locked && (
+          <div className="absolute inset-0 flex items-center justify-center bg-bg-deep/60">
+            <Lock className="h-6 w-6 text-gold/80" />
+          </div>
+        )}
       </div>
 
       <div className="w-full text-center">
@@ -225,10 +281,11 @@ function BuildingCard({
         </p>
         <p className="mt-0.5 text-[9px] uppercase tracking-[0.2em] text-text-muted/70">
           {def.size.w} × {def.size.h}
+          {def.category && (
+            <span className="ml-1 text-text-muted/60">· {def.category}</span>
+          )}
         </p>
-        <p className="mt-1 font-sans text-[11px] font-bold tabular-nums text-leaf">
-          {def.baseCost} <span className="text-text-muted">Bloom</span>
-        </p>
+        <CostLine cost={cost} />
       </div>
 
       <span
@@ -238,5 +295,27 @@ function BuildingCard({
         {reason ?? "Place"}
       </span>
     </motion.button>
+  );
+}
+
+/** Inline multi-resource cost display: "30 Bloom · 10 Amber". */
+function CostLine({ cost }: { cost: ResourceCost }) {
+  const entries = Object.entries(cost).filter(([, v]) => (v ?? 0) > 0);
+  if (entries.length === 0) {
+    return (
+      <p className="mt-1 font-sans text-[11px] font-bold tabular-nums text-leaf">
+        Free
+      </p>
+    );
+  }
+  return (
+    <p className="mt-1 flex flex-wrap items-center justify-center gap-x-2 gap-y-0.5 font-sans text-[11px] font-bold tabular-nums">
+      {entries.map(([k, v]) => (
+        <span key={k} style={{ color: colorFor(k) }}>
+          {v}
+          <span className="ml-0.5 text-text-muted">{labelFor(k)}</span>
+        </span>
+      ))}
+    </p>
   );
 }

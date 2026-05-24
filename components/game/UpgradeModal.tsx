@@ -3,20 +3,44 @@
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ArrowRight } from "lucide-react";
-import { BUILDINGS } from "@/lib/buildings";
+import { BUILDINGS, type ResourceCost } from "@/lib/buildings";
 import {
-  canAfford,
-  costAtLevel,
   intStatAtLevel,
   MAX_LEVEL,
   statAtLevel,
 } from "@/lib/economy";
 import { useGameStore } from "@/lib/store";
+import {
+  canAffordCost,
+  type Resources,
+} from "@/lib/systems/resourceSystem";
+import { getUpgradeCost } from "@/lib/systems/upgradeSystem";
+import { RESOURCES } from "@/lib/data";
+
+function labelFor(field: string): string {
+  switch (field as keyof Resources) {
+    case "bloomEssence": return "Bloom";
+    case "amberShards": return "Amber";
+    case "mycoDust": return "Myco";
+    case "relicFragments": return "Relic";
+    case "spiritSeeds": return "Seeds";
+    case "portalEnergy": return "Portal";
+    case "guildXp": return "XP";
+    case "cardShards": return "Shards";
+    default: return field;
+  }
+}
+
+function colorFor(field: string): string {
+  return (
+    RESOURCES[field as keyof typeof RESOURCES]?.color ?? "#d4a04a"
+  );
+}
 
 export function UpgradeModal() {
   const id = useGameStore((s) => s.upgradeModalId);
   const buildings = useGameStore((s) => s.buildings);
-  const leaf = useGameStore((s) => s.resources.bloomEssence);
+  const resources = useGameStore((s) => s.resources);
   const close = useGameStore((s) => s.closeUpgradeModal);
   const upgrade = useGameStore((s) => s.upgrade);
 
@@ -52,7 +76,7 @@ export function UpgradeModal() {
               buildingId={building.id}
               type={building.type}
               level={building.level}
-              leaf={leaf}
+              resources={resources}
               onClose={close}
               onUpgrade={() => upgrade(building.id)}
             />
@@ -67,21 +91,22 @@ function UpgradePanel({
   buildingId,
   type,
   level,
-  leaf,
+  resources,
   onClose,
   onUpgrade,
 }: {
   buildingId: string;
   type: keyof typeof BUILDINGS;
   level: number;
-  leaf: number;
+  resources: Resources;
   onClose: () => void;
   onUpgrade: () => void;
 }) {
   const def = BUILDINGS[type];
-  const isMax = level >= MAX_LEVEL;
-  const cost = isMax ? 0 : costAtLevel(def.baseCost, level, def.costMultiplier);
-  const afford = canAfford(leaf, cost);
+  const cap = def.maxLevel ?? MAX_LEVEL;
+  const isMax = level >= cap;
+  const cost: ResourceCost | null = isMax ? null : getUpgradeCost(type, level);
+  const afford = cost !== null && canAffordCost(resources, cost);
 
   return (
     <div className="mx-auto max-w-md px-4 pt-3 md:max-w-2xl">
@@ -135,6 +160,34 @@ function UpgradePanel({
 
       <StatComparison type={type} level={level} isMax={isMax} />
 
+      {!isMax && cost && (
+        <div className="mt-4 rounded-xl border border-gold/15 bg-bg-mid/40 p-3">
+          <div className="text-[9px] uppercase tracking-[0.22em] text-text-muted">
+            Upgrade cost
+          </div>
+          <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-bold tabular-nums">
+            {Object.entries(cost)
+              .filter(([, v]) => (v ?? 0) > 0)
+              .map(([k, v]) => {
+                const have = (resources as unknown as Record<string, number>)[k] ?? 0;
+                const enough = have >= (v ?? 0);
+                return (
+                  <span
+                    key={k}
+                    className="flex items-baseline gap-1"
+                    style={{ color: enough ? colorFor(k) : "#a85a5a" }}
+                  >
+                    {v}
+                    <span className="text-[10px] uppercase tracking-[0.18em] text-text-muted">
+                      {labelFor(k)}
+                    </span>
+                  </span>
+                );
+              })}
+          </div>
+        </div>
+      )}
+
       <div className="mt-5">
         {isMax ? (
           <div className="flex w-full items-center justify-center rounded-full border border-gold/40 bg-gold/10 py-3 text-center font-display text-sm font-bold uppercase tracking-[0.25em] text-gold">
@@ -147,19 +200,7 @@ function UpgradePanel({
             disabled={!afford}
             className="flex w-full items-center justify-center gap-2 rounded-full bg-gold py-3 font-display text-sm font-bold uppercase tracking-[0.18em] text-bg-deep shadow-[0_4px_18px_-6px_rgba(212,160,74,0.6)] transition-colors hover:bg-gold-dark active:bg-gold-dark disabled:cursor-not-allowed disabled:bg-gold-muted disabled:text-bg-deep/60 disabled:shadow-none"
           >
-            {afford ? (
-              <>
-                Upgrade to Level {level + 1}
-                <span className="font-sans tabular-nums">· {cost} Bloom</span>
-              </>
-            ) : (
-              <>
-                Need {cost - leaf} more Bloom
-                <span className="font-sans tabular-nums opacity-70">
-                  ({cost} total)
-                </span>
-              </>
-            )}
+            {afford ? `Upgrade to Level ${level + 1}` : "Not enough resources"}
           </button>
         )}
       </div>
@@ -199,10 +240,35 @@ function StatComparison({
   if (def.firePerSecond !== undefined) {
     const cur = statAtLevel(def.firePerSecond, level);
     const nxt = statAtLevel(def.firePerSecond, nextLevel);
+    const produces = def.producesResource
+      ? labelFor(def.producesResource)
+      : "Resource";
     rows.push({
-      label: "Amber per second",
+      label: `${produces} per second`,
       current: cur.toFixed(2),
       next: nxt.toFixed(2),
+    });
+  }
+  if (def.storageBonus !== undefined) {
+    rows.push({
+      label: "Storage bonus",
+      current: `+${Math.round(statAtLevel(def.storageBonus, level))}`,
+      next: `+${Math.round(statAtLevel(def.storageBonus, nextLevel))}`,
+    });
+  }
+  if (def.health !== undefined) {
+    rows.push({
+      label: "Health",
+      current: `${Math.round(statAtLevel(def.health, level))}`,
+      next: `${Math.round(statAtLevel(def.health, nextLevel))}`,
+    });
+  }
+  // Guild Core upgrades unlock the next batch of buildings — show that.
+  if (def.type === "guildCore") {
+    rows.push({
+      label: "Unlocks at next level",
+      current: `Core L${level}`,
+      next: `Core L${nextLevel}`,
     });
   }
 
