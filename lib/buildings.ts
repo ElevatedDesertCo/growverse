@@ -16,10 +16,16 @@ export interface BuildingDef {
   // ─── Sprint 3 economy ───────────────────────────────────────────────
   /** Time in ms for one grow cycle (growTent only). */
   growDurationMs?: number;
-  /** Leaf yield per harvest (growTent only). */
+  /** Leaf yield per harvest at level 1 (growTent only). */
   harvestYield?: number;
-  /** Passive Fire generation rate per second (amberForge only). */
+  /** Passive Fire generation rate at level 1 (amberForge only). */
   firePerSecond?: number;
+
+  // ─── Sprint 4 economy ───────────────────────────────────────────────
+  /** Leaf cost to place at level 1. */
+  baseCost: number;
+  /** Per-building override of the 1.5x cost multiplier. */
+  costMultiplier?: number;
 }
 
 export const BUILDINGS: Record<BuildingType, BuildingDef> = {
@@ -32,6 +38,7 @@ export const BUILDINGS: Record<BuildingType, BuildingDef> = {
     size: { w: 2, h: 2 },
     growDurationMs: 30_000,
     harvestYield: 25,
+    baseCost: 30,
   },
   bloomExtractor: {
     type: "bloomExtractor",
@@ -40,6 +47,7 @@ export const BUILDINGS: Record<BuildingType, BuildingDef> = {
     imagePath: "/buildings/bloom-extractor.png",
     color: "#d4a04a",
     size: { w: 2, h: 2 },
+    baseCost: 50,
   },
   amberForge: {
     type: "amberForge",
@@ -49,6 +57,7 @@ export const BUILDINGS: Record<BuildingType, BuildingDef> = {
     color: "#e8964c",
     size: { w: 2, h: 2 },
     firePerSecond: 0.5,
+    baseCost: 60,
   },
   thornTrap: {
     type: "thornTrap",
@@ -57,6 +66,7 @@ export const BUILDINGS: Record<BuildingType, BuildingDef> = {
     imagePath: "/buildings/thorn-trap.png",
     color: "#a875d4",
     size: { w: 2, h: 2 },
+    baseCost: 40,
   },
 };
 

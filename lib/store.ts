@@ -5,7 +5,14 @@ import {
   GRID_ROWS,
   type BuildingType,
 } from "./buildings";
-import { getPendingFire, isReadyToHarvest } from "./economy";
+import {
+  costAtLevel,
+  getPendingFire,
+  intStatAtLevel,
+  isReadyToHarvest,
+  MAX_LEVEL,
+  statAtLevel,
+} from "./economy";
 
 export interface PlacedBuilding {
   id: string;
@@ -39,6 +46,8 @@ interface GameState {
   buildMenuOpen: boolean;
   selectedCell: { x: number; y: number } | null;
   selectedPlacedId: string | null;
+  /** Id of the building whose Upgrade Modal is open, or null. */
+  upgradeModalId: string | null;
 
   /** Current drag operation, if any. */
   dragState: DragState;
@@ -66,6 +75,12 @@ interface GameState {
   harvest: (id: string) => void;
   /** Collect accrued Fire from an Amber Forge. */
   collectFire: (id: string) => void;
+
+  /** Open / close the Upgrade Modal for a placed building. */
+  openUpgradeModal: (id: string) => void;
+  closeUpgradeModal: () => void;
+  /** Upgrade a building one level (deducts Leaf, no-op if unaffordable / maxed). */
+  upgrade: (id: string) => void;
 
   /** Bump _tickAt to trigger re-renders of time-aware components. */
   tick: () => void;
@@ -172,6 +187,7 @@ export const useGameStore = create<GameState>((set, get) => ({
   buildMenuOpen: false,
   selectedCell: null,
   selectedPlacedId: null,
+  upgradeModalId: null,
   dragState: null,
   hoverCell: null,
   _tickAt: 0,
@@ -188,23 +204,29 @@ export const useGameStore = create<GameState>((set, get) => ({
   placeBuilding: (type) => {
     const cell = get().selectedCell;
     if (!cell) return;
-    const buildings = get().buildings;
-    if (!canPlace(type, cell.x, cell.y, buildings)) return;
-    set((state) => ({
+    const state = get();
+    if (!canPlace(type, cell.x, cell.y, state.buildings)) return;
+    const cost = BUILDINGS[type].baseCost;
+    if (state.resources.leaf < cost) return;
+    set((s) => ({
       buildings: [
-        ...state.buildings,
+        ...s.buildings,
         createPlacedBuilding(type, cell.x, cell.y),
       ],
+      resources: { ...s.resources, leaf: s.resources.leaf - cost },
       buildMenuOpen: false,
       selectedCell: null,
     }));
   },
 
   placeBuildingAt: (type, x, y) => {
-    const buildings = get().buildings;
-    if (!canPlace(type, x, y, buildings)) return false;
-    set((state) => ({
-      buildings: [...state.buildings, createPlacedBuilding(type, x, y)],
+    const state = get();
+    if (!canPlace(type, x, y, state.buildings)) return false;
+    const cost = BUILDINGS[type].baseCost;
+    if (state.resources.leaf < cost) return false;
+    set((s) => ({
+      buildings: [...s.buildings, createPlacedBuilding(type, x, y)],
+      resources: { ...s.resources, leaf: s.resources.leaf - cost },
     }));
     return true;
   },
@@ -228,6 +250,7 @@ export const useGameStore = create<GameState>((set, get) => ({
       selectedPlacedId: null,
       buildMenuOpen: false,
       selectedCell: null,
+      upgradeModalId: null,
     })),
 
   selectPlacedBuilding: (id) => set({ selectedPlacedId: id }),
@@ -248,12 +271,20 @@ export const useGameStore = create<GameState>((set, get) => ({
 
     if (ds && cell) {
       if (ds.kind === "place") {
-        if (canPlace(ds.type, cell.x, cell.y, state.buildings)) {
+        const cost = BUILDINGS[ds.type].baseCost;
+        if (
+          canPlace(ds.type, cell.x, cell.y, state.buildings) &&
+          state.resources.leaf >= cost
+        ) {
           set((s) => ({
             buildings: [
               ...s.buildings,
               createPlacedBuilding(ds.type, cell.x, cell.y),
             ],
+            resources: {
+              ...s.resources,
+              leaf: s.resources.leaf - cost,
+            },
             buildMenuOpen: false,
             selectedCell: null,
           }));
@@ -289,18 +320,19 @@ export const useGameStore = create<GameState>((set, get) => ({
     if (!b) return;
     const def = BUILDINGS[b.type];
     if (def.growDurationMs === undefined || def.harvestYield === undefined) {
-      return; // not a harvestable building
+      return;
     }
     if (b.plantedAt === undefined) return;
     if (!isReadyToHarvest(b.plantedAt, def.growDurationMs, Date.now())) {
-      return; // not ready
+      return;
     }
+    const yieldAtThisLevel = intStatAtLevel(def.harvestYield, b.level);
     const now = Date.now();
     set((s) => ({
       buildings: s.buildings.map((x) =>
         x.id === id ? { ...x, plantedAt: now } : x,
       ),
-      resources: { ...s.resources, leaf: s.resources.leaf + def.harvestYield! },
+      resources: { ...s.resources, leaf: s.resources.leaf + yieldAtThisLevel },
     }));
   },
 
@@ -312,21 +344,36 @@ export const useGameStore = create<GameState>((set, get) => ({
     if (def.firePerSecond === undefined || b.lastGenerated === undefined) {
       return;
     }
-    const pending = getPendingFire(
-      b.lastGenerated,
-      def.firePerSecond,
-      Date.now(),
-    );
+    const ratePerSec = statAtLevel(def.firePerSecond, b.level);
+    const pending = getPendingFire(b.lastGenerated, ratePerSec, Date.now());
     if (pending < 1) return;
-    // Advance lastGenerated by exactly the time consumed by the collected
-    // units, so any fractional remainder rolls into the next cycle.
-    const consumedMs = (pending / def.firePerSecond) * 1000;
+    const consumedMs = (pending / ratePerSec) * 1000;
     const newLastGenerated = b.lastGenerated + consumedMs;
     set((s) => ({
       buildings: s.buildings.map((x) =>
         x.id === id ? { ...x, lastGenerated: newLastGenerated } : x,
       ),
       resources: { ...s.resources, fire: s.resources.fire + pending },
+    }));
+  },
+
+  // ─── Sprint 4: upgrade modal + upgrade action ────────────────────────
+  openUpgradeModal: (id) => set({ upgradeModalId: id }),
+  closeUpgradeModal: () => set({ upgradeModalId: null }),
+
+  upgrade: (id) => {
+    const state = get();
+    const b = state.buildings.find((x) => x.id === id);
+    if (!b) return;
+    if (b.level >= MAX_LEVEL) return;
+    const def = BUILDINGS[b.type];
+    const cost = costAtLevel(def.baseCost, b.level, def.costMultiplier);
+    if (state.resources.leaf < cost) return;
+    set((s) => ({
+      buildings: s.buildings.map((x) =>
+        x.id === id ? { ...x, level: x.level + 1 } : x,
+      ),
+      resources: { ...s.resources, leaf: s.resources.leaf - cost },
     }));
   },
 

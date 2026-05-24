@@ -4,6 +4,7 @@ import { BottomNav } from "./BottomNav";
 import { SplashScreen } from "./SplashScreen";
 import { BuildMenu } from "./BuildMenu";
 import { TickMount } from "./TickMount";
+import { UpgradeModal } from "./UpgradeModal";
 
 export function GameShell() {
   return (
@@ -20,6 +21,7 @@ export function GameShell() {
       <BottomNav />
 
       <BuildMenu />
+      <UpgradeModal />
     </div>
   );
 }

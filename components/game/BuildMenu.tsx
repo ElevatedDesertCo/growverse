@@ -11,11 +11,13 @@ import {
   type BuildingType,
 } from "@/lib/buildings";
 import { canPlace, cellFromClientPoint, useGameStore } from "@/lib/store";
+import { canAfford } from "@/lib/economy";
 
 export function BuildMenu() {
   const open = useGameStore((s) => s.buildMenuOpen);
   const selectedCell = useGameStore((s) => s.selectedCell);
   const buildings = useGameStore((s) => s.buildings);
+  const leaf = useGameStore((s) => s.resources.leaf);
   const placeBuilding = useGameStore((s) => s.placeBuilding);
   const closeBuildMenu = useGameStore((s) => s.closeBuildMenu);
   const dragState = useGameStore((s) => s.dragState);
@@ -91,12 +93,20 @@ export function BuildMenu() {
                   const fits =
                     ready &&
                     canPlace(type, selectedCell!.x, selectedCell!.y, buildings);
+                  const afford = canAfford(leaf, def.baseCost);
+                  const reason = !ready
+                    ? null
+                    : !fits
+                      ? "No room here"
+                      : !afford
+                        ? `Need ${def.baseCost - leaf} Leaf`
+                        : null;
                   return (
                     <BuildingCard
                       key={type}
                       def={def}
-                      tapDisabled={!ready || !fits}
-                      reason={!ready ? null : !fits ? "No room here" : null}
+                      tapDisabled={!ready || !fits || !afford}
+                      reason={reason}
                       onTap={() => placeBuilding(type)}
                       type={type}
                     />
@@ -202,7 +212,10 @@ function BuildingCard({
           {def.description}
         </p>
         <p className="mt-0.5 text-[9px] uppercase tracking-[0.2em] text-text-muted/70">
-          {def.size.w} × {def.size.h} · drag onto grid
+          {def.size.w} × {def.size.h}
+        </p>
+        <p className="mt-1 font-sans text-[11px] font-bold tabular-nums text-leaf">
+          {def.baseCost} <span className="text-text-muted">Leaf</span>
         </p>
       </div>
 

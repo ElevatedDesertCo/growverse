@@ -4,6 +4,12 @@
  * inject a fixed time and these stay deterministic.
  */
 
+export const MAX_LEVEL = 5;
+export const DEFAULT_COST_MULTIPLIER = 1.5;
+export const DEFAULT_STAT_MULTIPLIER = 1.5;
+
+// ─── Sprint 3: grow + passive Fire ───────────────────────────────────
+
 /** 0 → 1 over the grow cycle. Clamped. */
 export function getGrowProgress(
   plantedAt: number,
@@ -26,11 +32,7 @@ export function isReadyToHarvest(
   return now - plantedAt >= durationMs;
 }
 
-/**
- * Amount of Fire (whole units) accrued since `lastGenerated` at the given
- * rate. Floored so partial units only count once the next whole unit
- * completes — keeps display + collect math consistent.
- */
+/** Whole Fire units accrued since `lastGenerated`. */
 export function getPendingFire(
   lastGenerated: number,
   perSecond: number,
@@ -40,4 +42,47 @@ export function getPendingFire(
   const elapsedSec = (now - lastGenerated) / 1000;
   if (elapsedSec <= 0) return 0;
   return Math.floor(elapsedSec * perSecond);
+}
+
+// ─── Sprint 4: costs + upgrades ──────────────────────────────────────
+
+/**
+ * Leaf cost to upgrade a building at `currentLevel` to `currentLevel + 1`.
+ *   L1 → L2 = baseCost * 1.5^0 = baseCost
+ *   L2 → L3 = baseCost * 1.5^1
+ *   ...
+ *   L4 → L5 = baseCost * 1.5^3
+ * Rounded up so prices stay whole Leaf.
+ */
+export function costAtLevel(
+  baseCost: number,
+  currentLevel: number,
+  multiplier = DEFAULT_COST_MULTIPLIER,
+): number {
+  return Math.ceil(baseCost * Math.pow(multiplier, currentLevel - 1));
+}
+
+/**
+ * A base stat at level 1, scaled to the given level.
+ * Used for harvestYield and firePerSecond.
+ */
+export function statAtLevel(
+  baseStat: number,
+  level: number,
+  multiplier = DEFAULT_STAT_MULTIPLIER,
+): number {
+  return baseStat * Math.pow(multiplier, level - 1);
+}
+
+/** Integer version of statAtLevel — for displayed yields. */
+export function intStatAtLevel(
+  baseStat: number,
+  level: number,
+  multiplier = DEFAULT_STAT_MULTIPLIER,
+): number {
+  return Math.round(statAtLevel(baseStat, level, multiplier));
+}
+
+export function canAfford(leaf: number, cost: number): boolean {
+  return leaf >= cost;
 }

@@ -11,7 +11,9 @@ import {
 import {
   getGrowProgress,
   getPendingFire,
+  intStatAtLevel,
   isReadyToHarvest,
+  statAtLevel,
 } from "@/lib/economy";
 import { BuildingTile } from "./BuildingTile";
 
@@ -48,6 +50,7 @@ export function DraggableBuilding({
   const editMode = useGameStore((s) => s.editMode);
   const harvest = useGameStore((s) => s.harvest);
   const collectFire = useGameStore((s) => s.collectFire);
+  const openUpgradeModal = useGameStore((s) => s.openUpgradeModal);
   // Subscribe to the global tick so time-aware UI redraws ~2/sec.
   useGameStore((s) => s._tickAt);
 
@@ -86,7 +89,11 @@ export function DraggableBuilding({
 
   const pendingFire =
     isAmberForge && building.lastGenerated !== undefined
-      ? getPendingFire(building.lastGenerated, def.firePerSecond!, now)
+      ? getPendingFire(
+          building.lastGenerated,
+          statAtLevel(def.firePerSecond!, building.level),
+          now,
+        )
       : 0;
 
   // ─── Floater spawn ───────────────────────────────────────────────────
@@ -161,9 +168,15 @@ export function DraggableBuilding({
       return;
     }
 
-    // Normal mode — route by building type
+    // Normal mode — strict precedence:
+    //   1) harvest (growTent ready)
+    //   2) collect (amberForge has pending fire)
+    //   3) open upgrade modal (anything else)
     if (isGrowTent && isReady) {
-      spawnFloater(def.harvestYield ?? 0, def.color);
+      const yieldNow = def.harvestYield
+        ? intStatAtLevel(def.harvestYield, building.level)
+        : 0;
+      spawnFloater(yieldNow, def.color);
       harvest(building.id);
       return;
     }
@@ -172,7 +185,7 @@ export function DraggableBuilding({
       collectFire(building.id);
       return;
     }
-    // No-op for Bloom Extractor, Thorn Trap, and not-yet-ready Grow Tents
+    openUpgradeModal(building.id);
   };
 
   const onPointerUp = (e: React.PointerEvent<HTMLButtonElement>) => {
