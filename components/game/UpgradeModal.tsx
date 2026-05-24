@@ -1,7 +1,7 @@
 "use client";
 
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { AssetImage } from "./AssetImage";
 import { X, ArrowRight } from "lucide-react";
 import { BUILDINGS, type ResourceCost } from "@/lib/buildings";
 import {
@@ -118,13 +118,15 @@ function UpgradePanel({
             className="relative h-16 w-16 overflow-hidden rounded-lg"
             style={{ backgroundColor: `${def.color}1a` }}
           >
-            <Image
-              src={def.imagePath}
+            <AssetImage
+              assetId={`building.${type}`}
               alt={def.name}
               fill
               sizes="64px"
-              className="object-contain p-1"
-              draggable={false}
+              className="p-1"
+              notDraggable
+              placeholderColor={def.color}
+              placeholderLabel={def.name}
             />
           </div>
           <div className="flex flex-col leading-none">

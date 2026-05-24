@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { useRef } from "react";
@@ -14,6 +13,7 @@ import {
 import { Lock } from "lucide-react";
 import { RESOURCES } from "@/lib/data";
 import type { Resources } from "@/lib/systems/resourceSystem";
+import { AssetImage } from "./AssetImage";
 
 /** Display label for a resource field (canon short name). */
 function labelFor(field: string): string {
@@ -251,19 +251,15 @@ function BuildingCard({
         className="relative h-20 w-20 overflow-hidden rounded-lg"
         style={{ backgroundColor: `${def.color}1a` }}
       >
-        <Image
-          src={def.imagePath}
+        <AssetImage
+          assetId={`building.${type}`}
           alt={def.name}
           fill
           sizes="80px"
-          className={`object-contain p-1 ${locked ? "grayscale" : ""}`}
-          draggable={false}
-          onError={(e) => {
-            console.error(
-              `[BuildMenu] Failed to load card image for ${def.name}: ${def.imagePath}`,
-              e,
-            );
-          }}
+          className={`p-1 ${locked ? "grayscale" : ""}`}
+          notDraggable
+          placeholderColor={def.color}
+          placeholderLabel={def.name}
         />
         {locked && (
           <div className="absolute inset-0 flex items-center justify-center bg-bg-deep/60">

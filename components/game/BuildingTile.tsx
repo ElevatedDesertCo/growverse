@@ -1,9 +1,9 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { BUILDINGS } from "@/lib/buildings";
 import type { PlacedBuilding } from "@/lib/store";
+import { AssetImage } from "./AssetImage";
 
 interface Props {
   building: PlacedBuilding;
@@ -47,18 +47,14 @@ export function BuildingTile({
       }
     >
       <div className="relative h-full w-full rounded-md">
-        <Image
-          src={def.imagePath}
+        <AssetImage
+          assetId={`building.${building.type}`}
           alt={def.name}
           fill
           sizes="(max-width: 768px) 80px, 140px"
-          className="object-contain p-0.5 drop-shadow-[0_2px_3px_rgba(0,0,0,0.6)]"
-          onError={(e) => {
-            console.error(
-              `[BuildingTile] Failed to load image for ${def.name}: ${def.imagePath}`,
-              e,
-            );
-          }}
+          className="p-0.5 drop-shadow-[0_2px_3px_rgba(0,0,0,0.6)]"
+          placeholderColor={def.color}
+          placeholderLabel={def.name}
         />
 
         {/* Grow Tent progress ring */}

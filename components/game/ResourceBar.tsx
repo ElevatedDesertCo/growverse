@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { motion } from "framer-motion";
 import { RESOURCES } from "@/lib/data";
 import { useGameStore } from "@/lib/store";
@@ -12,17 +11,26 @@ import {
   maxFor,
   type Resources,
 } from "@/lib/systems/resourceSystem";
+import { AssetImage } from "./AssetImage";
 import { SettingsButton } from "./SettingsButton";
 
 type ResourceProps = {
-  iconSrc: string;
+  assetId: string;
   alt: string;
   value: number;
   max: number | null; // null = uncapped
   colorClass: string;
+  placeholderColor: string;
 };
 
-function ResourcePill({ iconSrc, alt, value, max, colorClass }: ResourceProps) {
+function ResourcePill({
+  assetId,
+  alt,
+  value,
+  max,
+  colorClass,
+  placeholderColor,
+}: ResourceProps) {
   const display = max !== null
     ? `${value.toLocaleString()} / ${max.toLocaleString()}`
     : value.toLocaleString();
@@ -36,12 +44,13 @@ function ResourcePill({ iconSrc, alt, value, max, colorClass }: ResourceProps) {
       }`}
       title={`${alt}: ${display}${atCap ? " (full — build/upgrade a Storage Vault)" : ""}`}
     >
-      <Image
-        src={iconSrc}
+      <AssetImage
+        assetId={assetId}
         alt={alt}
-        width={275}
-        height={275}
+        width={20}
+        height={20}
         className="h-5 w-5 flex-shrink-0 drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]"
+        placeholderColor={placeholderColor}
       />
       <motion.span
         key={value}
@@ -62,16 +71,17 @@ export function ResourceBar() {
   const buildings = useGameStore((s) => s.buildings);
   const storageBonus = getTotalStorageBonus(buildings);
 
-  const pillFor = (field: keyof Resources, fallbackIcon: string, colorClass: string) => {
+  const pillFor = (field: keyof Resources, colorClass: string) => {
     const def = RESOURCES[field as keyof typeof RESOURCES];
     const max = isCapped(field) ? maxFor(field, storageBonus) : null;
     return (
       <ResourcePill
-        iconSrc={def?.iconPath ?? fallbackIcon}
+        assetId={`resource.${field}`}
         alt={def?.name ?? field}
         value={resources[field]}
         max={max}
         colorClass={colorClass}
+        placeholderColor={def?.color ?? "#d4a04a"}
       />
     );
   };
@@ -99,9 +109,9 @@ export function ResourceBar() {
         </div>
 
         <div className="flex items-center gap-1">
-          {pillFor("bloomEssence", "/icons/leaf.png", "text-leaf")}
-          {pillFor("amberShards", "/icons/fire.png", "text-fire")}
-          {pillFor("mycoDust", "/icons/mushroom.png", "text-mushroom")}
+          {pillFor("bloomEssence", "text-leaf")}
+          {pillFor("amberShards", "text-fire")}
+          {pillFor("mycoDust", "text-mushroom")}
         </div>
       </div>
     </header>
