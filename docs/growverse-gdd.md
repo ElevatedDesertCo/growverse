@@ -18,12 +18,14 @@ You are a Cultivator — part botanist, part mystic — who has claimed a patch 
 - Mushroom (purple): premium currency, from quests and events
 
 ## Phase 1 Buildings (locked)
-1. Grow Tent — grows cannabis on timer, produces Leaf
-2. Drying Chamber — multiplies harvest yield
-3. Resin Distillery — passively generates Fire
-4. Sentinel Sprout — defensive plant (Phase 4 combat placeholder)
+1. Grow Tent — grows cannabis on timer, produces Leaf (art TBD)
+2. Bloom Extractor — multiplies harvest yield (renamed from Drying Chamber to align with existing art library)
+3. Amber Forge — passively generates Fire (renamed from Resin Distillery to align with existing art library)
+4. Thorn Trap — defensive plant, Phase 4 combat placeholder (renamed from Sentinel Sprout to align with existing art library)
 
 Each building has 5 upgrade tiers in Phase 1.
+
+Naming note (v1.1): Buildings 2–4 were renamed from the original v1.0 lockdown to match the art names the artist actually delivered. Functional behavior is unchanged. Grow Tent retains its original name; art for it is pending and will be commissioned or sourced separately.
 
 ## Visual Direction
 - Palette: deep desert ochre/brown, gold accents, sage green, warm orange, soft purple
@@ -43,4 +45,4 @@ Each building has 5 upgrade tiers in Phase 1.
 - Phase 4: Async raids + Circles (guilds) (8-12 weeks)
 - Phase 5: Monetization + Elevated Desert Co. brand tie-ins
 
-Version 1.0 — locked.
+Version 1.1 — locked (renamed Phase 1 buildings 2–4 to match art library; functional spec unchanged).
