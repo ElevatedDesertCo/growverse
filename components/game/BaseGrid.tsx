@@ -55,6 +55,9 @@ export function BaseGrid() {
         y: b.y + BUILDINGS[b.type].size.h / 2,
         color: BUILDINGS[b.type].color,
       }));
+      // Intentional: transient placement bursts gated on a real diff;
+      // the setTimeout below clears them, so no render loop.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setDusts((d) => [...d, ...bursts]);
       const burstIds = new Set(bursts.map((bb) => bb.id));
       setTimeout(() => {
@@ -99,7 +102,7 @@ export function BaseGrid() {
 
   // Hover-preview: when a drag is in progress, compute which cells the
   // proposed footprint would occupy and whether it's valid.
-  let previewCells: Array<{
+  const previewCells: Array<{
     x: number;
     y: number;
     valid: boolean;

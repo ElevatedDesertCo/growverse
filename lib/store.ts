@@ -7,7 +7,6 @@ import {
   type BuildingType,
 } from "./buildings";
 import {
-  costAtLevel,
   getPendingFire,
   intStatAtLevel,
   isReadyToHarvest,

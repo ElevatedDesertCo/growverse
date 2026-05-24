@@ -74,7 +74,6 @@ export function UpgradeModal() {
             className="fixed inset-x-0 bottom-0 z-40 max-h-[70dvh] overflow-y-auto rounded-t-3xl border-t border-gold/30 bg-bg-deep/95 pb-[max(env(safe-area-inset-bottom),1rem)] shadow-[0_-20px_60px_rgba(0,0,0,0.55)] backdrop-blur"
           >
             <UpgradePanel
-              buildingId={building.id}
               type={building.type}
               level={building.level}
               resources={resources}
@@ -94,14 +93,12 @@ export function UpgradeModal() {
 }
 
 function UpgradePanel({
-  buildingId,
   type,
   level,
   resources,
   onClose,
   onUpgrade,
 }: {
-  buildingId: string;
   type: keyof typeof BUILDINGS;
   level: number;
   resources: Resources;

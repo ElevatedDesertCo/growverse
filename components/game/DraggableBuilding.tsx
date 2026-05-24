@@ -60,7 +60,12 @@ export function DraggableBuilding({
   const collectFire = useGameStore((s) => s.collectFire);
   const openUpgradeModal = useGameStore((s) => s.openUpgradeModal);
   // Subscribe to the global tick so time-aware UI redraws ~2/sec.
-  useGameStore((s) => s._tickAt);
+  // We use _tickAt (set by TickMount every 500ms) as our "now" — pure
+  // (derived from store state) so the render stays referentially clean
+  // per react-hooks/purity, and refresh cadence is good enough for
+  // progress rings + pending-fire badges (collect itself uses Date.now()
+  // server-side in the store action, so it's still exact at commit time).
+  const tickNow = useGameStore((s) => s._tickAt);
 
   const [phase, setPhase] = useState<Phase>("idle");
   const [progress, setProgress] = useState(0);
@@ -94,7 +99,11 @@ export function DraggableBuilding({
   }, []);
 
   // ─── Time-aware computed values ──────────────────────────────────────
-  const now = Date.now();
+  // Use the store tick (set by TickMount every 500ms) as "now" so render
+  // stays pure per react-hooks/purity. Falls back to 1 for the very first
+  // render before TickMount fires — progress reads as 0 briefly, then
+  // corrects on the next tick.
+  const now = tickNow || 1;
   const hasGrowCycle = def.growDurationMs !== undefined;
   const hasPassiveCollect = def.firePerSecond !== undefined;
 
