@@ -28,20 +28,14 @@ export function BuildingTile({ building, editMode, isSelected }: Props) {
           : { duration: 0.2 }
       }
     >
-      <div
-        className={`relative h-full w-full rounded-md ${
-          isSelected
-            ? "ring-2 ring-gold ring-offset-1 ring-offset-bg-deep shadow-[0_0_18px_rgba(212,160,74,0.55)]"
-            : ""
-        }`}
-      >
+      <div className="relative h-full w-full rounded-md">
         {def.imagePath ? (
           <Image
             src={def.imagePath}
             alt={def.name}
             fill
-            sizes="(max-width: 768px) 64px, 112px"
-            className="object-contain p-0.5 drop-shadow-[0_2px_3px_rgba(0,0,0,0.6)]"
+            sizes="(max-width: 768px) 80px, 140px"
+            className="object-contain p-1 drop-shadow-[0_2px_3px_rgba(0,0,0,0.6)]"
           />
         ) : (
           <PlaceholderTile def={def} />

@@ -4,11 +4,12 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { BUILDINGS, BUILDING_TYPES, type BuildingDef } from "@/lib/buildings";
-import { useGameStore } from "@/lib/store";
+import { canPlace, useGameStore } from "@/lib/store";
 
 export function BuildMenu() {
   const open = useGameStore((s) => s.buildMenuOpen);
   const selectedCell = useGameStore((s) => s.selectedCell);
+  const buildings = useGameStore((s) => s.buildings);
   const placeBuilding = useGameStore((s) => s.placeBuilding);
   const closeBuildMenu = useGameStore((s) => s.closeBuildMenu);
 
@@ -71,14 +72,27 @@ export function BuildMenu() {
               </header>
 
               <div className="mt-4 grid grid-cols-2 gap-3">
-                {BUILDING_TYPES.map((type) => (
-                  <BuildingCard
-                    key={type}
-                    def={BUILDINGS[type]}
-                    disabled={!ready}
-                    onPlace={() => placeBuilding(type)}
-                  />
-                ))}
+                {BUILDING_TYPES.map((type) => {
+                  const def = BUILDINGS[type];
+                  const fits =
+                    ready &&
+                    canPlace(type, selectedCell!.x, selectedCell!.y, buildings);
+                  return (
+                    <BuildingCard
+                      key={type}
+                      def={def}
+                      disabled={!ready || !fits}
+                      reason={
+                        !ready
+                          ? null
+                          : !fits
+                            ? "No room here"
+                            : null
+                      }
+                      onPlace={() => placeBuilding(type)}
+                    />
+                  );
+                })}
               </div>
             </div>
           </motion.div>
@@ -91,10 +105,12 @@ export function BuildMenu() {
 function BuildingCard({
   def,
   disabled,
+  reason,
   onPlace,
 }: {
   def: BuildingDef;
   disabled: boolean;
+  reason: string | null;
   onPlace: () => void;
 }) {
   return (
@@ -141,13 +157,16 @@ function BuildingCard({
         <p className="mt-0.5 line-clamp-2 text-[10px] leading-snug text-text-muted">
           {def.description}
         </p>
+        <p className="mt-0.5 text-[9px] uppercase tracking-[0.2em] text-text-muted/70">
+          {def.size.w} × {def.size.h}
+        </p>
       </div>
 
       <span
         className="mt-auto inline-flex rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-bg-deep transition-colors"
         style={{ backgroundColor: disabled ? "#5a4a30" : def.color }}
       >
-        Place
+        {reason ?? "Place"}
       </span>
     </button>
   );
