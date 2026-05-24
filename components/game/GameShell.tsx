@@ -3,11 +3,13 @@ import { BaseGrid } from "./BaseGrid";
 import { BottomNav } from "./BottomNav";
 import { SplashScreen } from "./SplashScreen";
 import { BuildMenu } from "./BuildMenu";
+import { TickMount } from "./TickMount";
 
 export function GameShell() {
   return (
     <div className="fixed inset-0 flex flex-col bg-gradient-to-b from-bg-mid to-bg-deep">
       <SplashScreen />
+      <TickMount />
 
       <ResourceBar />
 

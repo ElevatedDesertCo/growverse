@@ -1,13 +1,18 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { BUILDINGS } from "@/lib/buildings";
 import {
-  canPlace,
   cellFromClientPoint,
   type PlacedBuilding,
   useGameStore,
 } from "@/lib/store";
+import {
+  getGrowProgress,
+  getPendingFire,
+  isReadyToHarvest,
+} from "@/lib/economy";
 import { BuildingTile } from "./BuildingTile";
 
 const LONG_PRESS_MS = 2500;
@@ -15,20 +20,25 @@ const MOVE_CANCEL_THRESHOLD_PX = 14;
 
 interface Props {
   building: PlacedBuilding;
-  /** Selection ring during edit-mode tap-select flow (independent of drag). */
   isTapSelected: boolean;
-  /** True while the build menu is open and pre-selected this cell. */
   isMenuSelected: boolean;
-  onTap: () => void;
+  /** Called for short taps in normal mode when there's no game-specific action. */
+  onPassiveTap: () => void;
 }
 
 type Phase = "idle" | "pressing" | "dragging";
+
+interface Floater {
+  id: string;
+  amount: number;
+  color: string;
+}
 
 export function DraggableBuilding({
   building,
   isTapSelected,
   isMenuSelected,
-  onTap,
+  onPassiveTap,
 }: Props) {
   const def = BUILDINGS[building.type];
   const startMoveDrag = useGameStore((s) => s.startMoveDrag);
@@ -36,10 +46,15 @@ export function DraggableBuilding({
   const commitDrag = useGameStore((s) => s.commitDrag);
   const cancelDrag = useGameStore((s) => s.cancelDrag);
   const editMode = useGameStore((s) => s.editMode);
+  const harvest = useGameStore((s) => s.harvest);
+  const collectFire = useGameStore((s) => s.collectFire);
+  // Subscribe to the global tick so time-aware UI redraws ~2/sec.
+  useGameStore((s) => s._tickAt);
 
   const [phase, setPhase] = useState<Phase>("idle");
   const [progress, setProgress] = useState(0);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
+  const [floaters, setFloaters] = useState<Floater[]>([]);
 
   const startRef = useRef<{
     x: number;
@@ -49,13 +64,42 @@ export function DraggableBuilding({
   const rafRef = useRef<number | null>(null);
   const elRef = useRef<HTMLButtonElement | null>(null);
 
-  // Clean up rAF on unmount.
   useEffect(() => {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
+  // ─── Time-aware computed values ──────────────────────────────────────
+  const now = Date.now();
+  const isGrowTent = def.growDurationMs !== undefined;
+  const isAmberForge = def.firePerSecond !== undefined;
+
+  const growProgress =
+    isGrowTent && building.plantedAt !== undefined
+      ? getGrowProgress(building.plantedAt, def.growDurationMs!, now)
+      : undefined;
+  const isReady =
+    isGrowTent && building.plantedAt !== undefined
+      ? isReadyToHarvest(building.plantedAt, def.growDurationMs!, now)
+      : false;
+
+  const pendingFire =
+    isAmberForge && building.lastGenerated !== undefined
+      ? getPendingFire(building.lastGenerated, def.firePerSecond!, now)
+      : 0;
+
+  // ─── Floater spawn ───────────────────────────────────────────────────
+  const spawnFloater = (amount: number, color: string) => {
+    const id = crypto.randomUUID();
+    setFloaters((prev) => [...prev, { id, amount, color }]);
+    // Self-destruct after the exit animation completes.
+    setTimeout(() => {
+      setFloaters((prev) => prev.filter((f) => f.id !== id));
+    }, 1100);
+  };
+
+  // ─── Long-press / drag state machine ─────────────────────────────────
   const reset = () => {
     if (rafRef.current) {
       cancelAnimationFrame(rafRef.current);
@@ -102,13 +146,33 @@ export function DraggableBuilding({
 
     if (phase === "pressing") {
       if (dx * dx + dy * dy > MOVE_CANCEL_THRESHOLD_PX ** 2) {
-        // User moved too much during hold → cancel long-press
         reset();
       }
     } else if (phase === "dragging") {
       setOffset({ x: dx, y: dy });
       setHoverCell(cellFromClientPoint(e.clientX, e.clientY));
     }
+  };
+
+  const handleShortTap = () => {
+    if (editMode) {
+      // In edit mode, a tap is a passive selection action (handled by parent).
+      onPassiveTap();
+      return;
+    }
+
+    // Normal mode — route by building type
+    if (isGrowTent && isReady) {
+      spawnFloater(def.harvestYield ?? 0, def.color);
+      harvest(building.id);
+      return;
+    }
+    if (isAmberForge && pendingFire >= 1) {
+      spawnFloater(pendingFire, "#e8964c");
+      collectFire(building.id);
+      return;
+    }
+    // No-op for Bloom Extractor, Thorn Trap, and not-yet-ready Grow Tents
   };
 
   const onPointerUp = (e: React.PointerEvent<HTMLButtonElement>) => {
@@ -122,7 +186,6 @@ export function DraggableBuilding({
 
     if (wasDragging) {
       commitDrag();
-      // reset offset so building snaps back to its grid spot (or new spot)
       setPhase("idle");
       setProgress(0);
       setOffset({ x: 0, y: 0 });
@@ -137,14 +200,12 @@ export function DraggableBuilding({
     reset();
 
     if (wasPressing) {
-      // Short press = tap (no long-press fire)
-      onTap();
+      handleShortTap();
     }
   };
 
   const onPointerCancel = () => reset();
 
-  // SVG progress ring rendered as overlay during pressing
   const showRing = phase === "pressing";
 
   return (
@@ -180,22 +241,46 @@ export function DraggableBuilding({
       <BuildingTile
         building={building}
         editMode={editMode}
-        isSelected={isTapSelected || phase === "dragging"}
+        growProgress={growProgress}
+        isReady={isReady}
+        pendingFire={pendingFire}
       />
 
-      {showRing && <ProgressRing progress={progress} color={def.color} />}
+      {showRing && <LongPressRing progress={progress} color={def.color} />}
+
+      {/* Floaters — render on top of everything, pointer-events-none */}
+      <div className="pointer-events-none absolute inset-0">
+        <AnimatePresence>
+          {floaters.map((f) => (
+            <motion.div
+              key={f.id}
+              initial={{ opacity: 0, y: 0, scale: 0.85 }}
+              animate={{ opacity: 1, y: -40, scale: 1.05 }}
+              exit={{ opacity: 0, y: -55 }}
+              transition={{ duration: 1, ease: "easeOut" }}
+              className="absolute left-1/2 top-1/2 -translate-x-1/2 select-none whitespace-nowrap font-display text-base font-bold leading-none"
+              style={{
+                color: f.color,
+                textShadow:
+                  "0 1px 0 rgba(0,0,0,0.6), 0 0 8px rgba(0,0,0,0.5)",
+              }}
+            >
+              +{f.amount}
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </div>
     </button>
   );
 }
 
-function ProgressRing({
+function LongPressRing({
   progress,
   color,
 }: {
   progress: number;
   color: string;
 }) {
-  // Circle radius pixel value doesn't matter — viewBox normalizes.
   const r = 45;
   const c = 2 * Math.PI * r;
   const dashOffset = c * (1 - progress);

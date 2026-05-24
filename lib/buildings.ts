@@ -12,6 +12,14 @@ export interface BuildingDef {
   color: string;
   /** Footprint on the grid, in cells. */
   size: { w: number; h: number };
+
+  // ─── Sprint 3 economy ───────────────────────────────────────────────
+  /** Time in ms for one grow cycle (growTent only). */
+  growDurationMs?: number;
+  /** Leaf yield per harvest (growTent only). */
+  harvestYield?: number;
+  /** Passive Fire generation rate per second (amberForge only). */
+  firePerSecond?: number;
 }
 
 export const BUILDINGS: Record<BuildingType, BuildingDef> = {
@@ -22,6 +30,8 @@ export const BUILDINGS: Record<BuildingType, BuildingDef> = {
     imagePath: "/buildings/grow-tent.png",
     color: "#7fb069",
     size: { w: 2, h: 2 },
+    growDurationMs: 30_000,
+    harvestYield: 25,
   },
   bloomExtractor: {
     type: "bloomExtractor",
@@ -38,6 +48,7 @@ export const BUILDINGS: Record<BuildingType, BuildingDef> = {
     imagePath: "/buildings/amber-forge.png",
     color: "#e8964c",
     size: { w: 2, h: 2 },
+    firePerSecond: 0.5,
   },
   thornTrap: {
     type: "thornTrap",

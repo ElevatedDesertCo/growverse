@@ -166,7 +166,7 @@ export function BaseGrid() {
                 building={b}
                 isTapSelected={selectedPlacedId === b.id}
                 isMenuSelected={isMenuSelected}
-                onTap={() => handleCellTap(b.x, b.y)}
+                onPassiveTap={() => handleCellTap(b.x, b.y)}
               />
             );
           })}

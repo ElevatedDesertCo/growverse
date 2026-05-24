@@ -1,4 +1,8 @@
+"use client";
+
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { useGameStore } from "@/lib/store";
 
 type ResourceProps = {
   iconSrc: string;
@@ -17,16 +21,26 @@ function ResourcePill({ iconSrc, alt, value, colorClass }: ResourceProps) {
         height={275}
         className="h-5 w-5 flex-shrink-0 drop-shadow-[0_1px_2px_rgba(0,0,0,0.6)]"
       />
-      <span
+      {/* key changes when value changes → motion remounts and replays the scale bump */}
+      <motion.span
+        key={value}
+        initial={{ scale: 1 }}
+        animate={{ scale: [1, 1.18, 1] }}
+        transition={{ duration: 0.32, ease: "easeOut" }}
         className={`font-sans text-xs font-semibold tabular-nums ${colorClass}`}
       >
         {value.toLocaleString()}
-      </span>
+      </motion.span>
     </div>
   );
 }
 
 export function ResourceBar() {
+  // Three independent selectors → each pill only re-renders when its slice changes.
+  const leaf = useGameStore((s) => s.resources.leaf);
+  const fire = useGameStore((s) => s.resources.fire);
+  const mushroom = useGameStore((s) => s.resources.mushroom);
+
   return (
     <header className="sticky top-0 z-30 border-b border-gold/15 bg-bg-deep/95 backdrop-blur supports-[backdrop-filter]:bg-bg-deep/70">
       <div className="mx-auto flex max-w-md items-center justify-between gap-2 px-3 py-3 md:max-w-3xl md:px-6">
@@ -50,19 +64,19 @@ export function ResourceBar() {
           <ResourcePill
             iconSrc="/icons/leaf.png"
             alt="Leaf"
-            value={3200}
+            value={leaf}
             colorClass="text-leaf"
           />
           <ResourcePill
             iconSrc="/icons/fire.png"
             alt="Fire"
-            value={1400}
+            value={fire}
             colorClass="text-fire"
           />
           <ResourcePill
             iconSrc="/icons/mushroom.png"
             alt="Mushroom"
-            value={420}
+            value={mushroom}
             colorClass="text-mushroom"
           />
         </div>
