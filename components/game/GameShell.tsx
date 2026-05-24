@@ -1,6 +1,5 @@
 import { ResourceBar } from "./ResourceBar";
 import { BaseGrid } from "./BaseGrid";
-import { ActionButtons } from "./ActionButtons";
 import { BottomNav } from "./BottomNav";
 import { SplashScreen } from "./SplashScreen";
 import { BuildMenu } from "./BuildMenu";
@@ -12,9 +11,8 @@ export function GameShell() {
 
       <ResourceBar />
 
-      <main className="flex min-h-0 flex-1 flex-col items-center justify-center gap-3 px-2 pb-[calc(env(safe-area-inset-bottom)+4rem)] pt-2 sm:gap-4 sm:px-4">
+      <main className="flex min-h-0 flex-1 flex-col items-center justify-center px-2 pb-[calc(env(safe-area-inset-bottom)+4.5rem)] pt-2 sm:px-4">
         <BaseGrid />
-        <ActionButtons />
       </main>
 
       <BottomNav />
