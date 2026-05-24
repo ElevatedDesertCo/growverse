@@ -3,8 +3,14 @@
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
-import { BUILDINGS, BUILDING_TYPES, type BuildingDef } from "@/lib/buildings";
-import { canPlace, useGameStore } from "@/lib/store";
+import { useRef } from "react";
+import {
+  BUILDINGS,
+  BUILDING_TYPES,
+  type BuildingDef,
+  type BuildingType,
+} from "@/lib/buildings";
+import { canPlace, cellFromClientPoint, useGameStore } from "@/lib/store";
 
 export function BuildMenu() {
   const open = useGameStore((s) => s.buildMenuOpen);
@@ -12,8 +18,10 @@ export function BuildMenu() {
   const buildings = useGameStore((s) => s.buildings);
   const placeBuilding = useGameStore((s) => s.placeBuilding);
   const closeBuildMenu = useGameStore((s) => s.closeBuildMenu);
+  const dragState = useGameStore((s) => s.dragState);
 
   const ready = selectedCell !== null;
+  const draggingPlace = dragState?.kind === "place";
 
   return (
     <>
@@ -36,7 +44,9 @@ export function BuildMenu() {
             role="dialog"
             aria-label="Build menu"
             aria-modal="true"
-            className="fixed inset-x-0 bottom-0 z-40 max-h-[60dvh] overflow-y-auto rounded-t-3xl border-t border-gold/30 bg-bg-deep/95 pb-[max(env(safe-area-inset-bottom),1rem)] shadow-[0_-20px_60px_rgba(0,0,0,0.55)] backdrop-blur"
+            className={`fixed inset-x-0 bottom-0 z-40 max-h-[60dvh] rounded-t-3xl border-t border-gold/30 bg-bg-deep/95 pb-[max(env(safe-area-inset-bottom),1rem)] shadow-[0_-20px_60px_rgba(0,0,0,0.55)] backdrop-blur ${
+              draggingPlace ? "overflow-visible" : "overflow-y-auto"
+            }`}
           >
             <div className="mx-auto max-w-md px-4 pt-3 md:max-w-3xl">
               <div className="mx-auto mb-3 h-1 w-12 rounded-full bg-gold/30" />
@@ -51,14 +61,18 @@ export function BuildMenu() {
                   </h2>
                   <p
                     className={`mt-1 text-[11px] uppercase tracking-[0.22em] ${
-                      ready
-                        ? "text-text-muted"
-                        : "animate-pulse text-gold"
+                      draggingPlace
+                        ? "text-gold"
+                        : ready
+                          ? "text-text-muted"
+                          : "animate-pulse text-gold"
                     }`}
                   >
-                    {ready
-                      ? `Cell ${selectedCell!.x + 1}, ${selectedCell!.y + 1}`
-                      : "↑ Tap a glowing cell to choose where"}
+                    {draggingPlace
+                      ? "Release on a grid cell to drop"
+                      : ready
+                        ? `Cell ${selectedCell!.x + 1}, ${selectedCell!.y + 1} · tap a card`
+                        : "↑ Tap a glowing cell, or drag a card onto the grid"}
                   </p>
                 </div>
                 <button
@@ -81,15 +95,10 @@ export function BuildMenu() {
                     <BuildingCard
                       key={type}
                       def={def}
-                      disabled={!ready || !fits}
-                      reason={
-                        !ready
-                          ? null
-                          : !fits
-                            ? "No room here"
-                            : null
-                      }
-                      onPlace={() => placeBuilding(type)}
+                      tapDisabled={!ready || !fits}
+                      reason={!ready ? null : !fits ? "No room here" : null}
+                      onTap={() => placeBuilding(type)}
+                      type={type}
                     />
                   );
                 })}
@@ -104,21 +113,66 @@ export function BuildMenu() {
 
 function BuildingCard({
   def,
-  disabled,
+  tapDisabled,
   reason,
-  onPlace,
+  onTap,
+  type,
 }: {
   def: BuildingDef;
-  disabled: boolean;
+  tapDisabled: boolean;
   reason: string | null;
-  onPlace: () => void;
+  onTap: () => void;
+  type: BuildingType;
 }) {
+  const startPlaceDrag = useGameStore((s) => s.startPlaceDrag);
+  const setHoverCell = useGameStore((s) => s.setHoverCell);
+  const commitDrag = useGameStore((s) => s.commitDrag);
+  const cancelDrag = useGameStore((s) => s.cancelDrag);
+  const draggingRef = useRef(false);
+
   return (
-    <button
+    <motion.button
       type="button"
-      onClick={onPlace}
-      disabled={disabled}
-      className="group flex flex-col items-center gap-2 rounded-xl border border-gold/20 bg-bg-mid/60 p-3 text-left transition disabled:cursor-not-allowed disabled:opacity-50 enabled:hover:border-gold/50 enabled:active:scale-[0.98]"
+      drag
+      dragSnapToOrigin
+      dragElastic={0}
+      dragMomentum={false}
+      whileDrag={{ scale: 1.05, opacity: 0.95, zIndex: 70 }}
+      onDragStart={() => {
+        draggingRef.current = true;
+        startPlaceDrag(type);
+      }}
+      onDrag={(_, info) => {
+        setHoverCell(cellFromClientPoint(info.point.x, info.point.y));
+      }}
+      onDragEnd={() => {
+        commitDrag();
+        // Small delay so the synthesized click that follows pointerUp
+        // doesn't trigger onClick after a drop.
+        setTimeout(() => {
+          draggingRef.current = false;
+        }, 50);
+      }}
+      onPointerCancel={() => {
+        if (draggingRef.current) {
+          cancelDrag();
+          draggingRef.current = false;
+        }
+      }}
+      onClick={(e) => {
+        if (draggingRef.current) {
+          e.preventDefault();
+          return;
+        }
+        if (!tapDisabled) onTap();
+      }}
+      aria-label={`Place ${def.name}`}
+      className={`group relative flex flex-col items-center gap-2 rounded-xl border border-gold/20 bg-bg-mid/60 p-3 text-left transition select-none ${
+        tapDisabled
+          ? "cursor-grab opacity-90"
+          : "cursor-grab hover:border-gold/50 active:cursor-grabbing"
+      }`}
+      style={{ touchAction: "none" }}
     >
       <div
         className="relative h-20 w-20 overflow-hidden rounded-lg"
@@ -131,6 +185,7 @@ function BuildingCard({
             fill
             sizes="80px"
             className="object-contain p-1"
+            draggable={false}
           />
         ) : (
           <div
@@ -158,16 +213,16 @@ function BuildingCard({
           {def.description}
         </p>
         <p className="mt-0.5 text-[9px] uppercase tracking-[0.2em] text-text-muted/70">
-          {def.size.w} × {def.size.h}
+          {def.size.w} × {def.size.h} · drag onto grid
         </p>
       </div>
 
       <span
         className="mt-auto inline-flex rounded-full px-3 py-1 text-[10px] font-bold uppercase tracking-[0.18em] text-bg-deep transition-colors"
-        style={{ backgroundColor: disabled ? "#5a4a30" : def.color }}
+        style={{ backgroundColor: tapDisabled ? "#5a4a30" : def.color }}
       >
         {reason ?? "Place"}
       </span>
-    </button>
+    </motion.button>
   );
 }

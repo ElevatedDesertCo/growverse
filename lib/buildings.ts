@@ -57,5 +57,5 @@ export const BUILDING_TYPES: BuildingType[] = [
 ];
 
 /** Grid size — single source of truth. */
-export const GRID_COLS = 12;
-export const GRID_ROWS = 12;
+export const GRID_COLS = 16;
+export const GRID_ROWS = 16;

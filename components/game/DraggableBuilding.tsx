@@ -1,0 +1,231 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+import { BUILDINGS } from "@/lib/buildings";
+import {
+  canPlace,
+  cellFromClientPoint,
+  type PlacedBuilding,
+  useGameStore,
+} from "@/lib/store";
+import { BuildingTile } from "./BuildingTile";
+
+const LONG_PRESS_MS = 2500;
+const MOVE_CANCEL_THRESHOLD_PX = 14;
+
+interface Props {
+  building: PlacedBuilding;
+  /** Selection ring during edit-mode tap-select flow (independent of drag). */
+  isTapSelected: boolean;
+  /** True while the build menu is open and pre-selected this cell. */
+  isMenuSelected: boolean;
+  onTap: () => void;
+}
+
+type Phase = "idle" | "pressing" | "dragging";
+
+export function DraggableBuilding({
+  building,
+  isTapSelected,
+  isMenuSelected,
+  onTap,
+}: Props) {
+  const def = BUILDINGS[building.type];
+  const startMoveDrag = useGameStore((s) => s.startMoveDrag);
+  const setHoverCell = useGameStore((s) => s.setHoverCell);
+  const commitDrag = useGameStore((s) => s.commitDrag);
+  const cancelDrag = useGameStore((s) => s.cancelDrag);
+  const editMode = useGameStore((s) => s.editMode);
+
+  const [phase, setPhase] = useState<Phase>("idle");
+  const [progress, setProgress] = useState(0);
+  const [offset, setOffset] = useState({ x: 0, y: 0 });
+
+  const startRef = useRef<{
+    x: number;
+    y: number;
+    pointerId: number;
+  } | null>(null);
+  const rafRef = useRef<number | null>(null);
+  const elRef = useRef<HTMLButtonElement | null>(null);
+
+  // Clean up rAF on unmount.
+  useEffect(() => {
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+    };
+  }, []);
+
+  const reset = () => {
+    if (rafRef.current) {
+      cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+    }
+    setPhase("idle");
+    setProgress(0);
+    setOffset({ x: 0, y: 0 });
+    startRef.current = null;
+    cancelDrag();
+  };
+
+  const onPointerDown = (e: React.PointerEvent<HTMLButtonElement>) => {
+    if (phase !== "idle") return;
+    if (e.button !== undefined && e.button !== 0) return;
+    elRef.current?.setPointerCapture(e.pointerId);
+    startRef.current = {
+      x: e.clientX,
+      y: e.clientY,
+      pointerId: e.pointerId,
+    };
+    setPhase("pressing");
+    const start = performance.now();
+    const tick = () => {
+      const elapsed = performance.now() - start;
+      const p = Math.min(elapsed / LONG_PRESS_MS, 1);
+      setProgress(p);
+      if (p < 1) {
+        rafRef.current = requestAnimationFrame(tick);
+      } else {
+        setPhase("dragging");
+        startMoveDrag(building.id);
+        rafRef.current = null;
+      }
+    };
+    rafRef.current = requestAnimationFrame(tick);
+  };
+
+  const onPointerMove = (e: React.PointerEvent<HTMLButtonElement>) => {
+    const start = startRef.current;
+    if (!start) return;
+    const dx = e.clientX - start.x;
+    const dy = e.clientY - start.y;
+
+    if (phase === "pressing") {
+      if (dx * dx + dy * dy > MOVE_CANCEL_THRESHOLD_PX ** 2) {
+        // User moved too much during hold → cancel long-press
+        reset();
+      }
+    } else if (phase === "dragging") {
+      setOffset({ x: dx, y: dy });
+      setHoverCell(cellFromClientPoint(e.clientX, e.clientY));
+    }
+  };
+
+  const onPointerUp = (e: React.PointerEvent<HTMLButtonElement>) => {
+    const wasPressing = phase === "pressing";
+    const wasDragging = phase === "dragging";
+    try {
+      elRef.current?.releasePointerCapture(e.pointerId);
+    } catch {
+      /* ignore */
+    }
+
+    if (wasDragging) {
+      commitDrag();
+      // reset offset so building snaps back to its grid spot (or new spot)
+      setPhase("idle");
+      setProgress(0);
+      setOffset({ x: 0, y: 0 });
+      startRef.current = null;
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+      return;
+    }
+
+    reset();
+
+    if (wasPressing) {
+      // Short press = tap (no long-press fire)
+      onTap();
+    }
+  };
+
+  const onPointerCancel = () => reset();
+
+  // SVG progress ring rendered as overlay during pressing
+  const showRing = phase === "pressing";
+
+  return (
+    <button
+      ref={elRef}
+      type="button"
+      onPointerDown={onPointerDown}
+      onPointerMove={onPointerMove}
+      onPointerUp={onPointerUp}
+      onPointerCancel={onPointerCancel}
+      onContextMenu={(e) => e.preventDefault()}
+      aria-label={`${def.name} at ${building.x + 1},${building.y + 1}`}
+      className={`group relative cursor-pointer rounded-md transition-shadow ${
+        phase === "dragging" ? "z-50" : ""
+      } ${
+        isTapSelected
+          ? "ring-2 ring-gold ring-offset-1 ring-offset-bg-deep shadow-[0_0_18px_rgba(212,160,74,0.55)]"
+          : isMenuSelected
+            ? "ring-2 ring-gold/60 ring-inset"
+            : ""
+      }`}
+      style={{
+        gridColumn: `${building.x + 1} / span ${def.size.w}`,
+        gridRow: `${building.y + 1} / span ${def.size.h}`,
+        touchAction: "none",
+        transform:
+          phase === "dragging"
+            ? `translate(${offset.x}px, ${offset.y}px) scale(1.05)`
+            : undefined,
+        opacity: phase === "dragging" ? 0.9 : 1,
+      }}
+    >
+      <BuildingTile
+        building={building}
+        editMode={editMode}
+        isSelected={isTapSelected || phase === "dragging"}
+      />
+
+      {showRing && <ProgressRing progress={progress} color={def.color} />}
+    </button>
+  );
+}
+
+function ProgressRing({
+  progress,
+  color,
+}: {
+  progress: number;
+  color: string;
+}) {
+  // Circle radius pixel value doesn't matter — viewBox normalizes.
+  const r = 45;
+  const c = 2 * Math.PI * r;
+  const dashOffset = c * (1 - progress);
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      className="pointer-events-none absolute inset-0 h-full w-full"
+      aria-hidden
+    >
+      <circle
+        cx="50"
+        cy="50"
+        r={r}
+        fill="none"
+        stroke="rgba(0,0,0,0.35)"
+        strokeWidth="4"
+      />
+      <circle
+        cx="50"
+        cy="50"
+        r={r}
+        fill="none"
+        stroke={color}
+        strokeWidth="4"
+        strokeLinecap="round"
+        strokeDasharray={c}
+        strokeDashoffset={dashOffset}
+        transform="rotate(-90 50 50)"
+        style={{ filter: `drop-shadow(0 0 4px ${color})` }}
+      />
+    </svg>
+  );
+}
