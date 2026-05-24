@@ -7,12 +7,12 @@ import { BuildMenu } from "./BuildMenu";
 
 export function GameShell() {
   return (
-    <div className="min-h-dvh bg-gradient-to-b from-bg-mid to-bg-deep">
+    <div className="fixed inset-0 flex flex-col bg-gradient-to-b from-bg-mid to-bg-deep">
       <SplashScreen />
 
       <ResourceBar />
 
-      <main className="mx-auto flex max-w-md flex-col gap-6 px-4 pb-28 pt-6 md:max-w-3xl md:gap-8 md:pt-10">
+      <main className="flex min-h-0 flex-1 flex-col items-center justify-center gap-3 px-2 pb-[calc(env(safe-area-inset-bottom)+4rem)] pt-2 sm:gap-4 sm:px-4">
         <BaseGrid />
         <ActionButtons />
       </main>

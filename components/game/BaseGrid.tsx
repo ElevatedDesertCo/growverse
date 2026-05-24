@@ -97,8 +97,11 @@ export function BaseGrid() {
   }
 
   return (
-    <div className="mx-auto w-full">
-      <div className="mx-auto rounded-2xl border border-gold/20 bg-gradient-to-b from-bg-mid/60 to-bg-deep/60 p-2 shadow-[0_0_40px_-20px_rgba(212,160,74,0.35)] w-[min(100vw-1rem,calc(100dvh-13rem))] sm:w-[min(100vw-2rem,calc(100dvh-14rem))]">
+    <div
+      className="flex min-h-0 w-full flex-1 items-center justify-center"
+      style={{ containerType: "size" }}
+    >
+      <div className="aspect-square h-[100cqmin] w-[100cqmin] rounded-2xl border border-gold/20 bg-gradient-to-b from-bg-mid/60 to-bg-deep/60 p-2 shadow-[0_0_40px_-20px_rgba(212,160,74,0.35)]">
         <div
           ref={gridRef}
           className="relative grid aspect-square gap-px overflow-hidden rounded-xl"
