@@ -178,31 +178,20 @@ function BuildingCard({
         className="relative h-20 w-20 overflow-hidden rounded-lg"
         style={{ backgroundColor: `${def.color}1a` }}
       >
-        {def.imagePath ? (
-          <Image
-            src={def.imagePath}
-            alt={def.name}
-            fill
-            sizes="80px"
-            className="object-contain p-1"
-            draggable={false}
-          />
-        ) : (
-          <div
-            className="flex h-full w-full flex-col items-center justify-center font-display"
-            style={{ color: def.color }}
-          >
-            <span className="text-2xl font-bold tracking-wider">
-              {def.name
-                .split(" ")
-                .map((w) => w[0])
-                .join("")}
-            </span>
-            <span className="mt-0.5 text-[8px] uppercase tracking-[0.2em] opacity-70">
-              Art TBD
-            </span>
-          </div>
-        )}
+        <Image
+          src={def.imagePath}
+          alt={def.name}
+          fill
+          sizes="80px"
+          className="object-contain p-1"
+          draggable={false}
+          onError={(e) => {
+            console.error(
+              `[BuildMenu] Failed to load card image for ${def.name}: ${def.imagePath}`,
+              e,
+            );
+          }}
+        />
       </div>
 
       <div className="w-full text-center">

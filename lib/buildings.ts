@@ -8,7 +8,7 @@ export interface BuildingDef {
   type: BuildingType;
   name: string;
   description: string;
-  imagePath: string | null;
+  imagePath: string;
   color: string;
   /** Footprint on the grid, in cells. */
   size: { w: number; h: number };
@@ -19,7 +19,7 @@ export const BUILDINGS: Record<BuildingType, BuildingDef> = {
     type: "growTent",
     name: "Grow Tent",
     description: "Cultivates sacred cannabis. Produces Leaf at harvest.",
-    imagePath: null,
+    imagePath: "/buildings/grow-tent.png",
     color: "#7fb069",
     size: { w: 2, h: 2 },
   },
