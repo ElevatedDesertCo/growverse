@@ -7,6 +7,13 @@
 export const MAX_LEVEL = 5;
 export const DEFAULT_COST_MULTIPLIER = 1.5;
 export const DEFAULT_STAT_MULTIPLIER = 1.5;
+/**
+ * Maximum offline accrual window for passive generators. Time elapsed
+ * beyond this is capped so leaving the tab open for days doesn't
+ * dump millions of Fire on the next collect.
+ */
+export const OFFLINE_CAP_HOURS = 12;
+const OFFLINE_CAP_MS = OFFLINE_CAP_HOURS * 60 * 60 * 1000;
 
 // ─── Sprint 3: grow + passive Fire ───────────────────────────────────
 
@@ -32,16 +39,19 @@ export function isReadyToHarvest(
   return now - plantedAt >= durationMs;
 }
 
-/** Whole Fire units accrued since `lastGenerated`. */
+/**
+ * Whole Fire units accrued since `lastGenerated`, capped at
+ * OFFLINE_CAP_HOURS of generation to bound offline rewards.
+ */
 export function getPendingFire(
   lastGenerated: number,
   perSecond: number,
   now: number,
 ): number {
   if (perSecond <= 0) return 0;
-  const elapsedSec = (now - lastGenerated) / 1000;
-  if (elapsedSec <= 0) return 0;
-  return Math.floor(elapsedSec * perSecond);
+  const elapsedMs = Math.min(now - lastGenerated, OFFLINE_CAP_MS);
+  if (elapsedMs <= 0) return 0;
+  return Math.floor((elapsedMs / 1000) * perSecond);
 }
 
 // ─── Sprint 4: costs + upgrades ──────────────────────────────────────

@@ -5,6 +5,7 @@ import { SplashScreen } from "./SplashScreen";
 import { BuildMenu } from "./BuildMenu";
 import { TickMount } from "./TickMount";
 import { UpgradeModal } from "./UpgradeModal";
+import { WelcomeBackToast } from "./WelcomeBackToast";
 
 export function GameShell() {
   return (
@@ -22,6 +23,7 @@ export function GameShell() {
 
       <BuildMenu />
       <UpgradeModal />
+      <WelcomeBackToast />
     </div>
   );
 }
