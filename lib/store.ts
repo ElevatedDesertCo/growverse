@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { persist, createJSONStorage } from "zustand/middleware";
 import {
   BUILDINGS,
   GRID_COLS,
@@ -13,6 +14,9 @@ import {
   MAX_LEVEL,
   statAtLevel,
 } from "./economy";
+
+export const SAVE_VERSION = 1;
+export const SAVE_KEY = `growverse-save-v${SAVE_VERSION}`;
 
 export interface PlacedBuilding {
   id: string;
@@ -84,6 +88,9 @@ interface GameState {
 
   /** Bump _tickAt to trigger re-renders of time-aware components. */
   tick: () => void;
+
+  /** Wipe the persisted save and reset to initial state. */
+  resetSave: () => void;
 }
 
 // ─── Type-aware factory ─────────────────────────────────────────────
@@ -179,9 +186,11 @@ export function cellFromClientPoint(
   return { x, y };
 }
 
-export const useGameStore = create<GameState>((set, get) => ({
+const INITIAL_RESOURCES: Resources = { leaf: 100, fire: 50, mushroom: 0 };
+
+export const useGameStore = create<GameState>()(persist((set, get) => ({
   buildings: [],
-  resources: { leaf: 100, fire: 50, mushroom: 0 },
+  resources: { ...INITIAL_RESOURCES },
 
   editMode: false,
   buildMenuOpen: false,
@@ -378,4 +387,36 @@ export const useGameStore = create<GameState>((set, get) => ({
   },
 
   tick: () => set({ _tickAt: Date.now() }),
+
+  resetSave: () => {
+    set({
+      buildings: [],
+      resources: { ...INITIAL_RESOURCES },
+      editMode: false,
+      buildMenuOpen: false,
+      selectedCell: null,
+      selectedPlacedId: null,
+      upgradeModalId: null,
+      dragState: null,
+      hoverCell: null,
+    });
+    // Clear the persisted snapshot as well; persist will rewrite on next set.
+    try {
+      localStorage.removeItem(SAVE_KEY);
+    } catch {
+      /* ignore (SSR or storage disabled) */
+    }
+  },
+}), {
+  name: SAVE_KEY,
+  storage: createJSONStorage(() => localStorage),
+  version: SAVE_VERSION,
+  // Persist only true game state, never UI / drag / tick state.
+  partialize: (s) => ({
+    buildings: s.buildings,
+    resources: s.resources,
+  }),
+  // Skip SSR hydration — only rehydrate on the client after mount.
+  // The splash screen covers the brief default-state flash.
+  skipHydration: true,
 }));

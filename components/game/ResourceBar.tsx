@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { useGameStore } from "@/lib/store";
+import { SettingsButton } from "./SettingsButton";
 
 type ResourceProps = {
   iconSrc: string;
@@ -44,20 +45,23 @@ export function ResourceBar() {
   return (
     <header className="sticky top-0 z-30 border-b border-gold/15 bg-bg-deep/95 backdrop-blur supports-[backdrop-filter]:bg-bg-deep/70">
       <div className="mx-auto flex max-w-md items-center justify-between gap-2 px-3 py-3 md:max-w-3xl md:px-6">
-        <div className="flex flex-col items-start leading-none">
-          <span
-            className="font-display text-[17px] font-bold tracking-[0.22em] text-leaf"
-            style={{
-              fontFamily: "var(--font-cinzel)",
-              textShadow:
-                "0 0 10px rgba(127,176,105,0.35), 0 1px 0 rgba(184,133,46,0.55), 0 2px 4px rgba(0,0,0,0.6)",
-            }}
-          >
-            GROWVERSE
-          </span>
-          <span className="mt-0.5 font-sans text-[9px] uppercase tracking-[0.35em] text-text-muted">
-            GC1
-          </span>
+        <div className="flex items-center gap-2">
+          <SettingsButton />
+          <div className="flex flex-col items-start leading-none">
+            <span
+              className="font-display text-[17px] font-bold tracking-[0.22em] text-leaf"
+              style={{
+                fontFamily: "var(--font-cinzel)",
+                textShadow:
+                  "0 0 10px rgba(127,176,105,0.35), 0 1px 0 rgba(184,133,46,0.55), 0 2px 4px rgba(0,0,0,0.6)",
+              }}
+            >
+              GROWVERSE
+            </span>
+            <span className="mt-0.5 font-sans text-[9px] uppercase tracking-[0.35em] text-text-muted">
+              GC1
+            </span>
+          </div>
         </div>
 
         <div className="flex items-center gap-1">

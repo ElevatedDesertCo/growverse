@@ -6,14 +6,15 @@ import { useGameStore } from "@/lib/store";
 const TICK_MS = 500;
 
 /**
- * Mounts a single global setInterval that bumps `_tickAt` in the store
- * every 500ms. Time-aware components (DraggableBuilding) subscribe to
- * _tickAt so their render outputs refresh ~2/sec without owning their
- * own intervals. ResourceBar does NOT subscribe — it only re-renders
- * when resources actually change.
+ * Mounts the global tick interval AND triggers persist rehydration on
+ * first client render. We skipHydration in the store config so the SSR
+ * pass renders default state; this effect pulls the real save in.
  */
 export function TickMount() {
   useEffect(() => {
+    // Rehydrate from localStorage (client-only). No-op if already done.
+    useGameStore.persist?.rehydrate?.();
+
     // Fire an immediate tick so first render isn't stuck at _tickAt: 0.
     useGameStore.getState().tick();
     const id = setInterval(() => {
