@@ -12,6 +12,7 @@ import {
   Check,
 } from "lucide-react";
 import { useGameStore } from "@/lib/store";
+import { playSfx } from "@/lib/systems/audioSystem";
 
 type TabKey = "base" | "train" | "raid" | "heroes" | "pets";
 
@@ -92,7 +93,10 @@ export function BottomNav() {
         <div className="flex items-center gap-2">
           <button
             type="button"
-            onClick={toggleEditMode}
+            onClick={() => {
+              playSfx("buttonClick");
+              toggleEditMode();
+            }}
             aria-label={editMode ? "Done editing" : "Edit base"}
             className={`flex h-10 w-10 items-center justify-center rounded-full border transition-colors sm:h-11 sm:w-11 ${
               editMode
@@ -109,7 +113,10 @@ export function BottomNav() {
 
           <motion.button
             type="button"
-            onClick={() => openBuildMenu()}
+            onClick={() => {
+              playSfx("buttonClick");
+              openBuildMenu();
+            }}
             disabled={editMode}
             aria-label="Open build menu"
             animate={

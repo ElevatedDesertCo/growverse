@@ -2,7 +2,6 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
-import { useRef } from "react";
 import {
   BUILDINGS,
   BUILDING_TYPES,
@@ -13,6 +12,8 @@ import {
 import { Lock } from "lucide-react";
 import { RESOURCES } from "@/lib/data";
 import type { Resources } from "@/lib/systems/resourceSystem";
+import { playSfx } from "@/lib/systems/audioSystem";
+import { useRef, useState } from "react";
 import { AssetImage } from "./AssetImage";
 
 /** Display label for a resource field (canon short name). */
@@ -202,6 +203,12 @@ function BuildingCard({
   const commitDrag = useGameStore((s) => s.commitDrag);
   const cancelDrag = useGameStore((s) => s.cancelDrag);
   const draggingRef = useRef(false);
+  const [shakeKey, setShakeKey] = useState(0);
+
+  const triggerLockedShake = () => {
+    playSfx("locked");
+    setShakeKey((k) => k + 1);
+  };
 
   return (
     <motion.button
@@ -211,6 +218,16 @@ function BuildingCard({
       dragElastic={0}
       dragMomentum={false}
       whileDrag={{ scale: 1.05, opacity: 0.95, zIndex: 70 }}
+      animate={
+        shakeKey > 0
+          ? { x: [0, -6, 6, -4, 4, -2, 0] }
+          : undefined
+      }
+      transition={shakeKey > 0 ? { duration: 0.35 } : undefined}
+      onAnimationComplete={() => {
+        // Reset so a future shake replays the animation.
+        // Doesn't change `shakeKey > 0` until next render, which is fine.
+      }}
       onDragStart={() => {
         draggingRef.current = true;
         startPlaceDrag(type);
@@ -237,7 +254,12 @@ function BuildingCard({
           e.preventDefault();
           return;
         }
-        if (!tapDisabled) onTap();
+        if (tapDisabled) {
+          triggerLockedShake();
+          return;
+        }
+        playSfx("buttonClick");
+        onTap();
       }}
       aria-label={`Place ${def.name}`}
       className={`group relative flex flex-col items-center gap-2 rounded-xl border border-gold/20 bg-bg-mid/60 p-3 text-left transition select-none ${

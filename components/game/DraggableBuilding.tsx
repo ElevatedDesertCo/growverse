@@ -15,6 +15,7 @@ import {
   isReadyToHarvest,
   statAtLevel,
 } from "@/lib/economy";
+import { playSfx } from "@/lib/systems/audioSystem";
 import { BuildingTile } from "./BuildingTile";
 
 const LONG_PRESS_MS = 2500;
@@ -66,6 +67,17 @@ export function DraggableBuilding({
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [floaters, setFloaters] = useState<Floater[]>([]);
   const [particles, setParticles] = useState<Particle[]>([]);
+  const [upgradeGlowKey, setUpgradeGlowKey] = useState(0);
+  const prevLevelRef = useRef(building.level);
+
+  // Fire SFX + glow when this building's level increases.
+  useEffect(() => {
+    if (building.level > prevLevelRef.current) {
+      playSfx("upgradeComplete");
+      setUpgradeGlowKey((k) => k + 1);
+    }
+    prevLevelRef.current = building.level;
+  }, [building.level]);
 
   const startRef = useRef<{
     x: number;
@@ -210,15 +222,18 @@ export function DraggableBuilding({
         : 0;
       spawnFloater(yieldNow, collectColor);
       spawnParticles(collectColor);
+      playSfx("resourceCollect");
       harvest(building.id);
       return;
     }
     if (hasPassiveCollect && pendingFire >= 1) {
       spawnFloater(pendingFire, collectColor);
       spawnParticles(collectColor);
+      playSfx("resourceCollect");
       collectFire(building.id);
       return;
     }
+    playSfx("buttonClick");
     openUpgradeModal(building.id);
   };
 
@@ -294,6 +309,22 @@ export function DraggableBuilding({
       />
 
       {showRing && <LongPressRing progress={progress} color={def.color} />}
+
+      {/* Upgrade glow — flashes when building.level increases */}
+      {upgradeGlowKey > 0 && (
+        <motion.div
+          key={upgradeGlowKey}
+          initial={{ opacity: 0.85, scale: 0.6 }}
+          animate={{ opacity: 0, scale: 1.4 }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
+          className="pointer-events-none absolute inset-0 rounded-md"
+          style={{
+            background: `radial-gradient(circle, ${def.color}cc 0%, ${def.color}55 35%, transparent 70%)`,
+            boxShadow: `0 0 30px 6px ${def.color}88`,
+          }}
+          aria-hidden
+        />
+      )}
 
       {/* Floaters + particles — pointer-events-none overlay */}
       <div className="pointer-events-none absolute inset-0">

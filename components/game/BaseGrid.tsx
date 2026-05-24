@@ -1,14 +1,24 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { BUILDINGS, GRID_COLS, GRID_ROWS } from "@/lib/buildings";
 import {
   buildingAtCell,
   canPlace,
   registerGridElement,
   useGameStore,
+  type PlacedBuilding,
 } from "@/lib/store";
+import { playSfx } from "@/lib/systems/audioSystem";
 import { DraggableBuilding } from "./DraggableBuilding";
+
+interface DustBurst {
+  id: string;
+  x: number;
+  y: number;
+  color: string;
+}
 
 export function BaseGrid() {
   const buildings = useGameStore((s) => s.buildings);
@@ -27,6 +37,32 @@ export function BaseGrid() {
     registerGridElement(gridRef.current);
     return () => registerGridElement(null);
   }, []);
+
+  // ─── Placement dust + SFX on new building ──────────────────────────
+  const [dusts, setDusts] = useState<DustBurst[]>([]);
+  const prevIdsRef = useRef<Set<string>>(new Set(buildings.map((b) => b.id)));
+  useEffect(() => {
+    const prev = prevIdsRef.current;
+    const added: PlacedBuilding[] = [];
+    for (const b of buildings) {
+      if (!prev.has(b.id)) added.push(b);
+    }
+    if (added.length > 0) {
+      playSfx("buildPlaced");
+      const bursts = added.map((b) => ({
+        id: b.id,
+        x: b.x + BUILDINGS[b.type].size.w / 2,
+        y: b.y + BUILDINGS[b.type].size.h / 2,
+        color: BUILDINGS[b.type].color,
+      }));
+      setDusts((d) => [...d, ...bursts]);
+      const burstIds = new Set(bursts.map((bb) => bb.id));
+      setTimeout(() => {
+        setDusts((d) => d.filter((bb) => !burstIds.has(bb.id)));
+      }, 700);
+    }
+    prevIdsRef.current = new Set(buildings.map((b) => b.id));
+  }, [buildings]);
 
   const selectedBuilding = selectedPlacedId
     ? buildings.find((b) => b.id === selectedPlacedId)
@@ -190,7 +226,29 @@ export function BaseGrid() {
             </div>
           )}
 
-          {/* Layer 3 — drag-in-progress ghost preview */}
+          {/* Layer 3 — placement-dust bursts (just-placed buildings) */}
+          <AnimatePresence>
+            {dusts.map((d) => (
+              <motion.div
+                key={d.id}
+                initial={{ opacity: 0.85, scale: 0.4 }}
+                animate={{ opacity: 0, scale: 2 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.65, ease: "easeOut" }}
+                className="pointer-events-none rounded-full"
+                style={{
+                  gridColumn: `${Math.floor(d.x) + 1} / span 2`,
+                  gridRow: `${Math.floor(d.y) + 1} / span 2`,
+                  background: `radial-gradient(circle, ${d.color}dd 0%, ${d.color}55 35%, transparent 70%)`,
+                  alignSelf: "center",
+                  justifySelf: "center",
+                }}
+                aria-hidden
+              />
+            ))}
+          </AnimatePresence>
+
+          {/* Layer 4 — drag-in-progress ghost preview */}
           {previewCells.map((pc, i) => (
             <div
               key={`preview-${i}`}

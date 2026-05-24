@@ -15,6 +15,7 @@ import {
   type Resources,
 } from "@/lib/systems/resourceSystem";
 import { getUpgradeCost } from "@/lib/systems/upgradeSystem";
+import { playSfx } from "@/lib/systems/audioSystem";
 import { RESOURCES } from "@/lib/data";
 
 function labelFor(field: string): string {
@@ -78,7 +79,12 @@ export function UpgradeModal() {
               level={building.level}
               resources={resources}
               onClose={close}
-              onUpgrade={() => upgrade(building.id)}
+              onUpgrade={() => {
+                playSfx("buttonClick");
+                upgrade(building.id);
+                // upgradeComplete SFX fires automatically inside
+                // DraggableBuilding when its level changes — no double-play.
+              }}
             />
           </motion.div>
         </>
