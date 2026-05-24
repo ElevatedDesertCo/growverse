@@ -171,6 +171,23 @@ export function BaseGrid() {
             );
           })}
 
+          {/* First-run empty-state hint */}
+          {buildings.length === 0 && !buildMenuOpen && (
+            <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center">
+              <p
+                className="font-display text-xs font-semibold uppercase tracking-[0.32em] text-gold/80"
+                style={{ fontFamily: "var(--font-cinzel)" }}
+              >
+                Your Realm Awaits
+              </p>
+              <p className="mt-2 max-w-[16rem] px-4 text-[11px] leading-snug text-text-muted">
+                Tap{" "}
+                <span className="font-bold text-gold">BUILD</span>{" "}
+                below to place your first Grow Tent.
+              </p>
+            </div>
+          )}
+
           {/* Layer 3 — drag-in-progress ghost preview */}
           {previewCells.map((pc, i) => (
             <div

@@ -36,6 +36,13 @@ interface Floater {
   color: string;
 }
 
+interface Particle {
+  id: string;
+  dx: number;
+  dy: number;
+  color: string;
+}
+
 export function DraggableBuilding({
   building,
   isTapSelected,
@@ -58,6 +65,7 @@ export function DraggableBuilding({
   const [progress, setProgress] = useState(0);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [floaters, setFloaters] = useState<Floater[]>([]);
+  const [particles, setParticles] = useState<Particle[]>([]);
 
   const startRef = useRef<{
     x: number;
@@ -100,10 +108,23 @@ export function DraggableBuilding({
   const spawnFloater = (amount: number, color: string) => {
     const id = crypto.randomUUID();
     setFloaters((prev) => [...prev, { id, amount, color }]);
-    // Self-destruct after the exit animation completes.
     setTimeout(() => {
       setFloaters((prev) => prev.filter((f) => f.id !== id));
     }, 1100);
+  };
+
+  const spawnParticles = (color: string) => {
+    const burst: Particle[] = Array.from({ length: 5 }, () => ({
+      id: crypto.randomUUID(),
+      dx: (Math.random() - 0.5) * 50,
+      dy: -(20 + Math.random() * 30),
+      color,
+    }));
+    setParticles((prev) => [...prev, ...burst]);
+    setTimeout(() => {
+      const ids = new Set(burst.map((b) => b.id));
+      setParticles((prev) => prev.filter((p) => !ids.has(p.id)));
+    }, 750);
   };
 
   // ─── Long-press / drag state machine ─────────────────────────────────
@@ -177,11 +198,13 @@ export function DraggableBuilding({
         ? intStatAtLevel(def.harvestYield, building.level)
         : 0;
       spawnFloater(yieldNow, def.color);
+      spawnParticles(def.color);
       harvest(building.id);
       return;
     }
     if (isAmberForge && pendingFire >= 1) {
       spawnFloater(pendingFire, "#e8964c");
+      spawnParticles("#e8964c");
       collectFire(building.id);
       return;
     }
@@ -261,7 +284,7 @@ export function DraggableBuilding({
 
       {showRing && <LongPressRing progress={progress} color={def.color} />}
 
-      {/* Floaters — render on top of everything, pointer-events-none */}
+      {/* Floaters + particles — pointer-events-none overlay */}
       <div className="pointer-events-none absolute inset-0">
         <AnimatePresence>
           {floaters.map((f) => (
@@ -280,6 +303,20 @@ export function DraggableBuilding({
             >
               +{f.amount}
             </motion.div>
+          ))}
+          {particles.map((p) => (
+            <motion.span
+              key={p.id}
+              initial={{ opacity: 1, x: 0, y: 0, scale: 1 }}
+              animate={{ opacity: 0, x: p.dx, y: p.dy, scale: 0.6 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.65, ease: "easeOut" }}
+              className="absolute left-1/2 top-1/2 h-1.5 w-1.5 -translate-x-1/2 -translate-y-1/2 rounded-full"
+              style={{
+                backgroundColor: p.color,
+                boxShadow: `0 0 6px ${p.color}`,
+              }}
+            />
           ))}
         </AnimatePresence>
       </div>

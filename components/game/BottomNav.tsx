@@ -1,5 +1,6 @@
 "use client";
 
+import { motion } from "framer-motion";
 import {
   Home,
   Swords,
@@ -10,6 +11,7 @@ import {
   Hammer,
   Check,
 } from "lucide-react";
+import { BUILDINGS } from "@/lib/buildings";
 import { useGameStore } from "@/lib/store";
 
 type TabKey = "base" | "train" | "raid" | "heroes" | "pets";
@@ -34,6 +36,15 @@ export function BottomNav() {
   const editMode = useGameStore((s) => s.editMode);
   const toggleEditMode = useGameStore((s) => s.toggleEditMode);
   const openBuildMenu = useGameStore((s) => s.openBuildMenu);
+  const hasBuildings = useGameStore((s) => s.buildings.length > 0);
+  const leaf = useGameStore((s) => s.resources.leaf);
+
+  // First-run hook: pulse the Build button if the player has 0 buildings
+  // and can afford at least one. Stops as soon as anything is placed.
+  const cheapestBuild = Math.min(
+    ...Object.values(BUILDINGS).map((d) => d.baseCost),
+  );
+  const shouldPulseBuild = !hasBuildings && !editMode && leaf >= cheapestBuild;
 
   const handleTap = (key: TabKey) => {
     if (key === ACTIVE) return;
@@ -101,18 +112,35 @@ export function BottomNav() {
             )}
           </button>
 
-          <button
+          <motion.button
             type="button"
             onClick={() => openBuildMenu()}
             disabled={editMode}
             aria-label="Open build menu"
+            animate={
+              shouldPulseBuild
+                ? {
+                    scale: [1, 1.06, 1],
+                    boxShadow: [
+                      "0 4px 18px -6px rgba(212,160,74,0.6)",
+                      "0 6px 28px -4px rgba(212,160,74,0.9)",
+                      "0 4px 18px -6px rgba(212,160,74,0.6)",
+                    ],
+                  }
+                : { scale: 1 }
+            }
+            transition={
+              shouldPulseBuild
+                ? { duration: 1.4, repeat: Infinity, ease: "easeInOut" }
+                : { duration: 0.2 }
+            }
             className="inline-flex h-10 items-center gap-1.5 rounded-full bg-gold px-3 text-bg-deep shadow-[0_4px_18px_-6px_rgba(212,160,74,0.6)] transition-colors hover:bg-gold-dark disabled:cursor-not-allowed disabled:bg-gold-muted disabled:text-bg-deep/60 disabled:shadow-none sm:h-11 sm:px-4"
           >
             <Hammer className="h-4 w-4 sm:h-5 sm:w-5" strokeWidth={2.25} />
             <span className="font-sans text-xs font-bold uppercase tracking-[0.18em] sm:text-sm">
               Build
             </span>
-          </button>
+          </motion.button>
         </div>
       </div>
     </nav>
