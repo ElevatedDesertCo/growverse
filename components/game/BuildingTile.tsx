@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { BUILDINGS } from "@/lib/buildings";
 import type { PlacedBuilding } from "@/lib/store";
 import { AssetImage } from "./AssetImage";
+import { ActionIcon } from "./ActionIcon";
 
 interface Props {
   building: PlacedBuilding;
@@ -62,13 +63,48 @@ export function BuildingTile({
           <ProgressRing progress={growProgress} ready={!!isReady} />
         )}
 
-        {/* Amber Forge pending Fire badge */}
+        {/* Amber Forge pending Fire badge — number pill, with optional
+            painted Collect icon next to it once the asset ships. */}
         {showFireBadge && (
-          <span
-            className="absolute -top-1 -right-1 inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full border border-black/40 bg-fire px-1 text-[10px] font-bold leading-none text-bg-deep shadow"
-          >
-            {pendingFire}
-          </span>
+          <div className="absolute -top-1 -right-1 flex items-center gap-0.5">
+            <ActionIcon
+              assetId="ui.actionCollect"
+              alt="Ready to collect"
+              size={18}
+              className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]"
+            />
+            <span
+              className="inline-flex h-5 min-w-[1.25rem] items-center justify-center rounded-full border border-black/40 bg-fire px-1 text-[10px] font-bold leading-none text-bg-deep shadow"
+            >
+              {pendingFire}
+            </span>
+          </div>
+        )}
+
+        {/* Grow Tent ready-to-harvest tag — painted Collect badge if art
+            has shipped (the pulse on isReady stays from the parent). */}
+        {isGrowTent && isReady && (
+          <div className="pointer-events-none absolute -top-1 -right-1">
+            <ActionIcon
+              assetId="ui.actionCollect"
+              alt="Ready to harvest"
+              size={20}
+              className="drop-shadow-[0_1px_2px_rgba(0,0,0,0.7)]"
+            />
+          </div>
+        )}
+
+        {/* Grow Tent in-progress — painted Timer glyph centered while
+            growing. Renders nothing until the painted asset ships. */}
+        {isGrowTent && !isReady && growProgress !== undefined && growProgress < 1 && (
+          <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+            <ActionIcon
+              assetId="ui.actionTimer"
+              alt="Growing"
+              size={28}
+              className="opacity-90 drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]"
+            />
+          </div>
         )}
 
         {/* Level badge */}

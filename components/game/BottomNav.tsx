@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useGameStore } from "@/lib/store";
 import { playSfx } from "@/lib/systems/audioSystem";
+import { ActionIcon } from "./ActionIcon";
 
 type TabKey = "base" | "train" | "raid" | "heroes" | "pets";
 
@@ -107,7 +108,14 @@ export function BottomNav() {
             {editMode ? (
               <Check className="h-4 w-4 sm:h-5 sm:w-5" strokeWidth={2.5} />
             ) : (
-              <Pencil className="h-4 w-4 sm:h-5 sm:w-5" strokeWidth={2} />
+              <ActionIcon
+                assetId="ui.actionMove"
+                alt="Edit base"
+                fallback={Pencil}
+                size={20}
+                className="h-4 w-4 sm:h-5 sm:w-5"
+                strokeWidth={2}
+              />
             )}
           </button>
 
@@ -138,7 +146,14 @@ export function BottomNav() {
             }
             className="inline-flex h-10 items-center gap-1.5 rounded-full bg-gold px-3 text-bg-deep shadow-[0_4px_18px_-6px_rgba(212,160,74,0.6)] transition-colors hover:bg-gold-dark disabled:cursor-not-allowed disabled:bg-gold-muted disabled:text-bg-deep/60 disabled:shadow-none sm:h-11 sm:px-4"
           >
-            <Hammer className="h-4 w-4 sm:h-5 sm:w-5" strokeWidth={2.25} />
+            <ActionIcon
+              assetId="ui.actionBuild"
+              alt="Build"
+              fallback={Hammer}
+              size={20}
+              className="h-4 w-4 sm:h-5 sm:w-5"
+              strokeWidth={2.25}
+            />
             <span className="font-sans text-xs font-bold uppercase tracking-[0.18em] sm:text-sm">
               Build
             </span>

@@ -2,7 +2,8 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { AssetImage } from "./AssetImage";
-import { X, ArrowRight } from "lucide-react";
+import { ActionIcon } from "./ActionIcon";
+import { ArrowUp, X, ArrowRight } from "lucide-react";
 import { BUILDINGS, type ResourceCost } from "@/lib/buildings";
 import {
   intStatAtLevel,
@@ -205,6 +206,14 @@ function UpgradePanel({
             disabled={!afford}
             className="flex w-full items-center justify-center gap-2 rounded-full bg-gold py-3 font-display text-sm font-bold uppercase tracking-[0.18em] text-bg-deep shadow-[0_4px_18px_-6px_rgba(212,160,74,0.6)] transition-colors hover:bg-gold-dark active:bg-gold-dark disabled:cursor-not-allowed disabled:bg-gold-muted disabled:text-bg-deep/60 disabled:shadow-none"
           >
+            <ActionIcon
+              assetId="ui.actionUpgrade"
+              alt="Upgrade"
+              fallback={ArrowUp}
+              size={18}
+              className="h-4 w-4"
+              strokeWidth={2.5}
+            />
             {afford ? `Upgrade to Level ${level + 1}` : "Not enough resources"}
           </button>
         )}
