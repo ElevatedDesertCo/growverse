@@ -289,7 +289,7 @@ export function DraggableBuilding({
       onPointerCancel={onPointerCancel}
       onContextMenu={(e) => e.preventDefault()}
       aria-label={`${def.name} at ${building.x + 1},${building.y + 1}`}
-      className={`group relative cursor-pointer rounded-md transition-shadow ${
+      className={`group relative z-[3] cursor-pointer rounded-md transition-shadow ${
         phase === "dragging" ? "z-50" : ""
       } ${
         isTapSelected

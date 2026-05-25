@@ -12,6 +12,32 @@ import {
 } from "@/lib/store";
 import { playSfx } from "@/lib/systems/audioSystem";
 import { DraggableBuilding } from "./DraggableBuilding";
+import { AssetImage } from "./AssetImage";
+
+// Decor refs used for ambient scenery on empty cells. All cropped to
+// their In-Game panel via the manifest, so they render cleanly small.
+const DECOR_REFS = [
+  "decor.cactus",
+  "decor.shrub",
+  "decor.rocks",
+  "decor.relic",
+  "decor.lantern",
+  "decor.logSeat",
+  "decor.brokenRelic",
+] as const;
+
+/**
+ * Deterministic per-cell decor picker. Same seed → same scenery across
+ * renders so the base feels persistent, no flicker when state changes.
+ * Returns null for ~85% of cells (sparse scatter).
+ */
+function decorAt(x: number, y: number): string | null {
+  const hash = Math.abs(Math.sin(x * 73.13 + y * 37.71));
+  if (hash < 0.86) return null;
+  const pickHash = Math.abs(Math.sin(x * 17.11 + y * 91.37));
+  const idx = Math.floor(pickHash * DECOR_REFS.length) % DECOR_REFS.length;
+  return DECOR_REFS[idx];
+}
 
 interface DustBurst {
   id: string;
@@ -149,6 +175,73 @@ export function BaseGrid() {
             gridTemplateRows: `repeat(${GRID_ROWS}, minmax(0, 1fr))`,
           }}
         >
+          {/* Layer 0a — desert ground backdrop. Sits behind the grid
+              cells so the warm sand color shows through transparent
+              empty cells. */}
+          <div className="pointer-events-none absolute inset-0 z-0">
+            <AssetImage
+              assetId="terrain.desertGround"
+              alt=""
+              fill
+              className="h-full w-full opacity-95"
+              notDraggable
+            />
+          </div>
+
+          {/* Layer 0b — foundation tile under each placed building's
+              footprint. Renders under the building art so it reads as
+              a recessed stone plinth. */}
+          {buildings.map((b) => {
+            const size = BUILDINGS[b.type].size;
+            return (
+              <div
+                key={`fnd-${b.id}`}
+                className="pointer-events-none relative z-[1]"
+                style={{
+                  gridColumn: `${b.x + 1} / span ${size.w}`,
+                  gridRow: `${b.y + 1} / span ${size.h}`,
+                }}
+              >
+                <AssetImage
+                  assetId="terrain.foundationTile"
+                  alt=""
+                  fill
+                  className="h-full w-full opacity-90"
+                  notDraggable
+                />
+              </div>
+            );
+          })}
+
+          {/* Layer 0c — decor scatter on empty cells. Deterministic per
+              cell; pointer-events-none so clicks pass through to the
+              cell button beneath. */}
+          {Array.from({ length: GRID_ROWS * GRID_COLS }).map((_, i) => {
+            const x = i % GRID_COLS;
+            const y = Math.floor(i / GRID_COLS);
+            if (buildingAtCell(x, y, buildings)) return null;
+            const ref = decorAt(x, y);
+            if (!ref) return null;
+            return (
+              <div
+                key={`decor-${x}-${y}`}
+                className="pointer-events-none relative z-[1]"
+                style={{
+                  gridColumn: `${x + 1} / span 1`,
+                  gridRow: `${y + 1} / span 1`,
+                }}
+              >
+                <AssetImage
+                  assetId={ref}
+                  alt=""
+                  fill
+                  className="h-full w-full opacity-90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.45)]"
+                  notDraggable
+                />
+              </div>
+            );
+          })}
+
           {/* Layer 1 — empty-cell interactive grid */}
           {Array.from({ length: GRID_ROWS * GRID_COLS }).map((_, i) => {
             const x = i % GRID_COLS;
@@ -180,14 +273,14 @@ export function BaseGrid() {
                     ? `${BUILDINGS[occupant.type].name} cell ${x + 1},${y + 1}`
                     : `Empty cell ${x + 1},${y + 1}`
                 }
-                className={`aspect-square border transition-colors ${
+                className={`relative z-[2] aspect-square border transition-colors ${
                   occupant
                     ? "pointer-events-none border-transparent bg-transparent"
                     : isAwaitingCellPick
                       ? "animate-pulse border-gold/50 bg-gold/10 hover:bg-gold/20"
                       : isMoveTarget
                         ? "border-gold/40 bg-gold/10 hover:bg-gold/15"
-                        : "border-gold-muted/15 bg-bg-deep/40"
+                        : "border-gold-muted/15 bg-transparent hover:bg-bg-deep/20"
                 }`}
               />
             );

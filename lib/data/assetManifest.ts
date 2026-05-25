@@ -264,6 +264,76 @@ export const SPIRIT_PET_ASSETS = {
   },
 } satisfies Record<string, AssetEntry>;
 
+// ─── Terrain (ground texture, grid overlay, foundation tile) ───────
+// Single source PNG ground-grid-foundation-set.png contains three
+// labeled panels arranged horizontally. Each entry below crops to one
+// of them. To upgrade later, drop isolated PNGs and clear the focus.
+const TERRAIN_PANEL_W = 0.24;
+const TERRAIN_PANEL_H = 0.56;
+const TERRAIN_PANEL_Y = 0.17;
+export const TERRAIN_ASSETS = {
+  desertGround: {
+    path: "/terrain/ground-grid-foundation-set.png",
+    status: "generated",
+    notes: "Cropped from terrain set sheet — left panel (desert ground texture).",
+    focus: { x: 0.06, y: TERRAIN_PANEL_Y, w: TERRAIN_PANEL_W, h: TERRAIN_PANEL_H },
+  },
+  placementGrid: {
+    path: "/terrain/ground-grid-foundation-set.png",
+    status: "generated",
+    notes: "Cropped from terrain set sheet — middle panel (grid overlay).",
+    focus: { x: 0.38, y: TERRAIN_PANEL_Y, w: TERRAIN_PANEL_W, h: TERRAIN_PANEL_H },
+  },
+  foundationTile: {
+    path: "/terrain/ground-grid-foundation-set.png",
+    status: "generated",
+    notes: "Cropped from terrain set sheet — right panel (cracked stone foundation).",
+    focus: { x: 0.70, y: TERRAIN_PANEL_Y, w: TERRAIN_PANEL_W, h: TERRAIN_PANEL_H },
+  },
+} satisfies Record<string, AssetEntry>;
+
+// ─── Decor props (ambient scenery on empty cells) ──────────────────
+// Each prop PNG is a 3-panel sheet; SHEET_FOCUS crops to the In-Game
+// view. A single canonical environment-props-set.png also exists for
+// reference but the per-prop sheets render cleaner.
+export const DECOR_ASSETS = {
+  cactus: {
+    path: "/decor/cactus-cluster.png",
+    status: "generated",
+    focus: SHEET_FOCUS,
+  },
+  shrub: {
+    path: "/decor/dead-shrub.png",
+    status: "generated",
+    focus: SHEET_FOCUS,
+  },
+  rocks: {
+    path: "/decor/sunbaked-rocks.png",
+    status: "generated",
+    focus: SHEET_FOCUS,
+  },
+  relic: {
+    path: "/decor/relic-debris.png",
+    status: "generated",
+    focus: SHEET_FOCUS,
+  },
+  lantern: {
+    path: "/decor/lantern-banner.png",
+    status: "generated",
+    focus: SHEET_FOCUS,
+  },
+  logSeat: {
+    path: "/decor/small-log-seat.png",
+    status: "generated",
+    focus: SHEET_FOCUS,
+  },
+  brokenRelic: {
+    path: "/decor/broken-irrigation-relic.png",
+    status: "generated",
+    focus: SHEET_FOCUS,
+  },
+} satisfies Record<string, AssetEntry>;
+
 // ─── Brand / backgrounds ────────────────────────────────────────────
 export const BACKGROUND_ASSETS = {
   splash: {
@@ -282,6 +352,8 @@ export const UI_ASSETS = {
   resourceBarFrame: {
     path: "/ui/resource-bar-frame.png",
     status: "generated",
+    notes: "Painted stone frame w/ gem caps + baked-in panels. Crop boxes in the bar art (PNG has paper-texture margins + label).",
+    focus: { x: 0.06, y: 0.30, w: 0.88, h: 0.30 },
   },
   resourceBarFrameVariants: {
     path: "/ui/resource-bar-frame-variants.png",
@@ -411,6 +483,8 @@ export type AssetCategory =
   | "character"
   | "spiritPet"
   | "background"
+  | "terrain"
+  | "decor"
   | "ui"
   | "vfx"
   | "sfx"
@@ -423,6 +497,8 @@ const SECTIONS: Record<AssetCategory, Record<string, AssetEntry>> = {
   character: CHARACTER_ASSETS,
   spiritPet: SPIRIT_PET_ASSETS,
   background: BACKGROUND_ASSETS,
+  terrain: TERRAIN_ASSETS,
+  decor: DECOR_ASSETS,
   ui: UI_ASSETS,
   vfx: VFX_ASSETS,
   sfx: SFX_ASSETS,
