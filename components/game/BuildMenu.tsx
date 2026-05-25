@@ -13,6 +13,7 @@ import { Lock } from "lucide-react";
 import { RESOURCES } from "@/lib/data";
 import type { Resources } from "@/lib/systems/resourceSystem";
 import { playSfx } from "@/lib/systems/audioSystem";
+import { pushToast } from "@/lib/systems/toastSystem";
 import { useRef, useState } from "react";
 import { AssetImage } from "./AssetImage";
 
@@ -208,6 +209,13 @@ function BuildingCard({
   const triggerLockedShake = () => {
     playSfx("locked");
     setShakeKey((k) => k + 1);
+    if (reason) {
+      pushToast({
+        kind: "error",
+        title: "Can't place",
+        body: `${def.name}: ${reason}`,
+      });
+    }
   };
 
   return (

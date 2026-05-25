@@ -23,6 +23,7 @@ import {
 } from "./systems/resourceSystem";
 import { getTotalStorageBonus } from "./systems/buildingSystem";
 import { getUpgradeCost } from "./systems/upgradeSystem";
+import { pushToast } from "./systems/toastSystem";
 
 /**
  * SAVE_KEY is fixed (no version suffix) so zustand-persist can find the
@@ -263,6 +264,12 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
       buildMenuOpen: false,
       selectedCell: null,
     }));
+    pushToast({
+      kind: "success",
+      title: "Placed",
+      body: def.name,
+      accent: def.color,
+    });
   },
 
   placeBuildingAt: (type, x, y) => {
@@ -275,6 +282,12 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
       buildings: [...s.buildings, createPlacedBuilding(type, x, y)],
       resources: spendResources(s.resources, cost),
     }));
+    pushToast({
+      kind: "success",
+      title: "Placed",
+      body: def.name,
+      accent: def.color,
+    });
     return true;
   },
 
@@ -333,6 +346,12 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
             buildMenuOpen: false,
             selectedCell: null,
           }));
+          pushToast({
+            kind: "success",
+            title: "Placed",
+            body: def.name,
+            accent: def.color,
+          });
           success = true;
         }
       } else if (ds.kind === "move") {
@@ -430,12 +449,19 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     const cost = getUpgradeCost(b.type, b.level);
     if (!cost) return;
     if (!canAffordCost(state.resources, cost)) return;
+    const nextLevel = b.level + 1;
     set((s) => ({
       buildings: s.buildings.map((x) =>
-        x.id === id ? { ...x, level: x.level + 1 } : x,
+        x.id === id ? { ...x, level: nextLevel } : x,
       ),
       resources: spendResources(s.resources, cost),
     }));
+    pushToast({
+      kind: "success",
+      title: "Upgraded",
+      body: `${def.name} → Lv ${nextLevel}`,
+      accent: def.color,
+    });
   },
 
   tick: () => set({ _tickAt: Date.now() }),

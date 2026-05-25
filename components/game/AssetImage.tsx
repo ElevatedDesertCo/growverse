@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import type { CSSProperties } from "react";
 import { getAsset } from "@/lib/data/assetManifest";
 
 interface Props {
@@ -94,21 +95,29 @@ export function AssetImage({
     .toUpperCase();
 
   const bg = placeholderColor ?? "#3a2d1f";
-  const ringColor = `${bg}aa`;
+  // Two-stop gradient with a soft highlight at the top for depth, plus a
+  // thin inner ring and a subtle outer halo so placeholders read as proper
+  // crests rather than flat swatches.
+  const placeholderStyle: CSSProperties = {
+    background: `radial-gradient(circle at 50% 28%, ${bg}f2 0%, ${bg}88 55%, ${bg}33 90%)`,
+    boxShadow: `inset 0 1px 0 rgba(255,255,255,0.18), inset 0 0 0 1px ${bg}cc, 0 0 12px -4px ${bg}66`,
+  };
+  const labelClass =
+    "font-display font-bold leading-none tracking-wider text-bg-deep/95";
+  const labelShadow = {
+    textShadow: "0 1px 0 rgba(255,255,255,0.25), 0 1px 3px rgba(0,0,0,0.35)",
+  } as CSSProperties;
 
   if (fill) {
     return (
       <div
-        className={`flex h-full w-full flex-col items-center justify-center rounded-md ${className}`}
+        className={`relative flex h-full w-full flex-col items-center justify-center rounded-md ${className}`}
         aria-label={alt}
-        style={{
-          background: `radial-gradient(circle at 50% 35%, ${bg}cc, ${bg}55 70%, ${bg}22)`,
-          boxShadow: `inset 0 0 0 1px ${ringColor}`,
-        }}
+        style={placeholderStyle}
       >
         <span
-          className="font-display text-lg font-bold leading-none tracking-wider text-bg-deep/90"
-          style={{ fontFamily: "var(--font-cinzel)" }}
+          className={`${labelClass} text-lg`}
+          style={{ fontFamily: "var(--font-cinzel)", ...labelShadow }}
         >
           {initials}
         </span>
@@ -119,18 +128,13 @@ export function AssetImage({
   const dimH = height ?? 64;
   return (
     <div
-      className={`flex flex-col items-center justify-center rounded-md ${className}`}
-      style={{
-        width: dimW,
-        height: dimH,
-        background: `radial-gradient(circle at 50% 35%, ${bg}cc, ${bg}55 70%, ${bg}22)`,
-        boxShadow: `inset 0 0 0 1px ${ringColor}`,
-      }}
+      className={`relative flex flex-col items-center justify-center rounded-md ${className}`}
+      style={{ width: dimW, height: dimH, ...placeholderStyle }}
       aria-label={alt}
     >
       <span
-        className="font-display text-sm font-bold leading-none tracking-wider text-bg-deep/90"
-        style={{ fontFamily: "var(--font-cinzel)" }}
+        className={`${labelClass} text-sm`}
+        style={{ fontFamily: "var(--font-cinzel)", ...labelShadow }}
       >
         {initials}
       </span>

@@ -212,21 +212,37 @@ export function BaseGrid() {
 
           {/* First-run empty-state hint */}
           {buildings.length === 0 && !buildMenuOpen && (
-            <div className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center">
-              <p
-                className="font-display text-xs font-semibold uppercase tracking-[0.32em] text-gold/80"
-                style={{ fontFamily: "var(--font-cinzel)" }}
-              >
-                Your Realm Awaits
-              </p>
-              <p className="mt-2 max-w-[18rem] px-4 text-[11px] leading-snug text-text-muted">
-                Tap{" "}
-                <span className="font-bold text-gold">BUILD</span>{" "}
-                below and place your{" "}
-                <span className="font-bold text-gold">Guild Core</span> to
-                begin. Upgrade it to unlock more buildings.
-              </p>
-            </div>
+            <motion.div
+              initial={{ opacity: 0, y: 4 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
+              className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center"
+            >
+              {/* Soft aura behind the card */}
+              <div
+                className="absolute h-48 w-48 rounded-full opacity-60"
+                style={{
+                  background:
+                    "radial-gradient(circle, rgba(212,160,74,0.18) 0%, rgba(212,160,74,0) 70%)",
+                }}
+                aria-hidden
+              />
+              <div className="relative flex max-w-[20rem] flex-col items-center gap-2 rounded-2xl border border-gold/25 bg-bg-deep/70 px-5 py-4 shadow-[0_8px_28px_-12px_rgba(0,0,0,0.7)] backdrop-blur-sm">
+                <p
+                  className="font-display text-xs font-semibold uppercase tracking-[0.32em] text-gold"
+                  style={{ fontFamily: "var(--font-cinzel)" }}
+                >
+                  Your Realm Awaits
+                </p>
+                <p className="text-[11px] leading-snug text-text-muted">
+                  Tap{" "}
+                  <span className="font-bold text-gold">BUILD</span>{" "}
+                  below and place your{" "}
+                  <span className="font-bold text-gold">Guild Core</span> to
+                  begin. Upgrade it to unlock more buildings.
+                </p>
+              </div>
+            </motion.div>
           )}
 
           {/* Layer 3 — placement-dust bursts (just-placed buildings) */}
