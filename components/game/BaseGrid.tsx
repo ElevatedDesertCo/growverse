@@ -12,55 +12,28 @@ import {
   type PlacedBuilding,
 } from "@/lib/store";
 import { playSfx } from "@/lib/systems/audioSystem";
+import { pushToast } from "@/lib/systems/toastSystem";
+import { DECOR_DEFS, type DecorItem } from "@/lib/store";
 import { DraggableBuilding } from "./DraggableBuilding";
 import { AssetImage } from "./AssetImage";
 
-// Decor refs used for ambient scenery on empty cells. All cropped to
-// their In-Game panel via the manifest, so they render cleanly small.
-const DECOR_REFS = [
-  "decor.cactus",
-  "decor.shrub",
-  "decor.rocks",
-  "decor.relic",
-  "decor.lantern",
-  "decor.logSeat",
-  "decor.brokenRelic",
-] as const;
-
-/**
- * Standard GLSL-style 2D pseudorandom hash. Uniform in [0, 1).
- * The fract(sin·43758) trick scrambles the row/col periodicity that
- * plain |sin(ax+by)| introduces (columns of decor showing up in a
- * line). Same input → same output, so scenery is persistent.
- */
-function rand2d(x: number, y: number): number {
-  const s = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
-  return s - Math.floor(s);
+/** Map a decor item type → manifest assetId. */
+function decorAssetId(type: DecorItem["type"]): string {
+  return type === "cactus" ? "decor.cactus" : "decor.shrub";
 }
-
-/**
- * Decor scatter is currently DISABLED. Every decor reference PNG is a
- * 3-panel sheet whose In-Game panel has its own beige rounded-rectangle
- * background — when cropped and rendered as a per-cell sprite, those
- * panel backgrounds read as "white rectangles" littering the playfield.
- * The desert ground backdrop already includes painted rocks + grass, so
- * the base reads as alive without per-cell decor.
- *
- * To re-enable later, point this at isolated transparent-PNG props
- * (no sheet/panel chrome) and adjust threshold.
- */
-function decorAt(): string | null {
-  return null;
-}
-// Reference the constant so the import doesn't lint as unused while
-// we keep the manifest entries warm for the eventual isolated-PNG drop.
-void DECOR_REFS;
-void rand2d;
 
 interface DustBurst {
   id: string;
   x: number;
   y: number;
+  color: string;
+}
+
+interface DecorFloater {
+  id: string;
+  x: number;
+  y: number;
+  amount: number;
   color: string;
 }
 
@@ -75,12 +48,54 @@ export function BaseGrid() {
   const openBuildMenu = useGameStore((s) => s.openBuildMenu);
   const selectPlacedBuilding = useGameStore((s) => s.selectPlacedBuilding);
   const moveBuilding = useGameStore((s) => s.moveBuilding);
+  const decor = useGameStore((s) => s.decor);
+  const clearDecor = useGameStore((s) => s.clearDecor);
 
   const gridRef = useRef<HTMLDivElement | null>(null);
   useEffect(() => {
     registerGridElement(gridRef.current);
     return () => registerGridElement(null);
   }, []);
+
+  // ─── Decor clear: animate fade-out + spawn floater + toast ─────────
+  const [clearingDecor, setClearingDecor] = useState<Set<string>>(new Set());
+  const [decorFloaters, setDecorFloaters] = useState<DecorFloater[]>([]);
+  const floaterCounter = useRef(0);
+  const handleDecorTap = (d: DecorItem) => {
+    if (clearingDecor.has(d.id)) return;
+    const def = DECOR_DEFS[d.type];
+    setClearingDecor((s) => {
+      const next = new Set(s);
+      next.add(d.id);
+      return next;
+    });
+    floaterCounter.current += 1;
+    const floaterId = `df_${d.id}_${floaterCounter.current}`;
+    setDecorFloaters((prev) => [
+      ...prev,
+      { id: floaterId, x: d.x, y: d.y, amount: def.reward, color: def.color },
+    ]);
+    playSfx("resourceCollect");
+    pushToast({
+      kind: "success",
+      title: "Cleared",
+      body: `${d.type === "cactus" ? "Cactus" : "Dead shrub"} · +${def.reward} Bloom`,
+      accent: def.color,
+    });
+    // Hold the visual for the fade animation, then commit to store.
+    window.setTimeout(() => {
+      clearDecor(d.id);
+      setClearingDecor((s) => {
+        const next = new Set(s);
+        next.delete(d.id);
+        return next;
+      });
+    }, 380);
+    // Remove the floater after its animation completes.
+    window.setTimeout(() => {
+      setDecorFloaters((prev) => prev.filter((f) => f.id !== floaterId));
+    }, 1300);
+  };
 
   // ─── Placement dust + SFX on new building ──────────────────────────
   const [dusts, setDusts] = useState<DustBurst[]>([]);
@@ -239,32 +254,45 @@ export function BaseGrid() {
             );
           })}
 
-          {/* Layer 0c — decor scatter on empty cells. Deterministic per
-              cell; pointer-events-none so clicks pass through to the
-              cell button beneath. */}
-          {Array.from({ length: GRID_ROWS * GRID_COLS }).map((_, i) => {
-            const x = i % GRID_COLS;
-            const y = Math.floor(i / GRID_COLS);
-            if (buildingAtCell(x, y, buildings)) return null;
-            const ref = decorAt();
-            if (!ref) return null;
+          {/* Layer 0c — clearable decor (cactus + dead shrub). Items
+              come from the persisted store so positions are stable.
+              Clicking awards Bloom Essence + plays a particle floater.
+              Skip any item that's been overplanted by a building. */}
+          {decor.map((d) => {
+            if (buildingAtCell(d.x, d.y, buildings)) return null;
+            const def = DECOR_DEFS[d.type];
+            const isClearing = clearingDecor.has(d.id);
             return (
-              <div
-                key={`decor-${x}-${y}`}
-                className="pointer-events-none relative z-[1]"
+              <motion.button
+                key={d.id}
+                type="button"
+                animate={
+                  isClearing
+                    ? { opacity: 0, scale: 0.6, y: -8 }
+                    : { opacity: 1, scale: 1, y: 0 }
+                }
+                transition={{ duration: 0.45, ease: "easeOut" }}
+                onClick={() => handleDecorTap(d)}
+                aria-label={`Clear ${d.type} for ${def.reward} Bloom Essence`}
+                className="group relative z-[2] cursor-pointer transition-transform hover:scale-[1.12] hover:drop-shadow-[0_0_6px_rgba(127,176,105,0.6)]"
                 style={{
-                  gridColumn: `${x + 1} / span 1`,
-                  gridRow: `${y + 1} / span 1`,
+                  gridColumn: `${d.x + 1} / span 1`,
+                  gridRow: `${d.y + 1} / span 1`,
+                  // Multiply blend collapses the beige In-Game panel
+                  // background of each decor sheet into the desert sand
+                  // (similar tones), leaving the prop silhouette to read
+                  // cleanly without an obvious rectangle border.
+                  mixBlendMode: "multiply",
                 }}
               >
                 <AssetImage
-                  assetId={ref}
+                  assetId={decorAssetId(d.type)}
                   alt=""
                   fill
-                  className="h-full w-full opacity-90 drop-shadow-[0_1px_2px_rgba(0,0,0,0.45)]"
+                  className="h-full w-full"
                   notDraggable
                 />
-              </div>
+              </motion.button>
             );
           })}
 
@@ -398,6 +426,41 @@ export function BaseGrid() {
                 }}
                 aria-hidden
               />
+            ))}
+          </AnimatePresence>
+
+          {/* Layer 3b — decor-clear floaters ("+10") flying upward. */}
+          <AnimatePresence>
+            {decorFloaters.map((f) => (
+              <motion.div
+                key={f.id}
+                initial={{ opacity: 0, y: 0, scale: 0.85 }}
+                animate={{
+                  opacity: [0, 1, 1, 0],
+                  y: [0, -24, -64, -120],
+                  scale: [0.85, 1.1, 1.0, 0.7],
+                }}
+                transition={{
+                  duration: 1.1,
+                  ease: "easeOut",
+                  times: [0, 0.25, 0.7, 1],
+                }}
+                className="pointer-events-none z-[5] flex select-none items-center justify-center whitespace-nowrap font-display text-sm font-bold leading-none"
+                style={{
+                  gridColumn: `${f.x + 1} / span 1`,
+                  gridRow: `${f.y + 1} / span 1`,
+                  color: f.color,
+                  alignSelf: "center",
+                  justifySelf: "center",
+                  textShadow:
+                    "0 1px 0 rgba(0,0,0,0.75), 0 0 10px rgba(0,0,0,0.6), 0 0 16px " +
+                    f.color +
+                    "66",
+                }}
+                aria-hidden
+              >
+                +{f.amount}
+              </motion.div>
             ))}
           </AnimatePresence>
 

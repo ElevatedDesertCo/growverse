@@ -30,7 +30,7 @@ import { pushToast } from "./systems/toastSystem";
  * existing v1 saves and run `migrate()` against them. SAVE_VERSION is the
  * schema version inside that key.
  */
-export const SAVE_VERSION = 2;
+export const SAVE_VERSION = 3;
 export const SAVE_KEY = "growverse-save-v1";
 
 export interface PlacedBuilding {
@@ -46,6 +46,51 @@ export interface PlacedBuilding {
   lastGenerated?: number;
 }
 
+/** Ambient props scattered across the desert. Clearable for resources. */
+export type DecorType = "cactus" | "shrub";
+export interface DecorItem {
+  id: string;
+  type: DecorType;
+  x: number;
+  y: number;
+}
+
+/** Per-decor-type reward + visuals. Keep small — these aren't loot piñatas. */
+export const DECOR_DEFS: Record<DecorType, {
+  /** Resource awarded on clear (always bloomEssence for now). */
+  reward: number;
+  /** Color used by the +N floater on clear. */
+  color: string;
+}> = {
+  cactus: { reward: 10, color: "#7fb069" },
+  shrub: { reward: 5, color: "#c9a878" },
+};
+
+/** Cells decor can occupy. Excludes the very edge for natural framing. */
+const DECOR_TARGET_DENSITY = 0.06; // ~6% of empty cells
+
+/** Build a fresh seeded scatter of decor for an empty base. */
+function seedDecor(): DecorItem[] {
+  const items: DecorItem[] = [];
+  for (let y = 0; y < GRID_ROWS; y++) {
+    for (let x = 0; x < GRID_COLS; x++) {
+      // Standard GLSL fract(sin·43758) random — uniform [0, 1)
+      const h = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
+      const r = h - Math.floor(h);
+      if (r > DECOR_TARGET_DENSITY) continue;
+      const r2 = Math.sin(x * 17.11 + y * 91.37) * 100;
+      const isCactus = r2 - Math.floor(r2) > 0.55;
+      items.push({
+        id: `d_${x}_${y}`,
+        type: isCactus ? "cactus" : "shrub",
+        x,
+        y,
+      });
+    }
+  }
+  return items;
+}
+
 export type { Resources } from "./systems/resourceSystem";
 
 export type DragState =
@@ -56,6 +101,8 @@ export type DragState =
 interface GameState {
   buildings: PlacedBuilding[];
   resources: Resources;
+  /** Ambient decor scattered on the desert (clearable for Bloom). */
+  decor: DecorItem[];
 
   editMode: boolean;
   buildMenuOpen: boolean;
@@ -99,6 +146,9 @@ interface GameState {
 
   /** Bump _tickAt to trigger re-renders of time-aware components. */
   tick: () => void;
+
+  /** Clear a decor item, awarding its reward to bloomEssence. */
+  clearDecor: (id: string) => DecorItem | null;
 
   /** Wipe the persisted save and reset to initial state. */
   resetSave: () => void;
@@ -228,6 +278,7 @@ export function cellFromClientPoint(
 export const useGameStore = create<GameState>()(persist((set, get) => ({
   buildings: [],
   resources: { ...INITIAL_RESOURCES },
+  decor: seedDecor(),
 
   editMode: false,
   buildMenuOpen: false,
@@ -466,10 +517,29 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
 
   tick: () => set({ _tickAt: Date.now() }),
 
+  clearDecor: (id) => {
+    const state = get();
+    const item = state.decor.find((d) => d.id === id);
+    if (!item) return null;
+    const def = DECOR_DEFS[item.type];
+    const storageBonus = getTotalStorageBonus(state.buildings);
+    set((s) => ({
+      decor: s.decor.filter((d) => d.id !== id),
+      resources: addResource(
+        s.resources,
+        "bloomEssence",
+        def.reward,
+        storageBonus,
+      ).next,
+    }));
+    return item;
+  },
+
   resetSave: () => {
     set({
       buildings: [],
       resources: { ...INITIAL_RESOURCES },
+      decor: seedDecor(),
       editMode: false,
       buildMenuOpen: false,
       selectedCell: null,
@@ -493,22 +563,34 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
   partialize: (s) => ({
     buildings: s.buildings,
     resources: s.resources,
+    decor: s.decor,
   }),
   /**
-   * Save migrations. v1 stored 3-resource {leaf, fire, mushroom}; v2 stores
-   * the full 8-resource canonical bag. v1 saves' balances port over via
-   * migrateResourcesV1toV2.
+   * Save migrations.
+   * v1 → v2: 3-resource {leaf, fire, mushroom} → 8-resource canonical bag.
+   * v2 → v3: add `decor` field (clearable cactus/shrub scatter). Older
+   *   saves get a fresh seeded scatter so the desert isn't empty.
    */
   migrate: (persistedState: unknown, version: number) => {
-    const state = persistedState as { resources?: unknown; buildings?: unknown } | null;
+    const state = persistedState as {
+      resources?: unknown;
+      buildings?: unknown;
+      decor?: unknown;
+    } | null;
     if (!state) return state as never;
+    let next = state;
     if (version < 2) {
-      return {
-        ...state,
-        resources: migrateResourcesV1toV2(state.resources as Parameters<typeof migrateResourcesV1toV2>[0]),
+      next = {
+        ...next,
+        resources: migrateResourcesV1toV2(
+          next.resources as Parameters<typeof migrateResourcesV1toV2>[0],
+        ),
       };
     }
-    return state as never;
+    if (version < 3 && !Array.isArray(next.decor)) {
+      next = { ...next, decor: seedDecor() };
+    }
+    return next as never;
   },
   // Skip SSR hydration — only rehydrate on the client after mount.
   // The splash screen covers the brief default-state flash.
