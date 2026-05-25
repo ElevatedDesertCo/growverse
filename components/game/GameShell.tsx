@@ -9,6 +9,7 @@ import { WelcomeBackToast } from "./WelcomeBackToast";
 import { ToastStack } from "./ToastStack";
 import { ComingSoonModal } from "./ComingSoonModal";
 import { EditModeHint } from "./EditModeHint";
+import { MusicMount } from "./MusicMount";
 import { SWRegister } from "./SWRegister";
 
 export function GameShell() {
@@ -40,6 +41,7 @@ export function GameShell() {
 
       <SplashScreen />
       <TickMount />
+      <MusicMount />
       <SWRegister />
 
       <ResourceBar />

@@ -472,8 +472,8 @@ export const SFX_ASSETS = {
 export const MUSIC_ASSETS = {
   baseAmbient: {
     path: "/assets/audio/music/base-ambient.mp3",
-    status: "placeholder",
-    notes: "Loopable cosmic-desert pad for the Guild Base view.",
+    status: "final",
+    notes: "Desert Theme by yd on OpenGameArt.org (CC0). Mono→stereo, 96 kbps MP3. Seamless loop for the Guild Base view.",
   },
 } satisfies Record<string, AssetEntry>;
 

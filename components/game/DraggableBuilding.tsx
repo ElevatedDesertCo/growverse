@@ -289,7 +289,7 @@ export function DraggableBuilding({
       onPointerCancel={onPointerCancel}
       onContextMenu={(e) => e.preventDefault()}
       aria-label={`${def.name} at ${building.x + 1},${building.y + 1}`}
-      className={`group relative z-[3] cursor-pointer rounded-md transition-shadow ${
+      className={`group relative z-[3] cursor-pointer rounded-md transition-all duration-150 ease-out hover:scale-[1.04] hover:brightness-110 hover:drop-shadow-[0_0_10px_rgba(212,160,74,0.5)] ${
         phase === "dragging" ? "z-50" : ""
       } ${
         isMenuSelected ? "ring-2 ring-gold/60 ring-inset" : ""

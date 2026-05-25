@@ -11,10 +11,13 @@ import {
   Hammer,
   Check,
 } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useGameStore } from "@/lib/store";
 import { playSfx } from "@/lib/systems/audioSystem";
 import { showComingSoon } from "@/lib/systems/comingSoonStore";
 import { ActionIcon } from "./ActionIcon";
+
+const EDITED_KEY = "growverse-has-edited";
 
 type TabKey = "base" | "train" | "raid" | "heroes" | "pets";
 
@@ -67,6 +70,23 @@ export function BottomNav() {
   // First-run hook: pulse the Build button if the player has 0 buildings.
   // Guild Core is free, so they can always afford SOMETHING when empty.
   const shouldPulseBuild = !hasBuildings && !editMode;
+
+  // Second-run hook: pulse the Edit button after the player has placed
+  // at least one building but has never used edit mode. Persisted via
+  // localStorage so the pulse doesn't keep showing on subsequent loads.
+  const [hasEverEdited, setHasEverEdited] = useState(true);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      // Intentional one-shot hydration read from localStorage.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setHasEverEdited(localStorage.getItem(EDITED_KEY) === "1");
+    } catch {
+      /* storage disabled */
+    }
+  }, []);
+  const shouldPulseEdit =
+    hasBuildings && !editMode && !hasEverEdited;
 
   const handleTap = (key: TabKey) => {
     if (key === ACTIVE) return;
@@ -148,13 +168,38 @@ export function BottomNav() {
 
         {/* Action cluster: Edit + Build */}
         <div className="flex items-center gap-2">
-          <button
+          <motion.button
             type="button"
             onClick={() => {
               playSfx("buttonClick");
               toggleEditMode();
+              if (!hasEverEdited) {
+                setHasEverEdited(true);
+                try {
+                  localStorage.setItem(EDITED_KEY, "1");
+                } catch {
+                  /* storage disabled */
+                }
+              }
             }}
             aria-label={editMode ? "Done editing" : "Edit base"}
+            animate={
+              shouldPulseEdit
+                ? {
+                    scale: [1, 1.06, 1],
+                    boxShadow: [
+                      "0 0 0 0 rgba(212,160,74,0)",
+                      "0 0 16px 2px rgba(212,160,74,0.7)",
+                      "0 0 0 0 rgba(212,160,74,0)",
+                    ],
+                  }
+                : { scale: 1 }
+            }
+            transition={
+              shouldPulseEdit
+                ? { duration: 1.4, repeat: Infinity, ease: "easeInOut" }
+                : { duration: 0.2 }
+            }
             className={`flex h-10 w-10 items-center justify-center rounded-full border transition-colors sm:h-11 sm:w-11 ${
               editMode
                 ? "border-gold bg-gold text-bg-deep"
@@ -173,7 +218,7 @@ export function BottomNav() {
                 strokeWidth={2}
               />
             )}
-          </button>
+          </motion.button>
 
           <motion.button
             type="button"

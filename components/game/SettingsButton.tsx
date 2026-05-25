@@ -1,16 +1,47 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Settings, Trash2, X } from "lucide-react";
+import {
+  Music,
+  Music2,
+  Settings,
+  Trash2,
+  Volume2,
+  VolumeX,
+  X,
+} from "lucide-react";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useGameStore } from "@/lib/store";
+import {
+  isMuted as isSfxMuted,
+  playSfx,
+  setMuted as setSfxMuted,
+} from "@/lib/systems/audioSystem";
+import {
+  isMusicMuted,
+  setMusicMuted,
+} from "@/lib/systems/musicSystem";
 
 export function SettingsButton() {
   const [open, setOpen] = useState(false);
   const [confirming, setConfirming] = useState(false);
   const [mounted, setMounted] = useState(false);
+  // Local mirror of the persisted audio mute flags so the toggle UI
+  // re-renders when the user flips them.
+  const [sfxOff, setSfxOff] = useState(false);
+  const [musicOff, setMusicOff] = useState(false);
   const resetSave = useGameStore((s) => s.resetSave);
+
+  // Sync from persisted state once we're on the client + whenever the
+  // panel opens (so reflects any external changes). The setState calls
+  // here are intentional one-shot hydration reads from localStorage.
+  useEffect(() => {
+    /* eslint-disable react-hooks/set-state-in-effect */
+    setSfxOff(isSfxMuted());
+    setMusicOff(isMusicMuted());
+    /* eslint-enable react-hooks/set-state-in-effect */
+  }, [open]);
 
   // Portal-host detection. The ResourceBar wraps this component AND uses
   // `backdrop-blur`, which creates a containing block — a fixed-positioned
@@ -112,6 +143,79 @@ export function SettingsButton() {
                 </header>
 
                 <div className="mt-3 space-y-3 pb-4">
+                  {/* Audio toggles — Sound + Music */}
+                  <section
+                    className="relative overflow-hidden rounded-xl border border-gold/25 bg-bg-mid/40 p-4"
+                  >
+                    <h3
+                      className="font-display text-sm font-bold uppercase tracking-[0.18em] text-gold"
+                      style={{ fontFamily: "var(--font-cinzel)" }}
+                    >
+                      Audio
+                    </h3>
+                    <div className="mt-3 grid grid-cols-2 gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const next = !sfxOff;
+                          setSfxMuted(next);
+                          setSfxOff(next);
+                          // Confirm with a click whenever turning ON.
+                          if (!next) playSfx("buttonClick");
+                        }}
+                        aria-pressed={!sfxOff}
+                        className={`flex items-center justify-between gap-2 rounded-lg border px-3 py-2 transition-colors ${
+                          sfxOff
+                            ? "border-text-muted/30 bg-bg-deep/40 text-text-muted"
+                            : "border-gold/40 bg-bg-deep/70 text-gold hover:border-gold/60"
+                        }`}
+                      >
+                        <span className="flex items-center gap-1.5">
+                          {sfxOff ? (
+                            <VolumeX className="h-4 w-4" />
+                          ) : (
+                            <Volume2 className="h-4 w-4" />
+                          )}
+                          <span className="font-display text-[11px] font-bold uppercase tracking-[0.16em]">
+                            Sound
+                          </span>
+                        </span>
+                        <span className="font-display text-[9px] font-bold uppercase tracking-[0.2em] text-text-muted">
+                          {sfxOff ? "Off" : "On"}
+                        </span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const next = !musicOff;
+                          setMusicMuted(next);
+                          setMusicOff(next);
+                          playSfx("buttonClick");
+                        }}
+                        aria-pressed={!musicOff}
+                        className={`flex items-center justify-between gap-2 rounded-lg border px-3 py-2 transition-colors ${
+                          musicOff
+                            ? "border-text-muted/30 bg-bg-deep/40 text-text-muted"
+                            : "border-gold/40 bg-bg-deep/70 text-gold hover:border-gold/60"
+                        }`}
+                      >
+                        <span className="flex items-center gap-1.5">
+                          {musicOff ? (
+                            <Music2 className="h-4 w-4" />
+                          ) : (
+                            <Music className="h-4 w-4" />
+                          )}
+                          <span className="font-display text-[11px] font-bold uppercase tracking-[0.16em]">
+                            Music
+                          </span>
+                        </span>
+                        <span className="font-display text-[9px] font-bold uppercase tracking-[0.2em] text-text-muted">
+                          {musicOff ? "Off" : "On"}
+                        </span>
+                      </button>
+                    </div>
+                  </section>
+
                   <section
                     className="relative overflow-hidden rounded-xl border border-red-500/35 bg-gradient-to-br from-red-950/30 to-bg-deep/60 p-4"
                   >
