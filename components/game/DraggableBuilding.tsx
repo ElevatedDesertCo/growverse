@@ -292,11 +292,7 @@ export function DraggableBuilding({
       className={`group relative z-[3] cursor-pointer rounded-md transition-shadow ${
         phase === "dragging" ? "z-50" : ""
       } ${
-        isTapSelected
-          ? "ring-2 ring-gold ring-offset-1 ring-offset-bg-deep shadow-[0_0_18px_rgba(212,160,74,0.55)]"
-          : isMenuSelected
-            ? "ring-2 ring-gold/60 ring-inset"
-            : ""
+        isMenuSelected ? "ring-2 ring-gold/60 ring-inset" : ""
       }`}
       style={{
         gridColumn: `${building.x + 1} / span ${def.size.w}`,
@@ -309,6 +305,24 @@ export function DraggableBuilding({
         opacity: phase === "dragging" ? 0.9 : 1,
       }}
     >
+      {/* Tap-selected ring — animated gold halo with continuous breathe
+          so the selection reads as "this is interactive right now" vs.
+          a static border. Two layers: a soft outer glow that pulses
+          and an inset ring that stays crisp. */}
+      {isTapSelected && (
+        <motion.div
+          className="pointer-events-none absolute inset-0 rounded-md ring-2 ring-gold"
+          animate={{
+            boxShadow: [
+              "0 0 14px 1px rgba(212,160,74,0.45), inset 0 0 8px rgba(212,160,74,0.25)",
+              "0 0 26px 4px rgba(212,160,74,0.8), inset 0 0 14px rgba(212,160,74,0.45)",
+              "0 0 14px 1px rgba(212,160,74,0.45), inset 0 0 8px rgba(212,160,74,0.25)",
+            ],
+          }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+          aria-hidden
+        />
+      )}
       <BuildingTile
         building={building}
         editMode={editMode}

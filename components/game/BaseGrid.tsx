@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { ChevronDown } from "lucide-react";
 import { BUILDINGS, GRID_COLS, GRID_ROWS } from "@/lib/buildings";
 import {
   buildingAtCell,
@@ -360,6 +361,21 @@ export function BaseGrid() {
                   begin. Upgrade it to unlock more buildings.
                 </p>
               </div>
+
+              {/* Animated hand pointer drawing the eye toward the
+                  BUILD button. Translates down + up in a loop with
+                  a soft gold glow trail. */}
+              <motion.div
+                className="absolute right-6 bottom-2 flex flex-col items-center text-gold/90 sm:right-10"
+                animate={{ y: [0, 14, 0], opacity: [0.65, 1, 0.65] }}
+                transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+                aria-hidden
+              >
+                <ChevronDown
+                  className="h-8 w-8 drop-shadow-[0_0_8px_rgba(212,160,74,0.7)]"
+                  strokeWidth={3}
+                />
+              </motion.div>
             </motion.div>
           )}
 
@@ -385,20 +401,42 @@ export function BaseGrid() {
             ))}
           </AnimatePresence>
 
-          {/* Layer 4 — drag-in-progress ghost preview */}
-          {previewCells.map((pc, i) => (
-            <div
-              key={`preview-${i}`}
-              className={`pointer-events-none rounded-sm ${
+          {/* Layer 4 — drag-in-progress ghost preview. Valid cells get
+              a shimmering gold sweep gradient so the drop target reads
+              as a "magical" placement zone. Invalid stays solid red so
+              the rejection signal is unambiguous. */}
+          {previewCells.map((pc) => (
+            <motion.div
+              key={`preview-${pc.x}-${pc.y}`}
+              className={`pointer-events-none relative overflow-hidden rounded-sm ${
                 pc.valid
-                  ? "bg-gold/30 ring-2 ring-gold ring-inset"
-                  : "bg-red-500/30 ring-2 ring-red-500/70 ring-inset"
+                  ? "ring-2 ring-gold ring-inset"
+                  : "bg-red-500/30 ring-2 ring-red-500/75 ring-inset"
               }`}
               style={{
                 gridColumn: `${pc.x + 1} / span 1`,
                 gridRow: `${pc.y + 1} / span 1`,
               }}
-            />
+              aria-hidden
+            >
+              {pc.valid && (
+                <motion.div
+                  className="absolute inset-0"
+                  initial={{ backgroundPosition: "0% 0%" }}
+                  animate={{ backgroundPosition: "200% 0%" }}
+                  transition={{
+                    duration: 1.6,
+                    repeat: Infinity,
+                    ease: "linear",
+                  }}
+                  style={{
+                    background:
+                      "linear-gradient(115deg, rgba(212,160,74,0.18) 0%, rgba(245,217,122,0.55) 35%, rgba(212,160,74,0.18) 70%)",
+                    backgroundSize: "200% 100%",
+                  }}
+                />
+              )}
+            </motion.div>
           ))}
         </div>
       </div>

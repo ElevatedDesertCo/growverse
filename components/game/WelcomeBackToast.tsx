@@ -71,42 +71,71 @@ export function WelcomeBackToast() {
       {summary && (
         <motion.div
           key="welcome-back"
-          initial={{ opacity: 0, y: -16 }}
-          animate={{ opacity: 1, y: 0 }}
-          exit={{ opacity: 0, y: -16 }}
+          initial={{ opacity: 0, y: -14, scale: 0.94 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: -10, scale: 0.96 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
           className="pointer-events-none fixed left-1/2 top-[calc(env(safe-area-inset-top)+4.5rem)] z-40 -translate-x-1/2"
           role="status"
         >
-          <div className="flex items-center gap-3 rounded-full border border-gold/40 bg-bg-deep/95 px-4 py-2 shadow-[0_8px_24px_-8px_rgba(0,0,0,0.6)] backdrop-blur">
-            <span
-              className="font-display text-[10px] font-semibold uppercase tracking-[0.3em] text-gold"
-              style={{ fontFamily: "var(--font-cinzel)" }}
-            >
-              Welcome back
-            </span>
-            <span className="h-3 w-px bg-gold/30" aria-hidden />
-            <div className="flex items-center gap-2 text-xs">
-              {summary.readyTents > 0 && (
-                <span className="flex items-center gap-1 text-leaf">
-                  <Leaf className="h-3 w-3" strokeWidth={2.5} />
-                  <span className="font-sans font-bold tabular-nums">
-                    {summary.readyTents}
-                  </span>
-                  <span className="text-text-muted">
-                    {summary.readyTents === 1 ? "garden" : "gardens"}
-                  </span>
+          <div
+            className="flex items-center gap-2.5 rounded-2xl p-[1.5px]"
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(212,160,74,0.95) 0%, rgba(212,160,74,0.45) 50%, rgba(212,160,74,0.25) 100%)",
+              boxShadow:
+                "0 10px 28px -10px rgba(0,0,0,0.75), 0 0 22px -6px rgba(212,160,74,0.45)",
+            }}
+          >
+            <div className="flex items-center gap-3 rounded-[14px] bg-bg-deep/95 px-3.5 py-2 backdrop-blur">
+              <div
+                className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full"
+                style={{
+                  background:
+                    "radial-gradient(circle at 35% 30%, #f5d97aaa, #d4a04a 50%, #8b6c2e 100%)",
+                  boxShadow:
+                    "inset 0 0 0 1px rgba(212,160,74,0.85), 0 0 8px rgba(212,160,74,0.5)",
+                }}
+                aria-hidden
+              >
+                <Leaf
+                  className="h-3.5 w-3.5 text-bg-deep"
+                  strokeWidth={2.75}
+                  style={{
+                    filter: "drop-shadow(0 1px 0 rgba(255,255,255,0.35))",
+                  }}
+                />
+              </div>
+              <div className="flex flex-col items-start leading-tight">
+                <span
+                  className="font-display text-[10px] font-bold uppercase tracking-[0.22em] text-gold"
+                  style={{ fontFamily: "var(--font-cinzel)" }}
+                >
+                  Welcome back
                 </span>
-              )}
-              {summary.pendingFire > 0 && (
-                <span className="flex items-center gap-1 text-fire">
-                  <Flame className="h-3 w-3" strokeWidth={2.5} />
-                  <span className="font-sans font-bold tabular-nums">
-                    {summary.pendingFire}
-                  </span>
-                  <span className="text-text-muted">pending</span>
-                </span>
-              )}
+                <div className="mt-0.5 flex items-center gap-2 text-[11px]">
+                  {summary.readyTents > 0 && (
+                    <span className="flex items-center gap-1 text-leaf">
+                      <Leaf className="h-2.5 w-2.5" strokeWidth={2.5} />
+                      <span className="font-sans font-bold tabular-nums">
+                        {summary.readyTents}
+                      </span>
+                      <span className="text-text-muted">
+                        {summary.readyTents === 1 ? "garden" : "gardens"}
+                      </span>
+                    </span>
+                  )}
+                  {summary.pendingFire > 0 && (
+                    <span className="flex items-center gap-1 text-fire">
+                      <Flame className="h-2.5 w-2.5" strokeWidth={2.5} />
+                      <span className="font-sans font-bold tabular-nums">
+                        {summary.pendingFire}
+                      </span>
+                      <span className="text-text-muted">pending</span>
+                    </span>
+                  )}
+                </div>
+              </div>
             </div>
           </div>
         </motion.div>
