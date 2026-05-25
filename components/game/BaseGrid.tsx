@@ -38,14 +38,23 @@ function rand2d(x: number, y: number): number {
 }
 
 /**
- * Deterministic per-cell decor picker. Returns null for ~92% of cells
- * (sparse scatter that feels ambient, not crowded).
+ * Decor scatter is currently DISABLED. Every decor reference PNG is a
+ * 3-panel sheet whose In-Game panel has its own beige rounded-rectangle
+ * background — when cropped and rendered as a per-cell sprite, those
+ * panel backgrounds read as "white rectangles" littering the playfield.
+ * The desert ground backdrop already includes painted rocks + grass, so
+ * the base reads as alive without per-cell decor.
+ *
+ * To re-enable later, point this at isolated transparent-PNG props
+ * (no sheet/panel chrome) and adjust threshold.
  */
-function decorAt(x: number, y: number): string | null {
-  if (rand2d(x, y) > 0.08) return null;
-  const idx = Math.floor(rand2d(x + 1000, y + 2000) * DECOR_REFS.length);
-  return DECOR_REFS[idx % DECOR_REFS.length];
+function decorAt(): string | null {
+  return null;
 }
+// Reference the constant so the import doesn't lint as unused while
+// we keep the manifest entries warm for the eventual isolated-PNG drop.
+void DECOR_REFS;
+void rand2d;
 
 interface DustBurst {
   id: string;
@@ -174,10 +183,18 @@ export function BaseGrid() {
       className="flex min-h-0 w-full flex-1 items-center justify-center"
       style={{ containerType: "size" }}
     >
-      <div className="aspect-square h-[100cqmin] w-[100cqmin] rounded-2xl border border-gold/20 bg-gradient-to-b from-bg-mid/60 to-bg-deep/60 p-2 shadow-[0_0_40px_-20px_rgba(212,160,74,0.35)]">
+      <div
+        className="aspect-square h-[100cqmin] w-[100cqmin] rounded-2xl p-[3px]"
+        style={{
+          background:
+            "linear-gradient(180deg, #e6c98a 0%, #b8852e 45%, #5a3f1a 100%)",
+          boxShadow:
+            "0 12px 36px -16px rgba(0,0,0,0.8), 0 0 0 1px rgba(212,160,74,0.4), 0 0 48px -16px rgba(212,160,74,0.35), inset 0 1px 0 rgba(255,255,255,0.18)",
+        }}
+      >
         <div
           ref={gridRef}
-          className="relative grid aspect-square gap-px overflow-hidden rounded-xl"
+          className="relative grid aspect-square overflow-hidden rounded-[14px]"
           style={{
             gridTemplateColumns: `repeat(${GRID_COLS}, minmax(0, 1fr))`,
             gridTemplateRows: `repeat(${GRID_ROWS}, minmax(0, 1fr))`,
@@ -228,7 +245,7 @@ export function BaseGrid() {
             const x = i % GRID_COLS;
             const y = Math.floor(i / GRID_COLS);
             if (buildingAtCell(x, y, buildings)) return null;
-            const ref = decorAt(x, y);
+            const ref = decorAt();
             if (!ref) return null;
             return (
               <div
@@ -281,14 +298,14 @@ export function BaseGrid() {
                     ? `${BUILDINGS[occupant.type].name} cell ${x + 1},${y + 1}`
                     : `Empty cell ${x + 1},${y + 1}`
                 }
-                className={`relative z-[2] aspect-square border transition-colors ${
+                className={`relative z-[2] aspect-square transition-colors ${
                   occupant
-                    ? "pointer-events-none border-transparent bg-transparent"
+                    ? "pointer-events-none bg-transparent"
                     : isAwaitingCellPick
-                      ? "animate-pulse border-gold/50 bg-gold/10 hover:bg-gold/20"
+                      ? "animate-pulse rounded-sm border border-gold/60 bg-gold/15 hover:bg-gold/25"
                       : isMoveTarget
-                        ? "border-gold/40 bg-gold/10 hover:bg-gold/15"
-                        : "border-gold-muted/15 bg-transparent hover:bg-bg-deep/20"
+                        ? "rounded-sm border border-gold/45 bg-gold/10 hover:bg-gold/15"
+                        : "bg-transparent hover:bg-bg-deep/15"
                 }`}
               />
             );

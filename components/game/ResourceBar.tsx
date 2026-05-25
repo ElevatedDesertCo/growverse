@@ -1,8 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { RESOURCES } from "@/lib/data";
-import { hasRealAsset } from "@/lib/data/assetManifest";
+import { Coins, Flame, Leaf, Sparkles, Hexagon, Zap } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { useGameStore } from "@/lib/store";
 import { getTotalStorageBonus } from "@/lib/systems/buildingSystem";
 import {
@@ -10,81 +10,109 @@ import {
   maxFor,
   type Resources,
 } from "@/lib/systems/resourceSystem";
-import { AssetImage } from "./AssetImage";
 import { SettingsButton } from "./SettingsButton";
 
 /**
- * Two-mode resource bar:
+ * HUD top bar: identity row + scrollable resource pill rail.
  *
- * 1. **Painted mode** (default — when `ui.resourceBarFrame` is real): use
- *    the painted PNG as the full bar background, overlay live numbers
- *    at the painted slot centers. Icons + gem caps are part of the
- *    art — we just refresh the digits.
- * 2. **CSS mode** (fallback when no painted file): the stone-frame
- *    approximation built in CSS. Stays as a safety net.
- *
- * Both modes share the same title row above (Settings + GROWVERSE).
+ * Pure CSS implementation — no raw painted PNG composites. Each pill is
+ * a self-contained dark-glass card with gold trim and a per-resource
+ * neon accent glow. Layout: identity row above, 6 pills below. The rail
+ * wraps to a horizontal-scroll strip on narrow viewports so all six
+ * resources stay reachable on mobile without crushing layout.
  */
 
-/** Horizontal centers of the 3 number slots inside the painted bar
- *  (after cropping to just the bar). Tuned via pixel-sampled panel
- *  bounds so live numbers overlay the baked "100,000" labels. */
-const SLOT_CENTERS_X = [27, 56, 85] as const;
-/** Vertical center of the numbers inside the painted bar (the painted
- *  "100,000" labels sit at this Y%, below the protruding gem caps). */
-const SLOT_CENTER_Y = 66;
-/** Dark mask pill size (% of bar) to cover painted "100,000" labels. */
-const MASK_W_PCT = 32;
-const MASK_H_PCT = 40;
-
-const PANELS = [
-  { key: "bloom" as const, field: "bloomEssence" as keyof Resources, accent: "#7fb069", capColor: "text-leaf" },
-  { key: "myco" as const, field: "mycoDust" as keyof Resources, accent: "#a875d4", capColor: "text-mushroom" },
-  { key: "amber" as const, field: "amberShards" as keyof Resources, accent: "#e8964c", capColor: "text-fire" },
-];
-
-interface NumberOverlayProps {
-  value: number;
-  atCap: boolean;
-  capColor: string;
-  centerX: number;
-  centerY: number;
+interface ResourceSpec {
+  field: keyof Resources;
+  short: string;
+  full: string;
+  /** Hex accent — drives glow + digits. */
+  accent: string;
+  /** Lucide icon used as a clean placeholder until painted art lands. */
+  Icon: LucideIcon;
 }
 
-function NumberOverlay({
+const RESOURCE_PILLS: ResourceSpec[] = [
+  { field: "bloomEssence",   short: "Bloom",  full: "Bloom Essence",   accent: "#7fb069", Icon: Leaf },
+  { field: "amberShards",    short: "Amber",  full: "Amber Shards",    accent: "#e8964c", Icon: Flame },
+  { field: "mycoDust",       short: "Myco",   full: "Myco Dust",       accent: "#a875d4", Icon: Sparkles },
+  { field: "relicFragments", short: "Relic",  full: "Relic Fragments", accent: "#c9a878", Icon: Coins },
+  { field: "spiritSeeds",    short: "Seeds",  full: "Spirit Seeds",    accent: "#9ed16e", Icon: Hexagon },
+  { field: "portalEnergy",   short: "Portal", full: "Portal Energy",   accent: "#b78ddf", Icon: Zap },
+];
+
+function ResourcePill({
+  spec,
   value,
-  atCap,
-  capColor,
-  centerX,
-  centerY,
-}: NumberOverlayProps) {
+  max,
+}: {
+  spec: ResourceSpec;
+  value: number;
+  max: number | null;
+}) {
+  const { Icon, accent, short, full } = spec;
+  const atCap = max !== null && value >= max;
   const display = value.toLocaleString();
+  const maxDisplay = max !== null ? max.toLocaleString() : null;
+
   return (
     <div
-      className="pointer-events-none absolute flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/55 px-2 py-0.5 ring-1 ring-black/40 backdrop-blur-[1px]"
+      className={`group relative flex h-9 flex-shrink-0 items-center gap-1.5 rounded-full border bg-bg-deep/85 pl-1 pr-2.5 backdrop-blur transition-colors ${
+        atCap
+          ? "border-red-400/60 ring-1 ring-red-500/30"
+          : "border-gold/35 hover:border-gold/55"
+      }`}
+      title={`${full}: ${display}${maxDisplay ? ` / ${maxDisplay}` : ""}${atCap ? " (storage full)" : ""}`}
       style={{
-        left: `${centerX}%`,
-        top: `${centerY}%`,
-        width: `${MASK_W_PCT}%`,
-        height: `${MASK_H_PCT}%`,
+        boxShadow: atCap
+          ? "0 0 12px -4px rgba(220,80,80,0.5), inset 0 1px 0 rgba(255,255,255,0.05)"
+          : `0 0 10px -4px ${accent}55, inset 0 1px 0 rgba(255,255,255,0.05)`,
       }}
     >
-      <motion.span
-        key={value}
-        initial={{ scale: 1 }}
-        animate={{ scale: [1, 1.18, 1] }}
-        transition={{ duration: 0.32, ease: "easeOut" }}
-        className={`select-none whitespace-nowrap font-display text-sm font-bold tabular-nums sm:text-base md:text-lg ${
-          atCap ? "text-red-300" : capColor
-        }`}
+      {/* Icon — circular tinted disc */}
+      <div
+        className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full"
         style={{
-          textShadow:
-            "0 1px 0 rgba(0,0,0,0.85), 0 0 8px rgba(0,0,0,0.7)",
-          fontFamily: "var(--font-cinzel)",
+          background: `radial-gradient(circle at 35% 30%, ${accent}cc, ${accent}55 60%, ${accent}22)`,
+          boxShadow: `0 0 6px ${accent}88, inset 0 0 0 1px ${accent}77`,
         }}
+        aria-hidden
       >
-        {display}
-      </motion.span>
+        <Icon
+          className="h-3.5 w-3.5 text-bg-deep"
+          strokeWidth={2.5}
+          style={{
+            filter: "drop-shadow(0 1px 0 rgba(255,255,255,0.35))",
+          }}
+        />
+      </div>
+
+      {/* Digits */}
+      <div className="flex min-w-0 items-baseline gap-1 font-sans leading-none">
+        <motion.span
+          key={value}
+          initial={{ scale: 1 }}
+          animate={{ scale: [1, 1.16, 1] }}
+          transition={{ duration: 0.28, ease: "easeOut" }}
+          className={`whitespace-nowrap text-sm font-bold tabular-nums ${
+            atCap ? "text-red-300" : "text-text-primary"
+          }`}
+          style={{
+            color: atCap ? undefined : accent,
+            textShadow: "0 1px 0 rgba(0,0,0,0.55)",
+          }}
+        >
+          {display}
+        </motion.span>
+        {maxDisplay && (
+          <span className="text-[10px] font-medium tabular-nums text-text-muted">
+            / {maxDisplay}
+          </span>
+        )}
+      </div>
+
+      {/* Resource short-name label below digits on hover (desktop) — tooltip-style */}
+      <span className="sr-only">{short}</span>
     </div>
   );
 }
@@ -94,194 +122,55 @@ export function ResourceBar() {
   const buildings = useGameStore((s) => s.buildings);
   const storageBonus = getTotalStorageBonus(buildings);
 
-  const useFrame = hasRealAsset("ui.resourceBarFrame");
-
   const maxOf = (field: keyof Resources) =>
     isCapped(field) ? maxFor(field, storageBonus) : null;
 
   return (
-    <header className="sticky top-0 z-30 border-b border-gold/15 bg-bg-deep/95 backdrop-blur supports-[backdrop-filter]:bg-bg-deep/70">
-      <div className="mx-auto flex max-w-md flex-col gap-1.5 px-3 pb-2 pt-2 md:max-w-3xl md:px-6 md:pb-2.5">
-        {/* Title row — Settings + GROWVERSE wordmark + GC1 badge */}
+    <header
+      className="sticky top-0 z-30 border-b border-gold/15 bg-bg-deep/95 backdrop-blur supports-[backdrop-filter]:bg-bg-deep/75"
+      style={{
+        boxShadow:
+          "0 6px 24px -12px rgba(0,0,0,0.7), inset 0 -1px 0 rgba(212,160,74,0.1)",
+      }}
+    >
+      <div className="mx-auto flex max-w-6xl flex-col gap-2 px-3 pt-2 pb-2.5 sm:px-4 md:px-6">
+        {/* Row 1 — identity + settings */}
         <div className="flex items-center justify-between">
           <SettingsButton />
-          <div className="flex flex-col items-end leading-none">
+          <div className="flex flex-col items-center leading-none">
             <span
-              className="font-display text-[13px] font-bold tracking-[0.3em] text-leaf"
+              className="font-display text-[13px] font-bold tracking-[0.32em] text-leaf sm:text-sm"
               style={{
                 fontFamily: "var(--font-cinzel)",
                 textShadow:
-                  "0 0 8px rgba(127,176,105,0.3), 0 1px 0 rgba(184,133,46,0.45)",
+                  "0 0 10px rgba(127,176,105,0.35), 0 1px 0 rgba(184,133,46,0.5)",
               }}
             >
               GROWVERSE
             </span>
             <span className="mt-0.5 font-sans text-[8px] uppercase tracking-[0.4em] text-text-muted">
-              GC1
+              Guild Wars · GC1
             </span>
           </div>
+          {/* Right-side placeholder so the title stays optically centered */}
+          <div className="h-8 w-8" aria-hidden />
         </div>
 
-        {useFrame ? (
-          <PaintedFrameBar
-            resources={resources}
-            maxOf={maxOf}
-          />
-        ) : (
-          <CssFrameBar resources={resources} maxOf={maxOf} />
-        )}
+        {/* Row 2 — resource pill rail. Horizontal scroll on narrow widths
+            (rare overflow); flex-wrap on midsize so it reads in 2 rows. */}
+        <div className="-mx-1 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="flex items-center justify-center gap-1.5 px-1 sm:gap-2 md:flex-wrap md:justify-center">
+            {RESOURCE_PILLS.map((spec) => (
+              <ResourcePill
+                key={spec.field}
+                spec={spec}
+                value={resources[spec.field]}
+                max={maxOf(spec.field)}
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </header>
-  );
-}
-
-function PaintedFrameBar({
-  resources,
-  maxOf,
-}: {
-  resources: Resources;
-  maxOf: (f: keyof Resources) => number | null;
-}) {
-  return (
-    <div className="relative w-full">
-      {/* Painted frame — sets the bar's aspect ratio implicitly via
-          the cropped PNG. We render it as a background div so live
-          overlays can sit on top without affecting layout. */}
-      <div className="relative aspect-[3.5/1] w-full">
-        <AssetImage
-          assetId="ui.resourceBarFrame"
-          alt="Resources"
-          fill
-          className="h-full w-full"
-          notDraggable
-        />
-
-        {/* Live number overlays at the painted slot centers. */}
-        {PANELS.map((p, i) => {
-          const max = maxOf(p.field);
-          const value = resources[p.field];
-          const atCap = max !== null && value >= max;
-          return (
-            <NumberOverlay
-              key={p.field}
-              value={value}
-              atCap={atCap}
-              capColor="text-amber-50"
-              centerX={SLOT_CENTERS_X[i]}
-              centerY={SLOT_CENTER_Y}
-            />
-          );
-        })}
-      </div>
-    </div>
-  );
-}
-
-// ─── CSS fallback (kept for when the painted PNG is absent) ─────────
-
-interface PanelTheme {
-  digitClass: string;
-  accent: string;
-  panelGradient: string;
-  ringTint: string;
-}
-
-const CSS_THEMES: Record<"bloom" | "myco" | "amber", PanelTheme> = {
-  bloom: {
-    digitClass: "text-leaf",
-    accent: "#7fb069",
-    panelGradient:
-      "radial-gradient(120% 100% at 50% 60%, #2e6b2a 0%, #1a3e1a 55%, #0d2310 100%)",
-    ringTint: "rgba(127,176,105,0.55)",
-  },
-  myco: {
-    digitClass: "text-mushroom",
-    accent: "#a875d4",
-    panelGradient:
-      "radial-gradient(120% 100% at 50% 60%, #5a3a8b 0%, #2e1d5a 55%, #160a2e 100%)",
-    ringTint: "rgba(168,117,212,0.55)",
-  },
-  amber: {
-    digitClass: "text-fire",
-    accent: "#e8964c",
-    panelGradient:
-      "radial-gradient(120% 100% at 50% 60%, #b06028 0%, #5c2e0f 55%, #2a1208 100%)",
-    ringTint: "rgba(232,150,76,0.55)",
-  },
-};
-
-function CssFrameBar({
-  resources,
-  maxOf,
-}: {
-  resources: Resources;
-  maxOf: (f: keyof Resources) => number | null;
-}) {
-  return (
-    <div
-      className="rounded-2xl p-[3px]"
-      style={{
-        background:
-          "linear-gradient(180deg, #e6c98a 0%, #b8852e 45%, #5a3f1a 100%)",
-        boxShadow:
-          "0 4px 14px -6px rgba(0,0,0,0.7), 0 0 0 1px rgba(212,160,74,0.35), inset 0 1px 0 rgba(255,255,255,0.18)",
-      }}
-    >
-      <div
-        className="flex items-stretch gap-[3px] overflow-hidden rounded-xl"
-        style={{
-          background: "linear-gradient(180deg, #4a3520 0%, #2a1d10 100%)",
-        }}
-      >
-        {PANELS.map((p, i) => {
-          const theme = CSS_THEMES[p.key];
-          const def = RESOURCES[p.field as keyof typeof RESOURCES];
-          const value = resources[p.field];
-          const max = maxOf(p.field);
-          const atCap = max !== null && value >= max;
-          const corners = `${i === 0 ? "rounded-l-xl" : ""} ${i === PANELS.length - 1 ? "rounded-r-xl" : ""}`;
-          return (
-            <div
-              key={p.field}
-              className={`relative flex min-w-0 flex-1 items-center gap-2 px-2.5 py-1.5 sm:px-3 sm:py-2 ${corners}`}
-              style={{
-                background: theme.panelGradient,
-                boxShadow: atCap
-                  ? `inset 0 0 0 1px rgba(220,80,80,0.7), inset 0 0 18px rgba(220,80,80,0.25)`
-                  : `inset 0 0 0 1px ${theme.ringTint}, inset 0 0 14px ${theme.accent}22`,
-              }}
-            >
-              <div
-                className="relative flex h-7 w-7 flex-shrink-0 items-center justify-center sm:h-8 sm:w-8"
-                style={{ filter: `drop-shadow(0 0 6px ${theme.accent}88)` }}
-              >
-                <AssetImage
-                  assetId={`resource.${p.field}`}
-                  alt={def?.name ?? p.field}
-                  width={32}
-                  height={32}
-                  className="h-full w-full"
-                  placeholderColor={def?.color ?? theme.accent}
-                />
-              </div>
-              <motion.span
-                key={value}
-                initial={{ scale: 1 }}
-                animate={{ scale: [1, 1.18, 1] }}
-                transition={{ duration: 0.32, ease: "easeOut" }}
-                className={`relative flex-1 truncate text-right font-display text-sm font-bold tabular-nums sm:text-base ${theme.digitClass}`}
-                style={{
-                  textShadow:
-                    "0 1px 0 rgba(0,0,0,0.55), 0 0 10px rgba(0,0,0,0.35)",
-                  fontFamily: "var(--font-cinzel)",
-                }}
-              >
-                {value.toLocaleString()}
-              </motion.span>
-            </div>
-          );
-        })}
-      </div>
-    </div>
   );
 }

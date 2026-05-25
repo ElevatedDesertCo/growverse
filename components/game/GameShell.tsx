@@ -11,14 +11,38 @@ import { SWRegister } from "./SWRegister";
 
 export function GameShell() {
   return (
-    <div className="fixed inset-0 flex flex-col bg-gradient-to-b from-bg-mid to-bg-deep">
+    <div
+      className="fixed inset-0 flex flex-col"
+      style={{
+        background:
+          "radial-gradient(ellipse 80% 60% at 50% 30%, #2a1a10 0%, #1a0f08 50%, #0f0a06 100%)",
+      }}
+    >
+      {/* Ambient gold haze top-center to anchor the HUD optically */}
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-64 opacity-50"
+        style={{
+          background:
+            "radial-gradient(ellipse 60% 100% at 50% 0%, rgba(212,160,74,0.18) 0%, transparent 70%)",
+        }}
+        aria-hidden
+      />
+      {/* Subtle vignette around the playfield */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        style={{
+          boxShadow: "inset 0 0 140px 30px rgba(0,0,0,0.55)",
+        }}
+        aria-hidden
+      />
+
       <SplashScreen />
       <TickMount />
       <SWRegister />
 
       <ResourceBar />
 
-      <main className="flex min-h-0 flex-1 flex-col items-center justify-center px-2 pb-[calc(env(safe-area-inset-bottom)+4.5rem)] pt-2 sm:px-4">
+      <main className="relative flex min-h-0 flex-1 flex-col items-center justify-center px-3 pb-[calc(env(safe-area-inset-bottom)+4.75rem)] pt-3 sm:px-5 md:pt-5">
         <BaseGrid />
       </main>
 
