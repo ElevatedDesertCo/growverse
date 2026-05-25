@@ -47,7 +47,7 @@ export interface PlacedBuilding {
 }
 
 /** Ambient props scattered across the desert. Clearable for resources. */
-export type DecorType = "cactus" | "shrub";
+export type DecorType = "cactus" | "shrub" | "rocks" | "relic" | "lantern";
 export interface DecorItem {
   id: string;
   type: DecorType;
@@ -57,32 +57,62 @@ export interface DecorItem {
 
 /** Per-decor-type reward + visuals. Keep small — these aren't loot piñatas. */
 export const DECOR_DEFS: Record<DecorType, {
-  /** Resource awarded on clear (always bloomEssence for now). */
+  /** Resource awarded on clear. */
+  resource: keyof Resources;
+  /** Reward amount. */
   reward: number;
-  /** Color used by the +N floater on clear. */
+  /** Color used by the +N floater + toast accent. */
   color: string;
+  /** Display label used in the toast. */
+  label: string;
+  /** Pick weight — higher = more common in the seeded scatter. */
+  weight: number;
 }> = {
-  cactus: { reward: 10, color: "#7fb069" },
-  shrub: { reward: 5, color: "#c9a878" },
+  cactus:  { resource: "bloomEssence",   reward: 10, color: "#7fb069", label: "Cactus",       weight: 5 },
+  shrub:   { resource: "bloomEssence",   reward: 5,  color: "#c9a878", label: "Dead Shrub",   weight: 5 },
+  rocks:   { resource: "amberShards",    reward: 4,  color: "#e8964c", label: "Rubble Pile",  weight: 3 },
+  relic:   { resource: "relicFragments", reward: 2,  color: "#c9a878", label: "Relic Debris", weight: 1 },
+  lantern: { resource: "mycoDust",       reward: 3,  color: "#a875d4", label: "Old Lantern",  weight: 1 },
 };
 
 /** Cells decor can occupy. Excludes the very edge for natural framing. */
-const DECOR_TARGET_DENSITY = 0.06; // ~6% of empty cells
+const DECOR_TARGET_DENSITY = 0.07; // ~7% of empty cells (~18 items on 16x16)
+
+/** Cap regrowth so the desert never goes beyond initial density. */
+const DECOR_MAX_COUNT = Math.ceil(GRID_ROWS * GRID_COLS * DECOR_TARGET_DENSITY);
+
+/** Regrow interval — one new item per ~10 minutes of elapsed time. */
+const DECOR_REGROW_MS = 10 * 60 * 1000;
+
+/** Standard GLSL-style 2D pseudorandom hash. Uniform in [0, 1). */
+function rand2d(x: number, y: number): number {
+  const s = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
+  return s - Math.floor(s);
+}
+
+/** Weighted-random decor type pick from a uniform [0,1) input. */
+function pickDecorType(u: number): DecorType {
+  const entries = Object.entries(DECOR_DEFS) as [DecorType, { weight: number }][];
+  const total = entries.reduce((sum, [, def]) => sum + def.weight, 0);
+  let acc = u * total;
+  for (const [type, def] of entries) {
+    acc -= def.weight;
+    if (acc <= 0) return type;
+  }
+  return entries[entries.length - 1][0];
+}
 
 /** Build a fresh seeded scatter of decor for an empty base. */
 function seedDecor(): DecorItem[] {
   const items: DecorItem[] = [];
   for (let y = 0; y < GRID_ROWS; y++) {
     for (let x = 0; x < GRID_COLS; x++) {
-      // Standard GLSL fract(sin·43758) random — uniform [0, 1)
-      const h = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
-      const r = h - Math.floor(h);
+      const r = rand2d(x, y);
       if (r > DECOR_TARGET_DENSITY) continue;
-      const r2 = Math.sin(x * 17.11 + y * 91.37) * 100;
-      const isCactus = r2 - Math.floor(r2) > 0.55;
+      const r2 = rand2d(x + 1000, y + 2000);
       items.push({
         id: `d_${x}_${y}`,
-        type: isCactus ? "cactus" : "shrub",
+        type: pickDecorType(r2),
         x,
         y,
       });
@@ -103,6 +133,8 @@ interface GameState {
   resources: Resources;
   /** Ambient decor scattered on the desert (clearable for Bloom). */
   decor: DecorItem[];
+  /** Wall-clock ms of last successful decor regrow. */
+  lastDecorRegrowAt: number;
 
   editMode: boolean;
   buildMenuOpen: boolean;
@@ -147,8 +179,10 @@ interface GameState {
   /** Bump _tickAt to trigger re-renders of time-aware components. */
   tick: () => void;
 
-  /** Clear a decor item, awarding its reward to bloomEssence. */
+  /** Clear a decor item, awarding its mapped resource reward. */
   clearDecor: (id: string) => DecorItem | null;
+  /** Spawn one new decor item on a free cell, if under cap. */
+  regrowDecor: () => void;
 
   /** Wipe the persisted save and reset to initial state. */
   resetSave: () => void;
@@ -279,6 +313,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
   buildings: [],
   resources: { ...INITIAL_RESOURCES },
   decor: seedDecor(),
+  lastDecorRegrowAt: 0,
 
   editMode: false,
   buildMenuOpen: false,
@@ -515,7 +550,25 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     });
   },
 
-  tick: () => set({ _tickAt: Date.now() }),
+  tick: () => {
+    const now = Date.now();
+    const state = get();
+    // Lazy regrow: if enough time has passed since last regrow AND we're
+    // below the cap, spawn one new decor item on a free cell. Initialize
+    // lastDecorRegrowAt the first time so we don't dump items immediately.
+    const last = state.lastDecorRegrowAt;
+    if (last === 0) {
+      set({ _tickAt: now, lastDecorRegrowAt: now });
+      return;
+    }
+    if (
+      now - last >= DECOR_REGROW_MS &&
+      state.decor.length < DECOR_MAX_COUNT
+    ) {
+      get().regrowDecor();
+    }
+    set({ _tickAt: now });
+  },
 
   clearDecor: (id) => {
     const state = get();
@@ -527,7 +580,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
       decor: s.decor.filter((d) => d.id !== id),
       resources: addResource(
         s.resources,
-        "bloomEssence",
+        def.resource,
         def.reward,
         storageBonus,
       ).next,
@@ -535,11 +588,49 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     return item;
   },
 
+  regrowDecor: () => {
+    const state = get();
+    if (state.decor.length >= DECOR_MAX_COUNT) return;
+    // Find a free cell (no decor + no building).
+    const occupied = new Set<string>();
+    for (const d of state.decor) occupied.add(`${d.x},${d.y}`);
+    for (const b of state.buildings) {
+      const size = BUILDINGS[b.type].size;
+      for (let dy = 0; dy < size.h; dy++) {
+        for (let dx = 0; dx < size.w; dx++) {
+          occupied.add(`${b.x + dx},${b.y + dy}`);
+        }
+      }
+    }
+    const candidates: Array<{ x: number; y: number }> = [];
+    for (let y = 0; y < GRID_ROWS; y++) {
+      for (let x = 0; x < GRID_COLS; x++) {
+        if (!occupied.has(`${x},${y}`)) candidates.push({ x, y });
+      }
+    }
+    if (candidates.length === 0) return;
+    const slot = candidates[Math.floor(Math.random() * candidates.length)];
+    const type = pickDecorType(Math.random());
+    set((s) => ({
+      decor: [
+        ...s.decor,
+        {
+          id: `d_grown_${Date.now().toString(36)}_${slot.x}_${slot.y}`,
+          type,
+          x: slot.x,
+          y: slot.y,
+        },
+      ],
+      lastDecorRegrowAt: Date.now(),
+    }));
+  },
+
   resetSave: () => {
     set({
       buildings: [],
       resources: { ...INITIAL_RESOURCES },
       decor: seedDecor(),
+      lastDecorRegrowAt: 0,
       editMode: false,
       buildMenuOpen: false,
       selectedCell: null,
@@ -564,6 +655,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     buildings: s.buildings,
     resources: s.resources,
     decor: s.decor,
+    lastDecorRegrowAt: s.lastDecorRegrowAt,
   }),
   /**
    * Save migrations.

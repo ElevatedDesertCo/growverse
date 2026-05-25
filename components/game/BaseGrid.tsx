@@ -19,8 +19,17 @@ import { AssetImage } from "./AssetImage";
 
 /** Map a decor item type → manifest assetId. */
 function decorAssetId(type: DecorItem["type"]): string {
-  return type === "cactus" ? "decor.cactus" : "decor.shrub";
+  switch (type) {
+    case "cactus":  return "decor.cactus";
+    case "shrub":   return "decor.shrub";
+    case "rocks":   return "decor.rocks";
+    case "relic":   return "decor.relic";
+    case "lantern": return "decor.lantern";
+    default:        return "decor.shrub";
+  }
 }
+
+const FIRST_CLEAR_KEY = "growverse-has-cleared-decor";
 
 interface DustBurst {
   id: string;
@@ -61,6 +70,21 @@ export function BaseGrid() {
   const [clearingDecor, setClearingDecor] = useState<Set<string>>(new Set());
   const [decorFloaters, setDecorFloaters] = useState<DecorFloater[]>([]);
   const floaterCounter = useRef(0);
+  // First-clear tutorial state: ring + chevron over the first decor item
+  // until the player has cleared at least one. Persisted across reloads.
+  const hasClearedDecorRef = useRef(false);
+  const [showDecorHint, setShowDecorHint] = useState(false);
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    try {
+      const cleared = window.localStorage.getItem(FIRST_CLEAR_KEY) === "1";
+      hasClearedDecorRef.current = cleared;
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setShowDecorHint(!cleared);
+    } catch {
+      /* storage disabled */
+    }
+  }, []);
   const handleDecorTap = (d: DecorItem) => {
     if (clearingDecor.has(d.id)) return;
     const def = DECOR_DEFS[d.type];
@@ -79,9 +103,19 @@ export function BaseGrid() {
     pushToast({
       kind: "success",
       title: "Cleared",
-      body: `${d.type === "cactus" ? "Cactus" : "Dead shrub"} · +${def.reward} Bloom`,
+      body: `${def.label} · +${def.reward}`,
       accent: def.color,
     });
+    // First-clear: mark so the tutorial hint stops showing on future loads.
+    if (!hasClearedDecorRef.current) {
+      hasClearedDecorRef.current = true;
+      try {
+        window.localStorage.setItem(FIRST_CLEAR_KEY, "1");
+      } catch {
+        /* storage disabled */
+      }
+      setShowDecorHint(false);
+    }
     // Hold the visual for the fade animation, then commit to store.
     window.setTimeout(() => {
       clearDecor(d.id);
@@ -254,47 +288,78 @@ export function BaseGrid() {
             );
           })}
 
-          {/* Layer 0c — clearable decor (cactus + dead shrub). Items
-              come from the persisted store so positions are stable.
-              Clicking awards Bloom Essence + plays a particle floater.
-              Skip any item that's been overplanted by a building. */}
-          {decor.map((d) => {
-            if (buildingAtCell(d.x, d.y, buildings)) return null;
-            const def = DECOR_DEFS[d.type];
-            const isClearing = clearingDecor.has(d.id);
-            return (
-              <motion.button
-                key={d.id}
-                type="button"
-                animate={
-                  isClearing
-                    ? { opacity: 0, scale: 0.6, y: -8 }
-                    : { opacity: 1, scale: 1, y: 0 }
-                }
-                transition={{ duration: 0.45, ease: "easeOut" }}
-                onClick={() => handleDecorTap(d)}
-                aria-label={`Clear ${d.type} for ${def.reward} Bloom Essence`}
-                className="group relative z-[2] cursor-pointer transition-transform hover:scale-[1.12] hover:drop-shadow-[0_0_6px_rgba(127,176,105,0.6)]"
-                style={{
-                  gridColumn: `${d.x + 1} / span 1`,
-                  gridRow: `${d.y + 1} / span 1`,
-                  // Multiply blend collapses the beige In-Game panel
-                  // background of each decor sheet into the desert sand
-                  // (similar tones), leaving the prop silhouette to read
-                  // cleanly without an obvious rectangle border.
-                  mixBlendMode: "multiply",
-                }}
-              >
-                <AssetImage
-                  assetId={decorAssetId(d.type)}
-                  alt=""
-                  fill
-                  className="h-full w-full"
-                  notDraggable
-                />
-              </motion.button>
+          {/* Layer 0c — clearable decor. 5 types, weighted scatter.
+              Each tap awards the mapped resource + plays a +N floater.
+              Items overlapped by a placed building are filtered out. */}
+          {(() => {
+            // The first non-occluded decor item gets the tutorial ring.
+            const visible = decor.filter(
+              (d) => !buildingAtCell(d.x, d.y, buildings),
             );
-          })}
+            const hintTarget = showDecorHint && visible.length > 0
+              ? visible[0].id
+              : null;
+            return visible.map((d) => {
+              const def = DECOR_DEFS[d.type];
+              const isClearing = clearingDecor.has(d.id);
+              const isHint = d.id === hintTarget;
+              return (
+                <motion.button
+                  key={d.id}
+                  type="button"
+                  animate={
+                    isClearing
+                      ? { opacity: 0, scale: 0.6, y: -8 }
+                      : { opacity: 1, scale: 1, y: 0 }
+                  }
+                  transition={{ duration: 0.45, ease: "easeOut" }}
+                  onClick={() => handleDecorTap(d)}
+                  aria-label={`Clear ${def.label} for ${def.reward} ${def.resource}`}
+                  className="group relative z-[2] cursor-pointer transition-transform hover:scale-[1.12]"
+                  style={{
+                    gridColumn: `${d.x + 1} / span 1`,
+                    gridRow: `${d.y + 1} / span 1`,
+                    // Radial mask crops the rectangular sheet-panel
+                    // border around the prop so only the central
+                    // silhouette is visible against the desert sand.
+                    WebkitMaskImage:
+                      "radial-gradient(circle, black 38%, transparent 72%)",
+                    maskImage:
+                      "radial-gradient(circle, black 38%, transparent 72%)",
+                    filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.5))",
+                  }}
+                >
+                  <AssetImage
+                    assetId={decorAssetId(d.type)}
+                    alt=""
+                    fill
+                    className="h-full w-full"
+                    notDraggable
+                  />
+                  {/* Tutorial ring on the first visible item until the
+                      player has cleared at least one decor item. */}
+                  {isHint && (
+                    <motion.span
+                      className="pointer-events-none absolute inset-[-15%] rounded-full ring-2 ring-leaf"
+                      animate={{
+                        boxShadow: [
+                          "0 0 0 0 rgba(127,176,105,0)",
+                          "0 0 14px 2px rgba(127,176,105,0.7)",
+                          "0 0 0 0 rgba(127,176,105,0)",
+                        ],
+                      }}
+                      transition={{
+                        duration: 1.5,
+                        repeat: Infinity,
+                        ease: "easeInOut",
+                      }}
+                      aria-hidden
+                    />
+                  )}
+                </motion.button>
+              );
+            });
+          })()}
 
           {/* Layer 1 — empty-cell interactive grid */}
           {Array.from({ length: GRID_ROWS * GRID_COLS }).map((_, i) => {
