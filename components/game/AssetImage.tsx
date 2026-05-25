@@ -49,6 +49,45 @@ export function AssetImage({
   const hasFile = !!entry && entry.status !== "placeholder";
 
   if (hasFile) {
+    // Sprite-sheet crop: show only the focal sub-region. We scale the
+    // image so that focus.w/h map to 100% of the slot, then translate
+    // so the focal top-left aligns with the slot's top-left. background-
+    // image keeps it simple and survives drop-shadow filters on the
+    // wrapper at small sizes.
+    if (entry.focus) {
+      const f = entry.focus;
+      const scaleW = 100 / f.w;
+      const scaleH = 100 / f.h;
+      const posX = (-f.x * 100) / f.w;
+      const posY = (-f.y * 100) / f.h;
+      const cropStyle: CSSProperties = {
+        backgroundImage: `url(${entry.path})`,
+        backgroundSize: `${scaleW}% ${scaleH}%`,
+        backgroundPosition: `${posX}% ${posY}%`,
+        backgroundRepeat: "no-repeat",
+      };
+      if (fill) {
+        return (
+          <div
+            aria-label={alt}
+            className={`h-full w-full ${className}`}
+            style={cropStyle}
+          />
+        );
+      }
+      return (
+        <div
+          aria-label={alt}
+          className={className}
+          style={{
+            width: width ?? 64,
+            height: height ?? 64,
+            ...cropStyle,
+          }}
+        />
+      );
+    }
+
     if (fill) {
       return (
         <Image

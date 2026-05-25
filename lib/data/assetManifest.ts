@@ -18,6 +18,19 @@
 
 export type AssetStatus = "placeholder" | "generated" | "final";
 
+/**
+ * Normalized crop region (0..1) inside a source image. When set, <AssetImage>
+ * shows ONLY this rectangle, scaled to fill its slot. Useful for sprite
+ * sheets — e.g. the v1 reference sheets that pack {concept, in-game, icon}
+ * into one PNG. Default of `undefined` shows the whole image as before.
+ */
+export interface FocusRegion {
+  x: number; // top-left x, normalized 0..1
+  y: number; // top-left y, normalized 0..1
+  w: number; // width, normalized 0..1
+  h: number; // height, normalized 0..1
+}
+
 export interface AssetEntry {
   /** Public path served by Next.js (under `/`). May or may not exist on disk. */
   path: string;
@@ -29,59 +42,80 @@ export interface AssetEntry {
   status: AssetStatus;
   /** Short human-readable note (e.g. "cropped from concept sheet"). */
   notes?: string;
+  /** Optional sub-region to crop on render (sprite sheets etc.). */
+  focus?: FocusRegion;
 }
+
+// Standardized crop for v1 reference sheets — every *-sheet.png in
+// buildings-library and defenses-library shares the same layout
+// (title top, 3 panels horizontal: Concept | In-Game | Icon, captions
+// bottom). This focus boxes in just the In-Game panel — the cleanest
+// rendering for a single grid cell. Slightly oversized to absorb minor
+// inter-sheet variation.
+const SHEET_FOCUS: FocusRegion = { x: 0.38, y: 0.18, w: 0.28, h: 0.6 };
 
 // ─── Building art (icons + tiles) ───────────────────────────────────
 export const BUILDING_ASSETS = {
   guildCore: {
     path: "/buildings-library/soul-altar.png",
     status: "generated",
-    notes: "Stand-in: Soul Altar triptych. Needs isolated Core PNG.",
+    notes: "Stand-in: isolated Soul Altar portrait. Replace with a canon Guild Core PNG when ready.",
   },
   bloomExtractor: {
     path: "/buildings/bloom-extractor.png",
     status: "final",
   },
+  // Each *-sheet.png is a 3-panel reference (Concept / In-Game / Icon)
+  // with title + captions. SHEET_FOCUS crops to just the In-Game panel.
   storageVault: {
     path: "/buildings-library/amber-vault-sheet.png",
     status: "generated",
-    notes: "Stand-in: Amber Vault triptych. Needs isolated Vault PNG.",
+    notes: "Stand-in: Amber Vault triptych, cropped to In-Game panel.",
+    focus: SHEET_FOCUS,
   },
   trainingGrounds: {
     path: "/buildings-library/training-grounds-sheet.png",
     status: "generated",
-    notes: "Stand-in: triptych sheet.",
+    notes: "Stand-in: triptych sheet, cropped to In-Game panel.",
+    focus: SHEET_FOCUS,
   },
   spiritNursery: {
     path: "/buildings-library/seed-reliquary-sheet.png",
     status: "generated",
-    notes: "Stand-in: Seed Reliquary triptych.",
+    notes: "Stand-in: Seed Reliquary triptych, cropped to In-Game panel.",
+    focus: SHEET_FOCUS,
   },
   portalGate: {
     path: "/buildings-library/obsidian-antichamber-sheet.png",
     status: "generated",
-    notes: "Stand-in: Obsidian Antichamber triptych.",
+    notes: "Stand-in: Obsidian Antichamber triptych, cropped to In-Game panel.",
+    focus: SHEET_FOCUS,
   },
   relicWorkshop: {
     path: "/buildings-library/bloom-reservoir-sheet.png",
     status: "generated",
-    notes: "Stand-in: Bloom Reservoir triptych.",
+    notes: "Stand-in: Bloom Reservoir triptych, cropped to In-Game panel.",
+    focus: SHEET_FOCUS,
   },
   defenseTotem: {
     path: "/defenses-library/outpost-beacon-sheet.png",
     status: "generated",
+    focus: SHEET_FOCUS,
   },
   vineWall: {
     path: "/defenses-library/root-barrier-sheet.png",
     status: "generated",
+    focus: SHEET_FOCUS,
   },
   sporeTrap: {
     path: "/defenses-library/snare-totem-sheet.png",
     status: "generated",
+    focus: SHEET_FOCUS,
   },
   flameTotem: {
     path: "/defenses-library/doobie-cannon-sheet.png",
     status: "generated",
+    focus: SHEET_FOCUS,
   },
   waterChannel: {
     path: "/buildings-library/spirit-shrine.png",
@@ -91,10 +125,12 @@ export const BUILDING_ASSETS = {
   rootWall: {
     path: "/defenses-library/root-barrier-sheet.png",
     status: "generated",
+    focus: SHEET_FOCUS,
   },
   mycoExtractor: {
     path: "/buildings-library/myco-reliquary-sheet.png",
     status: "generated",
+    focus: SHEET_FOCUS,
   },
   // Legacy v1.1 buildings (still in old saves)
   growTent: { path: "/buildings/grow-tent.png", status: "final" as const },
