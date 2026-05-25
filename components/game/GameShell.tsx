@@ -7,6 +7,7 @@ import { TickMount } from "./TickMount";
 import { UpgradeModal } from "./UpgradeModal";
 import { WelcomeBackToast } from "./WelcomeBackToast";
 import { ToastStack } from "./ToastStack";
+import { ComingSoonModal } from "./ComingSoonModal";
 import { SWRegister } from "./SWRegister";
 
 export function GameShell() {
@@ -50,6 +51,7 @@ export function GameShell() {
 
       <BuildMenu />
       <UpgradeModal />
+      <ComingSoonModal />
       <WelcomeBackToast />
       <ToastStack />
     </div>

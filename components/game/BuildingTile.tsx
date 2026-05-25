@@ -47,16 +47,28 @@ export function BuildingTile({
             : { duration: 0.2 }
       }
     >
-      <div className="relative h-full w-full rounded-md">
-        <AssetImage
-          assetId={`building.${building.type}`}
-          alt={def.name}
-          fill
-          sizes="(max-width: 768px) 80px, 140px"
-          className="p-0.5 drop-shadow-[0_2px_3px_rgba(0,0,0,0.6)]"
-          placeholderColor={def.color}
-          placeholderLabel={def.name}
-        />
+      <div
+        className="relative h-full w-full rounded-md"
+        style={{
+          // Soft elliptical ground shadow under the building for "weight".
+          backgroundImage:
+            "radial-gradient(ellipse 60% 18% at 50% 88%, rgba(0,0,0,0.45) 0%, transparent 70%)",
+        }}
+      >
+        {/* Scale the building art slightly larger than its cell + use
+            object-cover so the silhouette fills aggressively rather than
+            shrinking inside a contain box. Drop-shadow gives lift. */}
+        <div className="absolute inset-[-8%] overflow-visible">
+          <AssetImage
+            assetId={`building.${building.type}`}
+            alt={def.name}
+            fill
+            sizes="(max-width: 768px) 96px, 168px"
+            className="drop-shadow-[0_4px_5px_rgba(0,0,0,0.65)]"
+            placeholderColor={def.color}
+            placeholderLabel={def.name}
+          />
+        </div>
 
         {/* Grow Tent progress ring */}
         {isGrowTent && growProgress !== undefined && (

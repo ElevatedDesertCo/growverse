@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { useGameStore } from "@/lib/store";
 import { playSfx } from "@/lib/systems/audioSystem";
+import { showComingSoon } from "@/lib/systems/comingSoonStore";
 import { ActionIcon } from "./ActionIcon";
 
 type TabKey = "base" | "train" | "raid" | "heroes" | "pets";
@@ -33,6 +34,30 @@ const TABS: Tab[] = [
 
 const ACTIVE: TabKey = "base";
 
+/** Per-tab copy shown by the Coming Soon modal. */
+const COMING_SOON_COPY: Record<Exclude<TabKey, "base">, { title: string; body: string; phase: string }> = {
+  train: {
+    title: "Training Grounds",
+    phase: "Phase 3",
+    body: "Train and deploy combat units to defend your guild and raid enemy bases. Coming with the combat system.",
+  },
+  raid: {
+    title: "Raid Map",
+    phase: "Phase 3",
+    body: "Cross zone borders and raid rival guilds for resources, relics, and reputation. Coming with the raid system.",
+  },
+  heroes: {
+    title: "Heroes",
+    phase: "Phase 4",
+    body: "Recruit and level legendary growers — Anderz, Solace, Raiin and more — each with signature abilities.",
+  },
+  pets: {
+    title: "Spirit Pets",
+    phase: "Phase 4",
+    body: "Bond with spirit creatures from the Spirit Nursery. Evolve them into combat allies and resource collectors.",
+  },
+};
+
 export function BottomNav() {
   const editMode = useGameStore((s) => s.editMode);
   const toggleEditMode = useGameStore((s) => s.toggleEditMode);
@@ -45,7 +70,9 @@ export function BottomNav() {
 
   const handleTap = (key: TabKey) => {
     if (key === ACTIVE) return;
-    alert("Coming in a future sprint");
+    playSfx("buttonClick");
+    const copy = COMING_SOON_COPY[key as Exclude<TabKey, "base">];
+    if (copy) showComingSoon(copy);
   };
 
   return (
