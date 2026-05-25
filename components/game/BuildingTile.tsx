@@ -1,8 +1,13 @@
 "use client";
 
+import { ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
 import { BUILDINGS } from "@/lib/buildings";
-import type { PlacedBuilding } from "@/lib/store";
+import { useGameStore, type PlacedBuilding } from "@/lib/store";
+import {
+  canAffordUpgrade,
+  isMaxLevel,
+} from "@/lib/systems/upgradeSystem";
 import { AssetImage } from "./AssetImage";
 import { ActionIcon } from "./ActionIcon";
 
@@ -28,6 +33,14 @@ export function BuildingTile({
   const isGrowTent = def.growDurationMs !== undefined;
   const isAmberForge = def.firePerSecond !== undefined;
   const showFireBadge = isAmberForge && (pendingFire ?? 0) >= 1;
+
+  // "Upgrade available" signal — true when the player has enough resources
+  // to upgrade this building right now and it isn't maxed. Drives a small
+  // pulsing badge so the player can see at a glance what to spend on next.
+  const resources = useGameStore((s) => s.resources);
+  const canUpgrade =
+    !isMaxLevel(building.type, building.level) &&
+    canAffordUpgrade(resources, building.type, building.level);
 
   return (
     <motion.div
@@ -117,6 +130,32 @@ export function BuildingTile({
               className="opacity-90 drop-shadow-[0_1px_3px_rgba(0,0,0,0.7)]"
             />
           </div>
+        )}
+
+        {/* Affordable-upgrade pulse — a subtle gold halo around the
+            tile + a small ↑ chevron at top-left. Hides while a collect
+            badge is showing on the right so the indicators don't fight. */}
+        {canUpgrade && !showFireBadge && (
+          <>
+            <motion.div
+              className="pointer-events-none absolute inset-0 rounded-md"
+              animate={{
+                boxShadow: [
+                  "0 0 0 0 rgba(212,160,74,0.0), inset 0 0 8px rgba(212,160,74,0.0)",
+                  "0 0 14px 2px rgba(212,160,74,0.55), inset 0 0 12px rgba(212,160,74,0.35)",
+                  "0 0 0 0 rgba(212,160,74,0.0), inset 0 0 8px rgba(212,160,74,0.0)",
+                ],
+              }}
+              transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+              aria-hidden
+            />
+            <span
+              className="absolute -top-1 -left-1 inline-flex h-4 w-4 items-center justify-center rounded-full border border-black/40 bg-gold text-bg-deep shadow"
+              aria-label="Upgrade available"
+            >
+              <ArrowUp className="h-2.5 w-2.5" strokeWidth={3} />
+            </span>
+          </>
         )}
 
         {/* Level badge */}

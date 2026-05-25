@@ -270,16 +270,34 @@ function BuildingCard({
         onTap();
       }}
       aria-label={`Place ${def.name}`}
-      className={`group relative flex flex-col items-center gap-2 rounded-xl border border-gold/20 bg-bg-mid/60 p-3 text-left transition select-none ${
-        tapDisabled
-          ? "cursor-grab opacity-90"
-          : "cursor-grab hover:border-gold/50 active:cursor-grabbing"
+      className={`group relative flex flex-col items-center gap-2 rounded-xl border bg-bg-mid/60 p-3 text-left transition select-none ${
+        locked
+          ? "cursor-not-allowed border-gold-muted/25 opacity-75"
+          : tapDisabled
+            ? "cursor-grab border-gold/20 opacity-90"
+            : "cursor-grab border-gold/30 hover:border-gold/55 hover:bg-bg-mid/80 active:cursor-grabbing"
       }`}
       style={{ touchAction: "none" }}
     >
+      {/* Locked corner ribbon — top-right, gold on dark. */}
+      {locked && (
+        <div
+          className="pointer-events-none absolute -top-2 -right-2 z-10 flex items-center gap-1 rounded-full border border-gold/40 bg-bg-deep/95 px-2 py-0.5 shadow-md"
+        >
+          <Lock className="h-2.5 w-2.5 text-gold" strokeWidth={2.5} />
+          <span
+            className="font-display text-[8px] font-bold uppercase tracking-[0.18em] text-gold"
+            style={{ fontFamily: "var(--font-cinzel)" }}
+          >
+            Lv {def.unlockCoreLevel ?? 1}
+          </span>
+        </div>
+      )}
       <div
         className="relative h-20 w-20 overflow-hidden rounded-lg"
-        style={{ backgroundColor: `${def.color}1a` }}
+        style={{
+          backgroundColor: locked ? "rgba(35,25,15,0.5)" : `${def.color}1a`,
+        }}
       >
         <AssetImage
           assetId={`building.${type}`}
@@ -292,8 +310,8 @@ function BuildingCard({
           placeholderLabel={def.name}
         />
         {locked && (
-          <div className="absolute inset-0 flex items-center justify-center bg-bg-deep/60">
-            <Lock className="h-6 w-6 text-gold/80" />
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-bg-deep/70 backdrop-blur-[2px]">
+            <Lock className="h-6 w-6 text-gold/85" strokeWidth={2.25} />
           </div>
         )}
       </div>

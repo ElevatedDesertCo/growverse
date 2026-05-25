@@ -157,17 +157,30 @@ export function ResourceBar() {
         </div>
 
         {/* Row 2 — resource pill rail. Horizontal scroll on narrow widths
-            (rare overflow); flex-wrap on midsize so it reads in 2 rows. */}
-        <div className="-mx-1 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <div className="flex items-center justify-center gap-1.5 px-1 sm:gap-2 md:flex-wrap md:justify-center">
-            {RESOURCE_PILLS.map((spec) => (
-              <ResourcePill
-                key={spec.field}
-                spec={spec}
-                value={resources[spec.field]}
-                max={maxOf(spec.field)}
-              />
-            ))}
+            with edge fades to signal scrollability; centered with no
+            fades on desktop where all pills are visible. */}
+        <div className="relative -mx-1">
+          {/* Gradient fade-out on left + right edges hints "scroll me"
+              on mobile. Hidden on md+ where everything fits. */}
+          <div
+            className="pointer-events-none absolute inset-y-0 left-0 z-10 w-6 bg-gradient-to-r from-bg-deep/95 to-transparent md:hidden"
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute inset-y-0 right-0 z-10 w-6 bg-gradient-to-l from-bg-deep/95 to-transparent md:hidden"
+            aria-hidden
+          />
+          <div className="overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <div className="flex items-center justify-center gap-1.5 px-1 sm:gap-2 md:flex-wrap md:justify-center">
+              {RESOURCE_PILLS.map((spec) => (
+                <ResourcePill
+                  key={spec.field}
+                  spec={spec}
+                  value={resources[spec.field]}
+                  max={maxOf(spec.field)}
+                />
+              ))}
+            </div>
           </div>
         </div>
       </div>
