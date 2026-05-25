@@ -8,6 +8,7 @@ import { UpgradeModal } from "./UpgradeModal";
 import { WelcomeBackToast } from "./WelcomeBackToast";
 import { ToastStack } from "./ToastStack";
 import { ComingSoonModal } from "./ComingSoonModal";
+import { DailyRewardModal } from "./DailyRewardModal";
 import { EditModeHint } from "./EditModeHint";
 import { MusicMount } from "./MusicMount";
 import { SWRegister } from "./SWRegister";
@@ -55,6 +56,7 @@ export function GameShell() {
       <BuildMenu />
       <UpgradeModal />
       <ComingSoonModal />
+      <DailyRewardModal />
       <EditModeHint />
       <WelcomeBackToast />
       <ToastStack />

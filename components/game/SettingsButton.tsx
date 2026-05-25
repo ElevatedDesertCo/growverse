@@ -2,10 +2,14 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import {
+  Check,
+  Copy,
+  Download,
   Music,
   Music2,
   Settings,
   Trash2,
+  Upload,
   Volume2,
   VolumeX,
   X,
@@ -22,6 +26,8 @@ import {
   isMusicMuted,
   setMusicMuted,
 } from "@/lib/systems/musicSystem";
+import { exportSave, importSave } from "@/lib/systems/saveSystem";
+import { pushToast } from "@/lib/systems/toastSystem";
 
 export function SettingsButton() {
   const [open, setOpen] = useState(false);
@@ -31,6 +37,11 @@ export function SettingsButton() {
   // re-renders when the user flips them.
   const [sfxOff, setSfxOff] = useState(false);
   const [musicOff, setMusicOff] = useState(false);
+  // Save export / import UI state.
+  const [exportText, setExportText] = useState("");
+  const [exportCopied, setExportCopied] = useState(false);
+  const [importText, setImportText] = useState("");
+  const [importErr, setImportErr] = useState<string | null>(null);
   const resetSave = useGameStore((s) => s.resetSave);
 
   // Sync from persisted state once we're on the client + whenever the
@@ -213,6 +224,142 @@ export function SettingsButton() {
                           {musicOff ? "Off" : "On"}
                         </span>
                       </button>
+                    </div>
+                  </section>
+
+                  {/* Save: export + import */}
+                  <section className="relative overflow-hidden rounded-xl border border-gold/25 bg-bg-mid/40 p-4">
+                    <h3
+                      className="font-display text-sm font-bold uppercase tracking-[0.18em] text-gold"
+                      style={{ fontFamily: "var(--font-cinzel)" }}
+                    >
+                      Save Data
+                    </h3>
+                    <p className="mt-1 text-[11px] leading-snug text-text-muted">
+                      Back up your progress to text and paste it on another
+                      device or in a different browser.
+                    </p>
+                    <div className="mt-3 space-y-2">
+                      {!exportText ? (
+                        <button
+                          type="button"
+                          onClick={() => {
+                            const text = exportSave();
+                            setExportText(text);
+                            setExportCopied(false);
+                            // Best-effort clipboard copy.
+                            if (
+                              typeof navigator !== "undefined" &&
+                              navigator.clipboard?.writeText
+                            ) {
+                              navigator.clipboard
+                                .writeText(text)
+                                .then(() => setExportCopied(true))
+                                .catch(() => {
+                                  /* user can still copy from the textarea */
+                                });
+                            }
+                            playSfx("buttonClick");
+                          }}
+                          className="inline-flex items-center gap-2 rounded-full border border-gold/40 bg-bg-deep/70 px-3.5 py-2 font-display text-[11px] font-bold uppercase tracking-[0.16em] text-gold transition-colors hover:border-gold/60"
+                        >
+                          <Download className="h-3.5 w-3.5" />
+                          Export Save
+                        </button>
+                      ) : (
+                        <div className="space-y-1.5">
+                          <textarea
+                            readOnly
+                            value={exportText}
+                            onFocus={(e) => e.currentTarget.select()}
+                            className="h-20 w-full resize-y rounded-lg border border-gold/20 bg-bg-deep/80 p-2 font-mono text-[10px] text-text-muted"
+                          />
+                          <div className="flex items-center gap-2">
+                            <button
+                              type="button"
+                              onClick={() => {
+                                if (
+                                  typeof navigator !== "undefined" &&
+                                  navigator.clipboard?.writeText
+                                ) {
+                                  navigator.clipboard
+                                    .writeText(exportText)
+                                    .then(() => setExportCopied(true))
+                                    .catch(() => {});
+                                }
+                                playSfx("buttonClick");
+                              }}
+                              className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-bg-deep/70 px-3 py-1.5 font-display text-[10px] font-bold uppercase tracking-[0.16em] text-gold transition-colors hover:border-gold/60"
+                            >
+                              {exportCopied ? (
+                                <Check className="h-3 w-3" />
+                              ) : (
+                                <Copy className="h-3 w-3" />
+                              )}
+                              {exportCopied ? "Copied" : "Copy"}
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
+                                setExportText("");
+                                setExportCopied(false);
+                              }}
+                              className="font-display text-[10px] font-medium uppercase tracking-[0.16em] text-text-muted transition-colors hover:text-text-primary"
+                            >
+                              Done
+                            </button>
+                          </div>
+                        </div>
+                      )}
+
+                      <div className="space-y-1.5">
+                        <textarea
+                          value={importText}
+                          onChange={(e) => {
+                            setImportText(e.target.value);
+                            if (importErr) setImportErr(null);
+                          }}
+                          placeholder="Paste a Growverse save export here…"
+                          className="h-16 w-full resize-y rounded-lg border border-gold/20 bg-bg-deep/80 p-2 font-mono text-[10px] text-text-primary placeholder:text-text-muted/60 focus:border-gold/45 focus:outline-none"
+                        />
+                        <div className="flex items-center gap-2">
+                          <button
+                            type="button"
+                            disabled={!importText.trim()}
+                            onClick={() => {
+                              setImportErr(null);
+                              importSave(importText.trim())
+                                .then(() => {
+                                  playSfx("upgradeComplete");
+                                  pushToast({
+                                    kind: "success",
+                                    title: "Save Imported",
+                                    body: "Your progress has been restored.",
+                                  });
+                                  setImportText("");
+                                  handleClose();
+                                })
+                                .catch((err: unknown) => {
+                                  const msg =
+                                    err instanceof Error
+                                      ? err.message
+                                      : String(err);
+                                  setImportErr(msg);
+                                  playSfx("locked");
+                                });
+                            }}
+                            className="inline-flex items-center gap-1.5 rounded-full bg-gold px-3 py-1.5 font-display text-[10px] font-bold uppercase tracking-[0.16em] text-bg-deep transition-colors hover:bg-gold-dark disabled:cursor-not-allowed disabled:bg-gold-muted disabled:text-bg-deep/60"
+                          >
+                            <Upload className="h-3 w-3" />
+                            Import Save
+                          </button>
+                          {importErr && (
+                            <span className="text-[10px] text-red-300">
+                              {importErr}
+                            </span>
+                          )}
+                        </div>
+                      </div>
                     </div>
                   </section>
 

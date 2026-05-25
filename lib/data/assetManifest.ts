@@ -467,6 +467,22 @@ export const SFX_ASSETS = {
     status: "final",
     notes: "Kenney UI Audio · switch4.ogg (CC0)",
   },
+  // ── Per-type decor-clear SFX (cactus/shrub leaf, rocks stone, relic/lantern metal)
+  decorLeaf: {
+    path: "/assets/audio/sfx/decor-leaf.mp3",
+    status: "final",
+    notes: "Kenney UI Audio · rollover3.ogg (CC0) — soft plant-rustle",
+  },
+  decorStone: {
+    path: "/assets/audio/sfx/decor-stone.mp3",
+    status: "final",
+    notes: "Kenney UI Audio · switch2.ogg (CC0) — short stone clack",
+  },
+  decorMetal: {
+    path: "/assets/audio/sfx/decor-metal.mp3",
+    status: "final",
+    notes: "Kenney UI Audio · switch20.ogg (CC0) — deeper relic clunk",
+  },
 } satisfies Record<string, AssetEntry>;
 
 export const MUSIC_ASSETS = {

@@ -1,8 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Coins, Flame, Leaf, Sparkles, Hexagon, Zap } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { RESOURCES } from "@/lib/data";
 import { useGameStore } from "@/lib/store";
 import { getTotalStorageBonus } from "@/lib/systems/buildingSystem";
 import {
@@ -50,10 +52,35 @@ function ResourcePill({
   value: number;
   max: number | null;
 }) {
-  const { Icon, accent, short, full } = spec;
+  const { Icon, accent, short, full, field } = spec;
   const atCap = max !== null && value >= max;
   const display = value.toLocaleString();
   const maxDisplay = max !== null ? max.toLocaleString() : null;
+  const resourceDef = RESOURCES[field as keyof typeof RESOURCES];
+
+  // Tooltip open state — hover (desktop) + long-press (mobile).
+  const [tipOpen, setTipOpen] = useState(false);
+  const longPressTimer = useRef<number | null>(null);
+  useEffect(() => {
+    return () => {
+      if (longPressTimer.current) {
+        window.clearTimeout(longPressTimer.current);
+      }
+    };
+  }, []);
+  const startLongPress = () => {
+    if (longPressTimer.current) window.clearTimeout(longPressTimer.current);
+    longPressTimer.current = window.setTimeout(() => {
+      setTipOpen(true);
+      longPressTimer.current = null;
+    }, 350);
+  };
+  const cancelLongPress = () => {
+    if (longPressTimer.current) {
+      window.clearTimeout(longPressTimer.current);
+      longPressTimer.current = null;
+    }
+  };
 
   return (
     <div
@@ -62,7 +89,24 @@ function ResourcePill({
           ? "border-red-400/60 ring-1 ring-red-500/30"
           : "border-gold/35 hover:border-gold/55"
       }`}
-      title={`${full}: ${display}${maxDisplay ? ` / ${maxDisplay}` : ""}${atCap ? " (storage full)" : ""}`}
+      onMouseEnter={() => setTipOpen(true)}
+      onMouseLeave={() => {
+        cancelLongPress();
+        setTipOpen(false);
+      }}
+      onPointerDown={(e) => {
+        // Long-press on touch only; mouse handled via hover.
+        if (e.pointerType === "touch") startLongPress();
+      }}
+      onPointerUp={() => {
+        cancelLongPress();
+        // Auto-dismiss the tooltip a moment after release on touch.
+        window.setTimeout(() => setTipOpen(false), 1800);
+      }}
+      onPointerCancel={() => {
+        cancelLongPress();
+        setTipOpen(false);
+      }}
       style={{
         boxShadow: atCap
           ? "0 0 12px -4px rgba(220,80,80,0.5), inset 0 1px 0 rgba(255,255,255,0.05)"
@@ -113,6 +157,58 @@ function ResourcePill({
 
       {/* Resource short-name label below digits on hover (desktop) — tooltip-style */}
       <span className="sr-only">{short}</span>
+
+      {/* Hover / long-press tooltip with resource info */}
+      <AnimatePresence>
+        {tipOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -4, scale: 0.95 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: -2, scale: 0.97 }}
+            transition={{ duration: 0.15 }}
+            className="pointer-events-none absolute left-1/2 top-full z-50 mt-2 w-56 -translate-x-1/2"
+            role="tooltip"
+          >
+            <div
+              className="rounded-xl p-[1.5px]"
+              style={{
+                background: `linear-gradient(135deg, ${accent}cc 0%, ${accent}55 60%, ${accent}33 100%)`,
+                boxShadow: `0 10px 24px -10px rgba(0,0,0,0.7), 0 0 18px -4px ${accent}55`,
+              }}
+            >
+              <div className="rounded-[11px] bg-bg-deep/95 px-3 py-2 backdrop-blur">
+                <div
+                  className="font-display text-[11px] font-bold uppercase tracking-[0.2em]"
+                  style={{ color: accent, fontFamily: "var(--font-cinzel)" }}
+                >
+                  {full}
+                </div>
+                {resourceDef?.description && (
+                  <p className="mt-1 text-[10px] leading-snug text-text-muted">
+                    {resourceDef.description}
+                  </p>
+                )}
+                <div className="mt-1.5 font-sans text-[10px] tabular-nums text-text-primary">
+                  <span style={{ color: accent }}>{display}</span>
+                  {maxDisplay && (
+                    <span className="text-text-muted"> / {maxDisplay}</span>
+                  )}
+                  {atCap && (
+                    <span className="ml-1.5 rounded-full bg-red-500/30 px-1.5 py-px text-[8px] font-bold uppercase tracking-[0.18em] text-red-300">
+                      Full
+                    </span>
+                  )}
+                </div>
+                {resourceDef?.earnedFrom && (
+                  <p className="mt-1.5 text-[9px] uppercase tracking-[0.18em] text-text-muted/80">
+                    Earned: <span className="text-text-muted">{resourceDef.earnedFrom}</span>
+                  </p>
+                )}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

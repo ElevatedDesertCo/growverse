@@ -29,6 +29,18 @@ function decorAssetId(type: DecorItem["type"]): string {
   }
 }
 
+/** Map a decor type → SFX hook name. Plants rustle, rocks clack, relics clunk. */
+function decorClearSfx(type: DecorItem["type"]): "decorLeaf" | "decorStone" | "decorMetal" {
+  switch (type) {
+    case "cactus":
+    case "shrub":   return "decorLeaf";
+    case "rocks":   return "decorStone";
+    case "relic":
+    case "lantern": return "decorMetal";
+    default:        return "decorLeaf";
+  }
+}
+
 const FIRST_CLEAR_KEY = "growverse-has-cleared-decor";
 
 interface DustBurst {
@@ -99,12 +111,17 @@ export function BaseGrid() {
       ...prev,
       { id: floaterId, x: d.x, y: d.y, amount: def.reward, color: def.color },
     ]);
-    playSfx("resourceCollect");
+    playSfx(decorClearSfx(d.type));
     pushToast({
       kind: "success",
-      title: "Cleared",
-      body: `${def.label} · +${def.reward}`,
+      title: def.label,
+      body: `+${def.reward}`,
       accent: def.color,
+      // Coalesce rapid clears of the same prop type into a single
+      // toast that counts up + sums the reward, so wholesale-clearing
+      // doesn't spam the HUD.
+      coalesceKey: `decor-${d.type}`,
+      bodyAmount: def.reward,
     });
     // First-clear: mark so the tutorial hint stops showing on future loads.
     if (!hasClearedDecorRef.current) {

@@ -78,10 +78,18 @@ export function ToastStack() {
                 </div>
                 <div className="flex min-w-0 flex-col items-start text-left leading-tight">
                   <span
-                    className="font-display text-[11px] font-bold uppercase tracking-[0.18em]"
+                    className="flex items-center gap-1.5 font-display text-[11px] font-bold uppercase tracking-[0.18em]"
                     style={{ color: accent, fontFamily: "var(--font-cinzel)" }}
                   >
                     {t.title}
+                    {(t.count ?? 1) > 1 && (
+                      <span
+                        className="rounded-full px-1.5 py-px font-sans text-[9px] font-bold tabular-nums text-bg-deep"
+                        style={{ backgroundColor: accent }}
+                      >
+                        ×{t.count}
+                      </span>
+                    )}
                   </span>
                   {t.body && (
                     <span className="mt-0.5 truncate font-sans text-[11px] text-text-muted">

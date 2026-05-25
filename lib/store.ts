@@ -183,6 +183,8 @@ interface GameState {
   clearDecor: (id: string) => DecorItem | null;
   /** Spawn one new decor item on a free cell, if under cap. */
   regrowDecor: () => void;
+  /** Apply a sparse resource bundle (e.g. daily reward). Cap-aware. */
+  grantResources: (bundle: Partial<Resources>) => void;
 
   /** Wipe the persisted save and reset to initial state. */
   resetSave: () => void;
@@ -586,6 +588,18 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
       ).next,
     }));
     return item;
+  },
+
+  grantResources: (bundle) => {
+    const state = get();
+    const storageBonus = getTotalStorageBonus(state.buildings);
+    let next = state.resources;
+    for (const [k, v] of Object.entries(bundle)) {
+      if (v && v > 0) {
+        next = addResource(next, k as keyof Resources, v, storageBonus).next;
+      }
+    }
+    set({ resources: next });
   },
 
   regrowDecor: () => {
