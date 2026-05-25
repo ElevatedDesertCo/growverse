@@ -87,24 +87,53 @@ export function BottomNav() {
                 <button
                   type="button"
                   onClick={() => handleTap(key)}
-                  className={`flex w-full flex-col items-center gap-1 rounded-lg px-1 py-1.5 transition-colors ${
+                  className={`group relative flex w-full flex-col items-center gap-1 rounded-lg px-1 py-1.5 transition-colors ${
                     active
                       ? "text-gold"
                       : "text-text-muted hover:text-text-primary"
                   }`}
                   aria-current={active ? "page" : undefined}
                 >
+                  {/* Active-tab gold glow disc behind the icon. */}
+                  {active && (
+                    <span
+                      className="pointer-events-none absolute left-1/2 top-1 h-7 w-7 -translate-x-1/2 rounded-full opacity-90"
+                      style={{
+                        background:
+                          "radial-gradient(circle at 50% 40%, rgba(245,217,122,0.55) 0%, rgba(212,160,74,0.25) 40%, rgba(212,160,74,0) 75%)",
+                      }}
+                      aria-hidden
+                    />
+                  )}
                   <Icon
-                    className="h-5 w-5"
-                    strokeWidth={active ? 2.25 : 1.75}
+                    className="relative h-5 w-5"
+                    strokeWidth={active ? 2.5 : 1.75}
+                    style={
+                      active
+                        ? {
+                            filter:
+                              "drop-shadow(0 0 6px rgba(212,160,74,0.7))",
+                          }
+                        : undefined
+                    }
                   />
                   <span
-                    className={`font-sans text-[10px] uppercase tracking-[0.18em] ${
-                      active ? "font-semibold" : "font-medium"
+                    className={`relative font-sans text-[10px] uppercase tracking-[0.18em] ${
+                      active ? "font-bold" : "font-medium"
                     }`}
                   >
                     {label}
                   </span>
+                  {/* Bottom indicator bar for active tab. */}
+                  {active && (
+                    <span
+                      className="pointer-events-none absolute -bottom-2 left-1/2 h-[2.5px] w-8 -translate-x-1/2 rounded-full bg-gold"
+                      style={{
+                        boxShadow: "0 0 6px rgba(212,160,74,0.8)",
+                      }}
+                      aria-hidden
+                    />
+                  )}
                 </button>
               </li>
             );

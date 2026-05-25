@@ -142,14 +142,32 @@ export function BuildMenu() {
                         : "↑ Tap a glowing cell, or drag a card onto the grid"}
                   </p>
                 </div>
-                <button
-                  type="button"
-                  onClick={closeBuildMenu}
-                  className="rounded-full p-1.5 text-text-muted transition-colors hover:bg-bg-mid/60 hover:text-text-primary"
-                  aria-label="Close build menu"
-                >
-                  <X className="h-5 w-5" />
-                </button>
+                <div className="flex items-center gap-1.5">
+                  {ready && !draggingPlace && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        playSfx("buttonClick");
+                        // Re-open the menu with no selectedCell so player
+                        // can pick a different glowing cell from the grid.
+                        useGameStore.setState({ selectedCell: null });
+                      }}
+                      className="rounded-full border border-gold/30 px-2.5 py-1 font-display text-[9px] font-bold uppercase tracking-[0.18em] text-text-muted transition-colors hover:border-gold/55 hover:text-text-primary"
+                      aria-label="Pick a different cell"
+                      style={{ fontFamily: "var(--font-cinzel)" }}
+                    >
+                      Change Cell
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={closeBuildMenu}
+                    className="rounded-full p-1.5 text-text-muted transition-colors hover:bg-bg-mid/60 hover:text-text-primary"
+                    aria-label="Close build menu"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
               </header>
 
               {/* Category tab rail — scrollable on narrow widths so all

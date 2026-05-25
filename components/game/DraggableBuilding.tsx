@@ -356,14 +356,26 @@ export function DraggableBuilding({
             <motion.div
               key={f.id}
               initial={{ opacity: 0, y: 0, scale: 0.85 }}
-              animate={{ opacity: 1, y: -40, scale: 1.05 }}
-              exit={{ opacity: 0, y: -55 }}
-              transition={{ duration: 1, ease: "easeOut" }}
+              animate={{
+                // Two-stage trajectory: pop up briefly, then fly toward
+                // the HUD at the top of the screen with a fade-out so it
+                // visually "deposits" into the resource bank.
+                opacity: [0, 1, 1, 0],
+                y: [0, -32, -90, -160],
+                scale: [0.85, 1.15, 1.05, 0.7],
+              }}
+              transition={{
+                duration: 1.2,
+                ease: "easeOut",
+                times: [0, 0.25, 0.7, 1],
+              }}
               className="absolute left-1/2 top-1/2 -translate-x-1/2 select-none whitespace-nowrap font-display text-base font-bold leading-none"
               style={{
                 color: f.color,
                 textShadow:
-                  "0 1px 0 rgba(0,0,0,0.6), 0 0 8px rgba(0,0,0,0.5)",
+                  "0 1px 0 rgba(0,0,0,0.7), 0 0 10px rgba(0,0,0,0.6), 0 0 18px " +
+                  f.color +
+                  "55",
               }}
             >
               +{f.amount}

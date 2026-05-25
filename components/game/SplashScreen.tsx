@@ -1,16 +1,43 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 
 const LOAD_MS = 2400;
 const FADE_MS = 600;
 
+/** Lore tips rotated through the splash. Each rotation: ~1.2s. */
+const TIPS: string[] = [
+  "nurture your spirit plants to unlock hidden abilities.",
+  "upgrade the Guild Core to unlock new building tiers.",
+  "Storage Vaults raise the cap on every resource at once.",
+  "Bloom Extractors farm Bloom Essence — your bread and butter.",
+  "Defenders share their stats across the whole Guild Base.",
+  "raids open at Phase 3 — start stockpiling now.",
+  "every resource regenerates faster while you're away.",
+  "tap Edit to rearrange your base without a rebuild cost.",
+];
+
+function pickRandomTipIndex(): number {
+  return Math.floor(Math.random() * TIPS.length);
+}
+
 type Phase = "loading" | "fading" | "done";
 
 export function SplashScreen() {
   const [phase, setPhase] = useState<Phase>("loading");
+  // Seed with a random tip so refreshes feel different. Rotate every
+  // 1.2s — covers ~2 tips per 2.4s load duration.
+  const [tipIdx, setTipIdx] = useState(() => pickRandomTipIndex());
+
+  useEffect(() => {
+    if (phase !== "loading") return;
+    const id = setInterval(() => {
+      setTipIdx((i) => (i + 1) % TIPS.length);
+    }, 1200);
+    return () => clearInterval(id);
+  }, [phase]);
 
   // When fading starts, schedule a hard unmount after the fade.
   // This guarantees the splash leaves the DOM even if a CSS transition fails.
@@ -63,10 +90,20 @@ export function SplashScreen() {
           />
         </div>
 
-        <span className="text-[10px] tracking-wide text-text-muted">
-          <span className="text-gold">TIP:</span> nurture your spirit
-          plants to unlock hidden abilities.
-        </span>
+        <div className="relative h-4 w-full max-w-sm overflow-hidden">
+          <AnimatePresence mode="wait">
+            <motion.span
+              key={tipIdx}
+              initial={{ opacity: 0, y: 6 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -6 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+              className="absolute inset-0 text-center text-[10px] tracking-wide text-text-muted"
+            >
+              <span className="text-gold">TIP:</span> {TIPS[tipIdx]}
+            </motion.span>
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   );
