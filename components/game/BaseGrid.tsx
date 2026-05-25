@@ -27,16 +27,24 @@ const DECOR_REFS = [
 ] as const;
 
 /**
- * Deterministic per-cell decor picker. Same seed → same scenery across
- * renders so the base feels persistent, no flicker when state changes.
- * Returns null for ~85% of cells (sparse scatter).
+ * Standard GLSL-style 2D pseudorandom hash. Uniform in [0, 1).
+ * The fract(sin·43758) trick scrambles the row/col periodicity that
+ * plain |sin(ax+by)| introduces (columns of decor showing up in a
+ * line). Same input → same output, so scenery is persistent.
+ */
+function rand2d(x: number, y: number): number {
+  const s = Math.sin(x * 12.9898 + y * 78.233) * 43758.5453;
+  return s - Math.floor(s);
+}
+
+/**
+ * Deterministic per-cell decor picker. Returns null for ~92% of cells
+ * (sparse scatter that feels ambient, not crowded).
  */
 function decorAt(x: number, y: number): string | null {
-  const hash = Math.abs(Math.sin(x * 73.13 + y * 37.71));
-  if (hash < 0.86) return null;
-  const pickHash = Math.abs(Math.sin(x * 17.11 + y * 91.37));
-  const idx = Math.floor(pickHash * DECOR_REFS.length) % DECOR_REFS.length;
-  return DECOR_REFS[idx];
+  if (rand2d(x, y) > 0.08) return null;
+  const idx = Math.floor(rand2d(x + 1000, y + 2000) * DECOR_REFS.length);
+  return DECOR_REFS[idx % DECOR_REFS.length];
 }
 
 interface DustBurst {
@@ -309,7 +317,7 @@ export function BaseGrid() {
               initial={{ opacity: 0, y: 4 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.4, ease: "easeOut" }}
-              className="pointer-events-none absolute inset-0 flex flex-col items-center justify-center text-center"
+              className="pointer-events-none absolute inset-0 z-[4] flex flex-col items-center justify-center text-center"
             >
               {/* Soft aura behind the card */}
               <div

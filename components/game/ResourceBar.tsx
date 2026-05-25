@@ -27,10 +27,15 @@ import { SettingsButton } from "./SettingsButton";
  */
 
 /** Horizontal centers of the 3 number slots inside the painted bar
- *  (after cropping to just the bar). Tuned to the v2 mockup. */
-const SLOT_CENTERS_X = [29, 58, 86] as const;
-/** Vertical center of the numbers inside the painted bar. */
-const SLOT_CENTER_Y = 58;
+ *  (after cropping to just the bar). Tuned via pixel-sampled panel
+ *  bounds so live numbers overlay the baked "100,000" labels. */
+const SLOT_CENTERS_X = [27, 56, 85] as const;
+/** Vertical center of the numbers inside the painted bar (the painted
+ *  "100,000" labels sit at this Y%, below the protruding gem caps). */
+const SLOT_CENTER_Y = 66;
+/** Dark mask pill size (% of bar) to cover painted "100,000" labels. */
+const MASK_W_PCT = 32;
+const MASK_H_PCT = 40;
 
 const PANELS = [
   { key: "bloom" as const, field: "bloomEssence" as keyof Resources, accent: "#7fb069", capColor: "text-leaf" },
@@ -55,24 +60,32 @@ function NumberOverlay({
 }: NumberOverlayProps) {
   const display = value.toLocaleString();
   return (
-    <motion.span
-      key={value}
-      initial={{ scale: 1 }}
-      animate={{ scale: [1, 1.18, 1] }}
-      transition={{ duration: 0.32, ease: "easeOut" }}
-      className={`pointer-events-none absolute -translate-x-1/2 -translate-y-1/2 select-none whitespace-nowrap font-display text-xs font-bold tabular-nums sm:text-sm md:text-base ${
-        atCap ? "text-red-300" : capColor
-      }`}
+    <div
+      className="pointer-events-none absolute flex -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-black/55 px-2 py-0.5 ring-1 ring-black/40 backdrop-blur-[1px]"
       style={{
         left: `${centerX}%`,
         top: `${centerY}%`,
-        textShadow:
-          "0 1px 0 rgba(0,0,0,0.85), 0 0 6px rgba(0,0,0,0.7), 0 0 14px rgba(0,0,0,0.6)",
-        fontFamily: "var(--font-cinzel)",
+        width: `${MASK_W_PCT}%`,
+        height: `${MASK_H_PCT}%`,
       }}
     >
-      {display}
-    </motion.span>
+      <motion.span
+        key={value}
+        initial={{ scale: 1 }}
+        animate={{ scale: [1, 1.18, 1] }}
+        transition={{ duration: 0.32, ease: "easeOut" }}
+        className={`select-none whitespace-nowrap font-display text-sm font-bold tabular-nums sm:text-base md:text-lg ${
+          atCap ? "text-red-300" : capColor
+        }`}
+        style={{
+          textShadow:
+            "0 1px 0 rgba(0,0,0,0.85), 0 0 8px rgba(0,0,0,0.7)",
+          fontFamily: "var(--font-cinzel)",
+        }}
+      >
+        {display}
+      </motion.span>
+    </div>
   );
 }
 
@@ -134,7 +147,7 @@ function PaintedFrameBar({
       {/* Painted frame — sets the bar's aspect ratio implicitly via
           the cropped PNG. We render it as a background div so live
           overlays can sit on top without affecting layout. */}
-      <div className="relative aspect-[5.1/1] w-full">
+      <div className="relative aspect-[3.5/1] w-full">
         <AssetImage
           assetId="ui.resourceBarFrame"
           alt="Resources"

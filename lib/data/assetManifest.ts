@@ -46,13 +46,14 @@ export interface AssetEntry {
   focus?: FocusRegion;
 }
 
-// Standardized crop for v1 reference sheets — every *-sheet.png in
-// buildings-library and defenses-library shares the same layout
-// (title top, 3 panels horizontal: Concept | In-Game | Icon, captions
-// bottom). This focus boxes in just the In-Game panel — the cleanest
-// rendering for a single grid cell. Slightly oversized to absorb minor
-// inter-sheet variation.
-const SHEET_FOCUS: FocusRegion = { x: 0.38, y: 0.18, w: 0.28, h: 0.6 };
+// Standardized crop for v1 reference sheets — every *.png in
+// buildings-library, defenses-library, and decor/ shares the same
+// layout (title top, 3 panels horizontal: Concept | In-Game | Icon,
+// captions bottom). This focus boxes in just the In-Game panel —
+// the cleanest rendering for a single grid cell. Coords measured by
+// pixel-sampling the actual 1536x1024 source PNGs: In-Game panel
+// sits ~x:0.34..0.62, ~y:0.38..0.63.
+const SHEET_FOCUS: FocusRegion = { x: 0.36, y: 0.40, w: 0.24, h: 0.22 };
 
 // ─── Building art (icons + tiles) ───────────────────────────────────
 export const BUILDING_ASSETS = {
@@ -265,30 +266,28 @@ export const SPIRIT_PET_ASSETS = {
 } satisfies Record<string, AssetEntry>;
 
 // ─── Terrain (ground texture, grid overlay, foundation tile) ───────
-// Single source PNG ground-grid-foundation-set.png contains three
-// labeled panels arranged horizontally. Each entry below crops to one
-// of them. To upgrade later, drop isolated PNGs and clear the focus.
-const TERRAIN_PANEL_W = 0.24;
-const TERRAIN_PANEL_H = 0.56;
-const TERRAIN_PANEL_Y = 0.17;
+// Single source PNG ground-grid-foundation-set.png is 1536x1024 with
+// three labeled panels arranged horizontally. Each entry below crops
+// tight to one panel's interior — coords measured by pixel-sampling
+// the actual PNG (panel y bounds 0.20..0.60, x gaps at 0.35 and 0.65).
 export const TERRAIN_ASSETS = {
   desertGround: {
     path: "/terrain/ground-grid-foundation-set.png",
     status: "generated",
-    notes: "Cropped from terrain set sheet — left panel (desert ground texture).",
-    focus: { x: 0.06, y: TERRAIN_PANEL_Y, w: TERRAIN_PANEL_W, h: TERRAIN_PANEL_H },
+    notes: "Cropped from terrain set — left panel (desert ground).",
+    focus: { x: 0.07, y: 0.22, w: 0.25, h: 0.36 },
   },
   placementGrid: {
     path: "/terrain/ground-grid-foundation-set.png",
     status: "generated",
-    notes: "Cropped from terrain set sheet — middle panel (grid overlay).",
-    focus: { x: 0.38, y: TERRAIN_PANEL_Y, w: TERRAIN_PANEL_W, h: TERRAIN_PANEL_H },
+    notes: "Cropped from terrain set — middle panel (grid overlay).",
+    focus: { x: 0.39, y: 0.22, w: 0.24, h: 0.36 },
   },
   foundationTile: {
     path: "/terrain/ground-grid-foundation-set.png",
     status: "generated",
-    notes: "Cropped from terrain set sheet — right panel (cracked stone foundation).",
-    focus: { x: 0.70, y: TERRAIN_PANEL_Y, w: TERRAIN_PANEL_W, h: TERRAIN_PANEL_H },
+    notes: "Cropped from terrain set — right panel (cracked stone foundation).",
+    focus: { x: 0.68, y: 0.22, w: 0.23, h: 0.36 },
   },
 } satisfies Record<string, AssetEntry>;
 
@@ -352,8 +351,8 @@ export const UI_ASSETS = {
   resourceBarFrame: {
     path: "/ui/resource-bar-frame.png",
     status: "generated",
-    notes: "Painted stone frame w/ gem caps + baked-in panels. Crop boxes in the bar art (PNG has paper-texture margins + label).",
-    focus: { x: 0.06, y: 0.30, w: 0.88, h: 0.30 },
+    notes: "Painted stone frame w/ gem caps + baked-in panels. Crop coords measured via pixel-sampling the source 1536x1024 PNG: bar sits y=0.30..0.62, x=0.10..0.94.",
+    focus: { x: 0.10, y: 0.28, w: 0.84, h: 0.36 },
   },
   resourceBarFrameVariants: {
     path: "/ui/resource-bar-frame-variants.png",

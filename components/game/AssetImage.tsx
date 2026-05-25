@@ -50,16 +50,19 @@ export function AssetImage({
 
   if (hasFile) {
     // Sprite-sheet crop: show only the focal sub-region. We scale the
-    // image so that focus.w/h map to 100% of the slot, then translate
-    // so the focal top-left aligns with the slot's top-left. background-
-    // image keeps it simple and survives drop-shadow filters on the
-    // wrapper at small sizes.
+    // image so focus.w/h map to 100% of the slot, then position so the
+    // focal point aligns with the slot's top-left.
+    //
+    // CSS background-position % is computed as `% of (container - image)`
+    // when the image is larger than the container — so for an oversized
+    // bg-image, the percentage flips sign relative to the naive
+    // `(-focus.x * 100) / focus.w` formula. Correct form below.
     if (entry.focus) {
       const f = entry.focus;
       const scaleW = 100 / f.w;
       const scaleH = 100 / f.h;
-      const posX = (-f.x * 100) / f.w;
-      const posY = (-f.y * 100) / f.h;
+      const posX = (f.x / (1 - f.w)) * 100;
+      const posY = (f.y / (1 - f.h)) * 100;
       const cropStyle: CSSProperties = {
         backgroundImage: `url(${entry.path})`,
         backgroundSize: `${scaleW}% ${scaleH}%`,
