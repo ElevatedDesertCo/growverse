@@ -124,6 +124,20 @@ Recommended size: **512×512 PNG with transparency**, full-body, on transparent 
 | Placement Dust | placement-dust.png | /assets/images/vfx/ | PNG particle | **placeholder** | Currently CSS gradient — drop a sprite to replace |
 | Upgrade Glow | upgrade-glow.png | /assets/images/vfx/ | PNG sprite | **placeholder** | Currently CSS radial gradient — drop a sprite to replace |
 
+## Action Icons (5 entries)
+
+Recommended format: **PNG with transparent background**, square (1:1), ≥256×256, ≤120KB each. Painted style to match the v2 art reference (warm gold trim + magical inner glow).
+
+| Icon | Filename | Folder | Status | Used by | Reference |
+|---|---|---|---|---|---|
+| Build | build.png | /assets/images/ui/actions/ | **placeholder** | BottomNav Build button | Greenhouse cabinet w/ glowing bloom + green gem cap |
+| Upgrade | upgrade.png | /assets/images/ui/actions/ | **placeholder** | UpgradeModal CTA, level-up badge | Greenhouse + gold upward arrow |
+| Move | move.png | /assets/images/ui/actions/ | **placeholder** | Edit-mode handle on placed buildings | Shears + trowel on purple aura |
+| Collect | collect.png | /assets/images/ui/actions/ | **placeholder** | Ready-to-collect badge on growing buildings | Bloom plant w/ resin droplet |
+| Timer / Progress | timer.png | /assets/images/ui/actions/ | **placeholder** | Grow-progress ring | Hourglass w/ amethyst cap + amber shards |
+
+Manifest refs: `ui.actionBuild`, `ui.actionUpgrade`, `ui.actionMove`, `ui.actionCollect`, `ui.actionTimer`.
+
 ## Audio — SFX (5 entries)
 
 Recommended format: **mono MP3 or OGG**, ≤200KB each, 44.1kHz, normalized to -16 LUFS.

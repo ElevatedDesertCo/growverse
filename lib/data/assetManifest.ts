@@ -273,6 +273,35 @@ export const UI_ASSETS = {
   deploySlotFrame: { path: "/ui/deploy-slot-frame.png", status: "generated" },
   questBoard: { path: "/ui/quest-board.png", status: "generated" },
   bountyBoard: { path: "/ui/bounty-board.png", status: "generated" },
+
+  // ── Action icons (build/upgrade/move/collect/timer) ──────────────
+  // Drop the painted PNGs into public/assets/images/ui/actions/ and flip
+  // status to "final". AssetImage renders a styled placeholder until then.
+  actionBuild: {
+    path: "/assets/images/ui/actions/build.png",
+    status: "placeholder",
+    notes: "Greenhouse frame w/ glowing bloom. Used by BottomNav Build button.",
+  },
+  actionUpgrade: {
+    path: "/assets/images/ui/actions/upgrade.png",
+    status: "placeholder",
+    notes: "Greenhouse + gold upward arrow. Used by Upgrade Modal CTA + DraggableBuilding upgrade tap badge.",
+  },
+  actionMove: {
+    path: "/assets/images/ui/actions/move.png",
+    status: "placeholder",
+    notes: "Shears + trowel on purple aura. Used by edit-mode handle on placed buildings.",
+  },
+  actionCollect: {
+    path: "/assets/images/ui/actions/collect.png",
+    status: "placeholder",
+    notes: "Bloom plant w/ resin droplet. Used by ready-to-collect badge on growing buildings.",
+  },
+  actionTimer: {
+    path: "/assets/images/ui/actions/timer.png",
+    status: "placeholder",
+    notes: "Hourglass w/ amethyst cap + amber shards. Used by grow-progress ring.",
+  },
 } satisfies Record<string, AssetEntry>;
 
 // ─── VFX (sprite sheets, particle textures) ─────────────────────────
