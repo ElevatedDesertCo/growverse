@@ -437,28 +437,35 @@ export const VFX_ASSETS = {
 } satisfies Record<string, AssetEntry>;
 
 // ─── Audio ──────────────────────────────────────────────────────────
-// All placeholder until SFX/music drop. The audioSystem swallows
-// missing-file errors silently — game functions identically with no audio.
+// SFX sourced from the Kenney UI Audio pack (CC0). Picked + converted
+// to mono MP3 from the original .ogg files; see public/assets/audio/sfx/
+// CREDITS.txt. Swap individual entries by replacing the MP3 at the
+// listed path — no manifest edit needed.
 export const SFX_ASSETS = {
   buttonClick: {
     path: "/assets/audio/sfx/button-click.mp3",
-    status: "placeholder",
+    status: "final",
+    notes: "Kenney UI Audio · click1.ogg (CC0)",
   },
   resourceCollect: {
     path: "/assets/audio/sfx/resource-collect.mp3",
-    status: "placeholder",
+    status: "final",
+    notes: "Kenney UI Audio · click2.ogg (CC0)",
   },
   buildPlaced: {
     path: "/assets/audio/sfx/build-placed.mp3",
-    status: "placeholder",
+    status: "final",
+    notes: "Kenney UI Audio · switch7.ogg (CC0)",
   },
   upgradeComplete: {
     path: "/assets/audio/sfx/upgrade-complete.mp3",
-    status: "placeholder",
+    status: "final",
+    notes: "Kenney UI Audio · switch15.ogg (CC0)",
   },
   locked: {
     path: "/assets/audio/sfx/locked.mp3",
-    status: "placeholder",
+    status: "final",
+    notes: "Kenney UI Audio · switch4.ogg (CC0)",
   },
 } satisfies Record<string, AssetEntry>;
 
