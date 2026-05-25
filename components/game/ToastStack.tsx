@@ -46,32 +46,49 @@ export function ToastStack() {
               key={t.id}
               type="button"
               layout
-              initial={{ opacity: 0, y: -12, scale: 0.96 }}
+              initial={{ opacity: 0, y: -14, scale: 0.94 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -8, scale: 0.97 }}
               transition={{ duration: 0.22, ease: "easeOut" }}
               onClick={() => dismiss(t.id)}
-              className="pointer-events-auto flex max-w-[24rem] items-start gap-2.5 rounded-full border bg-bg-deep/95 px-4 py-2 shadow-[0_10px_28px_-10px_rgba(0,0,0,0.7)] backdrop-blur"
-              style={{ borderColor: `${accent}60` }}
+              className="pointer-events-auto flex max-w-[24rem] items-center gap-2.5 rounded-2xl p-[1.5px]"
+              style={{
+                background: `linear-gradient(135deg, ${accent}ee 0%, ${accent}55 40%, ${accent}33 100%)`,
+                boxShadow: `0 10px 28px -10px rgba(0,0,0,0.75), 0 0 22px -6px ${accent}66`,
+              }}
               aria-label={`Dismiss: ${t.title}`}
             >
-              <Icon
-                className="mt-px h-4 w-4 flex-shrink-0"
-                style={{ color: accent }}
-                strokeWidth={2.5}
-              />
-              <div className="flex flex-col items-start text-left leading-tight">
-                <span
-                  className="font-display text-[11px] font-semibold uppercase tracking-[0.18em]"
-                  style={{ color: accent }}
+              <div className="flex w-full items-center gap-2.5 rounded-[14px] bg-bg-deep/95 px-3 py-2 backdrop-blur">
+                {/* Icon disc — matches the resource pill aesthetic */}
+                <div
+                  className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full"
+                  style={{
+                    background: `radial-gradient(circle at 35% 30%, ${accent}cc, ${accent}55 60%, ${accent}22)`,
+                    boxShadow: `inset 0 0 0 1px ${accent}88, 0 0 8px ${accent}66`,
+                  }}
                 >
-                  {t.title}
-                </span>
-                {t.body && (
-                  <span className="mt-0.5 font-sans text-[11px] text-text-muted">
-                    {t.body}
+                  <Icon
+                    className="h-3.5 w-3.5"
+                    style={{
+                      color: "#0f0a06",
+                      filter: "drop-shadow(0 1px 0 rgba(255,255,255,0.35))",
+                    }}
+                    strokeWidth={2.75}
+                  />
+                </div>
+                <div className="flex min-w-0 flex-col items-start text-left leading-tight">
+                  <span
+                    className="font-display text-[11px] font-bold uppercase tracking-[0.18em]"
+                    style={{ color: accent, fontFamily: "var(--font-cinzel)" }}
+                  >
+                    {t.title}
                   </span>
-                )}
+                  {t.body && (
+                    <span className="mt-0.5 truncate font-sans text-[11px] text-text-muted">
+                      {t.body}
+                    </span>
+                  )}
+                </div>
               </div>
             </motion.button>
           );

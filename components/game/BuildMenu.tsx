@@ -5,6 +5,7 @@ import { X } from "lucide-react";
 import {
   BUILDINGS,
   BUILDING_TYPES,
+  type BuildingCategory,
   type BuildingDef,
   type BuildingType,
   type ResourceCost,
@@ -50,6 +51,19 @@ import {
 } from "@/lib/systems/buildingSystem";
 import { canAffordCost, missingFor } from "@/lib/systems/resourceSystem";
 
+/** Category filter tabs shown above the build grid. "all" is virtual. */
+type CategoryTab = "all" | BuildingCategory;
+const CATEGORY_TABS: { key: CategoryTab; label: string }[] = [
+  { key: "all", label: "All" },
+  { key: "core", label: "Core" },
+  { key: "resource", label: "Resource" },
+  { key: "storage", label: "Storage" },
+  { key: "training", label: "Train" },
+  { key: "defense", label: "Defense" },
+  { key: "spiritPet", label: "Pets" },
+  { key: "portal", label: "Portal" },
+];
+
 export function BuildMenu() {
   const open = useGameStore((s) => s.buildMenuOpen);
   const selectedCell = useGameStore((s) => s.selectedCell);
@@ -59,6 +73,19 @@ export function BuildMenu() {
   const closeBuildMenu = useGameStore((s) => s.closeBuildMenu);
   const dragState = useGameStore((s) => s.dragState);
   const coreLevel = getGuildCoreLevel(buildings);
+  const [activeTab, setActiveTab] = useState<CategoryTab>("all");
+
+  // Filter the building list by tab. We KEEP locked buildings visible so
+  // players can see what's coming up at higher Core levels.
+  const visibleTypes = BUILDING_TYPES.filter((type) => {
+    if (activeTab === "all") return true;
+    return BUILDINGS[type].category === activeTab;
+  });
+  // Count per-tab so we can hide empty tabs in the current type set.
+  const tabsWithContent = new Set<CategoryTab>(["all"]);
+  for (const type of BUILDING_TYPES) {
+    tabsWithContent.add(BUILDINGS[type].category as CategoryTab);
+  }
 
   const ready = selectedCell !== null;
   const draggingPlace = dragState?.kind === "place";
@@ -125,8 +152,44 @@ export function BuildMenu() {
                 </button>
               </header>
 
+              {/* Category tab rail — scrollable on narrow widths so all
+                  tabs are reachable; active tab gets a gold pill. */}
+              <div
+                role="tablist"
+                aria-label="Build category"
+                className="mt-3 -mx-1 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              >
+                <div className="flex items-center gap-1.5 px-1">
+                  {CATEGORY_TABS.filter((t) => tabsWithContent.has(t.key)).map(
+                    (t) => {
+                      const active = t.key === activeTab;
+                      return (
+                        <button
+                          key={t.key}
+                          type="button"
+                          role="tab"
+                          aria-selected={active}
+                          onClick={() => {
+                            playSfx("buttonClick");
+                            setActiveTab(t.key);
+                          }}
+                          className={`flex-shrink-0 rounded-full px-3 py-1.5 font-display text-[10px] font-bold uppercase tracking-[0.18em] transition-colors ${
+                            active
+                              ? "bg-gold text-bg-deep shadow-[0_2px_10px_-2px_rgba(212,160,74,0.6)]"
+                              : "border border-gold/25 bg-bg-mid/50 text-text-muted hover:border-gold/45 hover:text-text-primary"
+                          }`}
+                          style={{ fontFamily: "var(--font-cinzel)" }}
+                        >
+                          {t.label}
+                        </button>
+                      );
+                    },
+                  )}
+                </div>
+              </div>
+
               <div className="mt-4 grid grid-cols-2 gap-3">
-                {BUILDING_TYPES.map((type) => {
+                {visibleTypes.map((type) => {
                   const def = BUILDINGS[type];
                   const cost = def.buildCost ?? { bloomEssence: def.baseCost };
                   const unlocked = isUnlockedAtCoreLevel(type, coreLevel);

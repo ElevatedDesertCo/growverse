@@ -72,7 +72,13 @@ export function UpgradeModal() {
             role="dialog"
             aria-label="Upgrade building"
             aria-modal="true"
-            className="fixed inset-x-0 bottom-0 z-40 max-h-[70dvh] overflow-y-auto rounded-t-3xl border-t border-gold/30 bg-bg-deep/95 pb-[max(env(safe-area-inset-bottom),1rem)] shadow-[0_-20px_60px_rgba(0,0,0,0.55)] backdrop-blur"
+            className="fixed inset-x-0 bottom-0 z-40 max-h-[78dvh] overflow-y-auto rounded-t-3xl pb-[max(env(safe-area-inset-bottom),1rem)] backdrop-blur"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(212,160,74,0.85) 0%, rgba(212,160,74,0.85) 1px, rgba(15,10,6,0.97) 1px, rgba(15,10,6,0.97) 100%)",
+              boxShadow:
+                "0 -20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.18), 0 0 80px -20px rgba(212,160,74,0.35)",
+            }}
           >
             <UpgradePanel
               type={building.type}
@@ -200,11 +206,27 @@ function UpgradePanel({
             Max Level Reached
           </div>
         ) : (
-          <button
+          <motion.button
             type="button"
             onClick={onUpgrade}
             disabled={!afford}
-            className="flex w-full items-center justify-center gap-2 rounded-full bg-gold py-3 font-display text-sm font-bold uppercase tracking-[0.18em] text-bg-deep shadow-[0_4px_18px_-6px_rgba(212,160,74,0.6)] transition-colors hover:bg-gold-dark active:bg-gold-dark disabled:cursor-not-allowed disabled:bg-gold-muted disabled:text-bg-deep/60 disabled:shadow-none"
+            animate={
+              afford
+                ? {
+                    boxShadow: [
+                      "0 4px 18px -6px rgba(212,160,74,0.6)",
+                      "0 6px 26px -4px rgba(212,160,74,0.95)",
+                      "0 4px 18px -6px rgba(212,160,74,0.6)",
+                    ],
+                  }
+                : {}
+            }
+            transition={
+              afford
+                ? { duration: 1.4, repeat: Infinity, ease: "easeInOut" }
+                : { duration: 0.2 }
+            }
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-gold py-3 font-display text-sm font-bold uppercase tracking-[0.18em] text-bg-deep transition-colors hover:bg-gold-dark active:bg-gold-dark disabled:cursor-not-allowed disabled:bg-gold-muted disabled:text-bg-deep/60 disabled:shadow-none"
           >
             <ActionIcon
               assetId="ui.actionUpgrade"
@@ -215,7 +237,7 @@ function UpgradePanel({
               strokeWidth={2.5}
             />
             {afford ? `Upgrade to Level ${level + 1}` : "Not enough resources"}
-          </button>
+          </motion.button>
         )}
       </div>
     </div>

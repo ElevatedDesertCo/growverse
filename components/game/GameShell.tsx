@@ -8,6 +8,7 @@ import { UpgradeModal } from "./UpgradeModal";
 import { WelcomeBackToast } from "./WelcomeBackToast";
 import { ToastStack } from "./ToastStack";
 import { ComingSoonModal } from "./ComingSoonModal";
+import { EditModeHint } from "./EditModeHint";
 import { SWRegister } from "./SWRegister";
 
 export function GameShell() {
@@ -52,6 +53,7 @@ export function GameShell() {
       <BuildMenu />
       <UpgradeModal />
       <ComingSoonModal />
+      <EditModeHint />
       <WelcomeBackToast />
       <ToastStack />
     </div>
