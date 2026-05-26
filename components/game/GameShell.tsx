@@ -12,6 +12,7 @@ import { DailyRewardModal } from "./DailyRewardModal";
 import { EditModeHint } from "./EditModeHint";
 import { MusicMount } from "./MusicMount";
 import { StatsMount } from "./StatsMount";
+import { StreakWatcher } from "./StreakWatcher";
 import { SWRegister } from "./SWRegister";
 import { WelcomeModal } from "./WelcomeModal";
 
@@ -73,6 +74,7 @@ export function GameShell() {
       <TickMount />
       <MusicMount />
       <StatsMount />
+      <StreakWatcher />
       <SWRegister />
 
       <ResourceBar />

@@ -72,7 +72,37 @@ function getAudio(track: TrackName): HTMLAudioElement | null {
   return audio;
 }
 
-/** Start (or resume) the given track. Pauses any other current track. */
+/** Fade an audio element's volume over `durMs` to `target`. Cancels
+ *  any in-flight fade for the same element via the ramp counter. */
+const fadeIds = new WeakMap<HTMLAudioElement, number>();
+let fadeCounter = 0;
+function fade(audio: HTMLAudioElement, target: number, durMs: number): void {
+  const start = audio.volume;
+  const delta = target - start;
+  if (Math.abs(delta) < 0.005 || durMs <= 0) {
+    audio.volume = target;
+    return;
+  }
+  fadeCounter += 1;
+  const myId = fadeCounter;
+  fadeIds.set(audio, myId);
+  const t0 = performance.now();
+  const step = () => {
+    if (fadeIds.get(audio) !== myId) return; // newer fade superseded
+    const t = (performance.now() - t0) / durMs;
+    if (t >= 1) {
+      audio.volume = target;
+      return;
+    }
+    audio.volume = start + delta * t;
+    requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+/** Start (or resume) the given track. Fades in from 0 over ~1.2s so
+ *  the music doesn't slam in mid-render. Pauses any other current
+ *  track first. */
 export function playMusic(track: TrackName): void {
   if (typeof window === "undefined") return;
   if (state.muted) {
@@ -83,11 +113,16 @@ export function playMusic(track: TrackName): void {
   // Pause any previous track that isn't the requested one.
   if (state.current && state.current !== track) {
     const prev = getAudio(state.current);
-    prev?.pause();
+    if (prev) {
+      fade(prev, 0, 600);
+      window.setTimeout(() => prev.pause(), 650);
+    }
   }
   const audio = getAudio(track);
   if (!audio) return;
   state.current = track;
+  // Always re-fade from 0 → state.volume so resumed tracks don't slam.
+  audio.volume = 0;
   try {
     const p = audio.play();
     if (p && typeof p.catch === "function") {
@@ -95,6 +130,7 @@ export function playMusic(track: TrackName): void {
         /* autoplay blocked / file missing — silent */
       });
     }
+    fade(audio, state.volume, 1200);
   } catch {
     /* silent */
   }

@@ -250,6 +250,28 @@ function ResourcePill({
                     Earned: <span className="text-text-muted">{resourceDef.earnedFrom}</span>
                   </p>
                 )}
+                {resourceDef?.uses && resourceDef.uses.length > 0 && (
+                  <div className="mt-1">
+                    <p className="text-[9px] uppercase tracking-[0.18em] text-text-muted/80">
+                      Used for:
+                    </p>
+                    <ul className="mt-0.5 space-y-0.5">
+                      {resourceDef.uses.slice(0, 3).map((u) => (
+                        <li
+                          key={u}
+                          className="flex items-center gap-1 text-[10px] leading-snug text-text-muted"
+                        >
+                          <span
+                            className="h-1 w-1 flex-shrink-0 rounded-full"
+                            style={{ background: accent }}
+                            aria-hidden
+                          />
+                          {u}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
                 {sessionGained > 0 && (
                   <p className="mt-1 flex items-center gap-1 text-[9px] uppercase tracking-[0.18em] text-text-muted/80">
                     This session:{" "}

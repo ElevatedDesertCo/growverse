@@ -9,6 +9,7 @@ import type { Resources } from "@/lib/systems/resourceSystem";
 
 const LAST_CLAIM_KEY = "growverse-daily-claimed";
 const STREAK_KEY = "growverse-daily-streak";
+const LAST_SHOWN_STREAK_KEY = "growverse-streak-last-shown";
 
 export interface DailyRewardBundle {
   /** Sparse map of resource → amount granted. */
@@ -35,6 +36,43 @@ function yesterdayKey(): string {
   const m = String(d.getMonth() + 1).padStart(2, "0");
   const day = String(d.getDate()).padStart(2, "0");
   return `${y}-${m}-${day}`;
+}
+
+/**
+ * One-time-per-load check: if the player previously had a streak ≥ 2
+ * AND it has now broken (last claim is older than yesterday), return
+ * the lost streak value so the UI can show a "streak lost" notice.
+ * Returns null otherwise. Tracks via LAST_SHOWN_STREAK_KEY so the same
+ * lost streak doesn't re-notify across reloads.
+ */
+export function consumeLostStreakNotice(): number | null {
+  if (typeof window === "undefined") return null;
+  try {
+    const last = window.localStorage.getItem(LAST_CLAIM_KEY);
+    const storedStreak = parseInt(
+      window.localStorage.getItem(STREAK_KEY) ?? "0",
+      10,
+    );
+    if (!last || !Number.isFinite(storedStreak) || storedStreak < 2) {
+      return null;
+    }
+    const today = todayKey();
+    const yest = yesterdayKey();
+    if (last === today || last === yest) {
+      // Streak still live (or just claimed today).
+      return null;
+    }
+    // Streak is broken. Check we haven't already shown this loss.
+    const shownFor = window.localStorage.getItem(LAST_SHOWN_STREAK_KEY);
+    const sig = `${last}:${storedStreak}`;
+    if (shownFor === sig) return null;
+    window.localStorage.setItem(LAST_SHOWN_STREAK_KEY, sig);
+    // Reset the stored streak to 0 now that we've consumed the notice.
+    window.localStorage.setItem(STREAK_KEY, "0");
+    return storedStreak;
+  } catch {
+    return null;
+  }
 }
 
 /** Returns the current consecutive-day streak. 0 if never claimed or broken. */

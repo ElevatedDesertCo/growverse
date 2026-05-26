@@ -112,6 +112,14 @@ export function BaseGrid() {
       { id: floaterId, x: d.x, y: d.y, amount: def.reward, color: def.color },
     ]);
     playSfx(decorClearSfx(d.type));
+    // Light haptic on touch devices that support it.
+    if (typeof navigator !== "undefined" && typeof navigator.vibrate === "function") {
+      try {
+        navigator.vibrate(15);
+      } catch {
+        /* unsupported / blocked — silent */
+      }
+    }
     pushToast({
       kind: "success",
       title: def.label,
