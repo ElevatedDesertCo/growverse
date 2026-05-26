@@ -163,3 +163,26 @@ export function subscribeStats(fn: (s: Stats) => void): () => void {
     listeners.delete(fn);
   };
 }
+
+/**
+ * Find the next unmet milestone with the smallest absolute distance
+ * to its threshold. Used by the "next goal" chip so the player always
+ * sees what to do next. Returns null when every milestone is unlocked.
+ */
+export function getNextMilestone(): {
+  milestone: Milestone;
+  current: number;
+  remaining: number;
+} | null {
+  const s = get();
+  let best: { milestone: Milestone; current: number; remaining: number } | null = null;
+  for (const m of MILESTONES) {
+    const current = s[m.key];
+    if (current >= m.threshold) continue;
+    const remaining = m.threshold - current;
+    if (!best || remaining < best.remaining) {
+      best = { milestone: m, current, remaining };
+    }
+  }
+  return best;
+}
