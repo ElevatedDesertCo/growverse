@@ -51,6 +51,15 @@ export function KeyboardShortcuts() {
       }
       // Single-letter keys — ignore when a modifier is held.
       if (e.metaKey || e.ctrlKey || e.altKey) return;
+      // "?" → fire global open-help event (SettingsButton listens).
+      if (e.key === "?") {
+        if (typeof window !== "undefined") {
+          window.dispatchEvent(new CustomEvent("growverse:open-help"));
+        }
+        playSfx("buttonClick");
+        e.preventDefault();
+        return;
+      }
       const k = e.key.toLowerCase();
       if (k === "b") {
         if (s.editMode) return; // build disabled while editing

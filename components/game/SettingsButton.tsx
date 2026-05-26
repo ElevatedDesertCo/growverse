@@ -39,7 +39,8 @@ import {
 } from "@/lib/systems/statsSystem";
 import { pushToast } from "@/lib/systems/toastSystem";
 import { AchievementsModal } from "./AchievementsModal";
-import { Trophy } from "lucide-react";
+import { HelpModal } from "./HelpModal";
+import { HelpCircle, Trophy } from "lucide-react";
 
 export function SettingsButton() {
   const [open, setOpen] = useState(false);
@@ -60,6 +61,7 @@ export function SettingsButton() {
   // Lifetime stats (persisted independently of the game save).
   const [stats, setStats] = useState<Stats | null>(null);
   const [achievementsOpen, setAchievementsOpen] = useState(false);
+  const [helpOpen, setHelpOpen] = useState(false);
   const resetSave = useGameStore((s) => s.resetSave);
 
   // Sync from persisted state once we're on the client + whenever the
@@ -74,6 +76,14 @@ export function SettingsButton() {
     setMusicVolumePct(Math.round(getMusicVolume() * 100));
     /* eslint-enable react-hooks/set-state-in-effect */
   }, [open]);
+
+  // Global "open help" event listener — fired by KeyboardShortcuts on "?".
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onOpen = () => setHelpOpen(true);
+    window.addEventListener("growverse:open-help", onOpen);
+    return () => window.removeEventListener("growverse:open-help", onOpen);
+  }, []);
 
   // Live-update stats while the panel is open (e.g. user dismisses,
   // earns more, reopens — they should see the new numbers).
@@ -182,6 +192,19 @@ export function SettingsButton() {
                 </header>
 
                 <div className="mt-3 space-y-3 pb-4">
+                  {/* How to play */}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      playSfx("buttonClick");
+                      setHelpOpen(true);
+                    }}
+                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-gold/40 bg-bg-deep/70 px-3 py-2.5 font-display text-[11px] font-bold uppercase tracking-[0.18em] text-gold transition-colors hover:border-gold/60 hover:bg-bg-mid/80"
+                  >
+                    <HelpCircle className="h-4 w-4" />
+                    How to play
+                  </button>
+
                   {/* Audio toggles — Sound + Music */}
                   <section
                     className="relative overflow-hidden rounded-xl border border-gold/25 bg-bg-mid/40 p-4"
@@ -582,6 +605,10 @@ export function SettingsButton() {
       <AchievementsModal
         open={achievementsOpen}
         onClose={() => setAchievementsOpen(false)}
+      />
+      <HelpModal
+        open={helpOpen}
+        onClose={() => setHelpOpen(false)}
       />
     </>
   );

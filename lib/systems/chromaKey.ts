@@ -60,9 +60,16 @@ function distance(
   return Math.sqrt(dr * dr + dg * dg + db * db);
 }
 
-function cacheKey(path: string, focus?: { x: number; y: number; w: number; h: number }): string {
-  if (!focus) return path;
-  return `${path}#${focus.x},${focus.y},${focus.w},${focus.h}`;
+function cacheKey(
+  path: string,
+  focus?: { x: number; y: number; w: number; h: number },
+  tolerance?: number,
+): string {
+  const focusKey = focus
+    ? `#${focus.x},${focus.y},${focus.w},${focus.h}`
+    : "";
+  const tolKey = tolerance !== undefined ? `@${tolerance}` : "";
+  return `${path}${focusKey}${tolKey}`;
 }
 
 /**
@@ -76,7 +83,7 @@ export function chromaKeyImage(
   options?: ChromaOptions,
 ): Promise<string> {
   if (typeof window === "undefined") return Promise.resolve(path);
-  const key = cacheKey(path, options?.focus);
+  const key = cacheKey(path, options?.focus, options?.tolerance);
   if (cache.has(key)) return Promise.resolve(cache.get(key)!);
   if (inflight.has(key)) return inflight.get(key)!;
 
@@ -184,6 +191,7 @@ export function chromaKeyImage(
 export function chromaKeyCached(
   path: string,
   focus?: { x: number; y: number; w: number; h: number },
+  tolerance?: number,
 ): string | null {
-  return cache.get(cacheKey(path, focus)) ?? null;
+  return cache.get(cacheKey(path, focus, tolerance)) ?? null;
 }
