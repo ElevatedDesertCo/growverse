@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import type { CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import { getAsset } from "@/lib/data/assetManifest";
+import { chromaKeyCached, chromaKeyImage } from "@/lib/systems/chromaKey";
 
 interface Props {
   /** Manifest reference like "building.guildCore" or "resource.bloomEssence". */
@@ -48,6 +49,43 @@ export function AssetImage({
   const entry = getAsset(assetId);
   const hasFile = !!entry && entry.status !== "placeholder";
 
+  // Chroma-key path resolution. If the entry opted in, render with the
+  // processed data URL (transparent corners) instead of the raw path.
+  // For focus-cropped entries we also pre-crop on the canvas + chroma-
+  // key the inner panel's beige background, returning a tight data URL
+  // that no longer needs the CSS focus-crop path.
+  const rawPath = entry?.path ?? "";
+  const focus = entry?.focus;
+  const wantsChroma = !!entry?.chromaKey && hasFile;
+  const [chromaUrl, setChromaUrl] = useState<string | null>(
+    wantsChroma ? chromaKeyCached(rawPath, focus) : null,
+  );
+  useEffect(() => {
+    if (!wantsChroma) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      if (chromaUrl !== null) setChromaUrl(null);
+      return;
+    }
+    const cached = chromaKeyCached(rawPath, focus);
+    if (cached) {
+      if (cached !== chromaUrl) setChromaUrl(cached);
+      return;
+    }
+    let cancelled = false;
+    chromaKeyImage(rawPath, { focus }).then((url) => {
+      if (!cancelled) setChromaUrl(url);
+    });
+    return () => {
+      cancelled = true;
+    };
+    // chromaUrl intentionally omitted from deps so we don't loop on set.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [wantsChroma, rawPath, focus?.x, focus?.y, focus?.w, focus?.h]);
+  const resolvedPath = wantsChroma && chromaUrl ? chromaUrl : rawPath;
+  // When chroma succeeded with a focus crop, the resulting data URL is
+  // already the cropped region — skip the CSS focus path entirely.
+  const useFocusCss = !!focus && !(wantsChroma && chromaUrl);
+
   if (hasFile) {
     // Sprite-sheet crop: show only the focal sub-region. We scale the
     // image so focus.w/h map to 100% of the slot, then position so the
@@ -57,14 +95,14 @@ export function AssetImage({
     // when the image is larger than the container — so for an oversized
     // bg-image, the percentage flips sign relative to the naive
     // `(-focus.x * 100) / focus.w` formula. Correct form below.
-    if (entry.focus) {
+    if (useFocusCss && entry.focus) {
       const f = entry.focus;
       const scaleW = 100 / f.w;
       const scaleH = 100 / f.h;
       const posX = (f.x / (1 - f.w)) * 100;
       const posY = (f.y / (1 - f.h)) * 100;
       const cropStyle: CSSProperties = {
-        backgroundImage: `url(${entry.path})`,
+        backgroundImage: `url(${resolvedPath})`,
         backgroundSize: `${scaleW}% ${scaleH}%`,
         backgroundPosition: `${posX}% ${posY}%`,
         backgroundRepeat: "no-repeat",
@@ -91,32 +129,37 @@ export function AssetImage({
       );
     }
 
+    // Use unoptimized for chroma-keyed data URLs (Next/Image doesn't
+    // optimize data: URLs); otherwise let Next.js do its thing.
+    const isDataUrl = resolvedPath.startsWith("data:");
     if (fill) {
       return (
         <Image
-          src={entry.path}
+          src={resolvedPath}
           alt={alt}
           fill
           sizes={sizes ?? "100px"}
           className={`object-contain ${className}`}
           draggable={notDraggable ? false : undefined}
+          unoptimized={isDataUrl}
           onError={() => {
-            console.error(`[AssetImage] failed to load ${assetId} (${entry.path})`);
+            console.error(`[AssetImage] failed to load ${assetId} (${rawPath})`);
           }}
         />
       );
     }
     return (
       <Image
-        src={entry.path}
+        src={resolvedPath}
         alt={alt}
         width={width ?? 64}
         height={height ?? 64}
         sizes={sizes}
         className={className}
         draggable={notDraggable ? false : undefined}
+        unoptimized={isDataUrl}
         onError={() => {
-          console.error(`[AssetImage] failed to load ${assetId} (${entry.path})`);
+          console.error(`[AssetImage] failed to load ${assetId} (${rawPath})`);
         }}
       />
     );

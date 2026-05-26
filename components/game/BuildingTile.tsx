@@ -68,20 +68,15 @@ export function BuildingTile({
             "radial-gradient(ellipse 60% 18% at 50% 88%, rgba(0,0,0,0.45) 0%, transparent 70%)",
         }}
       >
-        {/* Building art layer. Scaled slightly larger than the cell so
-            the silhouette fills aggressively. The radial mask softens
-            the rectangular reference-sheet panel borders into a circle
-            that blends with the desert sand underneath — buildings
-            stop looking like little cards pasted on the ground. Drop-
-            shadow gives lift. */}
+        {/* Building art layer. Sheet-backed entries are chroma-keyed
+            in AssetImage so their paper backgrounds come through as
+            real transparency — no more darken/mask hacks needed.
+            Inset overflow makes the silhouette dominate the cell;
+            drop-shadow gives lift on the now-transparent silhouette. */}
         <div
-          className="absolute inset-[-8%] overflow-visible"
+          className="absolute inset-[-12%] overflow-visible"
           style={{
-            WebkitMaskImage:
-              "radial-gradient(circle, black 62%, transparent 95%)",
-            maskImage:
-              "radial-gradient(circle, black 62%, transparent 95%)",
-            filter: "drop-shadow(0 4px 5px rgba(0,0,0,0.65))",
+            filter: "drop-shadow(0 4px 5px rgba(0,0,0,0.55))",
           }}
         >
           <AssetImage
