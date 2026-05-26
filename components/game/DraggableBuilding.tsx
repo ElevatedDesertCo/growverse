@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Trash2 } from "lucide-react";
 import { BUILDINGS } from "@/lib/buildings";
 import {
   cellFromClientPoint,
@@ -15,6 +16,7 @@ import {
   isReadyToHarvest,
   statAtLevel,
 } from "@/lib/economy";
+import { playSfx } from "@/lib/systems/audioSystem";
 import { BuildingTile } from "./BuildingTile";
 
 const LONG_PRESS_MS = 2500;
@@ -55,17 +57,50 @@ export function DraggableBuilding({
   const commitDrag = useGameStore((s) => s.commitDrag);
   const cancelDrag = useGameStore((s) => s.cancelDrag);
   const editMode = useGameStore((s) => s.editMode);
+  const removeBuilding = useGameStore((s) => s.removeBuilding);
+  const canDelete = editMode && isTapSelected && !BUILDINGS[building.type].singleton;
+  // confirm flag — first tap arms, second tap commits
+  const [deleteArmed, setDeleteArmed] = useState(false);
+  useEffect(() => {
+    if (!deleteArmed) return;
+    const t = window.setTimeout(() => setDeleteArmed(false), 2200);
+    return () => window.clearTimeout(t);
+  }, [deleteArmed]);
+  useEffect(() => {
+    // Reset the arm when the player exits edit mode / deselects.
+    // Intentional one-shot setState.
+    if (!canDelete) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setDeleteArmed(false);
+    }
+  }, [canDelete]);
   const harvest = useGameStore((s) => s.harvest);
   const collectFire = useGameStore((s) => s.collectFire);
   const openUpgradeModal = useGameStore((s) => s.openUpgradeModal);
   // Subscribe to the global tick so time-aware UI redraws ~2/sec.
-  useGameStore((s) => s._tickAt);
+  // We use _tickAt (set by TickMount every 500ms) as our "now" — pure
+  // (derived from store state) so the render stays referentially clean
+  // per react-hooks/purity, and refresh cadence is good enough for
+  // progress rings + pending-fire badges (collect itself uses Date.now()
+  // server-side in the store action, so it's still exact at commit time).
+  const tickNow = useGameStore((s) => s._tickAt);
 
   const [phase, setPhase] = useState<Phase>("idle");
   const [progress, setProgress] = useState(0);
   const [offset, setOffset] = useState({ x: 0, y: 0 });
   const [floaters, setFloaters] = useState<Floater[]>([]);
   const [particles, setParticles] = useState<Particle[]>([]);
+  const [upgradeGlowKey, setUpgradeGlowKey] = useState(0);
+  const prevLevelRef = useRef(building.level);
+
+  // Fire SFX + glow when this building's level increases.
+  useEffect(() => {
+    if (building.level > prevLevelRef.current) {
+      playSfx("upgradeComplete");
+      setUpgradeGlowKey((k) => k + 1);
+    }
+    prevLevelRef.current = building.level;
+  }, [building.level]);
 
   const startRef = useRef<{
     x: number;
@@ -82,21 +117,36 @@ export function DraggableBuilding({
   }, []);
 
   // ─── Time-aware computed values ──────────────────────────────────────
-  const now = Date.now();
-  const isGrowTent = def.growDurationMs !== undefined;
-  const isAmberForge = def.firePerSecond !== undefined;
+  // Use the store tick (set by TickMount every 500ms) as "now" so render
+  // stays pure per react-hooks/purity. Falls back to 1 for the very first
+  // render before TickMount fires — progress reads as 0 briefly, then
+  // corrects on the next tick.
+  const now = tickNow || 1;
+  const hasGrowCycle = def.growDurationMs !== undefined;
+  const hasPassiveCollect = def.firePerSecond !== undefined;
+
+  // Color for floater/particles: prefer producesResource color if set,
+  // else fall back to the building's own accent color.
+  const collectColor = (() => {
+    if (!def.producesResource) return def.color;
+    const r = def.producesResource;
+    if (r === "bloomEssence") return "#7fb069";
+    if (r === "amberShards") return "#e8964c";
+    if (r === "mycoDust") return "#a875d4";
+    return def.color;
+  })();
 
   const growProgress =
-    isGrowTent && building.plantedAt !== undefined
+    hasGrowCycle && building.plantedAt !== undefined
       ? getGrowProgress(building.plantedAt, def.growDurationMs!, now)
       : undefined;
   const isReady =
-    isGrowTent && building.plantedAt !== undefined
+    hasGrowCycle && building.plantedAt !== undefined
       ? isReadyToHarvest(building.plantedAt, def.growDurationMs!, now)
       : false;
 
   const pendingFire =
-    isAmberForge && building.lastGenerated !== undefined
+    hasPassiveCollect && building.lastGenerated !== undefined
       ? getPendingFire(
           building.lastGenerated,
           statAtLevel(def.firePerSecond!, building.level),
@@ -193,21 +243,24 @@ export function DraggableBuilding({
     //   1) harvest (growTent ready)
     //   2) collect (amberForge has pending fire)
     //   3) open upgrade modal (anything else)
-    if (isGrowTent && isReady) {
+    if (hasGrowCycle && isReady) {
       const yieldNow = def.harvestYield
         ? intStatAtLevel(def.harvestYield, building.level)
         : 0;
-      spawnFloater(yieldNow, def.color);
-      spawnParticles(def.color);
+      spawnFloater(yieldNow, collectColor);
+      spawnParticles(collectColor);
+      playSfx("resourceCollect");
       harvest(building.id);
       return;
     }
-    if (isAmberForge && pendingFire >= 1) {
-      spawnFloater(pendingFire, "#e8964c");
-      spawnParticles("#e8964c");
+    if (hasPassiveCollect && pendingFire >= 1) {
+      spawnFloater(pendingFire, collectColor);
+      spawnParticles(collectColor);
+      playSfx("resourceCollect");
       collectFire(building.id);
       return;
     }
+    playSfx("buttonClick");
     openUpgradeModal(building.id);
   };
 
@@ -254,14 +307,10 @@ export function DraggableBuilding({
       onPointerCancel={onPointerCancel}
       onContextMenu={(e) => e.preventDefault()}
       aria-label={`${def.name} at ${building.x + 1},${building.y + 1}`}
-      className={`group relative cursor-pointer rounded-md transition-shadow ${
+      className={`group relative z-[3] cursor-pointer rounded-md transition-all duration-150 ease-out hover:scale-[1.04] hover:brightness-110 hover:drop-shadow-[0_0_10px_rgba(212,160,74,0.5)] ${
         phase === "dragging" ? "z-50" : ""
       } ${
-        isTapSelected
-          ? "ring-2 ring-gold ring-offset-1 ring-offset-bg-deep shadow-[0_0_18px_rgba(212,160,74,0.55)]"
-          : isMenuSelected
-            ? "ring-2 ring-gold/60 ring-inset"
-            : ""
+        isMenuSelected ? "ring-2 ring-gold/60 ring-inset" : ""
       }`}
       style={{
         gridColumn: `${building.x + 1} / span ${def.size.w}`,
@@ -274,6 +323,24 @@ export function DraggableBuilding({
         opacity: phase === "dragging" ? 0.9 : 1,
       }}
     >
+      {/* Tap-selected ring — animated gold halo with continuous breathe
+          so the selection reads as "this is interactive right now" vs.
+          a static border. Two layers: a soft outer glow that pulses
+          and an inset ring that stays crisp. */}
+      {isTapSelected && (
+        <motion.div
+          className="pointer-events-none absolute inset-0 rounded-md ring-2 ring-gold"
+          animate={{
+            boxShadow: [
+              "0 0 14px 1px rgba(212,160,74,0.45), inset 0 0 8px rgba(212,160,74,0.25)",
+              "0 0 26px 4px rgba(212,160,74,0.8), inset 0 0 14px rgba(212,160,74,0.45)",
+              "0 0 14px 1px rgba(212,160,74,0.45), inset 0 0 8px rgba(212,160,74,0.25)",
+            ],
+          }}
+          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+          aria-hidden
+        />
+      )}
       <BuildingTile
         building={building}
         editMode={editMode}
@@ -284,6 +351,72 @@ export function DraggableBuilding({
 
       {showRing && <LongPressRing progress={progress} color={def.color} />}
 
+      {/* Edit-mode delete button. Pops above the building when it's
+          selected in edit mode. First tap arms (turns red); second
+          tap within 2.2s commits the delete + refund. */}
+      {canDelete && (
+        <motion.button
+          type="button"
+          initial={{ opacity: 0, y: 4, scale: 0.85 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 4 }}
+          transition={{ duration: 0.18 }}
+          onPointerDown={(e) => {
+            // Stop the building's pointer chain so we don't init a drag.
+            e.stopPropagation();
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (!deleteArmed) {
+              setDeleteArmed(true);
+              playSfx("locked");
+              return;
+            }
+            playSfx("buttonClick");
+            removeBuilding(building.id);
+          }}
+          aria-label={
+            deleteArmed
+              ? `Confirm delete ${def.name}`
+              : `Delete ${def.name}`
+          }
+          className={`absolute -top-2 left-1/2 z-30 flex -translate-x-1/2 items-center gap-1 rounded-full border px-2 py-0.5 backdrop-blur transition-colors ${
+            deleteArmed
+              ? "border-red-400 bg-red-500 text-bg-deep"
+              : "border-red-400/60 bg-bg-deep/95 text-red-300 hover:border-red-400 hover:text-red-200"
+          }`}
+          style={{
+            boxShadow: deleteArmed
+              ? "0 0 14px rgba(217,87,87,0.85), 0 4px 12px rgba(0,0,0,0.55)"
+              : "0 4px 12px rgba(0,0,0,0.5)",
+          }}
+        >
+          <Trash2 className="h-3 w-3" strokeWidth={2.5} />
+          <span
+            className="font-display text-[9px] font-bold uppercase tracking-[0.16em]"
+            style={{ fontFamily: "var(--font-cinzel)" }}
+          >
+            {deleteArmed ? "Confirm" : "Delete"}
+          </span>
+        </motion.button>
+      )}
+
+      {/* Upgrade glow — flashes when building.level increases */}
+      {upgradeGlowKey > 0 && (
+        <motion.div
+          key={upgradeGlowKey}
+          initial={{ opacity: 0.85, scale: 0.6 }}
+          animate={{ opacity: 0, scale: 1.4 }}
+          transition={{ duration: 0.9, ease: "easeOut" }}
+          className="pointer-events-none absolute inset-0 rounded-md"
+          style={{
+            background: `radial-gradient(circle, ${def.color}cc 0%, ${def.color}55 35%, transparent 70%)`,
+            boxShadow: `0 0 30px 6px ${def.color}88`,
+          }}
+          aria-hidden
+        />
+      )}
+
       {/* Floaters + particles — pointer-events-none overlay */}
       <div className="pointer-events-none absolute inset-0">
         <AnimatePresence>
@@ -291,14 +424,26 @@ export function DraggableBuilding({
             <motion.div
               key={f.id}
               initial={{ opacity: 0, y: 0, scale: 0.85 }}
-              animate={{ opacity: 1, y: -40, scale: 1.05 }}
-              exit={{ opacity: 0, y: -55 }}
-              transition={{ duration: 1, ease: "easeOut" }}
+              animate={{
+                // Two-stage trajectory: pop up briefly, then fly toward
+                // the HUD at the top of the screen with a fade-out so it
+                // visually "deposits" into the resource bank.
+                opacity: [0, 1, 1, 0],
+                y: [0, -32, -90, -160],
+                scale: [0.85, 1.15, 1.05, 0.7],
+              }}
+              transition={{
+                duration: 1.2,
+                ease: "easeOut",
+                times: [0, 0.25, 0.7, 1],
+              }}
               className="absolute left-1/2 top-1/2 -translate-x-1/2 select-none whitespace-nowrap font-display text-base font-bold leading-none"
               style={{
                 color: f.color,
                 textShadow:
-                  "0 1px 0 rgba(0,0,0,0.6), 0 0 8px rgba(0,0,0,0.5)",
+                  "0 1px 0 rgba(0,0,0,0.7), 0 0 10px rgba(0,0,0,0.6), 0 0 18px " +
+                  f.color +
+                  "55",
               }}
             >
               +{f.amount}

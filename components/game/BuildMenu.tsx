@@ -1,26 +1,91 @@
 "use client";
 
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
-import { useRef } from "react";
 import {
   BUILDINGS,
   BUILDING_TYPES,
+  type BuildingCategory,
   type BuildingDef,
   type BuildingType,
+  type ResourceCost,
 } from "@/lib/buildings";
-import { canPlace, cellFromClientPoint, useGameStore } from "@/lib/store";
-import { canAfford } from "@/lib/economy";
+import { Lock } from "lucide-react";
+import { RESOURCES } from "@/lib/data";
+import type { Resources } from "@/lib/systems/resourceSystem";
+import { playSfx } from "@/lib/systems/audioSystem";
+import { pushToast } from "@/lib/systems/toastSystem";
+import { useRef, useState } from "react";
+import { AssetImage } from "./AssetImage";
+
+/** Display label for a resource field (canon short name). */
+function labelFor(field: string): string {
+  switch (field as keyof Resources) {
+    case "bloomEssence": return "Bloom";
+    case "amberShards": return "Amber";
+    case "mycoDust": return "Myco";
+    case "relicFragments": return "Relic";
+    case "spiritSeeds": return "Seeds";
+    case "portalEnergy": return "Portal";
+    case "guildXp": return "XP";
+    case "cardShards": return "Shards";
+    default: return field;
+  }
+}
+
+/** Color tint for a resource field. */
+function colorFor(field: string): string {
+  return (
+    RESOURCES[field as keyof typeof RESOURCES]?.color ?? "#d4a04a"
+  );
+}
+import {
+  canPlace,
+  cellFromClientPoint,
+  isAlreadyPlaced,
+  useGameStore,
+} from "@/lib/store";
+import {
+  getGuildCoreLevel,
+  isUnlockedAtCoreLevel,
+} from "@/lib/systems/buildingSystem";
+import { canAffordCost, missingFor } from "@/lib/systems/resourceSystem";
+
+/** Category filter tabs shown above the build grid. "all" is virtual. */
+type CategoryTab = "all" | BuildingCategory;
+const CATEGORY_TABS: { key: CategoryTab; label: string }[] = [
+  { key: "all", label: "All" },
+  { key: "core", label: "Core" },
+  { key: "resource", label: "Resource" },
+  { key: "storage", label: "Storage" },
+  { key: "training", label: "Train" },
+  { key: "defense", label: "Defense" },
+  { key: "spiritPet", label: "Pets" },
+  { key: "portal", label: "Portal" },
+];
 
 export function BuildMenu() {
   const open = useGameStore((s) => s.buildMenuOpen);
   const selectedCell = useGameStore((s) => s.selectedCell);
   const buildings = useGameStore((s) => s.buildings);
-  const leaf = useGameStore((s) => s.resources.leaf);
+  const resources = useGameStore((s) => s.resources);
   const placeBuilding = useGameStore((s) => s.placeBuilding);
   const closeBuildMenu = useGameStore((s) => s.closeBuildMenu);
   const dragState = useGameStore((s) => s.dragState);
+  const coreLevel = getGuildCoreLevel(buildings);
+  const [activeTab, setActiveTab] = useState<CategoryTab>("all");
+
+  // Filter the building list by tab. We KEEP locked buildings visible so
+  // players can see what's coming up at higher Core levels.
+  const visibleTypes = BUILDING_TYPES.filter((type) => {
+    if (activeTab === "all") return true;
+    return BUILDINGS[type].category === activeTab;
+  });
+  // Count per-tab so we can hide empty tabs in the current type set.
+  const tabsWithContent = new Set<CategoryTab>(["all"]);
+  for (const type of BUILDING_TYPES) {
+    tabsWithContent.add(BUILDINGS[type].category as CategoryTab);
+  }
 
   const ready = selectedCell !== null;
   const draggingPlace = dragState?.kind === "place";
@@ -77,35 +142,110 @@ export function BuildMenu() {
                         : "↑ Tap a glowing cell, or drag a card onto the grid"}
                   </p>
                 </div>
-                <button
-                  type="button"
-                  onClick={closeBuildMenu}
-                  className="rounded-full p-1.5 text-text-muted transition-colors hover:bg-bg-mid/60 hover:text-text-primary"
-                  aria-label="Close build menu"
-                >
-                  <X className="h-5 w-5" />
-                </button>
+                <div className="flex items-center gap-1.5">
+                  {ready && !draggingPlace && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        playSfx("buttonClick");
+                        // Re-open the menu with no selectedCell so player
+                        // can pick a different glowing cell from the grid.
+                        useGameStore.setState({ selectedCell: null });
+                      }}
+                      className="rounded-full border border-gold/30 px-2.5 py-1 font-display text-[9px] font-bold uppercase tracking-[0.18em] text-text-muted transition-colors hover:border-gold/55 hover:text-text-primary"
+                      aria-label="Pick a different cell"
+                      style={{ fontFamily: "var(--font-cinzel)" }}
+                    >
+                      Change Cell
+                    </button>
+                  )}
+                  <button
+                    type="button"
+                    onClick={closeBuildMenu}
+                    className="rounded-full p-1.5 text-text-muted transition-colors hover:bg-bg-mid/60 hover:text-text-primary"
+                    aria-label="Close build menu"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
               </header>
 
+              {/* Category tab rail — scrollable on narrow widths so all
+                  tabs are reachable; active tab gets a gold pill. */}
+              <div
+                role="tablist"
+                aria-label="Build category"
+                className="mt-3 -mx-1 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              >
+                <div className="flex items-center gap-1.5 px-1">
+                  {CATEGORY_TABS.filter((t) => tabsWithContent.has(t.key)).map(
+                    (t) => {
+                      const active = t.key === activeTab;
+                      return (
+                        <button
+                          key={t.key}
+                          type="button"
+                          role="tab"
+                          aria-selected={active}
+                          onClick={() => {
+                            playSfx("buttonClick");
+                            setActiveTab(t.key);
+                          }}
+                          className={`flex-shrink-0 rounded-full px-3 py-1.5 font-display text-[10px] font-bold uppercase tracking-[0.18em] transition-colors ${
+                            active
+                              ? "bg-gold text-bg-deep shadow-[0_2px_10px_-2px_rgba(212,160,74,0.6)]"
+                              : "border border-gold/25 bg-bg-mid/50 text-text-muted hover:border-gold/45 hover:text-text-primary"
+                          }`}
+                          style={{ fontFamily: "var(--font-cinzel)" }}
+                        >
+                          {t.label}
+                        </button>
+                      );
+                    },
+                  )}
+                </div>
+              </div>
+
               <div className="mt-4 grid grid-cols-2 gap-3">
-                {BUILDING_TYPES.map((type) => {
+                {visibleTypes.map((type) => {
                   const def = BUILDINGS[type];
+                  const cost = def.buildCost ?? { bloomEssence: def.baseCost };
+                  const unlocked = isUnlockedAtCoreLevel(type, coreLevel);
+                  const singletonBlocked =
+                    def.singleton === true && isAlreadyPlaced(type, buildings);
                   const fits =
                     ready &&
                     canPlace(type, selectedCell!.x, selectedCell!.y, buildings);
-                  const afford = canAfford(leaf, def.baseCost);
-                  const reason = !ready
-                    ? null
-                    : !fits
-                      ? "No room here"
-                      : !afford
-                        ? `Need ${def.baseCost - leaf} Leaf`
-                        : null;
+                  const afford = canAffordCost(resources, cost);
+                  let reason: string | null = null;
+                  if (!unlocked) {
+                    reason = `Needs Core L${def.unlockCoreLevel}`;
+                  } else if (singletonBlocked) {
+                    reason = "Already placed";
+                  } else if (ready) {
+                    if (!fits) reason = "No room here";
+                    else if (!afford) {
+                      const missing = missingFor(resources, cost);
+                      const first = Object.entries(missing)[0];
+                      reason = first
+                        ? `Need ${first[1]} more ${labelFor(first[0])}`
+                        : "Insufficient";
+                    }
+                  }
                   return (
                     <BuildingCard
                       key={type}
                       def={def}
-                      tapDisabled={!ready || !fits || !afford}
+                      cost={cost}
+                      tapDisabled={
+                        !unlocked ||
+                        singletonBlocked ||
+                        !ready ||
+                        !fits ||
+                        !afford
+                      }
+                      dragDisabled={!unlocked || singletonBlocked}
+                      locked={!unlocked}
                       reason={reason}
                       onTap={() => placeBuilding(type)}
                       type={type}
@@ -123,13 +263,19 @@ export function BuildMenu() {
 
 function BuildingCard({
   def,
+  cost,
   tapDisabled,
+  dragDisabled = false,
+  locked = false,
   reason,
   onTap,
   type,
 }: {
   def: BuildingDef;
+  cost: ResourceCost;
   tapDisabled: boolean;
+  dragDisabled?: boolean;
+  locked?: boolean;
   reason: string | null;
   onTap: () => void;
   type: BuildingType;
@@ -139,15 +285,38 @@ function BuildingCard({
   const commitDrag = useGameStore((s) => s.commitDrag);
   const cancelDrag = useGameStore((s) => s.cancelDrag);
   const draggingRef = useRef(false);
+  const [shakeKey, setShakeKey] = useState(0);
+
+  const triggerLockedShake = () => {
+    playSfx("locked");
+    setShakeKey((k) => k + 1);
+    if (reason) {
+      pushToast({
+        kind: "error",
+        title: "Can't place",
+        body: `${def.name}: ${reason}`,
+      });
+    }
+  };
 
   return (
     <motion.button
       type="button"
-      drag
+      drag={!dragDisabled}
       dragSnapToOrigin
       dragElastic={0}
       dragMomentum={false}
       whileDrag={{ scale: 1.05, opacity: 0.95, zIndex: 70 }}
+      animate={
+        shakeKey > 0
+          ? { x: [0, -6, 6, -4, 4, -2, 0] }
+          : undefined
+      }
+      transition={shakeKey > 0 ? { duration: 0.35 } : undefined}
+      onAnimationComplete={() => {
+        // Reset so a future shake replays the animation.
+        // Doesn't change `shakeKey > 0` until next render, which is fine.
+      }}
       onDragStart={() => {
         draggingRef.current = true;
         startPlaceDrag(type);
@@ -174,34 +343,58 @@ function BuildingCard({
           e.preventDefault();
           return;
         }
-        if (!tapDisabled) onTap();
+        if (tapDisabled) {
+          triggerLockedShake();
+          return;
+        }
+        playSfx("buttonClick");
+        onTap();
       }}
       aria-label={`Place ${def.name}`}
-      className={`group relative flex flex-col items-center gap-2 rounded-xl border border-gold/20 bg-bg-mid/60 p-3 text-left transition select-none ${
-        tapDisabled
-          ? "cursor-grab opacity-90"
-          : "cursor-grab hover:border-gold/50 active:cursor-grabbing"
+      className={`group relative flex flex-col items-center gap-2 rounded-xl border bg-bg-mid/60 p-3 text-left transition select-none ${
+        locked
+          ? "cursor-not-allowed border-gold-muted/25 opacity-75"
+          : tapDisabled
+            ? "cursor-grab border-gold/20 opacity-90"
+            : "cursor-grab border-gold/30 hover:border-gold/55 hover:bg-bg-mid/80 active:cursor-grabbing"
       }`}
       style={{ touchAction: "none" }}
     >
+      {/* Locked corner ribbon — top-right, gold on dark. */}
+      {locked && (
+        <div
+          className="pointer-events-none absolute -top-2 -right-2 z-10 flex items-center gap-1 rounded-full border border-gold/40 bg-bg-deep/95 px-2 py-0.5 shadow-md"
+        >
+          <Lock className="h-2.5 w-2.5 text-gold" strokeWidth={2.5} />
+          <span
+            className="font-display text-[8px] font-bold uppercase tracking-[0.18em] text-gold"
+            style={{ fontFamily: "var(--font-cinzel)" }}
+          >
+            Lv {def.unlockCoreLevel ?? 1}
+          </span>
+        </div>
+      )}
       <div
         className="relative h-20 w-20 overflow-hidden rounded-lg"
-        style={{ backgroundColor: `${def.color}1a` }}
+        style={{
+          backgroundColor: locked ? "rgba(35,25,15,0.5)" : `${def.color}1a`,
+        }}
       >
-        <Image
-          src={def.imagePath}
+        <AssetImage
+          assetId={`building.${type}`}
           alt={def.name}
           fill
           sizes="80px"
-          className="object-contain p-1"
-          draggable={false}
-          onError={(e) => {
-            console.error(
-              `[BuildMenu] Failed to load card image for ${def.name}: ${def.imagePath}`,
-              e,
-            );
-          }}
+          className={`p-1 ${locked ? "grayscale" : ""}`}
+          notDraggable
+          placeholderColor={def.color}
+          placeholderLabel={def.name}
         />
+        {locked && (
+          <div className="absolute inset-0 flex flex-col items-center justify-center gap-1 bg-bg-deep/70 backdrop-blur-[2px]">
+            <Lock className="h-6 w-6 text-gold/85" strokeWidth={2.25} />
+          </div>
+        )}
       </div>
 
       <div className="w-full text-center">
@@ -213,10 +406,11 @@ function BuildingCard({
         </p>
         <p className="mt-0.5 text-[9px] uppercase tracking-[0.2em] text-text-muted/70">
           {def.size.w} × {def.size.h}
+          {def.category && (
+            <span className="ml-1 text-text-muted/60">· {def.category}</span>
+          )}
         </p>
-        <p className="mt-1 font-sans text-[11px] font-bold tabular-nums text-leaf">
-          {def.baseCost} <span className="text-text-muted">Leaf</span>
-        </p>
+        <CostLine cost={cost} />
       </div>
 
       <span
@@ -226,5 +420,27 @@ function BuildingCard({
         {reason ?? "Place"}
       </span>
     </motion.button>
+  );
+}
+
+/** Inline multi-resource cost display: "30 Bloom · 10 Amber". */
+function CostLine({ cost }: { cost: ResourceCost }) {
+  const entries = Object.entries(cost).filter(([, v]) => (v ?? 0) > 0);
+  if (entries.length === 0) {
+    return (
+      <p className="mt-1 font-sans text-[11px] font-bold tabular-nums text-leaf">
+        Free
+      </p>
+    );
+  }
+  return (
+    <p className="mt-1 flex flex-wrap items-center justify-center gap-x-2 gap-y-0.5 font-sans text-[11px] font-bold tabular-nums">
+      {entries.map(([k, v]) => (
+        <span key={k} style={{ color: colorFor(k) }}>
+          {v}
+          <span className="ml-0.5 text-text-muted">{labelFor(k)}</span>
+        </span>
+      ))}
+    </p>
   );
 }

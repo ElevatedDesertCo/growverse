@@ -1,22 +1,48 @@
 "use client";
 
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ArrowRight } from "lucide-react";
-import { BUILDINGS } from "@/lib/buildings";
+import { AssetImage } from "./AssetImage";
+import { ActionIcon } from "./ActionIcon";
+import { ArrowUp, X, ArrowRight } from "lucide-react";
+import { BUILDINGS, type ResourceCost } from "@/lib/buildings";
 import {
-  canAfford,
-  costAtLevel,
   intStatAtLevel,
   MAX_LEVEL,
   statAtLevel,
 } from "@/lib/economy";
 import { useGameStore } from "@/lib/store";
+import {
+  canAffordCost,
+  type Resources,
+} from "@/lib/systems/resourceSystem";
+import { getUpgradeCost } from "@/lib/systems/upgradeSystem";
+import { playSfx } from "@/lib/systems/audioSystem";
+import { RESOURCES } from "@/lib/data";
+
+function labelFor(field: string): string {
+  switch (field as keyof Resources) {
+    case "bloomEssence": return "Bloom";
+    case "amberShards": return "Amber";
+    case "mycoDust": return "Myco";
+    case "relicFragments": return "Relic";
+    case "spiritSeeds": return "Seeds";
+    case "portalEnergy": return "Portal";
+    case "guildXp": return "XP";
+    case "cardShards": return "Shards";
+    default: return field;
+  }
+}
+
+function colorFor(field: string): string {
+  return (
+    RESOURCES[field as keyof typeof RESOURCES]?.color ?? "#d4a04a"
+  );
+}
 
 export function UpgradeModal() {
   const id = useGameStore((s) => s.upgradeModalId);
   const buildings = useGameStore((s) => s.buildings);
-  const leaf = useGameStore((s) => s.resources.leaf);
+  const resources = useGameStore((s) => s.resources);
   const close = useGameStore((s) => s.closeUpgradeModal);
   const upgrade = useGameStore((s) => s.upgrade);
 
@@ -46,15 +72,25 @@ export function UpgradeModal() {
             role="dialog"
             aria-label="Upgrade building"
             aria-modal="true"
-            className="fixed inset-x-0 bottom-0 z-40 max-h-[70dvh] overflow-y-auto rounded-t-3xl border-t border-gold/30 bg-bg-deep/95 pb-[max(env(safe-area-inset-bottom),1rem)] shadow-[0_-20px_60px_rgba(0,0,0,0.55)] backdrop-blur"
+            className="fixed inset-x-0 bottom-0 z-40 max-h-[78dvh] overflow-y-auto rounded-t-3xl pb-[max(env(safe-area-inset-bottom),1rem)] backdrop-blur"
+            style={{
+              background:
+                "linear-gradient(180deg, rgba(212,160,74,0.85) 0%, rgba(212,160,74,0.85) 1px, rgba(15,10,6,0.97) 1px, rgba(15,10,6,0.97) 100%)",
+              boxShadow:
+                "0 -20px 60px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.18), 0 0 80px -20px rgba(212,160,74,0.35)",
+            }}
           >
             <UpgradePanel
-              buildingId={building.id}
               type={building.type}
               level={building.level}
-              leaf={leaf}
+              resources={resources}
               onClose={close}
-              onUpgrade={() => upgrade(building.id)}
+              onUpgrade={() => {
+                playSfx("buttonClick");
+                upgrade(building.id);
+                // upgradeComplete SFX fires automatically inside
+                // DraggableBuilding when its level changes — no double-play.
+              }}
             />
           </motion.div>
         </>
@@ -64,24 +100,23 @@ export function UpgradeModal() {
 }
 
 function UpgradePanel({
-  buildingId,
   type,
   level,
-  leaf,
+  resources,
   onClose,
   onUpgrade,
 }: {
-  buildingId: string;
   type: keyof typeof BUILDINGS;
   level: number;
-  leaf: number;
+  resources: Resources;
   onClose: () => void;
   onUpgrade: () => void;
 }) {
   const def = BUILDINGS[type];
-  const isMax = level >= MAX_LEVEL;
-  const cost = isMax ? 0 : costAtLevel(def.baseCost, level, def.costMultiplier);
-  const afford = canAfford(leaf, cost);
+  const cap = def.maxLevel ?? MAX_LEVEL;
+  const isMax = level >= cap;
+  const cost: ResourceCost | null = isMax ? null : getUpgradeCost(type, level);
+  const afford = cost !== null && canAffordCost(resources, cost);
 
   return (
     <div className="mx-auto max-w-md px-4 pt-3 md:max-w-2xl">
@@ -93,13 +128,15 @@ function UpgradePanel({
             className="relative h-16 w-16 overflow-hidden rounded-lg"
             style={{ backgroundColor: `${def.color}1a` }}
           >
-            <Image
-              src={def.imagePath}
+            <AssetImage
+              assetId={`building.${type}`}
               alt={def.name}
               fill
               sizes="64px"
-              className="object-contain p-1"
-              draggable={false}
+              className="p-1"
+              notDraggable
+              placeholderColor={def.color}
+              placeholderLabel={def.name}
             />
           </div>
           <div className="flex flex-col leading-none">
@@ -135,32 +172,72 @@ function UpgradePanel({
 
       <StatComparison type={type} level={level} isMax={isMax} />
 
+      {!isMax && cost && (
+        <div className="mt-4 rounded-xl border border-gold/15 bg-bg-mid/40 p-3">
+          <div className="text-[9px] uppercase tracking-[0.22em] text-text-muted">
+            Upgrade cost
+          </div>
+          <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-bold tabular-nums">
+            {Object.entries(cost)
+              .filter(([, v]) => (v ?? 0) > 0)
+              .map(([k, v]) => {
+                const have = (resources as unknown as Record<string, number>)[k] ?? 0;
+                const enough = have >= (v ?? 0);
+                return (
+                  <span
+                    key={k}
+                    className="flex items-baseline gap-1"
+                    style={{ color: enough ? colorFor(k) : "#a85a5a" }}
+                  >
+                    {v}
+                    <span className="text-[10px] uppercase tracking-[0.18em] text-text-muted">
+                      {labelFor(k)}
+                    </span>
+                  </span>
+                );
+              })}
+          </div>
+        </div>
+      )}
+
       <div className="mt-5">
         {isMax ? (
           <div className="flex w-full items-center justify-center rounded-full border border-gold/40 bg-gold/10 py-3 text-center font-display text-sm font-bold uppercase tracking-[0.25em] text-gold">
             Max Level Reached
           </div>
         ) : (
-          <button
+          <motion.button
             type="button"
             onClick={onUpgrade}
             disabled={!afford}
-            className="flex w-full items-center justify-center gap-2 rounded-full bg-gold py-3 font-display text-sm font-bold uppercase tracking-[0.18em] text-bg-deep shadow-[0_4px_18px_-6px_rgba(212,160,74,0.6)] transition-colors hover:bg-gold-dark active:bg-gold-dark disabled:cursor-not-allowed disabled:bg-gold-muted disabled:text-bg-deep/60 disabled:shadow-none"
+            animate={
+              afford
+                ? {
+                    boxShadow: [
+                      "0 4px 18px -6px rgba(212,160,74,0.6)",
+                      "0 6px 26px -4px rgba(212,160,74,0.95)",
+                      "0 4px 18px -6px rgba(212,160,74,0.6)",
+                    ],
+                  }
+                : {}
+            }
+            transition={
+              afford
+                ? { duration: 1.4, repeat: Infinity, ease: "easeInOut" }
+                : { duration: 0.2 }
+            }
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-gold py-3 font-display text-sm font-bold uppercase tracking-[0.18em] text-bg-deep transition-colors hover:bg-gold-dark active:bg-gold-dark disabled:cursor-not-allowed disabled:bg-gold-muted disabled:text-bg-deep/60 disabled:shadow-none"
           >
-            {afford ? (
-              <>
-                Upgrade to Level {level + 1}
-                <span className="font-sans tabular-nums">· {cost} Leaf</span>
-              </>
-            ) : (
-              <>
-                Need {cost - leaf} more Leaf
-                <span className="font-sans tabular-nums opacity-70">
-                  ({cost} total)
-                </span>
-              </>
-            )}
-          </button>
+            <ActionIcon
+              assetId="ui.actionUpgrade"
+              alt="Upgrade"
+              fallback={ArrowUp}
+              size={18}
+              className="h-4 w-4"
+              strokeWidth={2.5}
+            />
+            {afford ? `Upgrade to Level ${level + 1}` : "Not enough resources"}
+          </motion.button>
         )}
       </div>
     </div>
@@ -184,7 +261,7 @@ function StatComparison({
 
   if (def.harvestYield !== undefined) {
     rows.push({
-      label: "Leaf per harvest",
+      label: "Bloom per harvest",
       current: `+${intStatAtLevel(def.harvestYield, level)}`,
       next: `+${intStatAtLevel(def.harvestYield, nextLevel)}`,
     });
@@ -199,10 +276,35 @@ function StatComparison({
   if (def.firePerSecond !== undefined) {
     const cur = statAtLevel(def.firePerSecond, level);
     const nxt = statAtLevel(def.firePerSecond, nextLevel);
+    const produces = def.producesResource
+      ? labelFor(def.producesResource)
+      : "Resource";
     rows.push({
-      label: "Fire per second",
+      label: `${produces} per second`,
       current: cur.toFixed(2),
       next: nxt.toFixed(2),
+    });
+  }
+  if (def.storageBonus !== undefined) {
+    rows.push({
+      label: "Storage bonus",
+      current: `+${Math.round(statAtLevel(def.storageBonus, level))}`,
+      next: `+${Math.round(statAtLevel(def.storageBonus, nextLevel))}`,
+    });
+  }
+  if (def.health !== undefined) {
+    rows.push({
+      label: "Health",
+      current: `${Math.round(statAtLevel(def.health, level))}`,
+      next: `${Math.round(statAtLevel(def.health, nextLevel))}`,
+    });
+  }
+  // Guild Core upgrades unlock the next batch of buildings — show that.
+  if (def.type === "guildCore") {
+    rows.push({
+      label: "Unlocks at next level",
+      current: `Core L${level}`,
+      next: `Core L${nextLevel}`,
     });
   }
 

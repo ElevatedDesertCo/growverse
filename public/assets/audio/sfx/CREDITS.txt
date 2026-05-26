@@ -1,0 +1,30 @@
+Growverse — Audio Credits (SFX)
+================================
+
+All sound effects in this directory are from the Kenney UI Audio pack,
+licensed under CC0 1.0 Universal (Public Domain Dedication).
+
+Source:  https://kenney.nl/assets/ui-audio
+License: https://creativecommons.org/publicdomain/zero/1.0/
+
+CC0 allows free use for any purpose including commercial without
+attribution. The credits below are listed as a courtesy; Kenney has
+asked that anyone who finds his work useful consider supporting him
+on Patreon at https://patreon.com/kenney.
+
+File mapping
+------------
+button-click.mp3        ← kenney_ui-audio/Audio/click1.ogg
+resource-collect.mp3    ← kenney_ui-audio/Audio/click2.ogg
+build-placed.mp3        ← kenney_ui-audio/Audio/switch7.ogg
+upgrade-complete.mp3    ← kenney_ui-audio/Audio/switch15.ogg
+locked.mp3              ← kenney_ui-audio/Audio/switch4.ogg
+
+Conversion: each .ogg was converted to mono 128 kbps MP3 via ffmpeg
+(`-ac 1 -b:a 128k`). Resulting file sizes are all under 8 KB.
+
+Replacing a sound
+-----------------
+Drop a new MP3 at the listed path (e.g. public/assets/audio/sfx/locked.mp3)
+and refresh — no code changes required. To use OGG/WAV instead, also
+update the path in lib/data/assetManifest.ts under SFX_ASSETS.
