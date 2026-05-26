@@ -8,6 +8,7 @@ import type { Resources } from "@/lib/systems/resourceSystem";
  */
 
 const LAST_CLAIM_KEY = "growverse-daily-claimed";
+const STREAK_KEY = "growverse-daily-streak";
 
 export interface DailyRewardBundle {
   /** Sparse map of resource → amount granted. */
@@ -24,6 +25,37 @@ function todayKey(): string {
   const m = String(d.getMonth() + 1).padStart(2, "0");
   const day = String(d.getDate()).padStart(2, "0");
   return `${y}-${m}-${day}`;
+}
+
+/** Yesterday's YYYY-MM-DD in local time. */
+function yesterdayKey(): string {
+  const d = new Date();
+  d.setDate(d.getDate() - 1);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${y}-${m}-${day}`;
+}
+
+/** Returns the current consecutive-day streak. 0 if never claimed or broken. */
+export function getDailyStreak(): number {
+  if (typeof window === "undefined") return 0;
+  try {
+    const last = window.localStorage.getItem(LAST_CLAIM_KEY);
+    if (!last) return 0;
+    const today = todayKey();
+    const yest = yesterdayKey();
+    // Streak is only "live" if the player claimed today or yesterday.
+    // Older than that → broken streak shown as 0.
+    if (last !== today && last !== yest) return 0;
+    const n = parseInt(
+      window.localStorage.getItem(STREAK_KEY) ?? "0",
+      10,
+    );
+    return Number.isFinite(n) ? n : 0;
+  } catch {
+    return 0;
+  }
 }
 
 /** Returns the bundle to grant today, or null if already claimed. */
@@ -46,12 +78,32 @@ export function getPendingDailyReward(): DailyRewardBundle | null {
   };
 }
 
-/** Mark today as claimed. Idempotent. */
-export function markDailyClaimed(): void {
-  if (typeof window === "undefined") return;
+/** Mark today as claimed. Bumps the consecutive-day streak: +1 if last
+ *  claim was yesterday, reset to 1 if there was a gap. Idempotent for
+ *  same-day re-calls (streak doesn't double-bump). Returns new streak. */
+export function markDailyClaimed(): number {
+  if (typeof window === "undefined") return 0;
   try {
-    localStorage.setItem(LAST_CLAIM_KEY, todayKey());
+    const today = todayKey();
+    const yest = yesterdayKey();
+    const last = localStorage.getItem(LAST_CLAIM_KEY);
+    const prevStreak = parseInt(
+      localStorage.getItem(STREAK_KEY) ?? "0",
+      10,
+    );
+    let nextStreak: number;
+    if (last === today) {
+      // Already claimed today — streak unchanged.
+      nextStreak = Number.isFinite(prevStreak) ? prevStreak : 0;
+    } else if (last === yest) {
+      nextStreak = (Number.isFinite(prevStreak) ? prevStreak : 0) + 1;
+    } else {
+      nextStreak = 1;
+    }
+    localStorage.setItem(LAST_CLAIM_KEY, today);
+    localStorage.setItem(STREAK_KEY, String(nextStreak));
+    return nextStreak;
   } catch {
-    /* storage disabled */
+    return 0;
   }
 }

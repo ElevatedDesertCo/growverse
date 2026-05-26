@@ -87,9 +87,22 @@ export function DailyRewardModal() {
     if (!bundle || claimed) return;
     setClaimed(true);
     grantResources(bundle.amounts);
-    markDailyClaimed();
+    const nextStreak = markDailyClaimed();
     bumpStat("dailyRewardsClaimed");
     playSfx("upgradeComplete");
+    if (nextStreak >= 2) {
+      // Brief celebration toast with the running streak.
+      // Lazy import to avoid a circular bus dep.
+      import("@/lib/systems/toastSystem").then(({ pushToast }) => {
+        pushToast({
+          kind: "success",
+          title: `🔥 ${nextStreak}-Day Streak`,
+          body: "Keep the fire alive — come back tomorrow.",
+          accent: "#e8964c",
+          ttlMs: 3200,
+        });
+      });
+    }
     // Hold the celebration briefly, then dismiss.
     window.setTimeout(close, 800);
   };

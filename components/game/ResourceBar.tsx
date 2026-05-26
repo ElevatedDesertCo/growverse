@@ -1,11 +1,12 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Coins, Flame, Leaf, Sparkles, Hexagon, Zap } from "lucide-react";
+import { Coins, Flame, Leaf, Sparkles, Hexagon, Zap, Flame as FlameIcon } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { RESOURCES } from "@/lib/data";
 import { useGameStore } from "@/lib/store";
+import { getDailyStreak } from "@/lib/systems/dailyReward";
 import { getTotalStorageBonus } from "@/lib/systems/buildingSystem";
 import {
   isCapped,
@@ -273,6 +274,15 @@ export function ResourceBar() {
   const resources = useGameStore((s) => s.resources);
   const buildings = useGameStore((s) => s.buildings);
   const storageBonus = getTotalStorageBonus(buildings);
+  // Re-tick the streak read whenever the game tick fires so the badge
+  // updates after a daily claim without needing a separate subscription.
+  const tickAt = useGameStore((s) => s._tickAt);
+  const [streak, setStreak] = useState(0);
+  useEffect(() => {
+    // Intentional: re-syncs the badge from localStorage on every tick.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setStreak(getDailyStreak());
+  }, [tickAt]);
 
   const maxOf = (field: keyof Resources) =>
     isCapped(field) ? maxFor(field, storageBonus) : null;
@@ -304,8 +314,33 @@ export function ResourceBar() {
               Guild Wars · GC1
             </span>
           </div>
-          {/* Right-side placeholder so the title stays optically centered */}
-          <div className="h-8 w-8" aria-hidden />
+          {/* Right-side streak badge (or invisible spacer if no streak
+              yet, so the title stays optically centered). */}
+          {streak > 0 ? (
+            <div
+              className="flex h-8 items-center gap-1.5 rounded-full border border-amber-500/40 bg-bg-deep/80 px-2.5 backdrop-blur"
+              title={`${streak}-day daily claim streak`}
+              style={{
+                boxShadow: "0 0 10px -4px rgba(232,150,76,0.55)",
+              }}
+            >
+              <FlameIcon
+                className="h-3.5 w-3.5 text-fire"
+                strokeWidth={2.5}
+                style={{
+                  filter: "drop-shadow(0 0 4px rgba(232,150,76,0.85))",
+                }}
+              />
+              <span className="font-display text-[11px] font-bold tabular-nums text-fire">
+                {streak}
+                <span className="ml-0.5 text-[8px] uppercase tracking-[0.18em] text-text-muted">
+                  d
+                </span>
+              </span>
+            </div>
+          ) : (
+            <div className="h-8 w-8" aria-hidden />
+          )}
         </div>
 
         {/* Row 2 — resource pill rail. Horizontal scroll on narrow widths

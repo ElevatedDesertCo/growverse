@@ -33,6 +33,8 @@ import {
   type Stats,
 } from "@/lib/systems/statsSystem";
 import { pushToast } from "@/lib/systems/toastSystem";
+import { AchievementsModal } from "./AchievementsModal";
+import { Trophy } from "lucide-react";
 
 export function SettingsButton() {
   const [open, setOpen] = useState(false);
@@ -49,6 +51,7 @@ export function SettingsButton() {
   const [importErr, setImportErr] = useState<string | null>(null);
   // Lifetime stats (persisted independently of the game save).
   const [stats, setStats] = useState<Stats | null>(null);
+  const [achievementsOpen, setAchievementsOpen] = useState(false);
   const resetSave = useGameStore((s) => s.resetSave);
 
   // Sync from persisted state once we're on the client + whenever the
@@ -262,6 +265,17 @@ export function SettingsButton() {
                         <StatRow label="Decor Regrown" value={stats.decorRegrown} accent="#9ed16e" />
                         <StatRow label="Daily Rewards" value={stats.dailyRewardsClaimed} accent="#b78ddf" />
                       </dl>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          playSfx("buttonClick");
+                          setAchievementsOpen(true);
+                        }}
+                        className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-full border border-gold/40 bg-bg-deep/70 px-3 py-2 font-display text-[11px] font-bold uppercase tracking-[0.18em] text-gold transition-colors hover:border-gold/60"
+                      >
+                        <Trophy className="h-3.5 w-3.5" />
+                        View Achievements
+                      </button>
                     </section>
                   )}
 
@@ -306,6 +320,7 @@ export function SettingsButton() {
                         </button>
                       ) : (
                         <div className="space-y-1.5">
+                          <ExportSummary text={exportText} />
                           <textarea
                             readOnly
                             value={exportText}
@@ -508,7 +523,70 @@ export function SettingsButton() {
         )}
       </AnimatePresence>,
       document.body)}
+      <AchievementsModal
+        open={achievementsOpen}
+        onClose={() => setAchievementsOpen(false)}
+      />
     </>
+  );
+}
+
+/** Small preview card showing what's inside the exported save. */
+function ExportSummary({ text }: { text: string }) {
+  let buildings = 0;
+  let bloom = 0;
+  let amber = 0;
+  let myco = 0;
+  let exportedAt = "";
+  try {
+    const env = JSON.parse(text) as {
+      exportedAt?: number;
+      state?: { state?: { buildings?: unknown[]; resources?: Record<string, number> } };
+    };
+    const inner = env?.state?.state;
+    if (inner) {
+      buildings = Array.isArray(inner.buildings) ? inner.buildings.length : 0;
+      bloom = inner.resources?.bloomEssence ?? 0;
+      amber = inner.resources?.amberShards ?? 0;
+      myco = inner.resources?.mycoDust ?? 0;
+    }
+    if (typeof env.exportedAt === "number") {
+      exportedAt = new Date(env.exportedAt).toLocaleString();
+    }
+  } catch {
+    /* malformed — render the card without numbers */
+  }
+  return (
+    <div className="rounded-lg border border-gold/25 bg-bg-deep/60 px-3 py-2">
+      <div className="flex items-center justify-between gap-2">
+        <span className="font-display text-[9px] font-bold uppercase tracking-[0.18em] text-gold">
+          Snapshot
+        </span>
+        {exportedAt && (
+          <span className="font-sans text-[9px] text-text-muted/80">
+            {exportedAt}
+          </span>
+        )}
+      </div>
+      <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 font-sans text-[10px]">
+        <span className="text-text-muted">
+          <span className="font-bold tabular-nums text-text-primary">{buildings}</span>{" "}
+          buildings
+        </span>
+        <span className="text-leaf">
+          <span className="font-bold tabular-nums">{bloom.toLocaleString()}</span>{" "}
+          <span className="text-text-muted">Bloom</span>
+        </span>
+        <span className="text-fire">
+          <span className="font-bold tabular-nums">{amber.toLocaleString()}</span>{" "}
+          <span className="text-text-muted">Amber</span>
+        </span>
+        <span className="text-mushroom">
+          <span className="font-bold tabular-nums">{myco.toLocaleString()}</span>{" "}
+          <span className="text-text-muted">Myco</span>
+        </span>
+      </div>
+    </div>
   );
 }
 
