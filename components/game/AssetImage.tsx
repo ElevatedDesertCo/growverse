@@ -58,7 +58,9 @@ export function AssetImage({
   const focus = entry?.focus;
   const wantsChroma = !!entry?.chromaKey && hasFile;
   const [chromaUrl, setChromaUrl] = useState<string | null>(
-    wantsChroma ? chromaKeyCached(rawPath, focus) : null,
+    wantsChroma
+      ? chromaKeyCached(rawPath, focus, entry?.chromaTolerance)
+      : null,
   );
   useEffect(() => {
     if (!wantsChroma) {
@@ -66,13 +68,16 @@ export function AssetImage({
       if (chromaUrl !== null) setChromaUrl(null);
       return;
     }
-    const cached = chromaKeyCached(rawPath, focus);
+    const cached = chromaKeyCached(rawPath, focus, entry?.chromaTolerance);
     if (cached) {
       if (cached !== chromaUrl) setChromaUrl(cached);
       return;
     }
     let cancelled = false;
-    chromaKeyImage(rawPath, { focus }).then((url) => {
+    chromaKeyImage(rawPath, {
+      focus,
+      tolerance: entry?.chromaTolerance,
+    }).then((url) => {
       if (!cancelled) setChromaUrl(url);
     });
     return () => {

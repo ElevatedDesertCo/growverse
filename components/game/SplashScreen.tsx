@@ -47,6 +47,47 @@ export function SplashScreen() {
     return () => clearTimeout(t);
   }, [phase]);
 
+  // Prefetch all flagged building + terrain art during splash so the
+  // first build doesn't network-fetch + chroma-process. Fire-and-forget;
+  // failures are silent (chroma + Next/Image both handle missing files).
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    let cancelled = false;
+    (async () => {
+      const [{ BUILDING_ASSETS, TERRAIN_ASSETS, DECOR_ASSETS }, { chromaKeyImage }] = await Promise.all([
+        import("@/lib/data/assetManifest"),
+        import("@/lib/systems/chromaKey"),
+      ]);
+      if (cancelled) return;
+      type Entry = {
+        path: string;
+        status: string;
+        focus?: { x: number; y: number; w: number; h: number };
+        chromaKey?: boolean;
+      };
+      const entries: Entry[] = [
+        ...(Object.values(BUILDING_ASSETS) as Entry[]),
+        ...(Object.values(TERRAIN_ASSETS) as Entry[]),
+        ...(Object.values(DECOR_ASSETS) as Entry[]),
+      ];
+      for (const e of entries) {
+        if (cancelled) break;
+        if (e.status === "placeholder") continue;
+        if (e.chromaKey) {
+          // Kick off chroma processing; result gets cached.
+          chromaKeyImage(e.path, { focus: e.focus }).catch(() => {});
+        } else {
+          // Just warm the browser HTTP cache.
+          const img = new window.Image();
+          img.src = e.path;
+        }
+      }
+    })().catch(() => {});
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
   if (phase === "done") return null;
 
   const fading = phase === "fading";

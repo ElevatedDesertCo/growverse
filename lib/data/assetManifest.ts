@@ -51,6 +51,13 @@ export interface AssetEntry {
    * read as little cards pasted on the playfield.
    */
   chromaKey?: boolean;
+  /**
+   * Per-asset chroma override: max RGB distance from sampled bg.
+   * Falls back to the chromaKey default (85) when omitted. Bump for
+   * problem assets where the panel background bleeds into the prop's
+   * own ground patch; lower it if a prop highlight is getting ghosted.
+   */
+  chromaTolerance?: number;
 }
 
 // Standardized crop for v1 reference sheets — every *.png in
