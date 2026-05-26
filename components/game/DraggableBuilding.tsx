@@ -17,6 +17,10 @@ import {
   statAtLevel,
 } from "@/lib/economy";
 import { playSfx } from "@/lib/systems/audioSystem";
+import {
+  canAffordUpgrade,
+  isMaxLevel,
+} from "@/lib/systems/upgradeSystem";
 import { BuildingTile } from "./BuildingTile";
 
 const LONG_PRESS_MS = 2500;
@@ -58,7 +62,11 @@ export function DraggableBuilding({
   const cancelDrag = useGameStore((s) => s.cancelDrag);
   const editMode = useGameStore((s) => s.editMode);
   const removeBuilding = useGameStore((s) => s.removeBuilding);
+  const resources = useGameStore((s) => s.resources);
   const canDelete = editMode && isTapSelected && !BUILDINGS[building.type].singleton;
+  const canUpgrade =
+    !isMaxLevel(building.type, building.level) &&
+    canAffordUpgrade(resources, building.type, building.level);
   // confirm flag — first tap arms, second tap commits
   const [deleteArmed, setDeleteArmed] = useState(false);
   useEffect(() => {
@@ -348,6 +356,33 @@ export function DraggableBuilding({
         isReady={isReady}
         pendingFire={pendingFire}
       />
+
+      {/* Desktop hover tooltip — small pill above the building with
+          the name, level, and a contextual hint. Hidden during drag /
+          edit-mode delete to avoid stacking conflicts. */}
+      {phase !== "dragging" && !canDelete && (
+        <div
+          className="pointer-events-none absolute -top-1 left-1/2 z-20 -translate-x-1/2 -translate-y-full whitespace-nowrap rounded-full bg-bg-deep/95 px-2.5 py-1 opacity-0 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.7)] transition-opacity duration-150 group-hover:opacity-100 group-focus-within:opacity-100"
+          style={{ border: `1px solid ${def.color}80` }}
+        >
+          <span
+            className="font-display text-[10px] font-bold uppercase tracking-[0.18em]"
+            style={{ color: def.color, fontFamily: "var(--font-cinzel)" }}
+          >
+            {def.name}
+          </span>
+          <span
+            className="ml-1.5 rounded-full bg-bg-mid/70 px-1.5 py-px font-sans text-[9px] font-bold tabular-nums text-text-primary"
+          >
+            Lv {building.level}
+          </span>
+          {!editMode && (
+            <span className="ml-1.5 font-sans text-[9px] uppercase tracking-[0.16em] text-text-muted">
+              {canUpgrade ? "↑ ready" : isReady ? "✓ collect" : "tap"}
+            </span>
+          )}
+        </div>
+      )}
 
       {showRing && <LongPressRing progress={progress} color={def.color} />}
 
