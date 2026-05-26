@@ -68,26 +68,14 @@ export function BuildingTile({
             "radial-gradient(ellipse 60% 18% at 50% 88%, rgba(0,0,0,0.45) 0%, transparent 70%)",
         }}
       >
-        {/* Building art layer. Two CSS tricks stacked to make the
-            reference-sheet rectangle disappear into the desert:
-              1. Ellipse mask — tighter than circle, matches a typical
-                 building footprint (taller than wide), so corners and
-                 panel edges get cropped out.
-              2. mix-blend-mode: darken — per-channel min(top, bottom).
-                 The light cream of the panel background loses to the
-                 darker desert sand below, so the cream visually
-                 disappears. Building art (darker than cream) survives
-                 the darken with some loss of highlights but a clear
-                 silhouette.
-            Inset overflow makes the silhouette dominate the cell. */}
+        {/* Building art layer. Sheet-backed entries are chroma-keyed
+            in AssetImage so their paper backgrounds come through as
+            real transparency — no more darken/mask hacks needed.
+            Inset overflow makes the silhouette dominate the cell;
+            drop-shadow gives lift on the now-transparent silhouette. */}
         <div
           className="absolute inset-[-12%] overflow-visible"
           style={{
-            WebkitMaskImage:
-              "radial-gradient(ellipse 60% 75% at 50% 55%, black 50%, transparent 90%)",
-            maskImage:
-              "radial-gradient(ellipse 60% 75% at 50% 55%, black 50%, transparent 90%)",
-            mixBlendMode: "darken",
             filter: "drop-shadow(0 4px 5px rgba(0,0,0,0.55))",
           }}
         >

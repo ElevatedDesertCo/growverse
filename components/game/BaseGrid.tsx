@@ -357,16 +357,12 @@ export function BaseGrid() {
                     gridRow: `${d.y + 1} / span 1`,
                   }}
                 >
-                  {/* Masked visual layer — keeps the radial crop confined
-                      to the sprite so tooltip + ring (siblings) aren't
-                      masked. */}
+                  {/* Decor sprite. Chroma-keyed in AssetImage so the
+                      sheet panel background comes through transparent
+                      — no CSS mask needed. */}
                   <div
                     className="absolute inset-0"
                     style={{
-                      WebkitMaskImage:
-                        "radial-gradient(circle, black 38%, transparent 72%)",
-                      maskImage:
-                        "radial-gradient(circle, black 38%, transparent 72%)",
                       filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.5))",
                     }}
                   >

@@ -44,6 +44,13 @@ export interface AssetEntry {
   notes?: string;
   /** Optional sub-region to crop on render (sprite sheets etc.). */
   focus?: FocusRegion;
+  /**
+   * When true, <AssetImage> programmatically removes the dominant
+   * corner background color (chroma-keys) before rendering. Used for
+   * sheet-cropped PNGs whose flat cream/paper backgrounds otherwise
+   * read as little cards pasted on the playfield.
+   */
+  chromaKey?: boolean;
 }
 
 // Standardized crop for v1 reference sheets — every *.png in
@@ -72,51 +79,51 @@ export const BUILDING_ASSETS = {
     path: "/buildings-library/amber-vault-sheet.png",
     status: "generated",
     notes: "Stand-in: Amber Vault triptych, cropped to In-Game panel.",
-    focus: SHEET_FOCUS,
+    focus: SHEET_FOCUS, chromaKey: true,
   },
   trainingGrounds: {
     path: "/buildings-library/training-grounds-sheet.png",
     status: "generated",
     notes: "Stand-in: triptych sheet, cropped to In-Game panel.",
-    focus: SHEET_FOCUS,
+    focus: SHEET_FOCUS, chromaKey: true,
   },
   spiritNursery: {
     path: "/buildings-library/seed-reliquary-sheet.png",
     status: "generated",
     notes: "Stand-in: Seed Reliquary triptych, cropped to In-Game panel.",
-    focus: SHEET_FOCUS,
+    focus: SHEET_FOCUS, chromaKey: true,
   },
   portalGate: {
     path: "/buildings-library/obsidian-antichamber-sheet.png",
     status: "generated",
     notes: "Stand-in: Obsidian Antichamber triptych, cropped to In-Game panel.",
-    focus: SHEET_FOCUS,
+    focus: SHEET_FOCUS, chromaKey: true,
   },
   relicWorkshop: {
     path: "/buildings-library/bloom-reservoir-sheet.png",
     status: "generated",
     notes: "Stand-in: Bloom Reservoir triptych, cropped to In-Game panel.",
-    focus: SHEET_FOCUS,
+    focus: SHEET_FOCUS, chromaKey: true,
   },
   defenseTotem: {
     path: "/defenses-library/outpost-beacon-sheet.png",
     status: "generated",
-    focus: SHEET_FOCUS,
+    focus: SHEET_FOCUS, chromaKey: true,
   },
   vineWall: {
     path: "/defenses-library/root-barrier-sheet.png",
     status: "generated",
-    focus: SHEET_FOCUS,
+    focus: SHEET_FOCUS, chromaKey: true,
   },
   sporeTrap: {
     path: "/defenses-library/snare-totem-sheet.png",
     status: "generated",
-    focus: SHEET_FOCUS,
+    focus: SHEET_FOCUS, chromaKey: true,
   },
   flameTotem: {
     path: "/defenses-library/doobie-cannon-sheet.png",
     status: "generated",
-    focus: SHEET_FOCUS,
+    focus: SHEET_FOCUS, chromaKey: true,
   },
   waterChannel: {
     path: "/buildings-library/spirit-shrine.png",
@@ -126,12 +133,12 @@ export const BUILDING_ASSETS = {
   rootWall: {
     path: "/defenses-library/root-barrier-sheet.png",
     status: "generated",
-    focus: SHEET_FOCUS,
+    focus: SHEET_FOCUS, chromaKey: true,
   },
   mycoExtractor: {
     path: "/buildings-library/myco-reliquary-sheet.png",
     status: "generated",
-    focus: SHEET_FOCUS,
+    focus: SHEET_FOCUS, chromaKey: true,
   },
   // Legacy v1.1 buildings (still in old saves)
   growTent: { path: "/buildings/grow-tent.png", status: "final" as const },
@@ -299,37 +306,37 @@ export const DECOR_ASSETS = {
   cactus: {
     path: "/decor/cactus-cluster.png",
     status: "generated",
-    focus: SHEET_FOCUS,
+    focus: SHEET_FOCUS, chromaKey: true,
   },
   shrub: {
     path: "/decor/dead-shrub.png",
     status: "generated",
-    focus: SHEET_FOCUS,
+    focus: SHEET_FOCUS, chromaKey: true,
   },
   rocks: {
     path: "/decor/sunbaked-rocks.png",
     status: "generated",
-    focus: SHEET_FOCUS,
+    focus: SHEET_FOCUS, chromaKey: true,
   },
   relic: {
     path: "/decor/relic-debris.png",
     status: "generated",
-    focus: SHEET_FOCUS,
+    focus: SHEET_FOCUS, chromaKey: true,
   },
   lantern: {
     path: "/decor/lantern-banner.png",
     status: "generated",
-    focus: SHEET_FOCUS,
+    focus: SHEET_FOCUS, chromaKey: true,
   },
   logSeat: {
     path: "/decor/small-log-seat.png",
     status: "generated",
-    focus: SHEET_FOCUS,
+    focus: SHEET_FOCUS, chromaKey: true,
   },
   brokenRelic: {
     path: "/decor/broken-irrigation-relic.png",
     status: "generated",
-    focus: SHEET_FOCUS,
+    focus: SHEET_FOCUS, chromaKey: true,
   },
 } satisfies Record<string, AssetEntry>;
 
