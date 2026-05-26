@@ -27,6 +27,11 @@ import {
   setMusicMuted,
 } from "@/lib/systems/musicSystem";
 import { exportSave, importSave } from "@/lib/systems/saveSystem";
+import {
+  getStats,
+  subscribeStats,
+  type Stats,
+} from "@/lib/systems/statsSystem";
 import { pushToast } from "@/lib/systems/toastSystem";
 
 export function SettingsButton() {
@@ -42,6 +47,8 @@ export function SettingsButton() {
   const [exportCopied, setExportCopied] = useState(false);
   const [importText, setImportText] = useState("");
   const [importErr, setImportErr] = useState<string | null>(null);
+  // Lifetime stats (persisted independently of the game save).
+  const [stats, setStats] = useState<Stats | null>(null);
   const resetSave = useGameStore((s) => s.resetSave);
 
   // Sync from persisted state once we're on the client + whenever the
@@ -51,7 +58,15 @@ export function SettingsButton() {
     /* eslint-disable react-hooks/set-state-in-effect */
     setSfxOff(isSfxMuted());
     setMusicOff(isMusicMuted());
+    setStats(getStats());
     /* eslint-enable react-hooks/set-state-in-effect */
+  }, [open]);
+
+  // Live-update stats while the panel is open (e.g. user dismisses,
+  // earns more, reopens — they should see the new numbers).
+  useEffect(() => {
+    if (!open) return;
+    return subscribeStats((next) => setStats(next));
   }, [open]);
 
   // Portal-host detection. The ResourceBar wraps this component AND uses
@@ -226,6 +241,29 @@ export function SettingsButton() {
                       </button>
                     </div>
                   </section>
+
+                  {/* Lifetime stats */}
+                  {stats && (
+                    <section className="relative overflow-hidden rounded-xl border border-gold/25 bg-bg-mid/40 p-4">
+                      <h3
+                        className="font-display text-sm font-bold uppercase tracking-[0.18em] text-gold"
+                        style={{ fontFamily: "var(--font-cinzel)" }}
+                      >
+                        Stats
+                      </h3>
+                      <p className="mt-1 text-[11px] leading-snug text-text-muted">
+                        Lifetime totals. Persisted across save resets.
+                      </p>
+                      <dl className="mt-3 grid grid-cols-2 gap-2 text-[11px]">
+                        <StatRow label="Buildings Placed" value={stats.buildingsPlaced} accent="#7fb069" />
+                        <StatRow label="Buildings Upgraded" value={stats.buildingsUpgraded} accent="#d4a04a" />
+                        <StatRow label="Decor Cleared" value={stats.decorCleared} accent="#c9a878" />
+                        <StatRow label="Harvests Collected" value={stats.harvestsCollected} accent="#e8964c" />
+                        <StatRow label="Decor Regrown" value={stats.decorRegrown} accent="#9ed16e" />
+                        <StatRow label="Daily Rewards" value={stats.dailyRewardsClaimed} accent="#b78ddf" />
+                      </dl>
+                    </section>
+                  )}
 
                   {/* Save: export + import */}
                   <section className="relative overflow-hidden rounded-xl border border-gold/25 bg-bg-mid/40 p-4">
@@ -425,5 +463,29 @@ export function SettingsButton() {
       </AnimatePresence>,
       document.body)}
     </>
+  );
+}
+
+function StatRow({
+  label,
+  value,
+  accent,
+}: {
+  label: string;
+  value: number;
+  accent: string;
+}) {
+  return (
+    <div className="flex items-center justify-between gap-2 rounded-lg border border-gold/15 bg-bg-deep/60 px-2.5 py-1.5">
+      <dt className="truncate font-display text-[9px] font-medium uppercase tracking-[0.18em] text-text-muted">
+        {label}
+      </dt>
+      <dd
+        className="font-display text-sm font-bold tabular-nums"
+        style={{ color: accent, textShadow: "0 1px 0 rgba(0,0,0,0.55)" }}
+      >
+        {value.toLocaleString()}
+      </dd>
+    </div>
   );
 }

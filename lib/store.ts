@@ -24,6 +24,7 @@ import {
 import { getTotalStorageBonus } from "./systems/buildingSystem";
 import { getUpgradeCost } from "./systems/upgradeSystem";
 import { pushToast } from "./systems/toastSystem";
+import { bump as bumpStat } from "./systems/statsSystem";
 
 /**
  * SAVE_KEY is fixed (no version suffix) so zustand-persist can find the
@@ -352,6 +353,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
       buildMenuOpen: false,
       selectedCell: null,
     }));
+    bumpStat("buildingsPlaced");
     pushToast({
       kind: "success",
       title: "Placed",
@@ -370,6 +372,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
       buildings: [...s.buildings, createPlacedBuilding(type, x, y)],
       resources: spendResources(s.resources, cost),
     }));
+    bumpStat("buildingsPlaced");
     pushToast({
       kind: "success",
       title: "Placed",
@@ -493,6 +496,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
         storageBonus,
       ).next,
     }));
+    bumpStat("harvestsCollected");
   },
 
   collectFire: (id) => {
@@ -521,6 +525,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
         storageBonus,
       ).next,
     }));
+    bumpStat("harvestsCollected");
   },
 
   // ─── Sprint 4: upgrade modal + upgrade action ────────────────────────
@@ -544,6 +549,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
       ),
       resources: spendResources(s.resources, cost),
     }));
+    bumpStat("buildingsUpgraded");
     pushToast({
       kind: "success",
       title: "Upgraded",
@@ -587,6 +593,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
         storageBonus,
       ).next,
     }));
+    bumpStat("decorCleared");
     return item;
   },
 
@@ -637,6 +644,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
       ],
       lastDecorRegrowAt: Date.now(),
     }));
+    bumpStat("decorRegrown");
   },
 
   resetSave: () => {

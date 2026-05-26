@@ -336,23 +336,54 @@ export function BaseGrid() {
                   style={{
                     gridColumn: `${d.x + 1} / span 1`,
                     gridRow: `${d.y + 1} / span 1`,
-                    // Radial mask crops the rectangular sheet-panel
-                    // border around the prop so only the central
-                    // silhouette is visible against the desert sand.
-                    WebkitMaskImage:
-                      "radial-gradient(circle, black 38%, transparent 72%)",
-                    maskImage:
-                      "radial-gradient(circle, black 38%, transparent 72%)",
-                    filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.5))",
                   }}
                 >
-                  <AssetImage
-                    assetId={decorAssetId(d.type)}
-                    alt=""
-                    fill
-                    className="h-full w-full"
-                    notDraggable
-                  />
+                  {/* Masked visual layer — keeps the radial crop confined
+                      to the sprite so tooltip + ring (siblings) aren't
+                      masked. */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      WebkitMaskImage:
+                        "radial-gradient(circle, black 38%, transparent 72%)",
+                      maskImage:
+                        "radial-gradient(circle, black 38%, transparent 72%)",
+                      filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.5))",
+                    }}
+                  >
+                    <AssetImage
+                      assetId={decorAssetId(d.type)}
+                      alt=""
+                      fill
+                      className="h-full w-full"
+                      notDraggable
+                    />
+                  </div>
+
+                  {/* Hover tooltip: prop name + reward chip. CSS-only
+                      reveal via group-hover so it doesn't need per-decor
+                      state. Touch users get the same on long-press via
+                      :focus-within fallback (not perfect, but workable). */}
+                  <div
+                    className="pointer-events-none absolute left-1/2 top-0 z-[50] -translate-x-1/2 -translate-y-[110%] whitespace-nowrap rounded-full bg-bg-deep/95 px-2 py-0.5 opacity-0 shadow-[0_4px_12px_-4px_rgba(0,0,0,0.7)] transition-opacity duration-150 group-hover:opacity-100 group-focus-within:opacity-100"
+                    style={{
+                      border: `1px solid ${def.color}88`,
+                    }}
+                  >
+                    <span
+                      className="font-display text-[9px] font-bold uppercase tracking-[0.16em]"
+                      style={{ color: def.color, fontFamily: "var(--font-cinzel)" }}
+                    >
+                      {def.label}
+                    </span>
+                    <span
+                      className="ml-1.5 font-sans text-[9px] font-bold tabular-nums"
+                      style={{ color: def.color }}
+                    >
+                      +{def.reward}
+                    </span>
+                  </div>
+
                   {/* Tutorial ring on the first visible item until the
                       player has cleared at least one decor item. */}
                   {isHint && (

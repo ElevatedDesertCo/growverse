@@ -12,6 +12,7 @@ import {
   type DailyRewardBundle,
 } from "@/lib/systems/dailyReward";
 import type { Resources } from "@/lib/systems/resourceSystem";
+import { bump as bumpStat } from "@/lib/systems/statsSystem";
 
 const RESOURCE_LABEL: Record<keyof Resources, string> = {
   bloomEssence: "Bloom",
@@ -87,6 +88,7 @@ export function DailyRewardModal() {
     setClaimed(true);
     grantResources(bundle.amounts);
     markDailyClaimed();
+    bumpStat("dailyRewardsClaimed");
     playSfx("upgradeComplete");
     // Hold the celebration briefly, then dismiss.
     window.setTimeout(close, 800);

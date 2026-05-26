@@ -58,6 +58,27 @@ function ResourcePill({
   const maxDisplay = max !== null ? max.toLocaleString() : null;
   const resourceDef = RESOURCES[field as keyof typeof RESOURCES];
 
+  // Per-pill "+N" floater triggered whenever the value increases.
+  // Tracks last seen value via a ref so we don't fire on initial mount.
+  const prevValueRef = useRef(value);
+  const [gain, setGain] = useState<{ id: number; amount: number } | null>(null);
+  const gainCounter = useRef(0);
+  useEffect(() => {
+    const prev = prevValueRef.current;
+    if (value > prev) {
+      gainCounter.current += 1;
+      const amount = value - prev;
+      const id = gainCounter.current;
+      setGain({ id, amount });
+      const t = window.setTimeout(() => {
+        setGain((g) => (g?.id === id ? null : g));
+      }, 900);
+      prevValueRef.current = value;
+      return () => window.clearTimeout(t);
+    }
+    prevValueRef.current = value;
+  }, [value]);
+
   // Tooltip open state — hover (desktop) + long-press (mobile).
   const [tipOpen, setTipOpen] = useState(false);
   const longPressTimer = useRef<number | null>(null);
@@ -157,6 +178,26 @@ function ResourcePill({
 
       {/* Resource short-name label below digits on hover (desktop) — tooltip-style */}
       <span className="sr-only">{short}</span>
+
+      {/* Per-pill gain floater — flies upward when value increases */}
+      <AnimatePresence>
+        {gain && (
+          <motion.span
+            key={gain.id}
+            initial={{ opacity: 0, y: 0, scale: 0.9 }}
+            animate={{ opacity: [0, 1, 1, 0], y: [0, -18, -32], scale: [0.9, 1.1, 1] }}
+            transition={{ duration: 0.85, ease: "easeOut", times: [0, 0.2, 0.7, 1] }}
+            className="pointer-events-none absolute -top-1 right-2 select-none font-display text-[11px] font-bold tabular-nums"
+            style={{
+              color: accent,
+              textShadow: "0 1px 0 rgba(0,0,0,0.7), 0 0 8px rgba(0,0,0,0.5)",
+            }}
+            aria-hidden
+          >
+            +{gain.amount}
+          </motion.span>
+        )}
+      </AnimatePresence>
 
       {/* Hover / long-press tooltip with resource info */}
       <AnimatePresence>

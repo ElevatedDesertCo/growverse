@@ -12,6 +12,7 @@ import { DailyRewardModal } from "./DailyRewardModal";
 import { EditModeHint } from "./EditModeHint";
 import { MusicMount } from "./MusicMount";
 import { SWRegister } from "./SWRegister";
+import { WelcomeModal } from "./WelcomeModal";
 
 export function GameShell() {
   return (
@@ -57,6 +58,7 @@ export function GameShell() {
       <UpgradeModal />
       <ComingSoonModal />
       <DailyRewardModal />
+      <WelcomeModal />
       <EditModeHint />
       <WelcomeBackToast />
       <ToastStack />
