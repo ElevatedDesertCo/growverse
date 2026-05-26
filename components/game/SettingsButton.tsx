@@ -32,6 +32,7 @@ import {
 } from "@/lib/systems/musicSystem";
 import { exportSave, importSave } from "@/lib/systems/saveSystem";
 import {
+  getNextMilestone,
   getStats,
   subscribeStats,
   type Stats,
@@ -276,6 +277,26 @@ export function SettingsButton() {
                         }}
                       />
                     </div>
+
+                    {/* SFX test row — tap any chip to play that hook. */}
+                    <div className="mt-3 border-t border-gold/15 pt-3">
+                      <p className="mb-1.5 font-display text-[9px] font-bold uppercase tracking-[0.18em] text-text-muted">
+                        Test SFX
+                      </p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {(["buttonClick", "resourceCollect", "buildPlaced", "upgradeComplete", "locked", "decorLeaf", "decorStone", "decorMetal"] as const).map((name) => (
+                          <button
+                            key={name}
+                            type="button"
+                            onClick={() => playSfx(name)}
+                            disabled={sfxOff}
+                            className="rounded-full border border-gold/30 bg-bg-deep/70 px-2 py-1 font-display text-[9px] font-bold uppercase tracking-[0.14em] text-text-muted transition-colors hover:border-gold/55 hover:text-gold disabled:cursor-not-allowed disabled:opacity-40"
+                          >
+                            {name.replace(/([A-Z])/g, " $1").trim()}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                   </section>
 
                   {/* Lifetime stats */}
@@ -290,6 +311,8 @@ export function SettingsButton() {
                       <p className="mt-1 text-[11px] leading-snug text-text-muted">
                         Lifetime totals. Persisted across save resets.
                       </p>
+                      <NextMilestoneChip />
+
                       <dl className="mt-3 grid grid-cols-2 gap-2 text-[11px]">
                         <StatRow label="Buildings Placed" value={stats.buildingsPlaced} accent="#7fb069" />
                         <StatRow label="Buildings Upgraded" value={stats.buildingsUpgraded} accent="#d4a04a" />
@@ -618,6 +641,56 @@ function ExportSummary({ text }: { text: string }) {
           <span className="font-bold tabular-nums">{myco.toLocaleString()}</span>{" "}
           <span className="text-text-muted">Myco</span>
         </span>
+      </div>
+    </div>
+  );
+}
+
+/** "Next goal: Architect — 3 more buildings" chip with progress bar. */
+function NextMilestoneChip() {
+  const [next, setNext] = useState(() => getNextMilestone());
+  useEffect(() => {
+    return subscribeStats(() => setNext(getNextMilestone()));
+  }, []);
+  if (!next) {
+    return (
+      <p className="mt-2 rounded-md bg-bg-deep/60 px-2.5 py-1.5 font-display text-[10px] font-bold uppercase tracking-[0.18em] text-gold">
+        ✓ All milestones unlocked
+      </p>
+    );
+  }
+  const { milestone, current, remaining } = next;
+  const pct = Math.round((current / milestone.threshold) * 100);
+  return (
+    <div className="mt-2 rounded-md border border-gold/15 bg-bg-deep/60 px-2.5 py-2">
+      <div className="flex items-baseline justify-between gap-2">
+        <span className="font-display text-[9px] font-bold uppercase tracking-[0.18em] text-text-muted">
+          Next goal
+        </span>
+        <span
+          className="font-display text-[10px] font-bold uppercase tracking-[0.18em]"
+          style={{ color: milestone.accent }}
+        >
+          {milestone.title}
+        </span>
+      </div>
+      <div className="mt-1 flex items-baseline justify-between gap-2 text-[10px] text-text-muted">
+        <span>
+          {remaining} more to unlock
+        </span>
+        <span className="font-sans tabular-nums">
+          {current} / {milestone.threshold}
+        </span>
+      </div>
+      <div className="mt-1 h-1 w-full overflow-hidden rounded-full bg-bg-mid/70">
+        <div
+          className="h-full rounded-full transition-all"
+          style={{
+            width: `${pct}%`,
+            background: `linear-gradient(90deg, ${milestone.accent}, ${milestone.accent}aa)`,
+            boxShadow: `0 0 6px ${milestone.accent}66`,
+          }}
+        />
       </div>
     </div>
   );

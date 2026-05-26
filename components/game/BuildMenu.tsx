@@ -232,6 +232,12 @@ export function BuildMenu() {
                         : "Insufficient";
                     }
                   }
+                  // First-build hint: when the player has zero buildings
+                  // AND we're showing the Guild Core (which is free + the
+                  // single starter), pulse this card so they know what to
+                  // tap first.
+                  const isFirstBuildTarget =
+                    buildings.length === 0 && type === "guildCore";
                   return (
                     <BuildingCard
                       key={type}
@@ -249,6 +255,7 @@ export function BuildMenu() {
                       reason={reason}
                       onTap={() => placeBuilding(type)}
                       type={type}
+                      highlight={isFirstBuildTarget}
                     />
                   );
                 })}
@@ -270,6 +277,7 @@ function BuildingCard({
   reason,
   onTap,
   type,
+  highlight = false,
 }: {
   def: BuildingDef;
   cost: ResourceCost;
@@ -279,6 +287,7 @@ function BuildingCard({
   reason: string | null;
   onTap: () => void;
   type: BuildingType;
+  highlight?: boolean;
 }) {
   const startPlaceDrag = useGameStore((s) => s.startPlaceDrag);
   const setHoverCell = useGameStore((s) => s.setHoverCell);
@@ -360,6 +369,22 @@ function BuildingCard({
       }`}
       style={{ touchAction: "none" }}
     >
+      {/* First-build highlight halo around the Guild Core card when the
+          player has no buildings yet. Gold pulse drawing the eye. */}
+      {highlight && (
+        <motion.div
+          className="pointer-events-none absolute -inset-1 rounded-2xl ring-2 ring-gold"
+          animate={{
+            boxShadow: [
+              "0 0 0 0 rgba(212,160,74,0)",
+              "0 0 22px 4px rgba(212,160,74,0.7)",
+              "0 0 0 0 rgba(212,160,74,0)",
+            ],
+          }}
+          transition={{ duration: 1.5, repeat: Infinity, ease: "easeInOut" }}
+          aria-hidden
+        />
+      )}
       {/* Locked corner ribbon — top-right, gold on dark. */}
       {locked && (
         <div
