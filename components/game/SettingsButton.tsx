@@ -18,13 +18,17 @@ import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useGameStore } from "@/lib/store";
 import {
+  getVolume as getSfxVolume,
   isMuted as isSfxMuted,
   playSfx,
   setMuted as setSfxMuted,
+  setVolume as setSfxVolume,
 } from "@/lib/systems/audioSystem";
 import {
+  getMusicVolume,
   isMusicMuted,
   setMusicMuted,
+  setMusicVolume,
 } from "@/lib/systems/musicSystem";
 import { exportSave, importSave } from "@/lib/systems/saveSystem";
 import {
@@ -44,6 +48,9 @@ export function SettingsButton() {
   // re-renders when the user flips them.
   const [sfxOff, setSfxOff] = useState(false);
   const [musicOff, setMusicOff] = useState(false);
+  // Volume sliders. 0–100 for the input; converted to 0–1 internally.
+  const [sfxVolume, setSfxVolumeState] = useState(60);
+  const [musicVolumePct, setMusicVolumePct] = useState(35);
   // Save export / import UI state.
   const [exportText, setExportText] = useState("");
   const [exportCopied, setExportCopied] = useState(false);
@@ -62,6 +69,8 @@ export function SettingsButton() {
     setSfxOff(isSfxMuted());
     setMusicOff(isMusicMuted());
     setStats(getStats());
+    setSfxVolumeState(Math.round(getSfxVolume() * 100));
+    setMusicVolumePct(Math.round(getMusicVolume() * 100));
     /* eslint-enable react-hooks/set-state-in-effect */
   }, [open]);
 
@@ -242,6 +251,30 @@ export function SettingsButton() {
                           {musicOff ? "Off" : "On"}
                         </span>
                       </button>
+                    </div>
+
+                    {/* Volume sliders — independent of mute. Disabled
+                        when the corresponding kind is off. */}
+                    <div className="mt-3 space-y-2.5">
+                      <VolumeRow
+                        label="Sound"
+                        value={sfxVolume}
+                        disabled={sfxOff}
+                        onChange={(v) => {
+                          setSfxVolumeState(v);
+                          setSfxVolume(v / 100);
+                        }}
+                        onChangeCommit={() => playSfx("buttonClick")}
+                      />
+                      <VolumeRow
+                        label="Music"
+                        value={musicVolumePct}
+                        disabled={musicOff}
+                        onChange={(v) => {
+                          setMusicVolumePct(v);
+                          setMusicVolume(v / 100);
+                        }}
+                      />
                     </div>
                   </section>
 
@@ -587,6 +620,48 @@ function ExportSummary({ text }: { text: string }) {
         </span>
       </div>
     </div>
+  );
+}
+
+function VolumeRow({
+  label,
+  value,
+  disabled,
+  onChange,
+  onChangeCommit,
+}: {
+  label: string;
+  value: number;
+  disabled: boolean;
+  onChange: (v: number) => void;
+  onChangeCommit?: () => void;
+}) {
+  return (
+    <label
+      className={`flex items-center gap-2.5 ${
+        disabled ? "opacity-40" : ""
+      }`}
+    >
+      <span className="w-12 flex-shrink-0 font-display text-[9px] font-bold uppercase tracking-[0.18em] text-text-muted">
+        {label}
+      </span>
+      <input
+        type="range"
+        min={0}
+        max={100}
+        step={5}
+        value={value}
+        disabled={disabled}
+        onChange={(e) => onChange(parseInt(e.target.value, 10))}
+        onMouseUp={onChangeCommit}
+        onTouchEnd={onChangeCommit}
+        className="flex-1 accent-gold"
+        aria-label={`${label} volume`}
+      />
+      <span className="w-9 text-right font-sans text-[10px] tabular-nums text-text-muted">
+        {value}%
+      </span>
+    </label>
   );
 }
 
