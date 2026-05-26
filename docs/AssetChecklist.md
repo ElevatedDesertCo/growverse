@@ -138,23 +138,28 @@ Recommended format: **PNG with transparent background**, square (1:1), ≥256×2
 
 Manifest refs: `ui.actionBuild`, `ui.actionUpgrade`, `ui.actionMove`, `ui.actionCollect`, `ui.actionTimer`.
 
-## Audio — SFX (5 entries)
+## Audio — SFX (8 entries — all live)
 
-Recommended format: **mono MP3 or OGG**, ≤200KB each, 44.1kHz, normalized to -16 LUFS.
+All currently wired. Sourced from the Kenney UI Audio pack (CC0,
+https://kenney.nl/assets/ui-audio); converted to mono 128 kbps MP3 via
+ffmpeg. See `public/assets/audio/sfx/CREDITS.txt` for per-file mapping.
 
 | SFX | Filename | Folder | Status | Trigger |
 |---|---|---|---|---|
-| Button Click | button-click.mp3 | /assets/audio/sfx/ | **placeholder** | Build / Edit / Place / Upgrade buttons |
-| Resource Collect | resource-collect.mp3 | /assets/audio/sfx/ | **placeholder** | Tap a ready Grow Tent or Bloom Extractor / Amber Forge with pending |
-| Build Placed | build-placed.mp3 | /assets/audio/sfx/ | **placeholder** | New building lands on the grid |
-| Upgrade Complete | upgrade-complete.mp3 | /assets/audio/sfx/ | **placeholder** | Any building's level increases |
-| Locked / Error | locked.mp3 | /assets/audio/sfx/ | **placeholder** | Tap a locked or unaffordable Build card |
+| Button Click | button-click.mp3 | /assets/audio/sfx/ | **final** | Build / Edit / Place / Upgrade / Settings / modal buttons |
+| Resource Collect | resource-collect.mp3 | /assets/audio/sfx/ | **final** | Tap a ready Grow Tent or Bloom Extractor / Amber Forge with pending |
+| Build Placed | build-placed.mp3 | /assets/audio/sfx/ | **final** | New building lands on the grid |
+| Upgrade Complete | upgrade-complete.mp3 | /assets/audio/sfx/ | **final** | Any building's level increases · daily reward claim · milestone hit · save import |
+| Locked / Error | locked.mp3 | /assets/audio/sfx/ | **final** | Tap a locked or unaffordable Build card · save import error · arm-but-not-confirm delete |
+| Decor — Leaf | decor-leaf.mp3 | /assets/audio/sfx/ | **final** | Clear a cactus or dead shrub |
+| Decor — Stone | decor-stone.mp3 | /assets/audio/sfx/ | **final** | Clear a rubble pile |
+| Decor — Metal | decor-metal.mp3 | /assets/audio/sfx/ | **final** | Clear a relic debris or old lantern |
 
-## Audio — Music (1 entry)
+## Audio — Music (1 entry — live)
 
 | Track | Filename | Folder | Status | Notes |
 |---|---|---|---|---|
-| Base Ambient | base-ambient.mp3 | /assets/audio/music/ | **placeholder** | Loopable cosmic-desert pad. Volume ducked for SFX clarity. Not yet wired — pending a music-bed system. |
+| Base Ambient | base-ambient.mp3 | /assets/audio/music/ | **final** | "Desert Theme" by yd on OpenGameArt (CC0). 1:38 stereo MP3 loop. Auto-starts on first user interaction, fades in 1.2s, pauses on tab background, mute/volume in Settings. See `CREDITS.txt`. |
 
 ## Audio — Voice
 

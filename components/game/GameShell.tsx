@@ -10,6 +10,8 @@ import { ToastStack } from "./ToastStack";
 import { ComingSoonModal } from "./ComingSoonModal";
 import { DailyRewardModal } from "./DailyRewardModal";
 import { EditModeHint } from "./EditModeHint";
+import { Fireflies } from "./Fireflies";
+import { KeyboardShortcuts } from "./KeyboardShortcuts";
 import { MusicMount } from "./MusicMount";
 import { StatsMount } from "./StatsMount";
 import { StreakWatcher } from "./StreakWatcher";
@@ -70,11 +72,14 @@ export function GameShell() {
         aria-hidden
       />
 
+      <Fireflies />
+
       <SplashScreen />
       <TickMount />
       <MusicMount />
       <StatsMount />
       <StreakWatcher />
+      <KeyboardShortcuts />
       <SWRegister />
 
       <ResourceBar />
