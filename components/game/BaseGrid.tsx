@@ -148,8 +148,10 @@ export function BaseGrid() {
     }, 1300);
   };
 
-  // ─── Placement dust + SFX on new building ──────────────────────────
+  // ─── Placement dust + SFX + camera shake on new building ──────────
   const [dusts, setDusts] = useState<DustBurst[]>([]);
+  // shakeKey bumps on placement; framer-motion replays the shake.
+  const [shakeKey, setShakeKey] = useState(0);
   const prevIdsRef = useRef<Set<string>>(new Set(buildings.map((b) => b.id)));
   useEffect(() => {
     const prev = prevIdsRef.current;
@@ -169,6 +171,7 @@ export function BaseGrid() {
       // the setTimeout below clears them, so no render loop.
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setDusts((d) => [...d, ...bursts]);
+      setShakeKey((k) => k + 1);
       const burstIds = new Set(bursts.map((bb) => bb.id));
       setTimeout(() => {
         setDusts((d) => d.filter((bb) => !burstIds.has(bb.id)));
@@ -250,8 +253,16 @@ export function BaseGrid() {
       className="flex min-h-0 w-full flex-1 items-center justify-center"
       style={{ containerType: "size" }}
     >
-      <div
+      <motion.div
         className="aspect-square h-[100cqmin] w-[100cqmin] rounded-2xl p-[3px]"
+        // Camera shake on placement — short jolt that decays.
+        animate={
+          shakeKey > 0
+            ? { x: [0, -4, 5, -3, 2, 0], y: [0, 3, -2, 2, -1, 0] }
+            : undefined
+        }
+        transition={{ duration: 0.32, ease: "easeOut" }}
+        key={`frame-${shakeKey}`}
         style={{
           background:
             "linear-gradient(180deg, #e6c98a 0%, #b8852e 45%, #5a3f1a 100%)",
@@ -615,7 +626,7 @@ export function BaseGrid() {
             </motion.div>
           ))}
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

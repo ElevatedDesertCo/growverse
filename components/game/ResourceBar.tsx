@@ -62,6 +62,9 @@ function ResourcePill({
   // Tracks last seen value via a ref so we don't fire on initial mount.
   const prevValueRef = useRef(value);
   const [gain, setGain] = useState<{ id: number; amount: number } | null>(null);
+  // Cumulative gains this session (used by the tooltip "Earned this
+  // session" line). Reset on page reload, not persisted.
+  const [sessionGained, setSessionGained] = useState(0);
   const gainCounter = useRef(0);
   useEffect(() => {
     const prev = prevValueRef.current;
@@ -70,6 +73,7 @@ function ResourcePill({
       const amount = value - prev;
       const id = gainCounter.current;
       setGain({ id, amount });
+      setSessionGained((s) => s + amount);
       const t = window.setTimeout(() => {
         setGain((g) => (g?.id === id ? null : g));
       }, 900);
@@ -243,6 +247,17 @@ function ResourcePill({
                 {resourceDef?.earnedFrom && (
                   <p className="mt-1.5 text-[9px] uppercase tracking-[0.18em] text-text-muted/80">
                     Earned: <span className="text-text-muted">{resourceDef.earnedFrom}</span>
+                  </p>
+                )}
+                {sessionGained > 0 && (
+                  <p className="mt-1 flex items-center gap-1 text-[9px] uppercase tracking-[0.18em] text-text-muted/80">
+                    This session:{" "}
+                    <span
+                      className="font-display font-bold tabular-nums"
+                      style={{ color: accent }}
+                    >
+                      +{sessionGained.toLocaleString()}
+                    </span>
                   </p>
                 )}
               </div>

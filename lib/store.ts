@@ -157,6 +157,8 @@ interface GameState {
   placeBuilding: (type: BuildingType) => void;
   placeBuildingAt: (type: BuildingType, x: number, y: number) => boolean;
   moveBuilding: (id: string, x: number, y: number) => void;
+  /** Remove a placed building. Refunds ~30% of build cost. */
+  removeBuilding: (id: string) => boolean;
   toggleEditMode: () => void;
   selectPlacedBuilding: (id: string | null) => void;
 
@@ -393,6 +395,41 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
       ),
       selectedPlacedId: null,
     }));
+  },
+
+  removeBuilding: (id) => {
+    const state = get();
+    const target = state.buildings.find((b) => b.id === id);
+    if (!target) return false;
+    const def = BUILDINGS[target.type];
+    // Guild Core can't be deleted (it's the singleton anchor for unlocks).
+    if (def.singleton) return false;
+    // Refund 30% of build cost. Cap-aware via addResource.
+    const cost = def.buildCost ?? { bloomEssence: def.baseCost };
+    const storageBonus = getTotalStorageBonus(state.buildings);
+    let refunded = state.resources;
+    for (const [k, v] of Object.entries(cost)) {
+      if (v && v > 0) {
+        refunded = addResource(
+          refunded,
+          k as keyof Resources,
+          Math.max(1, Math.floor(v * 0.3)),
+          storageBonus,
+        ).next;
+      }
+    }
+    set((s) => ({
+      buildings: s.buildings.filter((b) => b.id !== id),
+      resources: refunded,
+      selectedPlacedId: null,
+    }));
+    pushToast({
+      kind: "info",
+      title: "Removed",
+      body: `${def.name} · 30% refund`,
+      accent: def.color,
+    });
+    return true;
   },
 
   toggleEditMode: () =>

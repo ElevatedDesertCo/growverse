@@ -11,6 +11,7 @@ import { ComingSoonModal } from "./ComingSoonModal";
 import { DailyRewardModal } from "./DailyRewardModal";
 import { EditModeHint } from "./EditModeHint";
 import { MusicMount } from "./MusicMount";
+import { StatsMount } from "./StatsMount";
 import { SWRegister } from "./SWRegister";
 import { WelcomeModal } from "./WelcomeModal";
 
@@ -44,6 +45,7 @@ export function GameShell() {
       <SplashScreen />
       <TickMount />
       <MusicMount />
+      <StatsMount />
       <SWRegister />
 
       <ResourceBar />

@@ -58,13 +58,102 @@ export function getStats(): Stats {
   return { ...get() };
 }
 
-/** Bump a counter by `by` (default 1). Persists + notifies subscribers. */
+// ─── Milestone definitions ──────────────────────────────────────────
+// Each milestone fires a one-shot celebration toast the first time the
+// stat crosses the threshold. Tracked separately at growverse-milestones
+// so a save reset doesn't trigger re-fires.
+
+export interface Milestone {
+  key: StatKey;
+  threshold: number;
+  /** Toast title — short verb phrase. */
+  title: string;
+  /** Optional flavor body. */
+  body?: string;
+  /** Accent hex driving the toast pill color. */
+  accent: string;
+}
+
+export const MILESTONES: Milestone[] = [
+  { key: "buildingsPlaced", threshold: 1,   title: "First Building",    body: "Welcome to base-building.", accent: "#d4a04a" },
+  { key: "buildingsPlaced", threshold: 5,   title: "Architect",         body: "5 structures placed.",       accent: "#d4a04a" },
+  { key: "buildingsPlaced", threshold: 15,  title: "Master Builder",    body: "15 structures placed.",      accent: "#d4a04a" },
+  { key: "buildingsUpgraded", threshold: 1, title: "First Upgrade",     body: "A guild that grows.",         accent: "#7fb069" },
+  { key: "buildingsUpgraded", threshold: 10, title: "Empowered",        body: "10 upgrades complete.",       accent: "#7fb069" },
+  { key: "decorCleared", threshold: 1,      title: "First Clear",       body: "The desert reveals its gifts.", accent: "#c9a878" },
+  { key: "decorCleared", threshold: 25,     title: "Desert Tamer",      body: "25 props cleared.",           accent: "#c9a878" },
+  { key: "decorCleared", threshold: 100,    title: "Desert Wrangler",   body: "100 props cleared.",          accent: "#c9a878" },
+  { key: "harvestsCollected", threshold: 10, title: "Diligent Grower",  body: "10 harvests.",                accent: "#7fb069" },
+  { key: "harvestsCollected", threshold: 50, title: "Bountiful",        body: "50 harvests.",                accent: "#7fb069" },
+  { key: "dailyRewardsClaimed", threshold: 3, title: "3-Day Streak",    body: "Three daily bounties claimed.", accent: "#b78ddf" },
+  { key: "dailyRewardsClaimed", threshold: 7, title: "Loyal Grower",    body: "A full week of returns.",     accent: "#b78ddf" },
+];
+
+const MILESTONES_KEY = "growverse-milestones-v1";
+
+function readSeenMilestones(): Set<string> {
+  if (typeof window === "undefined") return new Set();
+  try {
+    const raw = window.localStorage.getItem(MILESTONES_KEY);
+    if (!raw) return new Set();
+    return new Set(JSON.parse(raw) as string[]);
+  } catch {
+    return new Set();
+  }
+}
+
+function writeSeenMilestones(set: Set<string>): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.setItem(
+      MILESTONES_KEY,
+      JSON.stringify(Array.from(set)),
+    );
+  } catch {
+    /* storage disabled */
+  }
+}
+
+let seenCache: Set<string> | null = null;
+function seen(): Set<string> {
+  if (!seenCache) seenCache = readSeenMilestones();
+  return seenCache;
+}
+
+type MilestoneHitFn = (m: Milestone) => void;
+let onMilestoneHit: MilestoneHitFn | null = null;
+
+/** Register a global handler that fires when a milestone is hit. */
+export function setMilestoneHandler(fn: MilestoneHitFn | null): void {
+  onMilestoneHit = fn;
+}
+
+/** Bump a counter by `by` (default 1). Persists + notifies subscribers
+ *  + fires any unseen milestones for the stat. */
 export function bump(key: StatKey, by: number = 1): void {
   const s = get();
-  const next: Stats = { ...s, [key]: s[key] + by };
+  const prev = s[key];
+  const next: Stats = { ...s, [key]: prev + by };
   cache = next;
   write(next);
   for (const fn of listeners) fn(next);
+  // Check milestones crossed during this bump.
+  if (onMilestoneHit) {
+    const seenSet = seen();
+    let mutated = false;
+    for (const m of MILESTONES) {
+      if (m.key !== key) continue;
+      if (prev < m.threshold && next[key] >= m.threshold) {
+        const id = `${m.key}:${m.threshold}`;
+        if (!seenSet.has(id)) {
+          seenSet.add(id);
+          mutated = true;
+          onMilestoneHit(m);
+        }
+      }
+    }
+    if (mutated) writeSeenMilestones(seenSet);
+  }
 }
 
 /** Subscribe to stat changes; returns unsubscribe. */

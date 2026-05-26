@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { Trash2 } from "lucide-react";
 import { BUILDINGS } from "@/lib/buildings";
 import {
   cellFromClientPoint,
@@ -56,6 +57,23 @@ export function DraggableBuilding({
   const commitDrag = useGameStore((s) => s.commitDrag);
   const cancelDrag = useGameStore((s) => s.cancelDrag);
   const editMode = useGameStore((s) => s.editMode);
+  const removeBuilding = useGameStore((s) => s.removeBuilding);
+  const canDelete = editMode && isTapSelected && !BUILDINGS[building.type].singleton;
+  // confirm flag — first tap arms, second tap commits
+  const [deleteArmed, setDeleteArmed] = useState(false);
+  useEffect(() => {
+    if (!deleteArmed) return;
+    const t = window.setTimeout(() => setDeleteArmed(false), 2200);
+    return () => window.clearTimeout(t);
+  }, [deleteArmed]);
+  useEffect(() => {
+    // Reset the arm when the player exits edit mode / deselects.
+    // Intentional one-shot setState.
+    if (!canDelete) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setDeleteArmed(false);
+    }
+  }, [canDelete]);
   const harvest = useGameStore((s) => s.harvest);
   const collectFire = useGameStore((s) => s.collectFire);
   const openUpgradeModal = useGameStore((s) => s.openUpgradeModal);
@@ -332,6 +350,56 @@ export function DraggableBuilding({
       />
 
       {showRing && <LongPressRing progress={progress} color={def.color} />}
+
+      {/* Edit-mode delete button. Pops above the building when it's
+          selected in edit mode. First tap arms (turns red); second
+          tap within 2.2s commits the delete + refund. */}
+      {canDelete && (
+        <motion.button
+          type="button"
+          initial={{ opacity: 0, y: 4, scale: 0.85 }}
+          animate={{ opacity: 1, y: 0, scale: 1 }}
+          exit={{ opacity: 0, y: 4 }}
+          transition={{ duration: 0.18 }}
+          onPointerDown={(e) => {
+            // Stop the building's pointer chain so we don't init a drag.
+            e.stopPropagation();
+          }}
+          onClick={(e) => {
+            e.stopPropagation();
+            if (!deleteArmed) {
+              setDeleteArmed(true);
+              playSfx("locked");
+              return;
+            }
+            playSfx("buttonClick");
+            removeBuilding(building.id);
+          }}
+          aria-label={
+            deleteArmed
+              ? `Confirm delete ${def.name}`
+              : `Delete ${def.name}`
+          }
+          className={`absolute -top-2 left-1/2 z-30 flex -translate-x-1/2 items-center gap-1 rounded-full border px-2 py-0.5 backdrop-blur transition-colors ${
+            deleteArmed
+              ? "border-red-400 bg-red-500 text-bg-deep"
+              : "border-red-400/60 bg-bg-deep/95 text-red-300 hover:border-red-400 hover:text-red-200"
+          }`}
+          style={{
+            boxShadow: deleteArmed
+              ? "0 0 14px rgba(217,87,87,0.85), 0 4px 12px rgba(0,0,0,0.55)"
+              : "0 4px 12px rgba(0,0,0,0.5)",
+          }}
+        >
+          <Trash2 className="h-3 w-3" strokeWidth={2.5} />
+          <span
+            className="font-display text-[9px] font-bold uppercase tracking-[0.16em]"
+            style={{ fontFamily: "var(--font-cinzel)" }}
+          >
+            {deleteArmed ? "Confirm" : "Delete"}
+          </span>
+        </motion.button>
+      )}
 
       {/* Upgrade glow — flashes when building.level increases */}
       {upgradeGlowKey > 0 && (

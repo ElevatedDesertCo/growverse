@@ -452,6 +452,52 @@ export function SettingsButton() {
                     )}
                   </section>
 
+                  {/* Credits + attribution */}
+                  <section className="rounded-xl border border-gold/15 bg-bg-mid/30 p-4">
+                    <h3
+                      className="font-display text-sm font-bold uppercase tracking-[0.18em] text-gold"
+                      style={{ fontFamily: "var(--font-cinzel)" }}
+                    >
+                      Credits
+                    </h3>
+                    <ul className="mt-2 space-y-1.5 text-[11px] leading-snug text-text-muted">
+                      <li>
+                        <span className="font-display text-[9px] font-bold uppercase tracking-[0.18em] text-gold">
+                          Music
+                        </span>{" "}
+                        <a
+                          href="https://opengameart.org/content/desert-theme"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-text-primary underline-offset-2 hover:text-gold hover:underline"
+                        >
+                          Desert Theme
+                        </a>{" "}
+                        by yd · CC0 · OpenGameArt
+                      </li>
+                      <li>
+                        <span className="font-display text-[9px] font-bold uppercase tracking-[0.18em] text-gold">
+                          SFX
+                        </span>{" "}
+                        <a
+                          href="https://kenney.nl/assets/ui-audio"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-text-primary underline-offset-2 hover:text-gold hover:underline"
+                        >
+                          UI Audio
+                        </a>{" "}
+                        by Kenney · CC0
+                      </li>
+                      <li>
+                        <span className="font-display text-[9px] font-bold uppercase tracking-[0.18em] text-gold">
+                          Engine
+                        </span>{" "}
+                        Next.js · Tailwind · Framer Motion · Zustand · Lucide
+                      </li>
+                    </ul>
+                  </section>
+
                   <p className="px-1 text-center font-display text-[9px] uppercase tracking-[0.32em] text-text-muted/60">
                     Growverse · Phase 2 · Guild Wars
                   </p>
