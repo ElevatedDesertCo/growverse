@@ -5,6 +5,7 @@ import {
   Check,
   Copy,
   Download,
+  FileDown,
   Music,
   Music2,
   Settings,
@@ -568,6 +569,35 @@ export function SettingsButton() {
                             <button
                               type="button"
                               onClick={() => {
+                                try {
+                                  const blob = new Blob([exportText], {
+                                    type: "application/json",
+                                  });
+                                  const url = URL.createObjectURL(blob);
+                                  const a = document.createElement("a");
+                                  const stamp = new Date()
+                                    .toISOString()
+                                    .replace(/[:T]/g, "-")
+                                    .slice(0, 16);
+                                  a.href = url;
+                                  a.download = `growverse-save-${stamp}.json`;
+                                  document.body.appendChild(a);
+                                  a.click();
+                                  document.body.removeChild(a);
+                                  setTimeout(() => URL.revokeObjectURL(url), 0);
+                                } catch {
+                                  /* download unsupported — textarea fallback is still visible */
+                                }
+                                playSfx("buttonClick");
+                              }}
+                              className="inline-flex items-center gap-1.5 rounded-full border border-gold/40 bg-bg-deep/70 px-3 py-1.5 font-display text-[10px] font-bold uppercase tracking-[0.16em] text-gold transition-colors hover:border-gold/60"
+                            >
+                              <FileDown className="h-3 w-3" />
+                              File
+                            </button>
+                            <button
+                              type="button"
+                              onClick={() => {
                                 setExportText("");
                                 setExportCopied(false);
                               }}
@@ -620,6 +650,35 @@ export function SettingsButton() {
                             <Upload className="h-3 w-3" />
                             Import Save
                           </button>
+                          <label className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-gold/40 bg-bg-deep/70 px-3 py-1.5 font-display text-[10px] font-bold uppercase tracking-[0.16em] text-gold transition-colors hover:border-gold/60">
+                            <FileDown className="h-3 w-3 rotate-180" />
+                            From File
+                            <input
+                              type="file"
+                              accept="application/json,.json,.txt"
+                              className="hidden"
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                e.target.value = "";
+                                if (!file) return;
+                                file
+                                  .text()
+                                  .then((text) => {
+                                    setImportText(text.trim());
+                                    setImportErr(null);
+                                    playSfx("buttonClick");
+                                  })
+                                  .catch((err: unknown) => {
+                                    const msg =
+                                      err instanceof Error
+                                        ? err.message
+                                        : String(err);
+                                    setImportErr(msg);
+                                    playSfx("locked");
+                                  });
+                              }}
+                            />
+                          </label>
                           {importErr && (
                             <span className="text-[10px] text-red-300">
                               {importErr}

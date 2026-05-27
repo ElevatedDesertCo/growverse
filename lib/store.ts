@@ -25,6 +25,7 @@ import { getTotalStorageBonus } from "./systems/buildingSystem";
 import { getUpgradeCost } from "./systems/upgradeSystem";
 import { pushToast } from "./systems/toastSystem";
 import { bump as bumpStat } from "./systems/statsSystem";
+import { notifyCapHit } from "./systems/capNudge";
 
 /**
  * SAVE_KEY is fixed (no version suffix) so zustand-persist can find the
@@ -582,17 +583,23 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     const now = Date.now();
     const target = def.producesResource ?? "bloomEssence";
     const storageBonus = getTotalStorageBonus(state.buildings);
+    const result = addResource(
+      state.resources,
+      target as keyof Resources,
+      yieldAtThisLevel,
+      storageBonus,
+    );
     set((s) => ({
       buildings: s.buildings.map((x) =>
         x.id === id ? { ...x, plantedAt: now } : x,
       ),
-      resources: addResource(
-        s.resources,
-        target as keyof Resources,
-        yieldAtThisLevel,
-        storageBonus,
-      ).next,
+      resources: result.next,
     }));
+    notifyCapHit({
+      requested: yieldAtThisLevel,
+      gained: result.gained,
+      hasVault: state.buildings.some((x) => x.type === "storageVault"),
+    });
     bumpStat("harvestsCollected");
   },
 
@@ -611,17 +618,23 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     const newLastGenerated = b.lastGenerated + consumedMs;
     const target = def.producesResource ?? "amberShards";
     const storageBonus = getTotalStorageBonus(state.buildings);
+    const result = addResource(
+      state.resources,
+      target as keyof Resources,
+      pending,
+      storageBonus,
+    );
     set((s) => ({
       buildings: s.buildings.map((x) =>
         x.id === id ? { ...x, lastGenerated: newLastGenerated } : x,
       ),
-      resources: addResource(
-        s.resources,
-        target as keyof Resources,
-        pending,
-        storageBonus,
-      ).next,
+      resources: result.next,
     }));
+    notifyCapHit({
+      requested: pending,
+      gained: result.gained,
+      hasVault: state.buildings.some((x) => x.type === "storageVault"),
+    });
     bumpStat("harvestsCollected");
   },
 
