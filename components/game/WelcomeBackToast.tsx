@@ -10,6 +10,7 @@ import {
   statAtLevel,
 } from "@/lib/economy";
 import { useGameStore } from "@/lib/store";
+import { getDisplayName } from "@/lib/systems/playerProfile";
 
 const SHOW_MS = 4500;
 
@@ -18,6 +19,7 @@ interface Summary {
   pendingFire: number;
   /** Whole days since the player was last seen, or 0 if <1 day. */
   daysAway: number;
+  name: string;
 }
 
 const LAST_SEEN_KEY = "growverse-last-seen";
@@ -57,7 +59,7 @@ function computeSummary(): Summary {
       /* storage disabled */
     }
   }
-  return { readyTents, pendingFire, daysAway };
+  return { readyTents, pendingFire, daysAway, name: getDisplayName() };
 }
 
 export function WelcomeBackToast() {
@@ -134,7 +136,10 @@ export function WelcomeBackToast() {
                   className="flex items-center gap-1.5 font-display text-[10px] font-bold uppercase tracking-[0.22em] text-gold"
                   style={{ fontFamily: "var(--font-cinzel)" }}
                 >
-                  Welcome back
+                  <span>
+                    Welcome back
+                    <span className="text-text-primary">, {summary.name}</span>
+                  </span>
                   {summary.daysAway > 0 && (
                     <span className="rounded-full bg-gold/15 px-1.5 py-px text-[8px] font-bold tracking-[0.18em] text-gold ring-1 ring-gold/30">
                       {summary.daysAway === 1
