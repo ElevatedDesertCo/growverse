@@ -20,6 +20,9 @@ export function StatsMount() {
         accent: m.accent,
         ttlMs: 3400,
       });
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("growverse:milestone-confetti"));
+      }
     });
     return () => setMilestoneHandler(null);
   }, []);
