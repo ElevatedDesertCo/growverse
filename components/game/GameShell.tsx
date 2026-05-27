@@ -13,6 +13,7 @@ import { EditModeHint } from "./EditModeHint";
 import { Fireflies } from "./Fireflies";
 import { KeyboardShortcuts } from "./KeyboardShortcuts";
 import { MusicMount } from "./MusicMount";
+import { ParallaxLayer } from "./ParallaxLayer";
 import { StatsMount } from "./StatsMount";
 import { StreakWatcher } from "./StreakWatcher";
 import { SWRegister } from "./SWRegister";
@@ -36,33 +37,8 @@ export function GameShell() {
         }}
         aria-hidden
       />
-      {/* Background parallax — three slow-drifting nebula spots that
-          slide diagonally over a minute. Pure CSS, no scroll listener,
-          GPU-cheap. Sits behind the HUD + playfield. */}
-      <div
-        className="pointer-events-none absolute inset-0 overflow-hidden opacity-50"
-        aria-hidden
-      >
-        <div
-          className="absolute -inset-[10%] bg-no-repeat"
-          style={{
-            backgroundImage: [
-              "radial-gradient(circle 22% at 30% 35%, rgba(127,176,105,0.10) 0%, transparent 60%)",
-              "radial-gradient(circle 18% at 75% 60%, rgba(168,117,212,0.12) 0%, transparent 60%)",
-              "radial-gradient(circle 25% at 50% 85%, rgba(232,150,76,0.10) 0%, transparent 60%)",
-            ].join(","),
-            backgroundSize: "100% 100%",
-            animation: "growverse-parallax 90s linear infinite",
-          }}
-        />
-        <style>{`
-          @keyframes growverse-parallax {
-            0%   { transform: translate3d(0%, 0%, 0); }
-            50%  { transform: translate3d(-3%, 2%, 0); }
-            100% { transform: translate3d(0%, 0%, 0); }
-          }
-        `}</style>
-      </div>
+      {/* Slow-drifting nebula parallax (respects reduced-motion). */}
+      <ParallaxLayer />
       {/* Subtle vignette around the playfield */}
       <div
         className="pointer-events-none absolute inset-0"

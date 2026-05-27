@@ -1,6 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+import { isReducedMotion, subscribeReduced } from "@/lib/systems/motionPrefs";
 
 /**
  * Ambient firefly layer — 8 small leaf-green dots drifting slowly in
@@ -34,6 +36,14 @@ const FIREFLIES: Firefly[] = [
 ];
 
 export function Fireflies() {
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    // Intentional one-shot hydration + subscription pattern.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setReduced(isReducedMotion());
+    return subscribeReduced(() => setReduced(isReducedMotion()));
+  }, []);
+  if (reduced) return null;
   return (
     <div
       className="pointer-events-none absolute inset-0 z-[1] overflow-hidden"
