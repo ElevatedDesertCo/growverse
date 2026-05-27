@@ -6,7 +6,7 @@ import type { LucideIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { RESOURCES } from "@/lib/data";
 import { BUILDINGS } from "@/lib/buildings";
-import { statAtLevel } from "@/lib/economy";
+import { getPendingFire, isReadyToHarvest, statAtLevel } from "@/lib/economy";
 import { useGameStore } from "@/lib/store";
 import { getDailyStreak } from "@/lib/systems/dailyReward";
 import {
@@ -320,6 +320,33 @@ function ResourcePill({
   );
 }
 
+/**
+ * Count of ready-to-harvest gardens + total pending Amber Forge output
+ * across all placed buildings. Powers the HUD "ready collect" badge.
+ * Pure read — recomputed cheaply on every tick.
+ */
+function aggregateReadyCollect(
+  buildings: ReturnType<typeof useGameStore.getState>["buildings"],
+): { readyGardens: number; pendingAmber: number } {
+  const now = Date.now();
+  let readyGardens = 0;
+  let pendingAmber = 0;
+  for (const b of buildings) {
+    const def = BUILDINGS[b.type];
+    if (def.growDurationMs && b.plantedAt !== undefined) {
+      if (isReadyToHarvest(b.plantedAt, def.growDurationMs, now)) readyGardens++;
+    }
+    if (def.firePerSecond && b.lastGenerated !== undefined) {
+      pendingAmber += getPendingFire(
+        b.lastGenerated,
+        statAtLevel(def.firePerSecond, b.level),
+        now,
+      );
+    }
+  }
+  return { readyGardens, pendingAmber };
+}
+
 /** Sum of passive production rate (per minute) for one resource type
  *  across all placed buildings. Used by the resource tooltip. */
 function aggregateRatePerMin(
@@ -388,33 +415,93 @@ export function ResourceBar() {
               {displayName} · GC1
             </span>
           </div>
-          {/* Right-side streak badge (or invisible spacer if no streak
-              yet, so the title stays optically centered). */}
-          {streak > 0 ? (
-            <div
-              className="flex h-8 items-center gap-1.5 rounded-full border border-amber-500/40 bg-bg-deep/80 px-2.5 backdrop-blur"
-              title={`${streak}-day daily claim streak`}
-              style={{
-                boxShadow: "0 0 10px -4px rgba(232,150,76,0.55)",
-              }}
-            >
-              <FlameIcon
-                className="h-3.5 w-3.5 text-fire"
-                strokeWidth={2.5}
-                style={{
-                  filter: "drop-shadow(0 0 4px rgba(232,150,76,0.85))",
-                }}
-              />
-              <span className="font-display text-[11px] font-bold tabular-nums text-fire">
-                {streak}
-                <span className="ml-0.5 text-[8px] uppercase tracking-[0.18em] text-text-muted">
-                  d
-                </span>
-              </span>
-            </div>
-          ) : (
-            <div className="h-8 w-8" aria-hidden />
-          )}
+          {/* Right-side: ready-collect badge (gardens/forges pending)
+              + daily streak badge. Empty spacer when both are zero so
+              the centered title stays optically balanced. */}
+          {(() => {
+            const ready = aggregateReadyCollect(buildings);
+            const hasReady =
+              ready.readyGardens > 0 || ready.pendingAmber > 0;
+            if (!hasReady && streak <= 0) {
+              return <div className="h-8 w-8" aria-hidden />;
+            }
+            return (
+              <div className="flex items-center gap-1.5">
+                {hasReady && (
+                  <motion.div
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    className="flex h-8 items-center gap-1.5 rounded-full border border-leaf/45 bg-bg-deep/85 px-2.5 backdrop-blur"
+                    title={
+                      ready.readyGardens > 0 && ready.pendingAmber > 0
+                        ? `${ready.readyGardens} garden${ready.readyGardens === 1 ? "" : "s"} ready · +${ready.pendingAmber} amber pending`
+                        : ready.readyGardens > 0
+                          ? `${ready.readyGardens} garden${ready.readyGardens === 1 ? "" : "s"} ready to harvest`
+                          : `+${ready.pendingAmber} amber pending in Forge`
+                    }
+                    style={{
+                      boxShadow: "0 0 10px -4px rgba(127,176,105,0.5)",
+                    }}
+                  >
+                    {ready.readyGardens > 0 && (
+                      <span className="flex items-center gap-1">
+                        <Leaf
+                          className="h-3.5 w-3.5 text-leaf"
+                          strokeWidth={2.5}
+                          style={{
+                            filter:
+                              "drop-shadow(0 0 4px rgba(127,176,105,0.85))",
+                          }}
+                        />
+                        <span className="font-display text-[11px] font-bold tabular-nums text-leaf">
+                          {ready.readyGardens}
+                        </span>
+                      </span>
+                    )}
+                    {ready.pendingAmber > 0 && (
+                      <span className="flex items-center gap-1">
+                        <Flame
+                          className="h-3.5 w-3.5 text-fire"
+                          strokeWidth={2.5}
+                          style={{
+                            filter:
+                              "drop-shadow(0 0 4px rgba(232,150,76,0.85))",
+                          }}
+                        />
+                        <span className="font-display text-[11px] font-bold tabular-nums text-fire">
+                          {ready.pendingAmber}
+                        </span>
+                      </span>
+                    )}
+                  </motion.div>
+                )}
+                {streak > 0 && (
+                  <div
+                    className="flex h-8 items-center gap-1.5 rounded-full border border-amber-500/40 bg-bg-deep/80 px-2.5 backdrop-blur"
+                    title={`${streak}-day daily claim streak`}
+                    style={{
+                      boxShadow: "0 0 10px -4px rgba(232,150,76,0.55)",
+                    }}
+                  >
+                    <FlameIcon
+                      className="h-3.5 w-3.5 text-fire"
+                      strokeWidth={2.5}
+                      style={{
+                        filter:
+                          "drop-shadow(0 0 4px rgba(232,150,76,0.85))",
+                      }}
+                    />
+                    <span className="font-display text-[11px] font-bold tabular-nums text-fire">
+                      {streak}
+                      <span className="ml-0.5 text-[8px] uppercase tracking-[0.18em] text-text-muted">
+                        d
+                      </span>
+                    </span>
+                  </div>
+                )}
+              </div>
+            );
+          })()}
         </div>
 
         {/* Row 2 — resource pill rail. Horizontal scroll on narrow widths

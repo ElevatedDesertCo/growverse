@@ -10,6 +10,7 @@ import { ToastStack } from "./ToastStack";
 import { ComingSoonModal } from "./ComingSoonModal";
 import { DailyRewardModal } from "./DailyRewardModal";
 import { EditModeHint } from "./EditModeHint";
+import { EditModeOverlay } from "./EditModeOverlay";
 import { Fireflies } from "./Fireflies";
 import { KeyboardShortcuts } from "./KeyboardShortcuts";
 import { MusicMount } from "./MusicMount";
@@ -71,6 +72,7 @@ export function GameShell() {
       <ComingSoonModal />
       <DailyRewardModal />
       <WelcomeModal />
+      <EditModeOverlay />
       <EditModeHint />
       <WelcomeBackToast />
       <ToastStack />
