@@ -34,6 +34,66 @@ import { bump as bumpStat } from "./systems/statsSystem";
 export const SAVE_VERSION = 3;
 export const SAVE_KEY = "growverse-save-v1";
 
+/** Window between batched writes. ~250ms is short enough that the
+ *  player can refresh and see fresh state, long enough to batch
+ *  bursts (e.g. several decor clears in a row collapse to one flush). */
+const SAVE_FLUSH_MS = 250;
+
+/**
+ * Returns a localStorage-shaped object that throttles setItem calls
+ * per key + skips no-op writes (same serialized value as last flush).
+ * getItem + removeItem pass through synchronously. Falls back to plain
+ * localStorage if window/Storage is unavailable.
+ */
+function throttledLocalStorage(): Storage {
+  if (typeof window === "undefined" || typeof localStorage === "undefined") {
+    return localStorage as Storage;
+  }
+  const pending = new Map<string, string>();
+  const lastWritten = new Map<string, string>();
+  let timer: ReturnType<typeof setTimeout> | null = null;
+  const flush = () => {
+    timer = null;
+    for (const [key, value] of pending) {
+      if (lastWritten.get(key) === value) continue;
+      try {
+        localStorage.setItem(key, value);
+        lastWritten.set(key, value);
+      } catch {
+        /* quota / disabled — silent */
+      }
+    }
+    pending.clear();
+  };
+  return {
+    get length() {
+      return localStorage.length;
+    },
+    key: (i: number) => localStorage.key(i),
+    getItem: (key: string) => {
+      // Prefer in-flight value so a get-after-set sees the latest.
+      if (pending.has(key)) return pending.get(key) ?? null;
+      return localStorage.getItem(key);
+    },
+    setItem: (key: string, value: string) => {
+      pending.set(key, value);
+      if (timer === null) {
+        timer = setTimeout(flush, SAVE_FLUSH_MS);
+      }
+    },
+    removeItem: (key: string) => {
+      pending.delete(key);
+      lastWritten.delete(key);
+      localStorage.removeItem(key);
+    },
+    clear: () => {
+      pending.clear();
+      lastWritten.clear();
+      localStorage.clear();
+    },
+  };
+}
+
 export interface PlacedBuilding {
   id: string;
   type: BuildingType;
@@ -707,7 +767,12 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
   },
 }), {
   name: SAVE_KEY,
-  storage: createJSONStorage(() => localStorage),
+  // Throttled localStorage facade — collapses bursts of write requests
+  // into one flushed-after-quiet-period call per key, and skips writes
+  // when the serialized value matches what's already on disk. Keeps
+  // localStorage I/O off the hot path during rapid state changes
+  // (e.g. clearing 5 decor in quick succession).
+  storage: createJSONStorage(() => throttledLocalStorage()),
   version: SAVE_VERSION,
   // Persist only true game state, never UI / drag / tick state.
   partialize: (s) => ({

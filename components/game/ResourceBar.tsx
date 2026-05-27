@@ -5,8 +5,14 @@ import { Coins, Flame, Leaf, Sparkles, Hexagon, Zap, Flame as FlameIcon } from "
 import type { LucideIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { RESOURCES } from "@/lib/data";
+import { BUILDINGS } from "@/lib/buildings";
+import { statAtLevel } from "@/lib/economy";
 import { useGameStore } from "@/lib/store";
 import { getDailyStreak } from "@/lib/systems/dailyReward";
+import {
+  getDisplayName,
+  subscribeDisplayName,
+} from "@/lib/systems/playerProfile";
 import { getTotalStorageBonus } from "@/lib/systems/buildingSystem";
 import {
   isCapped,
@@ -48,10 +54,12 @@ function ResourcePill({
   spec,
   value,
   max,
+  ratePerMin,
 }: {
   spec: ResourceSpec;
   value: number;
   max: number | null;
+  ratePerMin: number;
 }) {
   const { Icon, accent, short, full, field } = spec;
   const atCap = max !== null && value >= max;
@@ -272,6 +280,17 @@ function ResourcePill({
                     </ul>
                   </div>
                 )}
+                {ratePerMin > 0 && (
+                  <p className="mt-1 flex items-center gap-1 text-[9px] uppercase tracking-[0.18em] text-text-muted/80">
+                    Producing:{" "}
+                    <span
+                      className="font-display font-bold tabular-nums"
+                      style={{ color: accent }}
+                    >
+                      +{ratePerMin.toFixed(1)}/min
+                    </span>
+                  </p>
+                )}
                 {sessionGained > 0 && (
                   <p className="mt-1 flex items-center gap-1 text-[9px] uppercase tracking-[0.18em] text-text-muted/80">
                     This session:{" "}
@@ -292,6 +311,23 @@ function ResourcePill({
   );
 }
 
+/** Sum of passive production rate (per minute) for one resource type
+ *  across all placed buildings. Used by the resource tooltip. */
+function aggregateRatePerMin(
+  buildings: ReturnType<typeof useGameStore.getState>["buildings"],
+  field: keyof Resources,
+): number {
+  let perSec = 0;
+  for (const b of buildings) {
+    const def = BUILDINGS[b.type];
+    if (def.firePerSecond === undefined) continue;
+    const produces = def.producesResource ?? "amberShards";
+    if (produces !== field) continue;
+    perSec += statAtLevel(def.firePerSecond, b.level);
+  }
+  return perSec * 60;
+}
+
 export function ResourceBar() {
   const resources = useGameStore((s) => s.resources);
   const buildings = useGameStore((s) => s.buildings);
@@ -305,6 +341,13 @@ export function ResourceBar() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setStreak(getDailyStreak());
   }, [tickAt]);
+  // Display name — re-reads on tick + subscribes to changes.
+  const [displayName, setDisplayNameState] = useState("Grower");
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setDisplayNameState(getDisplayName());
+    return subscribeDisplayName(() => setDisplayNameState(getDisplayName()));
+  }, []);
 
   const maxOf = (field: keyof Resources) =>
     isCapped(field) ? maxFor(field, storageBonus) : null;
@@ -333,7 +376,7 @@ export function ResourceBar() {
               GROWVERSE
             </span>
             <span className="mt-0.5 font-sans text-[8px] uppercase tracking-[0.4em] text-text-muted">
-              Guild Wars · GC1
+              {displayName} · GC1
             </span>
           </div>
           {/* Right-side streak badge (or invisible spacer if no streak
@@ -387,6 +430,7 @@ export function ResourceBar() {
                   spec={spec}
                   value={resources[spec.field]}
                   max={maxOf(spec.field)}
+                  ratePerMin={aggregateRatePerMin(buildings, spec.field)}
                 />
               ))}
             </div>
