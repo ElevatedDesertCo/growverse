@@ -8,6 +8,7 @@ import { RESOURCES } from "@/lib/data";
 import { BUILDINGS } from "@/lib/buildings";
 import { getPendingFire, isReadyToHarvest, statAtLevel } from "@/lib/economy";
 import { useGameStore } from "@/lib/store";
+import { playSfx } from "@/lib/systems/audioSystem";
 import { getDailyStreak } from "@/lib/systems/dailyReward";
 import {
   getDisplayName,
@@ -367,7 +368,38 @@ function aggregateRatePerMin(
 export function ResourceBar() {
   const resources = useGameStore((s) => s.resources);
   const buildings = useGameStore((s) => s.buildings);
+  const harvest = useGameStore((s) => s.harvest);
+  const collectFire = useGameStore((s) => s.collectFire);
   const storageBonus = getTotalStorageBonus(buildings);
+
+  // Tap the ready-collect badge → fire harvest/collectFire on every
+  // building that has output pending. Each action no-ops for buildings
+  // that aren't actually ready, so the pass is safe.
+  const collectAllReady = () => {
+    const now = Date.now();
+    let acted = false;
+    for (const b of buildings) {
+      const def = BUILDINGS[b.type];
+      if (def.growDurationMs && b.plantedAt !== undefined) {
+        if (isReadyToHarvest(b.plantedAt, def.growDurationMs, now)) {
+          harvest(b.id);
+          acted = true;
+        }
+      }
+      if (def.firePerSecond && b.lastGenerated !== undefined) {
+        const pending = getPendingFire(
+          b.lastGenerated,
+          statAtLevel(def.firePerSecond, b.level),
+          now,
+        );
+        if (pending >= 1) {
+          collectFire(b.id);
+          acted = true;
+        }
+      }
+    }
+    if (acted) playSfx("resourceCollect");
+  };
   // Re-tick the streak read whenever the game tick fires so the badge
   // updates after a daily claim without needing a separate subscription.
   const tickAt = useGameStore((s) => s._tickAt);
@@ -428,17 +460,21 @@ export function ResourceBar() {
             return (
               <div className="flex items-center gap-1.5">
                 {hasReady && (
-                  <motion.div
+                  <motion.button
+                    type="button"
+                    onClick={collectAllReady}
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="flex h-8 items-center gap-1.5 rounded-full border border-leaf/45 bg-bg-deep/85 px-2.5 backdrop-blur"
+                    whileTap={{ scale: 0.95 }}
+                    className="flex h-8 items-center gap-1.5 rounded-full border border-leaf/45 bg-bg-deep/85 px-2.5 backdrop-blur transition-colors hover:border-leaf/75"
                     title={
                       ready.readyGardens > 0 && ready.pendingAmber > 0
-                        ? `${ready.readyGardens} garden${ready.readyGardens === 1 ? "" : "s"} ready · +${ready.pendingAmber} amber pending`
+                        ? `Collect all: ${ready.readyGardens} garden${ready.readyGardens === 1 ? "" : "s"} + ${ready.pendingAmber} amber`
                         : ready.readyGardens > 0
-                          ? `${ready.readyGardens} garden${ready.readyGardens === 1 ? "" : "s"} ready to harvest`
-                          : `+${ready.pendingAmber} amber pending in Forge`
+                          ? `Collect ${ready.readyGardens} ready garden${ready.readyGardens === 1 ? "" : "s"}`
+                          : `Collect ${ready.pendingAmber} pending amber`
                     }
+                    aria-label="Collect all ready buildings"
                     style={{
                       boxShadow: "0 0 10px -4px rgba(127,176,105,0.5)",
                     }}
@@ -473,7 +509,7 @@ export function ResourceBar() {
                         </span>
                       </span>
                     )}
-                  </motion.div>
+                  </motion.button>
                 )}
                 {streak > 0 && (
                   <div

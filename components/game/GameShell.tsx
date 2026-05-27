@@ -11,6 +11,8 @@ import { ComingSoonModal } from "./ComingSoonModal";
 import { DailyRewardModal } from "./DailyRewardModal";
 import { EditModeHint } from "./EditModeHint";
 import { EditModeOverlay } from "./EditModeOverlay";
+import { MilestoneConfetti } from "./MilestoneConfetti";
+import { ReadyChime } from "./ReadyChime";
 import { Fireflies } from "./Fireflies";
 import { KeyboardShortcuts } from "./KeyboardShortcuts";
 import { MusicMount } from "./MusicMount";
@@ -53,6 +55,7 @@ export function GameShell() {
 
       <SplashScreen />
       <TickMount />
+      <ReadyChime />
       <MusicMount />
       <StatsMount />
       <StreakWatcher />
@@ -75,6 +78,7 @@ export function GameShell() {
       <EditModeOverlay />
       <EditModeHint />
       <WelcomeBackToast />
+      <MilestoneConfetti />
       <ToastStack />
     </div>
   );
