@@ -107,6 +107,7 @@ export function SettingsButton() {
   };
 
   const handleReset = () => {
+    playSfx("upgradeComplete");
     resetSave();
     setConfirming(false);
     setOpen(false);
@@ -516,34 +517,17 @@ export function SettingsButton() {
                       Wipes all buildings, resources, and progress. Starts
                       a fresh game. <span className="text-red-300/85">Cannot be undone.</span>
                     </p>
-                    {!confirming ? (
-                      <button
-                        type="button"
-                        onClick={() => setConfirming(true)}
-                        className="mt-3 inline-flex items-center gap-2 rounded-full border border-red-400/50 bg-red-500/10 px-3.5 py-2 font-display text-[11px] font-bold uppercase tracking-[0.16em] text-red-300 transition-colors hover:border-red-400/80 hover:bg-red-500/20"
-                      >
-                        <Trash2 className="h-3.5 w-3.5" />
-                        Reset Save
-                      </button>
-                    ) : (
-                      <div className="mt-3 flex flex-wrap items-center gap-2">
-                        <button
-                          type="button"
-                          onClick={handleReset}
-                          className="inline-flex items-center gap-2 rounded-full bg-red-500 px-3.5 py-2 font-display text-[11px] font-bold uppercase tracking-[0.16em] text-bg-deep shadow-[0_4px_16px_-4px_rgba(217,87,87,0.7)] transition-colors hover:bg-red-400"
-                        >
-                          <Trash2 className="h-3.5 w-3.5" />
-                          Yes, Wipe Everything
-                        </button>
-                        <button
-                          type="button"
-                          onClick={() => setConfirming(false)}
-                          className="inline-flex items-center rounded-full border border-gold/30 px-3.5 py-2 font-display text-[11px] font-bold uppercase tracking-[0.16em] text-text-muted transition-colors hover:border-gold/55 hover:text-text-primary"
-                        >
-                          Cancel
-                        </button>
-                      </div>
-                    )}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        playSfx("buttonClick");
+                        setConfirming(true);
+                      }}
+                      className="mt-3 inline-flex items-center gap-2 rounded-full border border-red-400/50 bg-red-500/10 px-3.5 py-2 font-display text-[11px] font-bold uppercase tracking-[0.16em] text-red-300 transition-colors hover:border-red-400/80 hover:bg-red-500/20"
+                    >
+                      <Trash2 className="h-3.5 w-3.5" />
+                      Reset Save
+                    </button>
                   </section>
 
                   {/* Credits + attribution */}
@@ -610,6 +594,108 @@ export function SettingsButton() {
         open={helpOpen}
         onClose={() => setHelpOpen(false)}
       />
+      {/* Reset Save confirmation — proper centered modal matching the
+          rest of the modal family. */}
+      {mounted && createPortal(
+        <AnimatePresence>
+          {confirming && (
+            <>
+              <motion.div
+                key="reset-backdrop"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.18 }}
+                onClick={() => setConfirming(false)}
+                className="fixed inset-0 z-[60] bg-black/75 backdrop-blur-sm"
+                aria-hidden
+              />
+              <motion.div
+                key="reset-modal"
+                initial={{ opacity: 0, y: 12, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 8, scale: 0.97 }}
+                transition={{ duration: 0.24, ease: "easeOut" }}
+                role="alertdialog"
+                aria-modal="true"
+                aria-labelledby="reset-modal-title"
+                className="fixed left-1/2 top-1/2 z-[60] w-[min(22rem,92vw)] -translate-x-1/2 -translate-y-1/2"
+              >
+                <div
+                  className="rounded-2xl p-[2px]"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, #f4a07a 0%, #c0573a 50%, #5a1f10 100%)",
+                    boxShadow:
+                      "0 24px 60px -20px rgba(0,0,0,0.85), 0 0 60px -10px rgba(217,87,87,0.4)",
+                  }}
+                >
+                  <div className="relative flex flex-col items-center gap-3 rounded-2xl bg-bg-deep/95 p-6 backdrop-blur">
+                    <button
+                      type="button"
+                      onClick={() => setConfirming(false)}
+                      aria-label="Cancel"
+                      className="absolute right-2 top-2 rounded-full p-1.5 text-text-muted transition-colors hover:bg-bg-mid/60 hover:text-text-primary"
+                    >
+                      <X className="h-4 w-4" />
+                    </button>
+                    <div
+                      className="flex h-14 w-14 items-center justify-center rounded-full"
+                      style={{
+                        background:
+                          "radial-gradient(circle at 35% 30%, #f4a07acc, #d97757 50%, #7a2818 100%)",
+                        boxShadow:
+                          "0 0 22px rgba(217,87,87,0.55), inset 0 1px 0 rgba(255,255,255,0.3)",
+                      }}
+                      aria-hidden
+                    >
+                      <Trash2
+                        className="h-7 w-7 text-bg-deep"
+                        strokeWidth={2.25}
+                      />
+                    </div>
+                    <h2
+                      id="reset-modal-title"
+                      className="font-display text-base font-bold uppercase tracking-[0.22em] text-red-200"
+                      style={{
+                        fontFamily: "var(--font-cinzel)",
+                        textShadow: "0 1px 0 rgba(0,0,0,0.55)",
+                      }}
+                    >
+                      Wipe Your Realm?
+                    </h2>
+                    <p className="max-w-[18rem] text-center text-[12px] leading-snug text-text-muted">
+                      This deletes every building, resource, and decor item.
+                      You&apos;ll start fresh with your initial bag.{" "}
+                      <span className="text-red-300/90">Cannot be undone.</span>
+                    </p>
+                    <div className="mt-1 flex w-full items-center justify-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          playSfx("buttonClick");
+                          setConfirming(false);
+                        }}
+                        className="flex-1 rounded-full border border-gold/35 px-4 py-2.5 font-display text-[11px] font-bold uppercase tracking-[0.2em] text-text-muted transition-colors hover:border-gold/55 hover:text-text-primary"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        type="button"
+                        onClick={handleReset}
+                        className="flex-1 rounded-full bg-red-500 px-4 py-2.5 font-display text-[11px] font-bold uppercase tracking-[0.2em] text-bg-deep shadow-[0_4px_18px_-6px_rgba(217,87,87,0.7)] transition-colors hover:bg-red-400"
+                      >
+                        Wipe It
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>,
+        document.body,
+      )}
     </>
   );
 }

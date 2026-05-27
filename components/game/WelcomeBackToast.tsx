@@ -16,7 +16,11 @@ const SHOW_MS = 4500;
 interface Summary {
   readyTents: number;
   pendingFire: number;
+  /** Whole days since the player was last seen, or 0 if <1 day. */
+  daysAway: number;
 }
+
+const LAST_SEEN_KEY = "growverse-last-seen";
 
 function computeSummary(): Summary {
   const buildings = useGameStore.getState().buildings;
@@ -36,7 +40,24 @@ function computeSummary(): Summary {
       );
     }
   }
-  return { readyTents, pendingFire };
+  // Compute days-away from the persisted last-seen timestamp.
+  let daysAway = 0;
+  if (typeof window !== "undefined") {
+    try {
+      const raw = window.localStorage.getItem(LAST_SEEN_KEY);
+      if (raw) {
+        const last = parseInt(raw, 10);
+        if (Number.isFinite(last)) {
+          const ms = now - last;
+          daysAway = Math.floor(ms / (24 * 60 * 60 * 1000));
+        }
+      }
+      window.localStorage.setItem(LAST_SEEN_KEY, String(now));
+    } catch {
+      /* storage disabled */
+    }
+  }
+  return { readyTents, pendingFire, daysAway };
 }
 
 export function WelcomeBackToast() {
@@ -50,7 +71,9 @@ export function WelcomeBackToast() {
       if (shownRef.current) return;
       shownRef.current = true;
       const s = computeSummary();
-      if (s.readyTents === 0 && s.pendingFire === 0) return;
+      // Fire if there's anything ready/pending OR the player was gone
+      // for a full day. Otherwise stay quiet — no toast spam on quick reloads.
+      if (s.readyTents === 0 && s.pendingFire === 0 && s.daysAway === 0) return;
       setSummary(s);
       const t = setTimeout(() => setSummary(null), SHOW_MS);
       return () => clearTimeout(t);
@@ -108,10 +131,17 @@ export function WelcomeBackToast() {
               </div>
               <div className="flex flex-col items-start leading-tight">
                 <span
-                  className="font-display text-[10px] font-bold uppercase tracking-[0.22em] text-gold"
+                  className="flex items-center gap-1.5 font-display text-[10px] font-bold uppercase tracking-[0.22em] text-gold"
                   style={{ fontFamily: "var(--font-cinzel)" }}
                 >
                   Welcome back
+                  {summary.daysAway > 0 && (
+                    <span className="rounded-full bg-gold/15 px-1.5 py-px text-[8px] font-bold tracking-[0.18em] text-gold ring-1 ring-gold/30">
+                      {summary.daysAway === 1
+                        ? "1 DAY"
+                        : `${summary.daysAway} DAYS`}
+                    </span>
+                  )}
                 </span>
                 <div className="mt-0.5 flex items-center gap-2 text-[11px]">
                   {summary.readyTents > 0 && (
@@ -134,6 +164,13 @@ export function WelcomeBackToast() {
                       <span className="text-text-muted">pending</span>
                     </span>
                   )}
+                  {summary.readyTents === 0 &&
+                    summary.pendingFire === 0 &&
+                    summary.daysAway > 0 && (
+                      <span className="text-text-muted">
+                        The desert missed you.
+                      </span>
+                    )}
                 </div>
               </div>
             </div>
