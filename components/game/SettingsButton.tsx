@@ -34,6 +34,11 @@ import {
   getReducedSetting,
   setReducedSetting,
 } from "@/lib/systems/motionPrefs";
+import {
+  canInstall,
+  promptInstall,
+  subscribeInstall,
+} from "@/lib/systems/pwaInstall";
 import { exportSave, importSave } from "@/lib/systems/saveSystem";
 import {
   getNextMilestone,
@@ -44,7 +49,7 @@ import {
 import { pushToast } from "@/lib/systems/toastSystem";
 import { AchievementsModal } from "./AchievementsModal";
 import { HelpModal } from "./HelpModal";
-import { HelpCircle, Trophy } from "lucide-react";
+import { HelpCircle, RotateCcw, Smartphone, Trophy } from "lucide-react";
 
 export function SettingsButton() {
   const [open, setOpen] = useState(false);
@@ -58,6 +63,15 @@ export function SettingsButton() {
   const [sfxVolume, setSfxVolumeState] = useState(60);
   const [musicVolumePct, setMusicVolumePct] = useState(35);
   const [reducedMotion, setReducedMotionState] = useState<"auto" | "on" | "off">("auto");
+  const [pwaInstallable, setPwaInstallable] = useState(false);
+
+  // Subscribe to PWA install availability. The deferred prompt may
+  // arrive after mount or never.
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setPwaInstallable(canInstall());
+    return subscribeInstall(() => setPwaInstallable(canInstall()));
+  }, []);
   // Save export / import UI state.
   const [exportText, setExportText] = useState("");
   const [exportCopied, setExportCopied] = useState(false);
@@ -199,18 +213,67 @@ export function SettingsButton() {
                 </header>
 
                 <div className="mt-3 space-y-3 pb-4">
-                  {/* How to play */}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      playSfx("buttonClick");
-                      setHelpOpen(true);
-                    }}
-                    className="flex w-full items-center justify-center gap-2 rounded-xl border border-gold/40 bg-bg-deep/70 px-3 py-2.5 font-display text-[11px] font-bold uppercase tracking-[0.18em] text-gold transition-colors hover:border-gold/60 hover:bg-bg-mid/80"
-                  >
-                    <HelpCircle className="h-4 w-4" />
-                    How to play
-                  </button>
+                  {/* How to play + quick actions row */}
+                  <div className="grid grid-cols-2 gap-2">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        playSfx("buttonClick");
+                        setHelpOpen(true);
+                      }}
+                      className="flex items-center justify-center gap-1.5 rounded-xl border border-gold/40 bg-bg-deep/70 px-3 py-2.5 font-display text-[10px] font-bold uppercase tracking-[0.16em] text-gold transition-colors hover:border-gold/60 hover:bg-bg-mid/80"
+                    >
+                      <HelpCircle className="h-3.5 w-3.5" />
+                      How to play
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        playSfx("buttonClick");
+                        // Clear all first-run flags so the welcome modal + first-build
+                        // pulses + decor hint + edit-button pulse all reappear next load.
+                        try {
+                          localStorage.removeItem("growverse-first-run-seen");
+                          localStorage.removeItem("growverse-has-cleared-decor");
+                          localStorage.removeItem("growverse-has-edited");
+                          localStorage.removeItem("growverse-streak-last-shown");
+                        } catch {
+                          /* storage disabled */
+                        }
+                        pushToast({
+                          kind: "info",
+                          title: "Hints Reset",
+                          body: "First-run prompts will reappear on next reload.",
+                        });
+                      }}
+                      className="flex items-center justify-center gap-1.5 rounded-xl border border-gold/30 bg-bg-deep/70 px-3 py-2.5 font-display text-[10px] font-bold uppercase tracking-[0.16em] text-text-muted transition-colors hover:border-gold/55 hover:text-text-primary"
+                    >
+                      <RotateCcw className="h-3.5 w-3.5" />
+                      Reset hints
+                    </button>
+                  </div>
+
+                  {pwaInstallable && (
+                    <button
+                      type="button"
+                      onClick={async () => {
+                        playSfx("buttonClick");
+                        const result = await promptInstall();
+                        if (result === "accepted") {
+                          pushToast({
+                            kind: "success",
+                            title: "Installed",
+                            body: "Growverse is on your home screen.",
+                          });
+                          handleClose();
+                        }
+                      }}
+                      className="flex w-full items-center justify-center gap-2 rounded-xl border border-leaf/40 bg-bg-deep/70 px-3 py-2.5 font-display text-[11px] font-bold uppercase tracking-[0.18em] text-leaf transition-colors hover:border-leaf/60 hover:bg-bg-mid/80"
+                    >
+                      <Smartphone className="h-4 w-4" />
+                      Install on this device
+                    </button>
+                  )}
 
                   {/* Audio toggles — Sound + Music */}
                   <section
