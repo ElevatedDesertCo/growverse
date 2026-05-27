@@ -15,6 +15,7 @@ import {
   subscribeDisplayName,
 } from "@/lib/systems/playerProfile";
 import { getTotalStorageBonus } from "@/lib/systems/buildingSystem";
+import { aggregateReadyCollect } from "@/lib/systems/readyCollect";
 import {
   isCapped,
   maxFor,
@@ -319,33 +320,6 @@ function ResourcePill({
       </AnimatePresence>
     </div>
   );
-}
-
-/**
- * Count of ready-to-harvest gardens + total pending Amber Forge output
- * across all placed buildings. Powers the HUD "ready collect" badge.
- * Pure read — recomputed cheaply on every tick.
- */
-function aggregateReadyCollect(
-  buildings: ReturnType<typeof useGameStore.getState>["buildings"],
-): { readyGardens: number; pendingAmber: number } {
-  const now = Date.now();
-  let readyGardens = 0;
-  let pendingAmber = 0;
-  for (const b of buildings) {
-    const def = BUILDINGS[b.type];
-    if (def.growDurationMs && b.plantedAt !== undefined) {
-      if (isReadyToHarvest(b.plantedAt, def.growDurationMs, now)) readyGardens++;
-    }
-    if (def.firePerSecond && b.lastGenerated !== undefined) {
-      pendingAmber += getPendingFire(
-        b.lastGenerated,
-        statAtLevel(def.firePerSecond, b.level),
-        now,
-      );
-    }
-  }
-  return { readyGardens, pendingAmber };
 }
 
 /** Sum of passive production rate (per minute) for one resource type
