@@ -260,11 +260,50 @@ export function BuildMenu() {
                   );
                 })}
               </div>
+
+              <NextUnlockPeek coreLevel={coreLevel} />
             </div>
           </motion.div>
         )}
       </AnimatePresence>
     </>
+  );
+}
+
+/**
+ * Small footer strip below the build grid showing what unlocks at the
+ * next Core level. Helps players see why upgrading the Guild Core
+ * matters without having to scroll the whole catalog.
+ */
+function NextUnlockPeek({ coreLevel }: { coreLevel: number }) {
+  // Find the smallest unlockCoreLevel strictly greater than the player's
+  // current core level (skipping the "effectively hidden" 99 sentinel).
+  let nextLevel: number | null = null;
+  for (const type of BUILDING_TYPES) {
+    const lvl = BUILDINGS[type].unlockCoreLevel;
+    if (lvl === undefined || lvl >= 99 || lvl <= coreLevel) continue;
+    if (nextLevel === null || lvl < nextLevel) nextLevel = lvl;
+  }
+  if (nextLevel === null) return null;
+  const names = BUILDING_TYPES
+    .filter((t) => BUILDINGS[t].unlockCoreLevel === nextLevel)
+    .map((t) => BUILDINGS[t].name);
+  if (names.length === 0) return null;
+  return (
+    <div className="mt-4 flex items-center gap-2 rounded-xl border border-gold/15 bg-bg-mid/30 px-3 py-2">
+      <Lock className="h-3 w-3 flex-shrink-0 text-gold/70" strokeWidth={2.5} />
+      <div className="min-w-0 flex-1">
+        <div
+          className="font-display text-[9px] font-bold uppercase tracking-[0.22em] text-gold/85"
+          style={{ fontFamily: "var(--font-cinzel)" }}
+        >
+          Next at Core L{nextLevel}
+        </div>
+        <div className="mt-0.5 truncate text-[10px] text-text-muted">
+          {names.join(" · ")}
+        </div>
+      </div>
+    </div>
   );
 }
 
@@ -395,7 +434,7 @@ function BuildingCard({
             className="font-display text-[8px] font-bold uppercase tracking-[0.18em] text-gold"
             style={{ fontFamily: "var(--font-cinzel)" }}
           >
-            Lv {def.unlockCoreLevel ?? 1}
+            Core L{def.unlockCoreLevel ?? 1}
           </span>
         </div>
       )}
