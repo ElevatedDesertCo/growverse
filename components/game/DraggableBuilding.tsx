@@ -382,19 +382,53 @@ export function DraggableBuilding({
             </span>
           </span>
           {/* Production rate — passive buildings show units/min, grow
-              cycles show seconds-per-harvest yield. */}
-          {def.firePerSecond !== undefined && (
-            <span className="ml-1.5 font-sans text-[9px] tabular-nums text-text-muted">
-              {(statAtLevel(def.firePerSecond, building.level) * 60).toFixed(1)}
-              /min
-            </span>
-          )}
-          {def.harvestYield !== undefined && def.growDurationMs !== undefined && (
-            <span className="ml-1.5 font-sans text-[9px] tabular-nums text-text-muted">
-              +{intStatAtLevel(def.harvestYield, building.level)} every{" "}
-              {Math.round(def.growDurationMs / 1000)}s
-            </span>
-          )}
+              cycles show seconds-per-harvest yield. When the building
+              can still be upgraded, append a "↑ next" delta hint so the
+              player sees the upgrade payoff before opening the modal. */}
+          {def.firePerSecond !== undefined && (() => {
+            const cur = statAtLevel(def.firePerSecond, building.level) * 60;
+            const next = canUpgrade
+              ? statAtLevel(def.firePerSecond, building.level + 1) * 60
+              : null;
+            const delta = next !== null ? next - cur : 0;
+            return (
+              <>
+                <span className="ml-1.5 font-sans text-[9px] tabular-nums text-text-muted">
+                  {cur.toFixed(1)}/min
+                </span>
+                {next !== null && delta > 0 && (
+                  <span
+                    className="ml-1 font-sans text-[9px] font-bold tabular-nums"
+                    style={{ color: def.color }}
+                  >
+                    ↑ +{delta.toFixed(1)}
+                  </span>
+                )}
+              </>
+            );
+          })()}
+          {def.harvestYield !== undefined && def.growDurationMs !== undefined && (() => {
+            const cur = intStatAtLevel(def.harvestYield, building.level);
+            const next = canUpgrade
+              ? intStatAtLevel(def.harvestYield, building.level + 1)
+              : null;
+            const delta = next !== null ? next - cur : 0;
+            return (
+              <>
+                <span className="ml-1.5 font-sans text-[9px] tabular-nums text-text-muted">
+                  +{cur} every {Math.round(def.growDurationMs / 1000)}s
+                </span>
+                {next !== null && delta > 0 && (
+                  <span
+                    className="ml-1 font-sans text-[9px] font-bold tabular-nums"
+                    style={{ color: def.color }}
+                  >
+                    ↑ +{delta}
+                  </span>
+                )}
+              </>
+            );
+          })()}
           {!editMode && (
             <span className="ml-1.5 font-sans text-[9px] uppercase tracking-[0.16em] text-text-muted">
               {canUpgrade ? "↑ ready" : isReady ? "✓ collect" : "tap"}
