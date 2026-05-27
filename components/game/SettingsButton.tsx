@@ -35,6 +35,10 @@ import {
   setReducedSetting,
 } from "@/lib/systems/motionPrefs";
 import {
+  getDisplayName,
+  setDisplayName,
+} from "@/lib/systems/playerProfile";
+import {
   canInstall,
   promptInstall,
   subscribeInstall,
@@ -64,6 +68,7 @@ export function SettingsButton() {
   const [musicVolumePct, setMusicVolumePct] = useState(35);
   const [reducedMotion, setReducedMotionState] = useState<"auto" | "on" | "off">("auto");
   const [pwaInstallable, setPwaInstallable] = useState(false);
+  const [nameInput, setNameInput] = useState("");
 
   // Subscribe to PWA install availability. The deferred prompt may
   // arrive after mount or never.
@@ -94,6 +99,7 @@ export function SettingsButton() {
     setSfxVolumeState(Math.round(getSfxVolume() * 100));
     setMusicVolumePct(Math.round(getMusicVolume() * 100));
     setReducedMotionState(getReducedSetting());
+    setNameInput(getDisplayName());
     /* eslint-enable react-hooks/set-state-in-effect */
   }, [open]);
 
@@ -251,6 +257,29 @@ export function SettingsButton() {
                       <RotateCcw className="h-3.5 w-3.5" />
                       Reset hints
                     </button>
+                  </div>
+
+                  {/* Display name input — shown in HUD subtitle. */}
+                  <div className="flex items-center gap-2 rounded-xl border border-gold/20 bg-bg-mid/40 px-3 py-2">
+                    <label
+                      htmlFor="settings-display-name"
+                      className="font-display text-[9px] font-bold uppercase tracking-[0.18em] text-text-muted"
+                    >
+                      Name
+                    </label>
+                    <input
+                      id="settings-display-name"
+                      type="text"
+                      value={nameInput}
+                      maxLength={24}
+                      onChange={(e) => {
+                        const v = e.target.value;
+                        setNameInput(v);
+                        setDisplayName(v);
+                      }}
+                      placeholder="Grower"
+                      className="flex-1 rounded-md border border-gold/15 bg-bg-deep/80 px-2 py-1 font-sans text-[12px] text-text-primary placeholder:text-text-muted/50 focus:border-gold/45 focus:outline-none"
+                    />
                   </div>
 
                   {pwaInstallable && (
