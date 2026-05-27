@@ -2,8 +2,10 @@
 
 import { ArrowUp } from "lucide-react";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { BUILDINGS } from "@/lib/buildings";
 import { useGameStore, type PlacedBuilding } from "@/lib/store";
+import { isReducedMotion, subscribeReduced } from "@/lib/systems/motionPrefs";
 import {
   canAffordUpgrade,
   isMaxLevel,
@@ -42,6 +44,21 @@ export function BuildingTile({
     !isMaxLevel(building.type, building.level) &&
     canAffordUpgrade(resources, building.type, building.level);
 
+  // Idle bob — subtle periodic Y oscillation so placed buildings feel
+  // alive instead of static. Respects reduced-motion preference. Each
+  // building uses its id hash to offset the loop so the base doesn't
+  // pulse in lockstep. Suppressed during edit-mode shake and
+  // ready-to-collect pop so animations don't fight.
+  const [reduced, setReduced] = useState(false);
+  useEffect(() => {
+    // Intentional one-shot hydration + subscription pattern.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setReduced(isReducedMotion());
+    return subscribeReduced(() => setReduced(isReducedMotion()));
+  }, []);
+  const idleDelay = ((building.id.charCodeAt(0) || 0) % 7) * 0.4;
+  const wantsIdle = !reduced && !editMode && !isReady;
+
   return (
     <motion.div
       className="pointer-events-none relative h-full w-full"
@@ -50,14 +67,23 @@ export function BuildingTile({
           ? { rotate: [-1.5, 1.5, -1.5] }
           : isReady
             ? { scale: [1, 1.05, 1] }
-            : { rotate: 0, scale: 1 }
+            : wantsIdle
+              ? { y: [0, -1.5, 0, 1, 0] }
+              : { rotate: 0, scale: 1, y: 0 }
       }
       transition={
         editMode
           ? { duration: 0.7, repeat: Infinity, ease: "easeInOut" }
           : isReady
             ? { duration: 1.5, repeat: Infinity, ease: "easeInOut" }
-            : { duration: 0.2 }
+            : wantsIdle
+              ? {
+                  duration: 3.6,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                  delay: idleDelay,
+                }
+              : { duration: 0.2 }
       }
     >
       <div

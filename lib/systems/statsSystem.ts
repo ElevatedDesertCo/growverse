@@ -75,18 +75,32 @@ export interface Milestone {
 }
 
 export const MILESTONES: Milestone[] = [
+  // Building placement
   { key: "buildingsPlaced", threshold: 1,   title: "First Building",    body: "Welcome to base-building.", accent: "#d4a04a" },
   { key: "buildingsPlaced", threshold: 5,   title: "Architect",         body: "5 structures placed.",       accent: "#d4a04a" },
   { key: "buildingsPlaced", threshold: 15,  title: "Master Builder",    body: "15 structures placed.",      accent: "#d4a04a" },
+  { key: "buildingsPlaced", threshold: 30,  title: "Realm Maker",       body: "30 structures placed.",      accent: "#d4a04a" },
+  // Upgrades
   { key: "buildingsUpgraded", threshold: 1, title: "First Upgrade",     body: "A guild that grows.",         accent: "#7fb069" },
   { key: "buildingsUpgraded", threshold: 10, title: "Empowered",        body: "10 upgrades complete.",       accent: "#7fb069" },
+  { key: "buildingsUpgraded", threshold: 30, title: "Ascendant",        body: "30 upgrades complete.",       accent: "#7fb069" },
+  // Decor clearing
   { key: "decorCleared", threshold: 1,      title: "First Clear",       body: "The desert reveals its gifts.", accent: "#c9a878" },
   { key: "decorCleared", threshold: 25,     title: "Desert Tamer",      body: "25 props cleared.",           accent: "#c9a878" },
   { key: "decorCleared", threshold: 100,    title: "Desert Wrangler",   body: "100 props cleared.",          accent: "#c9a878" },
+  { key: "decorCleared", threshold: 250,    title: "Desert Master",     body: "250 props cleared.",          accent: "#c9a878" },
+  // Regrowth
+  { key: "decorRegrown", threshold: 1,      title: "First Regrowth",    body: "Life finds a way.",           accent: "#9ed16e" },
+  { key: "decorRegrown", threshold: 10,     title: "Patient Cultivator", body: "10 props regrew while you were away.", accent: "#9ed16e" },
+  // Harvest
   { key: "harvestsCollected", threshold: 10, title: "Diligent Grower",  body: "10 harvests.",                accent: "#7fb069" },
   { key: "harvestsCollected", threshold: 50, title: "Bountiful",        body: "50 harvests.",                accent: "#7fb069" },
+  { key: "harvestsCollected", threshold: 200, title: "Abundance",       body: "200 harvests.",               accent: "#7fb069" },
+  // Daily streak
   { key: "dailyRewardsClaimed", threshold: 3, title: "3-Day Streak",    body: "Three daily bounties claimed.", accent: "#b78ddf" },
   { key: "dailyRewardsClaimed", threshold: 7, title: "Loyal Grower",    body: "A full week of returns.",     accent: "#b78ddf" },
+  { key: "dailyRewardsClaimed", threshold: 14, title: "Two Weeks Strong", body: "14 daily claims.",          accent: "#b78ddf" },
+  { key: "dailyRewardsClaimed", threshold: 30, title: "Devoted Grower", body: "A full month of returns.",    accent: "#b78ddf" },
 ];
 
 const MILESTONES_KEY = "growverse-milestones-v1";

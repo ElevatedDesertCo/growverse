@@ -30,6 +30,10 @@ import {
   setMusicMuted,
   setMusicVolume,
 } from "@/lib/systems/musicSystem";
+import {
+  getReducedSetting,
+  setReducedSetting,
+} from "@/lib/systems/motionPrefs";
 import { exportSave, importSave } from "@/lib/systems/saveSystem";
 import {
   getNextMilestone,
@@ -53,6 +57,7 @@ export function SettingsButton() {
   // Volume sliders. 0–100 for the input; converted to 0–1 internally.
   const [sfxVolume, setSfxVolumeState] = useState(60);
   const [musicVolumePct, setMusicVolumePct] = useState(35);
+  const [reducedMotion, setReducedMotionState] = useState<"auto" | "on" | "off">("auto");
   // Save export / import UI state.
   const [exportText, setExportText] = useState("");
   const [exportCopied, setExportCopied] = useState(false);
@@ -74,6 +79,7 @@ export function SettingsButton() {
     setStats(getStats());
     setSfxVolumeState(Math.round(getSfxVolume() * 100));
     setMusicVolumePct(Math.round(getMusicVolume() * 100));
+    setReducedMotionState(getReducedSetting());
     /* eslint-enable react-hooks/set-state-in-effect */
   }, [open]);
 
@@ -300,6 +306,42 @@ export function SettingsButton() {
                           setMusicVolume(v / 100);
                         }}
                       />
+                    </div>
+
+                    {/* Reduced-motion toggle */}
+                    <div className="mt-3 flex items-center justify-between gap-2 border-t border-gold/15 pt-3">
+                      <div className="flex flex-col">
+                        <span className="font-display text-[10px] font-bold uppercase tracking-[0.18em] text-gold">
+                          Reduced motion
+                        </span>
+                        <span className="font-sans text-[10px] text-text-muted">
+                          Disables fireflies + parallax + idle bobs.
+                        </span>
+                      </div>
+                      <div className="flex flex-shrink-0 items-center gap-1 rounded-full border border-gold/25 bg-bg-deep/70 p-0.5">
+                        {(["auto", "off", "on"] as const).map((v) => {
+                          const active = reducedMotion === v;
+                          return (
+                            <button
+                              key={v}
+                              type="button"
+                              onClick={() => {
+                                setReducedSetting(v);
+                                setReducedMotionState(v);
+                                playSfx("buttonClick");
+                              }}
+                              className={`rounded-full px-2.5 py-1 font-display text-[9px] font-bold uppercase tracking-[0.16em] transition-colors ${
+                                active
+                                  ? "bg-gold text-bg-deep"
+                                  : "text-text-muted hover:text-text-primary"
+                              }`}
+                              aria-pressed={active}
+                            >
+                              {v === "auto" ? "Auto" : v === "on" ? "On" : "Off"}
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
 
                     {/* SFX test row — tap any chip to play that hook. */}
