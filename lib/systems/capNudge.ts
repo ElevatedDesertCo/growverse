@@ -8,7 +8,25 @@
 import { pushToast } from "./toastSystem";
 
 const COOLDOWN_MS = 60 * 1000;
+const HIGHLIGHT_MS = 5 * 60 * 1000;
 let lastNudgeAt = 0;
+const listeners = new Set<() => void>();
+
+/** True if the cap-nudge has fired within the last HIGHLIGHT_MS. UI
+ *  uses this to glow the Storage Vault card in the BuildMenu so the
+ *  player has a concrete next-action. */
+export function isCapHighlightActive(): boolean {
+  if (lastNudgeAt === 0) return false;
+  return Date.now() - lastNudgeAt < HIGHLIGHT_MS;
+}
+
+/** Subscribe to nudge-fire events. Components re-read on each callback. */
+export function subscribeCapNudge(fn: () => void): () => void {
+  listeners.add(fn);
+  return () => {
+    listeners.delete(fn);
+  };
+}
 
 interface NudgeInput {
   requested: number;
@@ -29,6 +47,7 @@ export function notifyCapHit({ requested, gained, hasVault }: NudgeInput): void 
   const now = Date.now();
   if (now - lastNudgeAt < COOLDOWN_MS) return;
   lastNudgeAt = now;
+  for (const fn of listeners) fn();
   pushToast({
     kind: "info",
     title: "Storage Full",

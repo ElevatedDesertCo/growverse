@@ -1,12 +1,13 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Gift, X } from "lucide-react";
+import { Flame, Gift, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useGameStore } from "@/lib/store";
 import { playSfx } from "@/lib/systems/audioSystem";
 import {
+  getDailyStreak,
   getPendingDailyReward,
   markDailyClaimed,
   type DailyRewardBundle,
@@ -45,6 +46,10 @@ export function DailyRewardModal() {
   const [mounted, setMounted] = useState(false);
   const [bundle, setBundle] = useState<DailyRewardBundle | null>(null);
   const [claimed, setClaimed] = useState(false);
+  // Read the live streak when the modal opens so the "Day N" chip
+  // reflects the player's current run. Re-read whenever the bundle
+  // appears (i.e. the modal is about to show).
+  const [priorStreak, setPriorStreak] = useState(0);
   const grantResources = useGameStore((s) => s.grantResources);
 
   // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -60,6 +65,7 @@ export function DailyRewardModal() {
       if (cancelled) return;
       const pending = getPendingDailyReward();
       if (pending) {
+        setPriorStreak(getDailyStreak());
         setBundle(pending);
       }
     };
@@ -182,6 +188,24 @@ export function DailyRewardModal() {
                   {bundle.title}
                 </h2>
 
+                {/* Streak chip — shows what day of the current run this
+                    claim continues. After claim flips to the new total. */}
+                <div className="-mt-1 flex items-center gap-1.5 rounded-full border border-amber-500/35 bg-bg-mid/55 px-2.5 py-0.5">
+                  <Flame
+                    className="h-3 w-3 text-fire"
+                    strokeWidth={2.5}
+                    style={{
+                      filter: "drop-shadow(0 0 4px rgba(232,150,76,0.7))",
+                    }}
+                  />
+                  <span
+                    className="font-display text-[10px] font-bold uppercase tracking-[0.22em] text-fire"
+                    style={{ fontFamily: "var(--font-cinzel)" }}
+                  >
+                    Day {claimed ? priorStreak + 1 : priorStreak + 1}
+                  </span>
+                </div>
+
                 <p className="max-w-[18rem] text-center text-[12px] leading-snug text-text-muted">
                   {bundle.body}
                 </p>
@@ -220,6 +244,11 @@ export function DailyRewardModal() {
                 >
                   {claimed ? "Claimed!" : "Claim"}
                 </button>
+
+                {/* Tomorrow preview — gentle nudge to keep the streak. */}
+                <p className="mt-0 max-w-[18rem] text-center font-display text-[9px] uppercase tracking-[0.22em] text-text-muted/80">
+                  Tomorrow: <span className="text-gold/85">Day {priorStreak + 2}</span> keeps the streak alive
+                </p>
               </div>
             </div>
           </motion.div>

@@ -15,6 +15,7 @@ import { useEffect, useState } from "react";
 import { useGameStore } from "@/lib/store";
 import { playSfx } from "@/lib/systems/audioSystem";
 import { showComingSoon } from "@/lib/systems/comingSoonStore";
+import { aggregateReadyCollect } from "@/lib/systems/readyCollect";
 import { ActionIcon } from "./ActionIcon";
 
 const EDITED_KEY = "growverse-has-edited";
@@ -65,7 +66,14 @@ export function BottomNav() {
   const editMode = useGameStore((s) => s.editMode);
   const toggleEditMode = useGameStore((s) => s.toggleEditMode);
   const openBuildMenu = useGameStore((s) => s.openBuildMenu);
-  const hasBuildings = useGameStore((s) => s.buildings.length > 0);
+  const buildings = useGameStore((s) => s.buildings);
+  const hasBuildings = buildings.length > 0;
+  // Recompute on every game tick so the Base-tab badge stays in sync
+  // with the HUD ready-collect pill without its own subscription.
+  useGameStore((s) => s._tickAt);
+  const readyCollect = aggregateReadyCollect(buildings);
+  const totalReady =
+    readyCollect.readyGardens + readyCollect.pendingAmber;
 
   // First-run hook: pulse the Build button if the player has 0 buildings.
   // Guild Core is free, so they can always afford SOMETHING when empty.
@@ -102,6 +110,7 @@ export function BottomNav() {
         <ul className="flex flex-1 items-stretch justify-between">
           {TABS.map(({ key, label, Icon }) => {
             const active = key === ACTIVE;
+            const showReadyBadge = key === "base" && totalReady > 0;
             return (
               <li key={key} className="flex-1">
                 <button
@@ -125,18 +134,36 @@ export function BottomNav() {
                       aria-hidden
                     />
                   )}
-                  <Icon
-                    className="relative h-5 w-5"
-                    strokeWidth={active ? 2.5 : 1.75}
-                    style={
-                      active
-                        ? {
-                            filter:
-                              "drop-shadow(0 0 6px rgba(212,160,74,0.7))",
-                          }
-                        : undefined
-                    }
-                  />
+                  <span className="relative inline-flex">
+                    <Icon
+                      className="relative h-5 w-5"
+                      strokeWidth={active ? 2.5 : 1.75}
+                      style={
+                        active
+                          ? {
+                              filter:
+                                "drop-shadow(0 0 6px rgba(212,160,74,0.7))",
+                            }
+                          : undefined
+                      }
+                    />
+                    {showReadyBadge && (
+                      <motion.span
+                        key={totalReady}
+                        initial={{ scale: 0.7, opacity: 0 }}
+                        animate={{ scale: 1, opacity: 1 }}
+                        transition={{ duration: 0.18, ease: "easeOut" }}
+                        className="pointer-events-none absolute -right-2 -top-1 flex h-4 min-w-[16px] items-center justify-center rounded-full bg-leaf px-1 text-[9px] font-bold tabular-nums leading-none text-bg-deep ring-2 ring-bg-deep"
+                        aria-label={`${totalReady} ready to collect`}
+                        style={{
+                          boxShadow:
+                            "0 0 8px rgba(127,176,105,0.7)",
+                        }}
+                      >
+                        {totalReady > 99 ? "99+" : totalReady}
+                      </motion.span>
+                    )}
+                  </span>
                   <span
                     className={`relative font-sans text-[10px] uppercase tracking-[0.18em] ${
                       active ? "font-bold" : "font-medium"

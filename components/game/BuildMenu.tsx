@@ -15,7 +15,8 @@ import { RESOURCES } from "@/lib/data";
 import type { Resources } from "@/lib/systems/resourceSystem";
 import { playSfx } from "@/lib/systems/audioSystem";
 import { pushToast } from "@/lib/systems/toastSystem";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { isCapHighlightActive, subscribeCapNudge } from "@/lib/systems/capNudge";
 import { AssetImage } from "./AssetImage";
 
 /** Display label for a resource field (canon short name). */
@@ -74,6 +75,22 @@ export function BuildMenu() {
   const dragState = useGameStore((s) => s.dragState);
   const coreLevel = getGuildCoreLevel(buildings);
   const [activeTab, setActiveTab] = useState<CategoryTab>("all");
+  // Tick the menu when a cap-nudge fires so the Storage Vault card
+  // glows. Also re-poll on open so the highlight persists across the
+  // 5-minute window even if the menu was closed when the nudge fired.
+  const [capHighlight, setCapHighlight] = useState(false);
+  useEffect(() => {
+    const refresh = () => setCapHighlight(isCapHighlightActive());
+    refresh();
+    const unsub = subscribeCapNudge(refresh);
+    // Re-poll on a slow interval while open so the highlight decays
+    // naturally past HIGHLIGHT_MS without needing another event.
+    const id = window.setInterval(refresh, 30_000);
+    return () => {
+      unsub();
+      window.clearInterval(id);
+    };
+  }, []);
 
   // Filter the building list by tab. We KEEP locked buildings visible so
   // players can see what's coming up at higher Core levels.
@@ -238,6 +255,13 @@ export function BuildMenu() {
                   // tap first.
                   const isFirstBuildTarget =
                     buildings.length === 0 && type === "guildCore";
+                  // Glow the Storage Vault card when the cap-nudge has
+                  // fired recently — but only while it's a viable build.
+                  const isCapNudgeTarget =
+                    capHighlight &&
+                    type === "storageVault" &&
+                    unlocked &&
+                    !singletonBlocked;
                   return (
                     <BuildingCard
                       key={type}
@@ -255,7 +279,7 @@ export function BuildMenu() {
                       reason={reason}
                       onTap={() => placeBuilding(type)}
                       type={type}
-                      highlight={isFirstBuildTarget}
+                      highlight={isFirstBuildTarget || isCapNudgeTarget}
                     />
                   );
                 })}
