@@ -359,8 +359,9 @@ export function DraggableBuilding({
       />
 
       {/* Desktop hover tooltip — small pill above the building with
-          the name, level, and a contextual hint. Hidden during drag /
-          edit-mode delete to avoid stacking conflicts. */}
+          the name, level, production rate (if any), and a contextual
+          hint. Hidden during drag / edit-mode delete to avoid stacking
+          conflicts. */}
       {phase !== "dragging" && !canDelete && (
         <div
           className="pointer-events-none absolute -top-1 left-1/2 z-20 -translate-x-1/2 -translate-y-full whitespace-nowrap rounded-full bg-bg-deep/95 px-2.5 py-1 opacity-0 shadow-[0_4px_14px_-4px_rgba(0,0,0,0.7)] transition-opacity duration-150 group-hover:opacity-100 group-focus-within:opacity-100"
@@ -380,6 +381,20 @@ export function DraggableBuilding({
               /{def.maxLevel ?? MAX_LEVEL}
             </span>
           </span>
+          {/* Production rate — passive buildings show units/min, grow
+              cycles show seconds-per-harvest yield. */}
+          {def.firePerSecond !== undefined && (
+            <span className="ml-1.5 font-sans text-[9px] tabular-nums text-text-muted">
+              {(statAtLevel(def.firePerSecond, building.level) * 60).toFixed(1)}
+              /min
+            </span>
+          )}
+          {def.harvestYield !== undefined && def.growDurationMs !== undefined && (
+            <span className="ml-1.5 font-sans text-[9px] tabular-nums text-text-muted">
+              +{intStatAtLevel(def.harvestYield, building.level)} every{" "}
+              {Math.round(def.growDurationMs / 1000)}s
+            </span>
+          )}
           {!editMode && (
             <span className="ml-1.5 font-sans text-[9px] uppercase tracking-[0.16em] text-text-muted">
               {canUpgrade ? "↑ ready" : isReady ? "✓ collect" : "tap"}
