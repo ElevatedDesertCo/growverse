@@ -14,6 +14,7 @@ import {
   getPendingFire,
   intStatAtLevel,
   isReadyToHarvest,
+  MAX_LEVEL,
   statAtLevel,
 } from "@/lib/economy";
 import { playSfx } from "@/lib/systems/audioSystem";
@@ -375,6 +376,9 @@ export function DraggableBuilding({
             className="ml-1.5 rounded-full bg-bg-mid/70 px-1.5 py-px font-sans text-[9px] font-bold tabular-nums text-text-primary"
           >
             Lv {building.level}
+            <span className="text-text-muted/70">
+              /{def.maxLevel ?? MAX_LEVEL}
+            </span>
           </span>
           {!editMode && (
             <span className="ml-1.5 font-sans text-[9px] uppercase tracking-[0.16em] text-text-muted">
