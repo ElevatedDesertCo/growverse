@@ -63,6 +63,7 @@ function ResourcePill({
 }) {
   const { Icon, accent, short, full, field } = spec;
   const atCap = max !== null && value >= max;
+  const nearCap = !atCap && max !== null && value >= max * 0.9;
   const display = value.toLocaleString();
   const maxDisplay = max !== null ? max.toLocaleString() : null;
   const resourceDef = RESOURCES[field as keyof typeof RESOURCES];
@@ -121,7 +122,9 @@ function ResourcePill({
       className={`group relative flex h-9 flex-shrink-0 items-center gap-1.5 rounded-full border bg-bg-deep/85 pl-1 pr-2.5 backdrop-blur transition-colors ${
         atCap
           ? "border-red-400/60 ring-1 ring-red-500/30"
-          : "border-gold/35 hover:border-gold/55"
+          : nearCap
+            ? "border-amber-300/55 ring-1 ring-amber-400/25"
+            : "border-gold/35 hover:border-gold/55"
       }`}
       onMouseEnter={() => setTipOpen(true)}
       onMouseLeave={() => {
@@ -144,7 +147,9 @@ function ResourcePill({
       style={{
         boxShadow: atCap
           ? "0 0 12px -4px rgba(220,80,80,0.5), inset 0 1px 0 rgba(255,255,255,0.05)"
-          : `0 0 10px -4px ${accent}55, inset 0 1px 0 rgba(255,255,255,0.05)`,
+          : nearCap
+            ? "0 0 10px -4px rgba(232,180,90,0.55), inset 0 1px 0 rgba(255,255,255,0.05)"
+            : `0 0 10px -4px ${accent}55, inset 0 1px 0 rgba(255,255,255,0.05)`,
       }}
     >
       {/* Icon — circular tinted disc */}
@@ -173,10 +178,14 @@ function ResourcePill({
           animate={{ scale: [1, 1.16, 1] }}
           transition={{ duration: 0.28, ease: "easeOut" }}
           className={`whitespace-nowrap text-sm font-bold tabular-nums ${
-            atCap ? "text-red-300" : "text-text-primary"
+            atCap
+              ? "text-red-300"
+              : nearCap
+                ? "text-amber-200"
+                : "text-text-primary"
           }`}
           style={{
-            color: atCap ? undefined : accent,
+            color: atCap || nearCap ? undefined : accent,
             textShadow: "0 1px 0 rgba(0,0,0,0.55)",
           }}
         >

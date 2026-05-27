@@ -59,6 +59,7 @@ import { HelpCircle, RotateCcw, Smartphone, Trophy } from "lucide-react";
 export function SettingsButton() {
   const [open, setOpen] = useState(false);
   const [confirming, setConfirming] = useState(false);
+  const [resetConfirmText, setResetConfirmText] = useState("");
   const [mounted, setMounted] = useState(false);
   // Local mirror of the persisted audio mute flags so the toggle UI
   // re-renders when the user flips them.
@@ -131,12 +132,23 @@ export function SettingsButton() {
   const handleClose = () => {
     setOpen(false);
     setConfirming(false);
+    setResetConfirmText("");
   };
+
+  // Clear the typed-confirm input whenever the reset modal closes —
+  // forces the player to type RESET again next time they consider it.
+  useEffect(() => {
+    if (!confirming) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setResetConfirmText("");
+    }
+  }, [confirming]);
 
   const handleReset = () => {
     playSfx("upgradeComplete");
     resetSave();
     setConfirming(false);
+    setResetConfirmText("");
     setOpen(false);
   };
 
@@ -862,6 +874,26 @@ export function SettingsButton() {
                       You&apos;ll start fresh with your initial bag.{" "}
                       <span className="text-red-300/90">Cannot be undone.</span>
                     </p>
+                    <div className="w-full">
+                      <label
+                        htmlFor="reset-confirm-input"
+                        className="block text-center font-display text-[9px] font-medium uppercase tracking-[0.22em] text-text-muted"
+                      >
+                        Type <span className="text-red-300">RESET</span> to confirm
+                      </label>
+                      <input
+                        id="reset-confirm-input"
+                        type="text"
+                        autoComplete="off"
+                        autoCorrect="off"
+                        autoCapitalize="characters"
+                        spellCheck={false}
+                        value={resetConfirmText}
+                        onChange={(e) => setResetConfirmText(e.target.value)}
+                        placeholder="RESET"
+                        className="mt-1.5 w-full rounded-lg border border-red-400/30 bg-bg-deep/80 px-3 py-2 text-center font-display text-sm font-bold uppercase tracking-[0.3em] text-red-200 placeholder:text-red-300/30 focus:border-red-400/70 focus:outline-none"
+                      />
+                    </div>
                     <div className="mt-1 flex w-full items-center justify-center gap-2">
                       <button
                         type="button"
@@ -875,8 +907,9 @@ export function SettingsButton() {
                       </button>
                       <button
                         type="button"
+                        disabled={resetConfirmText.trim().toUpperCase() !== "RESET"}
                         onClick={handleReset}
-                        className="flex-1 rounded-full bg-red-500 px-4 py-2.5 font-display text-[11px] font-bold uppercase tracking-[0.2em] text-bg-deep shadow-[0_4px_18px_-6px_rgba(217,87,87,0.7)] transition-colors hover:bg-red-400"
+                        className="flex-1 rounded-full bg-red-500 px-4 py-2.5 font-display text-[11px] font-bold uppercase tracking-[0.2em] text-bg-deep shadow-[0_4px_18px_-6px_rgba(217,87,87,0.7)] transition-colors hover:bg-red-400 disabled:cursor-not-allowed disabled:bg-red-500/30 disabled:text-bg-deep/50 disabled:shadow-none"
                       >
                         Wipe It
                       </button>
