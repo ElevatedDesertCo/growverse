@@ -535,6 +535,49 @@ export function BaseGrid() {
             </motion.div>
           )}
 
+          {/* First-build cell pointer — when the player has no buildings
+              yet AND the BuildMenu is open with no cell picked, an
+              animated arrow drops onto a recommended center cell so the
+              huge grid of pulsing options has an obvious starting point. */}
+          {buildings.length === 0 &&
+            buildMenuOpen &&
+            selectedCell === null && (
+              <motion.div
+                initial={{ opacity: 0, y: -10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3, ease: "easeOut" }}
+                className="pointer-events-none z-[6] flex flex-col items-center justify-end pb-1"
+                style={{
+                  gridColumn: `${Math.floor(GRID_COLS / 2)} / span 2`,
+                  gridRow: `${Math.floor(GRID_ROWS / 2) - 1} / span 1`,
+                  alignSelf: "end",
+                  justifySelf: "center",
+                }}
+                aria-hidden
+              >
+                <span
+                  className="rounded-full bg-bg-deep/90 px-2 py-0.5 font-display text-[9px] font-bold uppercase tracking-[0.22em] text-gold shadow-[0_2px_8px_rgba(0,0,0,0.55)] ring-1 ring-gold/45"
+                  style={{ fontFamily: "var(--font-cinzel)" }}
+                >
+                  Tap here
+                </span>
+                <motion.div
+                  animate={{ y: [0, 6, 0] }}
+                  transition={{
+                    duration: 1.2,
+                    repeat: Infinity,
+                    ease: "easeInOut",
+                  }}
+                  className="text-gold"
+                >
+                  <ChevronDown
+                    className="h-6 w-6 drop-shadow-[0_0_8px_rgba(212,160,74,0.75)]"
+                    strokeWidth={3}
+                  />
+                </motion.div>
+              </motion.div>
+            )}
+
           {/* Layer 3 — placement-dust bursts (just-placed buildings) */}
           <AnimatePresence>
             {dusts.map((d) => (

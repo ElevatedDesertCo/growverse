@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, Trophy, X } from "lucide-react";
+import { Check, Filter, Trophy, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { playSfx } from "@/lib/systems/audioSystem";
@@ -36,6 +36,13 @@ export function AchievementsModal({
 }) {
   const [mounted, setMounted] = useState(false);
   const [stats, setStats] = useState<Stats | null>(null);
+  const [unlockedOnly, setUnlockedOnly] = useState(false);
+  // Snapshot of milestone ids that were already unlocked at the moment
+  // the modal opened. Anything unlocked AFTER that gets the just-unlocked
+  // flash so the player notices what changed since their last visit.
+  const [initialUnlocked, setInitialUnlocked] = useState<Set<string>>(
+    () => new Set(),
+  );
 
   // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMounted(true), []);
@@ -43,8 +50,15 @@ export function AchievementsModal({
     if (!open) return;
     // Intentional one-shot snapshot when the panel opens, then live
     // subscribe for updates while it's visible.
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setStats(getStats());
+    const s = getStats();
+    const initial = new Set<string>();
+    for (const m of MILESTONES) {
+      if (s[m.key] >= m.threshold) initial.add(`${m.key}:${m.threshold}`);
+    }
+    /* eslint-disable react-hooks/set-state-in-effect */
+    setInitialUnlocked(initial);
+    setStats(s);
+    /* eslint-enable react-hooks/set-state-in-effect */
     return subscribeStats(setStats);
   }, [open]);
 
@@ -56,14 +70,22 @@ export function AchievementsModal({
   if (!mounted) return null;
 
   const grouped = stats
-    ? MILESTONES.map((m) => ({
-        m,
-        current: stats[m.key],
-        unlocked: stats[m.key] >= m.threshold,
-        progress: Math.min(1, stats[m.key] / m.threshold),
-      }))
+    ? MILESTONES.map((m) => {
+        const id = `${m.key}:${m.threshold}`;
+        const unlocked = stats[m.key] >= m.threshold;
+        return {
+          m,
+          current: stats[m.key],
+          unlocked,
+          progress: Math.min(1, stats[m.key] / m.threshold),
+          justUnlocked: unlocked && !initialUnlocked.has(id),
+        };
+      })
     : [];
   const unlockedCount = grouped.filter((g) => g.unlocked).length;
+  const visibleRows = unlockedOnly
+    ? grouped.filter((g) => g.unlocked)
+    : grouped;
 
   return createPortal(
     <AnimatePresence>
@@ -121,7 +143,7 @@ export function AchievementsModal({
                   >
                     <Trophy className="h-5 w-5 text-bg-deep" strokeWidth={2.25} />
                   </div>
-                  <div className="flex flex-col leading-tight">
+                  <div className="flex flex-1 flex-col leading-tight">
                     <h2
                       id="achievements-title"
                       className="font-display text-base font-bold uppercase tracking-[0.22em] text-gold"
@@ -136,15 +158,47 @@ export function AchievementsModal({
                       {unlockedCount} of {grouped.length} unlocked
                     </span>
                   </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      playSfx("buttonClick");
+                      setUnlockedOnly((v) => !v);
+                    }}
+                    aria-pressed={unlockedOnly}
+                    aria-label={
+                      unlockedOnly
+                        ? "Show all achievements"
+                        : "Show only unlocked achievements"
+                    }
+                    title={
+                      unlockedOnly
+                        ? "Showing unlocked only — tap to show all"
+                        : "Tap to filter to unlocked only"
+                    }
+                    className={`mr-7 inline-flex items-center gap-1 rounded-full border px-2.5 py-1 font-display text-[9px] font-bold uppercase tracking-[0.18em] transition-colors ${
+                      unlockedOnly
+                        ? "border-gold/65 bg-gold/15 text-gold"
+                        : "border-gold/30 bg-bg-mid/40 text-text-muted hover:border-gold/50 hover:text-text-primary"
+                    }`}
+                  >
+                    <Filter className="h-3 w-3" strokeWidth={2.5} />
+                    Unlocked
+                  </button>
                 </header>
                 <ul className="overflow-y-auto px-3 py-3">
-                  {grouped.map(({ m, current, unlocked, progress }) => (
+                  {visibleRows.length === 0 && (
+                    <li className="px-3 py-6 text-center text-[11px] text-text-muted">
+                      No unlocked milestones yet. Start by placing your Guild Core.
+                    </li>
+                  )}
+                  {visibleRows.map(({ m, current, unlocked, progress, justUnlocked }) => (
                     <li key={`${m.key}:${m.threshold}`}>
                       <AchievementRow
                         m={m}
                         current={current}
                         unlocked={unlocked}
                         progress={progress}
+                        justUnlocked={justUnlocked}
                       />
                     </li>
                   ))}
@@ -173,14 +227,37 @@ function AchievementRow({
   current,
   unlocked,
   progress,
+  justUnlocked,
 }: {
   m: Milestone;
   current: number;
   unlocked: boolean;
   progress: number;
+  justUnlocked: boolean;
 }) {
   return (
-    <div
+    <motion.div
+      animate={
+        justUnlocked
+          ? {
+              backgroundColor: [
+                "rgba(212,160,74,0.05)",
+                `${m.accent}33`,
+                "rgba(212,160,74,0.05)",
+              ],
+              boxShadow: [
+                "0 0 0 0 rgba(212,160,74,0)",
+                `0 0 20px 2px ${m.accent}66`,
+                "0 0 0 0 rgba(212,160,74,0)",
+              ],
+            }
+          : undefined
+      }
+      transition={
+        justUnlocked
+          ? { duration: 1.6, repeat: 1, ease: "easeInOut" }
+          : undefined
+      }
       className={`flex items-center gap-3 rounded-lg px-3 py-2 transition-colors ${
         unlocked
           ? "bg-gold/5"
@@ -243,6 +320,6 @@ function AchievementRow({
           />
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 }
