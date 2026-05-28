@@ -1,13 +1,15 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Flame, Gift, X } from "lucide-react";
+import { Flame, Gift, HeartCrack, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useGameStore } from "@/lib/store";
 import { playSfx } from "@/lib/systems/audioSystem";
 import {
+  clearLostStreakForUI,
   getDailyStreak,
+  getLostStreakForUI,
   getPendingDailyReward,
   markDailyClaimed,
   type DailyRewardBundle,
@@ -50,6 +52,7 @@ export function DailyRewardModal() {
   // reflects the player's current run. Re-read whenever the bundle
   // appears (i.e. the modal is about to show).
   const [priorStreak, setPriorStreak] = useState(0);
+  const [lostStreak, setLostStreak] = useState<number | null>(null);
   const grantResources = useGameStore((s) => s.grantResources);
 
   // eslint-disable-next-line react-hooks/set-state-in-effect
@@ -66,6 +69,7 @@ export function DailyRewardModal() {
       const pending = getPendingDailyReward();
       if (pending) {
         setPriorStreak(getDailyStreak());
+        setLostStreak(getLostStreakForUI());
         setBundle(pending);
       }
     };
@@ -87,6 +91,10 @@ export function DailyRewardModal() {
   const close = () => {
     playSfx("buttonClick");
     setBundle(null);
+    // Clear the lost-streak banner whether the player claimed or
+    // dismissed — they've seen the notice either way.
+    clearLostStreakForUI();
+    setLostStreak(null);
   };
 
   const handleClaim = () => {
@@ -187,6 +195,21 @@ export function DailyRewardModal() {
                 >
                   {bundle.title}
                 </h2>
+
+                {/* Lost-streak banner — only shows when the player just
+                    broke a multi-day streak by missing a day. Makes the
+                    information impossible to miss vs. the one-shot toast. */}
+                {lostStreak !== null && lostStreak >= 2 && (
+                  <div className="-mt-1 flex items-center gap-2 rounded-lg border border-purple-400/35 bg-purple-500/10 px-3 py-1.5 text-left">
+                    <HeartCrack
+                      className="h-4 w-4 flex-shrink-0 text-purple-300"
+                      strokeWidth={2.25}
+                    />
+                    <span className="text-[10px] leading-snug text-purple-200">
+                      Your <span className="font-bold">{lostStreak}-day</span> streak just ended. Claim today to restart at Day 1.
+                    </span>
+                  </div>
+                )}
 
                 {/* Streak chip — shows what day of the current run this
                     claim continues. After claim flips to the new total. */}

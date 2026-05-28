@@ -942,9 +942,14 @@ function ExportSummary({ text }: { text: string }) {
   let amber = 0;
   let myco = 0;
   let exportedAt = "";
+  let version: number | null = null;
+  // Lifetime stat snapshot lives in localStorage (statsSystem), not
+  // inside the persisted store envelope — pull it live for display.
+  const lifetime = getStats();
   try {
     const env = JSON.parse(text) as {
       exportedAt?: number;
+      version?: number;
       state?: { state?: { buildings?: unknown[]; resources?: Record<string, number> } };
     };
     const inner = env?.state?.state;
@@ -957,15 +962,28 @@ function ExportSummary({ text }: { text: string }) {
     if (typeof env.exportedAt === "number") {
       exportedAt = new Date(env.exportedAt).toLocaleString();
     }
+    if (typeof env.version === "number") {
+      version = env.version;
+    }
   } catch {
     /* malformed — render the card without numbers */
   }
   return (
     <div className="rounded-lg border border-gold/25 bg-bg-deep/60 px-3 py-2">
       <div className="flex items-center justify-between gap-2">
-        <span className="font-display text-[9px] font-bold uppercase tracking-[0.18em] text-gold">
-          Snapshot
-        </span>
+        <div className="flex items-center gap-1.5">
+          <span className="font-display text-[9px] font-bold uppercase tracking-[0.18em] text-gold">
+            Snapshot
+          </span>
+          {version !== null && (
+            <span
+              className="rounded-full border border-gold/35 bg-bg-mid/60 px-1.5 font-display text-[8px] font-bold uppercase tracking-[0.18em] text-gold/85"
+              title={`Save schema v${version}`}
+            >
+              v{version}
+            </span>
+          )}
+        </div>
         {exportedAt && (
           <span className="font-sans text-[9px] text-text-muted/80">
             {exportedAt}
@@ -990,6 +1008,34 @@ function ExportSummary({ text }: { text: string }) {
           <span className="text-text-muted">Myco</span>
         </span>
       </div>
+      {lifetime && (
+        <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-0.5 border-t border-gold/15 pt-1.5 font-sans text-[9px] text-text-muted/85">
+          <span>
+            <span className="font-bold tabular-nums text-text-primary">
+              {lifetime.buildingsPlaced}
+            </span>{" "}
+            placed
+          </span>
+          <span>
+            <span className="font-bold tabular-nums text-text-primary">
+              {lifetime.buildingsUpgraded}
+            </span>{" "}
+            upgraded
+          </span>
+          <span>
+            <span className="font-bold tabular-nums text-text-primary">
+              {lifetime.harvestsCollected}
+            </span>{" "}
+            harvests
+          </span>
+          <span>
+            <span className="font-bold tabular-nums text-text-primary">
+              {lifetime.decorCleared}
+            </span>{" "}
+            cleared
+          </span>
+        </div>
+      )}
     </div>
   );
 }
