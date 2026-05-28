@@ -64,6 +64,9 @@ export function DraggableBuilding({
   const editMode = useGameStore((s) => s.editMode);
   const removeBuilding = useGameStore((s) => s.removeBuilding);
   const resources = useGameStore((s) => s.resources);
+  // True for ~1.4s after this exact building was placed — triggers a
+  // one-shot confirm-pulse so the player sees their action landed.
+  const justPlaced = useGameStore((s) => s.lastPlacedId === building.id);
   const canDelete = editMode && isTapSelected && !BUILDINGS[building.type].singleton;
   const canUpgrade =
     !isMaxLevel(building.type, building.level) &&
@@ -332,6 +335,25 @@ export function DraggableBuilding({
         opacity: phase === "dragging" ? 0.9 : 1,
       }}
     >
+      {/* Just-placed confirm pulse — one-shot ring + scale bounce so
+          the player sees their placement landed. Cleared by the store
+          after PLACED_PULSE_MS. */}
+      {justPlaced && (
+        <motion.div
+          className="pointer-events-none absolute -inset-1 rounded-lg"
+          initial={{ opacity: 0, scale: 0.75 }}
+          animate={{
+            opacity: [0, 1, 0.6, 0],
+            scale: [0.75, 1.15, 1.05, 1.25],
+          }}
+          transition={{ duration: 1.0, ease: "easeOut", times: [0, 0.25, 0.7, 1] }}
+          style={{
+            boxShadow:
+              "0 0 0 2px rgba(212,160,74,0.85), 0 0 32px rgba(212,160,74,0.7)",
+          }}
+          aria-hidden
+        />
+      )}
       {/* Tap-selected ring — animated gold halo with continuous breathe
           so the selection reads as "this is interactive right now" vs.
           a static border. Two layers: a soft outer glow that pulses

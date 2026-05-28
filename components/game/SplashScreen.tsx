@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 
 const LOAD_MS = 2400;
 const FADE_MS = 600;
+// Window before tap-to-skip activates. Prevents an accidental finger
+// on launch from dismissing the splash before the player sees it.
+const SKIP_ENABLE_MS = 700;
 
 /** Lore tips rotated through the splash. Each rotation: ~1.2s. */
 const TIPS: string[] = [
@@ -30,6 +33,17 @@ export function SplashScreen() {
   // Seed with a random tip so refreshes feel different. Rotate every
   // 1.2s — covers ~2 tips per 2.4s load duration.
   const [tipIdx, setTipIdx] = useState(() => pickRandomTipIndex());
+  const [skipEnabled, setSkipEnabled] = useState(false);
+
+  useEffect(() => {
+    const id = window.setTimeout(() => setSkipEnabled(true), SKIP_ENABLE_MS);
+    return () => window.clearTimeout(id);
+  }, []);
+
+  const handleSkip = () => {
+    if (!skipEnabled || phase !== "loading") return;
+    setPhase("fading");
+  };
 
   useEffect(() => {
     if (phase !== "loading") return;
@@ -95,9 +109,18 @@ export function SplashScreen() {
   return (
     <div
       aria-hidden
+      onClick={handleSkip}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " " || e.key === "Escape") {
+          handleSkip();
+        }
+      }}
+      role={skipEnabled && !fading ? "button" : undefined}
+      tabIndex={skipEnabled && !fading ? 0 : undefined}
       style={{
         opacity: fading ? 0 : 1,
         pointerEvents: fading ? "none" : "auto",
+        cursor: skipEnabled && !fading ? "pointer" : "default",
         transition: `opacity ${FADE_MS}ms ease-in-out`,
       }}
       className="fixed inset-0 z-50 bg-bg-deep"
@@ -118,7 +141,7 @@ export function SplashScreen() {
           className="font-display text-[10px] uppercase tracking-[0.45em] text-gold/90"
           style={{ fontFamily: "var(--font-cinzel)" }}
         >
-          Loading
+          {skipEnabled ? "Tap to skip" : "Loading"}
         </span>
 
         <div className="relative h-2 w-full max-w-xs overflow-hidden rounded-full border border-gold/40 bg-bg-deep/80 shadow-[0_0_18px_rgba(212,160,74,0.25)]">

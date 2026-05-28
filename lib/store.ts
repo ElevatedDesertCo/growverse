@@ -213,6 +213,10 @@ interface GameState {
   /** Re-render trigger written by the global 500ms tick. */
   _tickAt: number;
 
+  /** ID of the most recently placed building, used for a one-shot
+   *  "just placed" pulse animation. Cleared ~1.4s after placement. */
+  lastPlacedId: string | null;
+
   openBuildMenu: (x?: number, y?: number) => void;
   closeBuildMenu: () => void;
   placeBuilding: (type: BuildingType) => void;
@@ -348,6 +352,26 @@ export function canPlaceNew(
   return canPlace(type, x, y, buildings);
 }
 
+// ─── Just-placed pulse helper ───────────────────────────────────────
+// Schedules a clear of `lastPlacedId` ~1.4s after placement so the
+// DraggableBuilding pulse animation is one-shot. Module-level so the
+// timer survives the action returning.
+
+const PLACED_PULSE_MS = 1400;
+
+function scheduleClearLastPlaced(
+  id: string,
+  set: (partial: Partial<GameState>) => void,
+  get: () => GameState,
+) {
+  if (typeof window === "undefined") return;
+  window.setTimeout(() => {
+    if (get().lastPlacedId === id) {
+      set({ lastPlacedId: null });
+    }
+  }, PLACED_PULSE_MS);
+}
+
 // ─── Grid coordinate translation (module-level, no React context) ───
 let gridEl: HTMLElement | null = null;
 
@@ -389,6 +413,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
   dragState: null,
   hoverCell: null,
   _tickAt: 0,
+  lastPlacedId: null,
 
   openBuildMenu: (x, y) =>
     set({
@@ -407,16 +432,16 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     const def = BUILDINGS[type];
     const cost = def.buildCost ?? { bloomEssence: def.baseCost };
     if (!canAffordCost(state.resources, cost)) return;
+    const placed = createPlacedBuilding(type, cell.x, cell.y);
     set((s) => ({
-      buildings: [
-        ...s.buildings,
-        createPlacedBuilding(type, cell.x, cell.y),
-      ],
+      buildings: [...s.buildings, placed],
       resources: spendResources(s.resources, cost),
       buildMenuOpen: false,
       selectedCell: null,
+      lastPlacedId: placed.id,
     }));
     bumpStat("buildingsPlaced");
+    scheduleClearLastPlaced(placed.id, set, get);
     pushToast({
       kind: "success",
       title: "Placed",
@@ -431,11 +456,14 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     const def = BUILDINGS[type];
     const cost = def.buildCost ?? { bloomEssence: def.baseCost };
     if (!canAffordCost(state.resources, cost)) return false;
+    const placed = createPlacedBuilding(type, x, y);
     set((s) => ({
-      buildings: [...s.buildings, createPlacedBuilding(type, x, y)],
+      buildings: [...s.buildings, placed],
       resources: spendResources(s.resources, cost),
+      lastPlacedId: placed.id,
     }));
     bumpStat("buildingsPlaced");
+    scheduleClearLastPlaced(placed.id, set, get);
     pushToast({
       kind: "success",
       title: "Placed",
