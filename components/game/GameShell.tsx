@@ -13,6 +13,7 @@ import { EditModeHint } from "./EditModeHint";
 import { EditModeOverlay } from "./EditModeOverlay";
 import { MilestoneConfetti } from "./MilestoneConfetti";
 import { ReadyChime } from "./ReadyChime";
+import { UndoRemoveBanner } from "./UndoRemoveBanner";
 import { Fireflies } from "./Fireflies";
 import { KeyboardShortcuts } from "./KeyboardShortcuts";
 import { MusicMount } from "./MusicMount";
@@ -79,6 +80,7 @@ export function GameShell() {
       <EditModeHint />
       <WelcomeBackToast />
       <MilestoneConfetti />
+      <UndoRemoveBanner />
       <ToastStack />
     </div>
   );

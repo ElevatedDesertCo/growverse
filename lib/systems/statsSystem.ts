@@ -134,6 +134,12 @@ function seen(): Set<string> {
   return seenCache;
 }
 
+/** Count of milestones the player has unlocked / total available. UI uses
+ *  this to surface progress in the HUD. */
+export function getMilestoneProgress(): { unlocked: number; total: number } {
+  return { unlocked: seen().size, total: MILESTONES.length };
+}
+
 type MilestoneHitFn = (m: Milestone) => void;
 let onMilestoneHit: MilestoneHitFn | null = null;
 

@@ -113,6 +113,15 @@ export function SettingsButton() {
     return () => window.removeEventListener("growverse:open-help", onOpen);
   }, []);
 
+  // Global "open achievements" event — fired by the HUD chip so it can
+  // open the modal without taking a route through Settings.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onOpen = () => setAchievementsOpen(true);
+    window.addEventListener("growverse:open-achievements", onOpen);
+    return () => window.removeEventListener("growverse:open-achievements", onOpen);
+  }, []);
+
   // Live-update stats while the panel is open (e.g. user dismisses,
   // earns more, reopens — they should see the new numbers).
   useEffect(() => {
