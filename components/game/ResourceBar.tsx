@@ -318,6 +318,33 @@ function ResourcePill({
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* Cap progress bar — thin fill across the bottom of the pill so
+          the player can see "how full" each capped resource is at a
+          glance. Color goes red at cap, amber near cap, accent otherwise. */}
+      {max !== null && max > 0 && (
+        <span
+          className="pointer-events-none absolute inset-x-1 bottom-[3px] h-[2px] overflow-hidden rounded-full bg-bg-mid/40"
+          aria-hidden
+        >
+          <span
+            className="block h-full rounded-full transition-[width] duration-300 ease-out"
+            style={{
+              width: `${Math.min(100, (value / max) * 100)}%`,
+              background: atCap
+                ? "linear-gradient(90deg, #f87171, #fb923c)"
+                : nearCap
+                  ? "linear-gradient(90deg, #fbbf24, #f59e0b)"
+                  : `linear-gradient(90deg, ${accent}, ${accent}cc)`,
+              boxShadow: atCap
+                ? "0 0 4px rgba(248,113,113,0.7)"
+                : nearCap
+                  ? "0 0 4px rgba(251,191,36,0.6)"
+                  : `0 0 4px ${accent}66`,
+            }}
+          />
+        </span>
+      )}
     </div>
   );
 }
