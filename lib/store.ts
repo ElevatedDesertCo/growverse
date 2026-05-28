@@ -217,6 +217,15 @@ interface GameState {
    *  "just placed" pulse animation. Cleared ~1.4s after placement. */
   lastPlacedId: string | null;
 
+  /** Snapshot of the last removed building so the UI can offer Undo.
+   *  Cleared after a short window or when the player accepts/dismisses. */
+  lastRemoved: {
+    building: PlacedBuilding;
+    refunded: Partial<Resources>;
+    /** Unix ms at which this snapshot was captured. */
+    at: number;
+  } | null;
+
   openBuildMenu: (x?: number, y?: number) => void;
   closeBuildMenu: () => void;
   placeBuilding: (type: BuildingType) => void;
@@ -224,6 +233,12 @@ interface GameState {
   moveBuilding: (id: string, x: number, y: number) => void;
   /** Remove a placed building. Refunds ~30% of build cost. */
   removeBuilding: (id: string) => boolean;
+  /** Restore the most recently removed building. Returns whether the
+   *  undo could be applied (snapshot still present, cell still free,
+   *  refund can be re-spent). Quiet no-op otherwise. */
+  undoRemove: () => boolean;
+  /** Clear the lastRemoved snapshot (player dismissed the undo toast). */
+  clearLastRemoved: () => void;
   toggleEditMode: () => void;
   selectPlacedBuilding: (id: string | null) => void;
 
@@ -414,6 +429,7 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
   hoverCell: null,
   _tickAt: 0,
   lastPlacedId: null,
+  lastRemoved: null,
 
   openBuildMenu: (x, y) =>
     set({
@@ -497,12 +513,15 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     const cost = def.buildCost ?? { bloomEssence: def.baseCost };
     const storageBonus = getTotalStorageBonus(state.buildings);
     let refunded = state.resources;
+    const refundedAmounts: Partial<Resources> = {};
     for (const [k, v] of Object.entries(cost)) {
       if (v && v > 0) {
+        const amt = Math.max(1, Math.floor(v * 0.3));
+        refundedAmounts[k as keyof Resources] = amt;
         refunded = addResource(
           refunded,
           k as keyof Resources,
-          Math.max(1, Math.floor(v * 0.3)),
+          amt,
           storageBonus,
         ).next;
       }
@@ -511,6 +530,11 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
       buildings: s.buildings.filter((b) => b.id !== id),
       resources: refunded,
       selectedPlacedId: null,
+      lastRemoved: {
+        building: target,
+        refunded: refundedAmounts,
+        at: Date.now(),
+      },
     }));
     pushToast({
       kind: "info",
@@ -520,6 +544,37 @@ export const useGameStore = create<GameState>()(persist((set, get) => ({
     });
     return true;
   },
+
+  undoRemove: () => {
+    const state = get();
+    const snap = state.lastRemoved;
+    if (!snap) return false;
+    // Cell must still be free (player might have rebuilt over it).
+    if (!canPlace(snap.building.type, snap.building.x, snap.building.y, state.buildings)) {
+      set({ lastRemoved: null });
+      return false;
+    }
+    // Spend back the refund (best-effort; clamps at 0 if balance is low).
+    const next: Resources = { ...state.resources };
+    for (const [k, v] of Object.entries(snap.refunded)) {
+      if (!v) continue;
+      next[k as keyof Resources] = Math.max(0, next[k as keyof Resources] - v);
+    }
+    set((s) => ({
+      buildings: [...s.buildings, snap.building],
+      resources: next,
+      lastRemoved: null,
+    }));
+    pushToast({
+      kind: "success",
+      title: "Restored",
+      body: BUILDINGS[snap.building.type].name,
+      accent: BUILDINGS[snap.building.type].color,
+    });
+    return true;
+  },
+
+  clearLastRemoved: () => set({ lastRemoved: null }),
 
   toggleEditMode: () =>
     set((state) => ({

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
-import { Coins, Flame, Leaf, Sparkles, Hexagon, Zap, Flame as FlameIcon } from "lucide-react";
+import { Coins, Flame, Leaf, Sparkles, Hexagon, Trophy, Zap, Flame as FlameIcon } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { RESOURCES } from "@/lib/data";
@@ -16,6 +16,7 @@ import {
 } from "@/lib/systems/playerProfile";
 import { getTotalStorageBonus } from "@/lib/systems/buildingSystem";
 import { aggregateReadyCollect } from "@/lib/systems/readyCollect";
+import { getMilestoneProgress, subscribeStats } from "@/lib/systems/statsSystem";
 import {
   isCapped,
   maxFor,
@@ -417,6 +418,15 @@ export function ResourceBar() {
     setDisplayNameState(getDisplayName());
     return subscribeDisplayName(() => setDisplayNameState(getDisplayName()));
   }, []);
+  // Milestone progress chip — re-reads whenever a stat update fires
+  // (any time a milestone is potentially crossed) so the chip stays
+  // in sync without polling.
+  const [milestones, setMilestones] = useState({ unlocked: 0, total: 0 });
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMilestones(getMilestoneProgress());
+    return subscribeStats(() => setMilestones(getMilestoneProgress()));
+  }, []);
 
   const maxOf = (field: keyof Resources) =>
     isCapped(field) ? maxFor(field, storageBonus) : null;
@@ -448,16 +458,12 @@ export function ResourceBar() {
               {displayName} · GC1
             </span>
           </div>
-          {/* Right-side: ready-collect badge (gardens/forges pending)
-              + daily streak badge. Empty spacer when both are zero so
-              the centered title stays optically balanced. */}
+          {/* Right-side: ready-collect badge, streak badge, and the
+              always-on achievements counter chip. */}
           {(() => {
             const ready = aggregateReadyCollect(buildings);
             const hasReady =
               ready.readyGardens > 0 || ready.pendingAmber > 0;
-            if (!hasReady && streak <= 0) {
-              return <div className="h-8 w-8" aria-hidden />;
-            }
             return (
               <div className="flex items-center gap-1.5">
                 {hasReady && (
@@ -535,6 +541,40 @@ export function ResourceBar() {
                       </span>
                     </span>
                   </div>
+                )}
+                {milestones.total > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      playSfx("buttonClick");
+                      if (typeof window !== "undefined") {
+                        window.dispatchEvent(
+                          new CustomEvent("growverse:open-achievements"),
+                        );
+                      }
+                    }}
+                    title={`${milestones.unlocked} of ${milestones.total} achievements unlocked`}
+                    aria-label={`Open Achievements (${milestones.unlocked} of ${milestones.total} unlocked)`}
+                    className="flex h-8 items-center gap-1.5 rounded-full border border-gold/35 bg-bg-deep/80 px-2.5 backdrop-blur transition-colors hover:border-gold/60"
+                    style={{
+                      boxShadow: "0 0 10px -4px rgba(212,160,74,0.45)",
+                    }}
+                  >
+                    <Trophy
+                      className="h-3.5 w-3.5 text-gold"
+                      strokeWidth={2.5}
+                      style={{
+                        filter:
+                          "drop-shadow(0 0 4px rgba(212,160,74,0.7))",
+                      }}
+                    />
+                    <span className="font-display text-[11px] font-bold tabular-nums text-gold">
+                      {milestones.unlocked}
+                      <span className="ml-px text-[9px] text-text-muted">
+                        /{milestones.total}
+                      </span>
+                    </span>
+                  </button>
                 )}
               </div>
             );

@@ -142,6 +142,7 @@ export function HelpModal({
                     <div className="grid grid-cols-2 gap-2 text-[11px]">
                       <Shortcut keys={["B"]} body="Open Build menu" />
                       <Shortcut keys={["E"]} body="Toggle Edit mode" />
+                      <Shortcut keys={["M"]} body="Mute / unmute all audio" />
                       <Shortcut keys={["?"]} body="Open this help" />
                       <Shortcut keys={["Esc"]} body="Close current panel" />
                     </div>

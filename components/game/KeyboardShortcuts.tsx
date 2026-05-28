@@ -2,7 +2,13 @@
 
 import { useEffect } from "react";
 import { useGameStore } from "@/lib/store";
-import { playSfx } from "@/lib/systems/audioSystem";
+import {
+  isMuted as isSfxMuted,
+  playSfx,
+  setMuted as setSfxMuted,
+} from "@/lib/systems/audioSystem";
+import { isMusicMuted, setMusicMuted } from "@/lib/systems/musicSystem";
+import { pushToast } from "@/lib/systems/toastSystem";
 
 /**
  * Headless. Global keyboard shortcuts for desktop play:
@@ -70,6 +76,24 @@ export function KeyboardShortcuts() {
       } else if (k === "e") {
         s.toggleEditMode();
         playSfx("buttonClick");
+        e.preventDefault();
+      } else if (k === "m") {
+        // Mute toggle — flips BOTH SFX and music together so the player
+        // gets a single quiet-the-game shortcut. State derived from SFX
+        // mute: if currently audible, mute both; otherwise unmute both.
+        const wasMuted = isSfxMuted() && isMusicMuted();
+        const nextMuted = !wasMuted;
+        setSfxMuted(nextMuted);
+        setMusicMuted(nextMuted);
+        // Play feedback chime BEFORE muting, or skip when muting.
+        if (!nextMuted) playSfx("buttonClick");
+        pushToast({
+          kind: "info",
+          title: nextMuted ? "Muted" : "Unmuted",
+          body: nextMuted ? "All audio off." : "Audio restored.",
+          accent: nextMuted ? "#7a7a7a" : "#d4a04a",
+          ttlMs: 1600,
+        });
         e.preventDefault();
       }
     };
