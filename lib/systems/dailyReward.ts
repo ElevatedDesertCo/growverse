@@ -11,6 +11,24 @@ const LAST_CLAIM_KEY = "growverse-daily-claimed";
 const STREAK_KEY = "growverse-daily-streak";
 const LAST_SHOWN_STREAK_KEY = "growverse-streak-last-shown";
 
+// Module-level cache of the most recently consumed lost-streak so the
+// Daily Bounty modal can surface the same information prominently
+// without firing the toast a second time. Cleared after the modal
+// closes (via clearLostStreakForUI) or the next consumeLostStreakNotice.
+let lostStreakForUI: number | null = null;
+
+/** Returns the lost-streak value cached for UI display (banner inside
+ *  the Daily Bounty modal). Survives until clearLostStreakForUI runs. */
+export function getLostStreakForUI(): number | null {
+  return lostStreakForUI;
+}
+
+/** Clears the cached lost-streak UI flag — call after the player has
+ *  acknowledged it (claim or dismiss). */
+export function clearLostStreakForUI(): void {
+  lostStreakForUI = null;
+}
+
 export interface DailyRewardBundle {
   /** Sparse map of resource → amount granted. */
   amounts: Partial<Record<keyof Resources, number>>;
@@ -69,6 +87,9 @@ export function consumeLostStreakNotice(): number | null {
     window.localStorage.setItem(LAST_SHOWN_STREAK_KEY, sig);
     // Reset the stored streak to 0 now that we've consumed the notice.
     window.localStorage.setItem(STREAK_KEY, "0");
+    // Cache for the Daily Bounty modal banner so it surfaces the loss
+    // even after StreakWatcher fires the one-shot toast.
+    lostStreakForUI = storedStreak;
     return storedStreak;
   } catch {
     return null;

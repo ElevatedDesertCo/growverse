@@ -143,6 +143,7 @@ export function HelpModal({
                       <Shortcut keys={["B"]} body="Open Build menu" />
                       <Shortcut keys={["E"]} body="Toggle Edit mode" />
                       <Shortcut keys={["M"]} body="Mute / unmute all audio" />
+                      <Shortcut keys={["←", "→", "↑", "↓"]} body="Nudge selected building (Edit)" />
                       <Shortcut keys={["?"]} body="Open this help" />
                       <Shortcut keys={["Esc"]} body="Close current panel" />
                     </div>

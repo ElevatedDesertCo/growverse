@@ -77,6 +77,33 @@ export function KeyboardShortcuts() {
         s.toggleEditMode();
         playSfx("buttonClick");
         e.preventDefault();
+      } else if (
+        s.editMode &&
+        s.selectedPlacedId !== null &&
+        (e.key === "ArrowLeft" ||
+          e.key === "ArrowRight" ||
+          e.key === "ArrowUp" ||
+          e.key === "ArrowDown")
+      ) {
+        // Arrow-key nudge for the currently selected building. Lazy
+        // import the buildings dep here so the module stays light if
+        // the player never enters edit mode on desktop.
+        const target = s.buildings.find((b) => b.id === s.selectedPlacedId);
+        if (!target) return;
+        let dx = 0;
+        let dy = 0;
+        if (e.key === "ArrowLeft") dx = -1;
+        else if (e.key === "ArrowRight") dx = 1;
+        else if (e.key === "ArrowUp") dy = -1;
+        else if (e.key === "ArrowDown") dy = 1;
+        const moved = useGameStore.getState();
+        // moveBuilding bails if the target cell isn't valid + clears
+        // selectedPlacedId on success, so we re-select to keep nudges
+        // flowing without an extra tap.
+        moved.moveBuilding(target.id, target.x + dx, target.y + dy);
+        moved.selectPlacedBuilding(target.id);
+        playSfx("buttonClick");
+        e.preventDefault();
       } else if (k === "m") {
         // Mute toggle — flips BOTH SFX and music together so the player
         // gets a single quiet-the-game shortcut. State derived from SFX
