@@ -1,0 +1,20 @@
+{
+  "framework": null,
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "trailingSlash": false,
+  "rewrites": [
+    { "source": "/links", "destination": "/links.html" },
+    { "source": "/social", "destination": "/links.html" },
+    { "source": "/social-media-links", "destination": "/links.html" },
+    { "source": "/play", "destination": "/play.html" },
+    { "source": "/privacy", "destination": "/privacy.html" },
+    { "source": "/terms", "destination": "/terms.html" },
+    { "source": "/merch", "destination": "/merch.html" },
+    { "source": "/press", "destination": "/press.html" },
+    { "source": "/data-deletion", "destination": "/data-deletion.html" },
+    { "source": "/support", "destination": "/support.html" },
+    { "source": "/wiki", "destination": "/guide.html" },
+    { "source": "/wiki/:path*", "destination": "/guide.html" }
+  ]
+}
