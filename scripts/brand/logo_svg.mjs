@@ -59,9 +59,19 @@ export const DEFS = `
 
 // Star positions inside the emblem disc (deterministic, hand-placed).
 const STARS = [
-  [-120, -118, 2.6], [-70, -150, 1.8], [-16, -122, 2.2], [42, -152, 1.7],
-  [96, -118, 2.6], [136, -66, 1.8], [-152, -58, 1.9], [-96, -66, 1.4],
-  [24, -88, 1.5], [78, -62, 1.9], [-44, -66, 1.6], [148, -12, 1.4], [-148, -4, 1.5],
+  [-120, -118, 2.6],
+  [-70, -150, 1.8],
+  [-16, -122, 2.2],
+  [42, -152, 1.7],
+  [96, -118, 2.6],
+  [136, -66, 1.8],
+  [-152, -58, 1.9],
+  [-96, -66, 1.4],
+  [24, -88, 1.5],
+  [78, -62, 1.9],
+  [-44, -66, 1.6],
+  [148, -12, 1.4],
+  [-148, -4, 1.5],
 ];
 
 // The emblem: golden ring, purple cosmos, warm sun, dunes, sacred sprout.
@@ -69,7 +79,8 @@ const STARS = [
 export function emblem(r = 200) {
   const inner = r - 14;
   const stars = STARS.map(
-    ([x, y, s]) => `<circle cx="${(x * r) / 200}" cy="${(y * r) / 200}" r="${(s * r) / 200}" fill="#efe6ff" opacity="0.9"/>`,
+    ([x, y, s]) =>
+      `<circle cx="${(x * r) / 200}" cy="${(y * r) / 200}" r="${(s * r) / 200}" fill="#efe6ff" opacity="0.9"/>`,
   ).join('');
   const k = r / 200; // scale factor for interior artwork authored at r=200
   const clipId = `disc${Math.round(r)}`;
@@ -95,7 +106,8 @@ export function emblem(r = 200) {
     <circle r="${r - 10 * k}" fill="none" stroke="#fff3c9" stroke-width="${2 * k}" opacity="0.55"/>
     ${[0, 90, 180, 270]
       .map(
-        (a) => `<g transform="rotate(${a}) translate(0 ${-r})"><path d="M 0 ${-16 * k} L ${12 * k} 0 L 0 ${16 * k} L ${-12 * k} 0 Z" fill="url(#gold)" stroke="${OUTLINE}" stroke-width="${2.5 * k}"/></g>`,
+        (a) =>
+          `<g transform="rotate(${a}) translate(0 ${-r})"><path d="M 0 ${-16 * k} L ${12 * k} 0 L 0 ${16 * k} L ${-12 * k} 0 Z" fill="url(#gold)" stroke="${OUTLINE}" stroke-width="${2.5 * k}"/></g>`,
       )
       .join('')}
   </g>`;

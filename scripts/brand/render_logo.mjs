@@ -5,7 +5,7 @@
 import fs from 'node:fs';
 import puppeteer from 'puppeteer-core';
 import { BROWSER_PATH } from '../browser_path.mjs';
-import { horizontalLogo, squareLogo, emblemIcon } from './logo_svg.mjs';
+import { emblemIcon, horizontalLogo, squareLogo } from './logo_svg.mjs';
 
 fs.mkdirSync('tmp/brand', { recursive: true });
 
