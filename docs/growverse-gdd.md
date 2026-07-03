@@ -1,5 +1,10 @@
 # GROWVERSE — Game Design Document v1.0
 
+> **STATUS (2026-07-02): Superseded for now.** Growverse pivoted to a classic-style
+> browser MMO built on the MIT-licensed World of ClaudeCraft codebase (see repo root).
+> This base-building grow-sim design is preserved as a possible future direction or
+> theming source for the MMO.
+
 ## One-Line Pitch
 A mystical base-building grow simulator where Cultivators tend sacred cannabis in a cosmic desert realm, defend their growth, and rise through guilds to claim dominion over the Growverse.
 

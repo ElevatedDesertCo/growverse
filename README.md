@@ -1,36 +1,57 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<div align="center">
 
-## Getting Started
+# Growverse
 
-First, run the development server:
+**Quest, group up, and raid a hand-built world, free in your browser.**
+
+A project by Elevated Desert Co.
+
+</div>
+
+## What this is
+
+Growverse is a classic-style browser MMO built on one deterministic TypeScript simulation core that runs in three places:
+
+- the **offline browser world** — click Play Offline and you are in,
+- the **authoritative multiplayer server** — Postgres-backed accounts sharing a live world,
+- the **headless RL env** — Python drives the real game through a Gym interface.
+
+Nine classes with talents, three open-world zones, ~80 quests, five instanced dungeons, ranked PvP arena, real multiplayer, and procedurally generated everything — towns, creatures, icons, and sound are all generated at runtime.
+
+## Quick start
+
+### Play offline in your browser
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # then open http://localhost:5173 and click Play Offline
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Run the full multiplayer stack
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run db:up      # Postgres 16 in Docker (dev DB on :5433)
+npm run server     # authoritative game server on :8787
+npm run dev        # client on :5173 (proxies /api and /ws to the server)
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+See `DEPLOY.md` for production hosting and `CLAUDE.md` for the architecture guide.
 
-## Learn More
+## Repo map
 
-To learn more about Next.js, take a look at the following resources:
+| Path | What it is |
+|---|---|
+| `src/sim/` | Deterministic game core — the source of truth |
+| `src/render/` | Three.js renderer (procedural geometry/textures/VFX) |
+| `src/game/` | Input, camera, keybinds, mobile controls, WebAudio |
+| `src/ui/` | HUD, windows, tooltips, map, i18n (21 locales) |
+| `src/net/` | Online client (REST auth + WebSocket world mirror) |
+| `server/` | Authoritative game server (HTTP+WS, Postgres, auth) |
+| `headless/` + `python/` | RL env server + Python Gym bindings |
+| `docs/` | Design docs, including the original Growverse GDD |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Credits and license
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Growverse is a fork of [World of ClaudeCraft](https://github.com/levy-street/world-of-claudecraft) by levy-street, used under the MIT License. See `LICENSE`, `CREDITS.md`, and `THIRD_PARTY_NOTICES.md` for full attribution.
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+MIT licensed.
