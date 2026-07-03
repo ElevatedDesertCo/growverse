@@ -20,7 +20,7 @@ import { LEVEL_CAP } from './data';
 
 // The site origin. Matches index.html's canonical/og:url host exactly.
 const ORIGIN = 'https://worldofclaudecraft.com';
-const LOGO = `${ORIGIN}/woc_logo_square.webp`;
+const LOGO = `${ORIGIN}/growverse_logo_square.webp`;
 const GITHUB_URL = 'https://github.com/levy-street/world-of-claudecraft';
 const DISCORD_URL = 'https://discord.gg/GjhnUsBtw';
 
