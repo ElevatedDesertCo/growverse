@@ -148,7 +148,7 @@ import {
 import { defaultIconPrewarmEntries, prewarmIconCache } from './ui/icon_prewarm';
 import { iconDataUrl } from './ui/icons';
 import { scheduleNativeUpdateCheck } from './ui/native_update_prompt';
-import { hideOnlineShell } from './ui/offline_only';
+import { hideOnlineShell, visibleServerOptions } from './ui/offline_only';
 import { createMetricsSampler } from './ui/perf_metrics_sampler';
 import { PerfOverlay } from './ui/perf_overlay';
 import { type PerfOverlayConfig, PerfOverlayConfigStore } from './ui/perf_overlay_config';
@@ -6147,7 +6147,8 @@ function wireStartScreens(): void {
     const openServerMenu = (): void => {
       serverMenu.toggleAttribute('hidden', false);
       serverTrigger.setAttribute('aria-expanded', 'true');
-      const selected = serverOptions.find((o) => o.dataset.mode === serverMode) ?? serverOptions[0];
+      const opts = visibleServerOptions(serverOptions);
+      const selected = opts.find((o) => o.dataset.mode === serverMode) ?? opts[0];
       setActiveOption(selected ?? null);
       selected?.focus();
     };
@@ -6183,29 +6184,32 @@ function wireStartScreens(): void {
     });
 
     serverMenu.addEventListener('keydown', (e) => {
-      const idx = serverOptions.findIndex((o) => o.classList.contains('is-active'));
+      // Re-filter at interaction time: hideOnlineShell() may have hidden the
+      // Online option after this listener captured the wire-time array.
+      const opts = visibleServerOptions(serverOptions);
+      const idx = opts.findIndex((o) => o.classList.contains('is-active'));
       if (e.key === 'ArrowDown') {
         e.preventDefault();
-        const next = serverOptions[Math.min(idx + 1, serverOptions.length - 1)] ?? serverOptions[0];
+        const next = opts[Math.min(idx + 1, opts.length - 1)] ?? opts[0];
         setActiveOption(next);
         next?.focus();
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
-        const prev = serverOptions[Math.max(idx - 1, 0)] ?? serverOptions[0];
+        const prev = opts[Math.max(idx - 1, 0)] ?? opts[0];
         setActiveOption(prev);
         prev?.focus();
       } else if (e.key === 'Home') {
         e.preventDefault();
-        setActiveOption(serverOptions[0]);
-        serverOptions[0]?.focus();
+        setActiveOption(opts[0] ?? null);
+        opts[0]?.focus();
       } else if (e.key === 'End') {
         e.preventDefault();
-        const last = serverOptions[serverOptions.length - 1];
-        setActiveOption(last);
+        const last = opts[opts.length - 1];
+        setActiveOption(last ?? null);
         last?.focus();
       } else if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
-        const active = serverOptions[idx] ?? serverOptions[0];
+        const active = opts[idx] ?? opts[0];
         if (active) {
           applyServerMode(active.dataset.mode as ServerMode);
           closeServerMenu(true);
