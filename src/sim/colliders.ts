@@ -118,6 +118,18 @@ function staticWorldColliders(seed: number): Collider[] {
       camGhost: true,
     });
   }
+  // Corruption Rifts: a torn portal wound; a slim solid core the player skirts.
+  for (const r of PROPS.rifts ?? []) {
+    const h = r.y ?? 3;
+    out.push({
+      type: 'circle',
+      x: r.x,
+      z: r.z,
+      r: 0.7,
+      cameraTopY: topY(seed, r.x, r.z, h),
+      camGhost: true,
+    });
+  }
   for (const s of PROPS.stalls)
     out.push({
       type: 'circle',

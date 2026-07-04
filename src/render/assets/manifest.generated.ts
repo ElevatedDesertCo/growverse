@@ -487,6 +487,7 @@ export const MEDIA_ASSETS: Record<string, string> =
   "models/props/cart.glb": "/media/models/props/cart.8bb07d235482.glb",
   "models/props/column.glb": "/media/models/props/column.10cf89c3fcc3.glb",
   "models/props/column_broken.glb": "/media/models/props/column_broken.cce25b1216e8.glb",
+  "models/props/corruption_rift.glb": "/media/models/props/corruption_rift.2eb47c624e51.glb",
   "models/props/crate_wooden.glb": "/media/models/props/crate_wooden.7a5f880c07a6.glb",
   "models/props/dock_platform.glb": "/media/models/props/dock_platform.e8ddba57f493.glb",
   "models/props/elevated_obelisk.glb": "/media/models/props/elevated_obelisk.218c2c8ae83d.glb",

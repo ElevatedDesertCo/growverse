@@ -1232,6 +1232,9 @@ export interface ZonePropsDef {
   // Elevated Obelisk waystones: tall stone landmarks that mark a settlement or a
   // rift site. `y` is the target world-height of the model in metres (default 6).
   obelisks?: { x: number; z: number; y?: number }[];
+  // Corruption Rifts: torn portal wounds leaking Corruption energy (Growverse
+  // canon). `y` is the target world-height of the model in metres (default 3).
+  rifts?: { x: number; z: number; y?: number }[];
 }
 
 export function emptyZoneProps(): ZonePropsDef {

@@ -110,6 +110,10 @@ const PROP_ASSET_DEFS: Record<string, PropAssetDef> = {
   // or rift site (see PROPS.obelisks). Its own kit so its stone shares no material
   // with the CC0 village set.
   obelisk: { url: '/models/props/elevated_obelisk.glb', kit: 'obelisk' },
+  // Meshy-generated Corruption Rift: a torn portal wound leaking Corruption energy
+  // (Growverse canon, see PROPS.rifts). Its own kit so the corrupted crystal shares
+  // no material with the CC0 village set.
+  rift: { url: '/models/props/corruption_rift.glb', kit: 'rift' },
 };
 
 type PropKey = keyof typeof PROP_ASSET_DEFS;
@@ -150,6 +154,7 @@ const LOW_TIER_PROP_KEYS: readonly PropKey[] = [
   'barrel',
   'delveEntrance2', // delve entrance portal, a landmark, so keep it on low gfx too
   'obelisk', // waystone landmark, keep it visible on low gfx too
+  'rift', // corruption rift landmark, keep it visible on low gfx too
 ];
 
 /**
@@ -227,6 +232,16 @@ const MAT_OVERRIDES: Record<
   // Elevated Obelisk ships materialless (GLTFLoader's white default): grade it to
   // weathered desert sandstone so the waystone reads as carved stone, not plastic.
   'obelisk:': { color: 0xc2a878, roughness: 0.82, metalness: 0 },
+  // Corruption Rift ships materialless (GLTFLoader's white default): grade it to
+  // near-black corrupted crystal with a violet self-glow so the wound reads as
+  // Corruption energy leaking through, not plastic.
+  'rift:': {
+    color: 0x1a0f2e,
+    emissive: 0x6a2ea0,
+    emissiveIntensity: 0.9,
+    roughness: 0.7,
+    metalness: 0.1,
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -838,6 +853,24 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     registerHideable(
       g,
       circleFootprint(o.x, o.z, Math.max(0.8, a.size.x * s * 0.5), ground(o.x, o.z) + targetH),
+    );
+  }
+
+  // ---- Corruption Rifts: torn portal-wound landmarks -----------------------
+  for (const r of PROPS.rifts ?? []) {
+    const targetH = r.y ?? 3;
+    const a = propAsset('rift');
+    const s = targetH / a.size.y; // uniform scale off the model's height
+    const g = new THREE.Group();
+    addParts(g, 'rift', {
+      scale: s,
+      rot: propRand(r.x, r.z, 1) * Math.PI * 2,
+    });
+    g.position.set(r.x, ground(r.x, r.z) - 0.06, r.z);
+    group.add(shadowed(g));
+    registerHideable(
+      g,
+      circleFootprint(r.x, r.z, Math.max(0.7, a.size.x * s * 0.5), ground(r.x, r.z) + targetH),
     );
   }
 

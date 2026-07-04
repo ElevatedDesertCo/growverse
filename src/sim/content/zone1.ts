@@ -1129,4 +1129,7 @@ export const ZONE1_PROPS: ZonePropsDef = {
   // Bloomhaven's founding waystone: a tall Elevated Obelisk on the open ground
   // south of the town well, the first landmark players see on arrival.
   obelisks: [{ x: 0, z: -14, y: 7 }],
+  // A Corruption Rift tearing open in the wastes near the collapsed reliquary: the
+  // portal-accident wound leaking Corruption energy that anchors the Growverse story.
+  rifts: [{ x: -18, z: -48, y: 3.5 }],
 };
