@@ -853,8 +853,14 @@
         <div id="offline-select" class="panel auth-panel auth-panel-premium" hidden>
           <h2 class="auth-title" data-i18n="auth.offlineCharacter">Offline Character</h2>
           <div class="charselect-layout">
-            <!-- Left Column: Character Name & Class Chips & Actions -->
+            <!-- Left Column: Saved Roster + Character Name & Class Chips & Actions -->
             <div class="charselect-col-left">
+              <!-- Saved offline characters (populated from localStorage by main.ts).
+                   Hidden until at least one character is saved. -->
+              <div id="offline-roster" class="offline-roster" hidden>
+                <h3 class="offline-roster-title" data-i18n="character.tabCharacters">Characters</h3>
+                <ul id="offline-roster-list" class="offline-roster-list"></ul>
+              </div>
               <div class="char-create">
                 <label for="char-name" class="auth-label" data-i18n="auth.characterName">Character Name</label>
                 <div class="char-input-group">

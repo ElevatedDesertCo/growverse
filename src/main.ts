@@ -44,6 +44,12 @@ import {
 } from './game/mobile_controls';
 import { mouselookReleaseFacing } from './game/mouselook_release';
 import { music } from './game/music';
+import {
+  deleteOfflineCharacter,
+  listOfflineCharacters,
+  type OfflineCharacterRecord,
+  saveOfflineCharacter,
+} from './game/offline_characters';
 import { createPerfMonitor } from './game/perf';
 import { startPerfReporter } from './game/perf_reporter';
 import {
@@ -90,7 +96,7 @@ import { ABILITIES, CLASSES } from './sim/content/classes';
 import { ITEMS } from './sim/data';
 import { canEquipItem } from './sim/equipment_rules';
 import { findPlayerPath, resolvePlayerDestination } from './sim/pathfind';
-import { Sim } from './sim/sim';
+import { type CharacterState, Sim } from './sim/sim';
 import { TAB_NEAR_RADIUS, TAB_QUERY_RADIUS, tabConeHalfAt } from './sim/tab_target';
 import { DT, dist2d, INTERACT_RANGE, MELEE_RANGE, type PlayerClass, RUN_SPEED } from './sim/types';
 import { zoneBiomeAt } from './sim/world';
@@ -2508,16 +2514,28 @@ function sanitizeOfflineName(raw: string): string {
   return /^[A-Za-z][A-Za-z' -]{1,15}$/.test(stripped) ? stripped : 'Adventurer';
 }
 
-async function startOffline(playerClass: PlayerClass, name: string, skin = 0): Promise<void> {
+async function startOffline(
+  playerClass: PlayerClass,
+  name: string,
+  skin = 0,
+  savedState: CharacterState | null = null,
+): Promise<void> {
   if (!(await prepareWorldEntry())) return;
   enterLoadingState(t('loading.world'));
+  // A resumed character starts from an empty world (noPlayer) so its persisted
+  // CharacterState is the only source of the player; a fresh character uses the
+  // constructor's default spawn.
   const sim = new Sim({
     seed: WORLD_SEED,
     playerClass,
     playerName: name,
     devCommands: import.meta.env.DEV,
+    noPlayer: savedState !== null,
   });
-  sim.setPlayerSkin(sim.playerId, skin);
+  if (savedState) {
+    sim.addPlayer(playerClass, name, { state: savedState });
+  }
+  sim.setPlayerSkin(sim.playerId, savedState?.skin ?? skin);
   // Dev convenience: ?mech drops an offline session straight into the Combat Mech
   // cosmetic body holding a spread of class-usable weapons, to eyeball the held
   // weapon model on the mech (swap them in the bag to see each one). DEV builds
@@ -2555,9 +2573,56 @@ async function startOffline(playerClass: PlayerClass, name: string, skin = 0): P
     for (const id of usable) sim.addItem(id, 1, sim.playerId);
     if (usable[0]) sim.equipItem(usable[0], sim.playerId);
   }
-  // Offline characters are not persisted (a fresh name is typed each session),
-  // so the only stable handle is class + name. Keybinds scope to that pair.
+  // Offline characters persist to a localStorage roster (see offline_characters.ts),
+  // keyed by class + name; keybinds scope to the same pair. Register autosave so the
+  // slot survives a reload, then seed the slot immediately (so a brand-new character
+  // shows up on the select screen even if the session is short).
+  registerOfflineAutosave(sim, savedState?.skin ?? skin);
   void startGame(sim, sim, null, `offline:${playerClass}:${name}`);
+}
+
+// --- Offline autosave -------------------------------------------------------
+// The running offline Sim is snapshotted to the localStorage roster on an interval
+// and on page hide/unload, so progression survives a reload or tab close. Only one
+// offline session is ever live at a time.
+let offlineAutosaveTimer: number | null = null;
+let offlineAutosaveSim: Sim | null = null;
+let offlineAutosaveSkin = 0;
+let offlineAutosaveHooksBound = false;
+
+function persistOfflineSession(): void {
+  const sim = offlineAutosaveSim;
+  if (!sim) return;
+  const meta = sim.players.get(sim.playerId);
+  if (!meta) return;
+  const state = sim.serializeCharacter(sim.playerId);
+  if (!state) return;
+  saveOfflineCharacter({
+    cls: meta.cls,
+    name: meta.name,
+    skin: offlineAutosaveSkin,
+    state,
+  });
+}
+
+function registerOfflineAutosave(sim: Sim, skin: number): void {
+  offlineAutosaveSim = sim;
+  offlineAutosaveSkin = skin;
+  if (offlineAutosaveTimer !== null) window.clearInterval(offlineAutosaveTimer);
+  // Autosave every 15s; frequent enough that a crash loses little, cheap enough to
+  // be invisible next to the 20 Hz sim.
+  offlineAutosaveTimer = window.setInterval(persistOfflineSession, 15_000);
+  // Snapshot the fresh/resumed character right away so the roster is populated even
+  // for a very short session.
+  persistOfflineSession();
+  // Best-effort save when the tab is hidden or closed. `pagehide` covers the mobile
+  // Safari case `beforeunload` misses; both are idempotent upserts. Bind once (the
+  // handlers always read the live module-level sim, so a later session reuses them).
+  if (!offlineAutosaveHooksBound) {
+    window.addEventListener('pagehide', persistOfflineSession);
+    window.addEventListener('beforeunload', persistOfflineSession);
+    offlineAutosaveHooksBound = true;
+  }
 }
 
 // ---------------------------------------------------------------------------
@@ -6064,8 +6129,69 @@ function wireStartScreens(): void {
     void startOffline(cls, name, selectedSkin('#offline-skin-row', offlineSkin));
   };
 
+  const resumeOfflineCharacter = (rec: OfflineCharacterRecord) => {
+    audio.init();
+    music.init();
+    sfx.init();
+    void startOffline(rec.cls, rec.name, rec.skin, rec.state);
+  };
+
+  // Paint the saved-character roster (from localStorage) into #offline-roster.
+  // Each row resumes or deletes a slot; the block hides itself when empty so a
+  // first-time player only sees the create form.
+  const renderOfflineRoster = () => {
+    const wrap = document.getElementById('offline-roster');
+    const list = document.getElementById('offline-roster-list');
+    if (!wrap || !list) return;
+    const chars = listOfflineCharacters();
+    if (chars.length === 0) {
+      wrap.hidden = true;
+      list.replaceChildren();
+      return;
+    }
+    wrap.hidden = false;
+    const rows = chars.map((rec) => {
+      const li = document.createElement('li');
+      li.className = 'offline-roster-item';
+
+      const resume = document.createElement('button');
+      resume.type = 'button';
+      resume.className = 'offline-roster-resume';
+      const meta = document.createElement('span');
+      meta.className = 'offline-roster-meta';
+      const nameEl = document.createElement('span');
+      nameEl.className = 'offline-roster-name';
+      nameEl.textContent = rec.name;
+      const subEl = document.createElement('span');
+      subEl.className = 'offline-roster-sub';
+      subEl.textContent = t('character.levelClass', {
+        level: formatNumber(rec.level),
+        className: classDisplayName(rec.cls),
+      });
+      meta.append(nameEl, subEl);
+      resume.append(meta);
+      resume.setAttribute('aria-label', rec.name);
+      resume.addEventListener('click', () => resumeOfflineCharacter(rec));
+
+      const del = document.createElement('button');
+      del.type = 'button';
+      del.className = 'offline-roster-delete';
+      del.textContent = t('character.delete');
+      del.setAttribute('aria-label', t('character.delete'));
+      del.addEventListener('click', () => {
+        deleteOfflineCharacter(rec.id);
+        renderOfflineRoster();
+      });
+
+      li.append(resume, del);
+      return li;
+    });
+    list.replaceChildren(...rows);
+  };
+
   const handleOfflineSelect = () => {
     show('#offline-select');
+    renderOfflineRoster();
 
     // Select warrior by default and render details
     const warriorCard = document.querySelector(

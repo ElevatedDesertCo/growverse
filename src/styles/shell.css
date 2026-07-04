@@ -3732,6 +3732,96 @@
     width: 100%;
   }
 
+  /* Saved offline character roster (localStorage-backed resume list). */
+  .offline-roster {
+    width: 100%;
+    max-width: 320px;
+    margin: 0 auto var(--spacing-md) auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  .offline-roster-title {
+    margin: 0 0 var(--spacing-xs) 0;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .offline-roster-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+  }
+
+  .offline-roster-item {
+    display: flex;
+    align-items: stretch;
+    gap: var(--spacing-xs);
+  }
+
+  .offline-roster-resume {
+    flex: 1 1 auto;
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    text-align: left;
+    background: rgba(0, 0, 0, 0.35);
+    border: 2px solid var(--color-border-default);
+    border-radius: var(--radius-md);
+    color: var(--color-text-light);
+    cursor: pointer;
+  }
+
+  .offline-roster-resume:hover,
+  .offline-roster-resume:focus-visible {
+    border-color: var(--color-accent);
+    background: rgba(0, 0, 0, 0.5);
+  }
+
+  .offline-roster-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .offline-roster-name {
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .offline-roster-sub {
+    font-size: 0.8rem;
+    color: var(--color-text-muted);
+  }
+
+  .offline-roster-delete {
+    flex: 0 0 auto;
+    min-width: 44px;
+    min-height: 44px;
+    padding: 0 var(--spacing-sm);
+    background: rgba(0, 0, 0, 0.35);
+    border: 2px solid var(--color-border-default);
+    border-radius: var(--radius-md);
+    color: var(--color-text-muted);
+    cursor: pointer;
+  }
+
+  .offline-roster-delete:hover,
+  .offline-roster-delete:focus-visible {
+    border-color: var(--color-text-error);
+    color: var(--color-text-light);
+  }
+
   .charselect-col-right {
     display: flex;
     flex-direction: column;
