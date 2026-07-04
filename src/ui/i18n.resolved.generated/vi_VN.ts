@@ -5572,6 +5572,21 @@ export const vi_VN: EnTranslations = {
       "nythraxis_scourge_of_thornpeak": {
         "name": "Nythraxis, Tai Họa Đỉnh Gai"
       },
+      "rootfen_crawler": {
+        "name": "Rootfen Crawler"
+      },
+      "spore_tick": {
+        "name": "Spore Tick"
+      },
+      "blightroot_weaver": {
+        "name": "Blightroot Weaver"
+      },
+      "hollowed_husk": {
+        "name": "Hollowed Husk"
+      },
+      "rootwraith_the_hollowed": {
+        "name": "Rootwraith the Hollowed"
+      },
       "reliquary_ledger_wraith": {
         "name": "Oan Hồn Sổ Sách"
       },
@@ -6745,6 +6760,11 @@ export const vi_VN: EnTranslations = {
         "name": "Hầm Mộ Rỗng",
         "enterText": "Bạn đi xuống Hầm Mộ Rỗng...",
         "leaveText": "Bạn trèo trở lại ánh sáng ban ngày."
+      },
+      "blightroot_hollow": {
+        "name": "Blightroot Hollow",
+        "enterText": "You squeeze past hanging roots into the Blightroot Hollow...",
+        "leaveText": "You climb out through the tangled roots into open air."
       },
       "sunken_bastion": {
         "name": "Pháo Đài Chìm",

@@ -5572,6 +5572,21 @@ export const nl_NL: EnTranslations = {
       "nythraxis_scourge_of_thornpeak": {
         "name": "Nythraxis, Gesel van Doorntop"
       },
+      "rootfen_crawler": {
+        "name": "Rootfen Crawler"
+      },
+      "spore_tick": {
+        "name": "Spore Tick"
+      },
+      "blightroot_weaver": {
+        "name": "Blightroot Weaver"
+      },
+      "hollowed_husk": {
+        "name": "Hollowed Husk"
+      },
+      "rootwraith_the_hollowed": {
+        "name": "Rootwraith the Hollowed"
+      },
       "reliquary_ledger_wraith": {
         "name": "Grootboek-Schim"
       },
@@ -6745,6 +6760,11 @@ export const nl_NL: EnTranslations = {
         "name": "De Holle Crypte",
         "enterText": "Je daalt af in de Holle Crypte...",
         "leaveText": "Je klimt terug omhoog het daglicht in."
+      },
+      "blightroot_hollow": {
+        "name": "Blightroot Hollow",
+        "enterText": "You squeeze past hanging roots into the Blightroot Hollow...",
+        "leaveText": "You climb out through the tangled roots into open air."
       },
       "sunken_bastion": {
         "name": "Het Verzonken Bastion",

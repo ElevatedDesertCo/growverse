@@ -5572,6 +5572,21 @@ export const ru_RU: EnTranslations = {
       "nythraxis_scourge_of_thornpeak": {
         "name": "Нитраксис, Бич Торнпика"
       },
+      "rootfen_crawler": {
+        "name": "Корнеболотный ползун"
+      },
+      "spore_tick": {
+        "name": "Споровый клещ"
+      },
+      "blightroot_weaver": {
+        "name": "Гнилокорневой ткач"
+      },
+      "hollowed_husk": {
+        "name": "Выхолощенная оболочка"
+      },
+      "rootwraith_the_hollowed": {
+        "name": "Опустошённый корнепризрак"
+      },
       "reliquary_ledger_wraith": {
         "name": "Книжный призрак"
       },
@@ -6745,6 +6760,11 @@ export const ru_RU: EnTranslations = {
         "name": "Пустая крипта",
         "enterText": "Вы спускаетесь в Пустую крипту...",
         "leaveText": "Вы выбираетесь обратно к дневному свету."
+      },
+      "blightroot_hollow": {
+        "name": "Гнилокорневая нора",
+        "enterText": "Протиснувшись мимо свисающих корней, вы входите в Гнилокорневую нору...",
+        "leaveText": "Вы пробираетесь сквозь спутанные корни на открытый воздух."
       },
       "sunken_bastion": {
         "name": "Затонувший бастион",

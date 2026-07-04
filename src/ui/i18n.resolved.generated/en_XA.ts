@@ -5572,6 +5572,21 @@ export const en_XA: EnTranslations = {
       "nythraxis_scourge_of_thornpeak": {
         "name": "[Ñýţĥŕáẋíš, Šçóúŕĝé óƒ Ţĥóŕñŕéáçĥ]"
       },
+      "rootfen_crawler": {
+        "name": "[Ŕóóţƒéñ Çŕáŵļéŕ]"
+      },
+      "spore_tick": {
+        "name": "[Šþóŕé Ţíçķ]"
+      },
+      "blightroot_weaver": {
+        "name": "[Ɓļíĝĥţŕóóţ Ŵéáʋéŕ]"
+      },
+      "hollowed_husk": {
+        "name": "[Ĥóļļóŵéð Ĥúšķ]"
+      },
+      "rootwraith_the_hollowed": {
+        "name": "[Ŕóóţŵŕáíţĥ ţĥé Ĥóļļóŵéð]"
+      },
       "reliquary_ledger_wraith": {
         "name": "[Ļéðĝéŕ Ŵŕáíţĥ]"
       },
@@ -6745,6 +6760,11 @@ export const en_XA: EnTranslations = {
         "name": "[Ţĥé Ĥóļļóŵ Çŕýþţ]",
         "enterText": "[Ýóú ðéšçéñð íñţó ţĥé Ĥóļļóŵ Çŕýþţ...]",
         "leaveText": "[Ýóú çļíɱƀ ƀáçķ íñţó ðáýļíĝĥţ.]"
+      },
+      "blightroot_hollow": {
+        "name": "[Ɓļíĝĥţŕóóţ Ĥóļļóŵ]",
+        "enterText": "[Ýóú šɋúééžé þášţ ĥáñĝíñĝ ŕóóţš íñţó ţĥé Ɓļíĝĥţŕóóţ Ĥóļļóŵ...]",
+        "leaveText": "[Ýóú çļíɱƀ óúţ ţĥŕóúĝĥ ţĥé ţáñĝļéð ŕóóţš íñţó óþéñ áíŕ.]"
       },
       "sunken_bastion": {
         "name": "[Ţĥé Šúñķéñ Ɓášţíóñ]",

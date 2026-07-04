@@ -3023,6 +3023,11 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.dungeons.hollow_crypt.name': 'Пустая крипта',
   'entities.dungeons.hollow_crypt.enterText': 'Вы спускаетесь в Пустую крипту...',
   'entities.dungeons.hollow_crypt.leaveText': 'Вы выбираетесь обратно к дневному свету.',
+  'entities.dungeons.blightroot_hollow.name': 'Гнилокорневая нора',
+  'entities.dungeons.blightroot_hollow.enterText':
+    'Протиснувшись мимо свисающих корней, вы входите в Гнилокорневую нору...',
+  'entities.dungeons.blightroot_hollow.leaveText':
+    'Вы пробираетесь сквозь спутанные корни на открытый воздух.',
   'entities.dungeons.sunken_bastion.name': 'Затонувший бастион',
   'entities.dungeons.sunken_bastion.enterText': 'Вы спускаетесь в Затонувший бастион по воде...',
   'entities.dungeons.sunken_bastion.leaveText': 'Вы выбираетесь из тонущей тьмы.',
@@ -3482,6 +3487,11 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
     'Задание выполнено. Вернитесь к маршалу Редбруку и нажмите {interactKey}, чтобы сдать его.',
   'entities.mobs.nythraxis_skeleton_warrior.name': 'Восставший королевский страж',
   'entities.mobs.nythraxis_scourge_of_thornpeak.name': 'Нитраксис, Бич Торнпика',
+  'entities.mobs.rootfen_crawler.name': 'Корнеболотный ползун',
+  'entities.mobs.spore_tick.name': 'Споровый клещ',
+  'entities.mobs.blightroot_weaver.name': 'Гнилокорневой ткач',
+  'entities.mobs.hollowed_husk.name': 'Выхолощенная оболочка',
+  'entities.mobs.rootwraith_the_hollowed.name': 'Опустошённый корнепризрак',
   'itemUi.quality.legendary': 'Легендарное',
   'entities.items.deathless_heartwood.name': 'Сердцевина бессмертной короны',
   'entities.items.kingsbane_last_oath.name': 'Цареубийца, последняя клятва Торнпика',

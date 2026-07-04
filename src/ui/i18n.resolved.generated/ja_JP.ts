@@ -5572,6 +5572,21 @@ export const ja_JP: EnTranslations = {
       "nythraxis_scourge_of_thornpeak": {
         "name": "ナイスラクシス、ソーンピークの災厄"
       },
+      "rootfen_crawler": {
+        "name": "根沼の這行者"
+      },
+      "spore_tick": {
+        "name": "胞子ダニ"
+      },
+      "blightroot_weaver": {
+        "name": "枯根の織り手"
+      },
+      "hollowed_husk": {
+        "name": "うつろな亡骸"
+      },
+      "rootwraith_the_hollowed": {
+        "name": "うつろなる根の亡霊"
+      },
       "reliquary_ledger_wraith": {
         "name": "台帳の亡霊"
       },
@@ -6745,6 +6760,11 @@ export const ja_JP: EnTranslations = {
         "name": "虚ろの墓所",
         "enterText": "虚ろの墓所へ降りていきます...",
         "leaveText": "日の光の下へ戻ります。"
+      },
+      "blightroot_hollow": {
+        "name": "枯根の洞",
+        "enterText": "垂れ下がる根をかき分け、枯根の洞へと入り込む...",
+        "leaveText": "絡みつく根をくぐり抜け、開けた空の下へと這い上がる。"
       },
       "sunken_bastion": {
         "name": "沈んだ砦",

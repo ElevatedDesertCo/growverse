@@ -329,7 +329,7 @@ export function dungeonAt(x: number): DungeonDef | null {
 // the band split below keeps arena positions from being read as a dungeon.
 // ---------------------------------------------------------------------------
 
-export const ARENA_X = 4200; // arena instances share this x; slots stack along z
+export const ARENA_X = 5400; // arena instances share this x; slots stack along z (past dungeon indexes 0-6)
 export const ARENA_X_MIN = ARENA_X; // x at/after this = an arena instance, not a dungeon
 export const ARENA_SLOT_COUNT = 4; // concurrent 1v1 matches the world can host
 const ARENA_Z0 = -1250;
@@ -368,13 +368,14 @@ export const CRYPT_SPAWNS = DUNGEONS.hollow_crypt.spawns;
 
 // ---------------------------------------------------------------------------
 // Delves, private party instances past the arena x-band (see docs/prd/delves.md).
-// DELVE_X_MIN must stay above ARENA_X_MIN (4000) and ARENA_X (4200).
+// DELVE_X_MIN must stay above ARENA_X_MIN and ARENA_X (both 5400).
 // ---------------------------------------------------------------------------
 
-// 4800 sits clear of the v0.10.0 layout: dungeons end at ARENA_X_MIN (4000) and
-// the arena pit is centred at ARENA_X (4200, ~±22u footprint). The delve band's
-// west edge (DELVE_BAND_X_MIN = 4773) leaves a comfortable margin past the arena.
-export const DELVE_X_MIN = 4800;
+// 6000 sits clear of the current layout: dungeon indexes 0-6 sit at x
+// 900..4500, and the arena pit is centred at ARENA_X (5400, ~±22u footprint).
+// The delve band's west edge (DELVE_BAND_X_MIN below) leaves a comfortable
+// margin past the arena.
+export const DELVE_X_MIN = 6000;
 // Each delve room is centred at DELVE_X_MIN + index*600. Delve modules use wider
 // side walls than the base crypt kit: the side-wall centre is at instance-local
 // |x| = DELVE_WALL_X (25, mirror of delve_layout.ts WALL_X) and the collider's

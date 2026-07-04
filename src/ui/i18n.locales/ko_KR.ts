@@ -2988,6 +2988,11 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.dungeons.hollow_crypt.name': '텅 빈 묘실',
   'entities.dungeons.hollow_crypt.enterText': '텅 빈 묘실로 내려갑니다...',
   'entities.dungeons.hollow_crypt.leaveText': '다시 햇빛 아래로 올라옵니다.',
+  'entities.dungeons.blightroot_hollow.name': '마름뿌리 굴',
+  'entities.dungeons.blightroot_hollow.enterText':
+    '늘어진 뿌리를 헤치고 마름뿌리 굴로 비집고 들어갑니다...',
+  'entities.dungeons.blightroot_hollow.leaveText':
+    '뒤엉킨 뿌리를 뚫고 탁 트인 하늘 아래로 기어 오릅니다.',
   'entities.dungeons.sunken_bastion.name': '가라앉은 요새',
   'entities.dungeons.sunken_bastion.enterText':
     '가라앉은 요새의 깊은 곳으로 물을 헤치며 들어갑니다...',
@@ -3441,6 +3446,11 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
     '임무를 마쳤습니다. 레드브룩 원수에게 돌아가 {interactKey} 키를 눌러 완료하세요.',
   'entities.mobs.nythraxis_skeleton_warrior.name': '되살아난 왕실 근위병',
   'entities.mobs.nythraxis_scourge_of_thornpeak.name': '나이트락시스, 손피크의 재앙',
+  'entities.mobs.rootfen_crawler.name': '뿌리늪 포복자',
+  'entities.mobs.spore_tick.name': '포자 진드기',
+  'entities.mobs.blightroot_weaver.name': '마름뿌리 직조자',
+  'entities.mobs.hollowed_husk.name': '텅 빈 껍데기',
+  'entities.mobs.rootwraith_the_hollowed.name': '공허의 뿌리망령',
   'itemUi.quality.legendary': '전설',
   'entities.items.deathless_heartwood.name': '죽지 않는 왕관의 심재',
   'entities.items.kingsbane_last_oath.name': '왕살해자, 손피크의 마지막 맹세',

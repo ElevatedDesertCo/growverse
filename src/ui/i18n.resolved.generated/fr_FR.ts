@@ -5572,6 +5572,21 @@ export const fr_FR: EnTranslations = {
       "nythraxis_scourge_of_thornpeak": {
         "name": "Nythraxis, Fléau de Thornpeak"
       },
+      "rootfen_crawler": {
+        "name": "Rootfen Crawler"
+      },
+      "spore_tick": {
+        "name": "Spore Tick"
+      },
+      "blightroot_weaver": {
+        "name": "Blightroot Weaver"
+      },
+      "hollowed_husk": {
+        "name": "Hollowed Husk"
+      },
+      "rootwraith_the_hollowed": {
+        "name": "Rootwraith the Hollowed"
+      },
       "reliquary_ledger_wraith": {
         "name": "Spectre du registre"
       },
@@ -6745,6 +6760,11 @@ export const fr_FR: EnTranslations = {
         "name": "La Crypte creuse",
         "enterText": "Vous descendez dans la Crypte creuse...",
         "leaveText": "Vous remontez à la lumière du jour."
+      },
+      "blightroot_hollow": {
+        "name": "Blightroot Hollow",
+        "enterText": "You squeeze past hanging roots into the Blightroot Hollow...",
+        "leaveText": "You climb out through the tangled roots into open air."
       },
       "sunken_bastion": {
         "name": "Le Bastion englouti",

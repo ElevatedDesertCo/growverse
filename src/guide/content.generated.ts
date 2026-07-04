@@ -1289,6 +1289,14 @@ export const GUIDE_ZONES: GuideZoneInfo[] = [
 
 export const GUIDE_DUNGEONS: GuideDungeon[] = [
   {
+    "id": "blightroot_hollow",
+    "isRaid": false,
+    "suggestedPlayers": 5,
+    "min": 6,
+    "max": 9,
+    "name": "Blightroot Hollow"
+  },
+  {
     "id": "hollow_crypt",
     "isRaid": false,
     "suggestedPlayers": 5,

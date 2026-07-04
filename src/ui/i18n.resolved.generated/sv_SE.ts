@@ -5572,6 +5572,21 @@ export const sv_SE: EnTranslations = {
       "nythraxis_scourge_of_thornpeak": {
         "name": "Nythraxis, Törntoppens gissel"
       },
+      "rootfen_crawler": {
+        "name": "Rootfen Crawler"
+      },
+      "spore_tick": {
+        "name": "Spore Tick"
+      },
+      "blightroot_weaver": {
+        "name": "Blightroot Weaver"
+      },
+      "hollowed_husk": {
+        "name": "Hollowed Husk"
+      },
+      "rootwraith_the_hollowed": {
+        "name": "Rootwraith the Hollowed"
+      },
       "reliquary_ledger_wraith": {
         "name": "Liggarvålnad"
       },
@@ -6745,6 +6760,11 @@ export const sv_SE: EnTranslations = {
         "name": "Den ihåliga kryptan",
         "enterText": "Du stiger ner i Den ihåliga kryptan ...",
         "leaveText": "Du klättrar tillbaka upp i dagsljuset."
+      },
+      "blightroot_hollow": {
+        "name": "Blightroot Hollow",
+        "enterText": "You squeeze past hanging roots into the Blightroot Hollow...",
+        "leaveText": "You climb out through the tangled roots into open air."
       },
       "sunken_bastion": {
         "name": "Den sjunkna bastionen",

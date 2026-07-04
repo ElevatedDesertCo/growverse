@@ -2993,6 +2993,11 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.dungeons.hollow_crypt.name': '虚ろの墓所',
   'entities.dungeons.hollow_crypt.enterText': '虚ろの墓所へ降りていきます...',
   'entities.dungeons.hollow_crypt.leaveText': '日の光の下へ戻ります。',
+  'entities.dungeons.blightroot_hollow.name': '枯根の洞',
+  'entities.dungeons.blightroot_hollow.enterText':
+    '垂れ下がる根をかき分け、枯根の洞へと入り込む...',
+  'entities.dungeons.blightroot_hollow.leaveText':
+    '絡みつく根をくぐり抜け、開けた空の下へと這い上がる。',
   'entities.dungeons.sunken_bastion.name': '沈んだ砦',
   'entities.dungeons.sunken_bastion.enterText': '沈んだ砦の深みへ水をかき分けて進みます...',
   'entities.dungeons.sunken_bastion.leaveText': '水に沈む闇から抜け出します。',
@@ -3166,6 +3171,11 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.items.monarch_crown_helm.name': '君主の王冠',
   'entities.mobs.nythraxis_skeleton_warrior.name': '蘇った王家の衛兵',
   'entities.mobs.nythraxis_scourge_of_thornpeak.name': 'ナイスラクシス、ソーンピークの災厄',
+  'entities.mobs.rootfen_crawler.name': '根沼の這行者',
+  'entities.mobs.spore_tick.name': '胞子ダニ',
+  'entities.mobs.blightroot_weaver.name': '枯根の織り手',
+  'entities.mobs.hollowed_husk.name': 'うつろな亡骸',
+  'entities.mobs.rootwraith_the_hollowed.name': 'うつろなる根の亡霊',
   // v0.10.0 release fill (Fiesta / skin-select / NPC voices / chat channels / Brightwood Glade)
   'hud.core.chatChannels.add': 'チャットチャンネルを追加',
   'hud.core.chatChannels.addTitle': 'チャンネルを追加',

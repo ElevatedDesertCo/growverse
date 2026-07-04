@@ -5572,6 +5572,21 @@ export const id_ID: EnTranslations = {
       "nythraxis_scourge_of_thornpeak": {
         "name": "Nythraxis, Bencana Thornpeak"
       },
+      "rootfen_crawler": {
+        "name": "Rootfen Crawler"
+      },
+      "spore_tick": {
+        "name": "Spore Tick"
+      },
+      "blightroot_weaver": {
+        "name": "Blightroot Weaver"
+      },
+      "hollowed_husk": {
+        "name": "Hollowed Husk"
+      },
+      "rootwraith_the_hollowed": {
+        "name": "Rootwraith the Hollowed"
+      },
       "reliquary_ledger_wraith": {
         "name": "Arwah Buku Catatan"
       },
@@ -6745,6 +6760,11 @@ export const id_ID: EnTranslations = {
         "name": "Kripta Berongga",
         "enterText": "Kau menuruni Kripta Berongga...",
         "leaveText": "Kau memanjat kembali ke siang hari."
+      },
+      "blightroot_hollow": {
+        "name": "Blightroot Hollow",
+        "enterText": "You squeeze past hanging roots into the Blightroot Hollow...",
+        "leaveText": "You climb out through the tangled roots into open air."
       },
       "sunken_bastion": {
         "name": "Benteng Karam",

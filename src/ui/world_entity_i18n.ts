@@ -73,6 +73,12 @@ const MOB_IDS = [
   'bound_guardian',
   'nythraxis_skeleton_warrior',
   'nythraxis_scourge_of_thornpeak',
+  // Blightroot Hollow cave mobs
+  'rootfen_crawler',
+  'spore_tick',
+  'blightroot_weaver',
+  'hollowed_husk',
+  'rootwraith_the_hollowed',
   // Collapsed Reliquary delve mobs
   'reliquary_ledger_wraith',
   'reliquary_funeral_ringer',
@@ -185,6 +191,7 @@ const QUEST_IDS = [
 const ZONE_IDS = ['eastbrook_vale', 'mirefen_marsh', 'thornpeak_heights'] as const;
 const DUNGEON_IDS = [
   'hollow_crypt',
+  'blightroot_hollow',
   'sunken_bastion',
   'gravewyrm_sanctum',
   'nythraxis_crypt',

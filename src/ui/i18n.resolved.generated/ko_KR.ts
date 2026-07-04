@@ -5572,6 +5572,21 @@ export const ko_KR: EnTranslations = {
       "nythraxis_scourge_of_thornpeak": {
         "name": "나이트락시스, 손피크의 재앙"
       },
+      "rootfen_crawler": {
+        "name": "뿌리늪 포복자"
+      },
+      "spore_tick": {
+        "name": "포자 진드기"
+      },
+      "blightroot_weaver": {
+        "name": "마름뿌리 직조자"
+      },
+      "hollowed_husk": {
+        "name": "텅 빈 껍데기"
+      },
+      "rootwraith_the_hollowed": {
+        "name": "공허의 뿌리망령"
+      },
       "reliquary_ledger_wraith": {
         "name": "명부의 망령"
       },
@@ -6745,6 +6760,11 @@ export const ko_KR: EnTranslations = {
         "name": "텅 빈 묘실",
         "enterText": "텅 빈 묘실로 내려갑니다...",
         "leaveText": "다시 햇빛 아래로 올라옵니다."
+      },
+      "blightroot_hollow": {
+        "name": "마름뿌리 굴",
+        "enterText": "늘어진 뿌리를 헤치고 마름뿌리 굴로 비집고 들어갑니다...",
+        "leaveText": "뒤엉킨 뿌리를 뚫고 탁 트인 하늘 아래로 기어 오릅니다."
       },
       "sunken_bastion": {
         "name": "가라앉은 요새",

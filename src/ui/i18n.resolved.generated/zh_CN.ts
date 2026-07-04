@@ -5572,6 +5572,21 @@ export const zh_CN: EnTranslations = {
       "nythraxis_scourge_of_thornpeak": {
         "name": "尼思拉克西斯，荆峰之灾"
       },
+      "rootfen_crawler": {
+        "name": "根沼爬行者"
+      },
+      "spore_tick": {
+        "name": "孢子虱"
+      },
+      "blightroot_weaver": {
+        "name": "枯根织网者"
+      },
+      "hollowed_husk": {
+        "name": "空壳躯"
+      },
+      "rootwraith_the_hollowed": {
+        "name": "根魅·空蚀者"
+      },
       "reliquary_ledger_wraith": {
         "name": "名册幽魂"
       },
@@ -6745,6 +6760,11 @@ export const zh_CN: EnTranslations = {
         "name": "空洞墓穴",
         "enterText": "你走下空洞墓穴...",
         "leaveText": "你重新爬回日光之下。"
+      },
+      "blightroot_hollow": {
+        "name": "枯根空穴",
+        "enterText": "你挤过垂落的根须，进入枯根空穴...",
+        "leaveText": "你穿过纠缠的根须，爬向开阔的天空。"
       },
       "sunken_bastion": {
         "name": "沉没堡垒",
