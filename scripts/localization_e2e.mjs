@@ -94,8 +94,8 @@ function languageTag(locale) {
 
 function siteUrlForLocale(locale) {
   return locale === 'en'
-    ? 'https://worldofclaudecraft.com/'
-    : `https://worldofclaudecraft.com/?lang=${locale}`;
+    ? 'https://growverse-iota.vercel.app/'
+    : `https://growverse-iota.vercel.app/?lang=${locale}`;
 }
 
 function localUrlForLocale(locale) {

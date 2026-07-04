@@ -11,7 +11,7 @@ export const shellStrings = {
     seo: {
       title: 'Growverse: Classic-Style Web MMO',
       description:
-        'Embark on an epic adventure in Growverse, a classic-style micro-MMO playable directly in your browser. Join a persistent shared realm, level up classes, and defeat enemies!',
+        'Growverse is a free classic-style browser MMO set in a cosmic desert realm. Play instantly in your browser, explore the world solo, level up classes, and defeat enemies.',
       genre: 'MMORPG',
       playMode: 'Multiplayer',
       applicationCategory: 'Game',

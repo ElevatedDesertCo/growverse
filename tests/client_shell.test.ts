@@ -71,10 +71,7 @@ const supportHtml = readFileSync(
   new URL('../public/support.html', import.meta.url),
   'utf8',
 ).replace(/\r\n/g, '\n');
-const whitepaperUrl = new URL(
-  '../public/World-of-Growverse-Whitepaper-v1.0.pdf',
-  import.meta.url,
-);
+const whitepaperUrl = new URL('../public/World-of-Growverse-Whitepaper-v1.0.pdf', import.meta.url);
 const viteConfig = readFileSync(new URL('../vite.config.ts', import.meta.url), 'utf8').replace(
   /\r\n/g,
   '\n',
@@ -534,53 +531,55 @@ describe('client HTML shell', () => {
     expect(html).toContain(
       '<meta name="robots" content="index, follow, max-image-preview:large" />',
     );
-    expect(html).toContain('<link rel="canonical" href="https://worldofclaudecraft.com/" />');
+    expect(html).toContain('<link rel="canonical" href="https://growverse-iota.vercel.app/" />');
     expect(html).toContain('<meta property="og:site_name" content="Growverse" />');
     expect(html).toContain('"alternateName": "Growverse"');
     expect(html).toContain('"https://github.com/levy-street/world-of-claudecraft"');
     expect(mainTs).toContain("alternateName: 'Growverse'");
     expect(mainTs).toContain("'https://github.com/levy-street/world-of-claudecraft'");
     expect(robotsTxt.trim()).toBe(
-      'User-agent: *\nAllow: /\n\nSitemap: https://worldofclaudecraft.com/sitemap.xml\nSitemap: https://worldofclaudecraft.com/sitemap-characters.xml',
+      'User-agent: *\nAllow: /\n\nSitemap: https://growverse-iota.vercel.app/sitemap.xml\nSitemap: https://growverse-iota.vercel.app/sitemap-characters.xml',
     );
-    expect(robotsTxt).toContain('Sitemap: https://worldofclaudecraft.com/sitemap.xml');
+    expect(robotsTxt).toContain('Sitemap: https://growverse-iota.vercel.app/sitemap.xml');
     // The dynamic per-character sitemap (served by the game server) is advertised too.
-    expect(robotsTxt).toContain('Sitemap: https://worldofclaudecraft.com/sitemap-characters.xml');
-    expect(sitemapXml).toContain('<loc>https://worldofclaudecraft.com/</loc>');
-    expect(sitemapXml).toContain('<loc>https://worldofclaudecraft.com/links</loc>');
-    expect(sitemapXml).toContain('<loc>https://worldofclaudecraft.com/play</loc>');
+    expect(robotsTxt).toContain(
+      'Sitemap: https://growverse-iota.vercel.app/sitemap-characters.xml',
+    );
+    expect(sitemapXml).toContain('<loc>https://growverse-iota.vercel.app/</loc>');
+    expect(sitemapXml).toContain('<loc>https://growverse-iota.vercel.app/links</loc>');
+    expect(sitemapXml).toContain('<loc>https://growverse-iota.vercel.app/play</loc>');
     expect(playHtml).toContain(
-      '<link rel="canonical" href="https://worldofclaudecraft.com/play" />',
+      '<link rel="canonical" href="https://growverse-iota.vercel.app/play" />',
     );
     expect(playHtml).toContain(
-      '<meta property="og:url" content="https://worldofclaudecraft.com/play" />',
+      '<meta property="og:url" content="https://growverse-iota.vercel.app/play" />',
     );
-    expect(playHtml).toContain('"url": "https://worldofclaudecraft.com/play"');
-    expect(sitemapXml).toContain('<loc>https://worldofclaudecraft.com/privacy</loc>');
-    expect(sitemapXml).toContain('<loc>https://worldofclaudecraft.com/terms</loc>');
-    expect(sitemapXml).toContain('<loc>https://worldofclaudecraft.com/data-deletion</loc>');
-    expect(sitemapXml).toContain('<loc>https://worldofclaudecraft.com/support</loc>');
+    expect(playHtml).toContain('"url": "https://growverse-iota.vercel.app/play"');
+    expect(sitemapXml).toContain('<loc>https://growverse-iota.vercel.app/privacy</loc>');
+    expect(sitemapXml).toContain('<loc>https://growverse-iota.vercel.app/terms</loc>');
+    expect(sitemapXml).toContain('<loc>https://growverse-iota.vercel.app/data-deletion</loc>');
+    expect(sitemapXml).toContain('<loc>https://growverse-iota.vercel.app/support</loc>');
     expect(privacyHtml).toContain(
-      '<link rel="canonical" href="https://worldofclaudecraft.com/privacy" />',
+      '<link rel="canonical" href="https://growverse-iota.vercel.app/privacy" />',
     );
     expect(privacyHtml).toContain('<h1>Privacy Policy</h1>');
     expect(privacyHtml).toContain('href="/support">Support</a>');
     expect(privacyHtml).toContain('href="/data-deletion">Data Deletion</a>');
     expect(termsHtml).toContain(
-      '<link rel="canonical" href="https://worldofclaudecraft.com/terms" />',
+      '<link rel="canonical" href="https://growverse-iota.vercel.app/terms" />',
     );
     expect(termsHtml).toContain('<h1>Terms and Conditions</h1>');
     expect(termsHtml).toContain('href="/support">Support</a>');
     expect(termsHtml).toContain('href="/data-deletion">Data Deletion</a>');
     expect(dataDeletionHtml).toContain(
-      '<link rel="canonical" href="https://worldofclaudecraft.com/data-deletion" />',
+      '<link rel="canonical" href="https://growverse-iota.vercel.app/data-deletion" />',
     );
     expect(dataDeletionHtml).toContain('<h1>Data Deletion</h1>');
     expect(dataDeletionHtml).toContain('href="mailto:woc@levystreet.com"');
     expect(dataDeletionHtml).toContain('href="https://discord.gg/GjhnUsBtw"');
     expect(dataDeletionHtml).toContain('href="/support">Support</a>');
     expect(supportHtml).toContain(
-      '<link rel="canonical" href="https://worldofclaudecraft.com/support" />',
+      '<link rel="canonical" href="https://growverse-iota.vercel.app/support" />',
     );
     expect(supportHtml).toContain('<h1>Support</h1>');
     expect(supportHtml).toContain('href="mailto:woc@levystreet.com"');

@@ -228,7 +228,7 @@ function isNativeRuntime(): boolean {
   return cap?.isNativePlatform?.() === true;
 }
 
-const SITE_URL = 'https://worldofclaudecraft.com/';
+const SITE_URL = 'https://growverse-iota.vercel.app/';
 
 const RESOURCE_KEYS = {
   mana: 'classDetails.resources.mana',
@@ -4211,40 +4211,32 @@ function updateSeoMetadata(lang: SupportedLanguage): void {
 
   const jsonLd = document.getElementById('structured-data') as HTMLScriptElement | null;
   if (jsonLd) {
-    const sameAs = [
-      'https://github.com/levy-street/world-of-claudecraft',
-      'https://discord.gg/GjhnUsBtw',
-      'https://www.youtube.com/@WoGrowverse',
-      'https://x.com/WoGrowverse',
-      'https://www.instagram.com/worldofclaudecraft/',
-      'https://www.tiktok.com/@worldofclaudecraft',
-      'https://www.reddit.com/r/WorldofGrowverse/',
-    ];
+    const sameAs = ['https://github.com/levy-street/world-of-claudecraft'];
     jsonLd.textContent = JSON.stringify(
       {
         '@context': 'https://schema.org',
         '@graph': [
           {
             '@type': 'WebSite',
-            '@id': 'https://worldofclaudecraft.com/#website',
+            '@id': 'https://growverse-iota.vercel.app/#website',
             name: 'Growverse',
             alternateName: 'Growverse',
             url: canonicalHref,
             inLanguage: languageTag(lang),
             description: t('seo.description'),
-            publisher: { '@id': 'https://worldofclaudecraft.com/#organization' },
+            publisher: { '@id': 'https://growverse-iota.vercel.app/#organization' },
           },
           {
             '@type': 'Organization',
-            '@id': 'https://worldofclaudecraft.com/#organization',
+            '@id': 'https://growverse-iota.vercel.app/#organization',
             name: 'Growverse',
-            url: 'https://worldofclaudecraft.com/',
-            logo: 'https://worldofclaudecraft.com/growverse_logo_square.webp',
+            url: 'https://growverse-iota.vercel.app/',
+            logo: 'https://growverse-iota.vercel.app/growverse_logo_square.webp',
             sameAs,
           },
           {
             '@type': 'VideoGame',
-            '@id': 'https://worldofclaudecraft.com/#game',
+            '@id': 'https://growverse-iota.vercel.app/#game',
             name: 'Growverse',
             alternateName: 'Growverse',
             genre: t('seo.genre'),
@@ -4252,10 +4244,10 @@ function updateSeoMetadata(lang: SupportedLanguage): void {
             applicationCategory: t('seo.applicationCategory'),
             operatingSystem: t('seo.operatingSystem'),
             url: canonicalHref,
-            image: 'https://worldofclaudecraft.com/growverse_logo_square.webp',
+            image: 'https://growverse-iota.vercel.app/growverse_logo_square.webp',
             description: t('seo.description'),
             inLanguage: languageTag(lang),
-            publisher: { '@id': 'https://worldofclaudecraft.com/#organization' },
+            publisher: { '@id': 'https://growverse-iota.vercel.app/#organization' },
             sameAs,
           },
         ],
