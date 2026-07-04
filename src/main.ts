@@ -4211,7 +4211,10 @@ function updateSeoMetadata(lang: SupportedLanguage): void {
 
   const jsonLd = document.getElementById('structured-data') as HTMLScriptElement | null;
   if (jsonLd) {
-    const sameAs = ['https://github.com/levy-street/world-of-claudecraft'];
+    const sameAs = [
+      'https://github.com/levy-street/world-of-claudecraft',
+      'https://discord.gg/KSTJkrCq3',
+    ];
     jsonLd.textContent = JSON.stringify(
       {
         '@context': 'https://schema.org',
