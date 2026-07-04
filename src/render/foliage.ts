@@ -112,11 +112,17 @@ for (const urls of Object.values(MODEL_URLS)) {
 // (raw tints multiply into the albedo and read as grime).
 const PINE_TINT: Record<BiomeId, number> = { vale: 0x9bb48d, marsh: 0x87966b, peaks: 0x6f8a7a };
 const OAK_TINT: Record<BiomeId, number> = { vale: 0xa7b886, marsh: 0x8d9865, peaks: 0x92a37f };
-const ROCK_TINT: Record<BiomeId, number> = { vale: 0x8d8d85, marsh: 0x565c4e, peaks: 0x878e99 };
-const TRUNK_TINT: Record<BiomeId, number> = { vale: 0xffffff, marsh: 0xd2d8bc, peaks: 0xd9dde4 };
-const GRASS_TINT: Record<BiomeId, number> = { vale: 0xdde4c0, marsh: 0xbfc492, peaks: 0xc2cec8 };
+const ROCK_TINT: Record<BiomeId, number> = { vale: 0xb89a6c, marsh: 0x565c4e, peaks: 0x878e99 };
+const TRUNK_TINT: Record<BiomeId, number> = { vale: 0xd9c3a0, marsh: 0xd2d8bc, peaks: 0xd9dde4 };
+const GRASS_TINT: Record<BiomeId, number> = { vale: 0xd7c485, marsh: 0xbfc492, peaks: 0xc2cec8 };
 const SWAMP_CANOPY_TINT = 0x7e8b58;
-const DRESS_TINT: Record<BiomeId, number> = { vale: 0xaebf8e, marsh: 0x8d9865, peaks: 0x93a78f };
+// dry olive-tan foliage for the desert vale acacia canopy; marsh/peaks unchanged
+const ACACIA_CANOPY_TINT: Record<BiomeId, number> = {
+  vale: 0xa99a5c,
+  marsh: SWAMP_CANOPY_TINT,
+  peaks: SWAMP_CANOPY_TINT,
+};
+const DRESS_TINT: Record<BiomeId, number> = { vale: 0xc0ad78, marsh: 0x8d9865, peaks: 0x93a78f };
 // how far tints collapse toward white (1 = no tint at all)
 const LEAF_TINT_SOFTEN = 0.6;
 const BARK_TINT_SOFTEN = 0.85;
@@ -883,8 +889,8 @@ function buildTrees(
     salt: 57,
     baseScale: 0.5,
     sink: 0.05,
-    // twisted trunks sprawl sideways — no cheap proxy fits, keep them whole
-    leafTint: SWAMP_CANOPY_TINT,
+    // twisted trunks sprawl sideways, no cheap proxy fits, keep them whole
+    leafTint: ACACIA_CANOPY_TINT,
     castBarkShadow: false,
     proxyShape: 'twisted',
   };
@@ -934,12 +940,18 @@ function buildTrees(
 
   for (const bucket of buckets.values()) {
     const { items } = bucket;
-    const pines = items.filter((d) => d.kind === 'tree');
-    const oaks = items.filter((d) => d.kind === 'tree2' && d.biome !== 'marsh');
+    const pines = items.filter((d) => d.kind === 'tree' && d.biome !== 'vale');
+    const oaks = items.filter(
+      (d) => d.kind === 'tree2' && d.biome !== 'marsh' && d.biome !== 'vale',
+    );
     const swamps = items.filter((d) => d.kind === 'tree2' && d.biome === 'marsh');
+    // desert vale grows dry gnarled acacia (twisted) with the occasional bare
+    // snag (dead); no green conifers or leafy oaks under the desert sun
+    const valeAcacia = items.filter((d) => d.kind === 'tree' && d.biome === 'vale');
+    const valeSnags = items.filter((d) => d.kind === 'tree2' && d.biome === 'vale');
     // marsh swamp trees split between twisted (mossy) and dead (bare) models
-    const twisteds = swamps.filter((d) => hashAt(d.x, d.z, 19) >= 0.35);
-    const deads = swamps.filter((d) => hashAt(d.x, d.z, 19) < 0.35);
+    const twisteds = [...swamps.filter((d) => hashAt(d.x, d.z, 19) >= 0.35), ...valeAcacia];
+    const deads = [...swamps.filter((d) => hashAt(d.x, d.z, 19) < 0.35), ...valeSnags];
     const rocks = items.filter((d) => d.kind === 'rock');
 
     let minX = Infinity,
@@ -1045,7 +1057,7 @@ interface DressingSpot {
 
 const DRESS_STEP_HIGH = 12;
 const DRESS_STEP_LOW = 10;
-const DRESS_DENSITY: Record<BiomeId, number> = { vale: 0.26, marsh: 0.26, peaks: 0.15 };
+const DRESS_DENSITY: Record<BiomeId, number> = { vale: 0.18, marsh: 0.26, peaks: 0.15 };
 const DRESS_DENSITY_LOW_SCALE = 1.24;
 const DRESS_LOW_SCALE_BOOST = 1.08;
 const DRESS_TINT_SOFTEN_LOW = 0.56;
@@ -1056,10 +1068,10 @@ function dressStep(): number {
 
 function dressKindFor(biome: BiomeId, r: number): DressKind {
   if (biome === 'vale') {
-    if (r < 0.36) return 'bush';
-    if (r < 0.46) return 'bushFlowers';
-    if (r < 0.8) return 'fern';
-    return 'mushroom';
+    // desert scrub: dry brush dominant, sparse flowering succulents, no fungi
+    if (r < 0.58) return 'bush';
+    if (r < 0.72) return 'bushFlowers';
+    return 'fern';
   }
   if (biome === 'marsh') {
     if (r < 0.3) return 'bush';

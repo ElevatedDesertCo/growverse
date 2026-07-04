@@ -1475,7 +1475,7 @@ export class Renderer {
     if (groundHeight(x, z, this.sim.cfg.seed) < WATER_LEVEL && y <= WATER_LEVEL + 0.3)
       return 'water';
     const biome = zoneBiomeAt(z);
-    if (biome === 'vale') return 'grass';
+    if (biome === 'vale') return 'dirt'; // desert sand reads closest to the dry dirt footstep
     if (biome === 'marsh') return 'dirt';
     return this.weatherOn ? 'snow' : 'stone'; // peaks: snowy when weather is on
   }
@@ -3511,7 +3511,7 @@ export class Renderer {
   // Outdoor fog presets per biome (high tier eases between them as the
   // player crosses zone bands; low keeps the legacy vale fog everywhere).
   private static BIOME_FOG: Record<BiomeId, { color: number; near: number; far: number }> = {
-    vale: { color: 0xa6c6e0, near: 130, far: 470 },
+    vale: { color: 0xd8c6a0, near: 150, far: 500 },
     marsh: { color: 0xa3b294, near: 80, far: 330 },
     peaks: { color: 0xbdd3ec, near: 160, far: 560 },
   };
