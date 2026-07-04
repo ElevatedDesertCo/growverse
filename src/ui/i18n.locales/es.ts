@@ -859,8 +859,7 @@ export const es: Partial<Record<TranslationKey, string>> = {
   'mobilePreflight.iosInstallDetail':
     'Para pantalla completa real en iPhone o iPad, instala esta página en tu pantalla de inicio primero.',
   'mobilePreflight.iosShareStep': 'En Safari, toca Compartir y luego Agregar a pantalla de inicio.',
-  'mobilePreflight.iosOpenStep':
-    'Abre Growverse desde el nuevo icono de la pantalla de inicio.',
+  'mobilePreflight.iosOpenStep': 'Abre Growverse desde el nuevo icono de la pantalla de inicio.',
   'mobilePreflight.androidStandaloneDetail':
     'Estás en modo de aplicación a pantalla completa. Mantén el dispositivo en horizontal.',
   'mobilePreflight.androidInstallDetail':
@@ -3096,10 +3095,6 @@ export const es: Partial<Record<TranslationKey, string>> = {
   'hud.errors.silenced': '¡Estás silenciado!',
   'hud.pet.noPetFood': 'No tienes comida para alimentar a tu mascota.',
   'hud.pet.petEatsFoodOnly': 'Tu mascota solo puede comer comida.',
-  'mode.caCopyAria': 'Copiar dirección del contrato',
-  'mode.caLabel': 'Dirección del contrato de $WOC',
-  'mode.caNote':
-    'WOC es nuestro token comunitario. No es necesario para jugar. Únete a Discord para hablar sobre la utilidad y el círculo virtuoso de WOC.',
   'mode.play': 'Jugar',
   'mode.playAria': 'Jugar Growverse',
   'mode.serverAria': 'Selecciona el reino: En Línea o Desconectado',

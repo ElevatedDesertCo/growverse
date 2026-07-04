@@ -71,10 +71,7 @@ const supportHtml = readFileSync(
   new URL('../public/support.html', import.meta.url),
   'utf8',
 ).replace(/\r\n/g, '\n');
-const whitepaperUrl = new URL(
-  '../public/World-of-Growverse-Whitepaper-v1.0.pdf',
-  import.meta.url,
-);
+const whitepaperUrl = new URL('../public/World-of-Growverse-Whitepaper-v1.0.pdf', import.meta.url);
 const viteConfig = readFileSync(new URL('../vite.config.ts', import.meta.url), 'utf8').replace(
   /\r\n/g,
   '\n',
@@ -633,7 +630,7 @@ describe('client HTML shell', () => {
     );
     expect(hudCss).toContain('body.native-app #performance-tip,');
     expect(hudCss).toContain(
-      'body.desktop-app #token-ca,\n  body.desktop-app .cs-wallet,\n  body.desktop-app .cs-wallet-hidden-note,\n  body.desktop-app .account-wallet-card,\n  body.desktop-app .official-site-copy',
+      'body.desktop-app .cs-wallet,\n  body.desktop-app .cs-wallet-hidden-note,\n  body.desktop-app .account-wallet-card,\n  body.desktop-app .official-site-copy',
     );
     expect(html).toContain('<section class="account-card account-wallet-card">');
     expect(mainTs).toContain("document.body.classList.toggle('desktop-app', DESKTOP_APP);");

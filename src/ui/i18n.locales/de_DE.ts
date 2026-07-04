@@ -859,8 +859,7 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'mobilePreflight.iosInstallDetail':
     'Für echtes Vollbild auf iPhone oder iPad füge diese Seite zuerst zum Home-Bildschirm hinzu.',
   'mobilePreflight.iosShareStep': 'Tippe in Safari auf Teilen und dann auf Zum Home-Bildschirm.',
-  'mobilePreflight.iosOpenStep':
-    'Öffne Growverse über das neue Symbol auf dem Home-Bildschirm.',
+  'mobilePreflight.iosOpenStep': 'Öffne Growverse über das neue Symbol auf dem Home-Bildschirm.',
   'mobilePreflight.androidStandaloneDetail':
     'Du bist im Vollbild-App-Modus. Halte das Gerät im Querformat.',
   'mobilePreflight.androidInstallDetail':
@@ -3100,10 +3099,6 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'hud.errors.silenced': 'Ihr seid stummgeschaltet!',
   'hud.pet.noPetFood': 'Du hast keine Nahrung, um deinen Begleiter zu füttern.',
   'hud.pet.petEatsFoodOnly': 'Dein Begleiter frisst nur Nahrung.',
-  'mode.caCopyAria': 'Vertragsadresse kopieren',
-  'mode.caLabel': '$WOC-Vertragsadresse',
-  'mode.caNote':
-    'WOC ist unser Community-Token. Es wird zum Spielen nicht benötigt. Tritt dem Discord bei, um über den Nutzen und das Schwungrad von WOC zu sprechen.',
   'mode.play': 'Spielen',
   'mode.playAria': 'Growverse spielen',
   'mode.serverAria': 'Realm wählen: Online oder Offline',

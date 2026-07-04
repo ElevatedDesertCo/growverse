@@ -1943,10 +1943,7 @@ export const ja_JP: EnTranslations = {
     "playAria": "Growverseをプレイ",
     "serverLabel": "レルムを選択",
     "serverAria": "レルムを選択：オンラインまたはオフライン",
-    "serverOfflineSub": "即座にローカルの世界へ",
-    "caLabel": "$WOC コントラクトアドレス",
-    "caCopyAria": "コントラクトアドレスをコピー",
-    "caNote": "WOCはコミュニティトークンです。プレイには必要ありません。Discordに参加して、WOCのユーティリティとフライホイールについて語り合いましょう。"
+    "serverOfflineSub": "即座にローカルの世界へ"
   },
   "auth": {
     "enterRealm": "レルムに入る",
