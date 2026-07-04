@@ -101,7 +101,7 @@ describe('Suspicious players', () => {
 
     await fireEvent.click(toggle);
     expect(toggle).not.toBeChecked();
-    expect(localStorage.getItem('claudecraft_admin_suspicious_auto_refresh')).toBe('0');
+    expect(localStorage.getItem('growverse_admin_suspicious_auto_refresh')).toBe('0');
 
     first.unmount();
     render(SuspiciousPlayers);
