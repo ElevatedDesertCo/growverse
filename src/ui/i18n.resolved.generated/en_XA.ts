@@ -5587,6 +5587,18 @@ export const en_XA: EnTranslations = {
       "rootwraith_the_hollowed": {
         "name": "[Ŕóóţŵŕáíţĥ ţĥé Ĥóļļóŵéð]"
       },
+      "ashfell_knight": {
+        "name": "[Ášĥƒéļļ Ķñíĝĥţ]"
+      },
+      "emberbound_zealot": {
+        "name": "[Éɱƀéŕƀóúñð Žéáļóţ]"
+      },
+      "castellan_maldrek": {
+        "name": "[Çášţéļļáñ Ɱáļðŕéķ]"
+      },
+      "lord_kaelen_ashbound": {
+        "name": "[Ļóŕð Ķáéļéñ ţĥé Ášĥƀóúñð]"
+      },
       "reliquary_ledger_wraith": {
         "name": "[Ļéðĝéŕ Ŵŕáíţĥ]"
       },
@@ -6765,6 +6777,11 @@ export const en_XA: EnTranslations = {
         "name": "[Ɓļíĝĥţŕóóţ Ĥóļļóŵ]",
         "enterText": "[Ýóú šɋúééžé þášţ ĥáñĝíñĝ ŕóóţš íñţó ţĥé Ɓļíĝĥţŕóóţ Ĥóļļóŵ...]",
         "leaveText": "[Ýóú çļíɱƀ óúţ ţĥŕóúĝĥ ţĥé ţáñĝļéð ŕóóţš íñţó óþéñ áíŕ.]"
+      },
+      "emberhold_keep": {
+        "name": "[Éɱƀéŕĥóļð Ķééþ]",
+        "enterText": "[Ýóú þášš ƀéñéáţĥ ţĥé ƀúŕñţ þóŕţçúļļíš íñţó Éɱƀéŕĥóļð Ķééþ...]",
+        "leaveText": "[Ýóú šţéþ ƀáçķ ţĥŕóúĝĥ ţĥé ĝáţéĥóúšé íñţó ţĥé óþéñ ðéšéŕţ.]"
       },
       "sunken_bastion": {
         "name": "[Ţĥé Šúñķéñ Ɓášţíóñ]",

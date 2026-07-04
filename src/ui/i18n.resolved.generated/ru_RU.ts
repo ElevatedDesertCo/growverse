@@ -5587,6 +5587,18 @@ export const ru_RU: EnTranslations = {
       "rootwraith_the_hollowed": {
         "name": "Опустошённый корнепризрак"
       },
+      "ashfell_knight": {
+        "name": "Пепельный рыцарь"
+      },
+      "emberbound_zealot": {
+        "name": "Углесвязанный фанатик"
+      },
+      "castellan_maldrek": {
+        "name": "Кастелян Мальдрек"
+      },
+      "lord_kaelen_ashbound": {
+        "name": "Лорд Кейлен Пепелоокованный"
+      },
       "reliquary_ledger_wraith": {
         "name": "Книжный призрак"
       },
@@ -6765,6 +6777,11 @@ export const ru_RU: EnTranslations = {
         "name": "Гнилокорневая нора",
         "enterText": "Протиснувшись мимо свисающих корней, вы входите в Гнилокорневую нору...",
         "leaveText": "Вы пробираетесь сквозь спутанные корни на открытый воздух."
+      },
+      "emberhold_keep": {
+        "name": "Крепость Эмберхолд",
+        "enterText": "Вы проходите под обгоревшей решёткой ворот в Крепость Эмберхолд...",
+        "leaveText": "Вы выходите через воротную башню обратно в открытую пустыню."
       },
       "sunken_bastion": {
         "name": "Затонувший бастион",

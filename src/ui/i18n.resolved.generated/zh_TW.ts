@@ -5587,6 +5587,18 @@ export const zh_TW: EnTranslations = {
       "rootwraith_the_hollowed": {
         "name": "根魅·空蝕者"
       },
+      "ashfell_knight": {
+        "name": "灰落騎士"
+      },
+      "emberbound_zealot": {
+        "name": "縛燼狂徒"
+      },
+      "castellan_maldrek": {
+        "name": "城主馬爾德雷克"
+      },
+      "lord_kaelen_ashbound": {
+        "name": "縛燼領主凱倫"
+      },
       "reliquary_ledger_wraith": {
         "name": "名冊幽靈"
       },
@@ -6765,6 +6777,11 @@ export const zh_TW: EnTranslations = {
         "name": "枯根空穴",
         "enterText": "你擠過垂落的根鬚，進入枯根空穴...",
         "leaveText": "你穿過糾纏的根鬚，爬向開闊的天空。"
+      },
+      "emberhold_keep": {
+        "name": "燼堡",
+        "enterText": "你穿過燒焦的閘門，進入燼堡...",
+        "leaveText": "你穿過門樓，重新踏入開闊的荒漠。"
       },
       "sunken_bastion": {
         "name": "沉沒堡壘",

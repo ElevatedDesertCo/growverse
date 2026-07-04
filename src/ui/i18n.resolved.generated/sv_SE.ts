@@ -5587,6 +5587,18 @@ export const sv_SE: EnTranslations = {
       "rootwraith_the_hollowed": {
         "name": "Rootwraith the Hollowed"
       },
+      "ashfell_knight": {
+        "name": "Ashfell Knight"
+      },
+      "emberbound_zealot": {
+        "name": "Emberbound Zealot"
+      },
+      "castellan_maldrek": {
+        "name": "Castellan Maldrek"
+      },
+      "lord_kaelen_ashbound": {
+        "name": "Lord Kaelen the Ashbound"
+      },
       "reliquary_ledger_wraith": {
         "name": "Liggarvålnad"
       },
@@ -6765,6 +6777,11 @@ export const sv_SE: EnTranslations = {
         "name": "Blightroot Hollow",
         "enterText": "You squeeze past hanging roots into the Blightroot Hollow...",
         "leaveText": "You climb out through the tangled roots into open air."
+      },
+      "emberhold_keep": {
+        "name": "Emberhold Keep",
+        "enterText": "You pass beneath the burnt portcullis into Emberhold Keep...",
+        "leaveText": "You step back through the gatehouse into the open desert."
       },
       "sunken_bastion": {
         "name": "Den sjunkna bastionen",

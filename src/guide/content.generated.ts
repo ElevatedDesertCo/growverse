@@ -1305,6 +1305,14 @@ export const GUIDE_DUNGEONS: GuideDungeon[] = [
     "name": "The Hollow Crypt"
   },
   {
+    "id": "emberhold_keep",
+    "isRaid": false,
+    "suggestedPlayers": 5,
+    "min": 10,
+    "max": 13,
+    "name": "Emberhold Keep"
+  },
+  {
     "id": "sunken_bastion",
     "isRaid": false,
     "suggestedPlayers": 5,

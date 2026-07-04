@@ -2998,6 +2998,9 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
     '垂れ下がる根をかき分け、枯根の洞へと入り込む...',
   'entities.dungeons.blightroot_hollow.leaveText':
     '絡みつく根をくぐり抜け、開けた空の下へと這い上がる。',
+  'entities.dungeons.emberhold_keep.name': '燼の砦',
+  'entities.dungeons.emberhold_keep.enterText': '焼け落ちた落とし格子をくぐり、燼の砦へと入る...',
+  'entities.dungeons.emberhold_keep.leaveText': '門楼を抜け、開けた砂漠へと戻る。',
   'entities.dungeons.sunken_bastion.name': '沈んだ砦',
   'entities.dungeons.sunken_bastion.enterText': '沈んだ砦の深みへ水をかき分けて進みます...',
   'entities.dungeons.sunken_bastion.leaveText': '水に沈む闇から抜け出します。',
@@ -3176,6 +3179,10 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.mobs.blightroot_weaver.name': '枯根の織り手',
   'entities.mobs.hollowed_husk.name': 'うつろな亡骸',
   'entities.mobs.rootwraith_the_hollowed.name': 'うつろなる根の亡霊',
+  'entities.mobs.ashfell_knight.name': '灰落の騎士',
+  'entities.mobs.emberbound_zealot.name': '燼縛の狂信者',
+  'entities.mobs.castellan_maldrek.name': '城代マルドレク',
+  'entities.mobs.lord_kaelen_ashbound.name': '燼縛の領主ケイレン',
   // v0.10.0 release fill (Fiesta / skin-select / NPC voices / chat channels / Brightwood Glade)
   'hud.core.chatChannels.add': 'チャットチャンネルを追加',
   'hud.core.chatChannels.addTitle': 'チャンネルを追加',

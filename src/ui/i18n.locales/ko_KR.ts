@@ -2993,6 +2993,9 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
     '늘어진 뿌리를 헤치고 마름뿌리 굴로 비집고 들어갑니다...',
   'entities.dungeons.blightroot_hollow.leaveText':
     '뒤엉킨 뿌리를 뚫고 탁 트인 하늘 아래로 기어 오릅니다.',
+  'entities.dungeons.emberhold_keep.name': '잿불 성채',
+  'entities.dungeons.emberhold_keep.enterText': '불에 탄 쇠창살문을 지나 잿불 성채로 들어섭니다...',
+  'entities.dungeons.emberhold_keep.leaveText': '성문루를 지나 탁 트인 사막으로 되돌아 나옵니다.',
   'entities.dungeons.sunken_bastion.name': '가라앉은 요새',
   'entities.dungeons.sunken_bastion.enterText':
     '가라앉은 요새의 깊은 곳으로 물을 헤치며 들어갑니다...',
@@ -3451,6 +3454,10 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.mobs.blightroot_weaver.name': '마름뿌리 직조자',
   'entities.mobs.hollowed_husk.name': '텅 빈 껍데기',
   'entities.mobs.rootwraith_the_hollowed.name': '공허의 뿌리망령',
+  'entities.mobs.ashfell_knight.name': '잿빛 기사',
+  'entities.mobs.emberbound_zealot.name': '불씨에 얽매인 광신도',
+  'entities.mobs.castellan_maldrek.name': '성주 말드렉',
+  'entities.mobs.lord_kaelen_ashbound.name': '잿불의 군주 카엘렌',
   'itemUi.quality.legendary': '전설',
   'entities.items.deathless_heartwood.name': '죽지 않는 왕관의 심재',
   'entities.items.kingsbane_last_oath.name': '왕살해자, 손피크의 마지막 맹세',

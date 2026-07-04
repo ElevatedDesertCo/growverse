@@ -5587,6 +5587,18 @@ export const ja_JP: EnTranslations = {
       "rootwraith_the_hollowed": {
         "name": "うつろなる根の亡霊"
       },
+      "ashfell_knight": {
+        "name": "灰落の騎士"
+      },
+      "emberbound_zealot": {
+        "name": "燼縛の狂信者"
+      },
+      "castellan_maldrek": {
+        "name": "城代マルドレク"
+      },
+      "lord_kaelen_ashbound": {
+        "name": "燼縛の領主ケイレン"
+      },
       "reliquary_ledger_wraith": {
         "name": "台帳の亡霊"
       },
@@ -6765,6 +6777,11 @@ export const ja_JP: EnTranslations = {
         "name": "枯根の洞",
         "enterText": "垂れ下がる根をかき分け、枯根の洞へと入り込む...",
         "leaveText": "絡みつく根をくぐり抜け、開けた空の下へと這い上がる。"
+      },
+      "emberhold_keep": {
+        "name": "燼の砦",
+        "enterText": "焼け落ちた落とし格子をくぐり、燼の砦へと入る...",
+        "leaveText": "門楼を抜け、開けた砂漠へと戻る。"
       },
       "sunken_bastion": {
         "name": "沈んだ砦",

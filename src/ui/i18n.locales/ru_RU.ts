@@ -3028,6 +3028,11 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
     'Протиснувшись мимо свисающих корней, вы входите в Гнилокорневую нору...',
   'entities.dungeons.blightroot_hollow.leaveText':
     'Вы пробираетесь сквозь спутанные корни на открытый воздух.',
+  'entities.dungeons.emberhold_keep.name': 'Крепость Эмберхолд',
+  'entities.dungeons.emberhold_keep.enterText':
+    'Вы проходите под обгоревшей решёткой ворот в Крепость Эмберхолд...',
+  'entities.dungeons.emberhold_keep.leaveText':
+    'Вы выходите через воротную башню обратно в открытую пустыню.',
   'entities.dungeons.sunken_bastion.name': 'Затонувший бастион',
   'entities.dungeons.sunken_bastion.enterText': 'Вы спускаетесь в Затонувший бастион по воде...',
   'entities.dungeons.sunken_bastion.leaveText': 'Вы выбираетесь из тонущей тьмы.',
@@ -3492,6 +3497,10 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.mobs.blightroot_weaver.name': 'Гнилокорневой ткач',
   'entities.mobs.hollowed_husk.name': 'Выхолощенная оболочка',
   'entities.mobs.rootwraith_the_hollowed.name': 'Опустошённый корнепризрак',
+  'entities.mobs.ashfell_knight.name': 'Пепельный рыцарь',
+  'entities.mobs.emberbound_zealot.name': 'Углесвязанный фанатик',
+  'entities.mobs.castellan_maldrek.name': 'Кастелян Мальдрек',
+  'entities.mobs.lord_kaelen_ashbound.name': 'Лорд Кейлен Пепелоокованный',
   'itemUi.quality.legendary': 'Легендарное',
   'entities.items.deathless_heartwood.name': 'Сердцевина бессмертной короны',
   'entities.items.kingsbane_last_oath.name': 'Цареубийца, последняя клятва Торнпика',

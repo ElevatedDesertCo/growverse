@@ -79,6 +79,11 @@ const MOB_IDS = [
   'blightroot_weaver',
   'hollowed_husk',
   'rootwraith_the_hollowed',
+  // Emberhold Keep castle mobs
+  'ashfell_knight',
+  'emberbound_zealot',
+  'castellan_maldrek',
+  'lord_kaelen_ashbound',
   // Collapsed Reliquary delve mobs
   'reliquary_ledger_wraith',
   'reliquary_funeral_ringer',
@@ -192,6 +197,7 @@ const ZONE_IDS = ['eastbrook_vale', 'mirefen_marsh', 'thornpeak_heights'] as con
 const DUNGEON_IDS = [
   'hollow_crypt',
   'blightroot_hollow',
+  'emberhold_keep',
   'sunken_bastion',
   'gravewyrm_sanctum',
   'nythraxis_crypt',

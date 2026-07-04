@@ -5587,6 +5587,18 @@ export const ko_KR: EnTranslations = {
       "rootwraith_the_hollowed": {
         "name": "공허의 뿌리망령"
       },
+      "ashfell_knight": {
+        "name": "잿빛 기사"
+      },
+      "emberbound_zealot": {
+        "name": "불씨에 얽매인 광신도"
+      },
+      "castellan_maldrek": {
+        "name": "성주 말드렉"
+      },
+      "lord_kaelen_ashbound": {
+        "name": "잿불의 군주 카엘렌"
+      },
       "reliquary_ledger_wraith": {
         "name": "명부의 망령"
       },
@@ -6765,6 +6777,11 @@ export const ko_KR: EnTranslations = {
         "name": "마름뿌리 굴",
         "enterText": "늘어진 뿌리를 헤치고 마름뿌리 굴로 비집고 들어갑니다...",
         "leaveText": "뒤엉킨 뿌리를 뚫고 탁 트인 하늘 아래로 기어 오릅니다."
+      },
+      "emberhold_keep": {
+        "name": "잿불 성채",
+        "enterText": "불에 탄 쇠창살문을 지나 잿불 성채로 들어섭니다...",
+        "leaveText": "성문루를 지나 탁 트인 사막으로 되돌아 나옵니다."
       },
       "sunken_bastion": {
         "name": "가라앉은 요새",
