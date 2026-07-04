@@ -106,6 +106,18 @@ function staticWorldColliders(seed: number): Collider[] {
       cameraTopY: topY(seed, w.x, w.z, 3.7),
       camGhost: true,
     });
+  // Elevated Obelisks: a solid stone monument the player walks around.
+  for (const o of PROPS.obelisks ?? []) {
+    const h = o.y ?? 6;
+    out.push({
+      type: 'circle',
+      x: o.x,
+      z: o.z,
+      r: 0.9,
+      cameraTopY: topY(seed, o.x, o.z, h),
+      camGhost: true,
+    });
+  }
   for (const s of PROPS.stalls)
     out.push({
       type: 'circle',

@@ -1229,6 +1229,9 @@ export interface ZonePropsDef {
   // delveId resolves to the delve's localized name at render time (the carved
   // entrance sign), so the marker carries no hardcoded English label.
   delveMarkers?: { x: number; z: number; delveId: string }[];
+  // Elevated Obelisk waystones: tall stone landmarks that mark a settlement or a
+  // rift site. `y` is the target world-height of the model in metres (default 6).
+  obelisks?: { x: number; z: number; y?: number }[];
 }
 
 export function emptyZoneProps(): ZonePropsDef {

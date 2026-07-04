@@ -1126,4 +1126,7 @@ export const ZONE1_PROPS: ZonePropsDef = {
     { x: 4, z: -56 },
   ],
   delveMarkers: [{ x: -5, z: -52, delveId: 'collapsed_reliquary' }],
+  // Bloomhaven's founding waystone: a tall Elevated Obelisk on the open ground
+  // south of the town well, the first landmark players see on arrival.
+  obelisks: [{ x: 0, z: -14, y: 7 }],
 };

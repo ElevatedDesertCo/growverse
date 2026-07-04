@@ -106,6 +106,10 @@ const PROP_ASSET_DEFS: Record<string, PropAssetDef> = {
   // has its own backing slab so the animated shader plane sits on the front face.
   // yaw: Math.PI if the model loads backwards after inspecting in-game.
   delveEntrance2: { url: '/models/dungeon/delve_entrance_2.glb', kit: 'dungeon' },
+  // Meshy-generated Elevated Obelisk: a tall stone waystone marking a settlement
+  // or rift site (see PROPS.obelisks). Its own kit so its stone shares no material
+  // with the CC0 village set.
+  obelisk: { url: '/models/props/elevated_obelisk.glb', kit: 'obelisk' },
 };
 
 type PropKey = keyof typeof PROP_ASSET_DEFS;
@@ -145,6 +149,7 @@ const LOW_TIER_PROP_KEYS: readonly PropKey[] = [
   'crateWooden',
   'barrel',
   'delveEntrance2', // delve entrance portal, a landmark, so keep it on low gfx too
+  'obelisk', // waystone landmark, keep it visible on low gfx too
 ];
 
 /**
@@ -219,6 +224,9 @@ const MAT_OVERRIDES: Record<
   'minerock:_defaultMat': { color: 0x6f7376 },
   // graveyard colormap is near-white; knock it toward weathered stone
   'grave:colormap': { color: 0xd2d2c8 },
+  // Elevated Obelisk ships materialless (GLTFLoader's white default): grade it to
+  // weathered desert sandstone so the waystone reads as carved stone, not plastic.
+  'obelisk:': { color: 0xc2a878, roughness: 0.82, metalness: 0 },
 };
 
 // ---------------------------------------------------------------------------
@@ -813,6 +821,24 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     g.rotation.y = propRand(w.x, w.z, 1) * Math.PI;
     group.add(shadowed(g));
     registerHideable(g, circleFootprint(w.x, w.z, w.r, ground(w.x, w.z) + 3.7));
+  }
+
+  // ---- Elevated Obelisks: tall stone waystone landmarks --------------------
+  for (const o of PROPS.obelisks ?? []) {
+    const targetH = o.y ?? 6;
+    const a = propAsset('obelisk');
+    const s = targetH / a.size.y; // uniform scale off the model's height
+    const g = new THREE.Group();
+    addParts(g, 'obelisk', {
+      scale: s,
+      rot: propRand(o.x, o.z, 1) * Math.PI * 2,
+    });
+    g.position.set(o.x, ground(o.x, o.z) - 0.06, o.z);
+    group.add(shadowed(g));
+    registerHideable(
+      g,
+      circleFootprint(o.x, o.z, Math.max(0.8, a.size.x * s * 0.5), ground(o.x, o.z) + targetH),
+    );
   }
 
   // ---- graveyards: 4 headstone shapes, leaning, instanced ------------------
