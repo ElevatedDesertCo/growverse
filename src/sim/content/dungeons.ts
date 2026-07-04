@@ -767,7 +767,7 @@ const BLIGHTROOT_SPAWN_LIST: DungeonSpawn[] = [
   { mobId: 'rootfen_crawler', x: 4, z: 96 },
 ];
 
-// Emberhold Keep: garrison pacing — knight-and-zealot packs down the great hall,
+// Emberhold Keep: garrison pacing, knight-and-zealot packs down the great hall,
 // Castellan Maldrek holding the inner gate, then Lord Kaelen on the throne dais
 // flanked by two knights.
 const EMBERHOLD_SPAWN_LIST: DungeonSpawn[] = [
