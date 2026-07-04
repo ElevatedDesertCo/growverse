@@ -5507,7 +5507,7 @@ export const en_XA: EnTranslations = {
         "name": "[Šéẋţóñ Ɱáŕŕóŵ]"
       },
       "morthen": {
-        "name": "[Ɱóŕţĥéñ ţĥé Ĝŕáʋéçáļļéŕ]"
+        "name": "[Ɱóŕţĥéñ ţĥé Ɓļíĝĥţçáļļéŕ]"
       },
       "bastion_revenant": {
         "name": "[Ɓášţíóñ Ŕéʋéñáñţ]"
@@ -5570,7 +5570,7 @@ export const en_XA: EnTranslations = {
         "name": "[Ŕíšéñ Ŕóýáļ Ĝúáŕð]"
       },
       "nythraxis_scourge_of_thornpeak": {
-        "name": "[Ñýţĥŕáẋíš, Šçóúŕĝé óƒ Ţĥóŕñþéáķ]"
+        "name": "[Ñýţĥŕáẋíš, Šçóúŕĝé óƒ Ţĥóŕñŕéáçĥ]"
       },
       "reliquary_ledger_wraith": {
         "name": "[Ļéðĝéŕ Ŵŕáíţĥ]"
@@ -6759,12 +6759,12 @@ export const en_XA: EnTranslations = {
       "nythraxis_crypt": {
         "name": "[Áƀáñðóñéð Çŕýþţ]",
         "enterText": "[Ýóú çŕóšš ţĥé ţĥŕéšĥóļð óƒ ţĥé Áƀáñðóñéð Çŕýþţ.]",
-        "leaveText": "[Ýóú ŕéţúŕñ ţó ţĥé çóļð áíŕ óƒ Ţĥóŕñþéáķ.]"
+        "leaveText": "[Ýóú ŕéţúŕñ ţó ţĥé çóļð áíŕ óƒ Ţĥóŕñŕéáçĥ.]"
       },
       "nythraxis_boss_arena": {
         "name": "[Ñýţĥŕáẋíš Ŕáíð Áŕéñá]",
         "enterText": "[Ýóú þášš ţĥŕóúĝĥ ţĥé šéáļéð ŕóýáļ ðóóŕ.]",
-        "leaveText": "[Ýóú ŕéţúŕñ ţó ţĥé çóļð áíŕ óƒ Ţĥóŕñþéáķ.]"
+        "leaveText": "[Ýóú ŕéţúŕñ ţó ţĥé çóļð áíŕ óƒ Ţĥóŕñŕéáçĥ.]"
       },
       "drowned_temple": {
         "name": "[Ţĥé Ðŕóŵñéð Ţéɱþļé]",

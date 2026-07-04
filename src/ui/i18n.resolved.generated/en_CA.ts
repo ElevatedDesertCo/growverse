@@ -5507,7 +5507,7 @@ export const en_CA: EnTranslations = {
         "name": "Sexton Marrow"
       },
       "morthen": {
-        "name": "Morthen the Gravecaller"
+        "name": "Morthen the Blightcaller"
       },
       "bastion_revenant": {
         "name": "Bastion Revenant"
@@ -5570,7 +5570,7 @@ export const en_CA: EnTranslations = {
         "name": "Risen Royal Guard"
       },
       "nythraxis_scourge_of_thornpeak": {
-        "name": "Nythraxis, Scourge of Thornpeak"
+        "name": "Nythraxis, Scourge of Thornreach"
       },
       "reliquary_ledger_wraith": {
         "name": "Ledger Wraith"
@@ -6759,12 +6759,12 @@ export const en_CA: EnTranslations = {
       "nythraxis_crypt": {
         "name": "Abandoned Crypt",
         "enterText": "You cross the threshold of the Abandoned Crypt.",
-        "leaveText": "You return to the cold air of Thornpeak."
+        "leaveText": "You return to the cold air of Thornreach."
       },
       "nythraxis_boss_arena": {
         "name": "Nythraxis Raid Arena",
         "enterText": "You pass through the sealed royal door.",
-        "leaveText": "You return to the cold air of Thornpeak."
+        "leaveText": "You return to the cold air of Thornreach."
       },
       "drowned_temple": {
         "name": "The Drowned Temple",
