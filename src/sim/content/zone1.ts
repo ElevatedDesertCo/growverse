@@ -1099,6 +1099,11 @@ export const ZONE1_PROPS: ZonePropsDef = {
     { x: 95, z: -94, rot: -0.6, scale: 1 },
   ],
   crates: [
+    // Bloomhaven crafting stations: supply crates dressing the two craft NPCs.
+    [8.7, 6.6], // Marlow the Cultivator's Grow Station supplies
+    [8.3, 3.4],
+    [-16, 2], // Draxa the Riftsmith's Upgrade Bench stock
+    [-11.8, 6.4],
     [60, -63],
     [66, -67],
     [87, -88],
@@ -1107,6 +1112,7 @@ export const ZONE1_PROPS: ZonePropsDef = {
   ],
   campfires: [
     [3, -4],
+    [-16.2, 6.2], // Draxa the Riftsmith's forge fire (Upgrade Bench)
     [65, -65],
     [90, -90],
     [-80, -60],
