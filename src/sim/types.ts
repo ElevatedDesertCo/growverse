@@ -1115,6 +1115,27 @@ export interface AbilityDef {
 // modules in sim/content/ export records of these; sim/data.ts merges them.
 // ---------------------------------------------------------------------------
 
+// The two Growverse crafting stations. The Grow Station is growing-only (it never
+// grows plants itself, it makes the inputs: nutrients, upgraded seed strains, and
+// grow accessories). The Upgrade Bench reforges weapons and armor and cuts
+// combat consumables from Corruption Shards.
+export type CraftStation = 'grow' | 'upgrade';
+
+// A crafting recipe: consumes reagent items + copper at a station and yields an
+// output item. Pure data-as-code (content/crafting.ts); the engine reads it in
+// sim/crafting.ts and the HUD lists it. Balance numbers live in the record, never
+// inline in engine code.
+export interface CraftRecipe {
+  id: string;
+  station: CraftStation;
+  // UI grouping label (e.g. 'nutrient' | 'seed' | 'accessory' | 'gear' | 'consumable').
+  category: string;
+  inputs: { itemId: string; count: number }[];
+  copperCost: number;
+  output: { itemId: string; count: number };
+  requiredLevel?: number;
+}
+
 export interface NpcDef {
   id: string;
   name: string;
@@ -1127,6 +1148,10 @@ export interface NpcDef {
   // The Merchant: talking to this NPC opens the player-driven World Market
   // (auction house) instead of a fixed vendor stock.
   market?: boolean;
+  // A crafting station attendant: talking to this NPC opens the crafting window
+  // filtered to this station. 'grow' = the Grow Station (nutrients, seed strains,
+  // grow accessories); 'upgrade' = the Upgrade Bench (weapon/armor reforging).
+  crafting?: CraftStation;
   greeting: string;
   // Registered but not surface-placed at world init. The owning system spawns
   // the entity on demand (e.g. the Nythraxis encounter walks Brother Aldric in
@@ -1602,6 +1627,10 @@ export type SimEvent = { pid?: number } & (
   // itemId names the single item for buy/sell/buyback; it is omitted for the
   // bulk "sell all junk" sweep, which the client treats as a plain refresh signal.
   | { type: 'vendor'; action: 'buy' | 'sell' | 'buyback'; itemId?: string }
+  // A successful craft: the client refreshes the crafting window and logs a line
+  // built locally from the recipe's output (kept structured so the sim stays
+  // language-agnostic, like 'vendor').
+  | { type: 'craft'; recipeId: string }
   // say/yell are delivered only to players in range and carry the speaker's
   // entity id so the client can hang a chat bubble over their head; whisper
   // goes to the target (and echoes to the sender with `to` set); general is

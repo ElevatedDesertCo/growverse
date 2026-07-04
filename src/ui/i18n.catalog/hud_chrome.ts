@@ -1094,4 +1094,34 @@ export const hudChromeStrings = {
     linkedAs: 'Linked as {login}',
     unlink: 'Unlink GitHub',
   },
+  // Crafting: the Grow Station (Cultivator) + Upgrade Bench (Riftsmith) windows and
+  // their sim-emitted validation errors (re-localized via localizeErrorText). The
+  // recipe/item names themselves come from the item table (tItem), not from here.
+  crafting: {
+    growTitle: 'Grow Station',
+    upgradeTitle: 'Upgrade Bench',
+    growHint: 'Craft nutrients, upgrade seed strains, and build growing gear.',
+    upgradeHint: 'Reforge gear and cut battle consumables from Corruption Shards.',
+    craftButton: 'Craft',
+    costLabel: 'Cost',
+    requiresLabel: 'Requires',
+    levelReq: 'Requires level {level}',
+    produces: 'Yields {count} {name}',
+    crafted: 'Crafted {name}.',
+    empty: 'Nothing can be crafted here yet.',
+    close: 'Close',
+    categories: {
+      nutrient: 'Nutrients',
+      seed: 'Seed Strains',
+      accessory: 'Grow Accessories',
+      consumable: 'Consumables',
+      gear: 'Reforged Gear',
+    },
+    errors: {
+      recipeUnavailable: 'That recipe is not available here.',
+      tooFarFromStation: 'You are too far from the station.',
+      levelTooLow: 'You are not skilled enough to craft that yet.',
+      missingMaterials: 'You lack the materials to craft that.',
+    },
+  },
 };

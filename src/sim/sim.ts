@@ -75,6 +75,7 @@ import {
   talentPointsAtLevel,
 } from './content/talents';
 import { applyCooldowns, type SavedCooldowns, serializeCooldowns } from './cooldown_persist';
+import * as crafting from './crafting';
 import type { DelveShopGate, DelveShopOffer } from './data';
 import {
   abilitiesKnownAt,
@@ -4443,6 +4444,12 @@ export class Sim {
 
   buyBackItem(itemId: string, pid?: number): void {
     items.buyBackItem(this.ctx, itemId, pid);
+  }
+
+  // Crafting: submit a recipe at the station the player stands next to
+  // (server-authoritative validation lives in crafting.craft).
+  craft(recipeId: string, pid?: number): void {
+    crafting.craft(this.ctx, recipeId, pid);
   }
 
   private maybeAutoEquip(itemId: string, meta: PlayerMeta): void {

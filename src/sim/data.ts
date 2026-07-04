@@ -4,6 +4,7 @@
 // merges those records into the flat tables the rest of the engine consumes,
 // and owns the world-layout constants.
 
+import { CRAFT_ITEMS, CRAFT_NPCS } from './content/crafting';
 import { BASE_ITEMS, FISHING_RARE_ID, FISHING_TABLES } from './content/items';
 import type {
   CampDef,
@@ -137,7 +138,13 @@ export const ITEMS: Record<string, ItemDef> = mergeItems(
   ZONE3_ITEMS,
   TEMPLE_ITEMS,
   DELVE_ITEMS,
+  CRAFT_ITEMS,
 );
+
+export {
+  CRAFT_RECIPES,
+  CRAFT_RECIPES_BY_ID,
+} from './content/crafting';
 
 export type { AggregatedSetEffect } from './content/item_sets';
 export { aggregateSetBonuses, ITEM_SETS } from './content/item_sets';
@@ -158,6 +165,7 @@ export const NPCS: Record<string, NpcDef> = {
   ...ZONE2_NPCS,
   ...ZONE3_NPCS,
   ...TEMPLE_NPCS,
+  ...CRAFT_NPCS,
   brother_halven: BROTHER_HALVEN,
 };
 

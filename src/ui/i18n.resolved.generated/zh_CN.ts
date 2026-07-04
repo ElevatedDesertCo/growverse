@@ -1008,6 +1008,33 @@ export const zh_CN: EnTranslations = {
       },
       "linkedAs": "已关联为 {login}",
       "unlink": "取消关联 GitHub"
+    },
+    "crafting": {
+      "growTitle": "培育站",
+      "upgradeTitle": "升级台",
+      "growHint": "制作营养剂、升级种子品系、打造种植装备。",
+      "upgradeHint": "重铸装备，并用腐蚀碎片切割战斗消耗品。",
+      "craftButton": "制作",
+      "costLabel": "花费",
+      "requiresLabel": "需要",
+      "levelReq": "需要等级 {level}",
+      "produces": "产出 {count} 个{name}",
+      "crafted": "制作了{name}。",
+      "empty": "这里暂时没有可制作的物品。",
+      "close": "关闭",
+      "categories": {
+        "nutrient": "营养剂",
+        "seed": "种子品系",
+        "accessory": "种植配件",
+        "consumable": "消耗品",
+        "gear": "重铸装备"
+      },
+      "errors": {
+        "recipeUnavailable": "这里没有该配方。",
+        "tooFarFromStation": "你离工作台太远了。",
+        "levelTooLow": "你的技艺还不足以制作那个。",
+        "missingMaterials": "你缺少制作所需的材料。"
+      }
     }
   },
   "guide": {
@@ -5839,6 +5866,16 @@ export const zh_CN: EnTranslations = {
         "name": "哈尔文修士",
         "title": "圣物库守护人",
         "greeting": "下方的圣物库又移位了。"
+      },
+      "cultivator_marlow": {
+        "name": "马洛",
+        "title": "培植师",
+        "greeting": "培育站随你使用，朋友。营养剂、种子品系、种植装备。这些植物需要什么？"
+      },
+      "smith_draxa": {
+        "name": "德拉克萨",
+        "title": "裂隙铁匠",
+        "greeting": "升级台正热着呢。给我带来腐蚀碎片，我会把你的钢铁重铸成裂隙也无法折断的利器。"
       },
       "tidewatcher_ondrel": {
         "name": "翁德雷尔·凡恩",

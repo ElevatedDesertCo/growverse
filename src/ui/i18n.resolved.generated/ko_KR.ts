@@ -1008,6 +1008,33 @@ export const ko_KR: EnTranslations = {
       },
       "linkedAs": "{login}(으)로 연결됨",
       "unlink": "GitHub 연결 해제"
+    },
+    "crafting": {
+      "growTitle": "재배 시설",
+      "upgradeTitle": "개조 작업대",
+      "growHint": "영양제 제작, 씨앗 품종 강화, 재배 장비 제작.",
+      "upgradeHint": "장비를 다시 벼리고, 부패의 파편으로 전투 소모품을 깎아낸다.",
+      "craftButton": "제작",
+      "costLabel": "비용",
+      "requiresLabel": "필요",
+      "levelReq": "레벨 {level} 필요",
+      "produces": "{name} {count}개 생산",
+      "crafted": "{name}을(를) 제작했습니다.",
+      "empty": "아직 여기서 제작할 수 있는 것이 없습니다.",
+      "close": "닫기",
+      "categories": {
+        "nutrient": "영양제",
+        "seed": "씨앗 품종",
+        "accessory": "재배 장신구",
+        "consumable": "소모품",
+        "gear": "재련 장비"
+      },
+      "errors": {
+        "recipeUnavailable": "여기서는 그 제조법을 쓸 수 없습니다.",
+        "tooFarFromStation": "작업대에서 너무 멀리 있습니다.",
+        "levelTooLow": "아직 그것을 제작할 만한 실력이 안 됩니다.",
+        "missingMaterials": "제작에 필요한 재료가 부족합니다."
+      }
     }
   },
   "guide": {
@@ -5839,6 +5866,16 @@ export const ko_KR: EnTranslations = {
         "name": "브라더 할벤",
         "title": "성물실 관리인",
         "greeting": "아래의 성물실이 또 움직였소."
+      },
+      "cultivator_marlow": {
+        "name": "말로우",
+        "title": "재배가",
+        "greeting": "재배 시설은 자유롭게 쓰게, 친구. 영양제, 씨앗 품종, 재배 장비. 식물에게 무엇이 필요한가?"
+      },
+      "smith_draxa": {
+        "name": "드락사",
+        "title": "균열 대장장이",
+        "greeting": "개조 작업대가 뜨겁게 달아올랐네. 부패의 파편을 가져오게. 자네의 강철을 균열조차 부수지 못할 물건으로 다시 벼려주지."
       },
       "tidewatcher_ondrel": {
         "name": "온드렐 베인",

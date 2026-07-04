@@ -106,6 +106,8 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
       { copper: 8, chance: 1 },
       { itemId: 'wolf_fang', chance: 0.45 },
       { itemId: 'milepost_boots', chance: 0.1 },
+      // Corruption seeps into the pack near the rift: a shard for the Upgrade Bench.
+      { itemId: 'corruption_shard', chance: 0.18 },
     ],
     scale: 0.9,
     color: 0x7f8c8d,
@@ -379,6 +381,8 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
       { copper: 30, chance: 1 },
       { itemId: 'bone_fragments', chance: 0.6 },
       { itemId: 'ghostly_essence', chance: 0.55, questId: 'q_rite' },
+      // Corruption-riddled husks shed shards for the Upgrade Bench.
+      { itemId: 'corruption_shard', chance: 0.3 },
     ],
     scale: 1.0,
     color: 0xd5dbdb,

@@ -37,6 +37,8 @@ import {
   ABILITIES,
   CLASSES,
   COMPANION_UPGRADE_COSTS,
+  CRAFT_RECIPES,
+  CRAFT_RECIPES_BY_ID,
   DELVE_AFFIXES,
   DELVE_LIST,
   DELVES,
@@ -152,6 +154,8 @@ import {
 } from './combat_sfx';
 import { type CardinalId, compassView } from './compass';
 import { formatMinimapCoords } from './coords';
+import { buildCraftingView } from './crafting_view';
+import { renderCraftingWindow } from './crafting_window';
 import { DailyRewardsWindow } from './daily_rewards_window';
 import { DelveMapPainter } from './delve_map_painter';
 import { devTierBadgeDataUrl, devTierByIndex, devTierDisplayName } from './dev_tier';
@@ -880,6 +884,7 @@ export class Hud {
     { event: Extract<SimEvent, { type: 'masterLoot' }>; receivedAt: number; durationMs: number }
   >();
   private openVendorNpcId: number | null = null;
+  private openCraftingNpcId: number | null = null;
   private openDelveBoardNpcId: number | null = null;
   private lastDelveTrackerSig = '';
   private selectedDelveTier: 'normal' | 'heroic' = 'normal';
@@ -1676,6 +1681,9 @@ export class Hud {
       case 'vendor-window':
         this.closeVendor();
         break;
+      case 'craft-window':
+        this.closeCrafting();
+        break;
       case 'loot-window':
         this.closeLoot();
         break;
@@ -1689,7 +1697,10 @@ export class Hud {
         this.closeLootSettings();
         break;
       case 'bags':
-        if (this.vendorOpen && document.body.classList.contains('mobile-touch')) this.closeVendor();
+        if (this.craftingOpen && document.body.classList.contains('mobile-touch'))
+          this.closeCrafting();
+        else if (this.vendorOpen && document.body.classList.contains('mobile-touch'))
+          this.closeVendor();
         // Route through the painter so focus returns to the opener (WCAG 2.4.3),
         // consistent with the toggle / X close path. NON-MODAL: no trap is released.
         else this.bagsWindow.close();
@@ -3333,6 +3344,8 @@ export class Hud {
     if ($('#bags').style.display !== 'none') this.renderBags();
     if (this.openVendorNpcId !== null && $('#vendor-window').style.display === 'block')
       this.renderVendor();
+    if (this.openCraftingNpcId !== null && $('#craft-window').style.display === 'block')
+      this.renderCrafting();
     if (this.marketWindow.isOpen) this.marketWindow.render();
     this.charWindow.renderIfOpen();
     // The arena window's render-skip signature is text-independent (offline sentinel or a
@@ -5031,6 +5044,10 @@ export class Hud {
         const npc = sim.entities.get(this.openVendorNpcId);
         if (!npc || dist2d(p.pos, npc.pos) > 8) this.closeVendor();
       }
+      if (this.openCraftingNpcId !== null) {
+        const npc = sim.entities.get(this.openCraftingNpcId);
+        if (!npc || dist2d(p.pos, npc.pos) > 8) this.closeCrafting();
+      }
       // Close the quest/gossip dialog once the player walks out of talking range
       // (or the NPC is gone), the same way the vendor window auto-closes above. You
       // open within INTERACT_RANGE (5), so the wider 8 threshold never fires on open.
@@ -6483,6 +6500,19 @@ export class Hud {
           if (this.openDelveBoardNpcId !== null) this.renderDelveBoard();
           break;
         }
+        case 'craft': {
+          audio.questAccept();
+          if ($('#bags').style.display !== 'none') this.renderBags();
+          if (this.openCraftingNpcId !== null) this.renderCrafting();
+          const recipe = CRAFT_RECIPES_BY_ID[ev.recipeId];
+          const outItem = recipe ? ITEMS[recipe.output.itemId] : undefined;
+          if (outItem)
+            this.log(
+              t('hudChrome.crafting.crafted', { name: itemDisplayName(outItem) }),
+              '#7dd87d',
+            );
+          break;
+        }
         case 'skinEvent':
           this.openSkinEvent(ev.rank, ev.catalog === 'mech' ? { mech: true } : undefined);
           break;
@@ -7274,6 +7304,10 @@ export class Hud {
       'You have nothing to collect.': 'itemUi.errors.nothingToCollect',
       "You can't assist yourself.": 'hud.errors.assistSelf',
       'Assist whom? Target a player or use /assist <name>.': 'hud.errors.assistWhom',
+      'That recipe is not available here.': 'hudChrome.crafting.errors.recipeUnavailable',
+      'You are too far from the station.': 'hudChrome.crafting.errors.tooFarFromStation',
+      'You are not skilled enough to craft that yet.': 'hudChrome.crafting.errors.levelTooLow',
+      'You lack the materials to craft that.': 'hudChrome.crafting.errors.missingMaterials',
     };
     const key = exact[text];
     if (key) return t(key);
@@ -8023,6 +8057,14 @@ export class Hud {
     if (def?.market) {
       html += `<button type="button" class="qd-list-item" data-market="1" aria-label="${esc(t('questUi.dialog.worldMarketAria'))}"><span class="gold">${svgIcon('market')}</span> ${esc(t('questUi.dialog.worldMarket'))}</button>`;
     }
+    if (def?.crafting) {
+      const craftLabel = t(
+        def.crafting === 'grow'
+          ? 'hudChrome.crafting.growTitle'
+          : 'hudChrome.crafting.upgradeTitle',
+      );
+      html += `<button type="button" class="qd-list-item" data-craft="1" aria-label="${esc(craftLabel)}"><span class="gold">${svgIcon('anvil')}</span> ${esc(craftLabel)}</button>`;
+    }
     if (Object.values(DELVES).some((d) => d.boardNpcId === npc.templateId)) {
       html += `<button type="button" class="qd-list-item" data-delve-board="1" aria-label="${esc(t('delveUi.board.openDelveAria', { name: npcName }))}"><span class="gold">${svgIcon('skull')}</span> ${esc(t('delveUi.board.openDelve'))}</button>`;
     }
@@ -8046,6 +8088,10 @@ export class Hud {
     el.querySelector('[data-market]')?.addEventListener('click', () => {
       this.closeQuestDialog(false);
       this.openMarket();
+    });
+    el.querySelector('[data-craft]')?.addEventListener('click', () => {
+      this.closeQuestDialog(false);
+      this.openCrafting(npc.id);
     });
     el.querySelector('[data-delve-board]')?.addEventListener('click', () => {
       this.closeQuestDialog(false);
@@ -8637,6 +8683,70 @@ export class Hud {
 
   get vendorOpen(): boolean {
     return this.openVendorNpcId !== null;
+  }
+
+  // -------------------------------------------------------------------------
+  // Crafting (Grow Station / Upgrade Bench). Hud stays the coordinator (the
+  // cross-window close + bag re-centre need its private state); crafting_view
+  // decides the recipe rows and crafting_window paints #craft-window.
+  // -------------------------------------------------------------------------
+  openCrafting(npcId: number): void {
+    this.closeOtherWindows(['#craft-window', '#bags']);
+    this.openCraftingNpcId = npcId;
+    document.body.classList.add('vendor-open');
+    this.renderCrafting();
+    this.renderBags();
+    $('#bags').style.display = 'flex';
+  }
+
+  private renderCrafting(): void {
+    if (this.openCraftingNpcId === null) return;
+    const npc = this.sim.entities.get(this.openCraftingNpcId);
+    if (!npc) return;
+    const station = NPCS[npc.templateId]?.crafting;
+    if (!station) return;
+    const counts = new Map<string, number>();
+    for (const slot of this.sim.inventory)
+      counts.set(slot.itemId, (counts.get(slot.itemId) ?? 0) + slot.count);
+    const view = buildCraftingView(
+      station,
+      CRAFT_RECIPES,
+      ITEMS,
+      (itemId) => counts.get(itemId) ?? 0,
+      this.sim.copper,
+      this.sim.player.level,
+    );
+    renderCraftingWindow($('#craft-window'), view, {
+      ...this.presentationBag,
+      hideTooltip: () => this.hideTooltip(),
+      onCraft: (recipeId) => {
+        this.sim.craft(recipeId);
+        if ($('#bags').style.display !== 'none') this.renderBags();
+        this.renderCrafting();
+      },
+      onClose: () => this.closeCrafting(),
+    });
+  }
+
+  closeCrafting(): void {
+    const closeMobileBags =
+      document.body.classList.contains('mobile-touch') && $('#bags').style.display !== 'none';
+    $('#craft-window').style.display = 'none';
+    this.openCraftingNpcId = null;
+    document.body.classList.remove('vendor-open');
+    this.hideTooltip();
+    if (closeMobileBags) {
+      const bags = $('#bags');
+      bags.style.display = 'none';
+      bags.inert = false;
+      this.cancelPetFeed();
+    } else if ($('#bags').style.display !== 'none') {
+      this.renderBags();
+    }
+  }
+
+  get craftingOpen(): boolean {
+    return this.openCraftingNpcId !== null;
   }
 
   // -------------------------------------------------------------------------

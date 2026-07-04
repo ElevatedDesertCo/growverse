@@ -900,6 +900,7 @@
   body.mobile-touch #quest-log-window,
   body.mobile-touch #spellbook,
   body.mobile-touch #vendor-window,
+  body.mobile-touch #craft-window,
   body.mobile-touch #market-window,
   body.mobile-touch #quest-dialog {
     left: 10px;
@@ -910,7 +911,8 @@
     box-sizing: border-box;
     overflow-y: auto;
   }
-  body.mobile-touch #vendor-window {
+  body.mobile-touch #vendor-window,
+  body.mobile-touch #craft-window {
     max-height: calc(58vh - 20px);
   }
   /* The Market carries a tab strip plus the filter selects, which stack to a tall
@@ -1006,6 +1008,7 @@
     min-height: 150px;
   }
   body.mobile-touch .vendor-item,
+  body.mobile-touch .craft-btn,
   body.mobile-touch .bag-item,
   body.mobile-touch .mkt-tab,
   body.mobile-touch .mkt-btn,
@@ -1124,6 +1127,7 @@
     transform: translateX(-50%);
   }
   body.mobile-touch.vendor-open #vendor-window,
+  body.mobile-touch.vendor-open #craft-window,
   body.mobile-touch.vendor-open #bags {
     position: fixed;
     top: max(10px, env(safe-area-inset-top));
@@ -1135,7 +1139,8 @@
     box-sizing: border-box;
     z-index: 95;
   }
-  body.mobile-touch.vendor-open #vendor-window {
+  body.mobile-touch.vendor-open #vendor-window,
+  body.mobile-touch.vendor-open #craft-window {
     left: max(10px, env(safe-area-inset-left));
     right: 50vw;
     display: block;
@@ -1153,6 +1158,7 @@
     border-left: 0;
   }
   body.mobile-touch.vendor-open #vendor-window .panel-title,
+  body.mobile-touch.vendor-open #craft-window .panel-title,
   body.mobile-touch.vendor-open #bags .panel-title {
     height: 47px;
     min-height: 47px;
@@ -1160,7 +1166,8 @@
     margin-bottom: 8px;
     box-sizing: border-box;
   }
-  body.mobile-touch.vendor-open #vendor-window .panel-title .x-btn {
+  body.mobile-touch.vendor-open #vendor-window .panel-title .x-btn,
+  body.mobile-touch.vendor-open #craft-window .panel-title .x-btn {
     display: none;
   }
   body.mobile-touch #spellbook,

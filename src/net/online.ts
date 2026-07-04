@@ -1765,6 +1765,11 @@ export class ClientWorld implements IWorld {
   buyBackItem(itemId: string): void {
     this.cmd({ cmd: 'buyback', item: itemId });
   }
+  // --- IWorldCrafting: submit a recipe at the nearby station. Server re-validates
+  // proximity, copper, and reagents; result flows back as an events frame.
+  craft(recipeId: string): void {
+    this.cmd({ cmd: 'craft', recipe: recipeId });
+  }
   // --- IWorldCosmetics: skin + mech-chroma equips. Optimistic local nudge, then
   // the snake_case cmd (change_skin/claim_event_skin/unequip_mech_chroma); the
   // server re-validates and the self-snapshot reconciles. ---

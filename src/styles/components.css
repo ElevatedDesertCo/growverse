@@ -2745,6 +2745,112 @@
     padding-top: 6px;
   }
 
+  /* ---------- crafting (grow station / upgrade bench) ---------- */
+  #craft-window {
+    width: 420px;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+  .craft-hint {
+    font-size: 11px;
+    color: #c8b888;
+    margin-bottom: 6px;
+  }
+  .craft-empty {
+    padding: 6px 5px;
+    font-size: 11px;
+    color: #887c5c;
+  }
+  .craft-section-title {
+    margin-top: 8px;
+    padding-top: 7px;
+    border-top: 1px solid #463a1c;
+    color: var(--gold);
+    font-family: var(--title-font);
+    font-size: 12px;
+  }
+  .craft-recipe {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 7px 5px;
+    border-bottom: 1px solid #2c2413;
+  }
+  .craft-output {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+  }
+  .craft-output-name {
+    font-size: 13px;
+    color: #efe4c2;
+  }
+  .craft-output-count {
+    color: #c8b888;
+    font-size: 11px;
+  }
+  .craft-detail {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding-left: 4px;
+  }
+  .craft-reagents {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+  }
+  .craft-reagent {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    color: #cfc4a0;
+  }
+  .craft-reagent-short {
+    color: #d08a6a;
+  }
+  .craft-reagent-count {
+    color: #a89c78;
+  }
+  .craft-reagent-short .craft-reagent-count {
+    color: #d08a6a;
+  }
+  .craft-req {
+    font-size: 11px;
+    color: #c8b888;
+  }
+  .craft-req-short {
+    color: #d08a6a;
+  }
+  .craft-cost {
+    font-size: 11px;
+    color: #ddd;
+  }
+  .craft-cost-label {
+    color: #a89c78;
+  }
+  .craft-btn {
+    align-self: flex-start;
+    margin-top: 2px;
+    min-height: 32px;
+    padding: 6px 16px;
+    border: 1px solid #6a5320;
+    border-radius: 4px;
+    cursor: var(--cursor-point);
+    background: linear-gradient(#8a6a26, #5a4413 55%, #473409);
+    color: #ffe6a8;
+    font-family: var(--title-font);
+    font-size: 12px;
+  }
+  .craft-btn:hover:not(:disabled) {
+    filter: brightness(1.12);
+  }
+  .craft-btn:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
   /* ---------- bags ---------- */
   /* bags, centred in the bottom gap between the action cluster and micro-menu */
   #bags {

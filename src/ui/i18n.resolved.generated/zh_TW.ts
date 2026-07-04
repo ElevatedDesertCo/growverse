@@ -1008,6 +1008,33 @@ export const zh_TW: EnTranslations = {
       },
       "linkedAs": "已連結為 {login}",
       "unlink": "取消連結 GitHub"
+    },
+    "crafting": {
+      "growTitle": "培育站",
+      "upgradeTitle": "升級台",
+      "growHint": "製作營養劑、升級種子品系、打造種植裝備。",
+      "upgradeHint": "重鑄裝備，並用腐蝕碎片切割戰鬥消耗品。",
+      "craftButton": "製作",
+      "costLabel": "花費",
+      "requiresLabel": "需要",
+      "levelReq": "需要等級 {level}",
+      "produces": "產出 {count} 個{name}",
+      "crafted": "製作了{name}。",
+      "empty": "這裡暫時沒有可製作的物品。",
+      "close": "關閉",
+      "categories": {
+        "nutrient": "營養劑",
+        "seed": "種子品系",
+        "accessory": "種植配件",
+        "consumable": "消耗品",
+        "gear": "重鑄裝備"
+      },
+      "errors": {
+        "recipeUnavailable": "這裡沒有該配方。",
+        "tooFarFromStation": "你離工作台太遠了。",
+        "levelTooLow": "你的技藝還不足以製作那個。",
+        "missingMaterials": "你缺少製作所需的材料。"
+      }
     }
   },
   "guide": {
@@ -5839,6 +5866,16 @@ export const zh_TW: EnTranslations = {
         "name": "哈爾文修士",
         "title": "聖物庫守護人",
         "greeting": "下方的聖物庫又移位了。"
+      },
+      "cultivator_marlow": {
+        "name": "馬洛",
+        "title": "培植師",
+        "greeting": "培育站隨你使用，朋友。營養劑、種子品系、種植裝備。這些植物需要什麼？"
+      },
+      "smith_draxa": {
+        "name": "德拉克薩",
+        "title": "裂隙鐵匠",
+        "greeting": "升級台正熱著呢。給我帶來腐蝕碎片，我會把你的鋼鐵重鑄成裂隙也無法折斷的利器。"
       },
       "tidewatcher_ondrel": {
         "name": "翁德瑞爾·韋恩",

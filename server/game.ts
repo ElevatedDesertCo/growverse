@@ -2341,6 +2341,9 @@ export class GameServer {
       case 'sell_all_junk':
         sim.sellAllJunk(pid);
         break;
+      case 'craft':
+        if (typeof msg.recipe === 'string') sim.craft(msg.recipe, pid);
+        break;
       case 'change_skin':
         if (typeof msg.skin === 'number') {
           if (msg.catalog === 'mech') {

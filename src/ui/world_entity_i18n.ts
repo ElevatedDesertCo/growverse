@@ -117,6 +117,8 @@ const NPC_IDS = [
   'auctioneer_voss', // second World Market auctioneer (Highwatch, zone 3)
   'brother_aldric_raid', // dynamically-spawned raid turn-in NPC (Crypt of Nythraxis)
   'brother_halven', // Collapsed Reliquary delve board NPC
+  'cultivator_marlow', // Grow Station attendant (Bloomhaven crafting)
+  'smith_draxa', // Upgrade Bench attendant (Bloomhaven crafting)
 ] as const;
 
 const QUEST_IDS = [

@@ -1008,6 +1008,33 @@ export const ja_JP: EnTranslations = {
       },
       "linkedAs": "{login} として連携済み",
       "unlink": "GitHub の連携を解除"
+    },
+    "crafting": {
+      "growTitle": "栽培ステーション",
+      "upgradeTitle": "アップグレード台",
+      "growHint": "栄養剤の作成、種子品種の強化、栽培装備の製作。",
+      "upgradeHint": "装備を鍛え直し、腐敗の欠片から戦闘用消耗品を削り出す。",
+      "craftButton": "作成",
+      "costLabel": "コスト",
+      "requiresLabel": "必要",
+      "levelReq": "レベル {level} が必要",
+      "produces": "{name} を {count} 個生産",
+      "crafted": "{name} を作成した。",
+      "empty": "ここではまだ何も作成できない。",
+      "close": "閉じる",
+      "categories": {
+        "nutrient": "栄養剤",
+        "seed": "種子品種",
+        "accessory": "栽培アクセサリー",
+        "consumable": "消耗品",
+        "gear": "再鍛造装備"
+      },
+      "errors": {
+        "recipeUnavailable": "ここではそのレシピは利用できない。",
+        "tooFarFromStation": "作業台から離れすぎている。",
+        "levelTooLow": "それを作成するにはまだ技量が足りない。",
+        "missingMaterials": "作成に必要な材料が足りない。"
+      }
     }
   },
   "guide": {
@@ -5839,6 +5866,16 @@ export const ja_JP: EnTranslations = {
         "name": "ハルヴェン修道士",
         "title": "聖遺物庫の番人",
         "greeting": "下の聖遺物庫がまた動いた。"
+      },
+      "cultivator_marlow": {
+        "name": "マーロウ",
+        "title": "栽培師",
+        "greeting": "栽培ステーションは自由に使ってくれ、友よ。栄養剤、種子品種、栽培用の装備。植物には何が必要かな？"
+      },
+      "smith_draxa": {
+        "name": "ドラクサ",
+        "title": "リフト鍛冶",
+        "greeting": "アップグレード台は熱く燃えている。腐敗の欠片を持ってこい。お前の鋼をリフトさえ砕けぬ一振りに鍛え直してやろう。"
       },
       "tidewatcher_ondrel": {
         "name": "オンドレル・ヴェイン",

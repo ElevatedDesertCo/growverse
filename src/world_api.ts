@@ -48,6 +48,7 @@
 import type { IWorldChat } from './world_api/chat';
 import type { IWorldCombat } from './world_api/combat';
 import type { IWorldCosmetics } from './world_api/cosmetics';
+import type { IWorldCrafting } from './world_api/crafting';
 import type { IWorldDailyRewards } from './world_api/daily_rewards';
 import type { IWorldDelves } from './world_api/delves';
 import type { IWorldDuelArena } from './world_api/duel_arena';
@@ -147,6 +148,7 @@ export interface IWorld
     IWorldDungeons,
     IWorldDelves,
     IWorldDailyRewards,
+    IWorldCrafting,
     IWorldTelemetry {}
 
 // ---------------------------------------------------------------------------
@@ -280,6 +282,7 @@ export const COMMAND_NAMES = [
   'lockpick_action',
   'lockpick_abort',
   'collect_delve_chest_loot',
+  'craft',
   'telemetry',
 ] as const;
 
@@ -343,6 +346,7 @@ export type WorldFacet =
   | 'IWorldDungeons'
   | 'IWorldDelves'
   | 'IWorldDailyRewards'
+  | 'IWorldCrafting'
   | 'IWorldTelemetry';
 
 export const COMMAND_FACETS = {
@@ -467,4 +471,7 @@ export const COMMAND_FACETS = {
   lockpick_action: 'IWorldDelves',
   lockpick_abort: 'IWorldDelves',
   collect_delve_chest_loot: 'IWorldDelves',
+  // IWorldCrafting: submit a craft at the Grow Station / Upgrade Bench (the recipe
+  // table is data-as-code read directly by the HUD; craft is the only wire command).
+  craft: 'IWorldCrafting',
 } as const satisfies Partial<Record<ClientCommand, WorldFacet>>;

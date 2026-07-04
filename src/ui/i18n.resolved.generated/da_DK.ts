@@ -1008,6 +1008,33 @@ export const da_DK: EnTranslations = {
       },
       "linkedAs": "Tilknyttet som {login}",
       "unlink": "Fjern GitHub-tilknytning"
+    },
+    "crafting": {
+      "growTitle": "Grow Station",
+      "upgradeTitle": "Upgrade Bench",
+      "growHint": "Craft nutrients, upgrade seed strains, and build growing gear.",
+      "upgradeHint": "Reforge gear and cut battle consumables from Corruption Shards.",
+      "craftButton": "Craft",
+      "costLabel": "Cost",
+      "requiresLabel": "Requires",
+      "levelReq": "Requires level {level}",
+      "produces": "Yields {count} {name}",
+      "crafted": "Crafted {name}.",
+      "empty": "Nothing can be crafted here yet.",
+      "close": "Close",
+      "categories": {
+        "nutrient": "Nutrients",
+        "seed": "Seed Strains",
+        "accessory": "Grow Accessories",
+        "consumable": "Consumables",
+        "gear": "Reforged Gear"
+      },
+      "errors": {
+        "recipeUnavailable": "That recipe is not available here.",
+        "tooFarFromStation": "You are too far from the station.",
+        "levelTooLow": "You are not skilled enough to craft that yet.",
+        "missingMaterials": "You lack the materials to craft that."
+      }
     }
   },
   "guide": {
@@ -5839,6 +5866,16 @@ export const da_DK: EnTranslations = {
         "name": "Broder Halven",
         "title": "Relikvarievogter",
         "greeting": "Relikvariet nedenunder har flyttet sig igen."
+      },
+      "cultivator_marlow": {
+        "name": "Marlow",
+        "title": "the Cultivator",
+        "greeting": "The Grow Station is yours to use, friend. Nutrients, seed strains, growing gear. What do the plants need?"
+      },
+      "smith_draxa": {
+        "name": "Draxa",
+        "title": "the Riftsmith",
+        "greeting": "The Upgrade Bench runs hot. Bring me Corruption Shards and I will reforge your steel into something the rift cannot break."
       },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
