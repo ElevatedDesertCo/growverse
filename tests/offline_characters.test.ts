@@ -6,7 +6,7 @@ import {
   offlineCharacterId,
   saveOfflineCharacter,
 } from '../src/game/offline_characters';
-import type { CharacterState } from '../src/sim/sim';
+import { type CharacterState, Sim } from '../src/sim/sim';
 
 // Plain-node test env: no DOM, so stub localStorage (mirrors keybinds.test.ts).
 function installStorage(): void {
@@ -96,5 +96,49 @@ describe('offline character roster', () => {
       saveOfflineCharacter({ cls: 'mage', name: `Char${i}`, skin: 0, state: fakeState(1) });
     }
     expect(listOfflineCharacters().length).toBeLessThanOrEqual(16);
+  });
+});
+
+// The end-to-end offline persistence flow the player actually hits: a fresh
+// character is serialized by the running Sim, saved to the roster on entry, read
+// back on reload, and restored into a new Sim. This guards the exact regression
+// reported in the field (a newly created offline character not surviving a tab
+// close) against a break anywhere along serialize -> save -> load -> restore.
+describe('offline persistence end-to-end (Sim <-> roster)', () => {
+  it('a freshly created character serializes to a non-null state and persists', () => {
+    const sim = new Sim({ seed: 99, playerClass: 'warrior', playerName: 'Anderz' });
+    const meta = sim.players.get(sim.playerId);
+    expect(meta).toBeTruthy();
+    // A brand-new (non-resumed) player MUST serialize; a null here is exactly the
+    // silent-skip that would leave the roster empty after a tab close.
+    const state = sim.serializeCharacter(sim.playerId);
+    expect(state).not.toBeNull();
+
+    saveOfflineCharacter({ cls: meta!.cls, name: meta!.name, skin: 0, state: state! });
+    const saved = getOfflineCharacter(offlineCharacterId('warrior', 'Anderz'));
+    expect(saved).not.toBeNull();
+    expect(saved!.name).toBe('Anderz');
+    expect(saved!.cls).toBe('warrior');
+  });
+
+  it('restores a saved character back into a fresh Sim with progression intact', () => {
+    // Author a character with some progression, then run the real save path.
+    const sim = new Sim({ seed: 3, playerClass: 'mage', playerName: 'Emberz', noPlayer: true });
+    const pid = sim.addPlayer('mage', 'Emberz');
+    sim.setPlayerLevel(8, pid);
+    sim.meta(pid)!.copper = 777;
+    const state = sim.serializeCharacter(pid)!;
+    saveOfflineCharacter({ cls: 'mage', name: 'Emberz', skin: 2, state });
+
+    // Reload: read the roster slot and resume it into a brand-new Sim (mirrors
+    // startOffline's resume branch: noPlayer + addPlayer({ state })).
+    const rec = getOfflineCharacter(offlineCharacterId('mage', 'Emberz'))!;
+    const resumed = new Sim({ seed: 3, playerClass: 'mage', playerName: 'Emberz', noPlayer: true });
+    const rpid = resumed.addPlayer('mage', 'Emberz', { state: rec.state });
+    const m = resumed.meta(rpid)!;
+    expect(resumed.entities.get(rpid)!.level).toBe(8);
+    expect(m.copper).toBe(777);
+    expect(rec.skin).toBe(2);
+    expect(rec.level).toBe(8);
   });
 });
