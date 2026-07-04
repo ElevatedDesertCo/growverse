@@ -3051,12 +3051,15 @@
   }
 
   /* trailer-ready: reveal the layer (also used for the static poster on
-     reduced-motion / save-data). trailer-playing: add drift only when truly playing. */
+     reduced-motion / save-data). The backdrop is intentionally STILL: an earlier
+     Ken-Burns zoom (animating transform: scale() on the video layer) forced the
+     browser to resample the large raster every frame, which shimmered on
+     high-contrast edges and read as the backdrop "shaking". The layer now holds
+     the static scale(1.04) from .bg-trailer with no per-frame transform, so there
+     is nothing to resample and nothing to shimmer. trailer-playing is retained as
+     a state hook but no longer animates. */
   #start-screen-backdrop.trailer-ready .bg-trailer {
     opacity: 0.85;
-  }
-  #start-screen-backdrop.trailer-playing .bg-trailer {
-    animation: trailer-drift 38s ease-in-out infinite alternate;
   }
   body.native-app.mobile-touch[data-start-panel="login-panel"] .portal-ring,
   body.native-app.mobile-touch[data-start-panel="login-panel"] .portal-ring-reverse,
@@ -3100,14 +3103,6 @@
         rgba(4, 4, 8, 0.86) 100%
       ),
       radial-gradient(130% 100% at 50% 42%, rgba(4, 4, 8, 0.3) 30%, rgba(4, 4, 8, 0.62) 100%);
-  }
-  @keyframes trailer-drift {
-    0% {
-      transform: scale(1.04) translate3d(0, 0, 0);
-    }
-    100% {
-      transform: scale(1.12) translate3d(-1.4%, -1.4%, 0);
-    }
   }
 
   .embers-container {
