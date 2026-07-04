@@ -148,6 +148,7 @@ import {
 import { defaultIconPrewarmEntries, prewarmIconCache } from './ui/icon_prewarm';
 import { iconDataUrl } from './ui/icons';
 import { scheduleNativeUpdateCheck } from './ui/native_update_prompt';
+import { hideOnlineShell } from './ui/offline_only';
 import { createMetricsSampler } from './ui/perf_metrics_sampler';
 import { PerfOverlay } from './ui/perf_overlay';
 import { type PerfOverlayConfig, PerfOverlayConfigStore } from './ui/perf_overlay_config';
@@ -4594,59 +4595,6 @@ async function loadNews(): Promise<void> {
     .join('');
 }
 
-let caCopyResetTimer: number | null = null;
-
-// Click-to-copy for the $WOC contract address on the landing page. Falls back to
-// a hidden-textarea copy when the async Clipboard API is unavailable (insecure
-// context / older browsers); the copied state is only shown on a real success.
-function wireContractAddressCopy(): void {
-  const btn = document.getElementById('btn-copy-ca');
-  const container = document.getElementById('token-ca');
-  if (!btn || !container) return;
-
-  const showCopied = () => {
-    container.classList.add('is-copied');
-    if (caCopyResetTimer !== null) window.clearTimeout(caCopyResetTimer);
-    caCopyResetTimer = window.setTimeout(() => {
-      container.classList.remove('is-copied');
-      caCopyResetTimer = null;
-    }, 1800);
-  };
-
-  const fallbackCopy = (text: string): boolean => {
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    ta.setAttribute('readonly', '');
-    ta.style.position = 'fixed';
-    ta.style.opacity = '0';
-    document.body.appendChild(ta);
-    ta.select();
-    let ok = false;
-    try {
-      ok = document.execCommand('copy');
-    } catch {
-      ok = false;
-    }
-    document.body.removeChild(ta);
-    return ok;
-  };
-
-  btn.addEventListener('click', () => {
-    const ca = btn.getAttribute('data-ca');
-    if (!ca) return;
-    if (navigator.clipboard?.writeText) {
-      navigator.clipboard
-        .writeText(ca)
-        .then(showCopied)
-        .catch(() => {
-          if (fallbackCopy(ca)) showCopied();
-        });
-    } else if (fallbackCopy(ca)) {
-      showCopied();
-    }
-  });
-}
-
 function syncHomepageMusicToggle(): void {
   const btn = document.getElementById('homepage-music-toggle') as HTMLButtonElement | null;
   if (!btn) return;
@@ -6032,7 +5980,6 @@ function wireStartScreens(): void {
   void ensureLocaleLoaded(bootLang).then(revealLocalized, revealLocalized);
   hydrateIcons();
   void loadProjectStats();
-  wireContractAddressCopy();
   wireHomepageMusicToggle();
   wireWallet();
   wireGithubLink();
@@ -6282,6 +6229,15 @@ function wireStartScreens(): void {
     });
 
     applyServerMode('online');
+
+    // Static deploys ship no game server. When the realm status probe fails,
+    // collapse the landing shell to offline-only (hide Login/Register and the
+    // Online realm option) so nothing points at a backend that is not there.
+    void api.realmStatus('').then((st) => {
+      if (st.online) return;
+      applyServerMode('offline');
+      hideOnlineShell();
+    });
   }
 
   btnStartOffline.addEventListener('click', () => {

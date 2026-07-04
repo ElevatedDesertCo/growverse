@@ -2640,7 +2640,7 @@ export const en: EnTranslations = {
     "applicationCategory": "Game",
     "operatingSystem": "Web browser",
     "officialLabel": "Official Growverse website",
-    "officialBody": "worldofclaudecraft.com is the official free browser MMO for the Claudemoon realm. Play online with a persistent character, explore solo offline, read the wiki, and follow verified community links from this site."
+    "officialBody": "Growverse is a free classic-style browser MMO set in a cosmic desert realm. Play instantly in your browser, explore the world solo, read the wiki, and follow project updates from this site."
   },
   "a11y": {
     "goHome": "Go to homepage",
