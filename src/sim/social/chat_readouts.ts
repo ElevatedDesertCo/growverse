@@ -56,7 +56,7 @@ const NEARBY_MAX = 10; // cap the /nearby list so a crowded camp can't spam chat
 export function statsReadout(meta: PlayerMeta, e: Entity): string {
   const className = CLASSES[meta.cls].name;
   const crit = (e.critChance * 100).toFixed(1);
-  let line = `Level ${e.level} ${className} — HP ${Math.round(e.hp)}/${Math.round(e.maxHp)}`;
+  let line = `Level ${e.level} ${className}, HP ${Math.round(e.hp)}/${Math.round(e.maxHp)}`;
   if (e.resourceType) {
     const res = e.resourceType.charAt(0).toUpperCase() + e.resourceType.slice(1);
     line += `, ${res} ${Math.round(e.resource)}/${Math.round(e.maxResource)}`;

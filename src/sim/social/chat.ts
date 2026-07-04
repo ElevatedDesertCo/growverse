@@ -971,7 +971,7 @@ export function helpLines(): string[] {
 export function inspectReadout(target: PlayerMeta, e: Entity): string {
   const cls = CLASSES[target.cls]?.name ?? target.cls;
   const hp = e.hp <= 0 ? 'dead' : `${Math.round(Math.max(0, Math.min(1, e.hp / e.maxHp)) * 100)}%`;
-  return `${target.name}: Level ${e.level} ${cls} — HP ${hp}.`;
+  return `${target.name}: Level ${e.level} ${cls}, HP ${hp}.`;
 }
 
 // Handles /join and /leave for the opt-in global channels.

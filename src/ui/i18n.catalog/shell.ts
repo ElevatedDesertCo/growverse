@@ -204,22 +204,22 @@ export const shellStrings = {
       },
       lore: {
         warrior:
-          'Warriors are battle-hardened melee fighters who build Rage as they deal or take damage. They absorb heavy hits or crush foes with powerful weapons.',
+          'Thornguards are the living walls of the Thorn Guild, melee Growers who build Rage as they deal or take damage. They root themselves against heavy blows or crush foes with thorn-forged weapons.',
         paladin:
-          'Paladins are holy crusaders who support allies with blessings, heal wounds with Holy Light, and protect the weak in heavy armor.',
+          'Bloomwards are Bloomveil protectors who bless allies, mend wounds with Bloom Light, and guard the weak behind sacred plant-armor.',
         hunter:
-          'Hunters are ranged specialists who fight beside a tamed beast, peppering enemies with aimed and rapid shots, slowing them with stings and concussive fire, and shifting aspects to suit the moment.',
+          'Spiritcallers fight beside a bonded spirit beast, peppering enemies with aimed and rapid shots, slowing them with stinging spores and concussive fire, and shifting spirit-aspects to suit the moment.',
         rogue:
-          'Rogues are stealthy assassins who spend Energy and Combo Points on backstabs and finishing moves from the shadows.',
+          'Sandrunners are Desert Runner scouts who spend Energy and Combo Points on ambushes and finishing strikes from mirage and dust.',
         priest:
-          'Priests call on Holy Light to heal and shield allies, while Shadow magic lets them drain the life of their enemies.',
+          'Tidemystics call on Bloom Light to heal and shield allies, while corrupting Flow lets them drain the life of their enemies.',
         shaman:
-          'Shaman command the elements, imbuing weapons with power, shocking enemies with lightning, and restoring allies.',
-        mage: 'Mages bend Fire, Frost, and Arcane power to destroy enemies, conjure water, and freeze threats in place.',
+          'Rootspeakers command the elements through the old Roots ways, imbuing weapons with power, shocking enemies with living lightning, and restoring allies with root-idols.',
+        mage: 'Embercasters bend Ember, Frost, and relic-Arcane power to destroy enemies, conjure water, and freeze threats in place.',
         warlock:
-          'Warlocks summon demons, apply curses and damage-over-time magic, and drain life from enemies to endure.',
+          'Sporebinders bind corrupted spirits, spread mutation and decay curses, and drain life from enemies to endure.',
         druid:
-          'Druids channel nature, healing wounds, entangling foes, and shifting into animal forms for defense or damage.',
+          'Bloomshapers channel raw growth, healing wounds, entangling foes with vines, and shifting into spirit-beast forms for defense or damage.',
       },
       aria: 'Class details for {className}: role {role}. Starting stats: Strength {str}, Agility {agi}, Stamina {sta}, Intellect {int}, Spirit {spi}.',
       statBarAria: '{stat}: {value} out of 25',

@@ -34,7 +34,7 @@ export interface ClassDef {
 export const CLASSES: Record<PlayerClass, ClassDef> = {
   warrior: {
     id: 'warrior',
-    name: 'Warrior',
+    name: 'Thornguard',
     baseStats: { str: 23, agi: 20, sta: 22, int: 10, spi: 11, armor: 50 },
     statsPerLevel: { str: 2, agi: 1, sta: 2, int: 0, spi: 0, armor: 12 },
     baseHp: 50,
@@ -66,7 +66,7 @@ export const CLASSES: Record<PlayerClass, ClassDef> = {
   },
   mage: {
     id: 'mage',
-    name: 'Mage',
+    name: 'Embercaster',
     baseStats: { str: 10, agi: 12, sta: 14, int: 24, spi: 22, armor: 25 },
     statsPerLevel: { str: 0, agi: 0, sta: 1, int: 3, spi: 2, armor: 4 },
     baseHp: 40,
@@ -98,7 +98,7 @@ export const CLASSES: Record<PlayerClass, ClassDef> = {
   },
   rogue: {
     id: 'rogue',
-    name: 'Rogue',
+    name: 'Sandrunner',
     baseStats: { str: 17, agi: 25, sta: 17, int: 11, spi: 12, armor: 40 },
     statsPerLevel: { str: 1, agi: 3, sta: 1, int: 0, spi: 0, armor: 8 },
     baseHp: 45,
@@ -135,7 +135,7 @@ export const CLASSES: Record<PlayerClass, ClassDef> = {
   },
   paladin: {
     id: 'paladin',
-    name: 'Paladin',
+    name: 'Bloomward',
     baseStats: { str: 22, agi: 17, sta: 22, int: 13, spi: 14, armor: 45 },
     statsPerLevel: { str: 2, agi: 1, sta: 2, int: 1, spi: 1, armor: 12 },
     baseHp: 55,
@@ -164,7 +164,7 @@ export const CLASSES: Record<PlayerClass, ClassDef> = {
   },
   hunter: {
     id: 'hunter',
-    name: 'Hunter',
+    name: 'Spiritcaller',
     baseStats: { str: 14, agi: 25, sta: 19, int: 13, spi: 14, armor: 45 },
     statsPerLevel: { str: 1, agi: 3, sta: 2, int: 1, spi: 1, armor: 8 },
     baseHp: 50,
@@ -196,7 +196,7 @@ export const CLASSES: Record<PlayerClass, ClassDef> = {
   },
   priest: {
     id: 'priest',
-    name: 'Priest',
+    name: 'Tidemystic',
     baseStats: { str: 10, agi: 11, sta: 13, int: 22, spi: 24, armor: 20 },
     statsPerLevel: { str: 0, agi: 0, sta: 1, int: 2, spi: 3, armor: 4 },
     baseHp: 38,
@@ -223,7 +223,7 @@ export const CLASSES: Record<PlayerClass, ClassDef> = {
   },
   shaman: {
     id: 'shaman',
-    name: 'Shaman',
+    name: 'Rootspeaker',
     baseStats: { str: 18, agi: 16, sta: 20, int: 18, spi: 18, armor: 40 },
     statsPerLevel: { str: 1, agi: 1, sta: 2, int: 2, spi: 2, armor: 10 },
     baseHp: 48,
@@ -251,7 +251,7 @@ export const CLASSES: Record<PlayerClass, ClassDef> = {
   },
   warlock: {
     id: 'warlock',
-    name: 'Warlock',
+    name: 'Sporebinder',
     baseStats: { str: 11, agi: 12, sta: 15, int: 21, spi: 21, armor: 22 },
     statsPerLevel: { str: 0, agi: 0, sta: 1, int: 3, spi: 2, armor: 4 },
     baseHp: 42,
@@ -286,7 +286,7 @@ export const CLASSES: Record<PlayerClass, ClassDef> = {
   },
   druid: {
     id: 'druid',
-    name: 'Druid',
+    name: 'Bloomshaper',
     baseStats: { str: 15, agi: 15, sta: 17, int: 19, spi: 20, armor: 30 },
     statsPerLevel: { str: 1, agi: 1, sta: 2, int: 2, spi: 2, armor: 6 },
     baseHp: 45,
