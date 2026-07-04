@@ -777,7 +777,7 @@ const EMBERHOLD_SPAWN_LIST: DungeonSpawn[] = [
   { mobId: 'emberbound_zealot', x: -5, z: 39 },
   { mobId: 'emberbound_zealot', x: 9, z: 54 },
   { mobId: 'ashfell_knight', x: 5, z: 55 },
-  { mobId: 'ashfell_knight', x: -5, z: 68 },
+  { mobId: 'ashfell_knight', x: -4, z: 68 },
   { mobId: 'emberbound_zealot', x: -1, z: 70 },
   { mobId: 'castellan_maldrek', x: -4, z: 82 },
   { mobId: 'ashfell_knight', x: 1, z: 83 },
