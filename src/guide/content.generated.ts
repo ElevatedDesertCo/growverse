@@ -1226,28 +1226,28 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
 export const GUIDE_ZONES: GuideZoneInfo[] = [
   {
     "id": "eastbrook_vale",
-    "name": "Eastbrook Vale",
+    "name": "Bloomhaven Vale",
     "min": 1,
     "max": 7,
     "biome": "vale",
-    "hub": "Eastbrook",
+    "hub": "Bloomhaven",
     "pois": [
-      "Eastbrook",
+      "Bloomhaven",
       "Wolf Run",
       "Boar Meadow",
       "Mirror Lake",
-      "Webwood",
+      "Sporewood",
       "Copper Dig",
-      "Bandit Camp",
-      "Fallen Chapel",
+      "Raider Camp",
+      "Withered Shrine",
       "Reliquary Hill",
-      "Brightwood Glade"
+      "Bloomwood Glade"
     ],
-    "welcome": "Find Marshal Redbrook in town — he has work for you."
+    "welcome": "Find Warden Elgrove in town, he has work for you."
   },
   {
     "id": "mirefen_marsh",
-    "name": "Mirefen Marsh",
+    "name": "The Sunken Wastes",
     "min": 6,
     "max": 13,
     "biome": "marsh",
@@ -1256,34 +1256,34 @@ export const GUIDE_ZONES: GuideZoneInfo[] = [
       "Fenbridge",
       "Prowler Reeds",
       "Deepfen Shallows",
-      "Widow Thicket",
+      "Broodmother Thicket",
       "Drowned Chapel",
-      "Troll Mounds",
-      "Gravecaller Encampment",
-      "The Sunken Bastion"
+      "Brute Mounds",
+      "Blight Cult Encampment",
+      "The Drowned Bastion"
     ],
     "welcome": "Report to Warden Fenwick at the Fenbridge gate."
   },
   {
     "id": "thornpeak_heights",
-    "name": "Thornpeak Heights",
+    "name": "Thornreach Heights",
     "min": 13,
     "max": 20,
     "biome": "peaks",
     "hub": "Highwatch",
     "pois": [
       "Highwatch",
-      "Stalker Ridge",
-      "Deeprock Burrows",
-      "Ogre Foothills",
+      "Spikeling Ridge",
+      "Deeproot Burrows",
+      "Brute Foothills",
       "Drogmar's War-Camp",
-      "Stormcrag",
+      "Riftcrag",
       "The Glimmermere",
-      "Wyrmcult Tents",
-      "Revenant Fields",
-      "Gravewyrm Sanctum"
+      "Rift Cult Tents",
+      "Husk Fields",
+      "Rift Sanctum"
     ],
-    "welcome": "Captain Thessaly holds the wall at Highwatch — barely."
+    "welcome": "Captain Thessaly holds the wall at Highwatch, barely."
   }
 ];
 
@@ -1386,7 +1386,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
     "family": "beast",
     "creatures": [
       {
-        "name": "Forest Wolf",
+        "name": "Blight Wolf",
         "min": 1,
         "max": 2,
         "rare": false,
@@ -1396,7 +1396,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "still": "/guide-stills/mob_wolf__7f8c8d.webp"
       },
       {
-        "name": "Wild Boar",
+        "name": "Bristle Tusk",
         "min": 2,
         "max": 3,
         "rare": false,
@@ -1406,7 +1406,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "still": "/guide-stills/mob_boar__935116.webp"
       },
       {
-        "name": "Old Greyjaw",
+        "name": "Old Ashfang",
         "min": 4,
         "max": 4,
         "rare": true,
@@ -1416,7 +1416,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "still": "/guide-stills/mob_wolf__566061.webp"
       },
       {
-        "name": "Mire Prowler",
+        "name": "Silt Prowler",
         "min": 7,
         "max": 8,
         "rare": false,
@@ -1436,7 +1436,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "still": "/guide-stills/mob_murloc__6b8e23.webp"
       },
       {
-        "name": "Ridge Stalker",
+        "name": "Spikeling Prowler",
         "min": 13,
         "max": 14,
         "rare": false,
@@ -1451,7 +1451,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
     "family": "spider",
     "creatures": [
       {
-        "name": "Webwood Lurker",
+        "name": "Sporeweaver",
         "min": 2,
         "max": 4,
         "rare": false,
@@ -1461,7 +1461,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "still": "/guide-stills/mob_spider__4a235a.webp"
       },
       {
-        "name": "Mirefen Widow",
+        "name": "Sporeweb Widow",
         "min": 8,
         "max": 10,
         "rare": false,
@@ -1476,7 +1476,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
     "family": "murloc",
     "creatures": [
       {
-        "name": "Mudfin Skulker",
+        "name": "Siltling",
         "min": 3,
         "max": 5,
         "rare": false,
@@ -1486,7 +1486,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "still": "/guide-stills/mob_murloc__52be80.webp"
       },
       {
-        "name": "Deepfen Snapper",
+        "name": "Deepfen Spore-Snapper",
         "min": 8,
         "max": 9,
         "rare": false,
@@ -1511,7 +1511,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
     "family": "kobold",
     "creatures": [
       {
-        "name": "Tunnel Rat Digger",
+        "name": "Burrow Grub",
         "min": 4,
         "max": 6,
         "rare": false,
@@ -1536,7 +1536,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
     "family": "humanoid",
     "creatures": [
       {
-        "name": "Vale Bandit",
+        "name": "Dust Raider",
         "min": 3,
         "max": 5,
         "rare": false,
@@ -1546,7 +1546,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "still": "/guide-stills/mob_bandit__6b3a32.webp"
       },
       {
-        "name": "Gravecaller Cultist",
+        "name": "Blight Cultist",
         "min": 10,
         "max": 12,
         "rare": false,
@@ -1556,7 +1556,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "still": "/guide-stills/mob_dark_caster__6c3483.webp"
       },
       {
-        "name": "Gravecaller Mender",
+        "name": "Blightcaller Mender",
         "min": 11,
         "max": 12,
         "rare": false,
@@ -1566,7 +1566,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "still": "/guide-stills/mob_bandit__6b3a32.webp"
       },
       {
-        "name": "Gravecaller Summoner",
+        "name": "Blightcaller Summoner",
         "min": 11,
         "max": 12,
         "rare": false,
@@ -1601,7 +1601,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
     "family": "troll",
     "creatures": [
       {
-        "name": "Mirefen Troll",
+        "name": "Sunken Wastes Brute",
         "min": 10,
         "max": 12,
         "rare": false,
@@ -1641,7 +1641,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
     "family": "undead",
     "creatures": [
       {
-        "name": "Restless Bones",
+        "name": "Wither Husk",
         "min": 5,
         "max": 7,
         "rare": false,
@@ -1651,7 +1651,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "still": "/guide-stills/skel_minion__d5dbdb.webp"
       },
       {
-        "name": "Drowned Dead",
+        "name": "Drowned Husk",
         "min": 9,
         "max": 11,
         "rare": false,

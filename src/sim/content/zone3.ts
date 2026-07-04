@@ -1,7 +1,7 @@
-// Zone 3 — Thornpeak Heights (levels 13-20). The Gravecallers serve Korzul
-// the Gravewyrm, an ancient dragon sealed beneath the peaks. Highwatch holds
-// the wall against ogres, waking elementals, and the open chanting of the
-// Wyrmcult at the Gravewyrm Sanctum gates.
+// Zone 3, Thornreach Heights (levels 13-20). The Rift Cult feeds Korzul the
+// Corrupted Wyrm, a blight-swollen colossus stirring beneath the peaks near a
+// great Corruption rift. Highwatch holds the wall against thorn-brutes, waking
+// rift elementals, and the open chanting of the cult at the Rift Sanctum gates.
 
 import type {
   CampDef,
@@ -16,7 +16,7 @@ import type {
 
 export const ZONE3_ZONE: ZoneDef = {
   id: 'thornpeak_heights',
-  name: 'Thornpeak Heights',
+  name: 'Thornreach Heights',
   zMin: 540,
   zMax: 900,
   levelRange: [13, 20],
@@ -26,17 +26,17 @@ export const ZONE3_ZONE: ZoneDef = {
   lakes: [{ x: -70, z: 760, radius: 18 }],
   pois: [
     { x: 0, z: 660, label: 'Highwatch' },
-    { x: -50, z: 590, label: 'Stalker Ridge' },
-    { x: 85, z: 615, label: 'Deeprock Burrows' },
-    { x: -90, z: 700, label: 'Ogre Foothills' },
+    { x: -50, z: 590, label: 'Spikeling Ridge' },
+    { x: 85, z: 615, label: 'Deeproot Burrows' },
+    { x: -90, z: 700, label: 'Brute Foothills' },
     { x: -130, z: 740, label: "Drogmar's War-Camp" },
-    { x: 110, z: 760, label: 'Stormcrag' },
+    { x: 110, z: 760, label: 'Riftcrag' },
     { x: -70, z: 770, label: 'The Glimmermere' },
-    { x: 55, z: 820, label: 'Wyrmcult Tents' },
-    { x: -40, z: 830, label: 'Revenant Fields' },
-    { x: 0, z: 880, label: 'Gravewyrm Sanctum' },
+    { x: 55, z: 820, label: 'Rift Cult Tents' },
+    { x: -40, z: 830, label: 'Husk Fields' },
+    { x: 0, z: 880, label: 'Rift Sanctum' },
   ],
-  welcome: 'Captain Thessaly holds the wall at Highwatch — barely.',
+  welcome: 'Captain Thessaly holds the wall at Highwatch, barely.',
 };
 
 // Mountain road from Fenbridge up to Highwatch, then spokes.
@@ -71,7 +71,7 @@ export const ZONE3_ROADS: { x: number; z: number }[][] = [
 export const ZONE3_MOBS: Record<string, MobTemplate> = {
   ridge_stalker: {
     id: 'ridge_stalker',
-    name: 'Ridge Stalker',
+    name: 'Spikeling Prowler',
     minLevel: 13,
     maxLevel: 14,
     family: 'beast',
@@ -815,8 +815,8 @@ export const ZONE3_NPCS: Record<string, NpcDef> = {
   },
   brother_aldric_highwatch: {
     id: 'brother_aldric_highwatch',
-    name: 'Brother Aldric',
-    title: 'Priest of the Vale',
+    name: 'Keeper Aldric',
+    title: 'Keeper of the Bloom',
     pos: { x: -10, z: 656 },
     facing: 0.8,
     color: 0xf7f9f9,
@@ -845,8 +845,8 @@ export const ZONE3_NPCS: Record<string, NpcDef> = {
   // turn-in NPC. pos/facing are unused — the encounter sets his position.
   brother_aldric_raid: {
     id: 'brother_aldric_raid',
-    name: 'Brother Aldric',
-    title: 'Priest of the Vale',
+    name: 'Keeper Aldric',
+    title: 'Keeper of the Bloom',
     pos: { x: 0, z: 0 },
     facing: 0,
     color: 0xd7d0b4,
@@ -941,9 +941,9 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     name: 'The Watch on the Peaks',
     giverNpcId: 'brother_aldric_fen',
     turnInNpcId: 'captain_thessaly',
-    text: "Vael's last words have not left me, $N: the Wyrm stirs beneath the peaks. Captain Thessaly commands the wall at Highwatch, at the head of the mountain road north. A summons stands posted at her gate — take it up, and tell her Brother Aldric is climbing the mountain behind you.",
+    text: "Vael's last words have not left me, $N: the Wyrm stirs beneath the peaks. Captain Thessaly commands the wall at Highwatch, at the head of the mountain road north. A summons stands posted at her gate, take it up, and tell her Keeper Aldric is climbing the mountain behind you.",
     completionText:
-      "Aldric's word reaches far. If the priest of the Vale is climbing the mountain himself, then it is as bad as I feared. Welcome to Highwatch, $N.",
+      "Aldric's word reaches far. If the Keeper of the Bloom is climbing the mountain himself, then it is as bad as I feared. Welcome to Highwatch, $N.",
     objectives: [
       { type: 'collect', itemId: 'highwatch_summons', count: 1, label: 'Highwatch Summons' },
     ],
@@ -957,10 +957,10 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     name: 'Stalkers on the Ridge',
     giverNpcId: 'captain_thessaly',
     turnInNpcId: 'captain_thessaly',
-    text: 'The ridge cats have come down from the high snows hungry, and my patrols bleed for it. Every stalker you put down is a soldier I keep on the wall. Thin them, $N — twelve, to start.',
+    text: 'The spikeling beasts have come down from the high snows hungry, and my patrols bleed for it. Every prowler you put down is a soldier I keep on the wall. Thin them, $N, twelve, to start.',
     completionText: 'Twelve fewer shadows on the ridge. The patrols will breathe easier tonight.',
     objectives: [
-      { type: 'kill', targetMobId: 'ridge_stalker', count: 12, label: 'Ridge Stalker slain' },
+      { type: 'kill', targetMobId: 'ridge_stalker', count: 12, label: 'Spikeling Prowler slain' },
     ],
     xpReward: 2200,
     copperReward: 1000,
@@ -971,11 +971,11 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     name: 'Winter Is Coming to Highwatch',
     giverNpcId: 'quartermaster_bree',
     turnInNpcId: 'quartermaster_bree',
-    text: 'Winter on this mountain does not knock, $N — it kicks the door in. Eight ridge stalker pelts will line enough cloaks to see the wall through the first snows. The beasts prowl the ridges flanking the road south.',
+    text: 'Winter on this mountain does not knock, $N, it kicks the door in. Eight Spikeling Prowler pelts will line enough cloaks to see the wall through the first snows. The beasts prowl the ridges flanking the road south.',
     completionText:
-      'Thick as my arm, these. The watch will not freeze this year — take these treads for your trouble.',
+      'Thick as my arm, these. The watch will not freeze this year, take these treads for your trouble.',
     objectives: [
-      { type: 'collect', itemId: 'ridge_stalker_pelt', count: 8, label: 'Ridge Stalker Pelt' },
+      { type: 'collect', itemId: 'ridge_stalker_pelt', count: 8, label: 'Spikeling Prowler Pelt' },
     ],
     xpReward: 2300,
     copperReward: 1000,
@@ -1177,7 +1177,7 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     turnInNpcId: 'brother_aldric_highwatch',
     text: 'The zealots move with purpose now — watches set, supplies counted, like soldiers before a siege. Cultists who organize are cultists taking orders, $N. Kill eight more and bring me four sets of their written orders. I would know the hand that commands them.',
     completionText:
-      "This script... I last saw its like in Morthen's grimoire, in Eastbrook. The same hand has guided every grave we have fought over, $N.",
+      "This script... I last saw its like in Morthen's grimoire, in Bloomhaven. The same hand has guided every grave we have fought over, $N.",
     objectives: [
       { type: 'kill', targetMobId: 'wyrmcult_zealot', count: 8, label: 'Wyrmcult Zealot slain' },
       { type: 'collect', itemId: 'wyrmcult_orders', count: 4, label: 'Wyrmcult Orders' },
@@ -1194,7 +1194,7 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     turnInNpcId: 'brother_aldric_highwatch',
     text: 'The orders speak of a "ring of phylacteries" — soul-vessels, $N, set about the Sanctum to feed it. The cult\'s necromancers carry them like holy relics. Kill eight necromancers and bring me three phylacteries unbroken. I must know what souls they hold.',
     completionText:
-      'Light forgive us. These hold the dead of the Vale and the fen — every corpse the Gravecallers ever raised, harvested. They were never building an army, $N. They were gathering a tithe.',
+      'The Bloom forgive us. These hold the dead of the Vale and the fen, every corpse the Blightcallers ever raised, harvested. They were never building an army, $N. They were gathering a tithe.',
     objectives: [
       {
         type: 'kill',
@@ -1261,7 +1261,7 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     name: 'Sigils of the Wyrm',
     giverNpcId: 'brother_aldric_highwatch',
     turnInNpcId: 'brother_aldric_highwatch',
-    text: 'It is time you knew the whole of it, $N. The Gravecallers serve Korzul the Gravewyrm — an ancient dragon sealed beneath this mountain — and every soul they have stolen since Eastbrook is a tithe poured into its waking. On the Sanctum Approach the cult has laid sigils to thin the seal. Bring me three; I would read the rite they are working.',
+    text: 'It is time you knew the whole of it, $N. The Blightcallers serve Korzul the Gravewyrm, an ancient dragon sealed beneath this mountain, and every soul they have stolen since Bloomhaven is a tithe poured into its waking. On the Sanctum Approach the cult has laid sigils to thin the seal. Bring me three; I would read the rite they are working.',
     completionText:
       'Yes... a waking-litany, generations in the writing. They are close, $N. Closer than I dared fear.',
     objectives: [
@@ -1314,7 +1314,7 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     name: 'The Sanctum Gate',
     giverNpcId: 'brother_aldric_highwatch',
     turnInNpcId: 'brother_aldric_highwatch',
-    text: 'This is the last threshold, $N. The gate of the Gravewyrm Sanctum was locked with a keystone, and the cult shattered it into shards rather than see it turned against them. The shards lie scattered in the gate plaza, under the eyes of the boneclad dead. Bring me three, and I will open the way the Light intended — quietly.',
+    text: 'This is the last threshold, $N. The gate of the Gravewyrm Sanctum was locked with a keystone, and the cult shattered it into shards rather than see it turned against them. The shards lie scattered in the gate plaza, under the eyes of the boneclad dead. Bring me three, and I will open the way the Bloom intended, quietly.',
     completionText:
       'The shards sit true... and the gate knows its key. The way below stands open, $N. Gather the strongest companions you can find — what comes next, no one should face alone.',
     objectives: [
@@ -1357,7 +1357,7 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     name: 'The Grand Necromancer',
     giverNpcId: 'brother_aldric_highwatch',
     turnInNpcId: 'brother_aldric_highwatch',
-    text: "Every thread we have followed — Morthen, Vael, the phylacteries — was spun by one hand: Grand Necromancer Velkhar, first of the Gravecallers, keeper of the waking rite. He stands in the ritual vault below, pouring two lands' worth of stolen souls into the Wyrm. End him, $N, and the tithe ends with him.",
+    text: "Every thread we have followed (Morthen, Vael, the phylacteries) was spun by one hand: Grand Necromancer Velkhar, first of the Blightcallers, keeper of the waking rite. He stands in the ritual vault below, pouring two lands' worth of stolen souls into the Wyrm. End him, $N, and the tithe ends with him.",
     completionText:
       'Velkhar is dead, and the rite is headless. But you felt it down there, did you not? The souls are already spent — the Wyrm is no longer asleep.',
     objectives: [
@@ -1384,9 +1384,9 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     name: 'Korzul the Gravewyrm',
     giverNpcId: 'brother_aldric_highwatch',
     turnInNpcId: 'brother_aldric_highwatch',
-    text: "There is no rite left to stop, $N — only the Wyrm itself, half-woken in its hollow, gorged on the dead of the Vale and the fen. If it rises, the wall, the marsh, Eastbrook — everything we have defended falls in a single night. Take your companions into the Wyrm's Hollow and finish what we began in a chapel yard so long ago. The Light has carried you this far; carry it the rest of the way.",
+    text: "There is no rite left to stop, $N, only the Wyrm itself, half-woken in its hollow, gorged on the dead of the Vale and the fen. If it rises, the wall, the marsh, Bloomhaven, everything we have defended falls in a single night. Take your companions into the Wyrm's Hollow and finish what we began in a chapel yard so long ago. The Bloom has carried you this far; carry it the rest of the way.",
     completionText:
-      'It is over. The dead of three lands may rest, the mountain sleeps unhaunted — and it is your name, $N, that every bell from here to Eastbrook rings tonight.',
+      'It is over. The dead of three lands may rest, the mountain sleeps unhaunted, and it is your name, $N, that every bell from here to Bloomhaven rings tonight.',
     objectives: [
       {
         type: 'kill',
@@ -1416,7 +1416,7 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     turnInNpcId: 'brother_aldric_highwatch',
     text: 'Something has changed in Thornpeak Heights, $N. The dead no longer wander aimlessly. They gather and march through the northern bonefields beyond Highwatch, where the old battlefield meets the cliff road. Go there, investigate the unrest among the Boneclad Revenants, and bring back any proof of what is driving them.',
     completionText:
-      'The same mark appears on every shard... a crown. I have seen this before, cut into old graves no Eastbrook record remembers.',
+      'The same mark appears on every shard... a crown. I have seen this before, cut into old graves no Bloomhaven record remembers.',
     objectives: [
       { type: 'collect', itemId: 'runed_bone_shard', count: 10, label: 'Runed Bone Shard' },
     ],

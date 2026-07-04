@@ -5405,67 +5405,67 @@ export const en_CA: EnTranslations = {
     },
     "mobs": {
       "forest_wolf": {
-        "name": "Forest Wolf"
+        "name": "Blight Wolf"
       },
       "old_greyjaw": {
-        "name": "Old Greyjaw"
+        "name": "Old Ashfang"
       },
       "wild_boar": {
-        "name": "Wild Boar"
+        "name": "Bristle Tusk"
       },
       "webwood_spider": {
-        "name": "Webwood Lurker"
+        "name": "Sporeweaver"
       },
       "mudfin_murloc": {
-        "name": "Mudfin Skulker"
+        "name": "Siltling"
       },
       "tunnel_rat": {
-        "name": "Tunnel Rat Digger"
+        "name": "Burrow Grub"
       },
       "vale_bandit": {
-        "name": "Vale Bandit"
+        "name": "Dust Raider"
       },
       "restless_bones": {
-        "name": "Restless Bones"
+        "name": "Wither Husk"
       },
       "gorrak": {
-        "name": "Gorrak the Ruthless"
+        "name": "Gorrak the Blighted"
       },
       "mire_prowler": {
-        "name": "Mire Prowler"
+        "name": "Silt Prowler"
       },
       "deepfen_murloc": {
-        "name": "Deepfen Snapper"
+        "name": "Deepfen Spore-Snapper"
       },
       "mire_widow": {
-        "name": "Mirefen Widow"
+        "name": "Sporeweb Widow"
       },
       "mirefen_broodmother": {
-        "name": "The Broodmother"
+        "name": "The Spore Broodmother"
       },
       "drowned_dead": {
-        "name": "Drowned Dead"
+        "name": "Drowned Husk"
       },
       "fen_troll": {
-        "name": "Mirefen Troll"
+        "name": "Sunken Wastes Brute"
       },
       "grubjaw": {
         "name": "Grubjaw the Glutton"
       },
       "gravecaller_cultist": {
-        "name": "Gravecaller Cultist"
+        "name": "Blight Cultist"
       },
       "gravecaller_summoner": {
-        "name": "Gravecaller Summoner"
+        "name": "Blightcaller Summoner"
       },
       "gravecaller_mender": {
-        "name": "Gravecaller Mender"
+        "name": "Blightcaller Mender"
       },
       "deacon_voss": {
         "name": "Deacon Voss"
       },
       "ridge_stalker": {
-        "name": "Ridge Stalker"
+        "name": "Spikeling Prowler"
       },
       "deeprock_kobold": {
         "name": "Deeprock Tunneler"
@@ -5704,29 +5704,29 @@ export const en_CA: EnTranslations = {
     },
     "npcs": {
       "the_merchant": {
-        "name": "The Merchant",
+        "name": "The Broker",
         "title": "Keeper of the World Market",
         "greeting": "Welcome to the World Market, {className}. Buy from every adventurer in the realm - or set out your own wares and let coin find you."
       },
       "marshal_redbrook": {
-        "name": "Marshal Redbrook",
-        "title": "Town Marshal",
+        "name": "Warden Elgrove",
+        "title": "Warden of the Vale",
         "greeting": "Keep your blade close, {className}. The Vale is not what it was."
       },
       "trader_wilkes": {
-        "name": "Trader Wilkes",
+        "name": "Provisioner Wilkes",
         "title": "Provisioner",
         "greeting": "Fresh bread, clean water, fair prices. What can I get you?"
       },
       "apothecary_lin": {
-        "name": "Apothecary Lin",
-        "title": "Herbalist",
+        "name": "Herbalist Lin",
+        "title": "Bloom Herbalist",
         "greeting": "Careful where you step in the eastern woods, friend."
       },
       "brother_aldric": {
-        "name": "Brother Aldric",
-        "title": "Priest of the Vale",
-        "greeting": "The Light keep you. Even the dead find no rest here of late."
+        "name": "Keeper Aldric",
+        "title": "Keeper of the Bloom",
+        "greeting": "The Bloom keep you. Even the dead find no rest here of late."
       },
       "smith_haldren": {
         "name": "Smith Haldren",
@@ -5734,13 +5734,13 @@ export const en_CA: EnTranslations = {
         "greeting": "Mind the sparks, {className}. Good steel is the difference between a scar and a grave."
       },
       "fisherman_brandt": {
-        "name": "Fisherman Brandt",
+        "name": "Netcaster Brandt",
         "title": "Old Salt",
-        "greeting": "Grlmurlgrl- sorry, been listening to those fish-men too long."
+        "greeting": "Grlsiltgrl, sorry, been listening to those silt-crawlers too long."
       },
       "foreman_odell": {
         "name": "Foreman Odell",
-        "title": "Mine Foreman",
+        "title": "Dig Foreman",
         "greeting": "Whole dig's crawling with those candle-headed vermin!"
       },
       "warden_fenwick": {
@@ -5749,9 +5749,9 @@ export const en_CA: EnTranslations = {
         "greeting": "Hold at the gate, {className}. Past those reeds, the fen does the killing for us."
       },
       "brother_aldric_fen": {
-        "name": "Brother Aldric",
-        "title": "Priest of the Vale",
-        "greeting": "The Light keep you above the water, {playerName}. The dead in this fen do not sleep - they wade."
+        "name": "Keeper Aldric",
+        "title": "Keeper of the Bloom",
+        "greeting": "The Bloom keep you above the water, {playerName}. The dead in this fen do not sleep, they wade."
       },
       "provisioner_hale": {
         "name": "Provisioner Hale",
@@ -5774,8 +5774,8 @@ export const en_CA: EnTranslations = {
         "greeting": "Two hundred years this wall has held, {className}. It will not break on my watch - but it groans."
       },
       "brother_aldric_highwatch": {
-        "name": "Brother Aldric",
-        "title": "Priest of the Vale",
+        "name": "Keeper Aldric",
+        "title": "Keeper of the Bloom",
         "greeting": "From a chapel yard in the Vale to the roof of the world... the trail we have followed ends here. I can feel the mountain listening."
       },
       "scout_maren_highwatch": {
@@ -5804,8 +5804,8 @@ export const en_CA: EnTranslations = {
         "greeting": "The World Market is open here too, {className}. Buy from every adventurer in the realm, or set out your own wares."
       },
       "brother_aldric_raid": {
-        "name": "Brother Aldric",
-        "title": "Priest of the Vale",
+        "name": "Keeper Aldric",
+        "title": "Keeper of the Bloom",
         "greeting": "From a chapel yard in the Vale to the roof of the world... the trail we have followed ends here. I can feel the mountain listening."
       },
       "brother_halven": {
@@ -5822,80 +5822,80 @@ export const en_CA: EnTranslations = {
     "quests": {
       "q_wolves": {
         "title": "Wolves at the Door",
-        "text": "The forest wolves grow bold, snapping at travelers on the north road. Thin their numbers, {playerName}. Slay 8 Forest Wolves and Eastbrook will breathe easier.",
+        "text": "The blight wolves grow bold, snapping at travelers on the north road. Thin their numbers, {playerName}. Slay 8 Blight Wolves and Bloomhaven will breathe easier.",
         "completion": "Fine work. The road feels safer already.",
         "objectives": {
           "0": {
-            "label": "Forest Wolf slain"
+            "label": "Blight Wolf slain"
           }
         }
       },
       "q_greyjaw": {
         "title": "The Old Wolf",
-        "text": "There is one wolf no trap has held: Old Greyjaw. He has taken three hounds and a stable boy's arm. He prowls the deep woods north of the wolf runs. Bring me his fang.",
-        "completion": "So the old devil is dead at last. The stable boy will sleep easier - and so will I.",
+        "text": "There is one wolf no trap has held: Old Ashfang. He has taken three hounds and a stable boy's arm. He prowls the deep woods north of the wolf runs. Bring me his fang.",
+        "completion": "So the old devil is dead at last. The stable boy will sleep easier, and so will I.",
         "objectives": {
           "0": {
-            "label": "Old Greyjaw's Fang"
+            "label": "Old Ashfang's Fang"
           }
         }
       },
       "q_boars": {
         "title": "Bristleback Hides",
-        "text": "Boar hide makes the finest travel packs, and the meadows west of town are crawling with the beasts. Bring me 5 Bristly Boar Hides and I will make it worth your time.",
+        "text": "Boar hide makes the finest travel packs, and the meadows west of town are crawling with the beasts. Bring me 5 Bristle Tusk Hides and I will make it worth your time.",
         "completion": "Ah, fine bristly hides! These will fetch a good price.",
         "objectives": {
           "0": {
-            "label": "Bristly Boar Hide"
+            "label": "Bristle Tusk Hide"
           }
         }
       },
       "q_spiders": {
-        "title": "Webwood Menace",
-        "text": "The lurkers in the eastern woods spin a silk I need for my poultices - and they have grown far too numerous besides. Cull 6 Webwood Lurkers and cut 4 silk glands from their bellies.",
+        "title": "Sporewood Menace",
+        "text": "The weavers in the eastern woods spin a silk I need for my poultices, and they have grown far too numerous besides. Cull 6 Sporeweavers and cut 4 silk glands from their bellies.",
         "completion": "Ugh, still twitching. Perfect. Here, you've earned this.",
         "objectives": {
           "0": {
-            "label": "Webwood Lurker slain"
+            "label": "Sporeweaver slain"
           },
           "1": {
-            "label": "Webwood Silk Gland"
+            "label": "Sporewood Silk Gland"
           }
         }
       },
       "q_murlocs": {
         "title": "Trouble at the Lake",
-        "text": "Twenty years I have fished Mirror Lake, and never lost a net until those gurgling fish-men crawled out of the shallows. Drive the Mudfin back - slay 8 of them. And watch yourself: where there is one murloc, there are five.",
+        "text": "Twenty years I have fished Mirror Lake, and never lost a net until those gurgling silt-crawlers crawled out of the shallows. Drive the Siltlings back, slay 8 of them. And watch yourself: where there is one silt-crawler, there are five.",
         "completion": "Hah! That will teach them to mind their own mudholes.",
         "objectives": {
           "0": {
-            "label": "Mudfin Skulker slain"
+            "label": "Siltling slain"
           }
         }
       },
       "q_mine": {
         "title": "Rats in the Mine",
-        "text": "We struck a fine copper vein and then those kobold vermin came boiling out of the hillside. My crew will not set foot in the dig until it is cleared. Put down 10 Tunnel Rat Diggers.",
-        "completion": "Ha! Back to work, lads! You have my thanks - and my coin.",
+        "text": "We struck a fine copper vein and then those kobold vermin came boiling out of the hillside. My crew will not set foot in the dig until it is cleared. Put down 10 Burrow Grubs.",
+        "completion": "Ha! Back to work, lads! You have my thanks, and my coin.",
         "objectives": {
           "0": {
-            "label": "Tunnel Rat Digger slain"
+            "label": "Burrow Grub slain"
           }
         }
       },
       "q_bones": {
         "title": "The Restless Dead",
-        "text": "The old ruin on the northwest hill was a chapel once, and its yard a resting place. Something has stirred the dead from their sleep. Grant them peace, {playerName} - return 8 Restless Bones to the earth.",
-        "completion": "May they rest now, and may the Light forgive whatever woke them.",
+        "text": "The old ruin on the northwest hill was a chapel once, and its yard a resting place. Something has stirred the dead from their sleep. Grant them peace, {playerName}, return 8 Wither Husks to the earth.",
+        "completion": "May they rest now, and may the Bloom forgive whatever woke them.",
         "objectives": {
           "0": {
-            "label": "Restless Bones laid to rest"
+            "label": "Wither Husk laid to rest"
           }
         }
       },
       "q_supplies": {
         "title": "Stolen Supplies",
-        "text": "Those bandits hit my last wagon and made off with four crates of goods - tools, salt, good Eastbrook linen. The crates are stacked around their camp in the southeast hills. Steal them back for me, would you?",
+        "text": "Those bandits hit my last wagon and made off with four crates of goods: tools, salt, good Bloomhaven linen. The crates are stacked around their camp in the southeast hills. Steal them back for me, would you?",
         "completion": "My crates! Barely a scratch on them. You are a wonder.",
         "objectives": {
           "0": {
@@ -5906,17 +5906,17 @@ export const en_CA: EnTranslations = {
       "q_whispers": {
         "title": "Whispers Below",
         "text": "You have laid the dead to rest, but they will not stay resting - something calls them back. Search the chapel ruin for any trace of the one doing the calling. If you find a sigil or seal, bring it to me untouched.",
-        "completion": "This sigil... it bears the mark of the Gravecallers, a sect I had prayed was extinct. This is worse than I feared, {playerName}.",
+        "completion": "This sigil... it bears the mark of the Blightcallers, a sect I had prayed was extinct. This is worse than I feared, {playerName}.",
         "objectives": {
           "0": {
-            "label": "Gravecaller's Sigil"
+            "label": "Blightcaller's Sigil"
           }
         }
       },
       "q_names_of_the_dead": {
         "title": "The Names of the Dead",
-        "text": "If the Gravecallers raised our dead, I must know whose graves they robbed. The chapel sexton kept a burial ledger, and the wind has scattered its pages across the chapel yard. Gather 3 of them for me, {playerName} - the dead deserve to be called by their names.",
-        "completion": "These poor souls... and look here. Sexton Marrow - the chapel's own living caretaker - his grave the first disturbed. Morthen began with the very man who buried Eastbrook's dead.",
+        "text": "If the Blightcallers raised our dead, I must know whose graves they robbed. The chapel sexton kept a burial ledger, and the wind has scattered its pages across the chapel yard. Gather 3 of them for me, {playerName}, the dead deserve to be called by their names.",
+        "completion": "These poor souls... and look here. Sexton Marrow, the chapel's own living caretaker, his grave the first disturbed. Morthen began with the very man who buried Bloomhaven's dead.",
         "objectives": {
           "0": {
             "label": "Weathered Ledger Page"
@@ -5925,18 +5925,18 @@ export const en_CA: EnTranslations = {
       },
       "q_silence_the_call": {
         "title": "Silence the Call",
-        "text": "Every name in that ledger is a soul Morthen means to drag from the earth, and the chapel yard already crawls with those he has called. Return 12 Restless Bones to their graves, {playerName}, before the Gravecaller's whisper swells into a chorus.",
-        "completion": "The yard grows quieter - but the calling has not stopped. It rises from below now, {playerName}. From the crypt itself.",
+        "text": "Every name in that ledger is a soul Morthen means to drag from the earth, and the chapel yard already crawls with those he has called. Return 12 Wither Husks to their graves, {playerName}, before the Blightcaller's whisper swells into a chorus.",
+        "completion": "The yard grows quieter, but the calling has not stopped. It rises from below now, {playerName}. From the crypt itself.",
         "objectives": {
           "0": {
-            "label": "Restless Bones silenced"
+            "label": "Wither Husk silenced"
           }
         }
       },
       "q_rite": {
         "title": "The Binding Rite",
-        "text": "The crypt beneath the chapel must be unsealed if we are to stop the Gravecaller - but only a binding rite will let the living pass. I need 4 lumps of Blessed Tallow - the kobold diggers hoard candles by the crate - and 6 Ghostly Essences from the restless dead.",
-        "completion": "It is done. The way below stands open... and may the Light forgive me for opening it. Gather your strongest companions before you descend, {playerName}. No one should face the Hollow alone.",
+        "text": "The crypt beneath the chapel must be unsealed if we are to stop the Blightcaller, but only a binding rite will let the living pass. I need 4 lumps of Blessed Tallow (the kobold diggers hoard candles by the crate) and 6 Ghostly Essences from the restless dead.",
+        "completion": "It is done. The way below stands open... and may the Bloom forgive me for opening it. Gather your strongest companions before you descend, {playerName}. No one should face the Hollow alone.",
         "objectives": {
           "0": {
             "label": "Blessed Tallow"
@@ -5948,11 +5948,11 @@ export const en_CA: EnTranslations = {
       },
       "q_hollow": {
         "title": "Into the Hollow",
-        "text": "Morthen the Gravecaller waits at the bottom of the Hollow Crypt, ringed by the elite dead he has raised. He is far beyond any one hero - take four companions, no fewer. End him, and the Vale's dead will finally sleep.",
-        "completion": "The whispering has stopped. You have done what the whole Vale could not, {playerName} - the dead sleep, and Eastbrook owes you everything it has.",
+        "text": "Morthen the Blightcaller waits at the bottom of the Hollow Crypt, ringed by the elite dead he has raised. He is far beyond any one hero, take four companions, no fewer. End him, and the Vale's dead will finally sleep.",
+        "completion": "The whispering has stopped. You have done what the whole Vale could not, {playerName}, the dead sleep, and Bloomhaven owes you everything it has.",
         "objectives": {
           "0": {
-            "label": "Morthen the Gravecaller slain"
+            "label": "Morthen the Blightcaller slain"
           }
         }
       },
@@ -5967,7 +5967,7 @@ export const en_CA: EnTranslations = {
         }
       },
       "q_gravecallers_trail": {
-        "title": "The Gravecaller's Trail",
+        "title": "The Blightcaller's Trail",
         "text": "Morthen is dead, yet a question gnaws at me: a sect that hid for a century does not spend itself on one village chapel. He kept a grimoire - his rites, his correspondence. If anything of it survives, it lies in the vestry of the ruined chapel above the crypt. Search the ruin and bring me whatever remains of his writings, {playerName}.",
         "completion": "Morthen wrote to a 'Mistcaller' in the northern fen. The sect is not dead, {playerName} - it has merely been patient.",
         "objectives": {
@@ -5978,21 +5978,21 @@ export const en_CA: EnTranslations = {
       },
       "q_bandits": {
         "title": "Bandits of the Vale",
-        "text": "A pack of cutthroats has made camp in the southwest hills. They have robbed three wagons this week. Drive them out - slay 10 Vale Bandits.",
-        "completion": "Ten fewer knives in the dark. Take this - you have earned it.",
+        "text": "A pack of cutthroats has made camp in the southwest hills. They have robbed three wagons this week. Drive them out, slay 10 Dust Raiders.",
+        "completion": "Ten fewer knives in the dark. Take this, you have earned it.",
         "objectives": {
           "0": {
-            "label": "Vale Bandit slain"
+            "label": "Dust Raider slain"
           }
         }
       },
       "q_ringleader": {
         "title": "The Ringleader",
-        "text": "The bandits answer to one man: Gorrak the Ruthless. Cut off the head and the body will scatter. He skulks at the heart of their camp. End him, {playerName}.",
-        "completion": "Gorrak is dead? Then the Vale is free of his shadow. You have done Eastbrook a great service.",
+        "text": "The bandits answer to one man: Gorrak the Blighted. Cut off the head and the body will scatter. He skulks at the heart of their camp. End him, {playerName}.",
+        "completion": "Gorrak is dead? Then the Vale is free of his shadow. You have done Bloomhaven a great service.",
         "objectives": {
           "0": {
-            "label": "Gorrak the Ruthless slain"
+            "label": "Gorrak the Blighted slain"
           }
         }
       },
@@ -6008,27 +6008,27 @@ export const en_CA: EnTranslations = {
       },
       "q_prowlers": {
         "title": "Teeth of the Fen",
-        "text": "The mire prowlers have learned what a supply mule sounds like, and now they hunt the causeway itself. Last week they dragged a courier into the reeds not fifty paces from this gate. Thin them out, {playerName} - twelve dead prowlers ought to teach the rest fear.",
+        "text": "The silt prowlers have learned what a supply mule sounds like, and now they hunt the causeway itself. Last week they dragged a courier into the reeds not fifty paces from this gate. Thin them out, {playerName}, twelve dead prowlers ought to teach the rest fear.",
         "completion": "Twelve, and not a bite on you? The causeway breathes easier tonight.",
         "objectives": {
           "0": {
-            "label": "Mire Prowler slain"
+            "label": "Silt Prowler slain"
           }
         }
       },
       "q_prowler_pelts": {
         "title": "Pelts for the Causeway",
-        "text": "Every plank of that causeway rests on pilings wrapped in oiled prowler hide - the only thing the rot will not chew through. My stock is gone and the south spans are already sinking. Bring me 8 unspoiled pelts, {playerName}, before we are all wading to Eastbrook.",
+        "text": "Every plank of that causeway rests on pilings wrapped in oiled prowler hide, the only thing the rot will not chew through. My stock is gone and the south spans are already sinking. Bring me 8 unspoiled pelts, {playerName}, before we are all wading to Bloomhaven.",
         "completion": "Good thick pelts, these. The causeway will outlast the both of us now.",
         "objectives": {
           "0": {
-            "label": "Mire Prowler Pelt"
+            "label": "Silt Prowler Pelt"
           }
         }
       },
       "q_fen_supplies": {
         "title": "The Lost Caravan",
-        "text": "A caravan out of Eastbrook went into the mist three days back and never rang the gate bell. The wreck is strewn the whole length of the causeway - crates, casks, the lot, sinking slow. Salvage 5 loads of goods before the marsh finishes the job.",
+        "text": "A caravan out of Bloomhaven went into the mist three days back and never rang the gate bell. The wreck is strewn the whole length of the causeway, crates, casks, the lot, sinking slow. Salvage 5 loads of goods before the marsh finishes the job.",
         "completion": "Waterlogged, but whole. Poor drivers... the fen keeps what it catches, {playerName}. Remember that.",
         "objectives": {
           "0": {
@@ -6038,18 +6038,18 @@ export const en_CA: EnTranslations = {
       },
       "q_deepfen": {
         "title": "The Deepfen Stirs",
-        "text": "The Deepfen murlocs kept to their shallows for twenty years. Now they swarm the east bank like flies on a carcass - and my wardens say they are dragging things up from the lake bed. Whatever has them stirred, I want it stopped. Cull 12 of the snappers.",
+        "text": "The Deepfen silt-crawlers kept to their shallows for twenty years. Now they swarm the east bank like flies on a carcass, and my wardens say they are dragging things up from the lake bed. Whatever has them stirred, I want it stopped. Cull 12 of the snappers.",
         "completion": "That will push them back to the mud for a while. But something set them digging, and I mean to learn what.",
         "objectives": {
           "0": {
-            "label": "Deepfen Snapper slain"
+            "label": "Deepfen Spore-Snapper slain"
           }
         }
       },
       "q_idols": {
         "title": "Idols of the Deep",
-        "text": "Fenwick's wardens say the fish-men dredge idols from the lake bottom and clutch them like holy relics. If those idols are what I fear, I must see them with my own eyes. Take 5 from the Deepfen snappers - they will not part with them kindly.",
-        "completion": "Gravecaller work - older than Morthen, older than me. The sect did not begin in Eastbrook, {playerName}. It began here, and the lake has been keeping its secrets.",
+        "text": "Fenwick's wardens say the silt-crawlers dredge idols from the lake bottom and clutch them like holy relics. If those idols are what I fear, I must see them with my own eyes. Take 5 from the Deepfen Spore-Snappers, they will not part with them kindly.",
+        "completion": "Blightcaller work, older than Morthen, older than me. The sect did not begin in Bloomhaven, {playerName}. It began here, and the lake has been keeping its secrets.",
         "objectives": {
           "0": {
             "label": "Waterlogged Idol"
@@ -6068,11 +6068,11 @@ export const en_CA: EnTranslations = {
       },
       "q_deepfen_purge": {
         "title": "Back to the Shallows",
-        "text": "Aldric says those idols are cult-make - which means the murlocs are hauling the marsh's old evil up one armful at a time. I will not have it washing onto my causeway. Go back to the shallows and break the dredging for good: 14 more snappers.",
+        "text": "Aldric says those idols are cult-make, which means the silt-crawlers are hauling the marsh's old evil up one armful at a time. I will not have it washing onto my causeway. Go back to the shallows and break the dredging for good: 14 more snappers.",
         "completion": "Ruthless and thorough. If this marsh ever dries out, there's warden's work waiting for you.",
         "objectives": {
           "0": {
-            "label": "Deepfen Snapper slain"
+            "label": "Deepfen Spore-Snapper slain"
           }
         }
       },
@@ -6082,7 +6082,7 @@ export const en_CA: EnTranslations = {
         "completion": "Whole sacs, every one. You have steadier hands than half the surgeons in the south, {playerName}.",
         "objectives": {
           "0": {
-            "label": "Mirefen Widow slain"
+            "label": "Sporeweb Widow slain"
           },
           "1": {
             "label": "Widow Venom Sac"
@@ -6091,30 +6091,30 @@ export const en_CA: EnTranslations = {
       },
       "q_broodmother": {
         "title": "The Broodmother",
-        "text": "You have seen the webs - now ask yourself what spins cables thick as a man's wrist. The wardens call her the Broodmother, and her clutch hangs over Widow Thicket like a second canopy. Burn through 8 more widows and put the old mother down before that clutch opens.",
-        "completion": "Dead? Truly dead? Then the thicket is just trees again. The Light bless your blade, {playerName}.",
+        "text": "You have seen the webs, now ask yourself what spins cables thick as a man's wrist. The wardens call her the Spore Broodmother, and her clutch hangs over Widow Thicket like a second canopy. Burn through 8 more widows and put the old mother down before that clutch opens.",
+        "completion": "Dead? Truly dead? Then the thicket is just trees again. The Bloom bless your blade, {playerName}.",
         "objectives": {
           "0": {
-            "label": "Mirefen Widow slain"
+            "label": "Sporeweb Widow slain"
           },
           "1": {
-            "label": "The Broodmother slain"
+            "label": "The Spore Broodmother slain"
           }
         }
       },
       "q_drowned": {
-        "title": "The Drowned Dead",
-        "text": "Travelers drowned on the causeway are walking out of the lakes, {playerName} - still hung with the weeds they died in. This is no restless haunting. Drowning leaves no marks; it makes obedient corpses. Someone is filling this fen like a tithing box. Return 12 of the Drowned Dead to their rest.",
-        "completion": "Each one you fell is a stolen soul set free. But the one who drowned them is still pouring water.",
+        "title": "The Drowned Husks",
+        "text": "Travelers lost on the causeway are walking out of the lakes, {playerName}, still hung with the weeds they died in. This is no restless haunting. The Corruption leaves no marks; it makes obedient husks. Someone is filling this fen like a tithing box. Return 12 of the Drowned Husks to their rest.",
+        "completion": "Each one you fell is a stolen soul set free. But the one who raised them is still spreading rot.",
         "objectives": {
           "0": {
-            "label": "Drowned Dead laid to rest"
+            "label": "Drowned Husk laid to rest"
           }
         }
       },
       "q_drowned_censers": {
         "title": "Censers from the Deep",
-        "text": "North of the widow lake stands a chapel that drowned with its congregation when the marsh rose. The dead there carry rusted censers - funerary ones, the kind swung at a Gravecaller rite. Gather 4 from the chapel yard and I will read what rite was sung over that water.",
+        "text": "North of the widow lake stands a chapel that drowned with its congregation when the marsh rose. The husks there carry rusted censers, funerary ones, the kind swung at a Blightcaller rite. Gather 4 from the chapel yard and I will read what rite was sung over that water.",
         "completion": "As I feared. These censers burned grave-ash, not incense. Someone consecrated that chapel to the drowning - and the rite is signed 'Voss.'",
         "objectives": {
           "0": {
@@ -6124,37 +6124,37 @@ export const en_CA: EnTranslations = {
       },
       "q_no_rest": {
         "title": "No Rest in the Reeds",
-        "text": "The rite on those censers binds the drowned to rise wherever the marsh touches them - and the marsh touches everything. There will be no rest in these reeds until the dead outnumber the living. We cannot unmake the rite yet, but we can empty it of soldiers. Lay 14 more of the Drowned Dead to rest.",
-        "completion": "You give the dead more mercy than their masters ever did. Take this - you have more than earned it.",
+        "text": "The rite on those censers binds the husks to rise wherever the marsh touches them, and the marsh touches everything. There will be no rest in these reeds until the dead outnumber the living. We cannot unmake the rite yet, but we can empty it of soldiers. Lay 14 more of the Drowned Husks to rest.",
+        "completion": "You give the dead more mercy than their masters ever did. Take this, you have more than earned it.",
         "objectives": {
           "0": {
-            "label": "Drowned Dead laid to rest"
+            "label": "Drowned Husk laid to rest"
           }
         }
       },
       "q_trolls": {
         "title": "Mounds of the Mirefen",
-        "text": "The Mirefen trolls have torn open the old barrow-mounds east of the far lake - burial mounds, {playerName}, older than any kingdom of men. Whatever gold they think is down there, what they are letting OUT is worse. Drive them off the mounds: 12 trolls dead ought to do it.",
-        "completion": "Trolls don't dig without a reason. Someone told them where to dig - and I'd wager my gate it wears a grey robe.",
+        "text": "The Sunken Wastes Brutes have torn open the old barrow-mounds east of the far lake, burial mounds, {playerName}, older than any kingdom of men. Whatever gold they think is down there, what they are letting OUT is worse. Drive them off the mounds: 12 brutes dead ought to do it.",
+        "completion": "Brutes don't dig without a reason. Someone told them where to dig, and I'd wager my gate it wears a grey robe.",
         "objectives": {
           "0": {
-            "label": "Mirefen Troll slain"
+            "label": "Sunken Wastes Brute slain"
           }
         }
       },
       "q_troll_fetishes": {
         "title": "Fetish and Bone",
-        "text": "I crawled the troll mounds two nights past. Those fetishes they plant are not troll-craft - the knots are wrong, the bones are man-bones, and every one points at the open barrows like a signpost. Bring me 8 of them and I will prove to Fenwick who is really paying for this dig.",
-        "completion": "Same maker as the banners in the cult camp. The trolls are hired shovels, nothing more. Good work, {playerName}.",
+        "text": "I crawled the brute mounds two nights past. Those fetishes they plant are not brute-craft, the knots are wrong, the bones are man-bones, and every one points at the open barrows like a signpost. Bring me 8 of them and I will prove to Fenwick who is really paying for this dig.",
+        "completion": "Same maker as the banners in the cult camp. The brutes are hired shovels, nothing more. Good work, {playerName}.",
         "objectives": {
           "0": {
-            "label": "Mirefen Troll Fetish"
+            "label": "Sunken Wastes Brute Fetish"
           }
         }
       },
       "q_grubjaw": {
         "title": "The Glutton",
-        "text": "There's one troll the others won't dig beside - Grubjaw, the Glutton. He ate my last two pack-mules, harness and all, and my insurance man drowned years ago. He prowls the far eastern mounds, {playerName}. Bring me his tusk and I will outfit you proper.",
+        "text": "There's one brute the others won't dig beside, Grubjaw the Glutton. He ate my last two pack-mules, harness and all, and my insurance man drowned years ago. He prowls the far eastern mounds, {playerName}. Bring me his tusk and I will outfit you proper.",
         "completion": "That tusk is long as my forearm! The mules are avenged, and Fenbridge owes you a round.",
         "objectives": {
           "0": {
@@ -6164,11 +6164,11 @@ export const en_CA: EnTranslations = {
       },
       "q_cult_camp": {
         "title": "Robes in the Reeds",
-        "text": "There - north past the third lake, where the mist never lifts. Grey robes, grey banners: Gravecallers, camped in the open like they already own the fen. They have stopped hiding, {playerName}, which means they think they have already won. Prove them wrong. Cut down 12 of their cultists.",
+        "text": "There, north past the third lake, where the mist never lifts. Grey robes, grey banners: Blightcallers, camped in the open like they already own the fen. They have stopped hiding, {playerName}, which means they think they have already won. Prove them wrong. Cut down 12 of their cultists.",
         "completion": "Twelve robes face-down in the mud. Now they know the fen watches back.",
         "objectives": {
           "0": {
-            "label": "Gravecaller Cultist slain"
+            "label": "Blight Cultist slain"
           }
         }
       },
@@ -6178,16 +6178,16 @@ export const en_CA: EnTranslations = {
         "completion": "Every cipher is countersigned 'Deacon Voss' - and addressed onward to a 'Mistcaller' in the Bastion. Morthen's master, {playerName}. We have found him.",
         "objectives": {
           "0": {
-            "label": "Gravecaller Summoner slain"
+            "label": "Blightcaller Summoner slain"
           },
           "1": {
-            "label": "Gravecaller Cipher"
+            "label": "Blightcaller Cipher"
           }
         }
       },
       "q_deacon": {
         "title": "The Deacon of the Mire",
-        "text": "So a deacon of the Gravecallers stands at the heart of that camp, singing my drowned wardens up out of the lakes to serve him. His hymn ends today. Take the camp road north, {playerName}, and put Deacon Voss in the ground - deep enough that nobody sings HIM back up.",
+        "text": "So a deacon of the Blightcallers stands at the heart of that camp, singing my drowned wardens up out of the lakes to serve him. His hymn ends today. Take the camp road north, {playerName}, and put Deacon Voss in the ground, deep enough that nobody sings HIM back up.",
         "completion": "Voss is dead and the mist over the camp is already thinning. You have broken their voice in the fen - now only the Bastion remains.",
         "objectives": {
           "0": {
@@ -6227,8 +6227,8 @@ export const en_CA: EnTranslations = {
       },
       "q_highwatch_summons": {
         "title": "The Watch on the Peaks",
-        "text": "Vael's last words have not left me, {playerName}: the Wyrm stirs beneath the peaks. Captain Thessaly commands the wall at Highwatch, at the head of the mountain road north. A summons stands posted at her gate - take it up, and tell her Brother Aldric is climbing the mountain behind you.",
-        "completion": "Aldric's word reaches far. If the priest of the Vale is climbing the mountain himself, then it is as bad as I feared. Welcome to Highwatch, {playerName}.",
+        "text": "Vael's last words have not left me, {playerName}: the Wyrm stirs beneath the peaks. Captain Thessaly commands the wall at Highwatch, at the head of the mountain road north. A summons stands posted at her gate, take it up, and tell her Keeper Aldric is climbing the mountain behind you.",
+        "completion": "Aldric's word reaches far. If the Keeper of the Bloom is climbing the mountain himself, then it is as bad as I feared. Welcome to Highwatch, {playerName}.",
         "objectives": {
           "0": {
             "label": "Highwatch Summons"
@@ -6237,21 +6237,21 @@ export const en_CA: EnTranslations = {
       },
       "q_stalkers": {
         "title": "Stalkers on the Ridge",
-        "text": "The ridge cats have come down from the high snows hungry, and my patrols bleed for it. Every stalker you put down is a soldier I keep on the wall. Thin them, {playerName} - twelve, to start.",
+        "text": "The spikeling beasts have come down from the high snows hungry, and my patrols bleed for it. Every prowler you put down is a soldier I keep on the wall. Thin them, {playerName}, twelve, to start.",
         "completion": "Twelve fewer shadows on the ridge. The patrols will breathe easier tonight.",
         "objectives": {
           "0": {
-            "label": "Ridge Stalker slain"
+            "label": "Spikeling Prowler slain"
           }
         }
       },
       "q_stalker_pelts": {
         "title": "Winter Is Coming to Highwatch",
-        "text": "Winter on this mountain does not knock, {playerName} - it kicks the door in. Eight ridge stalker pelts will line enough cloaks to see the wall through the first snows. The beasts prowl the ridges flanking the road south.",
-        "completion": "Thick as my arm, these. The watch will not freeze this year - take these treads for your trouble.",
+        "text": "Winter on this mountain does not knock, {playerName}, it kicks the door in. Eight Spikeling Prowler pelts will line enough cloaks to see the wall through the first snows. The beasts prowl the ridges flanking the road south.",
+        "completion": "Thick as my arm, these. The watch will not freeze this year, take these treads for your trouble.",
         "objectives": {
           "0": {
-            "label": "Ridge Stalker Pelt"
+            "label": "Spikeling Prowler Pelt"
           }
         }
       },
@@ -6368,7 +6368,7 @@ export const en_CA: EnTranslations = {
       "q_cult_orders": {
         "title": "Orders from Below",
         "text": "The zealots move with purpose now - watches set, supplies counted, like soldiers before a siege. Cultists who organize are cultists taking orders, {playerName}. Kill eight more and bring me four sets of their written orders. I would know the hand that commands them.",
-        "completion": "This script... I last saw its like in Morthen's grimoire, in Eastbrook. The same hand has guided every grave we have fought over, {playerName}.",
+        "completion": "This script... I last saw its like in Morthen's grimoire, in Bloomhaven. The same hand has guided every grave we have fought over, {playerName}.",
         "objectives": {
           "0": {
             "label": "Wyrmcult Zealot slain"
@@ -6381,7 +6381,7 @@ export const en_CA: EnTranslations = {
       "q_necromancers": {
         "title": "The Phylactery Ring",
         "text": "The orders speak of a \"ring of phylacteries\" - soul-vessels, {playerName}, set about the Sanctum to feed it. The cult's necromancers carry them like holy relics. Kill eight necromancers and bring me three phylacteries unbroken. I must know what souls they hold.",
-        "completion": "Light forgive us. These hold the dead of the Vale and the fen - every corpse the Gravecallers ever raised, harvested. They were never building an army, {playerName}. They were gathering a tithe.",
+        "completion": "The Bloom forgive us. These hold the dead of the Vale and the fen, every corpse the Blightcallers ever raised, harvested. They were never building an army, {playerName}. They were gathering a tithe.",
         "objectives": {
           "0": {
             "label": "Wyrmcult Necromancer slain"
@@ -6413,7 +6413,7 @@ export const en_CA: EnTranslations = {
       },
       "q_wyrm_sigils": {
         "title": "Sigils of the Wyrm",
-        "text": "It is time you knew the whole of it, {playerName}. The Gravecallers serve Korzul the Gravewyrm - an ancient dragon sealed beneath this mountain - and every soul they have stolen since Eastbrook is a tithe poured into its waking. On the Sanctum Approach the cult has laid sigils to thin the seal. Bring me three; I would read the rite they are working.",
+        "text": "It is time you knew the whole of it, {playerName}. The Blightcallers serve Korzul the Gravewyrm, an ancient dragon sealed beneath this mountain, and every soul they have stolen since Bloomhaven is a tithe poured into its waking. On the Sanctum Approach the cult has laid sigils to thin the seal. Bring me three; I would read the rite they are working.",
         "completion": "Yes... a waking-litany, generations in the writing. They are close, {playerName}. Closer than I dared fear.",
         "objectives": {
           "0": {
@@ -6446,7 +6446,7 @@ export const en_CA: EnTranslations = {
       },
       "q_sanctum_gate": {
         "title": "The Sanctum Gate",
-        "text": "This is the last threshold, {playerName}. The gate of the Gravewyrm Sanctum was locked with a keystone, and the cult shattered it into shards rather than see it turned against them. The shards lie scattered in the gate plaza, under the eyes of the boneclad dead. Bring me three, and I will open the way the Light intended - quietly.",
+        "text": "This is the last threshold, {playerName}. The gate of the Gravewyrm Sanctum was locked with a keystone, and the cult shattered it into shards rather than see it turned against them. The shards lie scattered in the gate plaza, under the eyes of the boneclad dead. Bring me three, and I will open the way the Bloom intended, quietly.",
         "completion": "The shards sit true... and the gate knows its key. The way below stands open, {playerName}. Gather the strongest companions you can find - what comes next, no one should face alone.",
         "objectives": {
           "0": {
@@ -6466,7 +6466,7 @@ export const en_CA: EnTranslations = {
       },
       "q_velkhar": {
         "title": "The Grand Necromancer",
-        "text": "Every thread we have followed - Morthen, Vael, the phylacteries - was spun by one hand: Grand Necromancer Velkhar, first of the Gravecallers, keeper of the waking rite. He stands in the ritual vault below, pouring two lands' worth of stolen souls into the Wyrm. End him, {playerName}, and the tithe ends with him.",
+        "text": "Every thread we have followed (Morthen, Vael, the phylacteries) was spun by one hand: Grand Necromancer Velkhar, first of the Blightcallers, keeper of the waking rite. He stands in the ritual vault below, pouring two lands' worth of stolen souls into the Wyrm. End him, {playerName}, and the tithe ends with him.",
         "completion": "Velkhar is dead, and the rite is headless. But you felt it down there, did you not? The souls are already spent - the Wyrm is no longer asleep.",
         "objectives": {
           "0": {
@@ -6476,8 +6476,8 @@ export const en_CA: EnTranslations = {
       },
       "q_gravewyrm": {
         "title": "Korzul the Gravewyrm",
-        "text": "There is no rite left to stop, {playerName} - only the Wyrm itself, half-woken in its hollow, gorged on the dead of the Vale and the fen. If it rises, the wall, the marsh, Eastbrook - everything we have defended falls in a single night. Take your companions into the Wyrm's Hollow and finish what we began in a chapel yard so long ago. The Light has carried you this far; carry it the rest of the way.",
-        "completion": "It is over. The dead of three lands may rest, the mountain sleeps unhaunted - and it is your name, {playerName}, that every bell from here to Eastbrook rings tonight.",
+        "text": "There is no rite left to stop, {playerName}, only the Wyrm itself, half-woken in its hollow, gorged on the dead of the Vale and the fen. If it rises, the wall, the marsh, Bloomhaven, everything we have defended falls in a single night. Take your companions into the Wyrm's Hollow and finish what we began in a chapel yard so long ago. The Bloom has carried you this far; carry it the rest of the way.",
+        "completion": "It is over. The dead of three lands may rest, the mountain sleeps unhaunted, and it is your name, {playerName}, that every bell from here to Bloomhaven rings tonight.",
         "objectives": {
           "0": {
             "label": "Korzul the Gravewyrm slain"
@@ -6486,7 +6486,7 @@ export const en_CA: EnTranslations = {
       },
       "q_the_codfather": {
         "title": "The Codfather",
-        "text": "The Codfather isn't just a fish, {playerName}, he's a cold-blooded killer. Old-timers swear he eats Mire Prowlers for breakfast, and even the Mirefen Widows won't spin their webs near the Deepfen Shallows out of sheer terror. He rules those waters. Grab a fishing pole, drag that old devil out of his waters, and I will admit you have joined the family.",
+        "text": "The Codfather isn't just a fish, {playerName}, he's a cold-blooded killer. Old-timers swear he eats Silt Prowlers for breakfast, and even the Sporeweb Widows won't spin their webs near the Deepfen Shallows out of sheer terror. He rules those waters. Grab a fishing pole, drag that old devil out of his waters, and I will admit you have joined the family.",
         "completion": "By the damp saints... The Codfather himself. Look at those whiskers. Fenbridge will eat stories off this catch for a year, {playerName}.",
         "objectives": {
           "0": {
@@ -6497,7 +6497,7 @@ export const en_CA: EnTranslations = {
       "q_nythraxis_restless_dead": {
         "title": "Unrest in the Bonefields",
         "text": "Something has changed in Thornpeak Heights, {playerName}. The dead no longer wander aimlessly. They gather and march through the northern bonefields beyond Highwatch, where the old battlefield meets the cliff road. Go there, investigate the unrest among the Boneclad Revenants, and bring back any proof of what is driving them.",
-        "completion": "The same mark appears on every shard... a crown. I have seen this before, cut into old graves no Eastbrook record remembers.",
+        "completion": "The same mark appears on every shard... a crown. I have seen this before, cut into old graves no Bloomhaven record remembers.",
         "objectives": {
           "0": {
             "label": "Runed Bone Shard"
@@ -6638,11 +6638,11 @@ export const en_CA: EnTranslations = {
     },
     "zones": {
       "eastbrook_vale": {
-        "name": "Eastbrook Vale",
-        "welcome": "Find Marshal Redbrook in town - he has work for you.",
+        "name": "Bloomhaven Vale",
+        "welcome": "Find Warden Elgrove in town, he has work for you.",
         "pois": {
           "0": {
-            "label": "Eastbrook"
+            "label": "Bloomhaven"
           },
           "1": {
             "label": "Wolf Run"
@@ -6654,27 +6654,27 @@ export const en_CA: EnTranslations = {
             "label": "Mirror Lake"
           },
           "4": {
-            "label": "Webwood"
+            "label": "Sporewood"
           },
           "5": {
             "label": "Copper Dig"
           },
           "6": {
-            "label": "Bandit Camp"
+            "label": "Raider Camp"
           },
           "7": {
-            "label": "Fallen Chapel"
+            "label": "Withered Shrine"
           },
           "8": {
             "label": "Reliquary Hill"
           },
           "9": {
-            "label": "Brightwood Glade"
+            "label": "Bloomwood Glade"
           }
         }
       },
       "mirefen_marsh": {
-        "name": "Mirefen Marsh",
+        "name": "The Sunken Wastes",
         "welcome": "Report to Warden Fenwick at the Fenbridge gate.",
         "pois": {
           "0": {
@@ -6687,55 +6687,55 @@ export const en_CA: EnTranslations = {
             "label": "Deepfen Shallows"
           },
           "3": {
-            "label": "Widow Thicket"
+            "label": "Broodmother Thicket"
           },
           "4": {
             "label": "Drowned Chapel"
           },
           "5": {
-            "label": "Troll Mounds"
+            "label": "Brute Mounds"
           },
           "6": {
-            "label": "Gravecaller Encampment"
+            "label": "Blight Cult Encampment"
           },
           "7": {
-            "label": "The Sunken Bastion"
+            "label": "The Drowned Bastion"
           }
         }
       },
       "thornpeak_heights": {
-        "name": "Thornpeak Heights",
-        "welcome": "Captain Thessaly holds the wall at Highwatch - barely.",
+        "name": "Thornreach Heights",
+        "welcome": "Captain Thessaly holds the wall at Highwatch, barely.",
         "pois": {
           "0": {
             "label": "Highwatch"
           },
           "1": {
-            "label": "Stalker Ridge"
+            "label": "Spikeling Ridge"
           },
           "2": {
-            "label": "Deeprock Burrows"
+            "label": "Deeproot Burrows"
           },
           "3": {
-            "label": "Ogre Foothills"
+            "label": "Brute Foothills"
           },
           "4": {
             "label": "Drogmar's War-Camp"
           },
           "5": {
-            "label": "Stormcrag"
+            "label": "Riftcrag"
           },
           "6": {
             "label": "The Glimmermere"
           },
           "7": {
-            "label": "Wyrmcult Tents"
+            "label": "Rift Cult Tents"
           },
           "8": {
-            "label": "Revenant Fields"
+            "label": "Husk Fields"
           },
           "9": {
-            "label": "Gravewyrm Sanctum"
+            "label": "Rift Sanctum"
           }
         }
       }

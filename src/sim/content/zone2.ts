@@ -1,7 +1,7 @@
-// Zone 2 — Mirefen Marsh (levels 6-13). Brother Aldric follows the
-// Gravecaller trail north of the causeway: drowned dead rise from the fen,
-// trolls dig into barrow-mounds, and Vael the Mistcaller waits in the
-// Sunken Bastion.
+// Zone 2, The Sunken Wastes (levels 6-13). Keeper Aldric follows the
+// Blight cult trail north of the causeway: Corruption-raised husks rise from
+// the drowned marsh, swamp brutes dig into barrow-mounds, and Vael the
+// Mistcaller waits in the Drowned Bastion.
 
 import type {
   CampDef,
@@ -19,7 +19,7 @@ export const DEEPFEN_SHALLOWS_LAKE = { x: -110, z: 310, radius: 35 };
 
 export const ZONE2_ZONE: ZoneDef = {
   id: 'mirefen_marsh',
-  name: 'Mirefen Marsh',
+  name: 'The Sunken Wastes',
   zMin: 180,
   zMax: 540,
   levelRange: [6, 13],
@@ -31,11 +31,11 @@ export const ZONE2_ZONE: ZoneDef = {
     { x: 0, z: 300, label: 'Fenbridge' },
     { x: -40, z: 230, label: 'Prowler Reeds' },
     { x: -105, z: 300, label: 'Deepfen Shallows' },
-    { x: 80, z: 315, label: 'Widow Thicket' },
+    { x: 80, z: 315, label: 'Broodmother Thicket' },
     { x: 100, z: 435, label: 'Drowned Chapel' },
-    { x: -95, z: 440, label: 'Troll Mounds' },
-    { x: 0, z: 485, label: 'Gravecaller Encampment' },
-    { x: 45, z: 515, label: 'The Sunken Bastion' },
+    { x: -95, z: 440, label: 'Brute Mounds' },
+    { x: 0, z: 485, label: 'Blight Cult Encampment' },
+    { x: 45, z: 515, label: 'The Drowned Bastion' },
   ],
   welcome: 'Report to Warden Fenwick at the Fenbridge gate.',
 };
@@ -79,7 +79,7 @@ export const ZONE2_ROADS: { x: number; z: number }[][] = [
 export const ZONE2_MOBS: Record<string, MobTemplate> = {
   mire_prowler: {
     id: 'mire_prowler',
-    name: 'Mire Prowler',
+    name: 'Silt Prowler',
     minLevel: 7,
     maxLevel: 8,
     family: 'beast',
@@ -105,7 +105,7 @@ export const ZONE2_MOBS: Record<string, MobTemplate> = {
   },
   deepfen_murloc: {
     id: 'deepfen_murloc',
-    name: 'Deepfen Snapper',
+    name: 'Deepfen Spore-Snapper',
     minLevel: 8,
     maxLevel: 9,
     family: 'murloc',
@@ -146,7 +146,7 @@ export const ZONE2_MOBS: Record<string, MobTemplate> = {
   },
   mirejaw_the_ravenous: {
     id: 'mirejaw_the_ravenous',
-    name: 'Mirejaw the Ravenous',
+    name: 'Mirejaw the Ravenous Mutant',
     minLevel: 10,
     maxLevel: 10,
     family: 'murloc',
@@ -179,7 +179,7 @@ export const ZONE2_MOBS: Record<string, MobTemplate> = {
   },
   mirejaw_frenzy: {
     id: 'mirejaw_frenzy',
-    name: 'Mirejaw Frenzy',
+    name: 'Mirejaw Spawnling',
     minLevel: 9,
     maxLevel: 10,
     family: 'murloc',
@@ -197,7 +197,7 @@ export const ZONE2_MOBS: Record<string, MobTemplate> = {
   },
   sloomtooth_the_drowned: {
     id: 'sloomtooth_the_drowned',
-    name: 'Sloomtooth the Drowned',
+    name: 'Murktox, the Two-Headed Scourge',
     minLevel: 11,
     maxLevel: 11,
     family: 'murloc',
@@ -231,7 +231,7 @@ export const ZONE2_MOBS: Record<string, MobTemplate> = {
   },
   mire_widow: {
     id: 'mire_widow',
-    name: 'Mirefen Widow',
+    name: 'Sporeweb Widow',
     minLevel: 8,
     maxLevel: 10,
     family: 'spider',
@@ -256,7 +256,7 @@ export const ZONE2_MOBS: Record<string, MobTemplate> = {
   },
   mirefen_broodmother: {
     id: 'mirefen_broodmother',
-    name: 'The Broodmother',
+    name: 'The Spore Broodmother',
     minLevel: 10,
     maxLevel: 10,
     family: 'spider',
@@ -289,7 +289,7 @@ export const ZONE2_MOBS: Record<string, MobTemplate> = {
   },
   drowned_dead: {
     id: 'drowned_dead',
-    name: 'Drowned Dead',
+    name: 'Drowned Husk',
     minLevel: 9,
     maxLevel: 11,
     family: 'undead',
@@ -315,7 +315,7 @@ export const ZONE2_MOBS: Record<string, MobTemplate> = {
   },
   fen_troll: {
     id: 'fen_troll',
-    name: 'Mirefen Troll',
+    name: 'Sunken Wastes Brute',
     minLevel: 10,
     maxLevel: 12,
     family: 'troll',
@@ -366,7 +366,7 @@ export const ZONE2_MOBS: Record<string, MobTemplate> = {
   },
   gravecaller_cultist: {
     id: 'gravecaller_cultist',
-    name: 'Gravecaller Cultist',
+    name: 'Blight Cultist',
     minLevel: 10,
     maxLevel: 12,
     family: 'humanoid',
@@ -400,7 +400,7 @@ export const ZONE2_MOBS: Record<string, MobTemplate> = {
   },
   gravecaller_summoner: {
     id: 'gravecaller_summoner',
-    name: 'Gravecaller Summoner',
+    name: 'Blightcaller Summoner',
     minLevel: 11,
     maxLevel: 12,
     family: 'humanoid',
@@ -427,7 +427,7 @@ export const ZONE2_MOBS: Record<string, MobTemplate> = {
   },
   gravecaller_mender: {
     id: 'gravecaller_mender',
-    name: 'Gravecaller Mender',
+    name: 'Blightcaller Mender',
     minLevel: 11,
     maxLevel: 12,
     family: 'humanoid',
@@ -608,8 +608,8 @@ export const ZONE2_NPCS: Record<string, NpcDef> = {
   },
   brother_aldric_fen: {
     id: 'brother_aldric_fen',
-    name: 'Brother Aldric',
-    title: 'Priest of the Vale',
+    name: 'Keeper Aldric',
+    title: 'Keeper of the Bloom',
     pos: { x: -8, z: 296 },
     facing: 0.8,
     color: 0xf7f9f9,
@@ -625,7 +625,7 @@ export const ZONE2_NPCS: Record<string, NpcDef> = {
       'q_highwatch_summons',
     ],
     greeting:
-      'The Light keep you above the water, $N. The dead in this fen do not sleep — they wade.',
+      'The Bloom keep you above the water, $N. The dead in this fen do not sleep, they wade.',
   },
   provisioner_hale: {
     id: 'provisioner_hale',
@@ -703,10 +703,10 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     name: 'Teeth of the Fen',
     giverNpcId: 'warden_fenwick',
     turnInNpcId: 'warden_fenwick',
-    text: 'The mire prowlers have learned what a supply mule sounds like, and now they hunt the causeway itself. Last week they dragged a courier into the reeds not fifty paces from this gate. Thin them out, $N — twelve dead prowlers ought to teach the rest fear.',
+    text: 'The silt prowlers have learned what a supply mule sounds like, and now they hunt the causeway itself. Last week they dragged a courier into the reeds not fifty paces from this gate. Thin them out, $N, twelve dead prowlers ought to teach the rest fear.',
     completionText: 'Twelve, and not a bite on you? The causeway breathes easier tonight.',
     objectives: [
-      { type: 'kill', targetMobId: 'mire_prowler', count: 12, label: 'Mire Prowler slain' },
+      { type: 'kill', targetMobId: 'mire_prowler', count: 12, label: 'Silt Prowler slain' },
     ],
     xpReward: 800,
     copperReward: 300,
@@ -717,10 +717,10 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     name: 'Pelts for the Causeway',
     giverNpcId: 'provisioner_hale',
     turnInNpcId: 'provisioner_hale',
-    text: 'Every plank of that causeway rests on pilings wrapped in oiled prowler hide — the only thing the rot will not chew through. My stock is gone and the south spans are already sinking. Bring me 8 unspoiled pelts, $N, before we are all wading to Eastbrook.',
+    text: 'Every plank of that causeway rests on pilings wrapped in oiled prowler hide, the only thing the rot will not chew through. My stock is gone and the south spans are already sinking. Bring me 8 unspoiled pelts, $N, before we are all wading to Bloomhaven.',
     completionText: 'Good thick pelts, these. The causeway will outlast the both of us now.',
     objectives: [
-      { type: 'collect', itemId: 'mire_prowler_pelt', count: 8, label: 'Mire Prowler Pelt' },
+      { type: 'collect', itemId: 'mire_prowler_pelt', count: 8, label: 'Silt Prowler Pelt' },
     ],
     xpReward: 850,
     copperReward: 350,
@@ -731,7 +731,7 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     name: 'The Lost Caravan',
     giverNpcId: 'provisioner_hale',
     turnInNpcId: 'provisioner_hale',
-    text: 'A caravan out of Eastbrook went into the mist three days back and never rang the gate bell. The wreck is strewn the whole length of the causeway — crates, casks, the lot, sinking slow. Salvage 5 loads of goods before the marsh finishes the job.',
+    text: 'A caravan out of Bloomhaven went into the mist three days back and never rang the gate bell. The wreck is strewn the whole length of the causeway, crates, casks, the lot, sinking slow. Salvage 5 loads of goods before the marsh finishes the job.',
     completionText:
       'Waterlogged, but whole. Poor drivers... the fen keeps what it catches, $N. Remember that.',
     objectives: [
@@ -747,7 +747,7 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     name: 'The Codfather',
     giverNpcId: 'provisioner_hale',
     turnInNpcId: 'provisioner_hale',
-    text: "The Codfather isn't just a fish, $N, he's a cold-blooded killer. Old-timers swear he eats Mire Prowlers for breakfast, and even the Mirefen Widows won't spin their webs near the Deepfen Shallows out of sheer terror. He rules those waters. Grab a fishing pole, drag that old devil out of his waters, and I will admit you have joined the family.",
+    text: "The Codfather isn't just a fish, $N, he's a cold-blooded killer. Old-timers swear he eats Silt Prowlers for breakfast, and even the Sporeweb Widows won't spin their webs near the Deepfen Shallows out of sheer terror. He rules those waters. Grab a fishing pole, drag that old devil out of his waters, and I will admit you have joined the family.",
     completionText:
       'By the damp saints... The Codfather himself. Look at those whiskers. Fenbridge will eat stories off this catch for a year, $N.',
     objectives: [{ type: 'collect', itemId: 'the_codfather', count: 1, label: 'The Codfather' }],
@@ -761,11 +761,16 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     name: 'The Deepfen Stirs',
     giverNpcId: 'warden_fenwick',
     turnInNpcId: 'warden_fenwick',
-    text: 'The Deepfen murlocs kept to their shallows for twenty years. Now they swarm the east bank like flies on a carcass — and my wardens say they are dragging things up from the lake bed. Whatever has them stirred, I want it stopped. Cull 12 of the snappers.',
+    text: 'The Deepfen silt-crawlers kept to their shallows for twenty years. Now they swarm the east bank like flies on a carcass, and my wardens say they are dragging things up from the lake bed. Whatever has them stirred, I want it stopped. Cull 12 of the snappers.',
     completionText:
       'That will push them back to the mud for a while. But something set them digging, and I mean to learn what.',
     objectives: [
-      { type: 'kill', targetMobId: 'deepfen_murloc', count: 12, label: 'Deepfen Snapper slain' },
+      {
+        type: 'kill',
+        targetMobId: 'deepfen_murloc',
+        count: 12,
+        label: 'Deepfen Spore-Snapper slain',
+      },
     ],
     xpReward: 1000,
     copperReward: 400,
@@ -777,9 +782,9 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     name: 'Idols of the Deep',
     giverNpcId: 'brother_aldric_fen',
     turnInNpcId: 'brother_aldric_fen',
-    text: "Fenwick's wardens say the fish-men dredge idols from the lake bottom and clutch them like holy relics. If those idols are what I fear, I must see them with my own eyes. Take 5 from the Deepfen snappers — they will not part with them kindly.",
+    text: "Fenwick's wardens say the silt-crawlers dredge idols from the lake bottom and clutch them like holy relics. If those idols are what I fear, I must see them with my own eyes. Take 5 from the Deepfen Spore-Snappers, they will not part with them kindly.",
     completionText:
-      'Gravecaller work — older than Morthen, older than me. The sect did not begin in Eastbrook, $N. It began here, and the lake has been keeping its secrets.',
+      'Blightcaller work, older than Morthen, older than me. The sect did not begin in Bloomhaven, $N. It began here, and the lake has been keeping its secrets.',
     objectives: [
       { type: 'collect', itemId: 'waterlogged_idol', count: 5, label: 'Waterlogged Idol' },
     ],
@@ -819,11 +824,16 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     name: 'Back to the Shallows',
     giverNpcId: 'warden_fenwick',
     turnInNpcId: 'warden_fenwick',
-    text: "Aldric says those idols are cult-make — which means the murlocs are hauling the marsh's old evil up one armful at a time. I will not have it washing onto my causeway. Go back to the shallows and break the dredging for good: 14 more snappers.",
+    text: "Aldric says those idols are cult-make, which means the silt-crawlers are hauling the marsh's old evil up one armful at a time. I will not have it washing onto my causeway. Go back to the shallows and break the dredging for good: 14 more snappers.",
     completionText:
       "Ruthless and thorough. If this marsh ever dries out, there's warden's work waiting for you.",
     objectives: [
-      { type: 'kill', targetMobId: 'deepfen_murloc', count: 14, label: 'Deepfen Snapper slain' },
+      {
+        type: 'kill',
+        targetMobId: 'deepfen_murloc',
+        count: 14,
+        label: 'Deepfen Spore-Snapper slain',
+      },
     ],
     xpReward: 1100,
     copperReward: 450,
@@ -839,7 +849,7 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     completionText:
       'Whole sacs, every one. You have steadier hands than half the surgeons in the south, $N.',
     objectives: [
-      { type: 'kill', targetMobId: 'mire_widow', count: 10, label: 'Mirefen Widow slain' },
+      { type: 'kill', targetMobId: 'mire_widow', count: 10, label: 'Sporeweb Widow slain' },
       { type: 'collect', itemId: 'widow_venom_sac', count: 6, label: 'Widow Venom Sac' },
     ],
     xpReward: 1200,
@@ -852,16 +862,16 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     name: 'The Broodmother',
     giverNpcId: 'herbalist_yara',
     turnInNpcId: 'herbalist_yara',
-    text: "You have seen the webs — now ask yourself what spins cables thick as a man's wrist. The wardens call her the Broodmother, and her clutch hangs over Widow Thicket like a second canopy. Burn through 8 more widows and put the old mother down before that clutch opens.",
+    text: "You have seen the webs, now ask yourself what spins cables thick as a man's wrist. The wardens call her the Spore Broodmother, and her clutch hangs over Widow Thicket like a second canopy. Burn through 8 more widows and put the old mother down before that clutch opens.",
     completionText:
-      'Dead? Truly dead? Then the thicket is just trees again. The Light bless your blade, $N.',
+      'Dead? Truly dead? Then the thicket is just trees again. The Bloom bless your blade, $N.',
     objectives: [
-      { type: 'kill', targetMobId: 'mire_widow', count: 8, label: 'Mirefen Widow slain' },
+      { type: 'kill', targetMobId: 'mire_widow', count: 8, label: 'Sporeweb Widow slain' },
       {
         type: 'kill',
         targetMobId: 'mirefen_broodmother',
         count: 1,
-        label: 'The Broodmother slain',
+        label: 'The Spore Broodmother slain',
       },
     ],
     xpReward: 1250,
@@ -871,14 +881,14 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
   },
   q_drowned: {
     id: 'q_drowned',
-    name: 'The Drowned Dead',
+    name: 'The Drowned Husks',
     giverNpcId: 'brother_aldric_fen',
     turnInNpcId: 'brother_aldric_fen',
-    text: 'Travelers drowned on the causeway are walking out of the lakes, $N — still hung with the weeds they died in. This is no restless haunting. Drowning leaves no marks; it makes obedient corpses. Someone is filling this fen like a tithing box. Return 12 of the Drowned Dead to their rest.',
+    text: 'Travelers lost on the causeway are walking out of the lakes, $N, still hung with the weeds they died in. This is no restless haunting. The Corruption leaves no marks; it makes obedient husks. Someone is filling this fen like a tithing box. Return 12 of the Drowned Husks to their rest.',
     completionText:
-      'Each one you fell is a stolen soul set free. But the one who drowned them is still pouring water.',
+      'Each one you fell is a stolen soul set free. But the one who raised them is still spreading rot.',
     objectives: [
-      { type: 'kill', targetMobId: 'drowned_dead', count: 12, label: 'Drowned Dead laid to rest' },
+      { type: 'kill', targetMobId: 'drowned_dead', count: 12, label: 'Drowned Husk laid to rest' },
     ],
     xpReward: 1400,
     copperReward: 500,
@@ -890,7 +900,7 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     name: 'Censers from the Deep',
     giverNpcId: 'brother_aldric_fen',
     turnInNpcId: 'brother_aldric_fen',
-    text: 'North of the widow lake stands a chapel that drowned with its congregation when the marsh rose. The dead there carry rusted censers — funerary ones, the kind swung at a Gravecaller rite. Gather 4 from the chapel yard and I will read what rite was sung over that water.',
+    text: 'North of the widow lake stands a chapel that drowned with its congregation when the marsh rose. The husks there carry rusted censers, funerary ones, the kind swung at a Blightcaller rite. Gather 4 from the chapel yard and I will read what rite was sung over that water.',
     completionText:
       "As I feared. These censers burned grave-ash, not incense. Someone consecrated that chapel to the drowning — and the rite is signed 'Voss.'",
     objectives: [{ type: 'collect', itemId: 'rusted_censer', count: 4, label: 'Rusted Censer' }],
@@ -904,11 +914,11 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     name: 'No Rest in the Reeds',
     giverNpcId: 'brother_aldric_fen',
     turnInNpcId: 'brother_aldric_fen',
-    text: 'The rite on those censers binds the drowned to rise wherever the marsh touches them — and the marsh touches everything. There will be no rest in these reeds until the dead outnumber the living. We cannot unmake the rite yet, but we can empty it of soldiers. Lay 14 more of the Drowned Dead to rest.',
+    text: 'The rite on those censers binds the husks to rise wherever the marsh touches them, and the marsh touches everything. There will be no rest in these reeds until the dead outnumber the living. We cannot unmake the rite yet, but we can empty it of soldiers. Lay 14 more of the Drowned Husks to rest.',
     completionText:
-      'You give the dead more mercy than their masters ever did. Take this — you have more than earned it.',
+      'You give the dead more mercy than their masters ever did. Take this, you have more than earned it.',
     objectives: [
-      { type: 'kill', targetMobId: 'drowned_dead', count: 14, label: 'Drowned Dead laid to rest' },
+      { type: 'kill', targetMobId: 'drowned_dead', count: 14, label: 'Drowned Husk laid to rest' },
     ],
     xpReward: 1500,
     copperReward: 550,
@@ -924,11 +934,11 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     name: 'Mounds of the Mirefen',
     giverNpcId: 'warden_fenwick',
     turnInNpcId: 'warden_fenwick',
-    text: 'The Mirefen trolls have torn open the old barrow-mounds east of the far lake — burial mounds, $N, older than any kingdom of men. Whatever gold they think is down there, what they are letting OUT is worse. Drive them off the mounds: 12 trolls dead ought to do it.',
+    text: 'The Sunken Wastes Brutes have torn open the old barrow-mounds east of the far lake, burial mounds, $N, older than any kingdom of men. Whatever gold they think is down there, what they are letting OUT is worse. Drive them off the mounds: 12 brutes dead ought to do it.',
     completionText:
-      "Trolls don't dig without a reason. Someone told them where to dig — and I'd wager my gate it wears a grey robe.",
+      "Brutes don't dig without a reason. Someone told them where to dig, and I'd wager my gate it wears a grey robe.",
     objectives: [
-      { type: 'kill', targetMobId: 'fen_troll', count: 12, label: 'Mirefen Troll slain' },
+      { type: 'kill', targetMobId: 'fen_troll', count: 12, label: 'Sunken Wastes Brute slain' },
     ],
     xpReward: 1600,
     copperReward: 600,
@@ -940,11 +950,11 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     name: 'Fetish and Bone',
     giverNpcId: 'scout_maren',
     turnInNpcId: 'scout_maren',
-    text: 'I crawled the troll mounds two nights past. Those fetishes they plant are not troll-craft — the knots are wrong, the bones are man-bones, and every one points at the open barrows like a signpost. Bring me 8 of them and I will prove to Fenwick who is really paying for this dig.',
+    text: 'I crawled the brute mounds two nights past. Those fetishes they plant are not brute-craft, the knots are wrong, the bones are man-bones, and every one points at the open barrows like a signpost. Bring me 8 of them and I will prove to Fenwick who is really paying for this dig.',
     completionText:
-      'Same maker as the banners in the cult camp. The trolls are hired shovels, nothing more. Good work, $N.',
+      'Same maker as the banners in the cult camp. The brutes are hired shovels, nothing more. Good work, $N.',
     objectives: [
-      { type: 'collect', itemId: 'troll_fetish', count: 8, label: 'Mirefen Troll Fetish' },
+      { type: 'collect', itemId: 'troll_fetish', count: 8, label: 'Sunken Wastes Brute Fetish' },
     ],
     xpReward: 1650,
     copperReward: 600,
@@ -960,7 +970,7 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     name: 'The Glutton',
     giverNpcId: 'provisioner_hale',
     turnInNpcId: 'provisioner_hale',
-    text: "There's one troll the others won't dig beside — Grubjaw, the Glutton. He ate my last two pack-mules, harness and all, and my insurance man drowned years ago. He prowls the far eastern mounds, $N. Bring me his tusk and I will outfit you proper.",
+    text: "There's one brute the others won't dig beside, Grubjaw the Glutton. He ate my last two pack-mules, harness and all, and my insurance man drowned years ago. He prowls the far eastern mounds, $N. Bring me his tusk and I will outfit you proper.",
     completionText:
       'That tusk is long as my forearm! The mules are avenged, and Fenbridge owes you a round.',
     objectives: [{ type: 'collect', itemId: 'grubjaw_tusk', count: 1, label: "Grubjaw's Tusk" }],
@@ -978,14 +988,14 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     name: 'Robes in the Reeds',
     giverNpcId: 'scout_maren',
     turnInNpcId: 'scout_maren',
-    text: 'There — north past the third lake, where the mist never lifts. Grey robes, grey banners: Gravecallers, camped in the open like they already own the fen. They have stopped hiding, $N, which means they think they have already won. Prove them wrong. Cut down 12 of their cultists.',
+    text: 'There, north past the third lake, where the mist never lifts. Grey robes, grey banners: Blightcallers, camped in the open like they already own the fen. They have stopped hiding, $N, which means they think they have already won. Prove them wrong. Cut down 12 of their cultists.',
     completionText: 'Twelve robes face-down in the mud. Now they know the fen watches back.',
     objectives: [
       {
         type: 'kill',
         targetMobId: 'gravecaller_cultist',
         count: 12,
-        label: 'Gravecaller Cultist slain',
+        label: 'Blight Cultist slain',
       },
     ],
     xpReward: 1800,
@@ -1006,9 +1016,9 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
         type: 'kill',
         targetMobId: 'gravecaller_summoner',
         count: 8,
-        label: 'Gravecaller Summoner slain',
+        label: 'Blightcaller Summoner slain',
       },
-      { type: 'collect', itemId: 'cult_cipher', count: 4, label: 'Gravecaller Cipher' },
+      { type: 'collect', itemId: 'cult_cipher', count: 4, label: 'Blightcaller Cipher' },
     ],
     xpReward: 1900,
     copperReward: 750,
@@ -1020,7 +1030,7 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     name: 'The Deacon of the Mire',
     giverNpcId: 'warden_fenwick',
     turnInNpcId: 'warden_fenwick',
-    text: 'So a deacon of the Gravecallers stands at the heart of that camp, singing my drowned wardens up out of the lakes to serve him. His hymn ends today. Take the camp road north, $N, and put Deacon Voss in the ground — deep enough that nobody sings HIM back up.',
+    text: 'So a deacon of the Blightcallers stands at the heart of that camp, singing my drowned wardens up out of the lakes to serve him. His hymn ends today. Take the camp road north, $N, and put Deacon Voss in the ground, deep enough that nobody sings HIM back up.',
     completionText:
       'Voss is dead and the mist over the camp is already thinning. You have broken their voice in the fen — now only the Bastion remains.',
     objectives: [
@@ -1238,7 +1248,7 @@ export const ZONE2_ITEMS: Record<string, ItemDef> = {
   },
   mire_prowler_pelt: {
     id: 'mire_prowler_pelt',
-    name: 'Mire Prowler Pelt',
+    name: 'Silt Prowler Pelt',
     kind: 'quest',
     sellValue: 0,
     questId: 'q_prowler_pelts',
@@ -1280,7 +1290,7 @@ export const ZONE2_ITEMS: Record<string, ItemDef> = {
   },
   troll_fetish: {
     id: 'troll_fetish',
-    name: 'Mirefen Troll Fetish',
+    name: 'Sunken Wastes Brute Fetish',
     kind: 'quest',
     sellValue: 0,
     questId: 'q_troll_fetishes',
@@ -1294,7 +1304,7 @@ export const ZONE2_ITEMS: Record<string, ItemDef> = {
   },
   cult_cipher: {
     id: 'cult_cipher',
-    name: 'Gravecaller Cipher',
+    name: 'Blightcaller Cipher',
     kind: 'quest',
     sellValue: 0,
     questId: 'q_summoners',
@@ -1635,7 +1645,7 @@ export const ZONE2_ITEMS: Record<string, ItemDef> = {
   },
   sloomtooth_tidefang: {
     id: 'sloomtooth_tidefang',
-    name: "Sloomtooth's Tidefang",
+    name: "Murktox's Tidefang",
     kind: 'weapon',
     slot: 'mainhand',
     quality: 'rare',

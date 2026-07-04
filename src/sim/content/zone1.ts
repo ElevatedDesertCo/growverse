@@ -1,5 +1,5 @@
-// Zone 1 — Eastbrook Vale (levels 1-7). The starter zone: town of Eastbrook,
-// wolves and boars, the bandit camp, and Brother Aldric's Gravecaller chain
+// Zone 1 - Bloomhaven Vale (levels 1-7). The starter zone: town of Bloomhaven,
+// wolves and boars, the bandit camp, and Keeper Aldric's Blight cult chain
 // leading to the Hollow Crypt.
 
 import type {
@@ -20,27 +20,27 @@ export const LAKE = { x: -92, z: 88, radius: 30 };
 
 export const ZONE1_ZONE: ZoneDef = {
   id: 'eastbrook_vale',
-  name: 'Eastbrook Vale',
+  name: 'Bloomhaven Vale',
   zMin: -180,
   zMax: 180,
   levelRange: [1, 7],
   biome: 'vale',
-  hub: { x: 0, z: 0, radius: TOWN_RADIUS, name: 'Eastbrook' },
+  hub: { x: 0, z: 0, radius: TOWN_RADIUS, name: 'Bloomhaven' },
   graveyard: GRAVEYARD_POS,
   lakes: [LAKE],
   pois: [
-    { x: 0, z: -3, label: 'Eastbrook' },
+    { x: 0, z: -3, label: 'Bloomhaven' },
     { x: -2, z: 70, label: 'Wolf Run' },
     { x: 65, z: 0, label: 'Boar Meadow' },
     { x: -88, z: 82, label: 'Mirror Lake' },
-    { x: -60, z: 4, label: 'Webwood' },
+    { x: -60, z: 4, label: 'Sporewood' },
     { x: -84, z: -64, label: 'Copper Dig' },
-    { x: 76, z: -76, label: 'Bandit Camp' },
-    { x: 80, z: 80, label: 'Fallen Chapel' },
+    { x: 76, z: -76, label: 'Raider Camp' },
+    { x: 80, z: 80, label: 'Withered Shrine' },
     { x: -5, z: -52, label: 'Reliquary Hill' },
-    { x: 40, z: 140, label: 'Brightwood Glade' },
+    { x: 40, z: 140, label: 'Bloomwood Glade' },
   ],
-  welcome: 'Find Marshal Redbrook in town — he has work for you.',
+  welcome: 'Find Warden Elgrove in town, he has work for you.',
   welcomeQuestId: 'q_wolves',
 };
 
@@ -90,7 +90,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
   },
   forest_wolf: {
     id: 'forest_wolf',
-    name: 'Forest Wolf',
+    name: 'Blight Wolf',
     minLevel: 1,
     maxLevel: 2,
     family: 'beast',
@@ -113,7 +113,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
   },
   old_greyjaw: {
     id: 'old_greyjaw',
-    name: 'Old Greyjaw',
+    name: 'Old Ashfang',
     minLevel: 4,
     maxLevel: 4,
     family: 'beast',
@@ -139,7 +139,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
   },
   wild_boar: {
     id: 'wild_boar',
-    name: 'Wild Boar',
+    name: 'Bristle Tusk',
     minLevel: 2,
     maxLevel: 3,
     family: 'beast',
@@ -164,7 +164,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
   },
   webwood_spider: {
     id: 'webwood_spider',
-    name: 'Webwood Lurker',
+    name: 'Sporeweaver',
     minLevel: 2,
     maxLevel: 4,
     family: 'spider',
@@ -181,7 +181,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
       perTick: 2,
       interval: 2,
       duration: 10,
-      name: 'Spider Venom',
+      name: 'Spore Venom',
       school: 'nature',
     },
     ensnare: { chance: 0.25, duration: 3, name: 'Sticky Web', school: 'nature' },
@@ -254,7 +254,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
   },
   mudfin_murloc: {
     id: 'mudfin_murloc',
-    name: 'Mudfin Skulker',
+    name: 'Siltling',
     minLevel: 3,
     maxLevel: 5,
     family: 'murloc',
@@ -277,11 +277,11 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
     // Low chance and it breaks the instant the victim takes damage (the murloc's
     // own next bite ends it), so it's a brief flavor incap — but a murloc pack
     // can chain it just long enough to make a careless pull dangerous.
-    polymorphHex: { chance: 0.12, duration: 4, name: 'Mudfin Hex', school: 'nature' },
+    polymorphHex: { chance: 0.12, duration: 4, name: 'Silt Hex', school: 'nature' },
   },
   tunnel_rat: {
     id: 'tunnel_rat',
-    name: 'Tunnel Rat Digger',
+    name: 'Burrow Grub',
     minLevel: 4,
     maxLevel: 6,
     family: 'kobold',
@@ -305,7 +305,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
   },
   grix_the_tunnelking: {
     id: 'grix_the_tunnelking',
-    name: 'Grix the Tunnelking',
+    name: 'Grix the Burrow King',
     minLevel: 7,
     maxLevel: 7,
     family: 'kobold',
@@ -339,7 +339,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
   },
   vale_bandit: {
     id: 'vale_bandit',
-    name: 'Vale Bandit',
+    name: 'Dust Raider',
     minLevel: 3,
     maxLevel: 5,
     family: 'humanoid',
@@ -363,7 +363,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
   },
   restless_bones: {
     id: 'restless_bones',
-    name: 'Restless Bones',
+    name: 'Wither Husk',
     minLevel: 5,
     maxLevel: 7,
     family: 'undead',
@@ -394,7 +394,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
     // Mogger (humanoid). A heavy, slow striker that erupts in a shadow nova
     // and goes berserk when low; loot mirrors the other rare elites.
     id: 'captain_verlan',
-    name: 'Captain Verlan',
+    name: 'Husk-Captain Verlan',
     minLevel: 7,
     maxLevel: 7,
     family: 'undead',
@@ -433,7 +433,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
   },
   wraithbinder_maldrec: {
     id: 'wraithbinder_maldrec',
-    name: 'Wraithbinder Maldrec',
+    name: 'Blightbinder Maldrec',
     minLevel: 7,
     maxLevel: 7,
     family: 'undead',
@@ -468,7 +468,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
   },
   gorrak: {
     id: 'gorrak',
-    name: 'Gorrak the Ruthless',
+    name: 'Gorrak the Blighted',
     minLevel: 6,
     maxLevel: 6,
     family: 'humanoid',
@@ -501,7 +501,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
 export const ZONE1_NPCS: Record<string, NpcDef> = {
   the_merchant: {
     id: 'the_merchant',
-    name: 'The Merchant',
+    name: 'The Broker',
     title: 'Keeper of the World Market',
     // centerpiece of the square, just north of the well, facing the approach
     pos: { x: 0, z: 9.5 },
@@ -514,8 +514,8 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
   },
   marshal_redbrook: {
     id: 'marshal_redbrook',
-    name: 'Marshal Redbrook',
-    title: 'Town Marshal',
+    name: 'Warden Elgrove',
+    title: 'Warden of the Vale',
     pos: { x: 4, z: 6 },
     facing: Math.PI,
     color: 0xb7950b,
@@ -524,7 +524,7 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
   },
   trader_wilkes: {
     id: 'trader_wilkes',
-    name: 'Trader Wilkes',
+    name: 'Provisioner Wilkes',
     title: 'Provisioner',
     pos: { x: -7, z: 3 },
     facing: Math.PI / 2,
@@ -542,8 +542,8 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
   },
   apothecary_lin: {
     id: 'apothecary_lin',
-    name: 'Apothecary Lin',
-    title: 'Herbalist',
+    name: 'Herbalist Lin',
+    title: 'Bloom Herbalist',
     pos: { x: 11, z: -3 },
     facing: -Math.PI / 2,
     color: 0x7d3c98,
@@ -552,8 +552,8 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
   },
   brother_aldric: {
     id: 'brother_aldric',
-    name: 'Brother Aldric',
-    title: 'Priest of the Vale',
+    name: 'Keeper Aldric',
+    title: 'Keeper of the Bloom',
     pos: { x: -14, z: -10 },
     facing: 0.8,
     color: 0xf7f9f9,
@@ -568,7 +568,7 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
       'q_gravecallers_trail',
       'q_fenbridge_muster',
     ],
-    greeting: 'The Light keep you. Even the dead find no rest here of late.',
+    greeting: 'The Bloom keep you. Even the dead find no rest here of late.',
   },
   smith_haldren: {
     id: 'smith_haldren',
@@ -593,7 +593,7 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
   },
   fisherman_brandt: {
     id: 'fisherman_brandt',
-    name: 'Fisherman Brandt',
+    name: 'Netcaster Brandt',
     title: 'Old Salt',
     // in town (east edge, glaring out at Mirror Lake) — his old spot by the
     // dock sat inside the Mudfin spawn radius and new players got ambushed
@@ -603,12 +603,12 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     color: 0x2471a3,
     questIds: ['q_murlocs'],
     vendorItems: ['simple_fishing_pole'],
-    greeting: 'Grlmurlgrl— sorry, been listening to those fish-men too long.',
+    greeting: 'Grlsiltgrl, sorry, been listening to those silt-crawlers too long.',
   },
   foreman_odell: {
     id: 'foreman_odell',
     name: 'Foreman Odell',
-    title: 'Mine Foreman',
+    title: 'Dig Foreman',
     // in town (south edge, scowling toward his overrun dig) — his old spot
     // sat inside the Tunnel Rat spawn radius
     pos: { x: -4, z: -14 },
@@ -629,10 +629,10 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'Wolves at the Door',
     giverNpcId: 'marshal_redbrook',
     turnInNpcId: 'marshal_redbrook',
-    text: 'The forest wolves grow bold, snapping at travelers on the north road. Thin their numbers, $N. Slay 8 Forest Wolves and Eastbrook will breathe easier.',
+    text: 'The blight wolves grow bold, snapping at travelers on the north road. Thin their numbers, $N. Slay 8 Blight Wolves and Bloomhaven will breathe easier.',
     completionText: 'Fine work. The road feels safer already.',
     objectives: [
-      { type: 'kill', targetMobId: 'forest_wolf', count: 8, label: 'Forest Wolf slain' },
+      { type: 'kill', targetMobId: 'forest_wolf', count: 8, label: 'Blight Wolf slain' },
     ],
     xpReward: 250,
     copperReward: 75,
@@ -643,11 +643,11 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'The Old Wolf',
     giverNpcId: 'marshal_redbrook',
     turnInNpcId: 'marshal_redbrook',
-    text: "There is one wolf no trap has held: Old Greyjaw. He has taken three hounds and a stable boy's arm. He prowls the deep woods north of the wolf runs. Bring me his fang.",
+    text: "There is one wolf no trap has held: Old Ashfang. He has taken three hounds and a stable boy's arm. He prowls the deep woods north of the wolf runs. Bring me his fang.",
     completionText:
-      'So the old devil is dead at last. The stable boy will sleep easier — and so will I.',
+      'So the old devil is dead at last. The stable boy will sleep easier, and so will I.',
     objectives: [
-      { type: 'collect', itemId: 'greyjaw_fang', count: 1, label: "Old Greyjaw's Fang" },
+      { type: 'collect', itemId: 'greyjaw_fang', count: 1, label: "Old Ashfang's Fang" },
     ],
     xpReward: 450,
     copperReward: 150,
@@ -663,23 +663,23 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'Bristleback Hides',
     giverNpcId: 'trader_wilkes',
     turnInNpcId: 'trader_wilkes',
-    text: 'Boar hide makes the finest travel packs, and the meadows west of town are crawling with the beasts. Bring me 5 Bristly Boar Hides and I will make it worth your time.',
+    text: 'Boar hide makes the finest travel packs, and the meadows west of town are crawling with the beasts. Bring me 5 Bristle Tusk Hides and I will make it worth your time.',
     completionText: 'Ah, fine bristly hides! These will fetch a good price.',
-    objectives: [{ type: 'collect', itemId: 'boar_hide', count: 5, label: 'Bristly Boar Hide' }],
+    objectives: [{ type: 'collect', itemId: 'boar_hide', count: 5, label: 'Bristle Tusk Hide' }],
     xpReward: 350,
     copperReward: 120,
     itemRewards: {},
   },
   q_spiders: {
     id: 'q_spiders',
-    name: 'Webwood Menace',
+    name: 'Sporewood Menace',
     giverNpcId: 'apothecary_lin',
     turnInNpcId: 'apothecary_lin',
-    text: 'The lurkers in the eastern woods spin a silk I need for my poultices — and they have grown far too numerous besides. Cull 6 Webwood Lurkers and cut 4 silk glands from their bellies.',
+    text: 'The weavers in the eastern woods spin a silk I need for my poultices, and they have grown far too numerous besides. Cull 6 Sporeweavers and cut 4 silk glands from their bellies.',
     completionText: "Ugh, still twitching. Perfect. Here, you've earned this.",
     objectives: [
-      { type: 'kill', targetMobId: 'webwood_spider', count: 6, label: 'Webwood Lurker slain' },
-      { type: 'collect', itemId: 'webwood_silk', count: 4, label: 'Webwood Silk Gland' },
+      { type: 'kill', targetMobId: 'webwood_spider', count: 6, label: 'Sporeweaver slain' },
+      { type: 'collect', itemId: 'webwood_silk', count: 4, label: 'Sporewood Silk Gland' },
     ],
     xpReward: 420,
     copperReward: 140,
@@ -691,11 +691,9 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'Trouble at the Lake',
     giverNpcId: 'fisherman_brandt',
     turnInNpcId: 'fisherman_brandt',
-    text: 'Twenty years I have fished Mirror Lake, and never lost a net until those gurgling fish-men crawled out of the shallows. Drive the Mudfin back — slay 8 of them. And watch yourself: where there is one murloc, there are five.',
+    text: 'Twenty years I have fished Mirror Lake, and never lost a net until those gurgling silt-crawlers crawled out of the shallows. Drive the Siltlings back, slay 8 of them. And watch yourself: where there is one silt-crawler, there are five.',
     completionText: 'Hah! That will teach them to mind their own mudholes.',
-    objectives: [
-      { type: 'kill', targetMobId: 'mudfin_murloc', count: 8, label: 'Mudfin Skulker slain' },
-    ],
+    objectives: [{ type: 'kill', targetMobId: 'mudfin_murloc', count: 8, label: 'Siltling slain' }],
     xpReward: 520,
     copperReward: 180,
     itemRewards: {},
@@ -706,10 +704,10 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'Rats in the Mine',
     giverNpcId: 'foreman_odell',
     turnInNpcId: 'foreman_odell',
-    text: 'We struck a fine copper vein and then those kobold vermin came boiling out of the hillside. My crew will not set foot in the dig until it is cleared. Put down 10 Tunnel Rat Diggers.',
-    completionText: 'Ha! Back to work, lads! You have my thanks — and my coin.',
+    text: 'We struck a fine copper vein and then those kobold vermin came boiling out of the hillside. My crew will not set foot in the dig until it is cleared. Put down 10 Burrow Grubs.',
+    completionText: 'Ha! Back to work, lads! You have my thanks, and my coin.',
     objectives: [
-      { type: 'kill', targetMobId: 'tunnel_rat', count: 10, label: 'Tunnel Rat Digger slain' },
+      { type: 'kill', targetMobId: 'tunnel_rat', count: 10, label: 'Burrow Grub slain' },
     ],
     xpReward: 620,
     copperReward: 220,
@@ -721,14 +719,14 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'The Restless Dead',
     giverNpcId: 'brother_aldric',
     turnInNpcId: 'brother_aldric',
-    text: 'The old ruin on the northwest hill was a chapel once, and its yard a resting place. Something has stirred the dead from their sleep. Grant them peace, $N — return 8 Restless Bones to the earth.',
-    completionText: 'May they rest now, and may the Light forgive whatever woke them.',
+    text: 'The old ruin on the northwest hill was a chapel once, and its yard a resting place. Something has stirred the dead from their sleep. Grant them peace, $N, return 8 Wither Husks to the earth.',
+    completionText: 'May they rest now, and may the Bloom forgive whatever woke them.',
     objectives: [
       {
         type: 'kill',
         targetMobId: 'restless_bones',
         count: 8,
-        label: 'Restless Bones laid to rest',
+        label: 'Wither Husk laid to rest',
       },
     ],
     xpReward: 700,
@@ -741,7 +739,7 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'Stolen Supplies',
     giverNpcId: 'trader_wilkes',
     turnInNpcId: 'trader_wilkes',
-    text: 'Those bandits hit my last wagon and made off with four crates of goods — tools, salt, good Eastbrook linen. The crates are stacked around their camp in the southeast hills. Steal them back for me, would you?',
+    text: 'Those bandits hit my last wagon and made off with four crates of goods: tools, salt, good Bloomhaven linen. The crates are stacked around their camp in the southeast hills. Steal them back for me, would you?',
     completionText: 'My crates! Barely a scratch on them. You are a wonder.',
     objectives: [
       { type: 'collect', itemId: 'supply_crate', count: 4, label: 'Stolen Supply Crate' },
@@ -758,9 +756,9 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     turnInNpcId: 'brother_aldric',
     text: 'You have laid the dead to rest, but they will not stay resting — something calls them back. Search the chapel ruin for any trace of the one doing the calling. If you find a sigil or seal, bring it to me untouched.',
     completionText:
-      'This sigil... it bears the mark of the Gravecallers, a sect I had prayed was extinct. This is worse than I feared, $N.',
+      'This sigil... it bears the mark of the Blightcallers, a sect I had prayed was extinct. This is worse than I feared, $N.',
     objectives: [
-      { type: 'collect', itemId: 'gravecaller_sigil', count: 1, label: "Gravecaller's Sigil" },
+      { type: 'collect', itemId: 'gravecaller_sigil', count: 1, label: "Blightcaller's Sigil" },
     ],
     xpReward: 400,
     copperReward: 150,
@@ -772,9 +770,9 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'The Names of the Dead',
     giverNpcId: 'brother_aldric',
     turnInNpcId: 'brother_aldric',
-    text: 'If the Gravecallers raised our dead, I must know whose graves they robbed. The chapel sexton kept a burial ledger, and the wind has scattered its pages across the chapel yard. Gather 3 of them for me, $N — the dead deserve to be called by their names.',
+    text: 'If the Blightcallers raised our dead, I must know whose graves they robbed. The chapel sexton kept a burial ledger, and the wind has scattered its pages across the chapel yard. Gather 3 of them for me, $N, the dead deserve to be called by their names.',
     completionText:
-      "These poor souls... and look here. Sexton Marrow — the chapel's own living caretaker — his grave the first disturbed. Morthen began with the very man who buried Eastbrook's dead.",
+      "These poor souls... and look here. Sexton Marrow, the chapel's own living caretaker, his grave the first disturbed. Morthen began with the very man who buried Bloomhaven's dead.",
     objectives: [
       {
         type: 'collect',
@@ -793,11 +791,11 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'Silence the Call',
     giverNpcId: 'brother_aldric',
     turnInNpcId: 'brother_aldric',
-    text: "Every name in that ledger is a soul Morthen means to drag from the earth, and the chapel yard already crawls with those he has called. Return 12 Restless Bones to their graves, $N, before the Gravecaller's whisper swells into a chorus.",
+    text: "Every name in that ledger is a soul Morthen means to drag from the earth, and the chapel yard already crawls with those he has called. Return 12 Wither Husks to their graves, $N, before the Blightcaller's whisper swells into a chorus.",
     completionText:
-      'The yard grows quieter — but the calling has not stopped. It rises from below now, $N. From the crypt itself.',
+      'The yard grows quieter, but the calling has not stopped. It rises from below now, $N. From the crypt itself.',
     objectives: [
-      { type: 'kill', targetMobId: 'restless_bones', count: 12, label: 'Restless Bones silenced' },
+      { type: 'kill', targetMobId: 'restless_bones', count: 12, label: 'Wither Husk silenced' },
     ],
     xpReward: 750,
     copperReward: 300,
@@ -809,9 +807,9 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'The Binding Rite',
     giverNpcId: 'brother_aldric',
     turnInNpcId: 'brother_aldric',
-    text: 'The crypt beneath the chapel must be unsealed if we are to stop the Gravecaller — but only a binding rite will let the living pass. I need 4 lumps of Blessed Tallow — the kobold diggers hoard candles by the crate — and 6 Ghostly Essences from the restless dead.',
+    text: 'The crypt beneath the chapel must be unsealed if we are to stop the Blightcaller, but only a binding rite will let the living pass. I need 4 lumps of Blessed Tallow (the kobold diggers hoard candles by the crate) and 6 Ghostly Essences from the restless dead.',
     completionText:
-      'It is done. The way below stands open... and may the Light forgive me for opening it. Gather your strongest companions before you descend, $N. No one should face the Hollow alone.',
+      'It is done. The way below stands open... and may the Bloom forgive me for opening it. Gather your strongest companions before you descend, $N. No one should face the Hollow alone.',
     objectives: [
       { type: 'collect', itemId: 'blessed_wax', count: 4, label: 'Blessed Tallow' },
       { type: 'collect', itemId: 'ghostly_essence', count: 6, label: 'Ghostly Essence' },
@@ -826,11 +824,11 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'Into the Hollow',
     giverNpcId: 'brother_aldric',
     turnInNpcId: 'brother_aldric',
-    text: "Morthen the Gravecaller waits at the bottom of the Hollow Crypt, ringed by the elite dead he has raised. He is far beyond any one hero — take four companions, no fewer. End him, and the Vale's dead will finally sleep.",
+    text: "Morthen the Blightcaller waits at the bottom of the Hollow Crypt, ringed by the elite dead he has raised. He is far beyond any one hero, take four companions, no fewer. End him, and the Vale's dead will finally sleep.",
     completionText:
-      'The whispering has stopped. You have done what the whole Vale could not, $N — the dead sleep, and Eastbrook owes you everything it has.',
+      'The whispering has stopped. You have done what the whole Vale could not, $N, the dead sleep, and Bloomhaven owes you everything it has.',
     objectives: [
-      { type: 'kill', targetMobId: 'morthen', count: 1, label: 'Morthen the Gravecaller slain' },
+      { type: 'kill', targetMobId: 'morthen', count: 1, label: 'Morthen the Blightcaller slain' },
     ],
     xpReward: 1500,
     copperReward: 10000,
@@ -865,7 +863,7 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
   },
   q_gravecallers_trail: {
     id: 'q_gravecallers_trail',
-    name: "The Gravecaller's Trail",
+    name: "The Blightcaller's Trail",
     giverNpcId: 'brother_aldric',
     turnInNpcId: 'brother_aldric',
     text: 'Morthen is dead, yet a question gnaws at me: a sect that hid for a century does not spend itself on one village chapel. He kept a grimoire — his rites, his correspondence. If anything of it survives, it lies in the vestry of the ruined chapel above the crypt. Search the ruin and bring me whatever remains of his writings, $N.',
@@ -884,10 +882,10 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'Bandits of the Vale',
     giverNpcId: 'marshal_redbrook',
     turnInNpcId: 'marshal_redbrook',
-    text: 'A pack of cutthroats has made camp in the southwest hills. They have robbed three wagons this week. Drive them out — slay 10 Vale Bandits.',
-    completionText: 'Ten fewer knives in the dark. Take this — you have earned it.',
+    text: 'A pack of cutthroats has made camp in the southwest hills. They have robbed three wagons this week. Drive them out, slay 10 Dust Raiders.',
+    completionText: 'Ten fewer knives in the dark. Take this, you have earned it.',
     objectives: [
-      { type: 'kill', targetMobId: 'vale_bandit', count: 10, label: 'Vale Bandit slain' },
+      { type: 'kill', targetMobId: 'vale_bandit', count: 10, label: 'Dust Raider slain' },
     ],
     xpReward: 550,
     copperReward: 200,
@@ -899,11 +897,11 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'The Ringleader',
     giverNpcId: 'marshal_redbrook',
     turnInNpcId: 'marshal_redbrook',
-    text: 'The bandits answer to one man: Gorrak the Ruthless. Cut off the head and the body will scatter. He skulks at the heart of their camp. End him, $N.',
+    text: 'The bandits answer to one man: Gorrak the Blighted. Cut off the head and the body will scatter. He skulks at the heart of their camp. End him, $N.',
     completionText:
-      'Gorrak is dead? Then the Vale is free of his shadow. You have done Eastbrook a great service.',
+      'Gorrak is dead? Then the Vale is free of his shadow. You have done Bloomhaven a great service.',
     objectives: [
-      { type: 'kill', targetMobId: 'gorrak', count: 1, label: 'Gorrak the Ruthless slain' },
+      { type: 'kill', targetMobId: 'gorrak', count: 1, label: 'Gorrak the Blighted slain' },
     ],
     xpReward: 800,
     copperReward: 500,
@@ -917,7 +915,7 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     turnInNpcId: 'marshal_redbrook',
     text: 'Mogger has split carts, flattened fences, and killed enough livestock to empty half the Vale. Do not face him alone. Take two strong companions into the eastern meadow and put the brute down for good.',
     completionText:
-      "Mogger dead at last. Eastbrook's fields are safer, and you leave the Vale with one more tale worth retelling.",
+      "Mogger dead at last. Bloomhaven's fields are safer, and you leave the Vale with one more tale worth retelling.",
     objectives: [{ type: 'kill', targetMobId: 'mogger', count: 1, label: 'Mogger slain' }],
     xpReward: 1200,
     copperReward: 900,
@@ -1009,7 +1007,7 @@ export const ZONE1_OBJECTS: GroundObjectDef[] = [
   },
   {
     itemId: 'gravecaller_sigil',
-    name: "Gravecaller's Sigil",
+    name: "Blightcaller's Sigil",
     positions: [
       { x: 84, z: 88 },
       { x: 76, z: 92 },
