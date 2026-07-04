@@ -4426,8 +4426,7 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'mobilePreflight.continue': 'Doorgaan naar het Spel',
   'mobilePreflight.iosInstallDetail':
     'Voor echt volledig scherm op iPhone of iPad moet je deze pagina eerst aan je beginscherm toevoegen.',
-  'mobilePreflight.iosOpenStep':
-    'Open Growverse vanaf het nieuwe pictogram op het beginscherm.',
+  'mobilePreflight.iosOpenStep': 'Open Growverse vanaf het nieuwe pictogram op het beginscherm.',
   'mobilePreflight.iosShareStep': 'Tik in Safari op Deel en daarna op Zet op beginscherm.',
   'mobilePreflight.iosStandaloneDetail':
     'Je bent in de volledig-scherm-modus vanaf het beginscherm. Houd het apparaat in liggende stand.',
@@ -4437,10 +4436,6 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'mobilePreflight.rotateSub': 'Speel in liggend volledig scherm voor de beste mobiele ervaring.',
   'mobilePreflight.rotateTitle': 'Draai naar Liggend',
   'mobilePreflight.title': 'Speel in Liggend Volledig Scherm',
-  'mode.caCopyAria': 'Contractadres kopiëren',
-  'mode.caLabel': '$WOC Contractadres',
-  'mode.caNote':
-    'WOC is onze communitytoken. Het is niet nodig om te spelen. Word lid van Discord om de WOC-toepassing en het vliegwiel te bespreken.',
   'mode.offlineAria': 'Offline Spelen: start direct een lokale singleplayer-sessie',
   'mode.offlineDesc':
     'Direct een singleplayer-wereld in je browser. Er wordt niets opgeslagen: perfect voor een snel gevecht of om te testen.',

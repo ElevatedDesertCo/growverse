@@ -2952,10 +2952,6 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'hud.errors.silenced': '你已被沉默！',
   'hud.pet.noPetFood': '你没有可以喂给宠物的食物。',
   'hud.pet.petEatsFoodOnly': '你的宠物只能吃食物。',
-  'mode.caCopyAria': '复制合约地址',
-  'mode.caLabel': '$WOC 合约地址',
-  'mode.caNote':
-    'WOC 是我们的社区代币。游玩游戏并不需要它。加入 Discord 一起讨论 WOC 的用途与飞轮效应。',
   'mode.play': '开始游戏',
   'mode.playAria': '开始游玩 Growverse',
   'mode.serverAria': '选择服务器：在线或离线',
@@ -4765,8 +4761,7 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'hudChrome.devBadge.linkedAs': '已关联为 {login}',
   'hudChrome.devBadge.unlink': '取消关联 GitHub',
   'hudChrome.nativeUpdate.title': '有可用更新',
-  'hudChrome.nativeUpdate.body':
-    'Growverse 有新版本可用。立即更新以获取最新修复和改进。',
+  'hudChrome.nativeUpdate.body': 'Growverse 有新版本可用。立即更新以获取最新修复和改进。',
   'hudChrome.nativeUpdate.bodyWithVersion':
     'Growverse {version} 版本已可用。立即更新以获取最新修复和改进。',
   'hudChrome.nativeUpdate.notNow': '暂不',

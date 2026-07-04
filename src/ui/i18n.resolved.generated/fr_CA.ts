@@ -1943,10 +1943,7 @@ export const fr_CA: EnTranslations = {
     "playAria": "Jouer à Growverse",
     "serverLabel": "Choisissez votre royaume",
     "serverAria": "Choisir le royaume : En ligne ou Hors ligne",
-    "serverOfflineSub": "Monde local instantané",
-    "caLabel": "Adresse du contrat $WOC",
-    "caCopyAria": "Copier l'adresse du contrat",
-    "caNote": "WOC est notre jeton communautaire. Il n'est pas nécessaire pour jouer. Rejoignez le Discord pour discuter de l'utilité et de la dynamique du WOC."
+    "serverOfflineSub": "Monde local instantané"
   },
   "auth": {
     "enterRealm": "Entrer dans le royaume",

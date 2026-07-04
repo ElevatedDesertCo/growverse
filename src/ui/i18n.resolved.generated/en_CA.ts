@@ -1943,10 +1943,7 @@ export const en_CA: EnTranslations = {
     "playAria": "Play Growverse",
     "serverLabel": "Choose your realm",
     "serverAria": "Select realm: Online or Offline",
-    "serverOfflineSub": "Instant local world",
-    "caLabel": "$WOC Contract Address",
-    "caCopyAria": "Copy contract address",
-    "caNote": "WOC is our community token. It is not needed to play. Join Discord to discuss the WOC utility and flywheel."
+    "serverOfflineSub": "Instant local world"
   },
   "auth": {
     "enterRealm": "Enter the Realm",

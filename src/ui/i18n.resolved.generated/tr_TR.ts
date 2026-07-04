@@ -1943,10 +1943,7 @@ export const tr_TR: EnTranslations = {
     "playAria": "Growverse oyna",
     "serverLabel": "Diyarını seç",
     "serverAria": "Diyar seç: Çevrimiçi veya Çevrimdışı",
-    "serverOfflineSub": "Anında yerel dünya",
-    "caLabel": "$WOC Sözleşme Adresi",
-    "caCopyAria": "Sözleşme adresini kopyala",
-    "caNote": "WOC topluluk jetonumuzdur. Oynamak için gerekli değildir. WOC'un faydasını ve döngüsünü tartışmak için Discord'a katılın."
+    "serverOfflineSub": "Anında yerel dünya"
   },
   "auth": {
     "enterRealm": "Diyara Gir",

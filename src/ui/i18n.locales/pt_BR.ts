@@ -3081,10 +3081,6 @@ export const pt_BR: Partial<Record<TranslationKey, string>> = {
   'hud.errors.silenced': 'Você está silenciado!',
   'hud.pet.noPetFood': 'Você não tem comida para alimentar seu mascote.',
   'hud.pet.petEatsFoodOnly': 'Seu mascote só pode comer comida.',
-  'mode.caCopyAria': 'Copiar endereço do contrato',
-  'mode.caLabel': 'Endereço do contrato $WOC',
-  'mode.caNote':
-    'WOC é o token da nossa comunidade. Não é necessário para jogar. Entre no Discord para discutir a utilidade e o flywheel do WOC.',
   'mode.play': 'Jogar',
   'mode.playAria': 'Jogar Growverse',
   'mode.serverAria': 'Escolher reino: Online ou Offline',
@@ -5102,8 +5098,7 @@ export const pt_BR: Partial<Record<TranslationKey, string>> = {
   'errors.api.desktopCodeInvalid':
     'O código de login do desktop é inválido ou expirou. Tente novamente.',
   'desktop.crash.body': 'A visualização do jogo parou de funcionar. Recarregar?',
-  'desktop.crash.fatalBody':
-    'O Growverse encontrou um erro inesperado e precisa fechar.',
+  'desktop.crash.fatalBody': 'O Growverse encontrou um erro inesperado e precisa fechar.',
   'desktop.crash.quit': 'Sair',
   'desktop.crash.reload': 'Recarregar',
   'desktop.crash.title': 'Growverse',

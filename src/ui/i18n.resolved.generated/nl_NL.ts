@@ -1943,10 +1943,7 @@ export const nl_NL: EnTranslations = {
     "playAria": "Speel Growverse",
     "serverLabel": "Kies je realm",
     "serverAria": "Kies realm: Online of Offline",
-    "serverOfflineSub": "Directe lokale wereld",
-    "caLabel": "$WOC Contractadres",
-    "caCopyAria": "Contractadres kopiëren",
-    "caNote": "WOC is onze communitytoken. Het is niet nodig om te spelen. Word lid van Discord om de WOC-toepassing en het vliegwiel te bespreken."
+    "serverOfflineSub": "Directe lokale wereld"
   },
   "auth": {
     "enterRealm": "Betreed de Realm",

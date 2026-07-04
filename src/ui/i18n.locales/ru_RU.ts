@@ -899,8 +899,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'mobilePreflight.iosInstallDetail':
     'Для настоящего полноэкранного режима на iPhone или iPad сначала добавьте эту страницу на домашний экран.',
   'mobilePreflight.iosShareStep': 'В Safari нажмите Поделиться, затем На экран Домой.',
-  'mobilePreflight.iosOpenStep':
-    'Откройте Growverse через новый значок на домашнем экране.',
+  'mobilePreflight.iosOpenStep': 'Откройте Growverse через новый значок на домашнем экране.',
   'mobilePreflight.androidStandaloneDetail':
     'Вы в полноэкранном режиме приложения. Держите устройство горизонтально.',
   'mobilePreflight.androidInstallDetail':
@@ -3125,10 +3124,6 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hud.errors.silenced': 'Вы лишены дара речи!',
   'hud.pet.noPetFood': 'У вас нет пищи, чтобы покормить питомца.',
   'hud.pet.petEatsFoodOnly': 'Ваш питомец ест только пищу.',
-  'mode.caCopyAria': 'Скопировать адрес контракта',
-  'mode.caLabel': 'Адрес контракта $WOC',
-  'mode.caNote':
-    'WOC - токен нашего сообщества. Он не нужен для игры. Присоединяйтесь к Discord, чтобы обсудить применение и экосистему WOC.',
   'mode.play': 'Играть',
   'mode.playAria': 'Играть в Growverse',
   'mode.serverAria': 'Выберите мир: В сети или Не в сети',
@@ -5141,8 +5136,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'desktop.crash.body': 'Игровой экран перестал отвечать. Перезагрузить его?',
   'desktop.crash.reload': 'Перезагрузить',
   'desktop.crash.quit': 'Выйти',
-  'desktop.crash.fatalBody':
-    'Growverse столкнулась с непредвиденной ошибкой и будет закрыта.',
+  'desktop.crash.fatalBody': 'Growverse столкнулась с непредвиденной ошибкой и будет закрыта.',
   'hudChrome.dailyRewards.endsIn': 'Осталось {time}',
   'hudChrome.dailyRewards.remainingHoursMinutes': '{hours}ч {minutes}м',
   'hudChrome.dailyRewards.remainingLessThanMinute': '<1м',

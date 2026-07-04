@@ -869,8 +869,7 @@ export const fr_FR: Partial<Record<TranslationKey, string>> = {
     "Pour un vrai plein écran sur iPhone ou iPad, ajoutez d'abord cette page à l'écran d'accueil.",
   'mobilePreflight.iosShareStep':
     "Dans Safari, touchez Partager, puis Ajouter à l'écran d'accueil.",
-  'mobilePreflight.iosOpenStep':
-    "Ouvrez Growverse depuis la nouvelle icône de l'écran d'accueil.",
+  'mobilePreflight.iosOpenStep': "Ouvrez Growverse depuis la nouvelle icône de l'écran d'accueil.",
   'mobilePreflight.androidStandaloneDetail':
     "Vous êtes en mode application plein écran. Gardez l'appareil en paysage.",
   'mobilePreflight.androidInstallDetail':
@@ -3109,10 +3108,6 @@ export const fr_FR: Partial<Record<TranslationKey, string>> = {
   'hud.errors.silenced': 'Vous êtes réduit au silence !',
   'hud.pet.noPetFood': "Vous n'avez aucune nourriture pour votre familier.",
   'hud.pet.petEatsFoodOnly': 'Votre familier ne peut manger que de la nourriture.',
-  'mode.caCopyAria': "Copier l'adresse du contrat",
-  'mode.caLabel': 'Adresse du contrat $WOC',
-  'mode.caNote':
-    "WOC est notre jeton communautaire. Il n'est pas nécessaire pour jouer. Rejoignez le Discord pour discuter de l'utilité et de la dynamique du WOC.",
   'mode.play': 'Jouer',
   'mode.playAria': 'Jouer à Growverse',
   'mode.serverAria': 'Choisir le royaume : En ligne ou Hors ligne',
@@ -5161,8 +5156,7 @@ export const fr_FR: Partial<Record<TranslationKey, string>> = {
   'errors.api.desktopCodeInvalid':
     "Le code de connexion de l'application de bureau est invalide ou expiré. Veuillez réessayer.",
   'desktop.crash.body': "L'affichage du jeu a cessé de fonctionner. Le recharger ?",
-  'desktop.crash.fatalBody':
-    'Growverse a rencontré une erreur inattendue et doit se fermer.',
+  'desktop.crash.fatalBody': 'Growverse a rencontré une erreur inattendue et doit se fermer.',
   'desktop.crash.quit': 'Quitter',
   'desktop.crash.reload': 'Recharger',
   'desktop.crash.title': 'Growverse',
