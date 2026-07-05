@@ -544,6 +544,15 @@ function buildSplatMaterial(seed: number): THREE.MeshStandardMaterial {
         vec2 tuv = vWPos.xz * 0.22;
         // grass blends two scales so the 1K photo source never reads as tile
         vec3 grassAlb = mix(texture2D(uGrass, tuv).rgb, texture2D(uGrass, tuv * 0.31).rgb, 0.42);
+        // Desert-grass re-hue: the grass source photo is lush green, which fights any
+        // arid biome. Where the biome PALETTE is warm (vale/desert: authored vertex
+        // color has red > green) we strip the photo's green toward luminance and let
+        // the ochre palette own the hue. Green biomes (marsh/peaks: green >= red) get
+        // arid == 0, so their grass is left byte-identical to before.
+        vec3 vtintG = clamp(vColor.rgb * 2.0, 0.0, 2.0);
+        float arid = clamp((vtintG.r - vtintG.g) * 4.0, 0.0, 1.0);
+        float gLum = dot(grassAlb, vec3(0.299, 0.587, 0.114));
+        grassAlb = mix(grassAlb, vec3(gLum) * vtintG, 0.8 * arid);
         // marsh swaps packed dirt for wet mud (roads, hub discs included)
         vec3 dirtAlb = mix(texture2D(uDirt, tuv * 0.8).rgb, texture2D(uMud, tuv * 0.8).rgb, vExtra.x);
         // rock: top-down projection smears into vertical streaks on cliffs,
