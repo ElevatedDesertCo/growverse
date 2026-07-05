@@ -633,6 +633,7 @@ const mergeStringsEn = {
         'You will be matched with the nearest-rated challenger online, then teleported to the sands. Win to climb; first to yield (1 health) loses. You return exactly where you queued.',
       ladderAllTime: 'Ladder - All-Time',
       ladderOnline: 'Ladder - Online',
+      killsTitle: 'Career arena kills',
       ratingSummary: 'Rating - {wins} wins / {losses} losses',
       statusCountdown: 'Steel yourself...',
       statusReturning: 'Returning to the world... {seconds}',

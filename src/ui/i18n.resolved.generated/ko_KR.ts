@@ -3426,6 +3426,7 @@ export const ko_KR: EnTranslations = {
       "queueNote": "온라인 중인 가장 가까운 평점의 도전자와 매칭된 뒤 모래장으로 순간이동합니다. 승리하면 순위가 오르고, 먼저 항복한 쪽(생명력 1)이 패배합니다. 대기열에 들어간 바로 그 자리로 돌아옵니다.",
       "ladderAllTime": "순위표 - 전체",
       "ladderOnline": "순위표 - 온라인",
+      "killsTitle": "투기장 통산 처치",
       "ratingSummary": "평점 - {wins}승 / {losses}패",
       "statusCountdown": "마음을 다잡으세요...",
       "statusReturning": "세계로 돌아가는 중... {seconds}",

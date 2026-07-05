@@ -3426,6 +3426,7 @@ export const pl_PL: EnTranslations = {
       "queueNote": "Zostaniesz dobrany do najbliższego rankingowo przeciwnika online, a potem przeniesiony na piaski. Wygraj, aby się wspiąć; kto pierwszy się podda (1 punkt zdrowia), przegrywa. Wracasz dokładnie tam, gdzie wszedłeś do kolejki.",
       "ladderAllTime": "Drabinka - wszech czasów",
       "ladderOnline": "Drabinka - online",
+      "killsTitle": "Career arena kills",
       "ratingSummary": "Ranking - {wins} zwycięstw / {losses} porażek",
       "statusCountdown": "Przygotuj się...",
       "statusReturning": "Powrót do świata... {seconds}",

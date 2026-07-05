@@ -1383,6 +1383,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
     'Вас подберут с ближайшим по рейтингу онлайн-претендентом и перенесут на пески. Побеждайте, чтобы подняться; первый уступивший (1 здоровье) проигрывает. Вы вернетесь точно туда, где встали в очередь.',
   'hud.arena.ladderAllTime': 'Таблица - за все время',
   'hud.arena.ladderOnline': 'Таблица - онлайн',
+  'hud.arena.killsTitle': 'Убийства на арене (всего)',
   'hud.arena.ratingSummary': 'Рейтинг - {wins} побед / {losses} поражений',
   'hud.arena.statusCountdown': 'Приготовьтесь...',
   'hud.arena.statusReturning': 'Возвращение в мир... {seconds}',

@@ -3426,6 +3426,7 @@ export const tr_TR: EnTranslations = {
       "queueNote": "Çevrimiçi olan en yakın puanlı meydan okuyanla eşleştirilip kumlara ışınlanacaksın. Yükselmek için kazan; ilk teslim olan (1 can) kaybeder. Tam olarak sıraya girdiğin yere dönersin.",
       "ladderAllTime": "Sıralama - Tüm Zamanlar",
       "ladderOnline": "Sıralama - Çevrimiçi",
+      "killsTitle": "Career arena kills",
       "ratingSummary": "Puan - {wins} galibiyet / {losses} mağlubiyet",
       "statusCountdown": "Kendini hazırla...",
       "statusReturning": "Dünyaya dönülüyor... {seconds}",

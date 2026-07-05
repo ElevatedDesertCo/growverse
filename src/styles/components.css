@@ -3581,6 +3581,17 @@
     color: #8c8468;
     font-size: 10.5px;
   }
+  /* All-time ladder adds a career-kills column after the W/L record. */
+  .ladder-row.alltime {
+    grid-template-columns: 24px 1fr auto auto auto;
+  }
+  .ladder-row .lr-kills {
+    color: #d9483b;
+    font-family: var(--title-font);
+    font-size: 11px;
+    text-align: right;
+    min-width: 20px;
+  }
   .ladder-empty {
     font-size: 11.5px;
     color: #8c8468;

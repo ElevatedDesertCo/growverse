@@ -3426,6 +3426,7 @@ export const it_IT: EnTranslations = {
       "queueNote": "Verrai abbinato al contendente online con indice più vicino e teletrasportato nell'arena. Vinci per salire; il primo a cedere (1 salute) perde. Torni esattamente dove ti sei messo in coda.",
       "ladderAllTime": "Classifica - storica",
       "ladderOnline": "Classifica - online",
+      "killsTitle": "Career arena kills",
       "ratingSummary": "Indice - {wins} vittorie / {losses} sconfitte",
       "statusCountdown": "Preparati...",
       "statusReturning": "Ritorno al mondo... {seconds}",

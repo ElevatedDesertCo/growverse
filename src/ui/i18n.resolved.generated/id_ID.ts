@@ -3426,6 +3426,7 @@ export const id_ID: EnTranslations = {
       "queueNote": "Kamu akan dipasangkan dengan penantang daring berperingkat terdekat, lalu diteleportasi ke pasir arena. Menang untuk naik; yang pertama menyerah (1 nyawa) kalah. Kamu kembali persis ke tempat kamu mengantre.",
       "ladderAllTime": "Tangga Peringkat - Sepanjang Masa",
       "ladderOnline": "Tangga Peringkat - Daring",
+      "killsTitle": "Career arena kills",
       "ratingSummary": "Peringkat - {wins} menang / {losses} kalah",
       "statusCountdown": "Bersiaplah...",
       "statusReturning": "Kembali ke dunia... {seconds}",

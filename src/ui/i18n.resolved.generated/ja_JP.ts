@@ -3426,6 +3426,7 @@ export const ja_JP: EnTranslations = {
       "queueNote": "オンライン中で最も近いレートの挑戦者と組み合わされ、砂地へ転送されます。勝てば上昇し、先に降参した側（体力1）が負けます。キューに入った場所へ正確に戻ります。",
       "ladderAllTime": "ランキング - 全期間",
       "ladderOnline": "ランキング - オンライン",
+      "killsTitle": "アリーナ通算キル",
       "ratingSummary": "レート - {wins}勝 / {losses}敗",
       "statusCountdown": "身構えてください...",
       "statusReturning": "世界へ戻っています... {seconds}",

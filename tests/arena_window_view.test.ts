@@ -190,13 +190,14 @@ describe('buildArenaView: ladder + all-time rows', () => {
   it('derives all-time rows from the painter-owned cache, me-flagged by name', () => {
     const allTime: Partial<Record<ArenaFormat, ArenaAllTimeEntry[]>> = {
       '1v1': [
-        { name: 'Me', class: 'warrior', level: 60, rating: 1600, wins: 20, losses: 4 },
-        { name: 'Legend', class: 'rogue', level: 60, rating: 1700, wins: 30, losses: 2 },
+        { name: 'Me', class: 'warrior', level: 60, rating: 1600, wins: 20, losses: 4, kills: 41 },
+        { name: 'Legend', class: 'rogue', level: 60, rating: 1700, wins: 30, losses: 2, kills: 63 },
       ],
     };
     const v = live(buildArenaView(input({ allTime })));
     expect(v.allTime?.map((r) => r.me)).toEqual([true, false]);
     expect(v.allTime?.map((r) => r.level)).toEqual([60, 60]);
+    expect(v.allTime?.map((r) => r.kills)).toEqual([41, 63]);
   });
 
   it('omits the all-time section when the cache has no rows for the bracket', () => {

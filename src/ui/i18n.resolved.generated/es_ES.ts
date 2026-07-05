@@ -3426,6 +3426,7 @@ export const es_ES: EnTranslations = {
       "queueNote": "Te emparejarán con el retador en línea de índice más cercano y te teletransportarán a la arena. Gana para subir; el primero en ceder (1 de salud) pierde. Vuelves exactamente donde entraste en cola.",
       "ladderAllTime": "Clasificación - histórica",
       "ladderOnline": "Clasificación - en línea",
+      "killsTitle": "Career arena kills",
       "ratingSummary": "Índice - {wins} victorias / {losses} derrotas",
       "statusCountdown": "Prepárate...",
       "statusReturning": "Volviendo al mundo... {seconds}",

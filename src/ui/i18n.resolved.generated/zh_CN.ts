@@ -3426,6 +3426,7 @@ export const zh_CN: EnTranslations = {
       "queueNote": "你会与在线且评级最接近的挑战者匹配，然后传送到沙场。获胜即可攀升；先认输者（1 点生命值）落败。结束后会回到你排队的位置。",
       "ladderAllTime": "排名 - 历史",
       "ladderOnline": "排名 - 在线",
+      "killsTitle": "竞技场生涯击杀",
       "ratingSummary": "评级 - {wins} 胜 / {losses} 负",
       "statusCountdown": "做好准备...",
       "statusReturning": "正在返回世界... {seconds}",

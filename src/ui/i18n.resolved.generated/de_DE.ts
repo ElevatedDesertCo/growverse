@@ -3426,6 +3426,7 @@ export const de_DE: EnTranslations = {
       "queueNote": "Ihr werdet mit dem online nächstbewerteten Herausforderer gepaart und in den Sand teleportiert. Gewinnt, um aufzusteigen; wer zuerst aufgibt (1 Gesundheit), verliert. Ihr kehrt genau an den Ort zurück, an dem Ihr Euch eingereiht habt.",
       "ladderAllTime": "Rangliste - gesamt",
       "ladderOnline": "Rangliste - online",
+      "killsTitle": "Career arena kills",
       "ratingSummary": "Wertung - {wins} Siege / {losses} Niederlagen",
       "statusCountdown": "Macht Euch bereit...",
       "statusReturning": "Rückkehr in die Welt... {seconds}",

@@ -315,7 +315,7 @@ export class ArenaWindow {
       .map((r) => {
         const cls = r.knownClass ? classDisplayName(r.cls as PlayerClass) : r.cls;
         return (
-          `<div class="ladder-row${r.me ? ' me' : ''}"><span class="rank">${esc(formatNumber(r.rank, { maximumFractionDigits: 0 }))}</span>` +
+          `<div class="ladder-row alltime${r.me ? ' me' : ''}"><span class="rank">${esc(formatNumber(r.rank, { maximumFractionDigits: 0 }))}</span>` +
           `<span class="lr-name" title="${esc(
             t('hud.arena.playerLevelClassTitle', {
               name: r.name,
@@ -324,7 +324,8 @@ export class ArenaWindow {
             }),
           )}">${esc(r.name)}</span>` +
           `<span class="lr-rating">${esc(formatNumber(r.rating, { maximumFractionDigits: 0 }))}</span>` +
-          `<span class="lr-wl">${esc(formatNumber(r.wins, { maximumFractionDigits: 0 }))}-${esc(formatNumber(r.losses, { maximumFractionDigits: 0 }))}</span></div>`
+          `<span class="lr-wl">${esc(formatNumber(r.wins, { maximumFractionDigits: 0 }))}-${esc(formatNumber(r.losses, { maximumFractionDigits: 0 }))}</span>` +
+          `<span class="lr-kills" title="${esc(t('hud.arena.killsTitle'))}">${esc(formatNumber(r.kills, { maximumFractionDigits: 0 }))}</span></div>`
         );
       })
       .join('');

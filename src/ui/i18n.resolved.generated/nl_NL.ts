@@ -3426,6 +3426,7 @@ export const nl_NL: EnTranslations = {
       "queueNote": "Je wordt gekoppeld aan de dichtstbijzijnde uitdager met vergelijkbare rang die online is en vervolgens naar het zand geteleporteerd. Win om te stijgen; wie als eerste opgeeft (1 levenspunt) verliest. Je keert exact terug waar je je in de wachtrij aansloot.",
       "ladderAllTime": "Ranglijst - Aller Tijden",
       "ladderOnline": "Ranglijst - Online",
+      "killsTitle": "Career arena kills",
       "ratingSummary": "Waardering - {wins} winsten / {losses} verliezen",
       "statusCountdown": "Maak je klaar...",
       "statusReturning": "Terugkeren naar de wereld... {seconds}",

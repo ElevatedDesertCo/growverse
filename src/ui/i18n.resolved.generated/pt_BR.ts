@@ -3426,6 +3426,7 @@ export const pt_BR: EnTranslations = {
       "queueNote": "Você será pareado com o desafiante online de ranque mais próximo e teleportado para a arena. Vença para subir; o primeiro a ceder (1 de vida) perde. Você retorna exatamente ao local onde entrou na fila.",
       "ladderAllTime": "Classificação - histórica",
       "ladderOnline": "Classificação - online",
+      "killsTitle": "Career arena kills",
       "ratingSummary": "Ranque - {wins} vitórias / {losses} derrotas",
       "statusCountdown": "Prepare-se...",
       "statusReturning": "Voltando ao mundo... {seconds}",

@@ -3426,6 +3426,7 @@ export const fr_FR: EnTranslations = {
       "queueNote": "Vous serez opposé au prétendant en ligne au classement le plus proche, puis téléporté dans l'arène. Gagnez pour monter; le premier à céder (1 point de vie) perd. Vous revenez exactement où vous étiez en file.",
       "ladderAllTime": "Classement - historique",
       "ladderOnline": "Classement - en ligne",
+      "killsTitle": "Career arena kills",
       "ratingSummary": "Cote - {wins} victoires / {losses} défaites",
       "statusCountdown": "Préparez-vous...",
       "statusReturning": "Retour au monde... {seconds}",

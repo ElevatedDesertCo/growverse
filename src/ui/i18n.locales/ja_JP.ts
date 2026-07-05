@@ -1365,6 +1365,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
     'オンライン中で最も近いレートの挑戦者と組み合わされ、砂地へ転送されます。勝てば上昇し、先に降参した側（体力1）が負けます。キューに入った場所へ正確に戻ります。',
   'hud.arena.ladderAllTime': 'ランキング - 全期間',
   'hud.arena.ladderOnline': 'ランキング - オンライン',
+  'hud.arena.killsTitle': 'アリーナ通算キル',
   'hud.arena.ratingSummary': 'レート - {wins}勝 / {losses}敗',
   'hud.arena.statusCountdown': '身構えてください...',
   'hud.arena.statusReturning': '世界へ戻っています... {seconds}',

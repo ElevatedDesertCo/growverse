@@ -3426,6 +3426,7 @@ export const vi_VN: EnTranslations = {
       "queueNote": "Bạn sẽ được ghép cặp với đối thủ trực tuyến có thứ hạng gần nhất, rồi được dịch chuyển đến đấu trường. Thắng để leo hạng; ai chịu thua trước (còn 1 máu) sẽ bại. Bạn sẽ trở về đúng nơi đã vào hàng chờ.",
       "ladderAllTime": "Bảng Xếp Hạng - Mọi Thời Đại",
       "ladderOnline": "Bảng Xếp Hạng - Trực Tuyến",
+      "killsTitle": "Career arena kills",
       "ratingSummary": "Thứ hạng - {wins} thắng / {losses} thua",
       "statusCountdown": "Sẵn sàng nào...",
       "statusReturning": "Đang trở về thế giới... {seconds}",

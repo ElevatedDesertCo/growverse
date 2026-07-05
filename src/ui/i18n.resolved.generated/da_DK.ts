@@ -3426,6 +3426,7 @@ export const da_DK: EnTranslations = {
       "queueNote": "Du bliver matchet med den nærmeste rangerede udfordrer online og derefter teleporteret til sandet. Vind for at kravle op; den første, der overgiver sig (1 helbred), taber. Du vender tilbage præcis hvor du stillede dig i kø.",
       "ladderAllTime": "Rangliste - Gennem Tiden",
       "ladderOnline": "Rangliste - Online",
+      "killsTitle": "Career arena kills",
       "ratingSummary": "Rating - {wins} sejre / {losses} nederlag",
       "statusCountdown": "Tag dig sammen...",
       "statusReturning": "Vender tilbage til verden... {seconds}",

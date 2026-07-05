@@ -1877,6 +1877,9 @@ export interface ArenaLeaderRow {
   rating: number;
   wins: number;
   losses: number;
+  // Career arena killing blows (cross-bracket lifetime; see PlayerMeta.arenaKills).
+  // Rides along on every bracket's ladder so the ladder can show a fighter's kills.
+  kills: number;
 }
 
 export async function topArenaRatings(
@@ -1896,11 +1899,15 @@ export async function topArenaRatings(
     fmt === '2v2'
       ? "COALESCE((state->>'arena2v2Losses')::int, 0)"
       : "COALESCE((state->>'arena1v1Losses')::int, (state->>'arenaLosses')::int, 0)";
+  // Career kills are a single cross-bracket lifetime value, so the same expression
+  // is used regardless of the ladder's bracket.
+  const killsExpr = "COALESCE((state->>'arenaKills')::int, 0)";
   const res = await pool.query(
     `SELECT name, class, level,
             ${ratingExpr} AS rating,
             ${winsExpr} AS wins,
-            ${lossesExpr} AS losses
+            ${lossesExpr} AS losses,
+            ${killsExpr} AS kills
        FROM characters
       WHERE realm = $1
         AND state IS NOT NULL
@@ -1916,6 +1923,7 @@ export async function topArenaRatings(
     rating: Number(r.rating),
     wins: Number(r.wins),
     losses: Number(r.losses),
+    kills: Number(r.kills),
   }));
 }
 

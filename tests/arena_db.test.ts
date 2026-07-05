@@ -43,11 +43,57 @@ describe('arena leaderboard', () => {
 
   it('coerces numeric rating/record fields from JSONB strings', async () => {
     dbMock.query.mockResolvedValueOnce({
-      rows: [{ name: 'Thrall', class: 'shaman', level: 60, rating: '1832', wins: '12', losses: '3' }],
+      rows: [
+        {
+          name: 'Thrall',
+          class: 'shaman',
+          level: 60,
+          rating: '1832',
+          wins: '12',
+          losses: '3',
+          kills: '27',
+        },
+      ],
     });
 
     await expect(topArenaRatings(5)).resolves.toEqual([
-      { name: 'Thrall', class: 'shaman', level: 60, rating: 1832, wins: 12, losses: 3 },
+      { name: 'Thrall', class: 'shaman', level: 60, rating: 1832, wins: 12, losses: 3, kills: 27 },
+    ]);
+  });
+
+  it('selects career arena kills and defaults absent values to 0', async () => {
+    dbMock.query.mockResolvedValueOnce({
+      rows: [
+        { name: 'Rookie', class: 'warrior', level: 20, rating: '1500', wins: '1', losses: '0' },
+      ],
+    });
+
+    const [sql] = await (async () => {
+      await topArenaRatings();
+      return dbMock.query.mock.calls[0];
+    })();
+    // The ladder projects the cross-bracket lifetime kills counter, coalescing a
+    // missing value (pre-arenaKills saves) to 0 rather than NULL.
+    expect(sql).toContain("COALESCE((state->>'arenaKills')::int, 0)");
+    expect(sql).toContain('AS kills');
+
+    // A row whose JSONB lacked arenaKills comes back as NaN-safe 0 via Number(undefined)?
+    // The DB COALESCE guarantees a value; here we assert the mapper coerces it.
+    dbMock.query.mockResolvedValueOnce({
+      rows: [
+        {
+          name: 'Rookie',
+          class: 'warrior',
+          level: 20,
+          rating: '1500',
+          wins: '1',
+          losses: '0',
+          kills: '0',
+        },
+      ],
+    });
+    await expect(topArenaRatings(5)).resolves.toEqual([
+      { name: 'Rookie', class: 'warrior', level: 20, rating: 1500, wins: 1, losses: 0, kills: 0 },
     ]);
   });
 

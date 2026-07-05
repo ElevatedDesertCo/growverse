@@ -3426,6 +3426,7 @@ export const sv_SE: EnTranslations = {
       "queueNote": "Du matchas med den närmast rankade utmanaren som är uppkopplad och teleporteras sedan till sanden. Vinn för att klättra; först att ge upp (1 hälsa) förlorar. Du återvänder exakt dit du ställde dig i kö.",
       "ladderAllTime": "Stege - Genom tiderna",
       "ladderOnline": "Stege - Uppkopplade",
+      "killsTitle": "Career arena kills",
       "ratingSummary": "Rankning - {wins} vinster / {losses} förluster",
       "statusCountdown": "Stålsätt dig...",
       "statusReturning": "Återvänder till världen... {seconds}",

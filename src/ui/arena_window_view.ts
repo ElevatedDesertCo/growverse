@@ -32,6 +32,8 @@ export interface ArenaAllTimeEntry {
   rating: number;
   wins: number;
   losses: number;
+  /** Career arena killing blows (cross-bracket lifetime; server-projected). */
+  kills: number;
 }
 
 /** A live-ladder row: rank + the raw class id (painter localizes when known). */
@@ -50,6 +52,8 @@ export interface ArenaLadderRow {
 /** An all-time ladder row: a ladder row plus the player level the title shows. */
 export interface ArenaAllTimeRow extends ArenaLadderRow {
   level: number;
+  /** Career arena killing blows (cross-bracket lifetime). */
+  kills: number;
 }
 
 /** One bracket tab's state. */
@@ -202,6 +206,8 @@ export function buildArenaView(input: ArenaViewInput): ArenaView {
         wins: r.wins,
         losses: r.losses,
         level: r.level,
+        // Defensive: a stale server row (pre-kills projection) omits this.
+        kills: r.kills ?? 0,
       }))
     : null;
 

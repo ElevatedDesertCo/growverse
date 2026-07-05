@@ -1296,6 +1296,7 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
     '你会与在线且评级最接近的挑战者匹配，然后传送到沙场。获胜即可攀升；先认输者（1 点生命值）落败。结束后会回到你排队的位置。',
   'hud.arena.ladderAllTime': '排名 - 历史',
   'hud.arena.ladderOnline': '排名 - 在线',
+  'hud.arena.killsTitle': '竞技场生涯击杀',
   'hud.arena.ratingSummary': '评级 - {wins} 胜 / {losses} 负',
   'hud.arena.statusCountdown': '做好准备...',
   'hud.arena.statusReturning': '正在返回世界... {seconds}',
