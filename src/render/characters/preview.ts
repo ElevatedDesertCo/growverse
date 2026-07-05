@@ -39,6 +39,14 @@ export class CharacterPreview {
   constructor(container: HTMLElement, canvas: HTMLCanvasElement) {
     this.container = container;
     this.canvas = canvas;
+    // The single preview canvas is authored inside the online container in HTML.
+    // If the preview is first constructed while a DIFFERENT panel is active (e.g.
+    // the offline-only static deploy lands straight on #offline-select), only
+    // setContainer() would ever move the canvas, and that fires on panel
+    // NAVIGATION, not when offline is already the active panel. Anchor the canvas
+    // to our container up front so it renders into the visible box regardless of
+    // which panel was active at construction time (mirrors setContainer).
+    this.container.appendChild(this.canvas);
 
     // 1. Initialize WebGLRenderer
     this.renderer = new THREE.WebGLRenderer({
