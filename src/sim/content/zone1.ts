@@ -1078,19 +1078,21 @@ export const ZONE1_ROADS: { x: number; z: number }[][] = [
 // ---------------------------------------------------------------------------
 
 export const ZONE1_PROPS: ZonePropsDef = {
-  // Bloomhaven's footprint is a planned oasis HORSESHOE, not the scattered quad
-  // of a generic village: the dwellings ring the central well+waystone plaza on
-  // an arc (doors face inward, rot = atan2(-x,-z) points each front at the
-  // square), and the ring opens to the SOUTH so the ceremonial axis runs well ->
-  // Elevated Obelisk -> the Corruption rift out in the wastes. Six structures
-  // (was four) give the skyline a denser, distinctly-settled silhouette.
+  // Bloomhaven's footprint is a planned oasis RING, not the scattered quad of a
+  // generic village. Six dwellings sit on an OUTER ring (r ~ 22-24) around the
+  // central well+waystone plaza, and each one is dropped into an angular GAP
+  // BETWEEN the road spokes that radiate out of town (N/NE/E/SE/SW/W), so every
+  // exit lane and the interior stay walkable (verified: each building clears the
+  // nearest road by >=5yd). Doors face inward (rot = atan2(-x,-z) aims each front
+  // at the square). The ring stays open to the SOUTH so the ceremonial axis runs
+  // well -> Elevated Obelisk -> the Corruption rift out in the wastes.
   buildings: [
-    { kind: 'inn', x: -9, z: 18, w: 6, d: 7, rot: 2.68 }, // NNW, the traveler's rest
-    { kind: 'house', x: 10, z: 21, w: 6, d: 5, rot: -2.7 }, // NNE, clear of the spawn corridor
-    { kind: 'house', x: 18, z: 14, w: 7, d: 6, rot: -2.23 }, // NE arc
-    { kind: 'house', x: 19, z: -4, w: 6, d: 5, rot: -1.36 }, // east arc
-    { kind: 'house', x: -19, z: 0, w: 7, d: 6, rot: 1.57 }, // west arc
-    { kind: 'chapel', x: -18, z: -10, w: 5, d: 7, rot: 1.06 }, // SW, beside the Keeper + graves
+    { kind: 'inn', x: -11, z: 19.1, w: 6, d: 7, rot: 2.62 }, // NNW gap, the traveler's rest
+    { kind: 'house', x: 7.4, z: 22.8, w: 6, d: 5, rot: -2.83 }, // N gap (clear of spawn corridor)
+    { kind: 'house', x: 20.4, z: 12.7, w: 7, d: 6, rot: -2.13 }, // ENE gap
+    { kind: 'house', x: 20.4, z: -8.2, w: 6, d: 5, rot: -1.19 }, // ESE gap
+    { kind: 'house', x: -22.2, z: 6, w: 7, d: 6, rot: 1.83 }, // W gap
+    { kind: 'chapel', x: -19, z: -11, w: 5, d: 7, rot: 1.05 }, // SW gap, beside the Keeper + graves
   ],
   wells: [{ x: 0, z: 2, r: 1.5 }],
   stalls: [
@@ -1135,11 +1137,11 @@ export const ZONE1_PROPS: ZonePropsDef = {
     { x: 80, z: 78, ringR: 7, columns: 7 },
     { x: -5, z: -60, ringR: 8, columns: 6 },
   ],
-  // Low fences accent the two gaps in the horseshoe arc (NE + NW), framing the
-  // ring without walling off the road approaches.
+  // A low L-shaped churchyard rail west of the chapel + graves (kept clear of the
+  // SW/W road spokes); the enclosure opens SE toward town, it never walls a lane.
   fences: [
-    { x1: 14, z1: 18, x2: 20, z2: 10 },
-    { x1: -14, z1: 18, x2: -20, z2: 10 },
+    { x1: -24, z1: -8, x2: -24, z2: -16 },
+    { x1: -24, z1: -9, x2: -16, z2: -5 },
   ],
   graveyards: [
     { x: -14, z: -14 },
