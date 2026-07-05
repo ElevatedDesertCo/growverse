@@ -1168,7 +1168,4 @@ export const ZONE1_PROPS: ZonePropsDef = {
   // ancient relic lost in time, weathered by the wastes, a landmark travelers
   // sight from a distance (no longer crowds the town square).
   obelisks: [{ x: 64, z: -22, y: 7 }],
-  // A Corruption Rift tearing open in the wastes near the collapsed reliquary: the
-  // portal-accident wound leaking Corruption energy that anchors the Growverse story.
-  rifts: [{ x: -18, z: -48, y: 3.5 }],
 };
