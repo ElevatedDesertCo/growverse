@@ -278,6 +278,7 @@ describe('arena: victory spoils', () => {
     const loserBefore = sim.meta(b)!.copper;
     const lootBefore = sim.meta(a)!.counters.lootCopper;
 
+    const shardsBefore = sim.countItem('corruption_shard', a);
     (sim as any).dealDamage(ea, eb, 99999, false, 'physical', null, 'hit');
     const ev = sim.tick();
 
@@ -285,6 +286,9 @@ describe('arena: victory spoils', () => {
     expect(sim.meta(a)!.copper).toBe(winnerBefore + 2000);
     expect(sim.meta(b)!.copper).toBe(loserBefore);
     expect(sim.meta(a)!.counters.lootCopper).toBe(lootBefore + 2000);
+    // and the winner also received the 1v1 Corruption Shard drop
+    expect(sim.countItem('corruption_shard', a)).toBe(shardsBefore + 2);
+    expect(sim.countItem('corruption_shard', b)).toBe(0);
     // and a personal loot line was emitted only to the winner
     const loot = ev.filter((e) => e.type === 'loot');
     expect(loot.some((e) => (e as any).pid === a)).toBe(true);
@@ -313,15 +317,20 @@ describe('arena: victory spoils', () => {
     expect(sim.meta(a1)!.copper).toBe(a1Before + 1500);
     expect(sim.meta(a2)!.copper).toBe(a2Before + 1500);
     expect(sim.meta(b1)!.copper).toBe(b1Before);
+    // both winners also banked the 2v2 Corruption Shard drop; the loser got none
+    expect(sim.countItem('corruption_shard', a1)).toBe(2);
+    expect(sim.countItem('corruption_shard', a2)).toBe(2);
+    expect(sim.countItem('corruption_shard', b1)).toBe(0);
   });
 
-  it('a forfeit pays no spoils', () => {
+  it('a forfeit pays no spoils (no coin and no shards)', () => {
     const { sim, a, b } = queueDuo();
     startBout(sim);
     const winnerBefore = sim.meta(a)!.copper;
     sim.removePlayer(b); // Bet disconnects -> Aleph wins by forfeit
     expect(sim.meta(a)!.arenaWins).toBe(1);
     expect(sim.meta(a)!.copper).toBe(winnerBefore); // ...but earns no coin
+    expect(sim.countItem('corruption_shard', a)).toBe(0); // ...and no shards
   });
 });
 

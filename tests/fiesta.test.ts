@@ -124,12 +124,15 @@ describe('fiesta: scoring & respawn', () => {
     const victim = sim.entities.get(match.teamB[0])!;
     (sim as any).dealDamage(killer, victim, victim.maxHp + 50, false, 'physical', null);
     expect(match.state).toBe('over');
-    // every team-A member banked the fiesta spoils; the losing side earns nothing
+    // every team-A member banked the fiesta spoils (coin + 1 Corruption Shard);
+    // the losing side earns nothing.
     for (const pid of match.teamA) {
       expect((sim as any).players.get(pid).copper).toBe(copperBefore.get(pid)! + 1000);
+      expect(sim.countItem('corruption_shard', pid)).toBe(1);
     }
     for (const pid of match.teamB) {
       expect((sim as any).players.get(pid).copper).toBe(copperBefore.get(pid)!);
+      expect(sim.countItem('corruption_shard', pid)).toBe(0);
     }
   });
 });

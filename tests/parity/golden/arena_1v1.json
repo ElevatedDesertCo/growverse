@@ -73,8 +73,8 @@
       "tick": 125,
       "time": 6.25,
       "nextId": 395,
-      "state": "50daead7",
-      "events": "37a9ea82",
+      "state": "75f5651a",
+      "events": "b2ff19de",
       "rng": {
         "draws": 379,
         "digest": "8d90ccd7"
@@ -84,7 +84,7 @@
       "tick": 142,
       "time": 7.1,
       "nextId": 395,
-      "state": "ccc502d3",
+      "state": "0fb0498e",
       "events": "741638a5",
       "rng": {
         "draws": 479,
@@ -111,6 +111,12 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
+          "inventory": [
+            {
+              "count": 2,
+              "itemId": "corruption_shard"
+            }
+          ],
           "talents": {
             "choices": {},
             "ranks": {}

@@ -59,6 +59,18 @@ const ARENA_WIN_COPPER: Record<ArenaFormat, number> = {
   fiesta: 1000,
 };
 
+// A decisive win also drops Corruption Shards, the desert-canon crafting resource
+// spent at the Riftsmith's Upgrade Bench. Like the copper it is a FIXED amount by
+// format (no rng draw -> the shared parity stream is untouched) and only pays on a
+// real DEFEAT, so a timeout/forfeit cannot farm it. Granted through ctx.addItem,
+// which already emits the client-localized "You receive: {name} xN." loot line, so
+// this adds no new i18n surface. Modest: a couple of shards toward a bench upgrade.
+const ARENA_WIN_SHARDS: Record<ArenaFormat, number> = {
+  '1v1': 2,
+  '2v2': 2,
+  fiesta: 1,
+};
+
 // Standard Elo. Returns the points the winner gains (and the loser loses) for
 // an outright result; a draw moves each toward its expected score by half.
 export function eloDelta(winnerRating: number, loserRating: number, score = 1): number {
@@ -861,20 +873,26 @@ export function endArenaMatch(
   }
 }
 
-// Grant the winning team its copper spoils. Deterministic flat amount by format
-// (no rng draw -> the shared parity stream is untouched). Reuses the standard
-// "You loot {money}." loot line, which the client already localizes, so this adds
-// no new i18n surface. Copper persists through serializeCharacter like any coin.
+// Grant the winning team its spoils: copper plus Corruption Shards. Deterministic
+// flat amounts by format (no rng draw -> the shared parity stream is untouched).
+// Reuses the standard "You loot {money}." + "You receive: {name} xN." loot lines,
+// which the client already localizes, so this adds no new i18n surface. Both persist
+// through serializeCharacter like any coin/item.
 function awardArenaSpoils(ctx: SimContext, match: ArenaMatch, winnerTeam: 'A' | 'B'): void {
   const copper = ARENA_WIN_COPPER[match.format];
-  if (copper <= 0) return;
+  const shards = ARENA_WIN_SHARDS[match.format];
+  if (copper <= 0 && shards <= 0) return;
   const winners = winnerTeam === 'A' ? match.teamA : match.teamB;
   for (const pid of winners) {
     const meta = ctx.players.get(pid);
     if (!meta) continue;
-    meta.copper += copper;
-    meta.counters.lootCopper += copper;
-    ctx.emit({ type: 'loot', text: `You loot ${formatMoney(copper)}.`, pid });
+    if (copper > 0) {
+      meta.copper += copper;
+      meta.counters.lootCopper += copper;
+      ctx.emit({ type: 'loot', text: `You loot ${formatMoney(copper)}.`, pid });
+    }
+    // addItem auto-emits the localized "You receive: Corruption Shard xN." line.
+    if (shards > 0) ctx.addItem('corruption_shard', shards, pid);
   }
 }
 
