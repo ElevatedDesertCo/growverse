@@ -9,9 +9,9 @@
 export const shellStrings = {
   en: {
     seo: {
-      title: 'Growverse: Classic-Style Web MMO',
+      title: 'Growverse: Classic-Style Desert MMO',
       description:
-        'Embark on an epic adventure in Growverse, a classic-style micro-MMO playable directly in your browser. Join a persistent shared realm, level up classes, and defeat enemies!',
+        'Tend the bloom, hold back the Corruption. Growverse is a free classic-style browser MMO in a rift-torn desert world: nine classes, seven energies, one shared realm. Play instantly, no download.',
       genre: 'MMORPG',
       playMode: 'Multiplayer',
       applicationCategory: 'Game',
@@ -1071,9 +1071,9 @@ export const shellStrings = {
   },
   en_CA: {
     seo: {
-      title: 'Growverse: Classic-Style Web MMO',
+      title: 'Growverse: Classic-Style Desert MMO',
       description:
-        'Embark on an epic adventure in Growverse, a classic-style micro-MMO playable directly in your browser. Join a persistent shared realm, level up classes, and defeat enemies!',
+        'Tend the bloom, hold back the Corruption. Growverse is a free classic-style browser MMO in a rift-torn desert world: nine classes, seven energies, one shared realm. Play instantly, no download.',
       genre: 'MMORPG',
       playMode: 'Multiplayer',
       applicationCategory: 'Game',

@@ -390,9 +390,12 @@ export const BASE_ITEMS: Record<string, ItemDef> = {
     sellValue: 6,
     buyValue: 25,
   },
+  // Bloomhaven's signature drink: bloom-infused juice that restores the mind.
+  // The id stays `spring_water` so persisted inventories and loot/vendor refs are
+  // untouched; only the player-facing name changes (re-localized at the client).
   spring_water: {
     id: 'spring_water',
-    name: 'Refreshing Spring Water',
+    name: 'Bloom Juice',
     kind: 'drink',
     quality: 'common',
     drinkMana: 76,

@@ -2375,7 +2375,10 @@ const ITEM_RECIPES: Record<string, IconRecipe> = {
   gorraks_cleaver: r('steel', 'steel', [{ p: 'axe', pal: 'steel' }], ['glow']),
   mossy_handwraps: r('cloth', 'leafGreen', [{ p: 'gauntlet', pal: 'leafGreen' }]),
   baked_bread: r('food', 'gold', ['bread']),
-  spring_water: r('drink', 'sky', [{ p: 'potion', pal: 'sky' }]),
+  // Bloom Juice (id kept as spring_water for save back-compat): Bloomhaven's
+  // signature bloom-infused restorative, a glowing magenta drink rather than the
+  // old sky-blue spring water.
+  spring_water: r('arcane', 'arcanePink', [{ p: 'potion', pal: 'arcanePink' }]),
   simple_fishing_pole: r('wood', 'earthBrown', [
     { p: 'staff', pal: 'earthBrown', rot: 0.7 },
     { p: 'droplet', pal: 'sky', x: 14, y: 18, s: 0.45 },

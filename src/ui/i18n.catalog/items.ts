@@ -1983,7 +1983,7 @@ const itemNamesEn = {
       'Quilted Trousers',
       "Greyjaw's Pelt Leggings",
       'Freshly Baked Bread',
-      'Refreshing Spring Water',
+      'Bloom Juice',
       'Roasted Boar Meat',
       'Conjured Spring Water',
       'Conjured Mineral Water',
