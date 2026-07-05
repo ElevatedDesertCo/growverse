@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { Sim } from '../src/sim/sim';
-import { SimEvent } from '../src/sim/types';
+import type { SimEvent } from '../src/sim/types';
 
 function makeWorld() {
   return new Sim({ seed: 42, playerClass: 'warrior', noPlayer: true });
@@ -21,11 +21,12 @@ describe('/arena command', () => {
     meta.arenaRating = 1530;
     meta.arenaWins = 12;
     meta.arenaLosses = 8;
+    meta.arenaKills = 34;
     sim.tick();
 
     sim.chat('/arena', a);
     expect(errorText(sim.tick(), a)).toBe(
-      'Arena: 1v1 Rating 1530 - 12 wins, 8 losses (60% win rate). 2v2 Rating 1500 - no matches played yet.',
+      'Arena: 1v1 Rating 1530 - 12 wins, 8 losses (60% win rate). 2v2 Rating 1500 - no matches played yet. Career kills: 34.',
     );
   });
 
@@ -35,7 +36,9 @@ describe('/arena command', () => {
     sim.tick();
 
     sim.chat('/arena', a);
-    expect(errorText(sim.tick(), a)).toBe('Arena: 1v1 Rating 1500 - no matches played yet. 2v2 Rating 1500 - no matches played yet.');
+    expect(errorText(sim.tick(), a)).toBe(
+      'Arena: 1v1 Rating 1500 - no matches played yet. 2v2 Rating 1500 - no matches played yet. Career kills: 0.',
+    );
   });
 
   it('does not divide by zero when all games were draws (no wins or losses)', () => {
@@ -48,7 +51,9 @@ describe('/arena command', () => {
     sim.tick();
 
     sim.chat('/arena', a);
-    expect(errorText(sim.tick(), a)).toBe('Arena: 1v1 Rating 1490 - no matches played yet. 2v2 Rating 1500 - no matches played yet.');
+    expect(errorText(sim.tick(), a)).toBe(
+      'Arena: 1v1 Rating 1490 - no matches played yet. 2v2 Rating 1500 - no matches played yet. Career kills: 0.',
+    );
   });
 
   it('rounds the win rate and works through the /pvp and /rating aliases', () => {
@@ -58,16 +63,17 @@ describe('/arena command', () => {
     meta.arenaRating = 1602;
     meta.arenaWins = 1;
     meta.arenaLosses = 2; // 33.33% -> 33%
+    meta.arenaKills = 5;
     sim.tick();
 
     sim.chat('/pvp', a);
     expect(errorText(sim.tick(), a)).toBe(
-      'Arena: 1v1 Rating 1602 - 1 wins, 2 losses (33% win rate). 2v2 Rating 1500 - no matches played yet.',
+      'Arena: 1v1 Rating 1602 - 1 wins, 2 losses (33% win rate). 2v2 Rating 1500 - no matches played yet. Career kills: 5.',
     );
 
     sim.chat('/rating', a);
     expect(errorText(sim.tick(), a)).toBe(
-      'Arena: 1v1 Rating 1602 - 1 wins, 2 losses (33% win rate). 2v2 Rating 1500 - no matches played yet.',
+      'Arena: 1v1 Rating 1602 - 1 wins, 2 losses (33% win rate). 2v2 Rating 1500 - no matches played yet. Career kills: 5.',
     );
   });
 

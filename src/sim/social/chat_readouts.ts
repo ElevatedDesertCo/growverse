@@ -124,7 +124,7 @@ export function arenaReadout(meta: PlayerMeta): string {
     const pct = Math.round((wins / played) * 100);
     return `${label} Rating ${rating} - ${wins} wins, ${losses} losses (${pct}% win rate)`;
   };
-  return `Arena: ${part('1v1', meta.arenaRating, meta.arenaWins, meta.arenaLosses)}. ${part('2v2', meta.arena2v2Rating, meta.arena2v2Wins, meta.arena2v2Losses)}.`;
+  return `Arena: ${part('1v1', meta.arenaRating, meta.arenaWins, meta.arenaLosses)}. ${part('2v2', meta.arena2v2Rating, meta.arena2v2Wins, meta.arena2v2Losses)}. Career kills: ${meta.arenaKills}.`;
 }
 export function buybackReadout(meta: PlayerMeta): string {
   const slots = meta.vendorBuyback.filter((s) => ITEMS[s.itemId] && s.count > 0);

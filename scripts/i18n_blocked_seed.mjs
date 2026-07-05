@@ -202,7 +202,7 @@ export const V07_SLASH = [
   'Aki flies into a frenzy!',
   'Aki is Aki: Aki',
   'Aki unleashes Aki!',
-  'Arena: Aki. Aki.',
+  'Arena: Aki. Aki. Career kills: Aki.',
   'Auto-attack is off.',
   'Auto-attack is on against Aki — next swing Aki (Akis swing).',
   'Auto-attack is on, but you have no valid target.',
