@@ -360,6 +360,9 @@ export const VISUALS: Record<string, VisualDef> = {
     show: ['Knight_Helmet', 'Knight_Cape'], // v2 knight dropped the built-in Badge_Shield mesh
     attach: [{ url: `${WEAPONS}/sword_1handed.glb`, bone: 'handslot.r' }],
     weaponSlots: [0],
+    // Growverse energy palette (per class): Ember, scorched red-orange plate
+    tint: 0xc0552a,
+    tintStrength: 0.42,
   },
   player_paladin: {
     url: `${PLAYERS}/paladin.glb`,
@@ -370,6 +373,9 @@ export const VISUALS: Record<string, VisualDef> = {
     // in the weapons pass; the gripped axe holds the slot until then.
     attach: [{ url: `${WEAPONS}/axe_1handed.glb`, bone: 'handslot.r' }],
     weaponSlots: [0],
+    // Desert: sun-bleached gold guardian
+    tint: 0xd9b054,
+    tintStrength: 0.4,
   },
   player_hunter: {
     url: `${PLAYERS}/ranger.glb`,
@@ -378,6 +384,9 @@ export const VISUALS: Record<string, VisualDef> = {
     // dedicated ranger model — the quiver is a built-in mesh, so it's no longer
     // a separate chest attachment
     attach: [{ url: `${WEAPONS}/crossbow_1handed.glb`, bone: 'handslot.r' }],
+    // Thorn: mossy olive-green wilds tracker
+    tint: 0x77903c,
+    tintStrength: 0.42,
   },
   player_rogue: {
     url: `${PLAYERS}/rogue.glb`,
@@ -389,6 +398,9 @@ export const VISUALS: Record<string, VisualDef> = {
       { url: `${WEAPONS}/dagger.glb`, bone: 'handslot.l' },
     ],
     weaponSlots: [0, 1], // dual-wield: the equipped weapon shows in BOTH hands (mostly daggers)
+    // Corruption: shadowed blue-violet, the rift-touched cutthroat
+    tint: 0x5f4780,
+    tintStrength: 0.45,
   },
   player_priest: {
     url: `${PLAYERS}/mage.glb`,
@@ -397,7 +409,8 @@ export const VISUALS: Record<string, VisualDef> = {
     show: [],
     attach: [{ url: `${WEAPONS}/staff.glb`, bone: 'handslot.r' }],
     weaponSlots: [0],
-    tint: 0xf0e9d6,
+    // Bloom: rose-petal healer's vestments
+    tint: 0xe2a2be,
     tintStrength: 0.5,
   },
   player_shaman: {
@@ -407,8 +420,9 @@ export const VISUALS: Record<string, VisualDef> = {
     show: ['Barbarian_BearHat'], // v2 barbarian renamed Hat→BearHat and dropped the round shield mesh
     attach: [{ url: `${WEAPONS}/axe_1handed.glb`, bone: 'handslot.r' }],
     weaponSlots: [0],
-    tint: 0x6f8fc9,
-    tintStrength: 0.4,
+    // Water/Flow: deep river-blue elementalist
+    tint: 0x4f86c0,
+    tintStrength: 0.45,
   },
   player_mage: {
     url: `${PLAYERS}/mage.glb`,
@@ -419,6 +433,9 @@ export const VISUALS: Record<string, VisualDef> = {
     show: ['Mage_Cape'],
     attach: [{ url: `${WEAPONS}/staff.glb`, bone: 'handslot.r' }],
     weaponSlots: [0],
+    // Water/Flow (frost): icy cyan arcanist, distinct from the shaman's river blue
+    tint: 0x5fb4cc,
+    tintStrength: 0.48,
   },
   player_warlock: {
     url: `${PLAYERS}/mage.glb`,
@@ -430,8 +447,9 @@ export const VISUALS: Record<string, VisualDef> = {
       { url: `${WEAPONS}/spellbook_open.glb`, bone: 'handslot.l', gripRef: 'Spellbook_open' },
     ],
     weaponSlots: [0], // mainhand (wand) swaps; spellbook offhand stays
-    tint: 0x8d5fd3,
-    tintStrength: 0.45,
+    // Corruption: vivid rift-violet, the energy channeled raw
+    tint: 0x7d3fb2,
+    tintStrength: 0.5,
   },
   player_druid: {
     url: `${PLAYERS}/druid.glb`,
@@ -440,6 +458,9 @@ export const VISUALS: Record<string, VisualDef> = {
     // dedicated druid model (own texture, ships a Backpack mesh)
     attach: [{ url: `${WEAPONS}/staff.glb`, bone: 'handslot.r' }],
     weaponSlots: [0],
+    // Spore: verdant moss-green, the growth-and-decay caster
+    tint: 0x6f9a54,
+    tintStrength: 0.4,
   },
 
   // -- cosmetic body skin (class-agnostic; both the skin preview and a live
