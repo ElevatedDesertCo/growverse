@@ -931,8 +931,12 @@ const NPC_KEYS: Record<string, string> = {
   scout_maren_highwatch: 'npc_scout',
   apothecary_lin: 'npc_villager_robed',
   herbalist_yara: 'npc_villager_robed',
+  // The Broker wears a well-cut merchant robe (gold-tinted) so he doesn't read
+  // as another hooded villager beside Wilkes in the plaza
+  the_merchant: 'npc_villager_robed',
   trader_wilkes: 'npc_villager',
-  fisherman_brandt: 'npc_villager',
+  // Netcaster Brandt: caped outdoorsman silhouette, distinct from the plain villager
+  fisherman_brandt: 'npc_scout',
   provisioner_hale: 'npc_villager',
   quartermaster_bree: 'npc_villager',
   brother_halven: 'npc_reliquary_keeper',

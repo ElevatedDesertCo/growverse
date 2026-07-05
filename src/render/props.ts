@@ -831,12 +831,16 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
       rot: (keyRand(key, 1) - 0.5) * 0.1,
     });
     if (!lowProps && (i === 1 || i === 4)) {
-      // Smith Haldren (z1) / Armorer Hode (z3): forge-front dressing
-      addParts(g, 'anvil', { x: 1.35, z: 1.15, rot: 0.9, scale: 1.35 });
-      addParts(g, 'weaponStand', { x: -1.45, z: 0.6, rot: 0.5 + Math.PI, scale: 1.25 });
+      // Smith Haldren (z1) / Armorer Hode (z3): forge dressing flanking the
+      // booth (local |x| clears the 1.55 half-width so props sit BESIDE the
+      // stand, not clipped through it, and off the front where the smith stands)
+      addParts(g, 'anvil', { x: 2.0, z: 0.4, rot: 0.9, scale: 1.35 });
+      addParts(g, 'weaponStand', { x: -2.0, z: 0.4, rot: 0.5 + Math.PI, scale: 1.25 });
     } else if (!lowProps) {
-      addParts(g, 'farmCrate', { x: 1.3, z: 1.05, rot: keyRand(key, 2) * Math.PI, scale: 1.5 });
-      addParts(g, 'barrel', { x: -1.35, z: 0.85, rot: keyRand(key, 3) * Math.PI, scale: 1.15 });
+      // wares flank the counter (sides), clear of the stand box and the
+      // vendor NPC who stands at the front (+z) of the stall
+      addParts(g, 'farmCrate', { x: 2.0, z: 0.2, rot: keyRand(key, 2) * Math.PI, scale: 1.5 });
+      addParts(g, 'barrel', { x: -2.0, z: 0.2, rot: keyRand(key, 3) * Math.PI, scale: 1.15 });
     }
     g.position.set(s.x, ground(s.x, s.z) - 0.06, s.z);
     g.rotation.y = s.rot;

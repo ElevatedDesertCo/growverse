@@ -521,8 +521,10 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     id: 'marshal_redbrook',
     name: 'Warden Elgrove',
     title: 'Warden of the Vale',
-    pos: { x: 4, z: 6 },
-    facing: Math.PI,
+    // his own post at the NE guard house, out of the plaza center, watching
+    // over the town (faces SW toward the well and market)
+    pos: { x: 11, z: 8 },
+    facing: -2.2,
     color: 0xb7950b,
     questIds: ['q_wolves', 'q_greyjaw', 'q_bandits', 'q_ringleader', 'q_mogger'],
     greeting: 'Keep your blade close, $C. The Vale is not what it was.',

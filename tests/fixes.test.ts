@@ -67,7 +67,7 @@ describe('quest lifecycle', () => {
     const starterZone = zoneAt(sim.player.pos.z);
 
     expect(zoneWelcomeText(starterZone, (questId) => sim.questState(questId))).toBe(
-      'Find Marshal Redbrook in town — he has work for you.',
+      'Find Warden Elgrove in town, he has work for you.',
     );
 
     const redbrook = [...sim.entities.values()].find((e) => e.templateId === 'marshal_redbrook')!;
@@ -169,8 +169,8 @@ describe('collision & terrain', () => {
   });
 
   it('resolvePosition pushes points out of colliders', () => {
-    const inside = resolvePosition(SEED, 10, 12, 0.5); // house centre
-    expect(Math.abs(inside.x - 10) + Math.abs(inside.z - 12)).toBeGreaterThan(0.5);
+    const inside = resolvePosition(SEED, 15.4, 12, 0.5); // NE house centre
+    expect(Math.abs(inside.x - 15.4) + Math.abs(inside.z - 12)).toBeGreaterThan(0.5);
     const open = resolvePosition(SEED, 0, -40, 0.5); // open road
     expect(open.x).toBe(0);
     expect(open.z).toBe(-40);
@@ -181,21 +181,21 @@ describe('collision & terrain', () => {
   });
 
   it('camera ghosts through village buildings (hidden instead of pulling in)', () => {
-    const groundY = groundHeight(10, 4, SEED);
+    const groundY = groundHeight(15.4, 4, SEED);
     const eyeY = groundY + 2;
 
-    // ray sweeps straight through the house at (10,12): buildings are camGhost,
-    // so the chase cam no longer pulls in for them — the renderer hides them.
-    const through = cameraOcclusion(SEED, 10, eyeY, 4, 10, eyeY + 1.5, 20, 0.35);
+    // ray sweeps straight through the NE house at (15.4,12): buildings are camGhost,
+    // so the chase cam no longer pulls in for them, the renderer hides them.
+    const through = cameraOcclusion(SEED, 15.4, eyeY, 4, 15.4, eyeY + 1.5, 20, 0.35);
     expect(through).toBe(1);
     // but movement still collides with that same house (camGhost is camera-only)
-    const blocked = resolvePosition(SEED, 10, 12, 0.5);
-    expect(Math.abs(blocked.x - 10) + Math.abs(blocked.z - 12)).toBeGreaterThan(0.5);
+    const blocked = resolvePosition(SEED, 15.4, 12, 0.5);
+    expect(Math.abs(blocked.x - 15.4) + Math.abs(blocked.z - 12)).toBeGreaterThan(0.5);
 
     const clear = cameraOcclusion(SEED, 0, eyeY, -40, 0, eyeY + 1.5, -48, 0.35);
     expect(clear).toBe(1);
 
-    const overhead = cameraOcclusion(SEED, 10, eyeY, 4, 10, eyeY + 24, 20, 0.35);
+    const overhead = cameraOcclusion(SEED, 15.4, eyeY, 4, 15.4, eyeY + 24, 20, 0.35);
     expect(overhead).toBe(1);
   });
 
