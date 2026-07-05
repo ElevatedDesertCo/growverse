@@ -141,7 +141,7 @@ export const guideStrings = {
       sub: 'One continuous land, three zones, from quiet valleys to frozen peaks.',
       levels: 'Levels {min} to {max}',
       cta: 'See the world',
-      valeName: 'Eastbrook Vale',
+      valeName: 'Bloomhaven Vale',
       valeBlurb: 'Green hills and old woods where every adventure begins.',
       marshName: 'Mirefen Marsh',
       marshBlurb: 'Sunken fens and tide-worn ruins, home to murlocs and worse.',
@@ -602,7 +602,7 @@ export const guideStrings = {
     places: 'Notable places',
     residents: 'Who you will meet',
     valeBlurb:
-      'The green starting valley, where new heroes cut their teeth on wolves and bandits around the town of Eastbrook.',
+      'The green starting valley, where new heroes cut their teeth on wolves and bandits around the town of Bloomhaven.',
     marshBlurb:
       'A drowned country of fog and ruins. Murlocs swarm the shallows and something older stirs beneath the water, watched from the bridge-town of Fenbridge.',
     peaksBlurb:
@@ -611,7 +611,7 @@ export const guideStrings = {
     // One quotable hub greeting per zone, keyed by biome. Speaker names are proper nouns
     // (passed as raw text in world.ts), so only the spoken line is a key here.
     valeGreeting: 'Keep your blade close. The Vale is not what it was.',
-    valeGreeter: 'Marshal Redbrook, Eastbrook',
+    valeGreeter: 'Marshal Redbrook, Bloomhaven',
     marshGreeting: 'Hold at the gate. Past those reeds, the fen does the killing for us.',
     marshGreeter: 'Warden Fenwick, Fenbridge',
     peaksGreeting:
@@ -621,7 +621,7 @@ export const guideStrings = {
     // Short, spoiler-safe one-liners for each zone's notable places (keyed by biome). One
     // sentence per place, in the same order as the POI list.
     valePlaceNotes:
-      "Eastbrook is your first home base. Wolf Run and Boar Meadow are gentle hunting ground; Mirror Lake is quiet water to fish; the Webwood and the Copper Dig hide spiders and ore-greedy diggers; a Bandit Camp and the Fallen Chapel hold rougher work; Reliquary Hill drops into the Collapsed Reliquary, the realm's first delve; and Brightwood Glade is a quiet, sunlit grove to the north.",
+      "Bloomhaven is your first home base. Wolf Run and Boar Meadow are gentle hunting ground; Mirror Lake is quiet water to fish; the Webwood and the Copper Dig hide spiders and ore-greedy diggers; a Bandit Camp and the Fallen Chapel hold rougher work; Reliquary Hill drops into the Collapsed Reliquary, the realm's first delve; and Brightwood Glade is a quiet, sunlit grove to the north.",
     marshPlaceNotes:
       "Fenbridge guards the only dry road. The Prowler Reeds and Deepfen Shallows teem with marsh beasts and murlocs; the Widow Thicket is spun thick with web; the Drowned Chapel and the Troll Mounds keep older dangers; the Gravecaller Encampment is the cult dug in, and the Sunken Bastion is the marsh's instanced heart.",
     peaksPlaceNotes:
@@ -639,7 +639,7 @@ export const guideStrings = {
     intro: 'Quests are the heart of the world and the fastest way to level. Here is how they work.',
     acceptTitle: 'Finding and accepting',
     acceptBody:
-      'People with a marker over their head have work for you. Talk to them to accept a quest. Your very first is Wolves at the Door, from Marshal Redbrook in Eastbrook.',
+      'People with a marker over their head have work for you. Talk to them to accept a quest. Your very first is Wolves at the Door, from Marshal Redbrook in Bloomhaven.',
     objectivesTitle: 'Objectives',
     objectivesBody:
       'Slay certain enemies, gather items, or interact with something in the world. The on-screen tracker counts your progress as you go. If you change your mind, you can drop a quest from your quest log and pick it up again from its giver later.',
@@ -651,7 +651,7 @@ export const guideStrings = {
       'Party members nearby share kill and objective credit, so questing together is faster, never slower. You can also share a quest with your group: post it to chat as a clickable link with the /share command, and any nearby member who qualifies can pick up the same quest in one click.',
     storyTitle: 'A thread runs through it all',
     storyBody:
-      'From your first errands in Eastbrook, something is wrong with the dead. A cult is at work, and the trail leads north through every zone. Follow it to learn who stands behind it.',
+      'From your first errands in Bloomhaven, something is wrong with the dead. A cult is at work, and the trail leads north through every zone. Follow it to learn who stands behind it.',
     soloNote:
       "The main story is soloable right up to each chapter's finale, which is a five-player dungeon.",
 
@@ -661,7 +661,7 @@ export const guideStrings = {
       'Most quests are one of a few familiar shapes. The on-screen tracker spells out exactly what each one wants, so you are never left guessing.',
     typeSlayTitle: 'Slay',
     typeSlayBody:
-      "Thin out a pack of beasts or break a cult's hold by defeating a set number of a marked enemy. The first quest in the game, clearing wolves off the Eastbrook road, is one of these.",
+      "Thin out a pack of beasts or break a cult's hold by defeating a set number of a marked enemy. The first quest in the game, clearing wolves off the Bloomhaven road, is one of these.",
     typeGatherTitle: 'Gather',
     typeGatherBody:
       "Collect items from the world or from what enemies drop: herbs, ore, lost letters, a cult's grim reagents. Some pieces only fall from a particular foe, so the hunt and the haul go together.",
@@ -681,7 +681,7 @@ export const guideStrings = {
       "The main story is one long chase. A death-cult is at work on the realm's graves, and every chapter you close points one zone further up the road. You never fight the whole conspiracy at once; you pull one thread, and it leads to the next hand holding it.",
     sagaValeTitle: 'The Vale: a name on a sigil',
     sagaValeBody:
-      'In Eastbrook the dead will not rest, and the mark behind it belongs to a sect long thought gone. Trace it to a Gravecaller working the chapel crypt, and his own papers point you toward the fen in the north.',
+      'In Bloomhaven the dead will not rest, and the mark behind it belongs to a sect long thought gone. Trace it to a Gravecaller working the chapel crypt, and his own papers point you toward the fen in the north.',
     sagaMarshTitle: 'The marsh: a tithe of souls',
     sagaMarshBody:
       'In Mirefen the drownings are no accident. Someone is filling the fen like a tithing box, raising obedient dead from every traveler the water takes. Chase the orders up the chain to a Mistcaller in the drowned bastion, whose last words name something older still, stirring beneath the peaks.',
@@ -709,7 +709,7 @@ export const guideStrings = {
       'A handful of people walk the whole road with you. Watch for these names from the valley to the peaks.',
     aldricRole: 'Priest of the Vale',
     aldricBody:
-      'A humble village priest who first names the cult over a defiled grave in Eastbrook, then follows its trail in person through the marsh and up to the wall at Highwatch. He is the steady heart of the whole campaign.',
+      'A humble village priest who first names the cult over a defiled grave in Bloomhaven, then follows its trail in person through the marsh and up to the wall at Highwatch. He is the steady heart of the whole campaign.',
     marenRole: "The Marshal's Scout",
     marenBody:
       'A low-talking tracker you meet in the reeds of Mirefen, all quiet feet and a short blade. She follows the trail north too, and it is her ear that catches the words that send you to the peaks.',
@@ -797,7 +797,7 @@ export const guideStrings = {
       'Clearing delves earns Delve Marks, a currency kept apart from your coin. Spend them at the keeper to strengthen your companion and pick up gear you will not find anywhere else.',
     whereHeading: 'Where to find one',
     whereBody:
-      'The first delve, the Collapsed Reliquary, opens at Reliquary Hill in the starting valley of Eastbrook Vale. Brother Halven keeps the board there, and he will send you down once you are ready.',
+      'The first delve, the Collapsed Reliquary, opens at Reliquary Hill in the starting valley of Bloomhaven Vale. Brother Halven keeps the board there, and he will send you down once you are ready.',
   },
 
   // Talents and Specializations reference.

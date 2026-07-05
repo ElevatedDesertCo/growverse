@@ -668,7 +668,7 @@ export const en = {
     },
     lore: {
       eastbrook_ledger:
-        "A water-stained page from Eastbrook's burial ledger. Names crossed out and rewritten in a hand that is not human.",
+        "A water-stained page from Bloomhaven's burial ledger. Names crossed out and rewritten in a hand that is not human.",
       first_collapse:
         'Chapel records note the first sinkage: saint-stones cracked, shelves tilted, and a bell-note heard from below ground.',
       gravecaller_mark:
