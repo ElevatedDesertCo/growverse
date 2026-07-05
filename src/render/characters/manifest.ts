@@ -358,8 +358,11 @@ export const VISUALS: Record<string, VisualDef> = {
     height: HUMANOID_H,
     clips: kaykit(['1H_Melee_Attack_Chop', '1H_Melee_Attack_Slice_Diagonal']),
     show: ['Knight_Helmet', 'Knight_Cape'], // v2 knight dropped the built-in Badge_Shield mesh
-    attach: [{ url: `${WEAPONS}/sword_1handed.glb`, bone: 'handslot.r' }],
-    weaponSlots: [0],
+    attach: [
+      { url: `${WEAPONS}/sword_1handed.glb`, bone: 'handslot.r' },
+      { url: `${WEAPONS}/shield_round.glb`, bone: 'handslot.l' }, // restore the sword+board tank read v2 dropped
+    ],
+    weaponSlots: [0], // mainhand (sword) swaps; the shield offhand stays
     // Growverse energy palette (per class): Ember, scorched red-orange plate
     tint: 0xc0552a,
     tintStrength: 0.42,
@@ -407,7 +410,7 @@ export const VISUALS: Record<string, VisualDef> = {
     height: HUMANOID_H,
     clips: kaykit(['2H_Melee_Attack_Chop']),
     show: [],
-    attach: [{ url: `${WEAPONS}/staff.glb`, bone: 'handslot.r' }],
+    attach: [{ url: `${WEAPONS}/staff_b.glb`, bone: 'handslot.r' }], // distinct staff silhouette so the priest no longer matches the mage (shared mage.glb body)
     weaponSlots: [0],
     // Bloom: rose-petal healer's vestments
     tint: 0xe2a2be,
@@ -459,7 +462,7 @@ export const VISUALS: Record<string, VisualDef> = {
     height: HUMANOID_H,
     clips: kaykit(['2H_Melee_Attack_Chop']),
     // dedicated druid model (own texture, ships a Backpack mesh)
-    attach: [{ url: `${WEAPONS}/staff.glb`, bone: 'handslot.r' }],
+    attach: [{ url: `${WEAPONS}/adv_druid_staff.glb`, bone: 'handslot.r' }], // dedicated nature staff, not the generic wizard staff
     weaponSlots: [0],
     // Spore: verdant moss-green, the growth-and-decay caster
     tint: 0x6f9a54,
