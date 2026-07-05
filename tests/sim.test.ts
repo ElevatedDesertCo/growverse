@@ -401,7 +401,7 @@ describe('combat', () => {
     sim.releaseSpirit();
     expect(sim.player.dead).toBe(false);
     expect(sim.player.hp).toBe(sim.player.maxHp);
-    expect(dist2d(sim.player.pos, { x: -12, y: 0, z: -14 })).toBeLessThan(2);
+    expect(dist2d(sim.player.pos, { x: -12, y: 0, z: -22 })).toBeLessThan(2);
   });
 
   it('mobs leash, evade, and reset to full health', () => {

@@ -12,8 +12,8 @@ import type {
   ZonePropsDef,
 } from '../types';
 
-export const TOWN_RADIUS = 26;
-export const GRAVEYARD_POS = { x: -12, z: -14 };
+export const TOWN_RADIUS = 34;
+export const GRAVEYARD_POS = { x: -12, z: -22 };
 // Basin carved into the heightfield. Pushed to the far northeast so its
 // shoreline meets the fishing dock and the murloc camp instead of drowning them.
 export const LAKE = { x: -92, z: 88, radius: 30 };
@@ -558,7 +558,8 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     id: 'brother_aldric',
     name: 'Keeper Aldric',
     title: 'Keeper of the Bloom',
-    pos: { x: -14, z: -10 },
+    // tends the churchyard graves in the solemn south, beside the chapel
+    pos: { x: -11, z: -15 },
     facing: 0.8,
     color: 0xf7f9f9,
     questIds: [
@@ -615,7 +616,7 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     title: 'Dig Foreman',
     // in town (south edge, scowling toward his overrun dig) — his old spot
     // sat inside the Tunnel Rat spawn radius
-    pos: { x: -4, z: -14 },
+    pos: { x: 3, z: -11 },
     facing: -2.14,
     color: 0xa04000,
     questIds: ['q_mine'],
@@ -1035,42 +1036,49 @@ export const ZONE1_OBJECTS: GroundObjectDef[] = [
 
 // Roads from town toward each hub — used for terrain painting and the map.
 // Roads from town toward each hub — used for terrain painting and the map.
+// Bloomhaven's lanes leave the plaza as five clean corridors, not six radial
+// spokes: the road to the northeast ruins shares the north corridor and only
+// forks off past the dwelling ring (r > 26), which opens a wide building gap on
+// either side. Each spoke exits through a gap between dwellings; the south stays
+// road-free for the ceremonial well -> obelisk -> rift axis.
 export const ZONE1_ROADS: { x: number; z: number }[][] = [
   [
-    { x: 0, z: 8 },
-    { x: -8, z: 30 },
+    { x: 2, z: 10 },
+    { x: -4, z: 27 },
+    { x: -12, z: 48 },
     { x: -15, z: 55 },
     { x: -2, z: 78 },
   ], // north to wolves
   [
-    { x: 8, z: 2 },
+    { x: 2, z: 10 },
+    { x: 3, z: 27 },
+    { x: 28, z: 44 },
+    { x: 60, z: 60 },
+    { x: 78, z: 74 },
+  ], // northeast to ruins (forks off the north corridor past the ring)
+  [
+    { x: 10, z: 3 },
     { x: 30, z: 8 },
     { x: 55, z: 12 },
   ], // east to boars
   [
-    { x: 6, z: -6 },
+    { x: 7, z: -7 },
     { x: 30, z: -30 },
     { x: 50, z: -50 },
     { x: 65, z: -65 },
   ], // southeast to bandits
   [
-    { x: -8, z: 6 },
-    { x: -35, z: 25 },
-    { x: -58, z: 48 },
-    { x: -66, z: 58 },
-  ], // northwest to lake
-  [
-    { x: -6, z: -6 },
+    { x: -7, z: -7 },
     { x: -30, z: -28 },
     { x: -55, z: -45 },
     { x: -70, z: -55 },
   ], // southwest to mine
   [
-    { x: 6, z: 8 },
-    { x: 35, z: 35 },
-    { x: 60, z: 60 },
-    { x: 78, z: 74 },
-  ], // northeast to ruins
+    { x: -9, z: 7 },
+    { x: -35, z: 25 },
+    { x: -58, z: 48 },
+    { x: -66, z: 58 },
+  ], // northwest to lake
 ];
 
 // ---------------------------------------------------------------------------
@@ -1078,26 +1086,29 @@ export const ZONE1_ROADS: { x: number; z: number }[][] = [
 // ---------------------------------------------------------------------------
 
 export const ZONE1_PROPS: ZonePropsDef = {
-  // Bloomhaven's footprint is a planned oasis RING, not the scattered quad of a
-  // generic village. Six dwellings sit on an OUTER ring (r ~ 22-24) around the
-  // central well+waystone plaza, and each one is dropped into an angular GAP
-  // BETWEEN the road spokes that radiate out of town (N/NE/E/SE/SW/W), so every
-  // exit lane and the interior stay walkable (verified: each building clears the
-  // nearest road by >=5yd). Doors face inward (rot = atan2(-x,-z) aims each front
-  // at the square). The ring stays open to the SOUTH so the ceremonial axis runs
-  // well -> Elevated Obelisk -> the Corruption rift out in the wastes.
+  // Bloomhaven is laid out as TWO rings around the central well+market plaza:
+  // the NPCs cluster on an inner ring (r < 13) and six dwellings sit on an OUTER
+  // ring (r ~ 16-20), each dropped into an angular GAP between the road spokes so
+  // every lane and the interior stay walkable. The whole outer ring sits inside
+  // the flattened town plateau (TOWN_RADIUS * 0.7 = 23.8yd of fully-flat ground),
+  // so every building's footprint rests FLUSH on level terrain (measured corner
+  // height spread <= 0.1yd) instead of floating on the blended hillsides. Doors
+  // face inward (rot = atan2(-x,-z) aims each front at the square). The two
+  // southern dwellings FLANK the ceremonial axis (well -> Elevated Obelisk ->
+  // Corruption rift) without blocking it; the chapel anchors the solemn south
+  // ground beside the churchyard graves.
   buildings: [
-    { kind: 'inn', x: -11, z: 19.1, w: 6, d: 7, rot: 2.62 }, // NNW gap, the traveler's rest
-    { kind: 'house', x: 7.4, z: 22.8, w: 6, d: 5, rot: -2.83 }, // N gap (clear of spawn corridor)
-    { kind: 'house', x: 20.4, z: 12.7, w: 7, d: 6, rot: -2.13 }, // ENE gap
-    { kind: 'house', x: 20.4, z: -8.2, w: 6, d: 5, rot: -1.19 }, // ESE gap
-    { kind: 'house', x: -22.2, z: 6, w: 7, d: 6, rot: 1.83 }, // W gap
-    { kind: 'chapel', x: -19, z: -11, w: 5, d: 7, rot: 1.05 }, // SW gap, beside the Keeper + graves
+    { kind: 'inn', x: -7.5, z: 14.1, w: 6, d: 7, rot: 2.65 }, // NNW gap, the traveler's rest
+    { kind: 'house', x: 12.6, z: 15.5, w: 6, d: 5, rot: -2.46 }, // NE gap, by Smith Haldren
+    { kind: 'house', x: 19, z: -6.2, w: 6, d: 5, rot: -1.26 }, // E-SE gap
+    { kind: 'house', x: -20, z: -1.4, w: 6, d: 5, rot: 1.5 }, // W gap, by Netcaster Brandt
+    { kind: 'house', x: 3.8, z: -19.6, w: 7, d: 6, rot: -0.19 }, // south flank (east of axis)
+    { kind: 'chapel', x: -6.2, z: -19, w: 5, d: 7, rot: 0.32 }, // south flank (west of axis), the solemn ground
   ],
   wells: [{ x: 0, z: 2, r: 1.5 }],
   stalls: [
     { x: -8.5, z: 3, rot: Math.PI / 2, r: 1.7 },
-    { x: 9.5, z: 17.5, rot: -2.7, r: 1.7 }, // Smith Haldren's smithy stall
+    { x: 8, z: 15, rot: -2.7, r: 1.7 }, // Smith Haldren's smithy stall (beside his NE dwelling)
     { x: 0, z: 11.5, rot: Math.PI, r: 1.8 }, // The Merchant's World Market stall
   ],
   mines: [{ x: -88, z: -68, rot: 0.8 }],
@@ -1137,14 +1148,15 @@ export const ZONE1_PROPS: ZonePropsDef = {
     { x: 80, z: 78, ringR: 7, columns: 7 },
     { x: -5, z: -60, ringR: 8, columns: 6 },
   ],
-  // A low L-shaped churchyard rail west of the chapel + graves (kept clear of the
-  // SW/W road spokes); the enclosure opens SE toward town, it never walls a lane.
+  // A low L-shaped churchyard rail southwest of the chapel + graves (well clear
+  // of the SW road and the ceremonial axis); the enclosure opens NE toward the
+  // chapel and town, it never walls a lane.
   fences: [
-    { x1: -24, z1: -8, x2: -24, z2: -16 },
-    { x1: -24, z1: -9, x2: -16, z2: -5 },
+    { x1: -15, z1: -18, x2: -15, z2: -26 },
+    { x1: -15, z1: -26, x2: -8, z2: -26 },
   ],
   graveyards: [
-    { x: -14, z: -14 },
+    { x: -12, z: -22 }, // churchyard graves in the solemn south (off every lane)
     { x: 4, z: -56 },
   ],
   delveMarkers: [{ x: -5, z: -52, delveId: 'collapsed_reliquary' }],
