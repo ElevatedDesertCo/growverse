@@ -438,10 +438,13 @@ export const VISUALS: Record<string, VisualDef> = {
     tintStrength: 0.48,
   },
   player_warlock: {
-    url: `${PLAYERS}/mage.glb`,
+    // Corruption warlock wears the hooded, masked rogue body (same Rig_Medium as
+    // player_rogue, so animations are unchanged): a shrouded rift-channeler,
+    // visually distinct from the priest/mage who share the plain mage robe.
+    url: `${PLAYERS}/rogue_hooded.glb`,
     height: HUMANOID_H,
     clips: kaykit(['Spellcast_Shoot']), // wand zap reads better than a staff bonk
-    show: [],
+    show: ['RogueHooded_Cape', 'RogueHooded_Mask'],
     attach: [
       { url: `${WEAPONS}/wand.glb`, bone: 'handslot.r' },
       { url: `${WEAPONS}/spellbook_open.glb`, bone: 'handslot.l', gripRef: 'Spellbook_open' },
