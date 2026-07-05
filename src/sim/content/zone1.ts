@@ -1078,11 +1078,19 @@ export const ZONE1_ROADS: { x: number; z: number }[][] = [
 // ---------------------------------------------------------------------------
 
 export const ZONE1_PROPS: ZonePropsDef = {
+  // Bloomhaven's footprint is a planned oasis HORSESHOE, not the scattered quad
+  // of a generic village: the dwellings ring the central well+waystone plaza on
+  // an arc (doors face inward, rot = atan2(-x,-z) points each front at the
+  // square), and the ring opens to the SOUTH so the ceremonial axis runs well ->
+  // Elevated Obelisk -> the Corruption rift out in the wastes. Six structures
+  // (was four) give the skyline a denser, distinctly-settled silhouette.
   buildings: [
-    { kind: 'house', x: 10, z: 12, w: 7, d: 6, rot: -0.4 },
-    { kind: 'house', x: -10, z: 10, w: 6, d: 5, rot: 0.5 },
-    { kind: 'inn', x: 12, z: -6, w: 6, d: 7, rot: 2.4 },
-    { kind: 'chapel', x: -16, z: -8, w: 5, d: 7, rot: 0.9 },
+    { kind: 'inn', x: -9, z: 18, w: 6, d: 7, rot: 2.68 }, // NNW, the traveler's rest
+    { kind: 'house', x: 10, z: 21, w: 6, d: 5, rot: -2.7 }, // NNE, clear of the spawn corridor
+    { kind: 'house', x: 18, z: 14, w: 7, d: 6, rot: -2.23 }, // NE arc
+    { kind: 'house', x: 19, z: -4, w: 6, d: 5, rot: -1.36 }, // east arc
+    { kind: 'house', x: -19, z: 0, w: 7, d: 6, rot: 1.57 }, // west arc
+    { kind: 'chapel', x: -18, z: -10, w: 5, d: 7, rot: 1.06 }, // SW, beside the Keeper + graves
   ],
   wells: [{ x: 0, z: 2, r: 1.5 }],
   stalls: [
@@ -1127,9 +1135,11 @@ export const ZONE1_PROPS: ZonePropsDef = {
     { x: 80, z: 78, ringR: 7, columns: 7 },
     { x: -5, z: -60, ringR: 8, columns: 6 },
   ],
+  // Low fences accent the two gaps in the horseshoe arc (NE + NW), framing the
+  // ring without walling off the road approaches.
   fences: [
-    { x1: 16, z1: 16, x2: 22, z2: 4 },
-    { x1: -16, z1: 14, x2: -20, z2: 2 },
+    { x1: 14, z1: 18, x2: 20, z2: 10 },
+    { x1: -14, z1: 18, x2: -20, z2: 10 },
   ],
   graveyards: [
     { x: -14, z: -14 },
