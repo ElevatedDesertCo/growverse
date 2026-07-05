@@ -202,7 +202,8 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
       }
     ],
     "model": "player_warrior",
-    "still": "/guide-stills/player_warrior.webp"
+    "tint": "#c0552a",
+    "still": "/guide-stills/player_warrior__c0552a.webp"
   },
   {
     "id": "paladin",
@@ -314,7 +315,8 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
       }
     ],
     "model": "player_paladin",
-    "still": "/guide-stills/player_paladin.webp"
+    "tint": "#d9b054",
+    "still": "/guide-stills/player_paladin__d9b054.webp"
   },
   {
     "id": "hunter",
@@ -432,7 +434,8 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
       }
     ],
     "model": "player_hunter",
-    "still": "/guide-stills/player_hunter.webp"
+    "tint": "#77903c",
+    "still": "/guide-stills/player_hunter__77903c.webp"
   },
   {
     "id": "rogue",
@@ -574,7 +577,8 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
       }
     ],
     "model": "player_rogue",
-    "still": "/guide-stills/player_rogue.webp"
+    "tint": "#5f4780",
+    "still": "/guide-stills/player_rogue__5f4780.webp"
   },
   {
     "id": "priest",
@@ -673,8 +677,8 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
       }
     ],
     "model": "player_priest",
-    "tint": "#f0e9d6",
-    "still": "/guide-stills/player_priest__f0e9d6.webp"
+    "tint": "#e2a2be",
+    "still": "/guide-stills/player_priest__e2a2be.webp"
   },
   {
     "id": "shaman",
@@ -781,8 +785,8 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
       }
     ],
     "model": "player_shaman",
-    "tint": "#6f8fc9",
-    "still": "/guide-stills/player_shaman__6f8fc9.webp"
+    "tint": "#4f86c0",
+    "still": "/guide-stills/player_shaman__4f86c0.webp"
   },
   {
     "id": "mage",
@@ -900,7 +904,8 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
       }
     ],
     "model": "player_mage",
-    "still": "/guide-stills/player_mage.webp"
+    "tint": "#5fb4cc",
+    "still": "/guide-stills/player_mage__5fb4cc.webp"
   },
   {
     "id": "warlock",
@@ -1030,8 +1035,8 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
       }
     ],
     "model": "player_warlock",
-    "tint": "#8d5fd3",
-    "still": "/guide-stills/player_warlock__8d5fd3.webp"
+    "tint": "#7d3fb2",
+    "still": "/guide-stills/player_warlock__7d3fb2.webp"
   },
   {
     "id": "druid",
@@ -1219,7 +1224,8 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
       }
     ],
     "model": "player_druid",
-    "still": "/guide-stills/player_druid.webp"
+    "tint": "#6f9a54",
+    "still": "/guide-stills/player_druid__6f9a54.webp"
   }
 ];
 
@@ -1783,8 +1789,13 @@ export const GUIDE_MODELS: Record<string, GuideModelSpec> = {
       {
         "url": "models/weapons/sword_1handed.glb",
         "bone": "handslot.r"
+      },
+      {
+        "url": "models/weapons/shield_round.glb",
+        "bone": "handslot.l"
       }
-    ]
+    ],
+    "tintStrength": 0.42
   },
   "player_paladin": {
     "url": "models/chars/players/paladin.glb",
@@ -1795,7 +1806,8 @@ export const GUIDE_MODELS: Record<string, GuideModelSpec> = {
         "url": "models/weapons/axe_1handed.glb",
         "bone": "handslot.r"
       }
-    ]
+    ],
+    "tintStrength": 0.4
   },
   "player_hunter": {
     "url": "models/chars/players/ranger.glb",
@@ -1806,7 +1818,8 @@ export const GUIDE_MODELS: Record<string, GuideModelSpec> = {
         "url": "models/weapons/crossbow_1handed.glb",
         "bone": "handslot.r"
       }
-    ]
+    ],
+    "tintStrength": 0.42
   },
   "player_rogue": {
     "url": "models/chars/players/rogue.glb",
@@ -1824,7 +1837,8 @@ export const GUIDE_MODELS: Record<string, GuideModelSpec> = {
         "url": "models/weapons/dagger.glb",
         "bone": "handslot.l"
       }
-    ]
+    ],
+    "tintStrength": 0.45
   },
   "player_priest": {
     "url": "models/chars/players/mage.glb",
@@ -1833,7 +1847,7 @@ export const GUIDE_MODELS: Record<string, GuideModelSpec> = {
     "show": [],
     "attach": [
       {
-        "url": "models/weapons/staff.glb",
+        "url": "models/weapons/staff_b.glb",
         "bone": "handslot.r"
       }
     ],
@@ -1852,7 +1866,7 @@ export const GUIDE_MODELS: Record<string, GuideModelSpec> = {
         "bone": "handslot.r"
       }
     ],
-    "tintStrength": 0.4
+    "tintStrength": 0.45
   },
   "player_mage": {
     "url": "models/chars/players/mage.glb",
@@ -1866,13 +1880,17 @@ export const GUIDE_MODELS: Record<string, GuideModelSpec> = {
         "url": "models/weapons/staff.glb",
         "bone": "handslot.r"
       }
-    ]
+    ],
+    "tintStrength": 0.48
   },
   "player_warlock": {
-    "url": "models/chars/players/mage.glb",
+    "url": "models/chars/players/rogue_hooded.glb",
     "idle": "Idle",
     "height": 2.6,
-    "show": [],
+    "show": [
+      "RogueHooded_Cape",
+      "RogueHooded_Mask"
+    ],
     "attach": [
       {
         "url": "models/weapons/wand.glb",
@@ -1884,7 +1902,7 @@ export const GUIDE_MODELS: Record<string, GuideModelSpec> = {
         "gripRef": "Spellbook_open"
       }
     ],
-    "tintStrength": 0.45
+    "tintStrength": 0.5
   },
   "player_druid": {
     "url": "models/chars/players/druid.glb",
@@ -1892,10 +1910,11 @@ export const GUIDE_MODELS: Record<string, GuideModelSpec> = {
     "height": 2.6,
     "attach": [
       {
-        "url": "models/weapons/staff.glb",
+        "url": "models/weapons/adv_druid_staff.glb",
         "bone": "handslot.r"
       }
-    ]
+    ],
+    "tintStrength": 0.4
   },
   "mob_demon": {
     "url": "models/creatures/demonalt.glb",
