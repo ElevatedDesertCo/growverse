@@ -507,8 +507,9 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     id: 'the_merchant',
     name: 'The Broker',
     title: 'Keeper of the World Market',
-    // centerpiece of the square, just north of the well, facing the approach
-    pos: { x: 0, z: 9.5 },
+    // beside his World Market stall on the west of the plaza, off the north lane,
+    // facing the approaching customers
+    pos: { x: -3, z: 5 },
     facing: Math.PI,
     color: 0xd4af37,
     questIds: [],
@@ -1094,22 +1095,22 @@ export const ZONE1_PROPS: ZonePropsDef = {
   // so every building's footprint rests FLUSH on level terrain (measured corner
   // height spread <= 0.1yd) instead of floating on the blended hillsides. Doors
   // face inward (rot = atan2(-x,-z) aims each front at the square). The two
-  // southern dwellings FLANK the ceremonial axis (well -> Elevated Obelisk ->
+  // southern dwellings FLANK the ceremonial axis (well -> south green -> distant
   // Corruption rift) without blocking it; the chapel anchors the solemn south
   // ground beside the churchyard graves.
   buildings: [
     { kind: 'inn', x: -7.5, z: 14.1, w: 6, d: 7, rot: 2.65 }, // NNW gap, the traveler's rest
-    { kind: 'house', x: 12.6, z: 15.5, w: 6, d: 5, rot: -2.46 }, // NE gap, by Smith Haldren
+    { kind: 'house', x: 15.4, z: 12, w: 6, d: 5, rot: -2.23 }, // ENE gap, clear of Smith Haldren's smithy
     { kind: 'house', x: 19, z: -6.2, w: 6, d: 5, rot: -1.26 }, // E-SE gap
     { kind: 'house', x: -20, z: -1.4, w: 6, d: 5, rot: 1.5 }, // W gap, by Netcaster Brandt
     { kind: 'house', x: 3.8, z: -19.6, w: 7, d: 6, rot: -0.19 }, // south flank (east of axis)
-    { kind: 'chapel', x: -6.2, z: -19, w: 5, d: 7, rot: 0.32 }, // south flank (west of axis), the solemn ground
+    { kind: 'chapel', x: -6.5, z: -17.8, w: 5, d: 7, rot: 0.35 }, // south flank (west of axis), the solemn ground, set back from the graves
   ],
   wells: [{ x: 0, z: 2, r: 1.5 }],
   stalls: [
     { x: -8.5, z: 3, rot: Math.PI / 2, r: 1.7 },
     { x: 8, z: 15, rot: -2.7, r: 1.7 }, // Smith Haldren's smithy stall (beside his NE dwelling)
-    { x: 0, z: 11.5, rot: Math.PI, r: 1.8 }, // The Merchant's World Market stall
+    { x: -3, z: 7, rot: 2.74, r: 1.8 }, // The Broker's World Market stall (west of the plaza, off the north lane)
   ],
   mines: [{ x: -88, z: -68, rot: 0.8 }],
   docks: [{ x: -64, z: 60, rot: -2.2, hutLocal: { x: 2.8, z: 2.4, hw: 1.7, hd: 1.5 } }],
@@ -1156,13 +1157,14 @@ export const ZONE1_PROPS: ZonePropsDef = {
     { x1: -15, z1: -26, x2: -8, z2: -26 },
   ],
   graveyards: [
-    { x: -12, z: -22 }, // churchyard graves in the solemn south (off every lane)
+    { x: -14, z: -25.5 }, // churchyard graves in the solemn south (grid grows +x/+z, seated clear of the chapel wall and inside the rail)
     { x: 4, z: -56 },
   ],
   delveMarkers: [{ x: -5, z: -52, delveId: 'collapsed_reliquary' }],
-  // Bloomhaven's founding waystone: a tall Elevated Obelisk on the open ground
-  // south of the town well, the first landmark players see on arrival.
-  obelisks: [{ x: 0, z: -14, y: 7 }],
+  // An Elevated Obelisk standing alone far out on the eastern desert flats: an
+  // ancient relic lost in time, weathered by the wastes, a landmark travelers
+  // sight from a distance (no longer crowds the town square).
+  obelisks: [{ x: 64, z: -22, y: 7 }],
   // A Corruption Rift tearing open in the wastes near the collapsed reliquary: the
   // portal-accident wound leaking Corruption energy that anchors the Growverse story.
   rifts: [{ x: -18, z: -48, y: 3.5 }],
