@@ -205,6 +205,20 @@ const SPIDER: ClipMap = {
   death: 'Spider_Death', // no hit-react in asset
 };
 
+// Custom Meshy-rigged Growverse character (ashen_raider.glb): the first bespoke
+// 1-of-1 body replacing the stock KayKit outlaw. Clip names come from the Meshy
+// animate export (Idle_02 / Walking / Run_02 / Attack); all locomotion clips are
+// authored IN PLACE (net hip displacement ~0), so no root-motion stripping is
+// needed. The export ships no death/hit/cast clips: death gracefully freezes the
+// last pose (baseAction falls back), which reads as a dropped corpse.
+const MESHY_ROGUE: ClipMap = {
+  idle: 'Idle_02',
+  walk: 'Walking',
+  run: 'Run_02',
+  attack: ['Attack'],
+  death: 'Death', // absent in the export -> baseAction no-ops, corpse holds pose
+};
+
 // Chicken-cow rig (chicken_cow.glb, procedurally authored — see
 // scripts/gen_chicken_cow.mjs). Node-transform animations, no hit-react.
 const CHICKEN_COW: ClipMap = {
@@ -750,18 +764,17 @@ export const VISUALS: Record<string, VisualDef> = {
   },
 
   // -- humanoid mobs (KayKit adventurers) ------------------------------------
+  // The Ashen Maw knife-fighter, and the global humanoid-mob fallback. This is
+  // the FIRST bespoke Growverse body: a custom Meshy-authored "Shadowbound Rogue"
+  // (ashen_raider.glb) that replaces the stock KayKit hooded outlaw, so the raider
+  // clan is a 1-of-1 asset, not a reskinned pack model. The GLB is a single merged
+  // mesh with the hood, wraps, and dagger baked in, so there is no show-list and no
+  // attach (the blade is part of the body). A dark red-brown wash keeps the hooded
+  // silhouette hostile (faction-green entity tints read as friendly villagers).
   mob_bandit: {
-    url: `${PLAYERS}/rogue_hooded.glb`,
+    url: `${ENEMIES}/ashen_raider.glb`,
     height: HUMANOID_H,
-    clips: kaykit(['1H_Melee_Attack_Chop', 'Dualwield_Melee_Attack_Chop']),
-    // v2 rogue_hooded ships the hood/mask/cape as its default look (no show
-    // filter needed); the knives are attached dual-wield from the weapon files
-    attach: [
-      { url: `${WEAPONS}/dagger.glb`, bone: 'handslot.r' },
-      { url: `${WEAPONS}/dagger.glb`, bone: 'handslot.l' },
-    ],
-    // fixed outlaw leather — entity tints (faction greens) read as friendly
-    // villagers; the dark red-brown keeps the hooded silhouette hostile
+    clips: MESHY_ROGUE,
     tint: 0x6b3a32,
     tintStrength: 0.3,
   },
@@ -774,26 +787,31 @@ export const VISUALS: Record<string, VisualDef> = {
     tint: 'entity',
     tintStrength: 0.5,
   },
+  // Ashen Maw reaver: the raider clan's heavy. Shares the HOODED OUTLAW body
+  // (rogue_hooded) with the knife-fighter (mob_bandit) and the slinger below, so
+  // the whole clan reads as one hostile silhouette and never as the bare-headed
+  // barbarian tradesfolk in town (smith/foreman/riftsmith all use barbarian.glb).
+  // A heavy two-hand axe and extra height set the brute apart from its hooded kin.
+  // Also worn by the Ashen Maw warlords (mogger/gorrak); their elite scale looms.
   mob_bruiser: {
-    url: `${PLAYERS}/barbarian.glb`,
-    height: HUMANOID_H,
+    url: `${PLAYERS}/rogue_hooded.glb`,
+    height: HUMANOID_H * 1.1,
     clips: kaykit(['2H_Melee_Attack_Chop']),
-    show: ['Barbarian_BearHat'], // v2 barbarian: Hat→BearHat, no Cape, weapon now attached
     attach: [{ url: `${WEAPONS}/axe_2handed.glb`, bone: 'handslot.r' }],
     tint: 'entity',
-    tintStrength: 0.3,
+    tintStrength: 0.4,
   },
-  // Ashen Maw slinger: the raider clan's ranged skirmisher. Ranger rig with a
-  // crossbow so the trio (hooded knife-fighter mob_bandit, bruiser mob_bruiser,
-  // this slinger) reads as three distinct silhouettes in the same camp. Entity
-  // tint carries the raider's dusty ochre.
+  // Ashen Maw slinger: the raider clan's ranged skirmisher. Same hooded outlaw
+  // body, armed with a two-hand crossbow, so the trio (daggers / axe / crossbow)
+  // reads as three ROLES of one raider clan, never as the town's ranger-bodied
+  // angler. Entity tint carries the raider's dusty ochre.
   mob_slinger: {
-    url: `${PLAYERS}/ranger.glb`,
+    url: `${PLAYERS}/rogue_hooded.glb`,
     height: HUMANOID_H,
     clips: kaykit(['2H_Ranged_Shoot']),
-    attach: [{ url: `${WEAPONS}/crossbow_1handed.glb`, bone: 'handslot.r' }],
+    attach: [{ url: `${WEAPONS}/crossbow_2handed.glb`, bone: 'handslot.r' }],
     tint: 'entity',
-    tintStrength: 0.35,
+    tintStrength: 0.4,
   },
 
   // -- NPCs ------------------------------------------------------------------

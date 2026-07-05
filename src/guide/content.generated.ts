@@ -1979,47 +1979,34 @@ export const GUIDE_MODELS: Record<string, GuideModelSpec> = {
     "tintStrength": 0.2
   },
   "mob_bandit": {
-    "url": "models/chars/players/rogue_hooded.glb",
-    "idle": "Idle",
+    "url": "models/chars/enemies/ashen_raider.glb",
+    "idle": "Idle_02",
     "height": 2.6,
-    "attach": [
-      {
-        "url": "models/weapons/dagger.glb",
-        "bone": "handslot.r"
-      },
-      {
-        "url": "models/weapons/dagger.glb",
-        "bone": "handslot.l"
-      }
-    ],
     "tintStrength": 0.3
   },
   "mob_bruiser": {
-    "url": "models/chars/players/barbarian.glb",
+    "url": "models/chars/players/rogue_hooded.glb",
     "idle": "Idle",
-    "height": 2.6,
-    "show": [
-      "Barbarian_BearHat"
-    ],
+    "height": 2.8600000000000003,
     "attach": [
       {
         "url": "models/weapons/axe_2handed.glb",
         "bone": "handslot.r"
       }
     ],
-    "tintStrength": 0.3
+    "tintStrength": 0.4
   },
   "mob_slinger": {
-    "url": "models/chars/players/ranger.glb",
+    "url": "models/chars/players/rogue_hooded.glb",
     "idle": "Idle",
     "height": 2.6,
     "attach": [
       {
-        "url": "models/weapons/crossbow_1handed.glb",
+        "url": "models/weapons/crossbow_2handed.glb",
         "bone": "handslot.r"
       }
     ],
-    "tintStrength": 0.35
+    "tintStrength": 0.4
   },
   "skel_minion": {
     "url": "models/chars/enemies/skeleton_minion.glb",
