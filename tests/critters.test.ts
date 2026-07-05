@@ -40,6 +40,20 @@ describe('critter causeway population taper', () => {
     }
   });
 
+  it('never pops in clustered at the player spawn origin', () => {
+    // Regression: critters init at (0,0) and, if the player spawns at town center,
+    // the old code showed them all sitting on the origin and dispersing outward.
+    // After the fix each critter must scatter into the SPAWN ring (>=16yd) before
+    // it is ever made visible, so nothing is visible right on top of the player.
+    const { group, update } = buildCritters(20061);
+    // A few frames from the player standing at world origin (town center).
+    for (let i = 0; i < 5; i++) update(0, 0, 0.1);
+    const clustered = group.children.filter(
+      (m) => m.visible && Math.hypot(m.position.x, m.position.z) < 12,
+    );
+    expect(clustered.length).toBe(0);
+  });
+
   it('hides the whole pool inside an instance', () => {
     const { group, update } = buildCritters(7);
     update(DUNGEON_X, 0, 0.1);

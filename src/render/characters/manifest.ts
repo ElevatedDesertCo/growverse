@@ -940,6 +940,12 @@ const NPC_KEYS: Record<string, string> = {
   provisioner_hale: 'npc_villager',
   quartermaster_bree: 'npc_villager',
   brother_halven: 'npc_reliquary_keeper',
+  // Crafting stations (from crafting.ts CRAFT_NPCS). Without an explicit key they
+  // both defaulted to npc_villager (rogue body), reading as more green-rogue
+  // clones. Marlow the cultivator gets the robed body (entity tint keeps his green),
+  // Draxa the riftsmith gets the barbarian smith body + axe.
+  cultivator_marlow: 'npc_villager_robed',
+  smith_draxa: 'npc_smith',
 };
 
 export function visualKeyFor(e: Entity): string {

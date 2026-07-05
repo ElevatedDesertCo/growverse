@@ -603,10 +603,11 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     id: 'fisherman_brandt',
     name: 'Netcaster Brandt',
     title: 'Old Salt',
-    // in town (east edge, glaring out at Mirror Lake) — his old spot by the
-    // dock sat inside the Mudfin spawn radius and new players got ambushed
-    // walking up to a quest giver
-    pos: { x: -16, z: 6 },
+    // town northwest corner, glaring out toward distant Mirror Lake. His prior
+    // spot (-16,6) sat inside Riftsmith Draxa's forge-prop collider, so findSafePos
+    // shoved him right on top of Draxa (0.85yd), twin NPCs stuck together. This
+    // dry, unblocked spot keeps ~7yd of clearance from Draxa's station.
+    pos: { x: -19, z: 9 },
     facing: -0.75,
     color: 0x2471a3,
     questIds: ['q_murlocs'],
