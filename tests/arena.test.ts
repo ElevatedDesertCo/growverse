@@ -325,6 +325,68 @@ describe('arena: victory spoils', () => {
   });
 });
 
+describe('arena: kill tracking', () => {
+  it('a ranked elimination credits the killer one arenaKill and the loser none', () => {
+    const { sim, a, b } = queueDuo();
+    startBout(sim);
+    expect(sim.meta(a)!.arenaKills).toBe(0);
+    (sim as any).dealDamage(
+      sim.entities.get(a)!,
+      sim.entities.get(b)!,
+      99999,
+      false,
+      'physical',
+      null,
+      'hit',
+    );
+    sim.tick();
+    expect(sim.meta(a)!.arenaKills).toBe(1);
+    expect(sim.meta(b)!.arenaKills).toBe(0);
+  });
+
+  it('credits each killing blow individually in a 2v2 (kills are per-fighter, not per-team)', () => {
+    const { sim, pids } = queue2v2();
+    startBout2v2(sim);
+    const [a1, a2, b1, b2] = pids;
+    // a1 lands both killing blows; a2 shares the win but lands no kills.
+    for (const pid of [b1, b2]) {
+      (sim as any).dealDamage(
+        sim.entities.get(a1)!,
+        sim.entities.get(pid)!,
+        99999,
+        false,
+        'physical',
+        null,
+        'hit',
+      );
+      sim.tick();
+    }
+    expect(sim.meta(a1)!.arenaKills).toBe(2);
+    expect(sim.meta(a2)!.arenaKills).toBe(0);
+    expect(sim.meta(b1)!.arenaKills).toBe(0);
+    expect(sim.meta(b2)!.arenaKills).toBe(0);
+  });
+
+  it('a forfeit credits no kill (no real killing blow landed)', () => {
+    const { sim, a, b } = queueDuo();
+    startBout(sim);
+    sim.removePlayer(b);
+    expect(sim.meta(a)!.arenaWins).toBe(1);
+    expect(sim.meta(a)!.arenaKills).toBe(0);
+  });
+
+  it('arenaKills round-trips through CharacterState', () => {
+    const sim = makeWorld();
+    const a = sim.addPlayer('paladin', 'Tyr');
+    sim.meta(a)!.arenaKills = 37;
+    const state = sim.serializeCharacter(a)!;
+    expect(state.arenaKills).toBe(37);
+    const sim2 = makeWorld();
+    const a2 = sim2.addPlayer('paladin', 'Tyr', { state });
+    expect(sim2.meta(a2)!.arenaKills).toBe(37);
+  });
+});
+
 describe('arena: forfeit + persistence', () => {
   it('disconnecting mid-bout forfeits the match to the opponent', () => {
     const { sim, a, b } = queueDuo();

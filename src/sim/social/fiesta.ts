@@ -342,7 +342,10 @@ export function fiestaTakedown(
   const points = 1 + (killerMeta?.fiestaSpecial.scorePerKill ?? 0);
   if (killerTeam === 'A') f.scoreA += points;
   else if (killerTeam === 'B') f.scoreB += points;
-  if (killerMeta) killerMeta.counters.kills++;
+  if (killerMeta) {
+    killerMeta.counters.kills++;
+    killerMeta.arenaKills++;
+  }
   f.kills.set(killerPid, (f.kills.get(killerPid) ?? 0) + 1);
 
   fiestaDown(ctx, match, victim, killerPid);

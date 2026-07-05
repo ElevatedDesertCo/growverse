@@ -253,6 +253,10 @@ export function dealDamage(
         kind,
       });
       handleDeath(ctx, target, source);
+      // Credit the ranked killing blow. Fiesta takedowns are counted in
+      // fiestaTakedown; this arm is the ranked (permanent-elimination) path.
+      const killerMeta = ctx.players.get(sourcePlayer.id);
+      if (killerMeta) killerMeta.arenaKills++;
       const loserTeam = ctx.arenaTeamOf(match, target.id);
       if (loserTeam && ctx.isArenaTeamWiped(match, loserTeam)) {
         ctx.endArenaMatch(match, loserTeam === 'A' ? 'B' : 'A', 'defeat');

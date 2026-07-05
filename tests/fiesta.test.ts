@@ -77,6 +77,9 @@ describe('fiesta: scoring & respawn', () => {
     expect(match.fiesta!.scoreA).toBe(1);
     expect(match.fiesta!.respawn.has(victimPid)).toBe(true);
     expect(victim.dead).toBe(true);
+    // The takedown also credits the killer a lifetime arena kill (the victim, none).
+    expect((sim as any).players.get(killerPid).arenaKills).toBe(1);
+    expect((sim as any).players.get(victimPid).arenaKills).toBe(0);
 
     // The victim should NOT be permanently eliminated — they revive on their timer.
     const downedFor = match.fiesta!.respawn.get(victimPid)!;

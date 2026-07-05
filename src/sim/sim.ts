@@ -673,6 +673,11 @@ export interface PlayerMeta {
   arena2v2Rating: number;
   arena2v2Wins: number;
   arena2v2Losses: number;
+  // Lifetime arena killing blows (ranked eliminations + fiesta takedowns),
+  // spanning both brackets. Distinct from `counters.kills`, which is dominated by
+  // PvE mob kills; this counts only enemy players felled in the Ashen Coliseum, so
+  // it can back a kills-based arena leaderboard. Persisted alongside the standings.
+  arenaKills: number;
   // Talents & Specializations. `talents` is the active allocation; `talentMods`
   // is its precomputed flat struct — resolved only on allocation/respec/loadout
   // change (recomputeTalents), never walked on the combat or stat hot path.
@@ -760,6 +765,9 @@ export interface CharacterState {
   arena2v2Rating?: number;
   arena2v2Wins?: number;
   arena2v2Losses?: number;
+  // Lifetime arena killing blows (both brackets). Optional so pre-existing saves
+  // load cleanly (addPlayer defaults to 0).
+  arenaKills?: number;
   // Talents & Specializations (JSONB; no schema migration). All optional so
   // characters saved before talents existed load cleanly (default: no points spent).
   talents?: TalentAllocation;
@@ -1190,6 +1198,7 @@ export class Sim {
       arena2v2Rating: savedArena2v2.rating,
       arena2v2Wins: savedArena2v2.wins,
       arena2v2Losses: savedArena2v2.losses,
+      arenaKills: savedState?.arenaKills ?? 0,
       talents: emptyAllocation(),
       talentMods: emptyModifiers(),
       fiestaAugments: [],
@@ -1451,6 +1460,7 @@ export class Sim {
       arena2v2Rating: meta.arena2v2Rating,
       arena2v2Wins: meta.arena2v2Wins,
       arena2v2Losses: meta.arena2v2Losses,
+      arenaKills: meta.arenaKills,
       talents: cloneAllocation(restore ? restore.talents : meta.talents),
       loadouts: meta.loadouts.map((l) => ({
         name: l.name,
