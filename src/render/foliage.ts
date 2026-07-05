@@ -81,6 +81,7 @@ const FOLIAGE_MODEL_URLS_HIGH = {
   bushFlowers: [`${MODEL_DIR}bush_flowers.glb`],
   fern: [`${MODEL_DIR}fern.glb`],
   mushroom: [`${MODEL_DIR}mushroom.glb`],
+  grass: [`${MODEL_DIR}grass.glb`],
 };
 const FOLIAGE_MODEL_URLS_LOW = {
   pine: [1].map((i) => `${MODEL_DIR}pine_${i}.glb`),
@@ -92,6 +93,7 @@ const FOLIAGE_MODEL_URLS_LOW = {
   bushFlowers: [`${MODEL_DIR}bush_flowers.glb`],
   fern: [`${MODEL_DIR}fern.glb`],
   mushroom: [`${MODEL_DIR}mushroom.glb`],
+  grass: [`${MODEL_DIR}grass.glb`],
 };
 const MODEL_URLS = GFX.leanFoliage ? FOLIAGE_MODEL_URLS_LOW : FOLIAGE_MODEL_URLS_HIGH;
 
@@ -333,6 +335,10 @@ const MAT_POLICY: Record<string, MatPolicy> = {
   Bark_DeadTree: { leaf: false, windMul: 0, roughness: 0.95 },
   Rocks: { leaf: false, windMul: 0, roughness: 1.0 },
   Mushrooms: { leaf: false, windMul: 0, roughness: 0.9 },
+  // KayKit Forest Nature Pack shares one atlas material named "forest". Our only
+  // "forest"-material asset is the grass tuft: solid low-poly geometry (no alpha
+  // cutout, single-sided) that still sways in the wind like the grass ring.
+  forest: { leaf: false, windMul: 0.9, roughness: 0.95 },
 };
 const DEFAULT_POLICY: MatPolicy = { leaf: false, windMul: 0, roughness: 0.95 };
 const LEAF_ALPHA_TEST = 0.4;
@@ -592,6 +598,7 @@ export function buildFoliageMaterialPrewarmGroup(): THREE.Group {
     MODEL_URLS.bushFlowers[0],
     MODEL_URLS.fern[0],
     MODEL_URLS.mushroom[0],
+    MODEL_URLS.grass[0],
   ];
   for (const url of speciesUrls) {
     for (const part of extractParts(url)) add(part.geometry, part.material);
@@ -1046,7 +1053,7 @@ function buildTrees(
 // Ground dressing: bushes, ferns, mushrooms on a deterministic hash grid
 // ---------------------------------------------------------------------------
 
-type DressKind = 'bush' | 'bushFlowers' | 'fern' | 'mushroom';
+type DressKind = 'bush' | 'bushFlowers' | 'fern' | 'mushroom' | 'grass';
 
 interface DressingSpot {
   x: number;
@@ -1068,17 +1075,22 @@ function dressStep(): number {
 
 function dressKindFor(biome: BiomeId, r: number): DressKind {
   if (biome === 'vale') {
-    // desert scrub: dry brush dominant, sparse flowering succulents, no fungi
-    if (r < 0.58) return 'bush';
+    // desert scrub: dry brush dominant, tufts of sun-bleached grass, sparse
+    // flowering succulents, no fungi
+    if (r < 0.42) return 'bush';
+    if (r < 0.58) return 'grass';
     if (r < 0.72) return 'bushFlowers';
     return 'fern';
   }
   if (biome === 'marsh') {
-    if (r < 0.3) return 'bush';
-    if (r < 0.62) return 'fern';
+    if (r < 0.25) return 'bush';
+    if (r < 0.45) return 'grass';
+    if (r < 0.68) return 'fern';
     return 'mushroom';
   }
-  return r < 0.62 ? 'bush' : 'fern';
+  if (r < 0.4) return 'bush';
+  if (r < 0.7) return 'grass';
+  return 'fern';
 }
 
 const DRESS_SCALE: Record<DressKind, [number, number]> = {
@@ -1086,6 +1098,7 @@ const DRESS_SCALE: Record<DressKind, [number, number]> = {
   bushFlowers: [0.9, 0.7],
   fern: [0.85, 0.6],
   mushroom: [0.9, 0.8],
+  grass: [0.7, 0.9],
 };
 
 function tooSteep(x: number, z: number, seed: number): boolean {
@@ -1141,6 +1154,7 @@ function buildDressing(parent: THREE.Group, seed: number, registry: BucketMesh[]
     bushFlowers: extractParts(MODEL_URLS.bushFlowers[0]),
     fern: extractParts(MODEL_URLS.fern[0]),
     mushroom: extractParts(MODEL_URLS.mushroom[0]),
+    grass: extractParts(MODEL_URLS.grass[0]),
   };
   const buckets = new Map<string, DressingSpot[]>();
   for (const spot of generateDressing(seed)) {
@@ -1171,10 +1185,10 @@ function buildDressing(parent: THREE.Group, seed: number, registry: BucketMesh[]
       if (list) list.push(s);
       else byKind.set(s.kind, [s]);
     }
-    // Keep all four low-cost dressing kinds. Recent low-tier telemetry has
+    // Keep all five low-cost dressing kinds. Recent low-tier telemetry has
     // dressing well below both call and triangle budgets, so variety here is
     // higher ROI than adding more far canopy or post-processing work.
-    const maxKinds = 4;
+    const maxKinds = 5;
     const kept = [...byKind.entries()].sort((a, b) => b[1].length - a[1].length).slice(0, maxKinds);
     for (const [kind, list] of kept) {
       for (const part of kindParts[kind]) {
