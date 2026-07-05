@@ -1257,6 +1257,10 @@ export interface ZonePropsDef {
   // Elevated Obelisk waystones: tall stone landmarks that mark a settlement or a
   // rift site. `y` is the target world-height of the model in metres (default 6).
   obelisks?: { x: number; z: number; y?: number }[];
+  // Ashen Maw ward-totems: procedural skull-topped raider stakes (a Growverse-
+  // original prop built from primitives in render/props.ts, NOT a CC0 GLB) that
+  // ring a warcamp to mark clan territory. `rot` is the optional base yaw.
+  wardStakes?: { x: number; z: number; rot?: number }[];
 }
 
 export function emptyZoneProps(): ZonePropsDef {

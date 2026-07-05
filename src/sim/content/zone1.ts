@@ -1034,13 +1034,17 @@ export const ZONE1_CAMPS: CampDef[] = [
   { mobId: 'mudfin_murloc', center: { x: -75, z: 57 }, radius: 14, count: 8 },
   // Kobolds: mine southwest
   { mobId: 'tunnel_rat', center: { x: -82, z: -62 }, radius: 20, count: 9 },
-  // Ashen Maw: southeast warcamp. A mixed raider band, hooded knife-fighters
-  // (vale_bandit) backed by crossbow slingers and rift-tainted reavers, so the
-  // camp reads as three distinct silhouettes rather than one repeated body.
-  { mobId: 'vale_bandit', center: { x: 65, z: -65 }, radius: 24, count: 5 },
-  { mobId: 'dust_slinger', center: { x: 60, z: -62 }, radius: 20, count: 3 },
-  { mobId: 'dust_reaver', center: { x: 70, z: -70 }, radius: 20, count: 3 },
-  { mobId: 'vale_bandit', center: { x: 90, z: -90 }, radius: 16, count: 3 },
+  // Ashen Maw: southeast warcamp, staged in tiers. Skirmishing dust_slingers hold
+  // the forward picket, vale_bandit knife-fighters muster at the camp's middle,
+  // rift-tainted reavers guard the mid-back, and a warlord's guard rings Sarn's
+  // heart, so the band reads as three distinct silhouettes over a marching column.
+  // (Counts are unchanged from the flat layout: the camp loop is the final RNG
+  // consumer at construction, so re-centering moves mobs without shifting any
+  // downstream spawn roll; changing a COUNT would.)
+  { mobId: 'vale_bandit', center: { x: 72, z: -70 }, radius: 18, count: 5 },
+  { mobId: 'dust_slinger', center: { x: 63, z: -61 }, radius: 13, count: 3 },
+  { mobId: 'dust_reaver', center: { x: 80, z: -77 }, radius: 15, count: 3 },
+  { mobId: 'vale_bandit', center: { x: 91, z: -90 }, radius: 13, count: 3 },
   { mobId: 'gorrak', center: { x: 92, z: -92 }, radius: 2, count: 1 },
   // Undead: ruins northeast
   { mobId: 'restless_bones', center: { x: 80, z: 78 }, radius: 18, count: 8 },
@@ -1175,13 +1179,15 @@ export const ZONE1_PROPS: ZonePropsDef = {
   mines: [{ x: -88, z: -68, rot: 0.8 }],
   docks: [{ x: -64, z: 60, rot: -2.2, hutLocal: { x: 2.8, z: 2.4, hw: 1.7, hd: 1.5 } }],
   tents: [
-    // Ashen Maw warcamp: raider tents clustered through the southeast hollow.
-    { x: 62, z: -61, rot: 0.4, scale: 1 },
-    { x: 69, z: -69, rot: 2.1, scale: 1 },
-    { x: 78, z: -74, rot: -1.1, scale: 1.1 },
-    { x: 88, z: -86, rot: 1.2, scale: 1.3 },
-    { x: 84, z: -90, rot: 0.7, scale: 1 },
-    { x: 95, z: -94, rot: -0.6, scale: 1 },
+    // Ashen Maw warcamp: raider tents pitched in three tiers down the SE hollow,
+    // a forward picket on the NW approach, a mid-camp muster, and the warlord's
+    // heart at the deep corner, so the camp reads as a marching column, not a blob.
+    { x: 61, z: -59, rot: 0.5, scale: 1 }, // picket
+    { x: 67, z: -64, rot: 2.4, scale: 1 }, // picket
+    { x: 75, z: -72, rot: -1.0, scale: 1.05 }, // muster
+    { x: 80, z: -77, rot: 1.3, scale: 1 }, // muster
+    { x: 92, z: -89, rot: 1.1, scale: 1.35 }, // warlord's tent, over Sarn's heart
+    { x: 88, z: -94, rot: -0.5, scale: 1 }, // boss heart
   ],
   crates: [
     // Bloomhaven crafting stations: supply crates dressing the two craft NPCs.
@@ -1189,22 +1195,23 @@ export const ZONE1_PROPS: ZonePropsDef = {
     [8.3, 3.4],
     [-16, 2], // Draxa the Riftsmith's Upgrade Bench stock
     [-11.8, 6.4],
-    // Ashen Maw plunder stacks, dressing the warcamp
-    [60, -63],
-    [66, -67],
-    [76, -68],
-    [70, -72],
-    [87, -88],
-    [89, -84],
-    [93, -90],
+    // Ashen Maw plunder stacks: stolen Bloomhaven crates piled by each tier's
+    // tents (the q_ringleader steal-back objective reads them off these stacks).
+    [59, -62],
+    [66, -66],
+    [74, -70],
+    [80, -75],
+    [89, -88],
+    [94, -91],
+    [90, -95],
   ],
   campfires: [
     [3, -4],
     [-16.2, 6.2], // Draxa the Riftsmith's forge fire (Upgrade Bench)
-    // Ashen Maw cookfires: one at each cluster of the warcamp
-    [65, -65],
-    [74, -72],
-    [90, -90],
+    // Ashen Maw cookfires: one at each tier of the warcamp (picket, muster, heart)
+    [63, -61],
+    [77, -74],
+    [91, -91],
     [-80, -60],
     [-61, 56],
   ],
@@ -1224,11 +1231,14 @@ export const ZONE1_PROPS: ZonePropsDef = {
     // Churchyard rail (solemn south)
     { x1: -15, z1: -18, x2: -15, z2: -26 },
     { x1: -15, z1: -26, x2: -8, z2: -26 },
-    // Ashen Maw stockade: an L of staked fence walling the warcamp's back
-    // corner (east + south), left open to the northwest approach road so the
-    // camp reads as fortified without boxing players out of the boss.
+    // Ashen Maw palisade: a staked wall guarding the warlord's SE heart (east +
+    // south back corner), a short return that angles it in, plus a forward
+    // barricade wing on the muster's flank. Left open to the NW approach so the
+    // camp reads as fortified and funnels players in, never walls out the boss.
     { x1: 100, z1: -82, x2: 100, z2: -100 },
     { x1: 100, z1: -100, x2: 82, z2: -100 },
+    { x1: 82, z1: -100, x2: 78, z2: -96 },
+    { x1: 84, z1: -70, x2: 88, z2: -66 },
   ],
   graveyards: [
     { x: -14, z: -25.5 }, // churchyard graves in the solemn south (grid grows +x/+z, seated clear of the chapel wall and inside the rail)
@@ -1239,4 +1249,18 @@ export const ZONE1_PROPS: ZonePropsDef = {
   // ancient relic lost in time, weathered by the wastes, a landmark travelers
   // sight from a distance (no longer crowds the town square).
   obelisks: [{ x: 64, z: -22, y: 7 }],
+  // Ashen Maw ward-totems (a Growverse-original procedural skull-stake, not a CC0
+  // model): a gauntlet flanking the NW approach into the warcamp, mid-camp
+  // markers, and a ring around Sarn the Hollowed's heart, so the clan's ground is
+  // claimed by bone standards no other WoCC settlement carries.
+  wardStakes: [
+    { x: 56, z: -56 }, // approach gauntlet
+    { x: 62, z: -54 },
+    { x: 54, z: -63 },
+    { x: 71, z: -63 }, // mid-camp
+    { x: 69, z: -78 },
+    { x: 85, z: -84 }, // ring around the warlord's heart
+    { x: 97, z: -90 },
+    { x: 90, z: -99 },
+  ],
 };

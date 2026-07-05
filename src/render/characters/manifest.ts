@@ -793,25 +793,29 @@ export const VISUALS: Record<string, VisualDef> = {
   // barbarian tradesfolk in town (smith/foreman/riftsmith all use barbarian.glb).
   // A heavy two-hand axe and extra height set the brute apart from its hooded kin.
   // Also worn by the Ashen Maw warlords (mogger/gorrak); their elite scale looms.
+  // High tintStrength: the stock KayKit tunic is a bright forest GREEN that reads
+  // as a townsfolk/ranger, so the raider's ash-brown entity tint is laid on nearly
+  // opaque to bury it (a raider clan should never look green-liveried).
   mob_bruiser: {
     url: `${PLAYERS}/rogue_hooded.glb`,
     height: HUMANOID_H * 1.1,
     clips: kaykit(['2H_Melee_Attack_Chop']),
     attach: [{ url: `${WEAPONS}/axe_2handed.glb`, bone: 'handslot.r' }],
     tint: 'entity',
-    tintStrength: 0.4,
+    tintStrength: 0.85,
   },
   // Ashen Maw slinger: the raider clan's ranged skirmisher. Same hooded outlaw
   // body, armed with a two-hand crossbow, so the trio (daggers / axe / crossbow)
   // reads as three ROLES of one raider clan, never as the town's ranger-bodied
-  // angler. Entity tint carries the raider's dusty ochre.
+  // angler. Entity tint (dusty ochre) is laid on nearly opaque for the same reason
+  // as the reaver: to overpaint the stock KayKit green tunic.
   mob_slinger: {
     url: `${PLAYERS}/rogue_hooded.glb`,
     height: HUMANOID_H,
     clips: kaykit(['2H_Ranged_Shoot']),
     attach: [{ url: `${WEAPONS}/crossbow_2handed.glb`, bone: 'handslot.r' }],
     tint: 'entity',
-    tintStrength: 0.4,
+    tintStrength: 0.85,
   },
 
   // -- NPCs ------------------------------------------------------------------

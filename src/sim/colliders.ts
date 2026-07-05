@@ -118,6 +118,17 @@ function staticWorldColliders(seed: number): Collider[] {
       camGhost: true,
     });
   }
+  // Ashen Maw ward-totems: a thin skull-stake the player brushes past.
+  for (const w of PROPS.wardStakes ?? []) {
+    out.push({
+      type: 'circle',
+      x: w.x,
+      z: w.z,
+      r: 0.35,
+      cameraTopY: topY(seed, w.x, w.z, 2.55),
+      camGhost: true,
+    });
+  }
   for (const s of PROPS.stalls)
     out.push({
       type: 'circle',

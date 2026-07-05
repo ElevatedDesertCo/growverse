@@ -1994,7 +1994,7 @@ export const GUIDE_MODELS: Record<string, GuideModelSpec> = {
         "bone": "handslot.r"
       }
     ],
-    "tintStrength": 0.4
+    "tintStrength": 0.85
   },
   "mob_slinger": {
     "url": "models/chars/players/rogue_hooded.glb",
@@ -2006,7 +2006,7 @@ export const GUIDE_MODELS: Record<string, GuideModelSpec> = {
         "bone": "handslot.r"
       }
     ],
-    "tintStrength": 0.4
+    "tintStrength": 0.85
   },
   "skel_minion": {
     "url": "models/chars/enemies/skeleton_minion.glb",

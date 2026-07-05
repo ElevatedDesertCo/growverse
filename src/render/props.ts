@@ -864,6 +864,71 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     );
   }
 
+  // ---- Ashen Maw ward-totems: a Growverse-ORIGINAL procedural prop ----------
+  // Not a CC0 pack model: a skull-topped raider stake built from primitives, so
+  // the warcamp is marked by 1-of-1 geometry rather than a reskinned KayKit asset.
+  // A leaning ashwood post carries a bleached skull (faceted, sunken sockets, a
+  // dropped jaw), a bone crossbar hung with charms, and a weathered ash pennant.
+  // Shared geo/materials across every stake so the whole ring collapses cheaply.
+  if ((PROPS.wardStakes ?? []).length > 0) {
+    const woodMat = surfaceMat({ color: 0x33261b, roughness: 0.96 });
+    const boneMat = surfaceMat({ color: 0xd8ccb0, roughness: 0.72 });
+    const charmMat = surfaceMat({ color: 0xc4b596, roughness: 0.82 });
+    const pennantMat = surfaceMat({ color: 0x6a5940, roughness: 1 });
+    const stakeGeo = new THREE.CylinderGeometry(0.05, 0.1, 2.4, 6);
+    const skullGeo = new THREE.IcosahedronGeometry(0.19, 0);
+    const jawGeo = new THREE.BoxGeometry(0.15, 0.07, 0.13);
+    const crossGeo = new THREE.BoxGeometry(0.72, 0.05, 0.05);
+    const cordGeo = new THREE.BoxGeometry(0.014, 0.18, 0.014);
+    const charmGeo = new THREE.BoxGeometry(0.06, 0.15, 0.02);
+    const socketGeo = new THREE.SphereGeometry(0.05, 6, 6);
+    const pennantGeo = new THREE.BoxGeometry(0.02, 0.32, 0.44);
+    for (const w of PROPS.wardStakes ?? []) {
+      const y = ground(w.x, w.z);
+      const g = new THREE.Group();
+      const stake = new THREE.Mesh(stakeGeo, woodMat);
+      stake.position.y = 1.2;
+      g.add(stake);
+      // bone crossbar + two hung charms
+      const cross = new THREE.Mesh(crossGeo, boneMat);
+      cross.position.y = 1.72;
+      g.add(cross);
+      for (const dx of [-0.31, 0.31]) {
+        const cord = new THREE.Mesh(cordGeo, woodMat);
+        cord.position.set(dx, 1.62, 0);
+        g.add(cord);
+        const charm = new THREE.Mesh(charmGeo, charmMat);
+        charm.position.set(dx, 1.47, 0);
+        charm.rotation.z = (propRand(w.x + dx, w.z, 4) - 0.5) * 0.5;
+        g.add(charm);
+      }
+      // skull at the crown, faceted, with sunken sockets and a dropped jaw
+      const skull = new THREE.Mesh(skullGeo, boneMat);
+      skull.position.y = 2.34;
+      skull.rotation.set(0.12, propRand(w.x, w.z, 5) * Math.PI * 2, 0);
+      g.add(skull);
+      const jaw = new THREE.Mesh(jawGeo, boneMat);
+      jaw.position.set(0, 2.18, 0.11);
+      g.add(jaw);
+      for (const dx of [-0.07, 0.07]) {
+        const socket = new THREE.Mesh(socketGeo, recessMat);
+        socket.position.set(dx, 2.37, 0.15);
+        g.add(socket);
+      }
+      // weathered ash pennant lashed below the crossbar, drooping to one side
+      const pennant = new THREE.Mesh(pennantGeo, pennantMat);
+      pennant.position.set(0.02, 1.28, 0.28);
+      pennant.rotation.set(0, 0, 0.22);
+      g.add(pennant);
+      // deterministic lean + base yaw so a ring of stakes never reads as a fence
+      const lean = (propRand(w.x, w.z, 6) - 0.5) * 0.16;
+      g.position.set(w.x, y - 0.05, w.z);
+      g.rotation.set(lean, w.rot ?? propRand(w.x, w.z, 7) * Math.PI * 2, lean * 0.6, 'YZX');
+      group.add(shadowed(g));
+      registerHideable(g, circleFootprint(w.x, w.z, 0.45, y + 2.55, 1.0));
+    }
+  }
+
   // ---- graveyards: 4 headstone shapes, leaning, instanced ------------------
   const graveKinds: PropKey[] = lowProps
     ? ['graveRound']
