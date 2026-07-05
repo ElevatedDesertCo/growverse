@@ -859,7 +859,17 @@ function bakeStaticPose(
     }
     out.setAttribute('position', new THREE.BufferAttribute(baked, 3));
     const uv = srcGeo.getAttribute('uv');
-    if (uv) out.setAttribute('uv', uv.clone());
+    if (uv) {
+      // Character GLBs mix uv encodings across primitives (some float32, some
+      // KHR-quantized u16-normalized). mergeGeometries below aborts if the uv
+      // array types differ, so denormalize every uv to plain float32 to match
+      // the rebaked float32 position.
+      const items = uv.itemSize;
+      const uvArr = new Float32Array(uv.count * items);
+      for (let i = 0; i < uv.count; i++)
+        for (let j = 0; j < items; j++) uvArr[i * items + j] = uv.getComponent(i, j);
+      out.setAttribute('uv', new THREE.BufferAttribute(uvArr, items));
+    }
     if (srcGeo.index) out.setIndex(srcGeo.index.clone());
     out.computeVertexNormals();
     geos.push(out);
