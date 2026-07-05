@@ -205,6 +205,14 @@
       "type": "static",
       "maxTex": 512,
       "simplify": 0.6
+    },
+    {
+      "note": "KayKit Forest Nature Pack (CC0). Taller, bushier grass clump (Grass_1) used as a second dressing kind for mid-distance silhouette variety alongside grass.glb.",
+      "src": "tmp/asset_src/kaykit_forest/KayKit_Forest_Nature_Pack_1.0_FREE/Assets/gltf/Grass_1_A_Color1.gltf",
+      "out": "models/foliage/grass_tall.glb",
+      "type": "static",
+      "maxTex": 512,
+      "simplify": 0.6
     }
   ]
 }
