@@ -215,6 +215,23 @@ const MAT_OVERRIDES: Record<
 > = {
   'village:Windows': { emissive: 0x2a3c55, emissiveIntensity: 1.1, roughness: 0.4 },
   'village:Bell': { metalness: 0.6, roughness: 0.35 },
+  // Bloomhaven desert-settlement regrade: the CC0 village kit ships as a cool
+  // grey-green-slate medieval hamlet (reads as vanilla WoCC). Regrade the whole
+  // shared kit to a sun-baked adobe town, warm clay roofs, sandstone masonry,
+  // bleached timber, so the starter town is unmistakably a desert place. Keyed
+  // by material name, so it recolors every village-kit prop game-wide (on brand:
+  // Growverse is one desert world).
+  'village:RoofTiles': { color: 0xbf7446, roughness: 0.95 }, // grey-green slate -> baked clay
+  'village:RoofTiles_Red': { color: 0xa85a34, roughness: 0.95 }, // unify onto deep terracotta
+  'village:Plaster': { color: 0xdcc6a0, roughness: 0.96 }, // cream stucco -> pale adobe
+  'village:Stone_Light': { color: 0xcdb488, roughness: 0.92 }, // pale sandstone
+  'village:Stone': { color: 0xb89b6f, roughness: 0.92 }, // mid sandstone
+  'village:Stone_Dark': { color: 0x8f7550, roughness: 0.92 }, // shadowed mud-brick
+  'village:Wood': { color: 0x8a6a45, roughness: 0.9 }, // weathered desert timber
+  'village:Wood_Light': { color: 0xb2946a, roughness: 0.9 }, // sun-bleached wood
+  'village:Wood_Side': { color: 0x9c7d54, roughness: 0.9 },
+  'village:DarkWood': { color: 0x6f5637, roughness: 0.9 },
+  'village:Beige': { color: 0xd8c39a, roughness: 0.9 }, // warm sand cloth/trim
   'ore:Stone_Dark': { color: 0xb87333, metalness: 0.45, roughness: 0.5 },
   // bandit/cult tents: weathered canvas instead of Kenney's toy red
   'tent:colorRed': { color: 0x9c8662 },
