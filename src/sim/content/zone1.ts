@@ -531,7 +531,7 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     id: 'trader_wilkes',
     name: 'Provisioner Wilkes',
     title: 'Provisioner',
-    pos: { x: -7, z: 3 },
+    pos: { x: -8.5, z: -0.5 },
     facing: Math.PI / 2,
     color: 0x1e8449,
     questIds: ['q_boars', 'q_supplies'],
@@ -1108,7 +1108,7 @@ export const ZONE1_PROPS: ZonePropsDef = {
   ],
   wells: [{ x: 0, z: 2, r: 1.5 }],
   stalls: [
-    { x: -8.5, z: 3, rot: Math.PI / 2, r: 1.7 },
+    { x: -10, z: 0, rot: Math.PI / 2, r: 1.7 }, // Provisioner Wilkes' stall, out in the SW plaza corner (clear of the World Market stall)
     { x: 8, z: 15, rot: -2.7, r: 1.7 }, // Smith Haldren's smithy stall (beside his NE dwelling)
     { x: -3, z: 7, rot: 2.74, r: 1.8 }, // The Broker's World Market stall (west of the plaza, off the north lane)
   ],
