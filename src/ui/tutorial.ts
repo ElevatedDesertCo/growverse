@@ -1,9 +1,9 @@
 // New-Adventurer Tutorial — a one-time guided onboarding overlay.
 //
-// Brand-new characters used to spawn in Eastbrook with only an easily-missed
+// Brand-new characters used to spawn in Bloomhaven with only an easily-missed
 // combat-log hint. This overlay walks a first-time player through the five
-// classic first steps: move → find the starter NPC → take the quest → slay the
-// wolves → turn it in. Every step is detected by *observing* existing IWorld
+// classic first steps: move -> find the starter NPC -> take the quest -> slay the
+// Blight Wolves -> turn it in. Every step is detected by *observing* existing IWorld
 // state (player/NPC positions, quest log, completed quests), so this module is
 // pure presentation: it never writes sim state, never touches the wire
 // protocol, and runs identically against the offline Sim and the online

@@ -220,11 +220,11 @@ export const hudChromeStrings = {
     moveBodyTouch:
       'Use the movement stick to move and drag the screen to look around. Take a few steps to begin.',
     talkBodyTouch:
-      'Stand close to Marshal Redbrook and tap the Use button to speak, then accept his task.',
+      'Stand close to Marshal Redbrook and tap the Use button to speak, then take up his charge.',
     returnBodyTouch:
-      'Your task is done. Return to Marshal Redbrook and tap the Use button to turn it in.',
+      'The road is safer for your work. Return to Marshal Redbrook and tap the Use button to turn it in.',
     doneBodyTouch:
-      'You have the basics, {name}. The Vale is yours to explore. Tap More, then Quests, to review your quest log anytime. Good hunting.',
+      'You have the basics, {name}. Bloomhaven Vale is yours to explore, and the Corruption will not thin itself. Tap More, then Quests, to review your quest log anytime. Grow strong.',
   },
   // Minimap / compass / clock / coordinate widget tooltips and accessible names.
   widgets: {
