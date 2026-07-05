@@ -87,6 +87,12 @@ const BACKDROP_Y_BIAS: Record<BiomeId, number> = {
   peaks: 0,
 };
 
+// Desert re-hue strength per biome (mirrors the terrain grass fix): the vale
+// HDRI + backdrop are green Poly Haven equirects, so Bloomhaven Vale's horizon
+// reads lush. For arid biomes we warm the low-elevation sky/backdrop band toward
+// ochre in-shader. marsh/peaks stay 0, so their sky is byte-identical to before.
+const BIOME_ARID: Record<BiomeId, number> = { vale: 1, marsh: 0, peaks: 0 };
+
 interface NetworkInformationLike {
   readonly effectiveType?: string;
   readonly saveData?: boolean;
@@ -207,6 +213,8 @@ const SKY_FRAG = /* glsl */ `
   uniform float uBackdropStrength;
   uniform float uBackdropBiasA;
   uniform float uBackdropBiasB;
+  uniform float uAridA; // desert re-hue strength for map A (0 = untouched)
+  uniform float uAridB;
   varying vec3 vDir;
 
   vec3 sampleSky(sampler2D map, vec3 dir, float uOff, vec2 tune) {
@@ -254,6 +262,14 @@ const SKY_FRAG = /* glsl */ `
     vec3 backB = sampleBackdrop(uBackdropB, dir, uBackdropBiasB);
     vec3 backdrop = mix(backA, backB, uMix);
     c = mix(c, backdrop, uBackdropStrength);
+    // Desert re-hue: warm only the low-elevation band (the green hills + haze the
+    // player actually sees on the horizon), fading to the original sky by mid-sky
+    // so the blue zenith and sun survive. arid crossfades with the biome blend.
+    float arid = mix(uAridA, uAridB, uMix);
+    float horizonMask = 1.0 - smoothstep(0.0, 0.5, dir.y);
+    float skyLum = dot(c, vec3(0.299, 0.587, 0.114));
+    vec3 ochre = vec3(skyLum) * vec3(1.18, 0.95, 0.66);
+    c = mix(c, ochre, arid * horizonMask * 0.65);
     float sunAmt = pow(max(dot(dir, uSunDir), 0.0), 8.0);
     c += vec3(1.0, 0.85, 0.6) * sunAmt * 0.3;                        // warm glow around the anchor sun
     float sunCore = pow(max(dot(dir, uSunDir), 0.0), 90.0);
@@ -330,6 +346,8 @@ export function buildSky(lowGfx: boolean, sunDir: THREE.Vector3): SkyView {
     uBackdropStrength: { value: backdropsReady ? 1 : 0 },
     uBackdropBiasA: { value: BACKDROP_Y_BIAS[start.from] },
     uBackdropBiasB: { value: BACKDROP_Y_BIAS[start.to] },
+    uAridA: { value: BIOME_ARID[start.from] },
+    uAridB: { value: BIOME_ARID[start.to] },
   };
   const material = new THREE.ShaderMaterial({
     uniforms,
@@ -358,6 +376,8 @@ export function buildSky(lowGfx: boolean, sunDir: THREE.Vector3): SkyView {
         uniforms.uBackdropB.value = backdropTex(next.to);
         uniforms.uBackdropBiasA.value = BACKDROP_Y_BIAS[next.from];
         uniforms.uBackdropBiasB.value = BACKDROP_Y_BIAS[next.to];
+        uniforms.uAridA.value = BIOME_ARID[next.from];
+        uniforms.uAridB.value = BIOME_ARID[next.to];
         uniforms.uMix.value = next.t;
         cur = next;
         return;
