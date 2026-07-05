@@ -73,8 +73,8 @@
       "tick": 125,
       "time": 6.25,
       "nextId": 395,
-      "state": "4db093e4",
-      "events": "f1ca79f1",
+      "state": "df71ec04",
+      "events": "37a9ea82",
       "rng": {
         "draws": 379,
         "digest": "8d90ccd7"
@@ -84,7 +84,7 @@
       "tick": 142,
       "time": 7.1,
       "nextId": 395,
-      "state": "e4c5a920",
+      "state": "58f7e0b0",
       "events": "741638a5",
       "rng": {
         "draws": 479,
@@ -99,7 +99,10 @@
           "arenaWins": 1,
           "cls": "warrior",
           "companionUpgrades": {},
-          "counters": {},
+          "copper": 2000,
+          "counters": {
+            "lootCopper": 2000
+          },
           "delveClears": {},
           "delveDaily": {},
           "entityId": 393,

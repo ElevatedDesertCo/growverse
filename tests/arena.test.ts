@@ -268,6 +268,63 @@ describe('arena: a full bout', () => {
   });
 });
 
+describe('arena: victory spoils', () => {
+  it('a decisive 1v1 win pays the winner copper and nothing to the loser', () => {
+    const { sim, a, b } = queueDuo();
+    startBout(sim);
+    const ea = sim.entities.get(a)!;
+    const eb = sim.entities.get(b)!;
+    const winnerBefore = sim.meta(a)!.copper;
+    const loserBefore = sim.meta(b)!.copper;
+    const lootBefore = sim.meta(a)!.counters.lootCopper;
+
+    (sim as any).dealDamage(ea, eb, 99999, false, 'physical', null, 'hit');
+    const ev = sim.tick();
+
+    // winner banked the 1v1 spoils; loser earned nothing
+    expect(sim.meta(a)!.copper).toBe(winnerBefore + 2000);
+    expect(sim.meta(b)!.copper).toBe(loserBefore);
+    expect(sim.meta(a)!.counters.lootCopper).toBe(lootBefore + 2000);
+    // and a personal loot line was emitted only to the winner
+    const loot = ev.filter((e) => e.type === 'loot');
+    expect(loot.some((e) => (e as any).pid === a)).toBe(true);
+    expect(loot.some((e) => (e as any).pid === b)).toBe(false);
+  });
+
+  it('both winners of a 2v2 wipe are paid the 2v2 spoils', () => {
+    const { sim, pids } = queue2v2();
+    startBout2v2(sim);
+    const [a1, a2, b1, b2] = pids;
+    const a1Before = sim.meta(a1)!.copper;
+    const a2Before = sim.meta(a2)!.copper;
+    const b1Before = sim.meta(b1)!.copper;
+    for (const pid of [b1, b2]) {
+      (sim as any).dealDamage(
+        sim.entities.get(a1)!,
+        sim.entities.get(pid)!,
+        99999,
+        false,
+        'physical',
+        null,
+        'hit',
+      );
+      sim.tick();
+    }
+    expect(sim.meta(a1)!.copper).toBe(a1Before + 1500);
+    expect(sim.meta(a2)!.copper).toBe(a2Before + 1500);
+    expect(sim.meta(b1)!.copper).toBe(b1Before);
+  });
+
+  it('a forfeit pays no spoils', () => {
+    const { sim, a, b } = queueDuo();
+    startBout(sim);
+    const winnerBefore = sim.meta(a)!.copper;
+    sim.removePlayer(b); // Bet disconnects -> Aleph wins by forfeit
+    expect(sim.meta(a)!.arenaWins).toBe(1);
+    expect(sim.meta(a)!.copper).toBe(winnerBefore); // ...but earns no coin
+  });
+});
+
 describe('arena: forfeit + persistence', () => {
   it('disconnecting mid-bout forfeits the match to the opponent', () => {
     const { sim, a, b } = queueDuo();

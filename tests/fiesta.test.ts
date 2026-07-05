@@ -1,9 +1,14 @@
 import { describe, expect, it } from 'vitest';
-import { Sim } from '../src/sim/sim';
-import { groundHeight } from '../src/sim/world';
+import {
+  AUGMENTS,
+  AUGMENTS_BY_ID,
+  eligibleAugments,
+  tierForWave,
+} from '../src/sim/content/augments';
 import { arenaOrigin } from '../src/sim/data';
-import { AUGMENTS, AUGMENTS_BY_ID, eligibleAugments, tierForWave } from '../src/sim/content/augments';
+import { Sim } from '../src/sim/sim';
 import type { PlayerClass } from '../src/sim/types';
+import { groundHeight } from '../src/sim/world';
 
 function makeWorld() {
   return new Sim({ seed: 42, playerClass: 'warrior', noPlayer: true });
@@ -11,7 +16,8 @@ function makeWorld() {
 
 function teleport(sim: Sim, pid: number, x: number, z: number) {
   const e = sim.entities.get(pid)!;
-  e.pos.x = x; e.pos.z = z;
+  e.pos.x = x;
+  e.pos.z = z;
   e.pos.y = groundHeight(x, z, sim.cfg.seed);
   e.prevPos = { ...e.pos };
   (sim as any).rebucket(e);
@@ -22,8 +28,12 @@ function teleport(sim: Sim, pid: number, x: number, z: number) {
 function startFiesta(classes: PlayerClass[] = ['warrior', 'mage', 'rogue', 'priest']) {
   const sim = makeWorld();
   const pids = classes.map((c, i) => sim.addPlayer(c, `P${i}`));
-  pids.forEach((p, i) => teleport(sim, p, i * 4, -40));
-  pids.forEach((p) => sim.arenaQueueJoin(p, 'fiesta'));
+  pids.forEach((p, i) => {
+    teleport(sim, p, i * 4, -40);
+  });
+  pids.forEach((p) => {
+    sim.arenaQueueJoin(p, 'fiesta');
+  });
   sim.tick(); // matchmake
   for (let i = 0; i < 20 * 8; i++) {
     sim.tick();
@@ -98,6 +108,26 @@ describe('fiesta: scoring & respawn', () => {
     expect(f.scoreA).toBeGreaterThanOrEqual(f.scoreLimit);
     expect(match.state).toBe('over');
     expect((sim as any).players.get(pids[0]).arenaRating).toBe(ratingBefore);
+  });
+
+  it('a fiesta score-limit win pays the winning team its spoils', () => {
+    const { sim, match, pids } = startFiesta();
+    const copperBefore = new Map<number, number>(
+      pids.map((p) => [p, (sim as any).players.get(p).copper]),
+    );
+    const f = match.fiesta!;
+    f.scoreA = f.scoreLimit - 1; // one kill from a team-A win
+    const killer = sim.entities.get(match.teamA[0])!;
+    const victim = sim.entities.get(match.teamB[0])!;
+    (sim as any).dealDamage(killer, victim, victim.maxHp + 50, false, 'physical', null);
+    expect(match.state).toBe('over');
+    // every team-A member banked the fiesta spoils; the losing side earns nothing
+    for (const pid of match.teamA) {
+      expect((sim as any).players.get(pid).copper).toBe(copperBefore.get(pid)! + 1000);
+    }
+    for (const pid of match.teamB) {
+      expect((sim as any).players.get(pid).copper).toBe(copperBefore.get(pid)!);
+    }
   });
 });
 
@@ -186,11 +216,17 @@ describe('fiesta: augments', () => {
 
   it('standardizes every fighter to level 20 with a balanced build, restoring after', () => {
     const sim = new Sim({ seed: 5, playerClass: 'warrior', noPlayer: true });
-    const pids = (['warrior', 'mage', 'rogue', 'priest'] as const).map((c, i) => sim.addPlayer(c, `P${i}`));
+    const pids = (['warrior', 'mage', 'rogue', 'priest'] as const).map((c, i) =>
+      sim.addPlayer(c, `P${i}`),
+    );
     // Pretend everyone walked in at level 8.
     for (const p of pids) sim.setPlayerLevel(8, p);
-    pids.forEach((p) => teleport(sim, p, pids.indexOf(p) * 4, -40));
-    pids.forEach((p) => sim.arenaQueueJoin(p, 'fiesta'));
+    pids.forEach((p) => {
+      teleport(sim, p, pids.indexOf(p) * 4, -40);
+    });
+    pids.forEach((p) => {
+      sim.arenaQueueJoin(p, 'fiesta');
+    });
     sim.tick();
     for (const p of pids) expect(sim.entities.get(p)!.level).toBe(20);
     // Persistence safety: serialize must report the ORIGINAL level, not 20.
@@ -274,7 +310,10 @@ describe('fiesta: offline practice vs bots', () => {
     const run = () => {
       const sim = new Sim({ seed: 11, playerClass: 'mage' });
       sim.startFiestaPractice();
-      for (let i = 0; i < 20 * 30; i++) { sim.updateFiestaBots(); sim.tick(); }
+      for (let i = 0; i < 20 * 30; i++) {
+        sim.updateFiestaBots();
+        sim.tick();
+      }
       const m = sim.arenaMatchFor(sim.playerId);
       return m?.fiesta ? [m.fiesta.scoreA, m.fiesta.scoreB] : null;
     };
@@ -292,7 +331,17 @@ describe('fiesta: augment catalog integrity', () => {
   });
 
   it('every class can be offered three augments at every tier', () => {
-    const classes: PlayerClass[] = ['warrior', 'paladin', 'hunter', 'rogue', 'priest', 'shaman', 'mage', 'warlock', 'druid'];
+    const classes: PlayerClass[] = [
+      'warrior',
+      'paladin',
+      'hunter',
+      'rogue',
+      'priest',
+      'shaman',
+      'mage',
+      'warlock',
+      'druid',
+    ];
     for (const cls of classes) {
       for (const tier of ['silver', 'gold', 'prismatic'] as const) {
         // role null is the worst case (healer-only augments excluded)

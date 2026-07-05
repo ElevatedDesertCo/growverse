@@ -639,8 +639,8 @@
       "tick": 103,
       "time": 5.15,
       "nextId": 397,
-      "state": "67e213ab",
-      "events": "3fbe28c0",
+      "state": "250772fd",
+      "events": "b115bd09",
       "rng": {
         "draws": 284,
         "digest": "22941d42"
@@ -654,7 +654,10 @@
           "arenaRating": 1500,
           "cls": "warrior",
           "companionUpgrades": {},
-          "counters": {},
+          "copper": 1500,
+          "counters": {
+            "lootCopper": 1500
+          },
           "delveClears": {},
           "delveDaily": {},
           "entityId": 393,
@@ -674,7 +677,10 @@
           "arenaRating": 1500,
           "cls": "mage",
           "companionUpgrades": {},
-          "counters": {},
+          "copper": 1500,
+          "counters": {
+            "lootCopper": 1500
+          },
           "delveClears": {},
           "delveDaily": {},
           "entityId": 394,
@@ -929,7 +935,7 @@
       "tick": 125,
       "time": 6.25,
       "nextId": 397,
-      "state": "27ffcdb5",
+      "state": "80040767",
       "events": "741638a5",
       "rng": {
         "draws": 411,
@@ -940,7 +946,7 @@
       "tick": 150,
       "time": 7.5,
       "nextId": 397,
-      "state": "17242e77",
+      "state": "383755b9",
       "events": "741638a5",
       "rng": {
         "draws": 548,
@@ -951,7 +957,7 @@
       "tick": 175,
       "time": 8.75,
       "nextId": 397,
-      "state": "fd496c81",
+      "state": "a1906c13",
       "events": "741638a5",
       "rng": {
         "draws": 712,
@@ -962,7 +968,7 @@
       "tick": 200,
       "time": 10,
       "nextId": 397,
-      "state": "16b44def",
+      "state": "42b40f11",
       "events": "741638a5",
       "rng": {
         "draws": 902,
@@ -973,7 +979,7 @@
       "tick": 225,
       "time": 11.25,
       "nextId": 397,
-      "state": "5144e1f1",
+      "state": "8983f7c3",
       "events": "a6500df5",
       "rng": {
         "draws": 1011,
@@ -984,7 +990,7 @@
       "tick": 243,
       "time": 12.15,
       "nextId": 397,
-      "state": "f4a1c78d",
+      "state": "7294d83f",
       "events": "741638a5",
       "rng": {
         "draws": 1088,
@@ -999,7 +1005,10 @@
           "arenaRating": 1500,
           "cls": "warrior",
           "companionUpgrades": {},
-          "counters": {},
+          "copper": 1500,
+          "counters": {
+            "lootCopper": 1500
+          },
           "delveClears": {},
           "delveDaily": {},
           "entityId": 393,
@@ -1019,7 +1028,10 @@
           "arenaRating": 1500,
           "cls": "mage",
           "companionUpgrades": {},
-          "counters": {},
+          "copper": 1500,
+          "counters": {
+            "lootCopper": 1500
+          },
           "delveClears": {},
           "delveDaily": {},
           "entityId": 394,
@@ -1279,7 +1291,7 @@
       "tick": 243,
       "time": 12.15,
       "nextId": 397,
-      "state": "f4a1c78d",
+      "state": "7294d83f",
       "events": "741638a5",
       "rng": {
         "draws": 1088,
@@ -1294,7 +1306,10 @@
           "arenaRating": 1500,
           "cls": "warrior",
           "companionUpgrades": {},
-          "counters": {},
+          "copper": 1500,
+          "counters": {
+            "lootCopper": 1500
+          },
           "delveClears": {},
           "delveDaily": {},
           "entityId": 393,
@@ -1314,7 +1329,10 @@
           "arenaRating": 1500,
           "cls": "mage",
           "companionUpgrades": {},
-          "counters": {},
+          "copper": 1500,
+          "counters": {
+            "lootCopper": 1500
+          },
           "delveClears": {},
           "delveDaily": {},
           "entityId": 394,

@@ -25,6 +25,7 @@ import {
   ARENA_SPAWNS_B_2v2,
 } from '../dungeon_layout';
 import { recalcPlayerStats } from '../entity';
+import { formatMoney } from '../format_money';
 import type { ArenaMatch, ArenaQueueUnit, PlayerMeta } from '../sim';
 import type { SimContext } from '../sim_context';
 import {
@@ -45,6 +46,18 @@ export const ARENA_BASE_RATING = 1500; // every character starts here, unranked
 const ARENA_MIN_RATING = 100; // a rating floor so a losing streak can't go absurd
 const ARENA_K_FACTOR = 32; // Elo sensitivity per match
 const FIESTA_COUNTDOWN = 5;
+
+// Ashen Coliseum victory spoils: a decisive win pays the winning team copper,
+// scaled by format. The amount is a FIXED formula (no rng draw), so the shared
+// parity stream is untouched. Only a DEFEAT pays (a real kill/wipe, or a fiesta
+// score-limit win); a timeout or a forfeit/disconnect earns nothing, which keeps
+// stalling and win-trading-by-forfeit from farming the arena for gold. Modest by
+// design (a 1v1 win is worth roughly a mid-tier dungeon boss's coin).
+const ARENA_WIN_COPPER: Record<ArenaFormat, number> = {
+  '1v1': 2000,
+  '2v2': 1500,
+  fiesta: 1000,
+};
 
 // Standard Elo. Returns the points the winner gains (and the loser loses) for
 // an outright result; a draw moves each toward its expected score by half.
@@ -813,6 +826,10 @@ export function endArenaMatch(
   scoreTeam('A', deltaA, wonA);
   scoreTeam('B', -deltaA, wonB);
 
+  // Pay the winning team its spoils, but only for a decisive DEFEAT: a timeout
+  // (hp% tiebreak) or a forfeit/disconnect is not a real victory and earns no coin.
+  if (winnerTeam !== null && reason === 'defeat') awardArenaSpoils(ctx, match, winnerTeam);
+
   if (reason === 'forfeit') {
     returnFromArena(ctx, match);
     return;
@@ -841,6 +858,23 @@ export function endArenaMatch(
       color: match.fiesta ? '#ff3df0' : '#ffa040',
       pid: mPid,
     });
+  }
+}
+
+// Grant the winning team its copper spoils. Deterministic flat amount by format
+// (no rng draw -> the shared parity stream is untouched). Reuses the standard
+// "You loot {money}." loot line, which the client already localizes, so this adds
+// no new i18n surface. Copper persists through serializeCharacter like any coin.
+function awardArenaSpoils(ctx: SimContext, match: ArenaMatch, winnerTeam: 'A' | 'B'): void {
+  const copper = ARENA_WIN_COPPER[match.format];
+  if (copper <= 0) return;
+  const winners = winnerTeam === 'A' ? match.teamA : match.teamB;
+  for (const pid of winners) {
+    const meta = ctx.players.get(pid);
+    if (!meta) continue;
+    meta.copper += copper;
+    meta.counters.lootCopper += copper;
+    ctx.emit({ type: 'loot', text: `You loot ${formatMoney(copper)}.`, pid });
   }
 }
 
