@@ -812,12 +812,38 @@ export const VISUALS: Record<string, VisualDef> = {
     tint: 0xc9b98a,
     tintStrength: 0.3,
   },
+  // The classic village smith: bear-hatted barbarian with a one-hand axe. Entity
+  // tint so Haldren (grey) reads apart from the other two barbarian tradesfolk
+  // below (Odell orange, Draxa violet), who are deliberately redressed to break
+  // the "three identical smiths" cluster (bare head + different weapon + tint).
   npc_smith: {
     url: `${PLAYERS}/barbarian.glb`,
     height: HUMANOID_H,
     clips: kaykit(['1H_Melee_Attack_Chop']),
-    show: [],
+    show: ['Barbarian_BearHat'],
     attach: [{ url: `${WEAPONS}/axe_1handed.glb`, bone: 'handslot.r' }],
+    tint: 'entity',
+    tintStrength: 0.35,
+  },
+  // Foreman Odell: bare-headed barbarian swinging a hammer (a digger, not a smith).
+  npc_foreman: {
+    url: `${PLAYERS}/barbarian.glb`,
+    height: HUMANOID_H,
+    clips: kaykit(['1H_Melee_Attack_Chop']),
+    show: [],
+    attach: [{ url: `${WEAPONS}/hammer_a.glb`, bone: 'handslot.r' }],
+    tint: 'entity',
+    tintStrength: 0.4,
+  },
+  // Riftsmith Draxa: bare-headed barbarian hefting a two-hand axe, violet-tinted.
+  npc_riftsmith: {
+    url: `${PLAYERS}/barbarian.glb`,
+    height: HUMANOID_H,
+    clips: kaykit(['2H_Melee_Attack_Chop']),
+    show: [],
+    attach: [{ url: `${WEAPONS}/axe_2handed.glb`, bone: 'handslot.r' }],
+    tint: 'entity',
+    tintStrength: 0.4,
   },
   npc_scout: {
     url: `${PLAYERS}/rogue.glb`,
@@ -825,6 +851,36 @@ export const VISUALS: Record<string, VisualDef> = {
     clips: kaykit(['2H_Ranged_Shoot']),
     show: ['Rogue_Cape'],
     attach: [{ url: `${WEAPONS}/crossbow_1handed.glb`, bone: 'handslot.r' }],
+  },
+  // Netcaster Brandt: the ranger body (its own quiver + cape mesh) gives the old
+  // salt a distinct outdoorsman silhouette instead of another caped rogue.
+  npc_angler: {
+    url: `${PLAYERS}/ranger.glb`,
+    height: HUMANOID_H,
+    clips: kaykit(['2H_Ranged_Shoot']),
+    attach: [{ url: `${WEAPONS}/crossbow_1handed.glb`, bone: 'handslot.r' }],
+    tint: 'entity',
+    tintStrength: 0.35,
+  },
+  // Marlow the Cultivator: the dedicated druid body (own texture + backpack mesh)
+  // with a nature staff. A wholly distinct silhouette from the wizard-robed mages.
+  npc_druid: {
+    url: `${PLAYERS}/druid.glb`,
+    height: HUMANOID_H,
+    clips: kaykit(['2H_Melee_Attack_Chop']),
+    attach: [{ url: `${WEAPONS}/adv_druid_staff.glb`, bone: 'handslot.r' }],
+    tint: 'entity',
+    tintStrength: 0.3,
+  },
+  // The Broker: the hooded, masked rogue body reads as a shady dealer, distinct
+  // from both the plain villager (rogue) and the wizard-robed herbalist (mage).
+  npc_broker: {
+    url: `${PLAYERS}/rogue_hooded.glb`,
+    height: HUMANOID_H,
+    clips: kaykit(['1H_Melee_Attack_Chop']),
+    show: ['RogueHooded_Cape', 'RogueHooded_Mask'],
+    tint: 'entity',
+    tintStrength: 0.4,
   },
   npc_villager: {
     url: `${PLAYERS}/rogue.glb`,
@@ -834,11 +890,13 @@ export const VISUALS: Record<string, VisualDef> = {
     tint: 'entity',
     tintStrength: 0.35,
   },
+  // The wizard-robed apothecary/herbalist: pointed hat + cape so she reads as the
+  // town's one hedge-mage (seen from the side, the brim doesn't hide her).
   npc_villager_robed: {
     url: `${PLAYERS}/mage.glb`,
     height: HUMANOID_H,
     clips: kaykit(['2H_Melee_Attack_Chop']),
-    show: [],
+    show: ['Mage_Hat', 'Mage_Cape'],
     tint: 'entity',
     tintStrength: 0.35,
   },
@@ -926,26 +984,25 @@ const NPC_KEYS: Record<string, string> = {
   loremaster_caddis: 'npc_mage',
   smith_haldren: 'npc_smith',
   armorer_hode: 'npc_smith',
-  foreman_odell: 'npc_smith',
   scout_maren: 'npc_scout',
   scout_maren_highwatch: 'npc_scout',
   apothecary_lin: 'npc_villager_robed',
   herbalist_yara: 'npc_villager_robed',
-  // The Broker wears a well-cut merchant robe (gold-tinted) so he doesn't read
-  // as another hooded villager beside Wilkes in the plaza
-  the_merchant: 'npc_villager_robed',
+  // The Broker: hooded/masked dealer silhouette, not another robed mage.
+  the_merchant: 'npc_broker',
   trader_wilkes: 'npc_villager',
-  // Netcaster Brandt: caped outdoorsman silhouette, distinct from the plain villager
-  fisherman_brandt: 'npc_scout',
+  // Netcaster Brandt: ranger body (quiver + cape), a distinct outdoorsman.
+  fisherman_brandt: 'npc_angler',
   provisioner_hale: 'npc_villager',
   quartermaster_bree: 'npc_villager',
   brother_halven: 'npc_reliquary_keeper',
-  // Crafting stations (from crafting.ts CRAFT_NPCS). Without an explicit key they
-  // both defaulted to npc_villager (rogue body), reading as more green-rogue
-  // clones. Marlow the cultivator gets the robed body (entity tint keeps his green),
-  // Draxa the riftsmith gets the barbarian smith body + axe.
-  cultivator_marlow: 'npc_villager_robed',
-  smith_draxa: 'npc_smith',
+  // Crafting stations (from crafting.ts CRAFT_NPCS). Each gets its OWN distinct
+  // body so Bloomhaven has no duplicate NPCs: Marlow the cultivator on the druid
+  // body (backpack + nature staff), Draxa the riftsmith a redressed barbarian
+  // (bare head, two-hand axe, violet tint) apart from Smith Haldren.
+  cultivator_marlow: 'npc_druid',
+  smith_draxa: 'npc_riftsmith',
+  foreman_odell: 'npc_foreman',
 };
 
 export function visualKeyFor(e: Entity): string {
