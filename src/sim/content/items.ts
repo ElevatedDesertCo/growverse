@@ -219,7 +219,7 @@ export const BASE_ITEMS: Record<string, ItemDef> = {
   },
   gorraks_cruel_chopper: {
     id: 'gorraks_cruel_chopper',
-    name: "Gorrak's Cruel Chopper",
+    name: "Sarn's Cruel Chopper",
     kind: 'weapon',
     slot: 'mainhand',
     quality: 'uncommon',
@@ -241,7 +241,7 @@ export const BASE_ITEMS: Record<string, ItemDef> = {
   },
   moggers_stomper_boots: {
     id: 'moggers_stomper_boots',
-    name: "Mogger's Stomper Boots",
+    name: 'Rift-Gorged Stompers',
     kind: 'armor',
     armorType: 'leather',
     slot: 'feet',
@@ -252,7 +252,7 @@ export const BASE_ITEMS: Record<string, ItemDef> = {
   },
   moggers_copper_cudgel: {
     id: 'moggers_copper_cudgel',
-    name: "Mogger's Copper Cudgel",
+    name: "Burrowking's Copper Cudgel",
     kind: 'weapon',
     slot: 'mainhand',
     quality: 'rare',
@@ -263,7 +263,7 @@ export const BASE_ITEMS: Record<string, ItemDef> = {
   },
   moggers_shiv: {
     id: 'moggers_shiv',
-    name: "Mogger's Shiv",
+    name: 'Rift-Gorged Shiv',
     kind: 'weapon',
     slot: 'mainhand',
     quality: 'rare',
@@ -1020,7 +1020,7 @@ export const BASE_ITEMS: Record<string, ItemDef> = {
   },
   bandit_bandana: {
     id: 'bandit_bandana',
-    name: 'Red Bandana',
+    name: 'Ashen Maw Wrap',
     kind: 'junk',
     quality: 'poor',
     sellValue: 6,
@@ -1185,7 +1185,7 @@ export const BASE_ITEMS: Record<string, ItemDef> = {
   },
   gorraks_cleaver: {
     id: 'gorraks_cleaver',
-    name: "Gorrak's Cleaver",
+    name: "Sarn's Cleaver",
     kind: 'weapon',
     slot: 'mainhand',
     quality: 'uncommon',

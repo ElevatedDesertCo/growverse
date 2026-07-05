@@ -5453,6 +5453,12 @@ export const ja_JP: EnTranslations = {
       "vale_bandit": {
         "name": "谷の盗賊"
       },
+      "dust_reaver": {
+        "name": "砂塵の略奪者"
+      },
+      "dust_slinger": {
+        "name": "砂礫の投石手"
+      },
       "restless_bones": {
         "name": "安らがぬ骨"
       },

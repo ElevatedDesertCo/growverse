@@ -10,13 +10,13 @@
     "jammed chest (attemptAvailable=false) + surface exit opens"
   ],
   "draws": 3,
-  "drawDigest": "ad960248",
+  "drawDigest": "28b52f6d",
   "frames": [
     {
       "tick": 0,
       "time": 0,
-      "nextId": 394,
-      "state": "894f82b4",
+      "nextId": 396,
+      "state": "4ccf4fe4",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -34,7 +34,7 @@
           "counters": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 393,
+          "entityId": 395,
           "equipment": {
             "chest": "footpad_jerkin",
             "mainhand": "rusty_dagger"
@@ -56,7 +56,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 62,
-          "id": 393,
+          "id": 395,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -101,78 +101,78 @@
     {
       "tick": 10,
       "time": 0.5,
-      "nextId": 405,
-      "state": "37d085df",
-      "events": "9409c482",
+      "nextId": 410,
+      "state": "ba3a2532",
+      "events": "fb38f841",
       "rng": {
         "draws": 3,
-        "digest": "ad960248"
+        "digest": "28b52f6d"
       }
     },
     {
       "tick": 20,
       "time": 1,
-      "nextId": 405,
-      "state": "c83ba38f",
+      "nextId": 410,
+      "state": "50217122",
       "events": "741638a5",
       "rng": {
         "draws": 3,
-        "digest": "ad960248"
+        "digest": "28b52f6d"
       }
     },
     {
       "tick": 30,
       "time": 1.5,
-      "nextId": 405,
-      "state": "26269ed9",
+      "nextId": 410,
+      "state": "c5232484",
       "events": "741638a5",
       "rng": {
         "draws": 3,
-        "digest": "ad960248"
+        "digest": "28b52f6d"
       }
     },
     {
       "tick": 40,
       "time": 2,
-      "nextId": 405,
-      "state": "019bfcbb",
+      "nextId": 410,
+      "state": "b090f826",
       "events": "741638a5",
       "rng": {
         "draws": 3,
-        "digest": "ad960248"
+        "digest": "28b52f6d"
       }
     },
     {
       "tick": 50,
       "time": 2.5,
-      "nextId": 405,
-      "state": "33090451",
+      "nextId": 410,
+      "state": "32f5270c",
       "events": "741638a5",
       "rng": {
         "draws": 3,
-        "digest": "ad960248"
+        "digest": "28b52f6d"
       }
     },
     {
       "tick": 60,
       "time": 3,
-      "nextId": 405,
-      "state": "cd932fdf",
+      "nextId": 410,
+      "state": "4ffccf32",
       "events": "741638a5",
       "rng": {
         "draws": 3,
-        "digest": "ad960248"
+        "digest": "28b52f6d"
       }
     },
     {
       "tick": 69,
       "time": 3.45,
-      "nextId": 406,
-      "state": "afcba459",
-      "events": "2d83b1d4",
+      "nextId": 411,
+      "state": "4ec82a04",
+      "events": "0fa475db",
       "rng": {
         "draws": 3,
-        "digest": "ad960248"
+        "digest": "28b52f6d"
       },
       "label": "lockpick-jammed",
       "players": [
@@ -190,7 +190,7 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 393,
+          "entityId": 395,
           "equipment": {
             "chest": "footpad_jerkin",
             "mainhand": "rusty_dagger"
@@ -213,7 +213,7 @@
           "dodgeChance": 0.0715,
           "fiveSecondRule": 102.45,
           "hp": 50000,
-          "id": 393,
+          "id": 395,
           "inCombat": true,
           "kind": "player",
           "level": 7,
@@ -262,7 +262,7 @@
           "facing": 3.141593,
           "fiveSecondRule": 99,
           "hp": 1,
-          "id": 404,
+          "id": 409,
           "kind": "object",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -295,23 +295,23 @@
     {
       "tick": 70,
       "time": 3.5,
-      "nextId": 406,
-      "state": "c8fdb41d",
+      "nextId": 411,
+      "state": "ede90e40",
       "events": "741638a5",
       "rng": {
         "draws": 3,
-        "digest": "ad960248"
+        "digest": "28b52f6d"
       }
     },
     {
       "tick": 71,
       "time": 3.55,
-      "nextId": 406,
-      "state": "ab5554e9",
+      "nextId": 411,
+      "state": "4865dc94",
       "events": "741638a5",
       "rng": {
         "draws": 3,
-        "digest": "ad960248"
+        "digest": "28b52f6d"
       },
       "label": "final",
       "players": [
@@ -329,7 +329,7 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 393,
+          "entityId": 395,
           "equipment": {
             "chest": "footpad_jerkin",
             "mainhand": "rusty_dagger"
@@ -352,7 +352,7 @@
           "dodgeChance": 0.0715,
           "fiveSecondRule": 102.55,
           "hp": 50000,
-          "id": 393,
+          "id": 395,
           "inCombat": true,
           "kind": "player",
           "level": 7,
@@ -401,7 +401,7 @@
           "facing": 3.141593,
           "fiveSecondRule": 99,
           "hp": 1,
-          "id": 404,
+          "id": 409,
           "kind": "object",
           "level": 1,
           "lootFfaTimer": "Infinity",

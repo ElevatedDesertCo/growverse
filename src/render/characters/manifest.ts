@@ -783,6 +783,18 @@ export const VISUALS: Record<string, VisualDef> = {
     tint: 'entity',
     tintStrength: 0.3,
   },
+  // Ashen Maw slinger: the raider clan's ranged skirmisher. Ranger rig with a
+  // crossbow so the trio (hooded knife-fighter mob_bandit, bruiser mob_bruiser,
+  // this slinger) reads as three distinct silhouettes in the same camp. Entity
+  // tint carries the raider's dusty ochre.
+  mob_slinger: {
+    url: `${PLAYERS}/ranger.glb`,
+    height: HUMANOID_H,
+    clips: kaykit(['2H_Ranged_Shoot']),
+    attach: [{ url: `${WEAPONS}/crossbow_1handed.glb`, bone: 'handslot.r' }],
+    tint: 'entity',
+    tintStrength: 0.35,
+  },
 
   // -- NPCs ------------------------------------------------------------------
   npc_knight: {
@@ -936,6 +948,10 @@ const MOB_KEYS: Record<string, string> = {
   grand_necromancer_velkhar: 'mob_dark_caster',
   gorrak: 'mob_bruiser',
   mogger: 'mob_bruiser',
+  // Ashen Maw raider variants: bruiser (2H axe) and slinger (crossbow); the base
+  // vale_bandit keeps the hooded knife-fighter mob_bandit fallback.
+  dust_reaver: 'mob_bruiser',
+  dust_slinger: 'mob_slinger',
   // undead variants by role
   boneclad_revenant: 'skel_warrior',
   marrowlord_varkas: 'skel_warrior',

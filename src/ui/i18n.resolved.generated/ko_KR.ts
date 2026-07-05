@@ -5453,6 +5453,12 @@ export const ko_KR: EnTranslations = {
       "vale_bandit": {
         "name": "계곡 도적"
       },
+      "dust_reaver": {
+        "name": "모래 약탈자"
+      },
+      "dust_slinger": {
+        "name": "모래 투척꾼"
+      },
       "restless_bones": {
         "name": "불안한 뼈무더기"
       },

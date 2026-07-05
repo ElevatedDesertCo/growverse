@@ -2374,6 +2374,8 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.mobs.mudfin_murloc.name': '진흙지느러미 잠복자',
   'entities.mobs.tunnel_rat.name': '굴쥐 채굴꾼',
   'entities.mobs.vale_bandit.name': '계곡 도적',
+  'entities.mobs.dust_reaver.name': '모래 약탈자',
+  'entities.mobs.dust_slinger.name': '모래 투척꾼',
   'entities.mobs.restless_bones.name': '불안한 뼈무더기',
   'entities.mobs.gorrak.name': '무자비한 고라크',
   'entities.mobs.mire_prowler.name': '수렁 배회자',

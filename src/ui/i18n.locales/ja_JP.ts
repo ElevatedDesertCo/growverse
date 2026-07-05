@@ -2381,6 +2381,8 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.mobs.mudfin_murloc.name': '泥ひれの潜伏者',
   'entities.mobs.tunnel_rat.name': 'トンネルラット掘り',
   'entities.mobs.vale_bandit.name': '谷の盗賊',
+  'entities.mobs.dust_reaver.name': '砂塵の略奪者',
+  'entities.mobs.dust_slinger.name': '砂礫の投石手',
   'entities.mobs.restless_bones.name': '安らがぬ骨',
   'entities.mobs.gorrak.name': '無慈悲なるゴラック',
   'entities.mobs.mire_prowler.name': '沼の徘徊者',

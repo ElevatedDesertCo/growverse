@@ -684,6 +684,12 @@ describe('rogue', () => {
     facePlayerAt(sim, wolf);
     let guard = 0;
     while (sim.player.comboPoints < 2 && guard++ < 20 * 120 && !wolf.dead) {
+      // Keep the rogue topped: this test exercises combo build/spend, not
+      // survival. Sinister Strike hit/miss rolls are drawn from the shared rng
+      // stream, so any content that shifts the global draw order (a new mob or
+      // camp) can flip the early rolls to misses; without this the wolf can
+      // kill the low-level rogue mid-build and the death reset zeroes combo.
+      sim.player.hp = sim.player.maxHp;
       if (sim.player.resource >= 45 && sim.player.gcdRemaining <= 0)
         sim.castAbility('sinister_strike');
       sim.tick();

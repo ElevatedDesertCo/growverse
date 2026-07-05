@@ -5453,6 +5453,12 @@ export const id_ID: EnTranslations = {
       "vale_bandit": {
         "name": "Bandit Lembah"
       },
+      "dust_reaver": {
+        "name": "Dust Reaver"
+      },
+      "dust_slinger": {
+        "name": "Dust Slinger"
+      },
       "restless_bones": {
         "name": "Tulang Gelisah"
       },

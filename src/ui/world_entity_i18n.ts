@@ -24,6 +24,8 @@ const MOB_IDS = [
   'mudfin_murloc',
   'tunnel_rat',
   'vale_bandit',
+  'dust_reaver',
+  'dust_slinger',
   'restless_bones',
   'gorrak',
   'mire_prowler',

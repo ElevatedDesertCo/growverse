@@ -1244,12 +1244,12 @@ export const GUIDE_ZONES: GuideZoneInfo[] = [
       "Mirror Lake",
       "Sporewood",
       "Copper Dig",
-      "Raider Camp",
+      "Ashen Maw Camp",
       "Withered Shrine",
       "Reliquary Hill",
       "Bloomwood Glade"
     ],
-    "welcome": "Find Warden Elgrove in town, he has work for you."
+    "welcome": "Find Marshal Redbrook in town, he has work for you."
   },
   {
     "id": "mirefen_marsh",
@@ -1566,6 +1566,26 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "model": "mob_bandit",
         "tint": "#6b3a32",
         "still": "/guide-stills/mob_bandit__6b3a32.webp"
+      },
+      {
+        "name": "Dust Slinger",
+        "min": 3,
+        "max": 4,
+        "rare": false,
+        "templateId": "dust_slinger",
+        "model": "mob_slinger",
+        "tint": "#b08a3c",
+        "still": "/guide-stills/mob_slinger__b08a3c.webp"
+      },
+      {
+        "name": "Dust Reaver",
+        "min": 4,
+        "max": 5,
+        "rare": false,
+        "templateId": "dust_reaver",
+        "model": "mob_bruiser",
+        "tint": "#6e3b2f",
+        "still": "/guide-stills/mob_bruiser__6e3b2f.webp"
       },
       {
         "name": "Blight Cultist",
@@ -1973,6 +1993,33 @@ export const GUIDE_MODELS: Record<string, GuideModelSpec> = {
       }
     ],
     "tintStrength": 0.3
+  },
+  "mob_bruiser": {
+    "url": "models/chars/players/barbarian.glb",
+    "idle": "Idle",
+    "height": 2.6,
+    "show": [
+      "Barbarian_BearHat"
+    ],
+    "attach": [
+      {
+        "url": "models/weapons/axe_2handed.glb",
+        "bone": "handslot.r"
+      }
+    ],
+    "tintStrength": 0.3
+  },
+  "mob_slinger": {
+    "url": "models/chars/players/ranger.glb",
+    "idle": "Idle",
+    "height": 2.6,
+    "attach": [
+      {
+        "url": "models/weapons/crossbow_1handed.glb",
+        "bone": "handslot.r"
+      }
+    ],
+    "tintStrength": 0.35
   },
   "skel_minion": {
     "url": "models/chars/enemies/skeleton_minion.glb",

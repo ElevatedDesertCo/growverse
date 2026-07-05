@@ -5453,6 +5453,12 @@ export const tr_TR: EnTranslations = {
       "vale_bandit": {
         "name": "Vadi Haydudu"
       },
+      "dust_reaver": {
+        "name": "Dust Reaver"
+      },
+      "dust_slinger": {
+        "name": "Dust Slinger"
+      },
       "restless_bones": {
         "name": "Huzursuz Kemikler"
       },

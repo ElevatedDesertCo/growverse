@@ -5453,6 +5453,12 @@ export const fr_CA: EnTranslations = {
       "vale_bandit": {
         "name": "Bandit du Val"
       },
+      "dust_reaver": {
+        "name": "Dust Reaver"
+      },
+      "dust_slinger": {
+        "name": "Dust Slinger"
+      },
       "restless_bones": {
         "name": "Ossements agités"
       },

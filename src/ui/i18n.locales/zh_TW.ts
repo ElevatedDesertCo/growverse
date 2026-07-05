@@ -2276,6 +2276,8 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.mobs.mudfin_murloc.name': '泥鰭潛伏者',
   'entities.mobs.tunnel_rat.name': '地道鼠掘地者',
   'entities.mobs.vale_bandit.name': '谷地強盜',
+  'entities.mobs.dust_reaver.name': '塵暴掠奪者',
+  'entities.mobs.dust_slinger.name': '塵石投擲者',
   'entities.mobs.restless_bones.name': '不寧骸骨',
   'entities.mobs.gorrak.name': '無情者戈拉克',
   'entities.mobs.mire_prowler.name': '泥沼潛伏獸',

@@ -5453,6 +5453,12 @@ export const vi_VN: EnTranslations = {
       "vale_bandit": {
         "name": "Cướp Thung Lũng"
       },
+      "dust_reaver": {
+        "name": "Dust Reaver"
+      },
+      "dust_slinger": {
+        "name": "Dust Slinger"
+      },
       "restless_bones": {
         "name": "Bộ Xương Bất An"
       },

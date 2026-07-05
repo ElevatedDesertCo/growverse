@@ -5453,6 +5453,12 @@ export const nl_NL: EnTranslations = {
       "vale_bandit": {
         "name": "Valleibandiet"
       },
+      "dust_reaver": {
+        "name": "Dust Reaver"
+      },
+      "dust_slinger": {
+        "name": "Dust Slinger"
+      },
       "restless_bones": {
         "name": "Rusteloze Beenderen"
       },

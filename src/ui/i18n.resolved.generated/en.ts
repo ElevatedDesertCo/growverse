@@ -4987,7 +4987,7 @@ export const en: EnTranslations = {
         "name": "Fen Reaver Glaive"
       },
       "gorraks_cruel_chopper": {
-        "name": "Gorrak's Cruel Chopper"
+        "name": "Sarn's Cruel Chopper"
       },
       "gravepath_treads": {
         "name": "Gravepath Treads"
@@ -5035,13 +5035,13 @@ export const en: EnTranslations = {
         "name": "Mirejaw Scale Vest"
       },
       "moggers_copper_cudgel": {
-        "name": "Mogger's Copper Cudgel"
+        "name": "Burrowking's Copper Cudgel"
       },
       "moggers_shiv": {
-        "name": "Mogger's Shiv"
+        "name": "Rift-Gorged Shiv"
       },
       "moggers_stomper_boots": {
-        "name": "Mogger's Stomper Boots"
+        "name": "Rift-Gorged Stompers"
       },
       "necromancers_legwraps": {
         "name": "Necromancer's Legwraps"
@@ -5453,11 +5453,17 @@ export const en: EnTranslations = {
       "vale_bandit": {
         "name": "Dust Raider"
       },
+      "dust_reaver": {
+        "name": "Dust Reaver"
+      },
+      "dust_slinger": {
+        "name": "Dust Slinger"
+      },
       "restless_bones": {
         "name": "Wither Husk"
       },
       "gorrak": {
-        "name": "Gorrak the Blighted"
+        "name": "Sarn the Hollowed"
       },
       "mire_prowler": {
         "name": "Silt Prowler"
@@ -5664,10 +5670,10 @@ export const en: EnTranslations = {
         "name": "Mirejaw the Ravenous"
       },
       "mogger": {
-        "name": "Mogger"
+        "name": "Grulmaw the Rift-Gorged"
       },
       "mogger_lackey": {
-        "name": "Mogger Lackey"
+        "name": "Rift-Gorged Whelp"
       },
       "nhalia_mourner": {
         "name": "Nhalia Mourner"
@@ -5764,9 +5770,9 @@ export const en: EnTranslations = {
         "greeting": "Welcome to the World Market, {className}. Buy from every adventurer in the realm - or set out your own wares and let coin find you."
       },
       "marshal_redbrook": {
-        "name": "Warden Elgrove",
-        "title": "Warden of the Vale",
-        "greeting": "Keep your blade close, {className}. The Vale is not what it was."
+        "name": "Marshal Redbrook",
+        "title": "Marshal of Bloomhaven",
+        "greeting": "Keep your blade close, {className}. The Corruption is spreading, and it is turning men into worse things."
       },
       "trader_wilkes": {
         "name": "Provisioner Wilkes",
@@ -5960,7 +5966,7 @@ export const en: EnTranslations = {
       },
       "q_supplies": {
         "title": "Stolen Supplies",
-        "text": "Those bandits hit my last wagon and made off with four crates of goods: tools, salt, good Bloomhaven linen. The crates are stacked around their camp in the southeast hills. Steal them back for me, would you?",
+        "text": "The Ashen Maw raiders hit my last wagon and made off with four crates of goods: tools, salt, good Bloomhaven linen. The crates are stacked around their camp in the southeast hills. Steal them back for me, would you?",
         "completion": "My crates! Barely a scratch on them. You are a wonder.",
         "objectives": {
           "0": {
@@ -6042,9 +6048,9 @@ export const en: EnTranslations = {
         }
       },
       "q_bandits": {
-        "title": "Bandits of the Vale",
-        "text": "A pack of cutthroats has made camp in the southwest hills. They have robbed three wagons this week. Drive them out, slay 10 Dust Raiders.",
-        "completion": "Ten fewer knives in the dark. Take this, you have earned it.",
+        "title": "The Ashen Maw",
+        "text": "A raider clan calling itself the Ashen Maw has dug into the southeast flats. They were common bandits once, but the Corruption has gotten into them, the further from the rifts they range, the hungrier and crueler they turn. Break their raids, slay 10 Dust Raiders.",
+        "completion": "Ten fewer ashen throats to feed. But cutting away the body does nothing while the head still calls the tune.",
         "objectives": {
           "0": {
             "label": "Dust Raider slain"
@@ -6052,12 +6058,12 @@ export const en: EnTranslations = {
         }
       },
       "q_ringleader": {
-        "title": "The Ringleader",
-        "text": "The bandits answer to one man: Gorrak the Blighted. Cut off the head and the body will scatter. He skulks at the heart of their camp. End him, {playerName}.",
-        "completion": "Gorrak is dead? Then the Vale is free of his shadow. You have done Bloomhaven a great service.",
+        "title": "The Hollowed Warlord",
+        "text": "The Ashen Maw answer to one man: Sarn the Hollowed. He drank so deep of the rifts that there is little left of the raider he was, just appetite in a warlord's hide. Cut off the head and the clan will scatter. He holds the heart of their camp. End him, {playerName}.",
+        "completion": "Sarn is dead? Then the Maw has lost its warlord. You have done Bloomhaven a great service, though the rifts that hollowed him are still out there.",
         "objectives": {
           "0": {
-            "label": "Gorrak the Blighted slain"
+            "label": "Sarn the Hollowed slain"
           }
         }
       },
@@ -6628,12 +6634,12 @@ export const en: EnTranslations = {
         }
       },
       "q_mogger": {
-        "title": "Mogger Must Fall",
-        "text": "Mogger has split carts, flattened fences, and killed enough livestock to empty half the Vale. Do not face him alone. Take two strong companions into the eastern meadow and put the brute down for good.",
-        "completion": "Mogger is dead at last. Eastbrook's fields are safer, and you leave the Vale with one more tale worth retelling.",
+        "title": "The Rift-Gorged",
+        "text": "One of the Ashen Maw gorged on raw Corruption until his own body could not hold it: Grulmaw, they call him now, and he has swollen into something that splits carts and flattens fences by the dozen. Do not face him alone. Take two strong companions into the eastern meadow and put the brute down for good.",
+        "completion": "Grulmaw dead at last. Bloomhaven's fields are safer, and you leave the Vale with one more tale worth retelling.",
         "objectives": {
           "0": {
-            "label": "Mogger slain"
+            "label": "Grulmaw slain"
           }
         }
       },
@@ -6704,7 +6710,7 @@ export const en: EnTranslations = {
     "zones": {
       "eastbrook_vale": {
         "name": "Bloomhaven Vale",
-        "welcome": "Find Warden Elgrove in town, he has work for you.",
+        "welcome": "Find Marshal Redbrook in town, he has work for you.",
         "pois": {
           "0": {
             "label": "Bloomhaven"
@@ -6725,7 +6731,7 @@ export const en: EnTranslations = {
             "label": "Copper Dig"
           },
           "6": {
-            "label": "Raider Camp"
+            "label": "Ashen Maw Camp"
           },
           "7": {
             "label": "Withered Shrine"

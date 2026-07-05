@@ -35,12 +35,12 @@ export const ZONE1_ZONE: ZoneDef = {
     { x: -88, z: 82, label: 'Mirror Lake' },
     { x: -60, z: 4, label: 'Sporewood' },
     { x: -84, z: -64, label: 'Copper Dig' },
-    { x: 76, z: -76, label: 'Raider Camp' },
+    { x: 76, z: -76, label: 'Ashen Maw Camp' },
     { x: 80, z: 80, label: 'Withered Shrine' },
     { x: -5, z: -52, label: 'Reliquary Hill' },
     { x: 40, z: 140, label: 'Bloomwood Glade' },
   ],
-  welcome: 'Find Warden Elgrove in town, he has work for you.',
+  welcome: 'Find Marshal Redbrook in town, he has work for you.',
   welcomeQuestId: 'q_wolves',
 };
 
@@ -197,7 +197,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
   },
   mogger: {
     id: 'mogger',
-    name: 'Mogger',
+    name: 'Grulmaw the Rift-Gorged',
     minLevel: 6,
     maxLevel: 6,
     family: 'humanoid',
@@ -237,7 +237,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
   },
   mogger_lackey: {
     id: 'mogger_lackey',
-    name: 'Mogger Lackey',
+    name: 'Rift-Gorged Whelp',
     minLevel: 5,
     maxLevel: 6,
     family: 'humanoid',
@@ -363,6 +363,57 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
     // A practiced thug flings a handful of road grit to foul your aim.
     blind: { chance: 0.25, miss: 0.3, duration: 5, name: 'Blinding Powder', school: 'physical' },
   },
+  dust_reaver: {
+    id: 'dust_reaver',
+    name: 'Dust Reaver',
+    minLevel: 4,
+    maxLevel: 5,
+    family: 'humanoid',
+    hpBase: 56,
+    hpPerLevel: 20,
+    dmgBase: 7,
+    dmgPerLevel: 2.3,
+    attackSpeed: 2.4,
+    armorPerLevel: 22,
+    moveSpeed: 7,
+    aggroRadius: 12,
+    scale: 1.08,
+    color: 0x6e3b2f,
+    // The rift-taint boils over: each wound it takes can send the reaver into a
+    // Corruption-fueled fury, swinging faster for a spell.
+    frenzyOnHit: { chance: 0.2, hasteMult: 1.3, duration: 6, name: 'Rift Fury' },
+    loot: [
+      { copper: 28, chance: 1 },
+      { itemId: 'bandit_bandana', chance: 0.5 },
+      { itemId: 'linen_scrap', chance: 0.3 },
+      // Corruption tie-in: the tainted raiders shed shards for the Upgrade Bench.
+      { itemId: 'corruption_shard', chance: 0.15 },
+    ],
+  },
+  dust_slinger: {
+    id: 'dust_slinger',
+    name: 'Dust Slinger',
+    minLevel: 3,
+    maxLevel: 4,
+    family: 'humanoid',
+    hpBase: 38,
+    hpPerLevel: 17,
+    dmgBase: 5,
+    dmgPerLevel: 1.9,
+    attackSpeed: 2.0,
+    armorPerLevel: 16,
+    moveSpeed: 7.5,
+    aggroRadius: 13, // skirmishers open from range and call the camp in
+    scale: 0.98,
+    color: 0xb08a3c,
+    // Bolts dipped in rift-ichor: a landed shot festers a creeping shadow rot.
+    soulrot: { chance: 0.22, perTick: 3, interval: 3, duration: 9, name: 'Tainted Bolt' },
+    loot: [
+      { copper: 24, chance: 1 },
+      { itemId: 'bandit_bandana', chance: 0.5 },
+      { itemId: 'linen_scrap', chance: 0.3 },
+    ],
+  },
   restless_bones: {
     id: 'restless_bones',
     name: 'Wither Husk',
@@ -395,7 +446,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
     // A rare named undead champion risen among the ruins' Restless Bones —
     // the undead family's rare elite, filling the gap beside Old Greyjaw
     // (beast), Elder Bristleback (beast), Sableweb Matriarch (spider) and
-    // Mogger (humanoid). A heavy, slow striker that erupts in a shadow nova
+    // Grulmaw the Rift-Gorged (humanoid). A heavy, slow striker that erupts in a shadow nova
     // and goes berserk when low; loot mirrors the other rare elites.
     id: 'captain_verlan',
     name: 'Husk-Captain Verlan',
@@ -472,7 +523,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
   },
   gorrak: {
     id: 'gorrak',
-    name: 'Gorrak the Blighted',
+    name: 'Sarn the Hollowed',
     minLevel: 6,
     maxLevel: 6,
     family: 'humanoid',
@@ -519,15 +570,16 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
   },
   marshal_redbrook: {
     id: 'marshal_redbrook',
-    name: 'Warden Elgrove',
-    title: 'Warden of the Vale',
+    name: 'Marshal Redbrook',
+    title: 'Marshal of Bloomhaven',
     // his own post at the NE guard house, out of the plaza center, watching
     // over the town (faces SW toward the well and market)
     pos: { x: 11, z: 8 },
     facing: -2.2,
     color: 0xb7950b,
     questIds: ['q_wolves', 'q_greyjaw', 'q_bandits', 'q_ringleader', 'q_mogger'],
-    greeting: 'Keep your blade close, $C. The Vale is not what it was.',
+    greeting:
+      'Keep your blade close, $C. The Corruption is spreading, and it is turning men into worse things.',
   },
   trader_wilkes: {
     id: 'trader_wilkes',
@@ -748,7 +800,7 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'Stolen Supplies',
     giverNpcId: 'trader_wilkes',
     turnInNpcId: 'trader_wilkes',
-    text: 'Those bandits hit my last wagon and made off with four crates of goods: tools, salt, good Bloomhaven linen. The crates are stacked around their camp in the southeast hills. Steal them back for me, would you?',
+    text: 'The Ashen Maw raiders hit my last wagon and made off with four crates of goods: tools, salt, good Bloomhaven linen. The crates are stacked around their camp in the southeast hills. Steal them back for me, would you?',
     completionText: 'My crates! Barely a scratch on them. You are a wonder.',
     objectives: [
       { type: 'collect', itemId: 'supply_crate', count: 4, label: 'Stolen Supply Crate' },
@@ -888,11 +940,12 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
   },
   q_bandits: {
     id: 'q_bandits',
-    name: 'Bandits of the Vale',
+    name: 'The Ashen Maw',
     giverNpcId: 'marshal_redbrook',
     turnInNpcId: 'marshal_redbrook',
-    text: 'A pack of cutthroats has made camp in the southwest hills. They have robbed three wagons this week. Drive them out, slay 10 Dust Raiders.',
-    completionText: 'Ten fewer knives in the dark. Take this, you have earned it.',
+    text: 'A raider clan calling itself the Ashen Maw has dug into the southeast flats. They were common bandits once, but the Corruption has gotten into them, the further from the rifts they range, the hungrier and crueler they turn. Break their raids, slay 10 Dust Raiders.',
+    completionText:
+      'Ten fewer ashen throats to feed. But cutting away the body does nothing while the head still calls the tune.',
     objectives: [
       { type: 'kill', targetMobId: 'vale_bandit', count: 10, label: 'Dust Raider slain' },
     ],
@@ -903,14 +956,14 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
   },
   q_ringleader: {
     id: 'q_ringleader',
-    name: 'The Ringleader',
+    name: 'The Hollowed Warlord',
     giverNpcId: 'marshal_redbrook',
     turnInNpcId: 'marshal_redbrook',
-    text: 'The bandits answer to one man: Gorrak the Blighted. Cut off the head and the body will scatter. He skulks at the heart of their camp. End him, $N.',
+    text: "The Ashen Maw answer to one man: Sarn the Hollowed. He drank so deep of the rifts that there is little left of the raider he was, just appetite in a warlord's hide. Cut off the head and the clan will scatter. He holds the heart of their camp. End him, $N.",
     completionText:
-      'Gorrak is dead? Then the Vale is free of his shadow. You have done Bloomhaven a great service.',
+      'Sarn is dead? Then the Maw has lost its warlord. You have done Bloomhaven a great service, though the rifts that hollowed him are still out there.',
     objectives: [
-      { type: 'kill', targetMobId: 'gorrak', count: 1, label: 'Gorrak the Blighted slain' },
+      { type: 'kill', targetMobId: 'gorrak', count: 1, label: 'Sarn the Hollowed slain' },
     ],
     xpReward: 800,
     copperReward: 500,
@@ -919,13 +972,13 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
   },
   q_mogger: {
     id: 'q_mogger',
-    name: 'Mogger Must Fall',
+    name: 'The Rift-Gorged',
     giverNpcId: 'marshal_redbrook',
     turnInNpcId: 'marshal_redbrook',
-    text: 'Mogger has split carts, flattened fences, and killed enough livestock to empty half the Vale. Do not face him alone. Take two strong companions into the eastern meadow and put the brute down for good.',
+    text: 'One of the Ashen Maw gorged on raw Corruption until his own body could not hold it: Grulmaw, they call him now, and he has swollen into something that splits carts and flattens fences by the dozen. Do not face him alone. Take two strong companions into the eastern meadow and put the brute down for good.',
     completionText:
-      "Mogger dead at last. Bloomhaven's fields are safer, and you leave the Vale with one more tale worth retelling.",
-    objectives: [{ type: 'kill', targetMobId: 'mogger', count: 1, label: 'Mogger slain' }],
+      "Grulmaw dead at last. Bloomhaven's fields are safer, and you leave the Vale with one more tale worth retelling.",
+    objectives: [{ type: 'kill', targetMobId: 'mogger', count: 1, label: 'Grulmaw slain' }],
     xpReward: 1200,
     copperReward: 900,
     itemRewards: {
@@ -981,9 +1034,13 @@ export const ZONE1_CAMPS: CampDef[] = [
   { mobId: 'mudfin_murloc', center: { x: -75, z: 57 }, radius: 14, count: 8 },
   // Kobolds: mine southwest
   { mobId: 'tunnel_rat', center: { x: -82, z: -62 }, radius: 20, count: 9 },
-  // Bandits: southeast camp
-  { mobId: 'vale_bandit', center: { x: 65, z: -65 }, radius: 24, count: 7 },
-  { mobId: 'vale_bandit', center: { x: 90, z: -90 }, radius: 16, count: 5 },
+  // Ashen Maw: southeast warcamp. A mixed raider band, hooded knife-fighters
+  // (vale_bandit) backed by crossbow slingers and rift-tainted reavers, so the
+  // camp reads as three distinct silhouettes rather than one repeated body.
+  { mobId: 'vale_bandit', center: { x: 65, z: -65 }, radius: 24, count: 5 },
+  { mobId: 'dust_slinger', center: { x: 60, z: -62 }, radius: 20, count: 3 },
+  { mobId: 'dust_reaver', center: { x: 70, z: -70 }, radius: 20, count: 3 },
+  { mobId: 'vale_bandit', center: { x: 90, z: -90 }, radius: 16, count: 3 },
   { mobId: 'gorrak', center: { x: 92, z: -92 }, radius: 2, count: 1 },
   // Undead: ruins northeast
   { mobId: 'restless_bones', center: { x: 80, z: 78 }, radius: 18, count: 8 },
@@ -1118,9 +1175,12 @@ export const ZONE1_PROPS: ZonePropsDef = {
   mines: [{ x: -88, z: -68, rot: 0.8 }],
   docks: [{ x: -64, z: 60, rot: -2.2, hutLocal: { x: 2.8, z: 2.4, hw: 1.7, hd: 1.5 } }],
   tents: [
+    // Ashen Maw warcamp: raider tents clustered through the southeast hollow.
     { x: 62, z: -61, rot: 0.4, scale: 1 },
     { x: 69, z: -69, rot: 2.1, scale: 1 },
+    { x: 78, z: -74, rot: -1.1, scale: 1.1 },
     { x: 88, z: -86, rot: 1.2, scale: 1.3 },
+    { x: 84, z: -90, rot: 0.7, scale: 1 },
     { x: 95, z: -94, rot: -0.6, scale: 1 },
   ],
   crates: [
@@ -1129,16 +1189,21 @@ export const ZONE1_PROPS: ZonePropsDef = {
     [8.3, 3.4],
     [-16, 2], // Draxa the Riftsmith's Upgrade Bench stock
     [-11.8, 6.4],
+    // Ashen Maw plunder stacks, dressing the warcamp
     [60, -63],
     [66, -67],
-    [87, -88],
-    [93, -90],
+    [76, -68],
     [70, -72],
+    [87, -88],
+    [89, -84],
+    [93, -90],
   ],
   campfires: [
     [3, -4],
     [-16.2, 6.2], // Draxa the Riftsmith's forge fire (Upgrade Bench)
+    // Ashen Maw cookfires: one at each cluster of the warcamp
     [65, -65],
+    [74, -72],
     [90, -90],
     [-80, -60],
     [-61, 56],
@@ -1156,8 +1221,14 @@ export const ZONE1_PROPS: ZonePropsDef = {
   // of the SW road and the ceremonial axis); the enclosure opens NE toward the
   // chapel and town, it never walls a lane.
   fences: [
+    // Churchyard rail (solemn south)
     { x1: -15, z1: -18, x2: -15, z2: -26 },
     { x1: -15, z1: -26, x2: -8, z2: -26 },
+    // Ashen Maw stockade: an L of staked fence walling the warcamp's back
+    // corner (east + south), left open to the northwest approach road so the
+    // camp reads as fortified without boxing players out of the boss.
+    { x1: 100, z1: -82, x2: 100, z2: -100 },
+    { x1: 100, z1: -100, x2: 82, z2: -100 },
   ],
   graveyards: [
     { x: -14, z: -25.5 }, // churchyard graves in the solemn south (grid grows +x/+z, seated clear of the chapel wall and inside the rail)

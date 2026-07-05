@@ -2410,6 +2410,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.mobs.mudfin_murloc.name': 'Илогривый скрытень',
   'entities.mobs.tunnel_rat.name': 'Копатель туннельных крыс',
   'entities.mobs.vale_bandit.name': 'Долинный бандит',
+  'entities.mobs.dust_reaver.name': 'Пыльный разоритель',
+  'entities.mobs.dust_slinger.name': 'Пыльный пращник',
   'entities.mobs.restless_bones.name': 'Беспокойные кости',
   'entities.mobs.gorrak.name': 'Горрак Безжалостный',
   'entities.mobs.mire_prowler.name': 'Болотный хищник',

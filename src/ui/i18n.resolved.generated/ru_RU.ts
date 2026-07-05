@@ -5453,6 +5453,12 @@ export const ru_RU: EnTranslations = {
       "vale_bandit": {
         "name": "Долинный бандит"
       },
+      "dust_reaver": {
+        "name": "Пыльный разоритель"
+      },
+      "dust_slinger": {
+        "name": "Пыльный пращник"
+      },
       "restless_bones": {
         "name": "Беспокойные кости"
       },

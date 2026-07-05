@@ -5453,6 +5453,12 @@ export const zh_TW: EnTranslations = {
       "vale_bandit": {
         "name": "谷地強盜"
       },
+      "dust_reaver": {
+        "name": "塵暴掠奪者"
+      },
+      "dust_slinger": {
+        "name": "塵石投擲者"
+      },
       "restless_bones": {
         "name": "不寧骸骨"
       },

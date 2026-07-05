@@ -5453,6 +5453,12 @@ export const sv_SE: EnTranslations = {
       "vale_bandit": {
         "name": "Dalbandit"
       },
+      "dust_reaver": {
+        "name": "Dust Reaver"
+      },
+      "dust_slinger": {
+        "name": "Dust Slinger"
+      },
       "restless_bones": {
         "name": "Rastlösa ben"
       },
