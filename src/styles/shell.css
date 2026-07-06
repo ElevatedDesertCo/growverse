@@ -4297,11 +4297,20 @@
     min-height: 0;
     gap: 6px;
     overflow-y: auto;
-    background: linear-gradient(135deg, rgba(20, 20, 30, 0.96) 0%, rgba(10, 10, 15, 0.98) 100%);
+    /* Translucent scrim (NOT opaque) so the looping #bg-home vista shows through
+       behind the 3D character, WoCC-style: the scene reads at the top behind the
+       avatar and darkens toward the bottom so the class-details text stays legible. */
+    background: linear-gradient(
+      180deg,
+      rgba(8, 8, 14, 0.24) 0%,
+      rgba(8, 8, 14, 0.46) 44%,
+      rgba(8, 8, 14, 0.8) 100%
+    );
     border: 2px solid var(--color-border-default);
     border-radius: var(--radius-md);
     box-shadow:
-      inset 0 0 15px rgba(0, 0, 0, 0.6),
+      inset 0 44px 66px -34px rgba(150, 185, 230, 0.14),
+      inset 0 0 22px rgba(0, 0, 0, 0.5),
       0 6px 20px rgba(0, 0, 0, 0.5);
     padding: 20px;
   }
@@ -4828,22 +4837,20 @@
     }
   }
 
-  /* ---------- Online character-select: showcase claims the header band ----------
-     Now that the panel is wide, raise the right-hand showcase so its top edge
-     lines up with the realm/wallet header row instead of starting below the
-     whole header. The panel becomes a 2-col grid: the title spans the top, the
-     realm + $WOC wallet line and roster stack in the left lane, and the
-     showcase spans from the wallet line down to the panel bottom, giving room
-     for a noticeably larger character and more prominent stats/abilities. */
+  /* ---------- Online character-select: three-column showcase ----------
+     WoCC-style layout: a full-width header band (title + realm/sort + wallet +
+     github) spans the top, then three columns below: the class-details card on
+     the LEFT, the 3D character preview in the CENTER (frameless, standing on the
+     living #bg-home vista), and the character roster on the RIGHT. */
   @media (min-width: 900px) {
     /* Gated to :not(.mobile-touch): the mobile-touch query reaches up to 940px
        wide, so without this the unwrap below would still fire for big phones in
        landscape (900-940px) and stack the grandchildren as flex items. */
     body:not(.mobile-touch) #charselect-panel {
       display: grid;
-      grid-template-columns: 0.85fr 1.15fr;
+      grid-template-columns: minmax(258px, 0.92fr) 1.5fr minmax(248px, 0.9fr);
       grid-template-rows: auto auto minmax(0, 1fr);
-      column-gap: 28px;
+      column-gap: 22px;
       row-gap: 0;
       /* Restated (not inherited from the flex block above) so this rule stands
          on its own: these bound the minmax(0, 1fr) showcase row and the roster
@@ -4852,9 +4859,11 @@
       min-height: 520px;
       overflow: hidden;
     }
-    /* Unwrap the header + body wrappers so their children join the panel grid. */
+    /* Unwrap the header, body AND showcase wrappers so the title, header band,
+       class-details card, preview and roster all become direct panel-grid items. */
     body:not(.mobile-touch) #charselect-panel .cs-head,
-    body:not(.mobile-touch) #charselect-panel .cs-body {
+    body:not(.mobile-touch) #charselect-panel .cs-body,
+    body:not(.mobile-touch) #charselect-panel .cs-detail-col {
       display: contents;
     }
     body:not(.mobile-touch) #charselect-panel .cs-title {
@@ -4862,27 +4871,47 @@
       grid-row: 1;
       margin-bottom: var(--spacing-sm);
     }
+    /* Header band spans all three columns: controls left, wallet + github right. */
     body:not(.mobile-touch) #charselect-panel .cs-head-row {
-      grid-column: 1;
+      grid-column: 1 / -1;
       grid-row: 2;
       margin-bottom: 16px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
     }
-    body:not(.mobile-touch) #charselect-panel .cs-list-col {
+    /* LEFT: class-details card. The .cs-detail-col override strips this panel's
+       frame, so restore a framed, translucent card here (floating over the vista). */
+    body:not(.mobile-touch) #charselect-panel #charselect-class-details {
       grid-column: 1;
       grid-row: 3;
       min-height: 0;
+      height: 100% !important;
+      max-height: none;
+      overflow-y: auto;
+      margin: 0;
+      padding: 18px !important;
+      background: linear-gradient(180deg, rgba(8, 8, 14, 0.5), rgba(8, 8, 14, 0.82)) !important;
+      border: 2px solid var(--color-border-default) !important;
+      border-radius: var(--radius-md);
+      box-shadow:
+        inset 0 0 15px rgba(0, 0, 0, 0.5),
+        0 6px 20px rgba(0, 0, 0, 0.5) !important;
     }
-    body:not(.mobile-touch) #charselect-panel .cs-detail-col {
+    /* CENTER: the character preview, frameless, filling the row over the vista. */
+    body:not(.mobile-touch) #charselect-panel .cs-preview {
       grid-column: 2;
-      grid-row: 2 / -1;
+      grid-row: 3;
       min-height: 0;
-      height: auto;
+      height: 100%;
     }
-
-    /* Bigger character portrait, using the reclaimed header band. */
-    body:not(.mobile-touch) #charselect-panel .cs-detail-col .cs-preview {
-      height: clamp(264px, 34vh, 360px);
-      min-height: 264px;
+    /* RIGHT: character roster. */
+    body:not(.mobile-touch) #charselect-panel .cs-list-col {
+      grid-column: 3;
+      grid-row: 3;
+      min-height: 0;
     }
 
     /* More prominent stats + signature abilities in the (now taller) showcase.
