@@ -3977,6 +3977,92 @@
     #title-logo {
       width: clamp(204px, 12vw, 264px) !important;
     }
+
+    /* ---------- Offline character-select: three-column WoCC showcase ----------
+       The offline/solo character screen (the panel the player actually reaches)
+       gets the same WoCC-style layout as the online roster: the class-details
+       card on the LEFT, the 3D character CENTER (frameless, standing on the
+       living #bg-home vista), and the creation controls (name + class grid +
+       skin + actions, plus any saved-character roster) on the RIGHT. Scoped to
+       :not(.mobile-touch) so the mobile stack (which reaches up to 940px) is
+       untouched. */
+    body:not(.mobile-touch) #offline-select {
+      /* Translucent (was ~0.97 opaque) so the vista shows behind the avatar; the
+         side cards below carry their own scrims to keep their text legible. */
+      background: linear-gradient(
+        180deg,
+        rgba(8, 8, 14, 0.34) 0%,
+        rgba(8, 8, 14, 0.58) 100%
+      ) !important;
+      backdrop-filter: blur(2px);
+    }
+    body:not(.mobile-touch) #offline-select .charselect-layout {
+      display: grid;
+      grid-template-columns: minmax(240px, 0.95fr) 1.45fr minmax(248px, 1fr);
+      column-gap: 22px;
+      align-items: stretch;
+    }
+    /* Unwrap the right wrapper so the preview (center) and class-details (left)
+       become direct grid items of the three-column layout. */
+    body:not(.mobile-touch) #offline-select .charselect-col-right {
+      display: contents;
+    }
+    /* LEFT: class-details card, framed + translucent, readable over the vista. */
+    body:not(.mobile-touch) #offline-select #offline-class-details {
+      grid-column: 1;
+      grid-row: 1;
+      height: 100% !important;
+      min-height: 0;
+      margin: 0 !important;
+      overflow-y: auto;
+      padding: 18px !important;
+      background: linear-gradient(180deg, rgba(8, 8, 14, 0.62), rgba(8, 8, 14, 0.86)) !important;
+      border: 2px solid var(--color-border-default) !important;
+      border-radius: var(--radius-md);
+      box-shadow:
+        inset 0 0 15px rgba(0, 0, 0, 0.5),
+        0 6px 20px rgba(0, 0, 0, 0.5) !important;
+    }
+    /* CENTER: the character preview, frameless + transparent over the vista. */
+    body:not(.mobile-touch) #offline-select #offline-preview-container {
+      grid-column: 2;
+      grid-row: 1;
+      height: 100%;
+      min-height: 0;
+      background: transparent;
+      border: 0;
+      border-radius: 0;
+      position: relative;
+    }
+    /* Ground the avatar: pedestal pool + bottom fade so it reads as standing on
+       darkened ground and the vista's baked-in figures recede behind it. */
+    body:not(.mobile-touch) #offline-select #offline-preview-container::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(
+          120% 55% at 50% 106%,
+          rgba(4, 4, 8, 0.86) 0%,
+          rgba(4, 4, 8, 0.36) 42%,
+          transparent 68%
+        ),
+        linear-gradient(180deg, transparent 56%, rgba(4, 4, 8, 0.55) 100%);
+    }
+    /* RIGHT: creation controls (roster + name + class grid + skin + actions),
+       framed + translucent so the chips and inputs stay legible. */
+    body:not(.mobile-touch) #offline-select .charselect-col-left {
+      grid-column: 3;
+      grid-row: 1;
+      height: 100%;
+      min-height: 0;
+      overflow-y: auto;
+      padding: 16px;
+      background: linear-gradient(180deg, rgba(8, 8, 14, 0.62), rgba(8, 8, 14, 0.86));
+      border: 2px solid var(--color-border-default);
+      border-radius: var(--radius-md);
+    }
   }
 
   body.mobile-touch #charselect-panel,
