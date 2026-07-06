@@ -436,6 +436,42 @@ function sameBindData(a: THREE.SkinnedMesh, b: THREE.SkinnedMesh): boolean {
   return true;
 }
 
+// Meshopt + KHR_mesh_quantization assets (the Meshy-rigged raiders) leave some
+// skinned-mesh parts with u16-normalized UV/position attributes while their
+// siblings stay Float32; mergeGeometries bails on the mismatched array types
+// (console spam + parts left unmerged = extra draw calls). Rebuild each part's
+// geometry with a canonical attribute type set (float everywhere, integer
+// skinIndex) so every part in a bucket agrees before the merge.
+function copyAttr(
+  attr: THREE.BufferAttribute | THREE.InterleavedBufferAttribute,
+  out: Float32Array | Uint16Array,
+): void {
+  const n = attr.itemSize;
+  for (let i = 0; i < attr.count; i++) {
+    out[i * n] = attr.getX(i);
+    if (n > 1) out[i * n + 1] = attr.getY(i);
+    if (n > 2) out[i * n + 2] = attr.getZ(i);
+    if (n > 3) out[i * n + 3] = attr.getW(i);
+  }
+}
+
+function canonicalGeometry(src: THREE.BufferGeometry): THREE.BufferGeometry {
+  const geo = new THREE.BufferGeometry();
+  for (const name of Object.keys(src.attributes)) {
+    const attr = src.getAttribute(name);
+    // skinIndex must stay an integer index into the skeleton; everything else
+    // (position/normal/uv/skinWeight/color/tangent) canonicalizes to Float32
+    const out =
+      name === 'skinIndex'
+        ? new Uint16Array(attr.count * attr.itemSize)
+        : new Float32Array(attr.count * attr.itemSize);
+    copyAttr(attr, out);
+    geo.setAttribute(name, new THREE.BufferAttribute(out, attr.itemSize));
+  }
+  if (src.index) geo.setIndex(src.index.clone());
+  return geo;
+}
+
 function mergeSkinnedParts(root: THREE.Object3D): void {
   // bucket by bone set / material / parent / local transform, then split
   // buckets by approximate bind-data equality (float noise must not block a
@@ -463,7 +499,7 @@ function mergeSkinnedParts(root: THREE.Object3D): void {
     const names = new Set(parts.flatMap((p) => Object.keys(p.geometry.attributes)));
     if (![...names].every((n) => parts.every((p) => p.geometry.getAttribute(n)))) continue;
     const geo = mergeGeometries(
-      parts.map((p) => p.geometry),
+      parts.map((p) => canonicalGeometry(p.geometry)),
       false,
     );
     if (!geo) continue;
@@ -859,7 +895,13 @@ function bakeStaticPose(
     }
     out.setAttribute('position', new THREE.BufferAttribute(baked, 3));
     const uv = srcGeo.getAttribute('uv');
-    if (uv) out.setAttribute('uv', uv.clone());
+    // dequantize to Float32 so u16-normalized parts (meshopt/quantized rigs)
+    // merge cleanly with their Float32 siblings; baked position is already float
+    if (uv) {
+      const uvArr = new Float32Array(uv.count * 2);
+      copyAttr(uv, uvArr);
+      out.setAttribute('uv', new THREE.BufferAttribute(uvArr, 2));
+    }
     if (srcGeo.index) out.setIndex(srcGeo.index.clone());
     out.computeVertexNormals();
     geos.push(out);
