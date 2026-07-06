@@ -110,6 +110,10 @@ const PROP_ASSET_DEFS: Record<string, PropAssetDef> = {
   // or rift site (see PROPS.obelisks). Its own kit so its stone shares no material
   // with the CC0 village set.
   obelisk: { url: '/models/props/elevated_obelisk.glb', kit: 'obelisk' },
+  // Meshy-generated Ropebound Spiked Stakes: a lashed cluster of sharpened stakes
+  // used as an Ashen Maw perimeter barricade (see PROPS.spikeBarricades). Its own
+  // kit so the raider timber shares no material with the CC0 village/tent sets.
+  spikedStakes: { url: '/models/props/ashen_spiked_stakes.glb', kit: 'ashencamp' },
 };
 
 type PropKey = keyof typeof PROP_ASSET_DEFS;
@@ -927,6 +931,27 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
       group.add(shadowed(g));
       registerHideable(g, circleFootprint(w.x, w.z, 0.45, y + 2.55, 1.0));
     }
+  }
+
+  // ---- Ashen Maw spiked-stake barricades: a custom Meshy GLB, not a CC0 pack --
+  // A ropebound cluster of sharpened stakes dropped along the warcamp approach and
+  // perimeter. Uniform-scaled off the model height; a deterministic yaw so a line
+  // of them never reads as a repeated stamp.
+  for (const b of PROPS.spikeBarricades ?? []) {
+    const targetH = b.h ?? 1.6;
+    const a = propAsset('spikedStakes');
+    const s = targetH / a.size.y;
+    const g = new THREE.Group();
+    addParts(g, 'spikedStakes', {
+      scale: s,
+      rot: b.rot ?? propRand(b.x, b.z, 8) * Math.PI * 2,
+    });
+    g.position.set(b.x, ground(b.x, b.z) - 0.05, b.z);
+    group.add(shadowed(g));
+    registerHideable(
+      g,
+      circleFootprint(b.x, b.z, Math.max(0.7, a.size.x * s * 0.5), ground(b.x, b.z) + targetH),
+    );
   }
 
   // ---- graveyards: 4 headstone shapes, leaning, instanced ------------------

@@ -1261,6 +1261,10 @@ export interface ZonePropsDef {
   // original prop built from primitives in render/props.ts, NOT a CC0 GLB) that
   // ring a warcamp to mark clan territory. `rot` is the optional base yaw.
   wardStakes?: { x: number; z: number; rot?: number }[];
+  // Ashen Maw spiked-stake barricades: a custom Meshy GLB (ropebound sharpened
+  // stakes) placed along the warcamp approach/perimeter. `h` is the target world-
+  // height of the model in metres (default 1.6); `rot` an optional base yaw.
+  spikeBarricades?: { x: number; z: number; h?: number; rot?: number }[];
 }
 
 export function emptyZoneProps(): ZonePropsDef {

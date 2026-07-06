@@ -1263,4 +1263,16 @@ export const ZONE1_PROPS: ZonePropsDef = {
     { x: 97, z: -90 },
     { x: 90, z: -99 },
   ],
+  // Ashen Maw spiked-stake barricades (a custom Meshy GLB, not a CC0 pack): lashed
+  // clusters of sharpened stakes dug in along the NW approach gauntlet and the
+  // camp's outer edge, so the warcamp reads as a fortified raider position rather
+  // than an open field. Offset from the ward-totem line so the two don't collide.
+  spikeBarricades: [
+    { x: 52, z: -58 }, // NW approach: staggered pair funnelling the entry
+    { x: 60, z: -50 },
+    { x: 58, z: -66 }, // camp outer edge
+    { x: 76, z: -70 },
+    { x: 80, z: -95 }, // flanks around the warlord's heart
+    { x: 95, z: -83 },
+  ],
 };

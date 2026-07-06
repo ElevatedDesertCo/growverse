@@ -129,6 +129,18 @@ function staticWorldColliders(seed: number): Collider[] {
       camGhost: true,
     });
   }
+  // Ashen Maw spiked-stake barricades: a solid cluster the player must walk around.
+  for (const b of PROPS.spikeBarricades ?? []) {
+    const h = b.h ?? 1.6;
+    out.push({
+      type: 'circle',
+      x: b.x,
+      z: b.z,
+      r: 1.0,
+      cameraTopY: topY(seed, b.x, b.z, h),
+      camGhost: true,
+    });
+  }
   for (const s of PROPS.stalls)
     out.push({
       type: 'circle',
