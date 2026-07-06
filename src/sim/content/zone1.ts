@@ -1279,9 +1279,4 @@ export const ZONE1_PROPS: ZonePropsDef = {
     { x: 84, z: -99, h: 1.8 },
     { x: 86, z: -68, h: 1.7 }, // forward barricade wing (muster flank)
   ],
-  // Ashen Maw war-idol (a custom Meshy stone-guardian effigy, not a CC0 model): a
-  // towering corrupted idol raised over Sarn the Hollowed's heart, facing the NW
-  // approach so raiders (and players) muster before it. The camp's 1-of-1
-  // centerpiece; `rot` is tunable if the effigy loads facing away.
-  ashenIdols: [{ x: 86, z: -86, h: 3.8, rot: 2.3 }],
 };
