@@ -346,6 +346,12 @@ export default defineConfig({
     },
   },
   test: {
+    // jsdom@29 (admin/DOM suites) and its encoder dep @exodus/bytes are ESM-only and are
+    // require()d by html-encoding-sniffer. require(esm) is on by default only on Node
+    // >=20.19 / >=22.12 / >=24 (the deps' own engine floor); on the 22.11.x line it needs
+    // this flag on the pool worker, otherwise it throws ERR_REQUIRE_ESM before any test
+    // runs. The flag is a harmless no-op on versions where require(esm) is already default.
+    execArgv: ['--experimental-require-module'],
     // Two kinds of exclusion, kept together:
     // - .codex/.venv are local-only worktree/venv pollution a clean CI checkout never has;
     //   excluding them keeps the local gate mirroring CI (otherwise stale .codex worktree
