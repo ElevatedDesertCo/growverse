@@ -82,10 +82,6 @@ const PROP_ASSET_DEFS: Record<string, PropAssetDef> = {
   rockLargeF: { url: '/models/props/rock_large_f.glb', kit: 'minerock' },
   mushroomRed: { url: '/models/props/mushroom_red.glb', kit: 'shroom' },
   mushroomTan: { url: '/models/props/mushroom_tan.glb', kit: 'shroom' },
-  column: { url: '/models/props/column.glb', kit: 'nature' },
-  columnBroken: { url: '/models/props/column_broken.glb', kit: 'nature' },
-  statueHead: { url: '/models/props/statue_head.glb', kit: 'nature' },
-  statueBlock: { url: '/models/props/statue_block.glb', kit: 'nature' },
   dockPlatform: { url: '/models/props/dock_platform.glb', kit: 'pirate' },
   rowboat: { url: '/models/props/rowboat.glb', kit: 'pirate' },
   timberPillar: { url: '/models/props/timber_pillar.glb', kit: 'town' },
@@ -135,8 +131,6 @@ const LOW_TIER_PROP_KEYS: readonly PropKey[] = [
   'tentSmall',
   'rockLargeD',
   'mushroomRed',
-  'column',
-  'columnBroken',
   'dockPlatform',
   'rowboat',
   'timberPillar',
@@ -1511,59 +1505,130 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     registerHideable(g, circleFootprint(x, z, 1.1, y + 12.5, sxz));
   }
 
-  // ---- ruin rings: weathered monolith columns at the exact collider angles -
+  // ---- ruin rings: a Growverse-ORIGINAL procedural stone ruin --------------
+  // Not a CC0 pack model: weathered sandstone columns (some capitalled and
+  // whole, some snapped to jagged stubs with rubble at the foot), plus a
+  // toppled statue head, a broken stepped pedestal, and a fallen shaft at the
+  // ring's heart, all built from primitives so each ruin is 1-of-1 geometry.
+  // Shared geo/materials across the ring so a ruin collapses cheaply.
+  const ruinStone = surfaceMat({ color: 0xb8ab8f, roughness: 0.96 });
+  const ruinStoneDk = surfaceMat({ color: 0x968a70, roughness: 0.98 });
+  const ruinMoss = surfaceMat({ color: 0x66724f, roughness: 1 });
+  const plinthGeo = new THREE.CylinderGeometry(0.6, 0.66, 0.35, 8);
+  const abacusGeo = new THREE.BoxGeometry(1.12, 0.22, 1.12);
+  const echinusGeo = new THREE.CylinderGeometry(0.56, 0.42, 0.26, 12);
+  const capSliverGeo = new THREE.CylinderGeometry(0.34, 0.4, 0.18, 12);
+  const rubbleGeo = new THREE.BoxGeometry(0.36, 0.32, 0.34);
+  const mossGeo = new THREE.BoxGeometry(0.5, 0.7, 0.04);
+  // a weathered column of shaft-height h; a capital adds echinus + abacus, a
+  // break instead caps the snapped shaft with a tilted sliver
+  const buildColumn = (h: number, capital: boolean): THREE.Group => {
+    const c = new THREE.Group();
+    const plinth = new THREE.Mesh(plinthGeo, ruinStoneDk);
+    plinth.position.y = 0.175;
+    c.add(plinth);
+    const shaft = new THREE.Mesh(new THREE.CylinderGeometry(0.38, 0.46, h, 12), ruinStone);
+    shaft.position.y = 0.35 + h / 2;
+    c.add(shaft);
+    if (capital) {
+      const ech = new THREE.Mesh(echinusGeo, ruinStone);
+      ech.position.y = 0.35 + h + 0.13;
+      c.add(ech);
+      const ab = new THREE.Mesh(abacusGeo, ruinStoneDk);
+      ab.position.y = 0.35 + h + 0.37;
+      c.add(ab);
+    } else {
+      const cap = new THREE.Mesh(capSliverGeo, ruinStoneDk);
+      cap.position.y = 0.35 + h + 0.06;
+      cap.rotation.z = 0.14;
+      c.add(cap);
+    }
+    return c;
+  };
   for (const r of PROPS.ruinRings) {
     for (let i = 0; i < r.columns; i++) {
       const ang = (i / r.columns) * Math.PI * 2;
       const x = r.x + Math.sin(ang) * r.ringR,
         z = r.z + Math.cos(ang) * r.ringR;
       const intact = i % 4 === 1;
-      const kind: PropKey = intact ? 'column' : 'columnBroken';
-      const sy = intact ? 3.5 + (i % 2) * 0.5 : 1.7 + (i % 3) * 0.85;
+      const h = intact ? 4.0 + (i % 2) * 0.5 : 1.6 + (i % 3) * 0.8;
       const y = ground(x, z);
-      const g = new THREE.Group();
-      addParts(g, kind, {
-        scale: [3.8, sy, 3.8],
-        euler: new THREE.Euler(
-          0,
-          propRand(x, z, 8) * Math.PI,
-          (i % 3 === 0 ? 0.13 : 0.03) * (i % 2 ? 1 : -1),
-        ),
-      });
+      const g = buildColumn(h, intact);
+      // snapped stubs shed a couple of tumbled rubble chunks at the foot
+      if (!intact && !lowProps)
+        for (let k = 0; k < 2; k++) {
+          const rub = new THREE.Mesh(
+            rubbleGeo,
+            propRand(x + k, z, 9) < 0.5 ? ruinStone : ruinStoneDk,
+          );
+          rub.position.set(
+            (propRand(x, z, 10 + k) - 0.5) * 1.2,
+            0.16,
+            (propRand(x, z, 20 + k) - 0.5) * 1.2,
+          );
+          rub.rotation.set(
+            propRand(x, z, 30 + k) * Math.PI,
+            propRand(x, z, 40 + k) * Math.PI,
+            propRand(x, z, 50 + k) * Math.PI,
+          );
+          rub.scale.setScalar(0.7 + propRand(x, z, 60 + k) * 0.6);
+          g.add(rub);
+        }
+      // a weathered moss streak clings to every third shaft
+      if (!lowProps && i % 3 === 0) {
+        const moss = new THREE.Mesh(mossGeo, ruinMoss);
+        moss.position.set(0, 0.35 + h * 0.4, 0.42);
+        g.add(moss);
+      }
       g.position.set(x, y - 0.1, z);
+      g.rotation.set(
+        0,
+        propRand(x, z, 8) * Math.PI,
+        (i % 3 === 0 ? 0.1 : 0.03) * (i % 2 ? 1 : -1),
+        'YZX',
+      );
       group.add(shadowed(g));
-      registerHideable(g, circleFootprint(x, z, 0.6, y + 4.3, 2.2));
+      registerHideable(g, circleFootprint(x, z, 0.7, y + h + 0.6, 2.2));
     }
     if (lowProps) continue;
-    // toppled relics at the ring's heart: half-buried head + fallen column
+    // toppled relics at the ring's heart: a half-buried head, a broken stepped
+    // pedestal, and a fallen shaft lying across the rubble
     const fy = ground(r.x - 2, r.z - 3);
     const g = new THREE.Group();
-    addParts(g, 'statueHead', {
-      x: -0.4,
-      y: -0.55,
-      z: 0.3,
-      scale: 2.3,
-      euler: new THREE.Euler(0.34, propRand(r.x, r.z, 30) * Math.PI * 2, 0.22),
-    });
-    addParts(g, 'statueBlock', {
-      x: 2.1,
-      y: -0.2,
-      z: -1.3,
-      rot: propRand(r.x, r.z, 31) * Math.PI,
-      scale: 2.1,
-    });
-    addParts(g, 'column', {
-      x: -1.2,
-      y: 0.62,
-      z: -2.2,
-      scale: 3.2,
-      euler: new THREE.Euler(
-        Math.PI / 2 - 0.06,
-        0.6 + (propRand(r.x, r.z, 32) - 0.5) * 0.4,
-        0,
-        'YXZ',
-      ),
-    });
+    const head = new THREE.Group();
+    const skull = new THREE.Mesh(new THREE.IcosahedronGeometry(1.0, 1), ruinStone);
+    skull.scale.set(0.9, 1.15, 0.95);
+    head.add(skull);
+    const brow = new THREE.Mesh(new THREE.BoxGeometry(1.1, 0.22, 0.3), ruinStoneDk);
+    brow.position.set(0, 0.35, 0.72);
+    head.add(brow);
+    const nose = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.5, 0.3), ruinStone);
+    nose.position.set(0, 0.05, 0.82);
+    head.add(nose);
+    for (const dx of [-0.32, 0.32]) {
+      const eye = new THREE.Mesh(new THREE.SphereGeometry(0.14, 8, 8), recessMat);
+      eye.position.set(dx, 0.22, 0.78);
+      head.add(eye);
+    }
+    head.position.set(-0.4, -0.35, 0.3);
+    head.rotation.set(0.34, propRand(r.x, r.z, 30) * Math.PI * 2, 0.22);
+    g.add(head);
+    const ped = new THREE.Group();
+    ped.add(new THREE.Mesh(new THREE.BoxGeometry(2.0, 0.5, 1.5), ruinStoneDk));
+    const step = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.5, 1.1), ruinStone);
+    step.position.y = 0.5;
+    ped.add(step);
+    const stub = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.6, 0.7), ruinStoneDk);
+    stub.position.set(0.2, 0.95, -0.1);
+    stub.rotation.z = 0.2;
+    ped.add(stub);
+    ped.position.set(2.1, -0.1, -1.3);
+    ped.rotation.set(0.12, propRand(r.x, r.z, 31) * Math.PI, -0.16, 'YZX');
+    g.add(ped);
+    const fallen = buildColumn(3.4, false);
+    fallen.position.set(-1.2, 0.55, -2.2);
+    fallen.rotation.set(Math.PI / 2 - 0.06, 0.6 + (propRand(r.x, r.z, 32) - 0.5) * 0.4, 0, 'YXZ');
+    g.add(fallen);
     g.position.set(r.x - 2, fy, r.z - 3);
     group.add(shadowed(g));
   }
