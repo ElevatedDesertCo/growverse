@@ -904,8 +904,7 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
       }
     ],
     "model": "player_mage",
-    "tint": "#5fb4cc",
-    "still": "/guide-stills/player_mage__5fb4cc.webp"
+    "still": "/guide-stills/player_mage.webp"
   },
   {
     "id": "warlock",
@@ -1889,19 +1888,9 @@ export const GUIDE_MODELS: Record<string, GuideModelSpec> = {
     "tintStrength": 0.45
   },
   "player_mage": {
-    "url": "models/chars/players/mage.glb",
-    "idle": "Idle",
-    "height": 2.6,
-    "show": [
-      "Mage_Cape"
-    ],
-    "attach": [
-      {
-        "url": "models/weapons/staff.glb",
-        "bone": "handslot.r"
-      }
-    ],
-    "tintStrength": 0.48
+    "url": "models/chars/players/wizard.glb",
+    "idle": "Idle_02",
+    "height": 2.6
   },
   "player_warlock": {
     "url": "models/chars/players/rogue_hooded.glb",
