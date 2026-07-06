@@ -85,7 +85,11 @@ import type { WalletOption } from './net/wallet';
 import { assetsReady } from './render/assets/preload';
 import { CharacterPreview } from './render/characters';
 import { skinCount } from './render/characters/manifest';
-import { playerPortraitDataUrl } from './render/characters/portrait';
+import {
+  onPortraitsReady,
+  playerPortraitDataUrl,
+  portraitsReady,
+} from './render/characters/portrait';
 import { installWebGLContextRelease } from './render/context_release';
 import { firstRunGraphicsPreset, GFX, graphicsPresetLabel } from './render/gfx';
 import { Renderer } from './render/renderer';
@@ -2672,6 +2676,16 @@ function renderSkinPicker(
     return;
   }
   if (picker) picker.style.display = '';
+  // Portraits render null until character assets finish loading; when that
+  // happens after this first paint the swatches would be stuck as numbers, so
+  // re-render once they are ready (preserving the live selection).
+  if (!portraitsReady()) {
+    onPortraitsReady(() => {
+      const sel = row.querySelector('.skin-swatch.sel') as HTMLElement | null;
+      const cur = sel ? Number(sel.dataset.skin ?? current) || current : current;
+      renderSkinPicker(rowId, cls, cur, onPick);
+    });
+  }
   row.style.setProperty('--class-color', `#${CLASSES[cls].color.toString(16).padStart(6, '0')}`);
   for (let i = 0; i < count; i++) {
     const b = document.createElement('button');
@@ -2741,10 +2755,10 @@ function selectedSkin(rowId: string, fallback: number): number {
 }
 
 /** Reset to the default skin and (re)render the offline picker for a class. */
-function refreshOfflineSkins(cls: PlayerClass): void {
-  offlineSkin = 0;
-  characterPreview?.setSkin(0);
-  renderSkinPicker('#offline-skin-row', cls, 0, (i) => {
+function refreshOfflineSkins(cls: PlayerClass, skin = 0): void {
+  offlineSkin = skin;
+  characterPreview?.setSkin(skin);
+  renderSkinPicker('#offline-skin-row', cls, skin, (i) => {
     offlineSkin = i;
     characterPreview?.setSkin(i);
   });
@@ -6193,20 +6207,25 @@ function wireStartScreens(): void {
     show('#offline-select');
     renderOfflineRoster();
 
-    // Select warrior by default and render details
-    const warriorCard = document.querySelector(
-      '#offline-select .mini-class[data-class="warrior"]',
+    // Default the showcase to the player's most recent saved character (its
+    // class + chroma), falling back to warrior for a first-time player.
+    // Clicking a class chip still overrides the selection.
+    const saved = listOfflineCharacters()[0];
+    const cls: PlayerClass = saved?.cls ?? 'warrior';
+    const skin = saved?.skin ?? 0;
+    const card = document.querySelector(
+      `#offline-select .mini-class[data-class="${cls}"]`,
     ) as HTMLElement | null;
-    if (warriorCard) {
+    if (card) {
       document.querySelectorAll('#offline-select .mini-class').forEach((c) => {
         c.classList.remove('sel');
         c.setAttribute('aria-pressed', 'false');
       });
-      warriorCard.classList.add('sel');
-      warriorCard.setAttribute('aria-pressed', 'true');
-      renderClassDetails('offline-class-details', 'warrior');
+      card.classList.add('sel');
+      card.setAttribute('aria-pressed', 'true');
+      renderClassDetails('offline-class-details', cls);
       btnStartOffline.removeAttribute('disabled');
-      refreshOfflineSkins('warrior');
+      refreshOfflineSkins(cls, skin);
     }
   };
 

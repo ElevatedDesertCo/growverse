@@ -4043,12 +4043,12 @@
       pointer-events: none;
       background:
         radial-gradient(
-          120% 55% at 50% 106%,
-          rgba(4, 4, 8, 0.86) 0%,
-          rgba(4, 4, 8, 0.36) 42%,
-          transparent 68%
+          92% 34% at 50% 112%,
+          rgba(4, 4, 8, 0.6) 0%,
+          rgba(4, 4, 8, 0.24) 46%,
+          transparent 72%
         ),
-        linear-gradient(180deg, transparent 56%, rgba(4, 4, 8, 0.55) 100%);
+        linear-gradient(180deg, transparent 74%, rgba(4, 4, 8, 0.42) 100%);
     }
     /* RIGHT: creation controls (roster + name + class grid + skin + actions),
        framed + translucent so the chips and inputs stay legible. */
