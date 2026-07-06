@@ -1135,6 +1135,80 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     registerHideable(g, circleFootprint(x, z, 0.85, y + 1.45, 2.4));
   }
 
+  // ---- Ashen Maw cookfires: a Growverse-ORIGINAL procedural raider hearth ------
+  // A blackened-stone ring around a low log pyre, NOT the shared CC0 bonfire.glb
+  // the other zones burn. Reuses the same animated flame + fire-light pattern as
+  // the campfires above (pushed into `flames`/`fireLights` so the renderer flickers
+  // them and sheds embers for free), so only the warcamp hearths read as 1-of-1.
+  if ((PROPS.raiderCookfires ?? []).length > 0) {
+    const logMat = surfaceMat({ color: 0x33261b, roughness: 0.96 });
+    const charMat = surfaceMat({ color: 0x1a140d, roughness: 1 });
+    const stoneMat = surfaceMat({ color: 0x463f38, roughness: 1 });
+    const emberMat = new THREE.MeshLambertMaterial({
+      color: 0xff7a2a,
+      emissive: 0xff5010,
+      emissiveIntensity: usePbr ? 1.9 : 1.2,
+    });
+    const stoneGeo = new THREE.IcosahedronGeometry(0.17, 0);
+    const logGeo = new THREE.CylinderGeometry(0.075, 0.095, 1.0, 6);
+    const emberGeo = new THREE.CylinderGeometry(0.34, 0.4, 0.08, 10);
+    for (const [x, z] of PROPS.raiderCookfires ?? []) {
+      const y = ground(x, z);
+      const g = new THREE.Group();
+      // ring of blackened stones ringing the pit (deterministic size + lean)
+      const stoneN = 7;
+      for (let i = 0; i < stoneN; i++) {
+        const a = (i / stoneN) * Math.PI * 2 + propRand(x + i, z, 8) * 0.3;
+        const stone = new THREE.Mesh(stoneGeo, stoneMat);
+        const sc = 0.75 + propRand(x, z + i, 9) * 0.55;
+        stone.position.set(Math.cos(a) * 0.55, 0.1 * sc, Math.sin(a) * 0.55);
+        stone.scale.set(sc, sc * 0.8, sc);
+        stone.rotation.set(propRand(x + i, z + i, 10) * Math.PI, a, 0);
+        g.add(stone);
+      }
+      // glowing ember bed sunk in the pit
+      const bed = new THREE.Mesh(emberGeo, emberMat);
+      bed.position.y = 0.06;
+      g.add(bed);
+      // a low pyre of crossed charred logs (a couple burnt black, the rest wood)
+      const logN = 5;
+      for (let i = 0; i < logN; i++) {
+        const a = (i / logN) * Math.PI + propRand(x, z + i, 11) * 0.4;
+        const log = new THREE.Mesh(logGeo, propRand(x + i, z, 12) < 0.35 ? charMat : logMat);
+        log.position.set(
+          Math.cos(a) * 0.12,
+          0.16 + propRand(x + i, z + i, 13) * 0.06,
+          Math.sin(a) * 0.12,
+        );
+        log.rotation.set(Math.PI / 2 + (propRand(x, z + i, 14) - 0.5) * 0.5, a, 0, 'ZYX');
+        g.add(log);
+      }
+      // live flame + warm point light, same handling as the stock campfire
+      const flame = new THREE.Mesh(
+        flameGeo,
+        new THREE.MeshLambertMaterial({
+          color: 0xffaa33,
+          emissive: 0xff6600,
+          emissiveIntensity: usePbr ? 2.2 : 1.4,
+          transparent: true,
+          opacity: 0.92,
+        }),
+      );
+      flame.position.y = 0.28;
+      flame.scale.setScalar(1.05);
+      g.add(flame);
+      flames.push(flame);
+      noShadow.add(flame);
+      const light = new THREE.PointLight(0xff8830, 12, 16, 2);
+      light.position.y = 1.1;
+      g.add(light);
+      fireLights.push(light);
+      g.position.set(x, y, z);
+      group.add(shadowed(g));
+      registerHideable(g, circleFootprint(x, z, 0.8, y + 1.2, 2.2));
+    }
+  }
+
   // ---- bandit/war tents: Kenney ridge tents, opening on +z, hideable -------
   for (const t of PROPS.tents) {
     const kind: PropKey = propRand(t.x, t.z, 2) < 0.55 ? 'tentOpen' : 'tentSmall';

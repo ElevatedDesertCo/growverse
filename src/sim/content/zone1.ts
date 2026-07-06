@@ -1208,12 +1208,17 @@ export const ZONE1_PROPS: ZonePropsDef = {
   campfires: [
     [3, -4],
     [-16.2, 6.2], // Draxa the Riftsmith's forge fire (Upgrade Bench)
-    // Ashen Maw cookfires: one at each tier of the warcamp (picket, muster, heart)
+    [-80, -60],
+    [-61, 56],
+  ],
+  // Ashen Maw cookfires: one hearth at each tier of the warcamp (picket, muster,
+  // heart). A Growverse-original procedural log-pyre in a blackened stone ring
+  // (render/props.ts), NOT the shared CC0 bonfire the other zones burn, so the
+  // raider camp reads 1-of-1. Moved out of `campfires` above for that reason.
+  raiderCookfires: [
     [63, -61],
     [77, -74],
     [91, -91],
-    [-80, -60],
-    [-61, 56],
   ],
   mudHuts: [
     [-73, 59],

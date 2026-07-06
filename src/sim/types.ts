@@ -1271,6 +1271,12 @@ export interface ZonePropsDef {
   // over the warlord's heart as the camp's ceremonial centerpiece. `rot` is the
   // optional facing yaw.
   warStandards?: { x: number; z: number; rot?: number }[];
+  // Ashen Maw cookfires: the raider warcamp's own hearths (a Growverse-original
+  // procedural log-pyre in a ring of blackened stones, built from primitives in
+  // render/props.ts, NOT the shared CC0 `bonfire.glb` the other zones use). Kept a
+  // camp-specific field so only the warcamp fires read as 1-of-1 raider hearths
+  // while town/marsh/temple campfires stay on the stock model.
+  raiderCookfires?: [number, number][];
 }
 
 export function emptyZoneProps(): ZonePropsDef {

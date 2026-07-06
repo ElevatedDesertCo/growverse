@@ -237,6 +237,7 @@ function mergeProps(sets: ZonePropsDef[]): ZonePropsDef {
     wardStakes: sets.flatMap((s) => s.wardStakes ?? []),
     spikeBarricades: sets.flatMap((s) => s.spikeBarricades ?? []),
     warStandards: sets.flatMap((s) => s.warStandards ?? []),
+    raiderCookfires: sets.flatMap((s) => s.raiderCookfires ?? []),
   };
 }
 

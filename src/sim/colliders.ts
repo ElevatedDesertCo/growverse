@@ -200,6 +200,9 @@ function staticWorldColliders(seed: number): Collider[] {
     out.push({ type: 'circle', x, z, r: 0.65, cameraTopY: topY(seed, x, z, 1.35), camGhost: true });
   for (const [x, z] of PROPS.campfires)
     out.push({ type: 'circle', x, z, r: 0.85, cameraTopY: topY(seed, x, z, 1.45), camGhost: true });
+  // Ashen Maw cookfires: same small hearth footprint as the stock campfires above.
+  for (const [x, z] of PROPS.raiderCookfires ?? [])
+    out.push({ type: 'circle', x, z, r: 0.85, cameraTopY: topY(seed, x, z, 1.45), camGhost: true });
   for (const [x, z] of PROPS.mudHuts)
     out.push({ type: 'circle', x, z, r: 1.1, cameraTopY: topY(seed, x, z, 12.5), camGhost: true });
   for (const ruin of PROPS.ruinRings) {
