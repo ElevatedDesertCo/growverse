@@ -298,8 +298,8 @@ export const en: EnTranslations = {
     },
     "tutorial": {
       "moveBodyTouch": "Use the movement stick to move and drag the screen to look around. Take a few steps to begin.",
-      "talkBodyTouch": "Stand close to Marshal Redbrook and tap the Use button to speak, then take up his charge.",
-      "returnBodyTouch": "The road is safer for your work. Return to Marshal Redbrook and tap the Use button to turn it in.",
+      "talkBodyTouch": "Stand close to Warden Elgrove and tap the Use button to speak, then take up his charge.",
+      "returnBodyTouch": "The road is safer for your work. Return to Warden Elgrove and tap the Use button to turn it in.",
       "doneBodyTouch": "You have the basics, {name}. Bloomhaven Vale is yours to explore, and the Corruption will not thin itself. Tap More, then Quests, to review your quest log anytime. Grow strong."
     },
     "widgets": {
@@ -1185,7 +1185,7 @@ export const en: EnTranslations = {
       "step1Title": "Make a character",
       "step1Body": "Pick a class and a look, give your hero a name, and enter the world. You can make more characters later.",
       "step2Title": "Find your first quest",
-      "step2Body": "Marshal Redbrook is waiting in the starting town. Talk to him and accept Wolves at the Door.",
+      "step2Body": "Warden Elgrove is waiting in the starting town. Talk to him and accept Wolves at the Door.",
       "step3Title": "Move and look around",
       "step3Body": "Move with W, A, S, D. Hold the right mouse button and drag to look around. That is most of it.",
       "step4Title": "Fight something",
@@ -1510,7 +1510,7 @@ export const en: EnTranslations = {
       "marshBlurb": "A drowned country of fog and ruins. Murlocs swarm the shallows and something older stirs beneath the water, watched from the bridge-town of Fenbridge.",
       "peaksBlurb": "Wind-scoured ridges and old mine-works climbing to the realm's coldest, highest dangers, held by the outpost of Highwatch.",
       "valeGreeting": "Keep your blade close. The Vale is not what it was.",
-      "valeGreeter": "Marshal Redbrook, Bloomhaven",
+      "valeGreeter": "Warden Elgrove, Bloomhaven",
       "marshGreeting": "Hold at the gate. Past those reeds, the fen does the killing for us.",
       "marshGreeter": "Warden Fenwick, Fenbridge",
       "peaksGreeting": "Two hundred years this wall has held. It will not break on my watch, but it groans.",
@@ -1525,7 +1525,7 @@ export const en: EnTranslations = {
       "heading": "Quests",
       "intro": "Quests are the heart of the world and the fastest way to level. Here is how they work.",
       "acceptTitle": "Finding and accepting",
-      "acceptBody": "People with a marker over their head have work for you. Talk to them to accept a quest. Your very first is Wolves at the Door, from Marshal Redbrook in Bloomhaven.",
+      "acceptBody": "People with a marker over their head have work for you. Talk to them to accept a quest. Your very first is Wolves at the Door, from Warden Elgrove in Bloomhaven.",
       "objectivesTitle": "Objectives",
       "objectivesBody": "Slay certain enemies, gather items, or interact with something in the world. The on-screen tracker counts your progress as you go. If you change your mind, you can drop a quest from your quest log and pick it up again from its giver later.",
       "turninTitle": "Turning in",
@@ -3280,15 +3280,15 @@ export const en: EnTranslations = {
       "doneBody": "You have the basics, {name}. Bloomhaven Vale is yours to explore, and the Corruption will not thin itself. Press {questKey} anytime to review your quests. Grow strong.",
       "moveTitle": "Find Your Footing",
       "moveBody": "The rifts tore this land, but Bloomhaven Vale still stands. Use {moveKeys} to move and the mouse to look around. Take a few steps to get your bearings.",
-      "seekTitle": "Seek the Marshal",
-      "seekBody": "Marshal Redbrook holds the line at Bloomhaven and has work for a new warden. Follow the marker to reach him.",
+      "seekTitle": "Seek the Warden",
+      "seekBody": "Warden Elgrove holds the line at Bloomhaven and has work for a new warden. Follow the marker to reach him.",
       "talkTitle": "Take the Charge",
-      "talkBody": "Stand close to Marshal Redbrook and press {interactKey} to speak, then take up his charge.",
+      "talkBody": "Stand close to Warden Elgrove and press {interactKey} to speak, then take up his charge.",
       "slayTitle": "Blight at the Gates",
       "slayBody": "The Corruption has twisted the wolves of the north road into Blight Wolves. Target one and attack to thin the pack.",
       "slayProgress": "Blight Wolves slain: {current} / {needed}",
       "returnTitle": "Claim Your Reward",
-      "returnBody": "The road is safer for your work. Return to Marshal Redbrook and press {interactKey} to turn it in."
+      "returnBody": "The road is safer for your work. Return to Warden Elgrove and press {interactKey} to turn it in."
     },
     "markers": {
       "names": {
@@ -5770,8 +5770,8 @@ export const en: EnTranslations = {
         "greeting": "Welcome to the World Market, {className}. Buy from every adventurer in the realm - or set out your own wares and let coin find you."
       },
       "marshal_redbrook": {
-        "name": "Marshal Redbrook",
-        "title": "Marshal of Bloomhaven",
+        "name": "Warden Elgrove",
+        "title": "Warden of Bloomhaven",
         "greeting": "Keep your blade close, {className}. The Corruption is spreading, and it is turning men into worse things."
       },
       "trader_wilkes": {
@@ -6710,7 +6710,7 @@ export const en: EnTranslations = {
     "zones": {
       "eastbrook_vale": {
         "name": "Bloomhaven Vale",
-        "welcome": "Find Marshal Redbrook in town, he has work for you.",
+        "welcome": "Find Warden Elgrove in town, he has work for you.",
         "pois": {
           "0": {
             "label": "Bloomhaven"

@@ -40,7 +40,7 @@ export const ZONE1_ZONE: ZoneDef = {
     { x: -5, z: -52, label: 'Reliquary Hill' },
     { x: 40, z: 140, label: 'Bloomwood Glade' },
   ],
-  welcome: 'Find Marshal Redbrook in town, he has work for you.',
+  welcome: 'Find Warden Elgrove in town, he has work for you.',
   welcomeQuestId: 'q_wolves',
 };
 
@@ -570,8 +570,8 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
   },
   marshal_redbrook: {
     id: 'marshal_redbrook',
-    name: 'Marshal Redbrook',
-    title: 'Marshal of Bloomhaven',
+    name: 'Warden Elgrove',
+    title: 'Warden of Bloomhaven',
     // his own post at the NE guard house, out of the plaza center, watching
     // over the town (faces SW toward the well and market)
     pos: { x: 11, z: 8 },

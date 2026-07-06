@@ -1248,7 +1248,7 @@ export const GUIDE_ZONES: GuideZoneInfo[] = [
       "Reliquary Hill",
       "Bloomwood Glade"
     ],
-    "welcome": "Find Marshal Redbrook in town, he has work for you."
+    "welcome": "Find Warden Elgrove in town, he has work for you."
   },
   {
     "id": "mirefen_marsh",

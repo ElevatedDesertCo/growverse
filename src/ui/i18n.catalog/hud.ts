@@ -408,19 +408,19 @@ const hudStringsEn = {
       moveTitle: 'Find Your Footing',
       moveBody:
         'The rifts tore this land, but Bloomhaven Vale still stands. Use {moveKeys} to move and the mouse to look around. Take a few steps to get your bearings.',
-      seekTitle: 'Seek the Marshal',
+      seekTitle: 'Seek the Warden',
       seekBody:
-        'Marshal Redbrook holds the line at Bloomhaven and has work for a new warden. Follow the marker to reach him.',
+        'Warden Elgrove holds the line at Bloomhaven and has work for a new warden. Follow the marker to reach him.',
       talkTitle: 'Take the Charge',
       talkBody:
-        'Stand close to Marshal Redbrook and press {interactKey} to speak, then take up his charge.',
+        'Stand close to Warden Elgrove and press {interactKey} to speak, then take up his charge.',
       slayTitle: 'Blight at the Gates',
       slayBody:
         'The Corruption has twisted the wolves of the north road into Blight Wolves. Target one and attack to thin the pack.',
       slayProgress: 'Blight Wolves slain: {current} / {needed}',
       returnTitle: 'Claim Your Reward',
       returnBody:
-        'The road is safer for your work. Return to Marshal Redbrook and press {interactKey} to turn it in.',
+        'The road is safer for your work. Return to Warden Elgrove and press {interactKey} to turn it in.',
     },
   },
 };

@@ -195,7 +195,7 @@ export const guideStrings = {
       'Pick a class and a look, give your hero a name, and enter the world. You can make more characters later.',
     step2Title: 'Find your first quest',
     step2Body:
-      'Marshal Redbrook is waiting in the starting town. Talk to him and accept Wolves at the Door.',
+      'Warden Elgrove is waiting in the starting town. Talk to him and accept Wolves at the Door.',
     step3Title: 'Move and look around',
     step3Body:
       'Move with W, A, S, D. Hold the right mouse button and drag to look around. That is most of it.',
@@ -611,7 +611,7 @@ export const guideStrings = {
     // One quotable hub greeting per zone, keyed by biome. Speaker names are proper nouns
     // (passed as raw text in world.ts), so only the spoken line is a key here.
     valeGreeting: 'Keep your blade close. The Vale is not what it was.',
-    valeGreeter: 'Marshal Redbrook, Bloomhaven',
+    valeGreeter: 'Warden Elgrove, Bloomhaven',
     marshGreeting: 'Hold at the gate. Past those reeds, the fen does the killing for us.',
     marshGreeter: 'Warden Fenwick, Fenbridge',
     peaksGreeting:
@@ -639,7 +639,7 @@ export const guideStrings = {
     intro: 'Quests are the heart of the world and the fastest way to level. Here is how they work.',
     acceptTitle: 'Finding and accepting',
     acceptBody:
-      'People with a marker over their head have work for you. Talk to them to accept a quest. Your very first is Wolves at the Door, from Marshal Redbrook in Bloomhaven.',
+      'People with a marker over their head have work for you. Talk to them to accept a quest. Your very first is Wolves at the Door, from Warden Elgrove in Bloomhaven.',
     objectivesTitle: 'Objectives',
     objectivesBody:
       'Slay certain enemies, gather items, or interact with something in the world. The on-screen tracker counts your progress as you go. If you change your mind, you can drop a quest from your quest log and pick it up again from its giver later.',
