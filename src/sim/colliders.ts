@@ -141,6 +141,17 @@ function staticWorldColliders(seed: number): Collider[] {
       camGhost: true,
     });
   }
+  // Ashen Maw war-standard: a solid central totem the player walks around.
+  for (const s of PROPS.warStandards ?? []) {
+    out.push({
+      type: 'circle',
+      x: s.x,
+      z: s.z,
+      r: 0.7,
+      cameraTopY: topY(seed, s.x, s.z, 4.0),
+      camGhost: true,
+    });
+  }
   for (const s of PROPS.stalls)
     out.push({
       type: 'circle',

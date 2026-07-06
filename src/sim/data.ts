@@ -232,9 +232,11 @@ function mergeProps(sets: ZonePropsDef[]): ZonePropsDef {
     obelisks: sets.flatMap((s) => s.obelisks ?? []),
     // Ashen Maw warcamp props: same optional-field trap as delveMarkers above.
     // Omitting these strands the 1-of-1 camp geometry (skull ward-totems, spiked-
-    // stake barricades) before it ever reaches the renderer (props.ts).
+    // stake barricades, the warlord's war-standard) before it ever reaches the
+    // renderer (props.ts).
     wardStakes: sets.flatMap((s) => s.wardStakes ?? []),
     spikeBarricades: sets.flatMap((s) => s.spikeBarricades ?? []),
+    warStandards: sets.flatMap((s) => s.warStandards ?? []),
   };
 }
 

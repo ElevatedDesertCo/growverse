@@ -1279,4 +1279,10 @@ export const ZONE1_PROPS: ZonePropsDef = {
     { x: 84, z: -99, h: 1.8 },
     { x: 86, z: -68, h: 1.7 }, // forward barricade wing (muster flank)
   ],
+  // Ashen Maw war-standard (a Growverse-original procedural totem, not a CC0/Meshy
+  // model): the clan's central effigy raised over Sarn the Hollowed's heart, a tall
+  // skull-trophy post that reads as the camp's ceremonial center. Sits inside the
+  // warlord's-heart ward-totem ring, facing the NW approach so raiders (and players)
+  // muster before it. Replaces the earlier ill-fitting stone-guardian idol.
+  warStandards: [{ x: 86, z: -86, rot: 2.3 }],
 };

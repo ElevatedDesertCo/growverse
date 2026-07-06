@@ -1265,6 +1265,12 @@ export interface ZonePropsDef {
   // stakes) placed along the warcamp approach/perimeter. `h` is the target world-
   // height of the model in metres (default 1.6); `rot` an optional base yaw.
   spikeBarricades?: { x: number; z: number; h?: number; rot?: number }[];
+  // Ashen Maw war-standard: the warcamp's central effigy (a Growverse-original
+  // procedural totem built from primitives in render/props.ts, NOT a CC0/Meshy
+  // GLB): a tall skull-trophy post with a bone crossbar and ash war-banner, raised
+  // over the warlord's heart as the camp's ceremonial centerpiece. `rot` is the
+  // optional facing yaw.
+  warStandards?: { x: number; z: number; rot?: number }[];
 }
 
 export function emptyZoneProps(): ZonePropsDef {

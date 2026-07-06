@@ -933,6 +933,98 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     }
   }
 
+  // ---- Ashen Maw war-standard: a Growverse-ORIGINAL procedural centerpiece -----
+  // The warcamp's ceremonial heart, raised over Sarn the Hollowed. Not a CC0/Meshy
+  // GLB: a grander sibling of the ward-totem built from the SAME primitive palette
+  // so it reads as the same clan's craft. A thick ashwood post carries a climbing
+  // stack of three bleached skulls (the crown skull jawed, sockets sunken), a broad
+  // bone crossbar hung with charms, a large drooping ash war-banner, and a small
+  // skull-cairn heaped at the foot. Shared geo/materials so a standard costs little.
+  if ((PROPS.warStandards ?? []).length > 0) {
+    const woodMat = surfaceMat({ color: 0x33261b, roughness: 0.96 });
+    const boneMat = surfaceMat({ color: 0xd8ccb0, roughness: 0.72 });
+    const charmMat = surfaceMat({ color: 0xc4b596, roughness: 0.82 });
+    const pennantMat = surfaceMat({ color: 0x6a5940, roughness: 1 });
+    const postGeo = new THREE.CylinderGeometry(0.09, 0.17, 3.7, 8);
+    const crossGeo = new THREE.BoxGeometry(1.35, 0.06, 0.06);
+    const cordGeo = new THREE.BoxGeometry(0.016, 0.2, 0.016);
+    const charmGeo = new THREE.BoxGeometry(0.07, 0.18, 0.024);
+    const jawGeo = new THREE.BoxGeometry(0.18, 0.08, 0.15);
+    const socketGeo = new THREE.SphereGeometry(0.055, 6, 6);
+    const bannerGeo = new THREE.BoxGeometry(0.03, 0.82, 1.02);
+    // three trophy skulls climb the post; the fourth crowns it
+    const skullRungs: [number, number][] = [
+      [1.32, 0.2],
+      [2.12, 0.21],
+      [2.94, 0.24],
+    ];
+    // a small cairn heaped at the foot
+    const cairnSkulls: [number, number, number][] = [
+      [0.34, 0.14, 0.16],
+      [-0.3, 0.12, 0.24],
+      [0.06, 0.1, -0.32],
+    ];
+    for (const w of PROPS.warStandards ?? []) {
+      const y = ground(w.x, w.z);
+      const g = new THREE.Group();
+      const post = new THREE.Mesh(postGeo, woodMat);
+      post.position.y = 1.85;
+      g.add(post);
+      // climbing skull stack, each faceted with sunken sockets facing out
+      for (let i = 0; i < skullRungs.length; i++) {
+        const [sy, sr] = skullRungs[i];
+        const skull = new THREE.Mesh(new THREE.IcosahedronGeometry(sr, 0), boneMat);
+        skull.position.set(0, sy, 0.04);
+        skull.rotation.set(0.1, propRand(w.x + i, w.z, 5) * Math.PI * 2, 0);
+        g.add(skull);
+        for (const dx of [-0.075, 0.075]) {
+          const socket = new THREE.Mesh(socketGeo, recessMat);
+          socket.position.set(dx, sy + 0.02, 0.04 + sr * 0.78);
+          g.add(socket);
+        }
+      }
+      // the crown skull gets a dropped jaw
+      const jaw = new THREE.Mesh(jawGeo, boneMat);
+      jaw.position.set(0, 2.76, 0.22);
+      g.add(jaw);
+      // broad bone crossbar near the top with three hung charms
+      const cross = new THREE.Mesh(crossGeo, boneMat);
+      cross.position.y = 3.36;
+      g.add(cross);
+      for (const dx of [-0.58, 0, 0.58]) {
+        const cord = new THREE.Mesh(cordGeo, woodMat);
+        cord.position.set(dx, 3.25, 0);
+        g.add(cord);
+        const charm = new THREE.Mesh(charmGeo, charmMat);
+        charm.position.set(dx, 3.08, 0);
+        charm.rotation.z = (propRand(w.x + dx, w.z, 4) - 0.5) * 0.5;
+        g.add(charm);
+      }
+      // large ash war-banner lashed below the crossbar, drooping forward
+      const banner = new THREE.Mesh(bannerGeo, pennantMat);
+      banner.position.set(0.03, 2.92, 0.32);
+      banner.rotation.set(0.14, 0, 0.05);
+      g.add(banner);
+      // skull-cairn heaped at the foot to seat the standard
+      for (let i = 0; i < cairnSkulls.length; i++) {
+        const [cx, cy, cz] = cairnSkulls[i];
+        const s = new THREE.Mesh(new THREE.IcosahedronGeometry(0.16, 0), boneMat);
+        s.position.set(cx, cy, cz);
+        s.rotation.set(
+          propRand(w.x + cx, w.z, 6) * 1.2,
+          propRand(w.x, w.z + cz, 7) * Math.PI * 2,
+          0,
+        );
+        g.add(s);
+      }
+      const lean = (propRand(w.x, w.z, 6) - 0.5) * 0.06;
+      g.position.set(w.x, y - 0.05, w.z);
+      g.rotation.set(lean, w.rot ?? propRand(w.x, w.z, 7) * Math.PI * 2, lean * 0.5, 'YZX');
+      group.add(shadowed(g));
+      registerHideable(g, circleFootprint(w.x, w.z, 0.75, y + 3.9, 1.0));
+    }
+  }
+
   // ---- Ashen Maw spiked-stake barricades: a custom Meshy GLB, not a CC0 pack --
   // A ropebound cluster of sharpened stakes dropped along the warcamp approach and
   // perimeter. Uniform-scaled off the model height; a deterministic yaw so a line
