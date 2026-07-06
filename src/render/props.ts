@@ -71,9 +71,6 @@ const PROP_ASSET_DEFS: Record<string, PropAssetDef> = {
   inn: { url: '/models/props/inn.glb', kit: 'village' },
   bellTower: { url: '/models/props/bell_tower.glb', kit: 'village' },
   well: { url: '/models/props/well.glb', kit: 'village' },
-  stand1: { url: '/models/props/market_stand_1.glb', kit: 'village', yaw: -Math.PI / 2 },
-  stand2: { url: '/models/props/market_stand_2.glb', kit: 'village', yaw: -Math.PI / 2 },
-  cart: { url: '/models/props/cart.glb', kit: 'village', strip: /^(Red|Beige)$/ },
   fence: { url: '/models/props/fence.glb', kit: 'village' },
   bonfire: { url: '/models/props/bonfire.glb', kit: 'village' },
   oreRocks: { url: '/models/props/ore_rocks.glb', kit: 'ore' },
@@ -131,9 +128,6 @@ const LOW_TIER_PROP_KEYS: readonly PropKey[] = [
   'inn',
   'bellTower',
   'well',
-  'stand1',
-  'stand2',
-  'cart',
   'fence',
   'bonfire',
   'oreRocks',
@@ -803,34 +797,119 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     registerHideable(g, obbFootprint(b.x, b.z, b.w / 2, b.d / 2, b.rot, roofY));
   }
 
-  // ---- market stalls (smith/armorer stalls get anvil + weapon stand) ------
+  // ---- market stalls: a Growverse-ORIGINAL procedural vendor booth ---------
+  // Not a CC0 pack model: Bloomhaven's market booth is built from primitives so
+  // the town square carries 1-of-1 geometry rather than a reskinned Quaternius
+  // stand. Four timber posts (taller at the back) carry a striped canvas awning
+  // that slopes to the front, over a plank counter with a front apron, a back
+  // shelf, and a scalloped valance trimming the eave. Two awning colourways
+  // (warm terracotta / dusty sage, both over cream) alternate per stall so a row
+  // of booths never reads as one repeated model. Shared geo/materials so the
+  // whole market collapses cheaply. Side wares (anvil/crate/barrel) still flank
+  // the booth via the existing dressing props below.
+  const stallPostMat = surfaceMat({ color: 0x5a4331, roughness: 0.9 });
+  const stallPlankMat = surfaceMat({ color: 0x8a6a49, roughness: 0.82 });
+  const stallBeamMat = surfaceMat({ color: 0x6e523b, roughness: 0.86 });
+  const stallCanvasCream = surfaceMat({ color: 0xd8c9a6, roughness: 0.95 });
+  const stallCanvasWarm = surfaceMat({ color: 0xb5613e, roughness: 0.95 });
+  const stallCanvasCool = surfaceMat({ color: 0x6f7d6a, roughness: 0.95 });
+  const stallGoodsMat = surfaceMat({ color: 0x9a7b53, roughness: 0.9 });
+  const STALL_STRIPS = 7;
+  const stallStripW = 3.0 / STALL_STRIPS;
+  const stallRoofDepth = 1.75;
+  const stallTilt = Math.atan2(0.33, 1.5); // back edge high, front eave low
+  const postGeoBack = new THREE.BoxGeometry(0.1, 2.1, 0.1);
+  const postGeoFront = new THREE.BoxGeometry(0.1, 1.75, 0.1);
+  const counterTopGeo = new THREE.BoxGeometry(2.7, 0.1, 0.52);
+  const counterApronGeo = new THREE.BoxGeometry(2.7, 0.82, 0.06);
+  const shelfGeo = new THREE.BoxGeometry(2.7, 0.1, 0.34);
+  const backBoardGeo = new THREE.BoxGeometry(2.7, 0.66, 0.05);
+  const stallBeamGeo = new THREE.BoxGeometry(2.7, 0.08, 0.08);
+  const stripGeo = new THREE.BoxGeometry(stallStripW * 0.96, 0.045, stallRoofDepth);
+  const valanceTabGeo = new THREE.BoxGeometry(0.26, 0.17, 0.016);
+  const goodsGeoA = new THREE.BoxGeometry(0.34, 0.3, 0.34);
+  const goodsGeoB = new THREE.BoxGeometry(0.26, 0.24, 0.26);
   PROPS.stalls.forEach((s, i) => {
     const key = s.x * 7.7 + s.z * 2.3;
     const g = new THREE.Group();
-    const standKey: PropKey = i % 2 === 0 ? 'stand1' : 'stand2';
-    const stand = propAsset(standKey);
-    addParts(g, standKey, {
-      scale: [3.1 / stand.size.x, 2.6 / stand.size.y, 2.5 / stand.size.z],
-      rot: (keyRand(key, 1) - 0.5) * 0.1,
-    });
+    const stripe = i % 2 === 0 ? stallCanvasWarm : stallCanvasCool;
+    // four corner posts (back pair taller so the awning slopes toward the front)
+    for (const dx of [-1.3, 1.3]) {
+      const bp = new THREE.Mesh(postGeoBack, stallPostMat);
+      bp.position.set(dx, 1.05, -0.7);
+      g.add(bp);
+      const fp = new THREE.Mesh(postGeoFront, stallPostMat);
+      fp.position.set(dx, 0.875, 0.7);
+      g.add(fp);
+    }
+    // plank counter across the front, with a front apron board
+    const counter = new THREE.Mesh(counterTopGeo, stallPlankMat);
+    counter.position.set(0, 0.92, 0.62);
+    g.add(counter);
+    const apron = new THREE.Mesh(counterApronGeo, stallBeamMat);
+    apron.position.set(0, 0.5, 0.86);
+    g.add(apron);
+    // back shelf + low back board
+    if (!lowProps) {
+      const shelf = new THREE.Mesh(shelfGeo, stallPlankMat);
+      shelf.position.set(0, 1.15, -0.6);
+      g.add(shelf);
+      const board = new THREE.Mesh(backBoardGeo, stallBeamMat);
+      board.position.set(0, 1.5, -0.68);
+      g.add(board);
+    }
+    // support beams at the awning line, then the striped canvas roof
+    const backBeam = new THREE.Mesh(stallBeamGeo, stallBeamMat);
+    backBeam.position.set(0, 2.05, -0.72);
+    g.add(backBeam);
+    const frontBeam = new THREE.Mesh(stallBeamGeo, stallBeamMat);
+    frontBeam.position.set(0, 1.72, 0.72);
+    g.add(frontBeam);
+    const roof = new THREE.Group();
+    for (let k = 0; k < STALL_STRIPS; k++) {
+      const strip = new THREE.Mesh(stripGeo, k % 2 === 0 ? stallCanvasCream : stripe);
+      strip.position.x = -1.5 + (k + 0.5) * stallStripW;
+      roof.add(strip);
+    }
+    roof.position.set(0, 1.925, 0);
+    roof.rotation.x = stallTilt;
+    g.add(roof);
+    // scalloped valance tabs hanging from the front eave
+    if (!lowProps) {
+      for (let k = 0; k < 9; k++) {
+        const tab = new THREE.Mesh(valanceTabGeo, k % 2 === 0 ? stripe : stallCanvasCream);
+        tab.position.set(-1.35 + k * 0.3375, 1.645, 0.85);
+        g.add(tab);
+      }
+    }
     if (!lowProps && (i === 1 || i === 4)) {
       // Smith Haldren (z1) / Armorer Hode (z3): forge dressing flanking the
-      // booth. The stand is 3.1 wide (1.55 half-width) with corner posts, so the
-      // dressing centre must clear 1.55 + its own half-width to avoid clipping the
-      // stand or its posts; 2.7yd out with smaller scales keeps them fully BESIDE
-      // the booth (and z=0 centres them away from the front where the smith stands).
+      // booth. The booth is 2.8 wide (1.4 half-width) with corner posts, so the
+      // dressing centre must clear that plus its own half-width to avoid clipping
+      // the booth or its posts; 2.7yd out with smaller scales keeps them fully
+      // BESIDE the booth (and z=0 centres them away from the front where the smith
+      // stands).
       addParts(g, 'anvil', { x: 2.7, z: 0, rot: 0.9, scale: 1.15 });
       addParts(g, 'weaponStand', { x: -2.7, z: 0, rot: 0.5 + Math.PI, scale: 1.05 });
     } else if (!lowProps) {
-      // wares flank the counter (sides), clear of the stand box and the
+      // wares flank the counter (sides), clear of the booth box and the
       // vendor NPC who stands at the front (+z) of the stall
       addParts(g, 'farmCrate', { x: 2.7, z: 0, rot: keyRand(key, 2) * Math.PI, scale: 1.4 });
       addParts(g, 'barrel', { x: -2.7, z: 0, rot: keyRand(key, 3) * Math.PI, scale: 1.1 });
+      // a little stacked goods on the counter top so the market reads as trading
+      const goodA = new THREE.Mesh(goodsGeoA, stallGoodsMat);
+      goodA.position.set(-0.7 + keyRand(key, 4) * 0.3, 1.12, 0.5);
+      goodA.rotation.y = (keyRand(key, 5) - 0.5) * 0.6;
+      g.add(goodA);
+      const goodB = new THREE.Mesh(goodsGeoB, stallPlankMat);
+      goodB.position.set(0.65 - keyRand(key, 6) * 0.3, 1.09, 0.56);
+      goodB.rotation.y = (keyRand(key, 7) - 0.5) * 0.6;
+      g.add(goodB);
     }
     g.position.set(s.x, ground(s.x, s.z) - 0.06, s.z);
     g.rotation.y = s.rot;
     group.add(shadowed(g));
-    registerHideable(g, circleFootprint(s.x, s.z, s.r, ground(s.x, s.z) + 3.1));
+    registerHideable(g, circleFootprint(s.x, s.z, s.r, ground(s.x, s.z) + 2.4));
   });
 
   // ---- wells ---------------------------------------------------------------
@@ -1561,9 +1640,56 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
         ),
       });
     }
-    // ore cart (market awning stripped) + raw copper ore in the bed
+    // ore cart + raw copper ore in the bed. A Growverse-ORIGINAL procedural
+    // mine cart (not a CC0 pack model): a plank box on four wheels built from
+    // primitives, so the mine is dressed with 1-of-1 geometry. The ore piles
+    // stay the shared ore-rock prop (also used across the mines).
     if (!abandonedCrypt) {
-      addParts(g, 'cart', { x: 2.8, z: 1.6, rot: 0.5, scale: 1.9 });
+      const cartWood = surfaceMat({ color: 0x6b4f36, roughness: 0.9 });
+      const cartPlank = surfaceMat({ color: 0x82623f, roughness: 0.85 });
+      const cartIron = surfaceMat({ color: 0x2b2622, roughness: 0.7 });
+      const cartG = new THREE.Group();
+      // plank bed floor + four side/end boards forming an open-topped box
+      const bed = new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.1, 1.0), cartPlank);
+      bed.position.y = 0.55;
+      cartG.add(bed);
+      for (const dz of [-0.5, 0.5]) {
+        const side = new THREE.Mesh(new THREE.BoxGeometry(1.7, 0.5, 0.08), cartWood);
+        side.position.set(0, 0.72, dz);
+        cartG.add(side);
+      }
+      for (const dx of [-0.85, 0.85]) {
+        const end = new THREE.Mesh(new THREE.BoxGeometry(0.08, 0.5, 1.0), cartWood);
+        end.position.set(dx, 0.72, 0);
+        cartG.add(end);
+      }
+      // corner posts + a pair of iron axles carrying four spoked wheels
+      for (const dx of [-0.82, 0.82])
+        for (const dz of [-0.46, 0.46]) {
+          const post = new THREE.Mesh(new THREE.BoxGeometry(0.1, 0.75, 0.1), cartWood);
+          post.position.set(dx, 0.55, dz);
+          cartG.add(post);
+        }
+      const wheelGeo = new THREE.CylinderGeometry(0.35, 0.35, 0.12, 12);
+      const hubGeo = new THREE.CylinderGeometry(0.08, 0.08, 0.16, 8);
+      for (const dx of [-0.6, 0.6]) {
+        const axle = new THREE.Mesh(new THREE.BoxGeometry(0.06, 0.06, 1.24), cartIron);
+        axle.position.set(dx, 0.35, 0);
+        cartG.add(axle);
+        for (const dz of [-0.56, 0.56]) {
+          const wheel = new THREE.Mesh(wheelGeo, cartWood);
+          wheel.rotation.x = Math.PI / 2;
+          wheel.position.set(dx, 0.35, dz);
+          cartG.add(wheel);
+          const hub = new THREE.Mesh(hubGeo, cartIron);
+          hub.rotation.x = Math.PI / 2;
+          hub.position.set(dx, 0.35, dz);
+          cartG.add(hub);
+        }
+      }
+      cartG.position.set(2.8, 0, 1.6);
+      cartG.rotation.y = 0.5;
+      g.add(cartG);
       addParts(g, 'oreRocks', { x: 2.75, y: 0.78, z: 1.55, rot: 0.9, scale: 2.6 });
       addParts(g, 'oreRocks', { x: 3.4, z: 0.4, rot: 2.2, scale: 1.8 });
     }
