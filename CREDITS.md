@@ -18,7 +18,7 @@ provided as a courtesy.
 | Stylized Nature MegaKit (trees, rocks, bushes, mushrooms, grass) | Quaternius | https://quaternius.itch.io/stylized-nature-megakit | CC0 1.0 |
 | Medieval Village Pack (houses, inn, blacksmith, well, market, cart) | Quaternius | https://quaternius.com/packs/medievalvillage.html | CC0 1.0 |
 | Fantasy Props MegaKit (barrels, crates, lanterns, furniture, smithy) | Quaternius | https://quaternius.itch.io/fantasy-props-megakit | CC0 1.0 |
-| Nature Kit (modular cliffs), Graveyard Kit, Pirate Kit (docks/boats), Fantasy Town Kit, Castle Kit, Particle Pack (VFX sprites) | Kenney | https://kenney.nl | CC0 1.0 |
+| Nature Kit (modular cliffs), Pirate Kit (docks/boats), Fantasy Town Kit, Castle Kit, Particle Pack (VFX sprites) | Kenney | https://kenney.nl | CC0 1.0 |
 | Terrain PBR textures (Grass001, Ground048, Rock051, Ground071, Ground080, PavingStones046, Snow010A) | ambientCG | https://ambientcg.com | CC0 1.0 |
 | HDRI environment maps (kloofendal_48d_partly_cloudy_puresky, belfast_open_field, kiara_1_dawn, dikhololo_night) | Poly Haven | https://polyhaven.com | CC0 1.0 |
 | Water normal maps (waternormals.jpg, Water_1/2_M_Normal.jpg) | three.js authors | https://github.com/mrdoob/three.js (r165, examples/textures) | MIT |
@@ -28,7 +28,7 @@ provided as a courtesy.
 | Growverse 3D props (models/props/elevated_obelisk.glb) | Elevated Desert Co. | AI-generated (Meshy) for the Growverse fork, 2026; meshopt-compressed via gltf-transform | Project asset |
 | Growverse 3D props (models/props/corruption_rift.glb) | Elevated Desert Co. | AI-generated (Meshy) for the Growverse fork, 2026; decimated + meshopt-compressed via gltf-transform | Project asset |
 | Growverse 3D props (models/props/ashen_spiked_stakes.glb) | Elevated Desert Co. | AI-generated (Meshy) for the Growverse fork, 2026; meshopt-compressed via gltf-transform | Project asset |
-| Growverse procedural props (Ashen Maw ward-totems, war-standard, raider cookfires, and raider tents, generated at runtime in `src/render/props.ts`) | Elevated Desert Co. | Project-generated procedural geometry (Three.js primitives, deterministic) for the Growverse fork, 2026; no source file | Project asset |
+| Growverse procedural props (Ashen Maw ward-totems, war-standard, raider cookfires, raider tents, and the churchyard/grave-plot headstones, generated at runtime in `src/render/props.ts`) | Elevated Desert Co. | Project-generated procedural geometry (Three.js primitives, deterministic) for the Growverse fork, 2026; no source file | Project asset |
 | Class ability icons (`public/ui/skills/<class>/*.webp`, re-encoded from the source-pack PNGs to WebP via `scripts/convert_skill_icons_webp.mjs`; all 9 classes: paladin, hunter, priest, warlock, rogue, warrior, mage, druid, shaman; source packs paladin/archer/priest/warlock/thief/warrior/berserker/demon/druid/pyromancer/cryomancer/aeromancer/lightning-mage/earth-magician/100-rpg-skill-icons/100-skill-icons-pack-for-rpg + per-ability fill sets; all 152 abilities across the 9 classes covered) | CraftPix | https://craftpix.net | CraftPix premium (royalty-free commercial), purchased by Levy Street account (callum@levystreet.com) |
 
 Assets were optimized for shipping (animation clip pruning, meshopt compression,

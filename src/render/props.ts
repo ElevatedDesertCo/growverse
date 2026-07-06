@@ -91,10 +91,6 @@ const PROP_ASSET_DEFS: Record<string, PropAssetDef> = {
   statueBlock: { url: '/models/props/statue_block.glb', kit: 'nature' },
   dockPlatform: { url: '/models/props/dock_platform.glb', kit: 'pirate' },
   rowboat: { url: '/models/props/rowboat.glb', kit: 'pirate' },
-  graveRound: { url: '/models/props/gravestone_round.glb', kit: 'grave' },
-  graveCross: { url: '/models/props/gravestone_cross.glb', kit: 'grave' },
-  graveBevel: { url: '/models/props/gravestone_bevel.glb', kit: 'grave' },
-  graveDecor: { url: '/models/props/gravestone_decorative.glb', kit: 'grave' },
   timberPillar: { url: '/models/props/timber_pillar.glb', kit: 'town' },
   crateWooden: { url: '/models/props/crate_wooden.glb', kit: 'qprops' },
   farmCrate: { url: '/models/props/farmcrate_apple.glb', kit: 'qprops' },
@@ -122,8 +118,9 @@ const loadedProps = new Map<string, GLTF>();
 const ALL_PROP_KEYS = Object.keys(PROP_ASSET_DEFS) as PropKey[];
 
 // The props the renderer actually RENDERS at the low graphics tier: a subset, since
-// low gfx drops the decorative/secondary props (anvils, gravestones beyond the round
-// one, extra rocks, statues, ...). Medium and higher render every entry in
+// low gfx drops the decorative/secondary props (anvils, extra rocks, statues, ...);
+// procedural props like the graveyards shed their own detail on low. Medium and
+// higher render every entry in
 // PROP_ASSET_DEFS. This list scopes ONLY the per-tier work (material prewarm); it is
 // deliberately NOT the preload set (see preloadPropKeys below).
 const LOW_TIER_PROP_KEYS: readonly PropKey[] = [
@@ -148,7 +145,6 @@ const LOW_TIER_PROP_KEYS: readonly PropKey[] = [
   'columnBroken',
   'dockPlatform',
   'rowboat',
-  'graveRound',
   'timberPillar',
   'crateWooden',
   'barrel',
@@ -243,8 +239,6 @@ const MAT_OVERRIDES: Record<
   'minerock:dirt': { color: 0x82868a },
   'minerock:grass': { color: 0x77846a },
   'minerock:_defaultMat': { color: 0x6f7376 },
-  // graveyard colormap is near-white; knock it toward weathered stone
-  'grave:colormap': { color: 0xd2d2c8 },
   // Elevated Obelisk ships materialless (GLTFLoader's white default): grade it to
   // weathered desert sandstone so the waystone reads as carved stone, not plastic.
   'obelisk:': { color: 0xc2a878, roughness: 0.82, metalness: 0 },
@@ -1046,27 +1040,80 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     );
   }
 
-  // ---- graveyards: 4 headstone shapes, leaning, instanced ------------------
-  const graveKinds: PropKey[] = lowProps
-    ? ['graveRound']
-    : ['graveRound', 'graveCross', 'graveBevel', 'graveDecor'];
-  for (const gy of PROPS.graveyards) {
-    for (let i = 0; i < 6; i++) {
-      const gx = gy.x + (i % 3) * 2.2,
-        gz = gy.z + Math.floor(i / 3) * 2.6;
-      const s = 2.0 + keyRand(gx * 3 + gz, 4) * 0.5;
-      addInstance(
-        graveKinds[i % graveKinds.length],
-        gx,
-        ground(gx, gz) - 0.06,
-        gz,
-        new THREE.Euler(
-          (propRand(gx, gz, 1) - 0.5) * 0.2,
+  // ---- graveyards: Growverse-ORIGINAL procedural weathered headstones --------
+  // A 3x2 cluster of desert-sandstone markers per anchor (rounded slab, stone
+  // cross, plain bevel slab, and a broken leaning stub), each on a low dirt mound
+  // with a clinging moss patch, tilted deterministically so no two read alike.
+  // Replaces the CC0 Kenney graveyard-kit GLBs so the Bloomhaven churchyard (and
+  // the zone2/zone3 grave plots) read 1-of-1. Built from primitives; no GLB.
+  if (PROPS.graveyards.length > 0) {
+    const gStoneA = surfaceMat({ color: 0x8f877c, roughness: 0.95 });
+    const gStoneB = surfaceMat({ color: 0x7c756a, roughness: 0.95 });
+    const gMoss = surfaceMat({ color: 0x5f6b4e, roughness: 1 });
+    const gDirt = surfaceMat({ color: 0x584838, roughness: 1 });
+    const slabGeo = new THREE.BoxGeometry(0.62, 0.95, 0.15);
+    const capGeo = new THREE.CylinderGeometry(0.31, 0.31, 0.15, 14);
+    const crossVGeo = new THREE.BoxGeometry(0.2, 1.0, 0.16);
+    const crossHGeo = new THREE.BoxGeometry(0.62, 0.2, 0.16);
+    const stubGeo = new THREE.BoxGeometry(0.6, 0.5, 0.16);
+    const moundGeo = new THREE.CylinderGeometry(0.55, 0.68, 0.12, 10);
+    const mossGeo = new THREE.BoxGeometry(0.5, 0.18, 0.02);
+    for (const gy of PROPS.graveyards) {
+      for (let i = 0; i < 6; i++) {
+        const gx = gy.x + (i % 3) * 2.2,
+          gz = gy.z + Math.floor(i / 3) * 2.6;
+        const y = ground(gx, gz);
+        const g = new THREE.Group();
+        const stoneMat = propRand(gx, gz, 6) < 0.5 ? gStoneA : gStoneB;
+        if (!lowProps) {
+          const mound = new THREE.Mesh(moundGeo, gDirt);
+          mound.position.y = 0.05;
+          mound.scale.set(1, 1, 0.85);
+          g.add(mound);
+        }
+        const shape = i % 4;
+        if (shape === 0) {
+          const slab = new THREE.Mesh(slabGeo, stoneMat);
+          slab.position.y = 0.55;
+          g.add(slab);
+          const cap = new THREE.Mesh(capGeo, stoneMat);
+          cap.rotation.x = Math.PI / 2;
+          cap.position.y = 1.0;
+          g.add(cap);
+        } else if (shape === 1) {
+          const v = new THREE.Mesh(crossVGeo, stoneMat);
+          v.position.y = 0.6;
+          g.add(v);
+          const h = new THREE.Mesh(crossHGeo, stoneMat);
+          h.position.y = 0.82;
+          g.add(h);
+        } else if (shape === 2) {
+          const slab = new THREE.Mesh(slabGeo, stoneMat);
+          slab.scale.set(1.15, 0.85, 1);
+          slab.position.y = 0.48;
+          g.add(slab);
+        } else {
+          const stub = new THREE.Mesh(stubGeo, stoneMat);
+          stub.position.y = 0.3;
+          stub.rotation.z = (propRand(gx, gz, 7) - 0.4) * 0.5;
+          g.add(stub);
+        }
+        // a moss patch clinging to the face of the upright stones (skip on low)
+        if (!lowProps && shape !== 3) {
+          const moss = new THREE.Mesh(mossGeo, gMoss);
+          moss.position.set((propRand(gx, gz, 8) - 0.5) * 0.3, 0.28, 0.09);
+          g.add(moss);
+        }
+        const s = 0.95 + keyRand(gx * 3 + gz, 4) * 0.25;
+        g.scale.setScalar(s);
+        g.position.set(gx, y - 0.06, gz);
+        g.rotation.set(
+          (propRand(gx, gz, 1) - 0.5) * 0.16,
           i * 0.4 + (propRand(gx, gz, 2) - 0.5) * 0.5,
-          (propRand(gx, gz, 3) - 0.5) * 0.22,
-        ),
-        s,
-      );
+          (propRand(gx, gz, 3) - 0.5) * 0.18,
+        );
+        group.add(shadowed(g));
+      }
     }
   }
 
