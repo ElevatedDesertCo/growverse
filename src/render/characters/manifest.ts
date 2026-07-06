@@ -206,17 +206,18 @@ const SPIDER: ClipMap = {
 };
 
 // Custom Meshy-rigged Growverse character (ashen_raider.glb): the first bespoke
-// 1-of-1 body replacing the stock KayKit outlaw. Clip names come from the Meshy
-// animate export (Idle_02 / Walking / Run_02 / Attack); all locomotion clips are
-// authored IN PLACE (net hip displacement ~0), so no root-motion stripping is
-// needed. The export ships no death/hit/cast clips: death gracefully freezes the
-// last pose (baseAction falls back), which reads as a dropped corpse.
+// 1-of-1 body replacing the stock KayKit outlaw. Clip names are normalized to the
+// canonical set at asset-build time (Meshy Idle_8/Running/Dead/Hit_Reaction ->
+// Idle_02/Run_02/Death/HitRecieve). Locomotion is root-stripped at build so the
+// server-driven mob never slides. The Hooded Rogue export ships the full set
+// including a death fall and a hit-react, so both now resolve to real clips.
 const MESHY_ROGUE: ClipMap = {
   idle: 'Idle_02',
   walk: 'Walking',
   run: 'Run_02',
   attack: ['Attack'],
-  death: 'Death', // absent in the export -> baseAction no-ops, corpse holds pose
+  death: 'Death',
+  hit: ['HitRecieve'],
 };
 
 // Custom Meshy-rigged Growverse player body (wizard.glb): the 1-of-1 "Azure Wizard"

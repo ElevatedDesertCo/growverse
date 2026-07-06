@@ -15,7 +15,7 @@ export const MEDIA_ASSETS: Record<string, string> =
   "env/vale_backdrop_4k.webp": "/media/env/vale_backdrop_4k.18384c888f93.webp",
   "env/vale_day_1k.hdr": "/media/env/vale_day_1k.fd94c84997b8.hdr",
   "env/vale_day_2k.hdr": "/media/env/vale_day_2k.5244534e9cf5.hdr",
-  "models/chars/enemies/ashen_raider.glb": "/media/models/chars/enemies/ashen_raider.1b12623b3444.glb",
+  "models/chars/enemies/ashen_raider.glb": "/media/models/chars/enemies/ashen_raider.2a0afb7a6441.glb",
   "models/chars/enemies/necromancer.glb": "/media/models/chars/enemies/necromancer.34547044f950.glb",
   "models/chars/enemies/skeleton_dagger.glb": "/media/models/chars/enemies/skeleton_dagger.2c4e406336ed.glb",
   "models/chars/enemies/skeleton_golem.glb": "/media/models/chars/enemies/skeleton_golem.7746990cdbed.glb",
