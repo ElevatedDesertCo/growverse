@@ -5,6 +5,18 @@
       "out": "models/props/ashen_spiked_stakes.glb",
       "type": "static",
       "maxTex": 1024
+    },
+    {
+      "src": "tmp/asset_src/growverse_meshy/war_tent_raw.glb",
+      "out": "models/props/ashen_war_tent.glb",
+      "type": "static",
+      "maxTex": 1024
+    },
+    {
+      "src": "tmp/asset_src/growverse_meshy/war_tent_small_raw.glb",
+      "out": "models/props/ashen_war_tent_small.glb",
+      "type": "static",
+      "maxTex": 1024
     }
   ]
 }
