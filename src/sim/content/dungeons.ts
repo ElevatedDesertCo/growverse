@@ -866,11 +866,15 @@ export const DUNGEON_DEFS: Record<string, DungeonDef> = {
     id: 'emberhold_keep',
     name: 'Emberhold Keep',
     index: 7,
-    doorPos: { x: 200, z: 820 }, // burnt gatehouse on the road up to Thornreach
+    doorPos: { x: 130, z: 820 }, // burnt gatehouse on the eastern flank rising toward Thornreach (in-bounds: x < WORLD_MAX_X)
     entry: { x: 0, z: 4 },
     exitOffset: { x: 0, z: -6 },
     spawns: EMBERHOLD_SPAWN_LIST,
-    interior: 'sanctum',
+    // Crypt-length pacing (13 spawns, boss on the dais at z~96): this room uses the
+    // shared 'crypt' interior like the Sunken Bastion, NOT the longer three-chamber
+    // 'sanctum' layout (whose z=67 waist wall would swallow the (-5,68) spawn and
+    // whose z=146 dais would strand the boss in empty geometry past z=98).
+    interior: 'crypt',
     suggestedPlayers: 5,
     enterText: 'You pass beneath the burnt portcullis into Emberhold Keep...',
     leaveText: 'You step back through the gatehouse into the open desert.',
