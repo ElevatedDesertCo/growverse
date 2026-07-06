@@ -1,0 +1,11 @@
+{
+  "note": "1-of-1 custom Meshy 'Azure Wizard' player-mage body (chibi wizard, staff + hat + robe baked into the mesh). Ships 5 clips: Walking/Running are the Meshy animate export; Idle_02/Run_02/Attack are grafted from the shared-skeleton ashen_raider.glb (same Meshy auto-rig template) headlessly in Blender, so the full clip set costs zero Meshy credits. Staff and head are rigidly skinned (no bend/smear).",
+  "items": [
+    {
+      "src": "tmp/asset_src/growverse_meshy/wizard/wizard_full.glb",
+      "out": "models/chars/players/wizard.glb",
+      "type": "character",
+      "maxTex": 512
+    }
+  ]
+}

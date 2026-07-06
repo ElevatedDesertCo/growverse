@@ -219,6 +219,20 @@ const MESHY_ROGUE: ClipMap = {
   death: 'Death', // absent in the export -> baseAction no-ops, corpse holds pose
 };
 
+// Custom Meshy-rigged Growverse player body (wizard.glb): the 1-of-1 "Azure Wizard"
+// replacing the stock KayKit mage. Walking/Running are the Meshy animate export;
+// Idle_02/Attack are grafted from ashen_raider.glb (identical Meshy auto-rig
+// skeleton), so the full clip set was assembled headlessly with zero extra credits.
+// Staff and head are rigidly skinned (no bend/smear). No cast/hit/death clips:
+// death freezes the last pose (baseAction falls back), reading as a dropped body.
+const MESHY_WIZARD: ClipMap = {
+  idle: 'Idle_02',
+  walk: 'Walking',
+  run: 'Running',
+  attack: ['Attack'],
+  death: 'Death', // absent -> baseAction no-ops, corpse holds pose
+};
+
 // Chicken-cow rig (chicken_cow.glb, procedurally authored — see
 // scripts/gen_chicken_cow.mjs). Node-transform animations, no hit-react.
 const CHICKEN_COW: ClipMap = {
@@ -312,12 +326,9 @@ export const SKINS: Record<string, (string | null)[]> = {
     `${SKINS_DIR}/mage/alt_b.png`,
     `${SKINS_DIR}/mage/alt_c.png`,
   ],
-  player_mage: [
-    null,
-    `${SKINS_DIR}/mage/alt_a.png`,
-    `${SKINS_DIR}/mage/alt_b.png`,
-    `${SKINS_DIR}/mage/alt_c.png`,
-  ],
+  // The Meshy wizard body ships a single baked texture; the KayKit mage alt skins
+  // do not map to its UVs, so the mage has one canonical 1-of-1 look.
+  player_mage: [null],
   player_warlock: [
     null,
     `${SKINS_DIR}/mage/alt_a.png`,
@@ -442,17 +453,13 @@ export const VISUALS: Record<string, VisualDef> = {
     tintStrength: 0.45,
   },
   player_mage: {
-    url: `${PLAYERS}/mage.glb`,
+    // 1-of-1 custom Meshy "Azure Wizard" body: the pointed hat, robe, and staff are
+    // baked into the mesh and rigidly skinned, so there is no KayKit accessory node
+    // (show) or attached weapon. Shares the ashen_raider Meshy rig, so HUMANOID_H and
+    // the facing-0 yaw carry over unchanged. The authored blue is the look (no tint).
+    url: `${PLAYERS}/wizard.glb`,
     height: HUMANOID_H,
-    clips: kaykit(['2H_Melee_Attack_Chop']),
-    // no Mage_Hat on players: the brim hides the whole body from the default
-    // chase-camera pitch (NPC mages keep theirs — they're seen from the side)
-    show: ['Mage_Cape'],
-    attach: [{ url: `${WEAPONS}/staff.glb`, bone: 'handslot.r' }],
-    weaponSlots: [0],
-    // Water/Flow (frost): icy cyan arcanist, distinct from the shaman's river blue
-    tint: 0x5fb4cc,
-    tintStrength: 0.48,
+    clips: MESHY_WIZARD,
   },
   player_warlock: {
     // Corruption warlock wears the hooded, masked rogue body (same Rig_Medium as
