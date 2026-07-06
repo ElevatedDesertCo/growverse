@@ -196,6 +196,17 @@ function staticWorldColliders(seed: number): Collider[] {
       cameraTopY: topY(seed, t.x, t.z, 3.4 * t.scale),
       camGhost: true,
     });
+  // Ashen Maw raider tents: same footprint as the stock tents above (procedural
+  // hide-and-pole lean-to, render/props.ts).
+  for (const t of PROPS.raiderTents ?? [])
+    out.push({
+      type: 'circle',
+      x: t.x,
+      z: t.z,
+      r: 1.5 * t.scale,
+      cameraTopY: topY(seed, t.x, t.z, 3.4 * t.scale),
+      camGhost: true,
+    });
   for (const [x, z] of PROPS.crates)
     out.push({ type: 'circle', x, z, r: 0.65, cameraTopY: topY(seed, x, z, 1.35), camGhost: true });
   for (const [x, z] of PROPS.campfires)

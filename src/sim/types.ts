@@ -1277,6 +1277,13 @@ export interface ZonePropsDef {
   // camp-specific field so only the warcamp fires read as 1-of-1 raider hearths
   // while town/marsh/temple campfires stay on the stock model.
   raiderCookfires?: [number, number][];
+  // Ashen Maw raider tents: the warcamp's own shelters (a Growverse-original
+  // procedural hide-and-pole lean-to built from primitives in render/props.ts,
+  // NOT the shared CC0 Kenney `tent_*.glb` the other zones use). Kept a camp-
+  // specific field so only the warcamp reads as 1-of-1 raider tents while the
+  // town/marsh/temple tents stay on the stock model. `scale` sizes the shelter
+  // (the warlord's tent is the largest); `rot` is the facing yaw.
+  raiderTents?: { x: number; z: number; rot: number; scale: number }[];
 }
 
 export function emptyZoneProps(): ZonePropsDef {

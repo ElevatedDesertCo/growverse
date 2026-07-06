@@ -45,5 +45,6 @@ describe('mergeProps preserves every per-zone prop array', () => {
     expect((PROPS.spikeBarricades ?? []).length).toBeGreaterThan(0);
     expect((PROPS.warStandards ?? []).length).toBeGreaterThan(0);
     expect((PROPS.raiderCookfires ?? []).length).toBeGreaterThan(0);
+    expect((PROPS.raiderTents ?? []).length).toBeGreaterThan(0);
   });
 });

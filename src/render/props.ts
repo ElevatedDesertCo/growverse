@@ -1227,6 +1227,103 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     registerHideable(g, circleFootprint(t.x, t.z, 1.5 * t.scale, y + 3.4 * t.scale, 3.0 * t.scale));
   }
 
+  // ---- Ashen Maw raider tents: a Growverse-ORIGINAL procedural hide-and-pole ---
+  // lean-to (ridge tent), NOT the shared CC0 Kenney `tent_*.glb` the other zones
+  // pitch. Two hide roof panels over a lashed ridge pole, crossed A-frame poles at
+  // each end, a closed back gable flap, and clan trophies (a bone skull finial and
+  // a dried-blood war pennant) so the warcamp reads 1-of-1. Front opening on +z to
+  // match the stock tent yaw. Built once at unit scale; each tent scales its group
+  // (the warlord's tent is the largest) and faces via `rot`.
+  if ((PROPS.raiderTents ?? []).length > 0) {
+    const poleMat = surfaceMat({ color: 0x33261b, roughness: 0.96 });
+    const hideMat = surfaceMat({ color: 0x6a5940, roughness: 1 });
+    const hideMat2 = surfaceMat({ color: 0x5a4a37, roughness: 1 });
+    const boneMat = surfaceMat({ color: 0xd8ccb0, roughness: 0.72 });
+    const charmMat = surfaceMat({ color: 0xc4b596, roughness: 0.82 });
+    const pennantMat = surfaceMat({ color: 0x6b2b22, roughness: 1 });
+    const tentLen = 2.6;
+    const halfW = 1.15;
+    const ridgeH = 1.7;
+    const slope = Math.hypot(halfW, ridgeH);
+    const panelAngle = Math.atan2(halfW, ridgeH);
+    const halfLen = tentLen / 2;
+    const ridgeGeo = new THREE.CylinderGeometry(0.05, 0.05, tentLen + 0.5, 6);
+    const poleGeo = new THREE.CylinderGeometry(0.045, 0.065, slope, 6);
+    const roofGeo = new THREE.BoxGeometry(0.05, slope, tentLen);
+    const gableGeo = new THREE.BoxGeometry(1.55, 1.2, 0.05);
+    const skullGeo = new THREE.IcosahedronGeometry(0.16, 0);
+    const jawGeo = new THREE.BoxGeometry(0.13, 0.06, 0.11);
+    const pennantGeo = new THREE.BoxGeometry(0.02, 0.32, 0.42);
+    const cordGeo = new THREE.BoxGeometry(0.014, 0.2, 0.014);
+    const charmGeo = new THREE.BoxGeometry(0.06, 0.15, 0.02);
+    for (const t of PROPS.raiderTents ?? []) {
+      const y = ground(t.x, t.z);
+      const g = new THREE.Group();
+      // lashed ridge pole running front-to-back, overhanging the front a touch
+      const ridge = new THREE.Mesh(ridgeGeo, poleMat);
+      ridge.rotation.x = Math.PI / 2;
+      ridge.position.set(0, ridgeH, 0.1);
+      g.add(ridge);
+      // two hide roof panels sloping from the ridge down to each eave
+      const left = new THREE.Mesh(roofGeo, hideMat);
+      left.position.set(-halfW / 2, ridgeH / 2, 0);
+      left.rotation.z = -panelAngle;
+      g.add(left);
+      const right = new THREE.Mesh(roofGeo, hideMat2);
+      right.position.set(halfW / 2, ridgeH / 2, 0);
+      right.rotation.z = panelAngle;
+      g.add(right);
+      // crossed A-frame support poles at the front and back eaves
+      for (const ez of [halfLen, -halfLen]) {
+        const pl = new THREE.Mesh(poleGeo, poleMat);
+        pl.position.set(-halfW / 2, ridgeH / 2, ez);
+        pl.rotation.z = -panelAngle;
+        g.add(pl);
+        const pr = new THREE.Mesh(poleGeo, poleMat);
+        pr.position.set(halfW / 2, ridgeH / 2, ez);
+        pr.rotation.z = panelAngle;
+        g.add(pr);
+      }
+      // closed hide flap across the back gable
+      const gable = new THREE.Mesh(gableGeo, hideMat2);
+      gable.position.set(0, 0.6, -halfLen + 0.03);
+      g.add(gable);
+      // bone skull finial lashed at the front ridge peak, jaw dropped
+      const skull = new THREE.Mesh(skullGeo, boneMat);
+      skull.position.set(0, ridgeH + 0.04, halfLen + 0.18);
+      skull.rotation.set(0.1, propRand(t.x, t.z, 21) * Math.PI * 2, 0);
+      g.add(skull);
+      const jaw = new THREE.Mesh(jawGeo, boneMat);
+      jaw.position.set(0, ridgeH - 0.08, halfLen + 0.22);
+      g.add(jaw);
+      // dried-blood war pennant + a bone charm hung from the front ridge, side
+      // chosen deterministically so the row of tents never mirrors identically
+      const side = propRand(t.x, t.z, 22) < 0.5 ? -1 : 1;
+      const pennant = new THREE.Mesh(pennantGeo, pennantMat);
+      pennant.position.set(side * 0.3, ridgeH - 0.24, halfLen + 0.05);
+      pennant.rotation.z = side * 0.2;
+      g.add(pennant);
+      const cord = new THREE.Mesh(cordGeo, poleMat);
+      cord.position.set(-side * 0.32, ridgeH - 0.16, halfLen + 0.02);
+      g.add(cord);
+      const charm = new THREE.Mesh(charmGeo, charmMat);
+      charm.position.set(-side * 0.32, ridgeH - 0.32, halfLen + 0.02);
+      charm.rotation.z = (propRand(t.x, t.z, 23) - 0.5) * 0.5;
+      g.add(charm);
+      // deterministic lean so a column of tents never reads as a stamped-out grid
+      const leanX = (propRand(t.x, t.z, 24) - 0.5) * 0.05;
+      const leanZ = (propRand(t.x, t.z, 25) - 0.5) * 0.05;
+      g.scale.setScalar(t.scale);
+      g.position.set(t.x, y - 0.05, t.z);
+      g.rotation.set(leanX, t.rot, leanZ);
+      group.add(shadowed(g));
+      registerHideable(
+        g,
+        circleFootprint(t.x, t.z, 1.5 * t.scale, y + 3.4 * t.scale, 3.0 * t.scale),
+      );
+    }
+  }
+
   // ---- crates: camp clutter (wooden crate / barrel mix), hideable ----------
   PROPS.crates.forEach(([x, z], i) => {
     const kind: PropKey = i % 3 === 2 ? 'barrel' : 'crateWooden';

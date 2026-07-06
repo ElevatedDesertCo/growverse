@@ -1178,17 +1178,9 @@ export const ZONE1_PROPS: ZonePropsDef = {
   ],
   mines: [{ x: -88, z: -68, rot: 0.8 }],
   docks: [{ x: -64, z: 60, rot: -2.2, hutLocal: { x: 2.8, z: 2.4, hw: 1.7, hd: 1.5 } }],
-  tents: [
-    // Ashen Maw warcamp: raider tents pitched in three tiers down the SE hollow,
-    // a forward picket on the NW approach, a mid-camp muster, and the warlord's
-    // heart at the deep corner, so the camp reads as a marching column, not a blob.
-    { x: 61, z: -59, rot: 0.5, scale: 1 }, // picket
-    { x: 67, z: -64, rot: 2.4, scale: 1 }, // picket
-    { x: 75, z: -72, rot: -1.0, scale: 1.05 }, // muster
-    { x: 80, z: -77, rot: 1.3, scale: 1 }, // muster
-    { x: 92, z: -89, rot: 1.1, scale: 1.35 }, // warlord's tent, over Sarn's heart
-    { x: 88, z: -94, rot: -0.5, scale: 1 }, // boss heart
-  ],
+  // Bloomhaven itself pitches no stock CC0 tents; the only shelters in zone1 are
+  // the Ashen Maw warcamp's own procedural raider tents (raiderTents below).
+  tents: [],
   crates: [
     // Bloomhaven crafting stations: supply crates dressing the two craft NPCs.
     [8.7, 6.6], // Marlow the Cultivator's Grow Station supplies
@@ -1219,6 +1211,19 @@ export const ZONE1_PROPS: ZonePropsDef = {
     [63, -61],
     [77, -74],
     [91, -91],
+  ],
+  // Ashen Maw raider tents: hide-and-pole lean-tos pitched in three tiers down the
+  // SE hollow (a forward picket on the NW approach, a mid-camp muster, and the
+  // warlord's heart at the deep corner), so the camp reads as a marching column,
+  // not a blob. A Growverse-original procedural shelter (render/props.ts), NOT the
+  // shared CC0 Kenney tent the other zones use, so the warcamp reads 1-of-1.
+  raiderTents: [
+    { x: 61, z: -59, rot: 0.5, scale: 1 }, // picket
+    { x: 67, z: -64, rot: 2.4, scale: 1 }, // picket
+    { x: 75, z: -72, rot: -1.0, scale: 1.05 }, // muster
+    { x: 80, z: -77, rot: 1.3, scale: 1 }, // muster
+    { x: 92, z: -89, rot: 1.1, scale: 1.35 }, // warlord's tent, over Sarn's heart
+    { x: 88, z: -94, rot: -0.5, scale: 1 }, // boss heart
   ],
   mudHuts: [
     [-73, 59],
