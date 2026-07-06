@@ -141,6 +141,18 @@ function staticWorldColliders(seed: number): Collider[] {
       camGhost: true,
     });
   }
+  // Ashen Maw war-idol: a solid stone effigy the player walks around.
+  for (const idol of PROPS.ashenIdols ?? []) {
+    const h = idol.h ?? 3.6;
+    out.push({
+      type: 'circle',
+      x: idol.x,
+      z: idol.z,
+      r: 1.3,
+      cameraTopY: topY(seed, idol.x, idol.z, h),
+      camGhost: true,
+    });
+  }
   for (const s of PROPS.stalls)
     out.push({
       type: 'circle',

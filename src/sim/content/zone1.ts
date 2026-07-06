@@ -1228,17 +1228,12 @@ export const ZONE1_PROPS: ZonePropsDef = {
   // of the SW road and the ceremonial axis); the enclosure opens NE toward the
   // chapel and town, it never walls a lane.
   fences: [
-    // Churchyard rail (solemn south)
+    // Churchyard rail (solemn south). The Ashen Maw palisade that used to live here
+    // was a CC0 Kenney fence; it has been replaced by the custom spiked-stake
+    // barricade line in `spikeBarricades` above, so the warcamp wall is now 1-of-1
+    // raider timber rather than a stock pack asset.
     { x1: -15, z1: -18, x2: -15, z2: -26 },
     { x1: -15, z1: -26, x2: -8, z2: -26 },
-    // Ashen Maw palisade: a staked wall guarding the warlord's SE heart (east +
-    // south back corner), a short return that angles it in, plus a forward
-    // barricade wing on the muster's flank. Left open to the NW approach so the
-    // camp reads as fortified and funnels players in, never walls out the boss.
-    { x1: 100, z1: -82, x2: 100, z2: -100 },
-    { x1: 100, z1: -100, x2: 82, z2: -100 },
-    { x1: 82, z1: -100, x2: 78, z2: -96 },
-    { x1: 84, z1: -70, x2: 88, z2: -66 },
   ],
   graveyards: [
     { x: -14, z: -25.5 }, // churchyard graves in the solemn south (grid grows +x/+z, seated clear of the chapel wall and inside the rail)
@@ -1274,5 +1269,19 @@ export const ZONE1_PROPS: ZonePropsDef = {
     { x: 76, z: -70 },
     { x: 80, z: -95 }, // flanks around the warlord's heart
     { x: 95, z: -83 },
+    // Custom-stake palisade replacing the old CC0 Kenney fence: a dug-in barricade
+    // line walling the warlord's SE heart (east run + south back corner) plus a
+    // forward wing on the muster flank. Gapped so it reads fortified but still
+    // funnels players in toward Sarn, never walls the boss out.
+    { x: 100, z: -86, h: 1.8 }, // east wall
+    { x: 100, z: -95, h: 1.8 },
+    { x: 93, z: -100, h: 1.8 }, // south back corner
+    { x: 84, z: -99, h: 1.8 },
+    { x: 86, z: -68, h: 1.7 }, // forward barricade wing (muster flank)
   ],
+  // Ashen Maw war-idol (a custom Meshy stone-guardian effigy, not a CC0 model): a
+  // towering corrupted idol raised over Sarn the Hollowed's heart, facing the NW
+  // approach so raiders (and players) muster before it. The camp's 1-of-1
+  // centerpiece; `rot` is tunable if the effigy loads facing away.
+  ashenIdols: [{ x: 86, z: -86, h: 3.8, rot: 2.3 }],
 };

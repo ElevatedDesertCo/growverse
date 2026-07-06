@@ -114,6 +114,10 @@ const PROP_ASSET_DEFS: Record<string, PropAssetDef> = {
   // used as an Ashen Maw perimeter barricade (see PROPS.spikeBarricades). Its own
   // kit so the raider timber shares no material with the CC0 village/tent sets.
   spikedStakes: { url: '/models/props/ashen_spiked_stakes.glb', kit: 'ashencamp' },
+  // Meshy-generated Stone Guardian repurposed as the Ashen Maw war-idol: a corrupted
+  // stone effigy the raiders have raised over Sarn the Hollowed's heart (see
+  // PROPS.ashenIdols). A one-off camp centerpiece, not instanced.
+  ashenIdol: { url: '/models/props/ashen_idol.glb', kit: 'ashencamp' },
 };
 
 type PropKey = keyof typeof PROP_ASSET_DEFS;
@@ -951,6 +955,31 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     registerHideable(
       g,
       circleFootprint(b.x, b.z, Math.max(0.7, a.size.x * s * 0.5), ground(b.x, b.z) + targetH),
+    );
+  }
+
+  // ---- Ashen Maw war-idol: the custom Meshy stone effigy at the camp heart ----
+  // A single towering corrupted-stone guardian the raiders worship. Uniform-scaled
+  // off the model height; a deterministic yaw unless a facing is authored.
+  for (const idol of PROPS.ashenIdols ?? []) {
+    const targetH = idol.h ?? 3.6;
+    const a = propAsset('ashenIdol');
+    const s = targetH / a.size.y;
+    const g = new THREE.Group();
+    addParts(g, 'ashenIdol', {
+      scale: s,
+      rot: idol.rot ?? propRand(idol.x, idol.z, 9) * Math.PI * 2,
+    });
+    g.position.set(idol.x, ground(idol.x, idol.z) - 0.05, idol.z);
+    group.add(shadowed(g));
+    registerHideable(
+      g,
+      circleFootprint(
+        idol.x,
+        idol.z,
+        Math.max(1.0, a.size.x * s * 0.5),
+        ground(idol.x, idol.z) + targetH,
+      ),
     );
   }
 

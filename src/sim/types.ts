@@ -1265,6 +1265,10 @@ export interface ZonePropsDef {
   // stakes) placed along the warcamp approach/perimeter. `h` is the target world-
   // height of the model in metres (default 1.6); `rot` an optional base yaw.
   spikeBarricades?: { x: number; z: number; h?: number; rot?: number }[];
+  // Ashen Maw war-idols: a custom Meshy stone-guardian effigy raised over the
+  // warlord's heart. `h` is the target world-height in metres (default 3.6);
+  // `rot` an optional facing yaw.
+  ashenIdols?: { x: number; z: number; h?: number; rot?: number }[];
 }
 
 export function emptyZoneProps(): ZonePropsDef {

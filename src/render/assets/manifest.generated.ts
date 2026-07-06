@@ -483,6 +483,7 @@ export const MEDIA_ASSETS: Record<string, string> =
   "models/foliage/twisted_2.glb": "/media/models/foliage/twisted_2.b4b1b65ed6ec.glb",
   "models/foliage/twisted_3.glb": "/media/models/foliage/twisted_3.0271cd66c39a.glb",
   "models/props/anvil.glb": "/media/models/props/anvil.6e95bdb978f6.glb",
+  "models/props/ashen_idol.glb": "/media/models/props/ashen_idol.5df508496852.glb",
   "models/props/ashen_spiked_stakes.glb": "/media/models/props/ashen_spiked_stakes.1336b1362b02.glb",
   "models/props/barrel.glb": "/media/models/props/barrel.deb062e0fa27.glb",
   "models/props/bell_tower.glb": "/media/models/props/bell_tower.c264ba9d8a00.glb",
