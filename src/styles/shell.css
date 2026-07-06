@@ -4906,6 +4906,25 @@
       grid-row: 3;
       min-height: 0;
       height: 100%;
+      position: relative;
+    }
+    /* Ground the avatar: a soft pedestal shadow pooling at its base plus a bottom
+       fade, so the character reads as standing on darkened ground and the vista's
+       baked-in foreground figures are hidden behind it, while the city + sky stay
+       live above. pointer-events:none keeps the drag-to-rotate preview usable. */
+    body:not(.mobile-touch) #charselect-panel .cs-preview::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(
+          120% 55% at 50% 106%,
+          rgba(4, 4, 8, 0.86) 0%,
+          rgba(4, 4, 8, 0.36) 42%,
+          transparent 68%
+        ),
+        linear-gradient(180deg, transparent 56%, rgba(4, 4, 8, 0.55) 100%);
     }
     /* RIGHT: character roster. */
     body:not(.mobile-touch) #charselect-panel .cs-list-col {
