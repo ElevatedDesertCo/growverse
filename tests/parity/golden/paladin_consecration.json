@@ -8,8 +8,8 @@
     "updateGroundAoEs first-in-tick (~2256)",
     "pulseGroundAoE both callers (immediate ~4097 + deferred ~3052)"
   ],
-  "draws": 912,
-  "drawDigest": "935fefad",
+  "draws": 922,
+  "drawDigest": "3fcc10fe",
   "frames": [
     {
       "tick": 0,
@@ -169,8 +169,8 @@
       "state": "2afddcb8",
       "events": "ca588b7c",
       "rng": {
-        "draws": 499,
-        "digest": "eff13aa1"
+        "draws": 501,
+        "digest": "5c887fb9"
       }
     },
     {
@@ -180,8 +180,8 @@
       "state": "f17532a8",
       "events": "741638a5",
       "rng": {
-        "draws": 625,
-        "digest": "ec4dec2c"
+        "draws": 629,
+        "digest": "0dfb91df"
       }
     },
     {
@@ -191,8 +191,8 @@
       "state": "7a7c1496",
       "events": "4e60e7b9",
       "rng": {
-        "draws": 771,
-        "digest": "cef3e564"
+        "draws": 775,
+        "digest": "5b11b938"
       }
     },
     {
@@ -202,8 +202,8 @@
       "state": "2e1a40ab",
       "events": "741638a5",
       "rng": {
-        "draws": 909,
-        "digest": "b20e86f1"
+        "draws": 919,
+        "digest": "bddd99b5"
       }
     },
     {
@@ -213,8 +213,8 @@
       "state": "b6ca148d",
       "events": "741638a5",
       "rng": {
-        "draws": 912,
-        "digest": "935fefad"
+        "draws": 922,
+        "digest": "3fcc10fe"
       },
       "label": "final",
       "players": [
