@@ -94,6 +94,10 @@ const MOB_IDS = [
   'reliquary_saintless_effigy',
   'deacon_varric',
   'acolyte_tessa',
+  // The Dam (zone 4) beaver mobs
+  'haze_critter',
+  'driftwood_snapper',
+  'overbaked_beaver',
 ] as const;
 
 const NPC_IDS = [
@@ -121,6 +125,12 @@ const NPC_IDS = [
   'brother_halven', // Collapsed Reliquary delve board NPC
   'cultivator_marlow', // Grow Station attendant (Bloomhaven crafting)
   'smith_draxa', // Upgrade Bench attendant (Bloomhaven crafting)
+  // The Dam (zone 4) beavers
+  'boone_cascade',
+  'sequoia_marsh',
+  'ollie_ridgeback',
+  'wren_alder',
+  'junie_stonewater',
 ] as const;
 
 const QUEST_IDS = [
@@ -195,9 +205,13 @@ const QUEST_IDS = [
   'q_nythraxis_bound_guardian',
   'q_nythraxis_scourges_end',
   'q_mogger',
+  // The Dam (zone 4) beaver quests
+  'q_welcome_dam',
+  'q_clear_haze',
+  'q_dam_driftwood',
 ] as const;
 
-const ZONE_IDS = ['eastbrook_vale', 'mirefen_marsh', 'thornpeak_heights'] as const;
+const ZONE_IDS = ['eastbrook_vale', 'mirefen_marsh', 'thornpeak_heights', 'the_dam'] as const;
 const DUNGEON_IDS = [
   'hollow_crypt',
   'blightroot_hollow',

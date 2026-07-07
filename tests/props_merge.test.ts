@@ -3,6 +3,7 @@ import { TEMPLE_PROPS } from '../src/sim/content/temple';
 import { ZONE1_PROPS } from '../src/sim/content/zone1';
 import { ZONE2_PROPS } from '../src/sim/content/zone2';
 import { ZONE3_PROPS } from '../src/sim/content/zone3';
+import { ZONE4_PROPS } from '../src/sim/content/zone4';
 import { PROPS } from '../src/sim/data';
 import type { ZonePropsDef } from '../src/sim/types';
 
@@ -12,7 +13,7 @@ import type { ZonePropsDef } from '../src/sim/types';
 // This has bitten twice (delveMarkers, then the Ashen Maw camp fields). The test
 // below fails the moment a new source field is added to a zone but forgotten in
 // mergeProps: it proves every source array survives the merge with its full count.
-const SOURCES: ZonePropsDef[] = [ZONE1_PROPS, ZONE2_PROPS, ZONE3_PROPS, TEMPLE_PROPS];
+const SOURCES: ZonePropsDef[] = [ZONE1_PROPS, ZONE2_PROPS, ZONE3_PROPS, ZONE4_PROPS, TEMPLE_PROPS];
 
 describe('mergeProps preserves every per-zone prop array', () => {
   // Every array-valued key that appears in ANY source set must exist in the

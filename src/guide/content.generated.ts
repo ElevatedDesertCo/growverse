@@ -1230,6 +1230,24 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
 
 export const GUIDE_ZONES: GuideZoneInfo[] = [
   {
+    "id": "the_dam",
+    "name": "The Dam",
+    "min": 1,
+    "max": 4,
+    "biome": "marsh",
+    "hub": "The Dam",
+    "pois": [
+      "The Dam",
+      "The Tanque",
+      "Driftwood Row",
+      "The Blue Grows",
+      "The Reservoir",
+      "Snapper Shallows",
+      "Frozen Ridges Trail"
+    ],
+    "welcome": "Nobody invited the Beavers. Boone Cascade waves you in anyway. Stay Baked, AZ."
+  },
+  {
     "id": "eastbrook_vale",
     "name": "Bloomhaven Vale",
     "min": 1,

@@ -580,12 +580,22 @@ describe('combat', () => {
     const sim = makeSim('mage');
     sim.setPlayerLevel(8);
     const wolf = nearestMob(sim, 'forest_wolf');
-    teleportTo(sim, wolf.pos.x + 10, wolf.pos.z);
     sim.targetEntity(wolf.id);
-    facePlayerAt(sim, wolf);
-    sim.castAbility('polymorph');
-    for (let i = 0; i < 20 * 2; i++) sim.tick();
-    expect(wolf.auras.some((a: any) => a.kind === 'polymorph')).toBe(true);
+    // Polymorph rolls against the spell hit table (isSpellResisted), so any single
+    // cast can resist. The mechanic under test is the sheep + break-on-damage loop,
+    // not one hit roll, so recast until it lands (each attempt advances the shared
+    // rng); the bound is small enough that a real regression still fails.
+    let sheeped = false;
+    for (let attempt = 0; attempt < 16 && !sheeped; attempt++) {
+      teleportTo(sim, wolf.pos.x + 10, wolf.pos.z);
+      sim.targetEntity(wolf.id);
+      facePlayerAt(sim, wolf);
+      (sim as any).player.resource = (sim as any).player.maxResource;
+      sim.castAbility('polymorph');
+      for (let i = 0; i < 20 * 2; i++) sim.tick();
+      sheeped = wolf.auras.some((a: any) => a.kind === 'polymorph');
+    }
+    expect(sheeped).toBe(true);
     // direct damage breaks it
     (sim as any).dealDamage(sim.player, wolf, 5, false, 'fire', 'test', 'hit');
     expect(wolf.auras.some((a: any) => a.kind === 'polymorph')).toBe(false);

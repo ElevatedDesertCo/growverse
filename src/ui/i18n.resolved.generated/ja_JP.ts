@@ -5705,6 +5705,15 @@ export const ja_JP: EnTranslations = {
       "acolyte_tessa": {
         "name": "侍祭テッサ"
       },
+      "haze_critter": {
+        "name": "Haze Critter"
+      },
+      "driftwood_snapper": {
+        "name": "Driftwood Snapper"
+      },
+      "overbaked_beaver": {
+        "name": "Overbaked Beaver"
+      },
       "ironvein_foreman": {
         "name": "鉄脈の現場監督"
       },
@@ -5934,6 +5943,31 @@ export const ja_JP: EnTranslations = {
         "name": "ドラクサ",
         "title": "リフト鍛冶",
         "greeting": "アップグレード台は熱く燃えている。腐敗の欠片を持ってこい。お前の鋼をリフトさえ砕けぬ一振りに鍛え直してやろう。"
+      },
+      "boone_cascade": {
+        "name": "Boone Cascade",
+        "title": "Elder of The Dam",
+        "greeting": "Well, look who wandered down off the map, {playerName}. Our dam is here now, and you're already invited. Haze critters are thick off the reservoir, though. Swat a few for us and the fire's all yours."
+      },
+      "sequoia_marsh": {
+        "name": "Sequoia Marsh",
+        "title": "Keeper of the Blue Grows",
+        "greeting": "Careful where you step, that patch runs hot and blue. You buying, or you working? Either way I've got a job needs doing, {playerName}."
+      },
+      "ollie_ridgeback": {
+        "name": "Ollie Ridgeback",
+        "title": "Ridge Scout",
+        "greeting": "You board? Doesn't matter, you'll learn. Haze is thick off the water today, {playerName}, and thick haze means critters. Grab a stick and help me thin it."
+      },
+      "wren_alder": {
+        "name": "Wren Alder",
+        "title": "The Broadcast",
+        "greeting": "You're live, whether you like it or not. Signal goes out Monday nights, the whole ridge tunes in. Stay Baked, AZ, {playerName}, and try to say something worth broadcasting."
+      },
+      "junie_stonewater": {
+        "name": "Junie Stonewater",
+        "title": "Keeper of the Old Ridge",
+        "greeting": "Boone sent you to the Tanque, did he. Good. Sit. We came down the frozen ridges on boards with a half-built dam behind us, and we never once looked back. That's the whole story. The rest is just smoke."
       },
       "tidewatcher_ondrel": {
         "name": "オンドレル・ヴェイン",
@@ -6694,6 +6728,36 @@ export const ja_JP: EnTranslations = {
           }
         }
       },
+      "q_welcome_dam": {
+        "title": "Welcome to The Dam",
+        "text": "First rule of The Dam, {playerName}: nobody earns their spot by sitting still. The haze off the reservoir has clumped into critters again, thick along the water. Swat six of them and come warm up by the fire. Then go hear Junie's story at The Tanque, if you want the whole of it.",
+        "completion": "Six critters lighter and you're still standing. That's the whole trial, {playerName}. Seat by the fire's yours, free of charge. You're one of us now. Stay Baked, AZ.",
+        "objectives": {
+          "0": {
+            "label": "Haze Critter swatted"
+          }
+        }
+      },
+      "q_clear_haze": {
+        "title": "Clear the Haze",
+        "text": "Boone had you swat a few, but the haze keeps rolling thick off the reservoir and clumping right back, {playerName}. Annoying little things, and they spook the newer folk. Knock out ten of them along the water and I'll cut you in on the good stash.",
+        "completion": "Ten down, air's already clearer. Here's your cut, and a pull off Seq's own patch on the house. Runs hot. Don't burn out before your first hill.",
+        "objectives": {
+          "0": {
+            "label": "Haze Critter dispersed"
+          }
+        }
+      },
+      "q_dam_driftwood": {
+        "title": "Snapping Driftwood",
+        "text": "The dam's leaking blue and my grows are half in the wet, {playerName}. I'd patch it with good driftwood, but those snappers down in the shallows chew every board I float. Cull ten of them and I can shore the beds up myself. Mind the jaws.",
+        "completion": "Ten fewer sets of teeth in my driftwood. The beds will dry out now. You've got a steady hand for a newcomer. Come back when your boots are drier and I'll teach you the grow.",
+        "objectives": {
+          "0": {
+            "label": "Driftwood Snapper culled"
+          }
+        }
+      },
       "q_drowned_choir": {
         "title": "溺れし聖歌隊",
         "text": "渡り手どもは独りで動いているのではない。その中に溺れし信徒たちが歩いている——神殿とともに沈んだ教団だ。腐った祭服をまとったまま、岸の岩場から祈りを歌い続けている。八体を沈黙させ、奴らが携える供物を六つ持ち帰れ。奴らが女神に何を捧げようとしているのか、私は知りたいのだ。",
@@ -6759,6 +6823,33 @@ export const ja_JP: EnTranslations = {
       }
     },
     "zones": {
+      "the_dam": {
+        "name": "The Dam",
+        "welcome": "Nobody invited the Beavers. Boone Cascade waves you in anyway. Stay Baked, AZ.",
+        "pois": {
+          "0": {
+            "label": "The Dam"
+          },
+          "1": {
+            "label": "The Tanque"
+          },
+          "2": {
+            "label": "Driftwood Row"
+          },
+          "3": {
+            "label": "The Blue Grows"
+          },
+          "4": {
+            "label": "The Reservoir"
+          },
+          "5": {
+            "label": "Snapper Shallows"
+          },
+          "6": {
+            "label": "Frozen Ridges Trail"
+          }
+        }
+      },
       "eastbrook_vale": {
         "name": "イーストブルック渓谷",
         "welcome": "町のレッドブルック元帥を訪ねてください。あなたに頼みたい仕事があります。",

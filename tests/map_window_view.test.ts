@@ -22,7 +22,14 @@ import {
 } from '../src/ui/map_window_view';
 import type { IWorld } from '../src/world_api';
 
-const ZONE = ZONES[0];
+// A zone that carries both POIs and an in-band overworld dungeon entrance, so the
+// pois/portals projection is actually exercised. Not assumed to be ZONES[0]: the
+// newcomer zone (ZONES[0]) has no dungeon in its band, so we select by capability.
+const ZONE =
+  ZONES.find(
+    (z) =>
+      z.pois.length > 0 && overworldDungeonPortals(DUNGEON_LIST, z.zMin, z.zMax).length > 0,
+  ) ?? ZONES[0];
 const ZONE_CZ = (ZONE.zMin + ZONE.zMax) / 2; // a z inside the committed zone band
 const CANVAS = 560;
 // A quest giver with a real giverNpcId, so the npc-marker branch exercises real
