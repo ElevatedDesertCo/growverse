@@ -4947,6 +4947,57 @@ export const ja_JP: EnTranslations = {
       "monarch_crown_helm": {
         "name": "君主の王冠"
       },
+      "bloom_essence": {
+        "name": "開花の精華"
+      },
+      "ember_essence": {
+        "name": "残り火の精華"
+      },
+      "flow_essence": {
+        "name": "流動の精華"
+      },
+      "spore_essence": {
+        "name": "胞子の精華"
+      },
+      "common_seed": {
+        "name": "普通の種"
+      },
+      "corruption_shard": {
+        "name": "汚染の破片"
+      },
+      "bloom_nutrient": {
+        "name": "開花の養分"
+      },
+      "ember_nutrient": {
+        "name": "残り火の養分"
+      },
+      "flow_nutrient": {
+        "name": "流動の養分"
+      },
+      "enriched_seed": {
+        "name": "濃縮された種"
+      },
+      "prime_strain_seed": {
+        "name": "原種の種"
+      },
+      "bloom_lamp": {
+        "name": "開花のランプ"
+      },
+      "irrigation_coil": {
+        "name": "灌漑コイル"
+      },
+      "shard_whetstone": {
+        "name": "破片の砥石"
+      },
+      "riftbound_girdle": {
+        "name": "亀裂に縛られた帯"
+      },
+      "riftforged_guard": {
+        "name": "亀裂鍛造の護具"
+      },
+      "riftforged_blade": {
+        "name": "亀裂鍛造の刃"
+      },
       "bristleback_maul": {
         "name": "ブリストルバックの大槌"
       },

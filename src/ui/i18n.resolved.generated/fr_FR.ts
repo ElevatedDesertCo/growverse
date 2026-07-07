@@ -4947,6 +4947,57 @@ export const fr_FR: EnTranslations = {
       "monarch_crown_helm": {
         "name": "Couronne du Monarque"
       },
+      "bloom_essence": {
+        "name": "Essence de Floraison"
+      },
+      "ember_essence": {
+        "name": "Essence de Braise"
+      },
+      "flow_essence": {
+        "name": "Essence de Flux"
+      },
+      "spore_essence": {
+        "name": "Essence de Spore"
+      },
+      "common_seed": {
+        "name": "Graine Commune"
+      },
+      "corruption_shard": {
+        "name": "Éclat de Corruption"
+      },
+      "bloom_nutrient": {
+        "name": "Nutriment de Floraison"
+      },
+      "ember_nutrient": {
+        "name": "Nutriment de Braise"
+      },
+      "flow_nutrient": {
+        "name": "Nutriment de Flux"
+      },
+      "enriched_seed": {
+        "name": "Graine Enrichie"
+      },
+      "prime_strain_seed": {
+        "name": "Graine de Souche Primordiale"
+      },
+      "bloom_lamp": {
+        "name": "Lampe de Floraison"
+      },
+      "irrigation_coil": {
+        "name": "Serpentin d'Irrigation"
+      },
+      "shard_whetstone": {
+        "name": "Pierre à Aiguiser d'Éclats"
+      },
+      "riftbound_girdle": {
+        "name": "Ceinture Liée à la Faille"
+      },
+      "riftforged_guard": {
+        "name": "Garde Forgée dans la Faille"
+      },
+      "riftforged_blade": {
+        "name": "Lame Forgée dans la Faille"
+      },
       "bristleback_maul": {
         "name": "Maillet Bristleback"
       },

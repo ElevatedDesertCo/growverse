@@ -4947,6 +4947,57 @@ export const tr_TR: EnTranslations = {
       "monarch_crown_helm": {
         "name": "Hükümdar'ın Tacı"
       },
+      "bloom_essence": {
+        "name": "Çiçek Özü"
+      },
+      "ember_essence": {
+        "name": "Kor Özü"
+      },
+      "flow_essence": {
+        "name": "Akış Özü"
+      },
+      "spore_essence": {
+        "name": "Spor Özü"
+      },
+      "common_seed": {
+        "name": "Sıradan Tohum"
+      },
+      "corruption_shard": {
+        "name": "Yozlaşma Parçası"
+      },
+      "bloom_nutrient": {
+        "name": "Çiçek Besini"
+      },
+      "ember_nutrient": {
+        "name": "Kor Besini"
+      },
+      "flow_nutrient": {
+        "name": "Akış Besini"
+      },
+      "enriched_seed": {
+        "name": "Zenginleştirilmiş Tohum"
+      },
+      "prime_strain_seed": {
+        "name": "Baş Soy Tohumu"
+      },
+      "bloom_lamp": {
+        "name": "Çiçek Lambası"
+      },
+      "irrigation_coil": {
+        "name": "Sulama Bobini"
+      },
+      "shard_whetstone": {
+        "name": "Parça Bileği Taşı"
+      },
+      "riftbound_girdle": {
+        "name": "Yarığa Bağlı Kuşak"
+      },
+      "riftforged_guard": {
+        "name": "Yarıkta Dövülmüş Koruma"
+      },
+      "riftforged_blade": {
+        "name": "Yarıkta Dövülmüş Kılıç"
+      },
       "bristleback_maul": {
         "name": "Dikensırt Balyozu"
       },

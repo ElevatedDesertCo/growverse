@@ -4947,6 +4947,57 @@ export const da_DK: EnTranslations = {
       "monarch_crown_helm": {
         "name": "Monarkens Krone"
       },
+      "bloom_essence": {
+        "name": "Blomstringsessens"
+      },
+      "ember_essence": {
+        "name": "Glødessens"
+      },
+      "flow_essence": {
+        "name": "Strømessens"
+      },
+      "spore_essence": {
+        "name": "Sporessens"
+      },
+      "common_seed": {
+        "name": "Almindeligt Frø"
+      },
+      "corruption_shard": {
+        "name": "Fordærvsskår"
+      },
+      "bloom_nutrient": {
+        "name": "Blomstringsnæring"
+      },
+      "ember_nutrient": {
+        "name": "Glødnæring"
+      },
+      "flow_nutrient": {
+        "name": "Strømnæring"
+      },
+      "enriched_seed": {
+        "name": "Beriget Frø"
+      },
+      "prime_strain_seed": {
+        "name": "Urstammefrø"
+      },
+      "bloom_lamp": {
+        "name": "Blomstringslampe"
+      },
+      "irrigation_coil": {
+        "name": "Vandingsspiral"
+      },
+      "shard_whetstone": {
+        "name": "Skårhvæssesten"
+      },
+      "riftbound_girdle": {
+        "name": "Riftbundet Bælte"
+      },
+      "riftforged_guard": {
+        "name": "Riftsmedet Værn"
+      },
+      "riftforged_blade": {
+        "name": "Riftsmedet Klinge"
+      },
       "bristleback_maul": {
         "name": "Børsterygs-Lemlæster"
       },

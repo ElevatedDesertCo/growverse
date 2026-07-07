@@ -4947,6 +4947,57 @@ export const zh_CN: EnTranslations = {
       "monarch_crown_helm": {
         "name": "君主之冠"
       },
+      "bloom_essence": {
+        "name": "绽放精华"
+      },
+      "ember_essence": {
+        "name": "余烬精华"
+      },
+      "flow_essence": {
+        "name": "流动精华"
+      },
+      "spore_essence": {
+        "name": "孢子精华"
+      },
+      "common_seed": {
+        "name": "普通种子"
+      },
+      "corruption_shard": {
+        "name": "腐蚀碎片"
+      },
+      "bloom_nutrient": {
+        "name": "绽放养料"
+      },
+      "ember_nutrient": {
+        "name": "余烬养料"
+      },
+      "flow_nutrient": {
+        "name": "流动养料"
+      },
+      "enriched_seed": {
+        "name": "富集种子"
+      },
+      "prime_strain_seed": {
+        "name": "原初品系种子"
+      },
+      "bloom_lamp": {
+        "name": "绽放之灯"
+      },
+      "irrigation_coil": {
+        "name": "灌溉盘管"
+      },
+      "shard_whetstone": {
+        "name": "碎片磨刀石"
+      },
+      "riftbound_girdle": {
+        "name": "裂隙缚系腰带"
+      },
+      "riftforged_guard": {
+        "name": "裂隙锻造护卫"
+      },
+      "riftforged_blade": {
+        "name": "裂隙锻造之刃"
+      },
       "bristleback_maul": {
         "name": "硬鬃重槌"
       },

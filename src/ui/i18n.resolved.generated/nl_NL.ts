@@ -4947,6 +4947,57 @@ export const nl_NL: EnTranslations = {
       "monarch_crown_helm": {
         "name": "Monarchenkroon"
       },
+      "bloom_essence": {
+        "name": "Bloei-essentie"
+      },
+      "ember_essence": {
+        "name": "Sintelessentie"
+      },
+      "flow_essence": {
+        "name": "Stroomessentie"
+      },
+      "spore_essence": {
+        "name": "Sporenessentie"
+      },
+      "common_seed": {
+        "name": "Gewoon Zaad"
+      },
+      "corruption_shard": {
+        "name": "Corruptiescherf"
+      },
+      "bloom_nutrient": {
+        "name": "Bloeivoedingsstof"
+      },
+      "ember_nutrient": {
+        "name": "Sintelvoedingsstof"
+      },
+      "flow_nutrient": {
+        "name": "Stroomvoedingsstof"
+      },
+      "enriched_seed": {
+        "name": "Verrijkt Zaad"
+      },
+      "prime_strain_seed": {
+        "name": "Oerstam-zaad"
+      },
+      "bloom_lamp": {
+        "name": "Bloeilamp"
+      },
+      "irrigation_coil": {
+        "name": "Irrigatiespiraal"
+      },
+      "shard_whetstone": {
+        "name": "Scherfwetsteen"
+      },
+      "riftbound_girdle": {
+        "name": "Kloofgebonden Gordel"
+      },
+      "riftforged_guard": {
+        "name": "Kloofgesmede Wacht"
+      },
+      "riftforged_blade": {
+        "name": "Kloofgesmede Kling"
+      },
       "bristleback_maul": {
         "name": "Borstelrug-Strijdhamer"
       },

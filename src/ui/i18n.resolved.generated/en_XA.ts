@@ -4947,6 +4947,57 @@ export const en_XA: EnTranslations = {
       "monarch_crown_helm": {
         "name": "[Ɱóñáŕçĥ'š Çŕóŵñ]"
       },
+      "bloom_essence": {
+        "name": "[Ɓļóóɱ Éššéñçé]"
+      },
+      "ember_essence": {
+        "name": "[Éɱƀéŕ Éššéñçé]"
+      },
+      "flow_essence": {
+        "name": "[Ƒļóŵ Éššéñçé]"
+      },
+      "spore_essence": {
+        "name": "[Šþóŕé Éššéñçé]"
+      },
+      "common_seed": {
+        "name": "[Çóɱɱóñ Šééð]"
+      },
+      "corruption_shard": {
+        "name": "[Çóŕŕúþţíóñ Šĥáŕð]"
+      },
+      "bloom_nutrient": {
+        "name": "[Ɓļóóɱ Ñúţŕíéñţ]"
+      },
+      "ember_nutrient": {
+        "name": "[Éɱƀéŕ Ñúţŕíéñţ]"
+      },
+      "flow_nutrient": {
+        "name": "[Ƒļóŵ Ñúţŕíéñţ]"
+      },
+      "enriched_seed": {
+        "name": "[Éñŕíçĥéð Šééð]"
+      },
+      "prime_strain_seed": {
+        "name": "[Þŕíɱé Šţŕáíñ Šééð]"
+      },
+      "bloom_lamp": {
+        "name": "[Ɓļóóɱ Ļáɱþ]"
+      },
+      "irrigation_coil": {
+        "name": "[Íŕŕíĝáţíóñ Çóíļ]"
+      },
+      "shard_whetstone": {
+        "name": "[Šĥáŕð Ŵĥéţšţóñé]"
+      },
+      "riftbound_girdle": {
+        "name": "[Ŕíƒţƀóúñð Ĝíŕðļé]"
+      },
+      "riftforged_guard": {
+        "name": "[Ŕíƒţƒóŕĝéð Ĝúáŕð]"
+      },
+      "riftforged_blade": {
+        "name": "[Ŕíƒţƒóŕĝéð Ɓļáðé]"
+      },
       "bristleback_maul": {
         "name": "[Ɓŕíšţļéƀáçķ Ɱáúļ]"
       },

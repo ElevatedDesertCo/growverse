@@ -4947,6 +4947,57 @@ export const es: EnTranslations = {
       "monarch_crown_helm": {
         "name": "Corona del Monarca"
       },
+      "bloom_essence": {
+        "name": "Esencia de Floración"
+      },
+      "ember_essence": {
+        "name": "Esencia de Brasa"
+      },
+      "flow_essence": {
+        "name": "Esencia de Flujo"
+      },
+      "spore_essence": {
+        "name": "Esencia de Espora"
+      },
+      "common_seed": {
+        "name": "Semilla Común"
+      },
+      "corruption_shard": {
+        "name": "Fragmento de Corrupción"
+      },
+      "bloom_nutrient": {
+        "name": "Nutriente de Floración"
+      },
+      "ember_nutrient": {
+        "name": "Nutriente de Brasa"
+      },
+      "flow_nutrient": {
+        "name": "Nutriente de Flujo"
+      },
+      "enriched_seed": {
+        "name": "Semilla Enriquecida"
+      },
+      "prime_strain_seed": {
+        "name": "Semilla de Cepa Prima"
+      },
+      "bloom_lamp": {
+        "name": "Lámpara de Floración"
+      },
+      "irrigation_coil": {
+        "name": "Serpentín de Riego"
+      },
+      "shard_whetstone": {
+        "name": "Piedra de Afilar de Fragmentos"
+      },
+      "riftbound_girdle": {
+        "name": "Faja Vinculada a la Fisura"
+      },
+      "riftforged_guard": {
+        "name": "Guarda Forjada en la Fisura"
+      },
+      "riftforged_blade": {
+        "name": "Hoja Forjada en la Fisura"
+      },
       "bristleback_maul": {
         "name": "Maza Bristleback"
       },
