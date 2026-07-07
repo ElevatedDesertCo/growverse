@@ -266,6 +266,10 @@ function mergeProps(sets: ZonePropsDef[]): ZonePropsDef {
     warStandards: sets.flatMap((s) => s.warStandards ?? []),
     raiderCookfires: sets.flatMap((s) => s.raiderCookfires ?? []),
     raiderTents: sets.flatMap((s) => s.raiderTents ?? []),
+    // The Dam's giant beaver dam: same optional-field trap as above. Omitting it
+    // strands the landmark before it reaches the renderer (props.ts) and the
+    // collider grid (colliders.ts).
+    beaverDams: sets.flatMap((s) => s.beaverDams ?? []),
   };
 }
 

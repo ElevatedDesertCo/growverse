@@ -368,4 +368,13 @@ export const ZONE4_PROPS: ZonePropsDef = {
     { x1: 4, z1: -288, x2: 14, z2: -290 }, // north gate, west run
   ],
   graveyards: [{ x: 16, z: -286 }],
+  // The namesake gag: an absurdly huge beaver dam holding back The Reservoir,
+  // dwarfing the driftwood town named after it. The crest spans the WEST chord of
+  // the lake (lake at x=-48,z=-352,r=24), entirely OVER the water at x=-58 so it
+  // rises from the reservoir bed through the surface like a real dam. Placed on the
+  // uninhabited west side, >20m clear of every ambient mob camp (the nearest, the
+  // haze_critter camps at (-18,-330)/(0,-358), sit east of the lake), so no wander
+  // path ever collides with the barrier and perturbs the shared rng draw order.
+  // ~36m long, 9m tall: a genuine "they built THAT?" landmark on arrival.
+  beaverDams: [{ x1: -58, z1: -370, x2: -58, z2: -334, h: 9 }],
 };

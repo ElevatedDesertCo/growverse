@@ -244,6 +244,28 @@ function staticWorldColliders(seed: number): Collider[] {
     });
   }
 
+  // The Dam's giant beaver dam: a solid, un-jumpable log-and-mud wall along the
+  // crest line (mirrors the fence OBB math, but thick and NOT `isFence`). The
+  // render mesh in props.ts uses the same midpoint/rot so barrier == geometry.
+  for (const d of PROPS.beaverDams ?? []) {
+    const dx = d.x2 - d.x1,
+      dz = d.z2 - d.z1;
+    const len = Math.hypot(dx, dz);
+    if (len < 1e-6) continue;
+    const x = (d.x1 + d.x2) / 2,
+      z = (d.z1 + d.z2) / 2;
+    out.push({
+      type: 'obb',
+      x,
+      z,
+      hw: len / 2,
+      hd: DAM_HALF_DEPTH,
+      rot: Math.atan2(-dz, dx),
+      cameraTopY: topY(seed, x, z, d.h ?? 8),
+      camGhost: true,
+    });
+  }
+
   // trees & large rocks from the deterministic decoration field
   for (const d of generateDecorations(seed)) {
     if (d.kind === 'rock') {
@@ -299,6 +321,9 @@ const FENCE_END_PAD = 0.35;
 /** Rail height of a fence (yards), used for camera occlusion. A jump passes
  * through fences while airborne regardless (see sim `Entity.jumping`). */
 const FENCE_RAIL_HEIGHT = 2.8;
+/** Half-thickness (yards) of a giant beaver-dam wall's solid barrier. Matches the
+ * ~5m base spread the render mesh (props.ts) piles along the crest line. */
+const DAM_HALF_DEPTH = 2.5;
 
 interface ColliderGrid {
   cells: Map<string, Collider[]>;

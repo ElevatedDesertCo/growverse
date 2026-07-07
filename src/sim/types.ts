@@ -1284,6 +1284,14 @@ export interface ZonePropsDef {
   // town/marsh/temple tents stay on the stock model. `scale` sizes the shelter
   // (the warlord's tent is the largest); `rot` is the facing yaw.
   raiderTents?: { x: number; z: number; rot: number; scale: number }[];
+  // The Dam's namesake landmark: a colossal Growverse-original procedural beaver
+  // dam (crisscrossed logs packed with mud, built from primitives in
+  // render/props.ts, NOT a CC0 GLB) spanning the reservoir. Each entry is the
+  // crest LINE from (x1,z1) to (x2,z2); `h` is the crest height in metres
+  // (default 8). The dam is a solid movement barrier (an OBB collider along the
+  // line). Deliberately oversized: the joke is that the town literally named
+  // "The Dam" is dwarfed by an absurd, actual beaver dam.
+  beaverDams?: { x1: number; z1: number; x2: number; z2: number; h?: number }[];
 }
 
 export function emptyZoneProps(): ZonePropsDef {

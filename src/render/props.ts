@@ -1113,6 +1113,106 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     );
   }
 
+  // ---- The Dam: a colossal Growverse-ORIGINAL procedural beaver dam ----------
+  // The driftwood town literally named "The Dam" is dwarfed by an actual, absurd
+  // beaver dam holding back The Reservoir: a long triangular mud berm packed with
+  // crisscrossed gnawed logs, a crown of chewed stakes, and galaxy-blue glow
+  // chinks tying it to the Beavers. Built from primitives (no GLB); the OBB
+  // collider (colliders.ts) uses the same crest line so barrier == geometry.
+  for (const d of PROPS.beaverDams ?? []) {
+    const ddx = d.x2 - d.x1;
+    const ddz = d.z2 - d.z1;
+    const len = Math.hypot(ddx, ddz);
+    if (len < 1e-6) continue;
+    const cx = (d.x1 + d.x2) / 2;
+    const cz = (d.z1 + d.z2) / 2;
+    const h = d.h ?? 8;
+    const rot = Math.atan2(-ddz, ddx); // local +x runs along the crest (matches collider)
+    const baseHalf = 2.35; // half the mud base spread (~4.7m), under DAM_HALF_DEPTH*2
+    const y = ground(cx, cz);
+
+    const mudMat = surfaceMat({ color: 0x5b4a36, roughness: 1 });
+    const logMat = surfaceMat({ color: 0x6a4f37, roughness: 0.92 });
+    const logDkMat = surfaceMat({ color: 0x513c28, roughness: 0.95 });
+    const stakeMat = surfaceMat({ color: 0x7a5c3f, roughness: 0.9 });
+    const glowMat = surfaceMat({
+      color: 0x5b6ee1,
+      emissive: 0x5b6ee1,
+      emissiveIntensity: usePbr ? 1.6 : 1.0,
+      roughness: 0.5,
+    });
+
+    const g = new THREE.Group();
+
+    // Triangular mud berm: cross-section (x = thickness, y = height) extruded
+    // along z = length, then rotated so length runs along the crest (local x).
+    const shape = new THREE.Shape();
+    shape.moveTo(-baseHalf, 0);
+    shape.lineTo(baseHalf, 0);
+    shape.lineTo(baseHalf * 0.2, h); // crest leans slightly downstream
+    shape.lineTo(-baseHalf * 0.5, h * 0.8);
+    shape.closePath();
+    const bermGeo = new THREE.ExtrudeGeometry(shape, { depth: len, bevelEnabled: false });
+    bermGeo.rotateY(-Math.PI / 2); // extrude axis (z, 0..len) -> local -x
+    bermGeo.translate(len / 2, 0, 0); // recenter x to [-len/2, len/2]
+    g.add(new THREE.Mesh(bermGeo, mudMat));
+
+    // Woven logs: cylinders lying across the berm faces at crisscrossing yaws,
+    // clustered denser toward the crest so it reads as a gnawed log jam.
+    const logCount = Math.max(10, Math.round(len / 2.2));
+    for (let i = 0; i < logCount; i++) {
+      const t = (i + 0.5) / logCount;
+      const px = -len / 2 + t * len + (propRand(cx + i, cz, 1) - 0.5) * 1.8;
+      const py = 0.5 + propRand(cx, cz + i, 2) * (h - 1.2);
+      const face = propRand(cx + i, cz + i, 3) < 0.5 ? 1 : -1; // downstream / upstream face
+      const lift = 1 - py / h; // thicker base spread lower down
+      const pz = face * (0.4 + lift * (baseHalf - 0.5)) * (0.7 + propRand(cx, cz - i, 4) * 0.5);
+      const logLen = 2.6 + propRand(cx - i, cz, 5) * 3.4;
+      const r = 0.2 + propRand(cx, cz + i * 2, 6) * 0.16;
+      const geo = new THREE.CylinderGeometry(r, r * 0.82, logLen, 6);
+      const log = new THREE.Mesh(geo, i % 3 === 0 ? logDkMat : logMat);
+      // lie the cylinder down (axis Y -> ~X), then yaw it into a crisscross weave
+      log.rotation.set(
+        (propRand(cx + i, cz + i, 7) - 0.5) * 0.5,
+        (propRand(cx, cz + i, 8) - 0.5) * 1.5,
+        Math.PI / 2 + (propRand(cx - i, cz, 9) - 0.5) * 0.5,
+        'ZYX',
+      );
+      log.position.set(px, py, pz);
+      g.add(log);
+    }
+
+    // Crown of gnawed vertical stakes poking up along the crest.
+    const stakeCount = Math.max(4, Math.round(len / 6));
+    for (let i = 0; i < stakeCount; i++) {
+      const sx = -len / 2 + ((i + 0.5) / stakeCount) * len + (propRand(cx, cz + i, 10) - 0.5) * 2;
+      const sh = 0.9 + propRand(cx + i, cz, 11) * 1.1;
+      const stake = new THREE.Mesh(new THREE.CylinderGeometry(0.09, 0.16, sh, 6), stakeMat);
+      stake.position.set(sx, h - 0.2 + sh / 2, baseHalf * 0.2 + (propRand(cx, cz - i, 12) - 0.5));
+      stake.rotation.set((propRand(cx + i, cz + i, 13) - 0.5) * 0.4, 0, 0);
+      g.add(stake);
+    }
+
+    // Galaxy-blue glow chinks tucked into the downstream face (Beaver signature).
+    const chinkCount = Math.max(3, Math.round(len / 12));
+    for (let i = 0; i < chinkCount; i++) {
+      const gx =
+        -len / 2 + ((i + 0.5) / chinkCount) * len + (propRand(cx, cz + i * 3, 14) - 0.5) * 3;
+      const gy = 0.8 + propRand(cx + i, cz, 15) * (h - 1.8);
+      const chink = new THREE.Mesh(
+        new THREE.IcosahedronGeometry(0.14 + propRand(cx, cz + i, 16) * 0.1, 0),
+        glowMat,
+      );
+      chink.position.set(gx, gy, (1 - gy / h) * (baseHalf - 0.3) + 0.15);
+      g.add(chink);
+    }
+
+    g.position.set(cx, y - 0.35, cz);
+    g.rotation.y = rot;
+    group.add(shadowed(g));
+    registerHideable(g, obbFootprint(cx, cz, len / 2, baseHalf, rot, y + h));
+  }
+
   // ---- graveyards: Growverse-ORIGINAL procedural weathered headstones --------
   // A 3x2 cluster of desert-sandstone markers per anchor (rounded slab, stone
   // cross, plain bevel slab, and a broken leaning stub), each on a low dirt mound
