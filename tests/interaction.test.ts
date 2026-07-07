@@ -234,7 +234,13 @@ describe('interaction.interact dispatch', () => {
     // into ctx.isQuestInteractionEntity + ctx.talkToNpc, both bound to Sim.
     const sim = new Sim({ seed: 42, playerClass: 'warrior', autoEquip: true }) as AnySim;
     const p = sim.player;
-    place(sim, p, 4, 4);
+    // Stand on the q_wolves giver (marshal_redbrook, "Warden Elgrove") wherever the
+    // town layout places him, so the interact scan finds him within INTERACT_RANGE.
+    const giver = [...sim.entities.values()].find(
+      (e) => e.kind === 'npc' && e.templateId === 'marshal_redbrook',
+    );
+    if (!giver) throw new Error('q_wolves giver not found');
+    place(sim, p, giver.pos.x, giver.pos.z);
     expect(sim.questState('q_wolves')).toBe('available');
     interaction.interact(ctxOf(sim), p.id);
     expect(sim.questState('q_wolves')).toBe('active');

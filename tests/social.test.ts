@@ -536,9 +536,14 @@ describe('parties', () => {
 
   it('party members share kill xp with the group bonus and quest credit', () => {
     const { sim, a, b } = makeDuo();
-    // both accept the wolf quest
-    teleport(sim, a, 4, 4);
-    teleport(sim, b, 4, 5);
+    // both accept the wolf quest: stand on the giver (marshal_redbrook, "Warden
+    // Elgrove") so acceptQuest's NPC-proximity gate passes wherever the town sits.
+    const giver = [...sim.entities.values()].find(
+      (e) => e.kind === 'npc' && e.templateId === 'marshal_redbrook',
+    );
+    if (!giver) throw new Error('q_wolves giver not found');
+    teleport(sim, a, giver.pos.x, giver.pos.z);
+    teleport(sim, b, giver.pos.x, giver.pos.z);
     sim.acceptQuest('q_wolves', a);
     sim.acceptQuest('q_wolves', b);
     const wolf = nearestMob(sim, 'forest_wolf');

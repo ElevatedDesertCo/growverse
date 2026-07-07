@@ -645,6 +645,11 @@ describe('hunter pets', () => {
   it('right-click autocast state lets a pet Growl whenever the cooldown is ready', () => {
     const { sim, wolf: pet } = tamedSetup();
     const boar = nearestMob(sim, 'wild_boar');
+    // The level-10 tamed pet out-damages a level-3 boar's ~66 HP inside the first
+    // no-taunt loop; keep the boar alive across both phases so the Growl autocast
+    // has a live target to taunt (the mechanic under test, not the pet's dps).
+    boar.hp = 100000;
+    boar.maxHp = 100000;
     teleport(sim, sim.player, boar.pos.x + 4, boar.pos.z);
     teleport(sim, pet, boar.pos.x + 5, boar.pos.z);
     hit(sim, sim.player, boar, 5);
