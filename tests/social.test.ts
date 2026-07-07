@@ -536,9 +536,9 @@ describe('parties', () => {
 
   it('party members share kill xp with the group bonus and quest credit', () => {
     const { sim, a, b } = makeDuo();
-    // both accept the wolf quest
-    teleport(sim, a, 4, 4);
-    teleport(sim, b, 4, 5);
+    // both accept the wolf quest (stand by the giver Marshal Redbrook at {11,8})
+    teleport(sim, a, 11, 6);
+    teleport(sim, b, 11, 7);
     sim.acceptQuest('q_wolves', a);
     sim.acceptQuest('q_wolves', b);
     const wolf = nearestMob(sim, 'forest_wolf');

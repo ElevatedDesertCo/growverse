@@ -29,7 +29,7 @@ describe('presenceOf zone resolution', () => {
   it('reports the overworld zone for a freshly spawned player', () => {
     const { server, session } = makeServerWithPlayer();
     const presence = server.presenceOf(session);
-    expect(presence.zone).toBe('Eastbrook Vale');
+    expect(presence.zone).toBe('Bloomhaven Vale');
     expect(presence.status).toBe('online');
   });
 

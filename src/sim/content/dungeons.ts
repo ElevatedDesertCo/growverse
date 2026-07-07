@@ -777,7 +777,7 @@ const EMBERHOLD_SPAWN_LIST: DungeonSpawn[] = [
   { mobId: 'emberbound_zealot', x: -5, z: 39 },
   { mobId: 'emberbound_zealot', x: 9, z: 54 },
   { mobId: 'ashfell_knight', x: 5, z: 55 },
-  { mobId: 'ashfell_knight', x: -5, z: 68 },
+  { mobId: 'ashfell_knight', x: 2, z: 68 },
   { mobId: 'emberbound_zealot', x: -1, z: 70 },
   { mobId: 'castellan_maldrek', x: -4, z: 82 },
   { mobId: 'ashfell_knight', x: 1, z: 83 },
@@ -866,7 +866,7 @@ export const DUNGEON_DEFS: Record<string, DungeonDef> = {
     id: 'emberhold_keep',
     name: 'Emberhold Keep',
     index: 7,
-    doorPos: { x: 200, z: 820 }, // burnt gatehouse on the road up to Thornreach
+    doorPos: { x: 150, z: 820 }, // burnt gatehouse on the road up to Thornreach
     entry: { x: 0, z: 4 },
     exitOffset: { x: 0, z: -6 },
     spawns: EMBERHOLD_SPAWN_LIST,

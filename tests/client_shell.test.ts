@@ -1381,22 +1381,22 @@ describe('client HTML shell', () => {
 
   it('combines Trader and Bags into a mobile split-pane modal', () => {
     expect(hudMobileCss).toContain(
-      'body.mobile-touch.vendor-open #vendor-window,\n  body.mobile-touch.vendor-open #bags {\n    position: fixed;\n    top: max(10px, env(safe-area-inset-top));\n    bottom: calc(72px + env(safe-area-inset-bottom));',
+      'body.mobile-touch.vendor-open #vendor-window,\n  body.mobile-touch.vendor-open #craft-window,\n  body.mobile-touch.vendor-open #bags {\n    position: fixed;\n    top: max(10px, env(safe-area-inset-top));\n    bottom: calc(72px + env(safe-area-inset-bottom));',
     );
     expect(hudMobileCss).toContain(
-      'body.mobile-touch.vendor-open #vendor-window {\n    left: max(10px, env(safe-area-inset-left));\n    right: 50vw;',
+      'body.mobile-touch.vendor-open #vendor-window,\n  body.mobile-touch.vendor-open #craft-window {\n    left: max(10px, env(safe-area-inset-left));\n    right: 50vw;',
     );
     expect(hudMobileCss).toContain(
       'body.mobile-touch.vendor-open #bags {\n    left: 50vw;\n    right: max(10px, env(safe-area-inset-right));',
     );
     expect(hudMobileCss).toContain(
-      'body.mobile-touch.vendor-open #vendor-window .panel-title,\n  body.mobile-touch.vendor-open #bags .panel-title {\n    height: 47px;\n    min-height: 47px;',
+      'body.mobile-touch.vendor-open #vendor-window .panel-title,\n  body.mobile-touch.vendor-open #craft-window .panel-title,\n  body.mobile-touch.vendor-open #bags .panel-title {\n    height: 47px;\n    min-height: 47px;',
     );
     expect(hudMobileCss).toContain(
-      'body.mobile-touch.vendor-open #vendor-window .panel-title .x-btn {\n    display: none;',
+      'body.mobile-touch.vendor-open #vendor-window .panel-title .x-btn,\n  body.mobile-touch.vendor-open #craft-window .panel-title .x-btn {\n    display: none;',
     );
-    expect(hudTs).toContain(
-      "if (this.vendorOpen && document.body.classList.contains('mobile-touch')) this.closeVendor();",
+    expect(hudTs).toMatch(
+      /this\.vendorOpen && document\.body\.classList\.contains\('mobile-touch'\)\)\s*this\.closeVendor\(\);/,
     );
     expect(hudTs).toMatch(
       /const closeMobileBags =\s*document\.body\.classList\.contains\('mobile-touch'\) &&\s*\$\('#bags'\)\.style\.display !== 'none';/,

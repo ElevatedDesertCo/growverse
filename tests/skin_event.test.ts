@@ -1,9 +1,17 @@
 import { describe, expect, it } from 'vitest';
-import { Sim } from '../src/sim/sim';
-import {
-  EVENT_SKIN_TIERS, EVENT_SKIN_TOKEN_ID, MECH_CHROMAS, SKIN_COUNTS, SKIN_RANK_ROLL_WEIGHTS, SKIN_RANKS, mechChromaItemId, rankAllowsSkin, rollSkinRank,
-} from '../src/sim/content/skins';
 import { SKINS } from '../src/render/characters/manifest';
+import {
+  EVENT_SKIN_TIERS,
+  EVENT_SKIN_TOKEN_ID,
+  MECH_CHROMAS,
+  mechChromaItemId,
+  rankAllowsSkin,
+  rollSkinRank,
+  SKIN_COUNTS,
+  SKIN_RANK_ROLL_WEIGHTS,
+  SKIN_RANKS,
+} from '../src/sim/content/skins';
+import { Sim } from '../src/sim/sim';
 import type { PlayerClass, SimEvent, SkinRank } from '../src/sim/types';
 
 type SkinEvent = Extract<SimEvent, { type: 'skinEvent' }>;
@@ -63,8 +71,10 @@ describe('cosmetic skin-select event', () => {
   });
 
   it('locks in an in-rank skin: applies it, consumes the token, clears the pending rank', () => {
-    const { sim, rank } = rollRank(1);
-    const skin = EVENT_SKIN_TIERS[0].skin; // lowest tier — allowed by every rank
+    // Warrior has the full alt-skin catalog; the mage is the 1-of-1 look (SKIN_COUNTS.mage=1)
+    // and cannot receive event alt skins, so the lock-in mechanic is exercised on warrior.
+    const { sim, rank } = rollRank(1, 'warrior');
+    const skin = EVENT_SKIN_TIERS[0].skin; // lowest tier, allowed by every rank
     expect(rankAllowsSkin(rank, skin)).toBe(true);
 
     sim.claimEventSkin(skin);
@@ -130,7 +140,9 @@ describe('cosmetic skin-select event', () => {
 
   it('returns a non-vendorable, non-discardable, non-marketable mech cosmetic item when unequipped', () => {
     const sim = new Sim({ seed: 1, playerClass: 'shaman', playerName: 'Seller' });
-    const merchant = [...sim.entities.values()].find((e) => e.kind === 'npc' && e.templateId === 'the_merchant');
+    const merchant = [...sim.entities.values()].find(
+      (e) => e.kind === 'npc' && e.templateId === 'the_merchant',
+    );
     if (!merchant) throw new Error('merchant not found');
     const pos = sim.groundPos(merchant.pos.x, merchant.pos.z);
     sim.player.pos = { ...pos };
@@ -147,7 +159,9 @@ describe('cosmetic skin-select event', () => {
     sim.marketList('amber_crimson_armor_plate', 1, 100);
 
     expect(sim.countItem('amber_crimson_armor_plate')).toBe(1);
-    expect(sim.marketListings.some((listing) => listing.itemId === 'amber_crimson_armor_plate')).toBe(false);
+    expect(
+      sim.marketListings.some((listing) => listing.itemId === 'amber_crimson_armor_plate'),
+    ).toBe(false);
   });
 
   it('returns and reuses a specific item for every mech chroma', () => {

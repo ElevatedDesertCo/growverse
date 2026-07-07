@@ -87,12 +87,12 @@ describe('/who name filter', () => {
 });
 
 describe('/who zone filter', () => {
-  // Freshly joined players all spawn in the overworld zone "Eastbrook Vale", so
+  // Freshly joined players all spawn in the overworld zone "Bloomhaven Vale", so
   // a substring of that zone matches everyone, and a different zone matches no one.
   it('matches on zone name, not just player name', () => {
     const { server, viewer } = makeServer(ROSTER);
-    const out = who(server, viewer, 'eastbrook');
-    expect(out[0]).toBe('Who: 3 players matching "eastbrook" on Claudemoon.');
+    const out = who(server, viewer, 'bloomhaven');
+    expect(out[0]).toBe('Who: 3 players matching "bloomhaven" on Claudemoon.');
     expect(out.some((t) => t.startsWith('Mristan'))).toBe(true);
     expect(out.some((t) => t.startsWith('Mrglglgl'))).toBe(true);
     expect(out.some((t) => t.startsWith('Bobbins'))).toBe(true);
@@ -100,8 +100,8 @@ describe('/who zone filter', () => {
 
   it('matches a multi-word zone substring (spaces preserved)', () => {
     const { server, viewer } = makeServer(ROSTER);
-    const out = who(server, viewer, 'eastbrook vale');
-    expect(out[0]).toBe('Who: 3 players matching "eastbrook vale" on Claudemoon.');
+    const out = who(server, viewer, 'bloomhaven vale');
+    expect(out[0]).toBe('Who: 3 players matching "bloomhaven vale" on Claudemoon.');
     expect(out.filter((t) => t.includes(' - level ')).length).toBe(3);
   });
 

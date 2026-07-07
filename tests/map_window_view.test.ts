@@ -94,10 +94,10 @@ function makeOverworldWorld(shape: 'sim' | 'client'): IWorld {
 function makeDelveWorld(shape: 'sim' | 'client'): IWorld {
   const simJunk = shape === 'sim' ? { hp: 100 } : {};
   return {
-    player: { id: 1, kind: 'player', name: 'Me', pos: { x: 5000, z: 0 }, facing: 0, ...simJunk },
+    player: { id: 1, kind: 'player', name: 'Me', pos: { x: 6000, z: 0 }, facing: 0, ...simJunk },
     entities: new Map(),
     socialInfo: null,
-    delveRun: { delveId: 'd', modules: ['m'], moduleIndex: 0, origin: { x: 5000, z: 0 } },
+    delveRun: { delveId: 'd', modules: ['m'], moduleIndex: 0, origin: { x: 6000, z: 0 } },
     cfg: { seed: 42, playerClass: 'warrior' },
     playerId: 1,
     questState: () => 'unavailable',
