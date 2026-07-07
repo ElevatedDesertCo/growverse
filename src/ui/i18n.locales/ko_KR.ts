@@ -5032,6 +5032,7 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.discord.memberSince': '가입일',
   'hudChrome.discord.memberSinceDays': 'Discord 가입 {days}일',
   'hudChrome.discord.roleTag.artists': '아티스트',
+  'hudChrome.discord.roleTag.beaver': '비버',
   'hudChrome.discord.guildMember': '인증된 멤버',
   'hudChrome.discord.notMember': '아직 서버에 없음',
   'hudChrome.discord.joinCta': 'Discord 참여하기',

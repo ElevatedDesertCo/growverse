@@ -918,7 +918,8 @@ export const es: EnTranslations = {
         "levyst": "Levy St",
         "devs": "Dev",
         "mods": "Mod",
-        "artists": "Artista"
+        "artists": "Artista",
+        "beaver": "Beaver"
       },
       "guildMember": "Miembro verificado",
       "notMember": "Aún no estás en el servidor",

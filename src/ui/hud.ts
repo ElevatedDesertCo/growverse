@@ -10476,6 +10476,8 @@ export class Hud {
           return t('hudChrome.discord.roleTag.mods');
         case 'artists':
           return t('hudChrome.discord.roleTag.artists');
+        case 'beaver':
+          return t('hudChrome.discord.roleTag.beaver');
         default:
           return '';
       }
@@ -10553,6 +10555,8 @@ export class Hud {
           return t('hudChrome.discord.roleTag.mods');
         case 'artists':
           return t('hudChrome.discord.roleTag.artists');
+        case 'beaver':
+          return t('hudChrome.discord.roleTag.beaver');
         default:
           return '';
       }

@@ -4773,6 +4773,7 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'hudChrome.discord.memberSince': '加入時間',
   'hudChrome.discord.memberSinceDays': '已加入 Discord {days} 天',
   'hudChrome.discord.roleTag.artists': '美術',
+  'hudChrome.discord.roleTag.beaver': '海狸',
   'hudChrome.discord.guildMember': '已驗證成員',
   'hudChrome.discord.notMember': '尚未加入伺服器',
   'hudChrome.discord.joinCta': '加入 Discord',

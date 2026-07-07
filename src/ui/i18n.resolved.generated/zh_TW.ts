@@ -918,7 +918,8 @@ export const zh_TW: EnTranslations = {
         "levyst": "Levy St",
         "devs": "開發者",
         "mods": "管理員",
-        "artists": "美術"
+        "artists": "美術",
+        "beaver": "海狸"
       },
       "guildMember": "已驗證成員",
       "notMember": "尚未加入伺服器",

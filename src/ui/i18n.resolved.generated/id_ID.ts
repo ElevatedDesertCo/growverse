@@ -918,7 +918,8 @@ export const id_ID: EnTranslations = {
         "levyst": "Levy St",
         "devs": "Pengembang",
         "mods": "Moderator",
-        "artists": "Seniman"
+        "artists": "Seniman",
+        "beaver": "Beaver"
       },
       "guildMember": "Anggota terverifikasi",
       "notMember": "Belum berada di server",

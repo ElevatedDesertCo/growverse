@@ -23,6 +23,15 @@ export const DISCORD_SPECIAL_ROLES: readonly DiscordSpecialRole[] = [
   { key: 'devs', name: 'Devs', color: '#7c8cff', priority: 3 },
   { key: 'mods', name: 'Mods', color: '#57d98a', priority: 2 },
   { key: 'artists', name: 'Artists', color: '#ff85d8', priority: 1 },
+  // Baked Beaver community/holder cosmetic: a galaxy-blue name + "Beaver" tag
+  // (color matches The Dam's beaver-dam glow chinks, 0x5b6ee1). Lowest priority so
+  // any staff role still wins the single surfaced color. v1 is Discord-role gated:
+  // the bot resolves a guild role named "Baked Beaver" and pushes the key, exactly
+  // like the staff roles, so this data entry is the whole wiring.
+  // BEAVER-PHASE3: a $WOC/NFT holder can later be auto-granted this Discord role
+  // from wallet balance (net/wallet.ts + sim/holder_tier.ts); that is a bot/config
+  // task on this same rail, not new in-game infrastructure.
+  { key: 'beaver', name: 'Baked Beaver', color: '#5b6ee1', priority: 0 },
 ] as const;
 
 const BY_KEY = new Map(DISCORD_SPECIAL_ROLES.map((r) => [r.key, r]));

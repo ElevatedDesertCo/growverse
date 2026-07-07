@@ -918,7 +918,8 @@ export const ko_KR: EnTranslations = {
         "levyst": "Levy St",
         "devs": "개발자",
         "mods": "운영자",
-        "artists": "아티스트"
+        "artists": "아티스트",
+        "beaver": "비버"
       },
       "guildMember": "인증된 멤버",
       "notMember": "아직 서버에 없음",

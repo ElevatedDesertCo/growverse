@@ -918,7 +918,8 @@ export const nl_NL: EnTranslations = {
         "levyst": "Levy St",
         "devs": "Dev",
         "mods": "Mod",
-        "artists": "Artiest"
+        "artists": "Artiest",
+        "beaver": "Beaver"
       },
       "guildMember": "Geverifieerd lid",
       "notMember": "Nog niet in de server",

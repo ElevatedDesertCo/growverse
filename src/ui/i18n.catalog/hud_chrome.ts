@@ -1008,6 +1008,7 @@ export const hudChromeStrings = {
       devs: 'Dev',
       mods: 'Mod',
       artists: 'Artist',
+      beaver: 'Beaver',
     },
     guildMember: 'Verified member',
     notMember: 'Not in the server yet',

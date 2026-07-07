@@ -918,7 +918,8 @@ export const tr_TR: EnTranslations = {
         "levyst": "Levy St",
         "devs": "Geliştirici",
         "mods": "Moderatör",
-        "artists": "Sanatçı"
+        "artists": "Sanatçı",
+        "beaver": "Beaver"
       },
       "guildMember": "Onaylı üye",
       "notMember": "Henüz sunucuda değil",

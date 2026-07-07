@@ -918,7 +918,8 @@ export const en_XA: EnTranslations = {
         "levyst": "[Ļéʋý Šţ]",
         "devs": "[Ðéʋ]",
         "mods": "[Ɱóð]",
-        "artists": "[Áŕţíšţ]"
+        "artists": "[Áŕţíšţ]",
+        "beaver": "[Ɓéáʋéŕ]"
       },
       "guildMember": "[Ʋéŕíƒíéð ɱéɱƀéŕ]",
       "notMember": "[Ñóţ íñ ţĥé šéŕʋéŕ ýéţ]",

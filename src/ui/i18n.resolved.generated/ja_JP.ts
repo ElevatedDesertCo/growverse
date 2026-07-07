@@ -918,7 +918,8 @@ export const ja_JP: EnTranslations = {
         "levyst": "Levy St",
         "devs": "開発者",
         "mods": "モデレーター",
-        "artists": "アーティスト"
+        "artists": "アーティスト",
+        "beaver": "ビーバー"
       },
       "guildMember": "認証済みメンバー",
       "notMember": "まだサーバーに参加していません",

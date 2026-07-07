@@ -918,7 +918,8 @@ export const sv_SE: EnTranslations = {
         "levyst": "Levy St",
         "devs": "Utvecklare",
         "mods": "Moderator",
-        "artists": "Konstnär"
+        "artists": "Konstnär",
+        "beaver": "Beaver"
       },
       "guildMember": "Verifierad medlem",
       "notMember": "Inte med på servern ännu",

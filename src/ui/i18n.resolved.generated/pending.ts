@@ -96,6 +96,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.upgradeTitle",
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
+    "hudChrome.discord.roleTag.beaver",
     "hudChrome.options.showDailyRewardsChest"
   ],
   "es_ES": [
@@ -185,6 +186,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.upgradeTitle",
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
+    "hudChrome.discord.roleTag.beaver",
     "hudChrome.options.showDailyRewardsChest"
   ],
   "fr_FR": [
@@ -274,6 +276,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.upgradeTitle",
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
+    "hudChrome.discord.roleTag.beaver",
     "hudChrome.options.showDailyRewardsChest"
   ],
   "fr_CA": [
@@ -363,6 +366,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.upgradeTitle",
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
+    "hudChrome.discord.roleTag.beaver",
     "hudChrome.options.showDailyRewardsChest"
   ],
   "en_CA": [],
@@ -453,6 +457,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.upgradeTitle",
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
+    "hudChrome.discord.roleTag.beaver",
     "hudChrome.options.showDailyRewardsChest"
   ],
   "de_DE": [
@@ -542,6 +547,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.upgradeTitle",
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
+    "hudChrome.discord.roleTag.beaver",
     "hudChrome.options.showDailyRewardsChest"
   ],
   "zh_CN": [
@@ -647,6 +653,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.upgradeTitle",
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
+    "hudChrome.discord.roleTag.beaver",
     "hudChrome.options.showDailyRewardsChest"
   ],
   "ru_RU": [
@@ -740,6 +747,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.upgradeTitle",
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
+    "hudChrome.discord.roleTag.beaver",
     "hudChrome.options.showDailyRewardsChest"
   ],
   "pl_PL": [
@@ -829,6 +837,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.upgradeTitle",
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
+    "hudChrome.discord.roleTag.beaver",
     "hudChrome.options.showDailyRewardsChest"
   ],
   "id_ID": [
@@ -918,6 +927,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.upgradeTitle",
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
+    "hudChrome.discord.roleTag.beaver",
     "hudChrome.options.showDailyRewardsChest"
   ],
   "tr_TR": [
@@ -1007,6 +1017,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.upgradeTitle",
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
+    "hudChrome.discord.roleTag.beaver",
     "hudChrome.options.showDailyRewardsChest"
   ],
   "sv_SE": [
@@ -1096,6 +1107,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.upgradeTitle",
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
+    "hudChrome.discord.roleTag.beaver",
     "hudChrome.options.showDailyRewardsChest"
   ],
   "vi_VN": [
@@ -1185,6 +1197,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.upgradeTitle",
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
+    "hudChrome.discord.roleTag.beaver",
     "hudChrome.options.showDailyRewardsChest"
   ],
   "da_DK": [
@@ -1274,6 +1287,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.upgradeTitle",
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
+    "hudChrome.discord.roleTag.beaver",
     "hudChrome.options.showDailyRewardsChest"
   ]
 };

@@ -5026,6 +5026,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.discord.memberSince': '加入日',
   'hudChrome.discord.memberSinceDays': 'Discord加入{days}日',
   'hudChrome.discord.roleTag.artists': 'アーティスト',
+  'hudChrome.discord.roleTag.beaver': 'ビーバー',
   'hudChrome.discord.guildMember': '認証済みメンバー',
   'hudChrome.discord.notMember': 'まだサーバーに参加していません',
   'hudChrome.discord.joinCta': 'Discordに参加',

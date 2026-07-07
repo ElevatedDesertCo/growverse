@@ -918,7 +918,8 @@ export const vi_VN: EnTranslations = {
         "levyst": "Levy St",
         "devs": "Lập Trình Viên",
         "mods": "Điều Hành Viên",
-        "artists": "Họa Sĩ"
+        "artists": "Họa Sĩ",
+        "beaver": "Beaver"
       },
       "guildMember": "Thành viên đã xác minh",
       "notMember": "Chưa tham gia máy chủ",

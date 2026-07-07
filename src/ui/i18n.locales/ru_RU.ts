@@ -5134,6 +5134,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.discord.memberSince': 'Участник с',
   'hudChrome.discord.memberSinceDays': '{days} дн. в Discord',
   'hudChrome.discord.roleTag.artists': 'Художник',
+  'hudChrome.discord.roleTag.beaver': 'Бобр',
   'hudChrome.discord.guildMember': 'Подтвержденный участник',
   'hudChrome.discord.notMember': 'Еще не на сервере',
   'hudChrome.discord.joinCta': 'Присоединиться к Discord',

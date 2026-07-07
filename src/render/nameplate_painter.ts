@@ -42,6 +42,7 @@ const DISCORD_ROLE_TAG_KEYS: Record<string, TranslationKey> = {
   devs: 'hudChrome.discord.roleTag.devs',
   mods: 'hudChrome.discord.roleTag.mods',
   artists: 'hudChrome.discord.roleTag.artists',
+  beaver: 'hudChrome.discord.roleTag.beaver',
 };
 function discordRoleTag(key: string | undefined): string {
   const tk = key ? DISCORD_ROLE_TAG_KEYS[key] : undefined;
