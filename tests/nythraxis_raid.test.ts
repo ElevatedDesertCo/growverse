@@ -1750,7 +1750,7 @@ describe('Nythraxis raid encounter', () => {
     const transitionEvents = collectEventsForSeconds(sim, 27);
     const aldricYells = transitionEvents
       .filter(isTimedChatEvent)
-      .filter((row) => row.event.from === 'Brother Aldric' && row.event.channel === 'yell');
+      .filter((row) => row.event.from === 'Keeper Aldric' && row.event.channel === 'yell');
     const uniqueAldricYells = aldricYells.filter(
       (row, i) => i === 0 || row.event.text !== aldricYells[i - 1].event.text,
     );
