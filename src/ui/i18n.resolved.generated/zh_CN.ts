@@ -5706,13 +5706,13 @@ export const zh_CN: EnTranslations = {
         "name": "侍僧泰莎"
       },
       "haze_critter": {
-        "name": "Haze Critter"
+        "name": "迷雾小怪"
       },
       "driftwood_snapper": {
-        "name": "Driftwood Snapper"
+        "name": "浮木咬客"
       },
       "overbaked_beaver": {
-        "name": "Overbaked Beaver"
+        "name": "嗑嗨的河狸"
       },
       "ironvein_foreman": {
         "name": "铁脉工头"
@@ -5945,29 +5945,29 @@ export const zh_CN: EnTranslations = {
         "greeting": "升级台正热着呢。给我带来腐蚀碎片，我会把你的钢铁重铸成裂隙也无法折断的利器。"
       },
       "boone_cascade": {
-        "name": "Boone Cascade",
-        "title": "Elder of The Dam",
-        "greeting": "Well, look who wandered down off the map, {playerName}. Our dam is here now, and you're already invited. Haze critters are thick off the reservoir, though. Swat a few for us and the fire's all yours."
+        "name": "布恩·卡斯凯德",
+        "title": "大坝长老",
+        "greeting": "瞧瞧是谁从地图外头晃了下来，{playerName}。我们的大坝如今就在这儿，你早就受邀了。不过水库那边迷雾小怪成群。替我们拍掉几只，篝火就归你了。"
       },
       "sequoia_marsh": {
-        "name": "Sequoia Marsh",
-        "title": "Keeper of the Blue Grows",
-        "greeting": "Careful where you step, that patch runs hot and blue. You buying, or you working? Either way I've got a job needs doing, {playerName}."
+        "name": "红杉·马什",
+        "title": "蓝田守护者",
+        "greeting": "走路当心点，那块地又烫又蓝。你是来买货，还是来干活的？不管哪样，我这儿都有活儿要做，{playerName}。"
       },
       "ollie_ridgeback": {
-        "name": "Ollie Ridgeback",
-        "title": "Ridge Scout",
-        "greeting": "You board? Doesn't matter, you'll learn. Haze is thick off the water today, {playerName}, and thick haze means critters. Grab a stick and help me thin it."
+        "name": "奥利·瑞奇巴克",
+        "title": "山脊斥候",
+        "greeting": "你会玩滑板？无所谓，早晚你会学会。今天水面上的迷雾特别浓，{playerName}，雾一浓就有小怪。抄根棍子，帮我把它们清一清。"
       },
       "wren_alder": {
-        "name": "Wren Alder",
-        "title": "The Broadcast",
-        "greeting": "You're live, whether you like it or not. Signal goes out Monday nights, the whole ridge tunes in. Stay Baked, AZ, {playerName}, and try to say something worth broadcasting."
+        "name": "雷恩·奥尔德",
+        "title": "广播",
+        "greeting": "不管你乐不乐意，你现在正在直播。信号每周一晚上发出去，整条山脊都在收听。保持嗨着，亚利桑那，{playerName}，试着说点值得播出去的话吧。"
       },
       "junie_stonewater": {
-        "name": "Junie Stonewater",
-        "title": "Keeper of the Old Ridge",
-        "greeting": "Boone sent you to the Tanque, did he. Good. Sit. We came down the frozen ridges on boards with a half-built dam behind us, and we never once looked back. That's the whole story. The rest is just smoke."
+        "name": "朱妮·石水",
+        "title": "古脊守护者",
+        "greeting": "布恩把你打发到坦克水塘来了，是吧。好。坐下。当年我们踩着滑板从冰封的山脊上下来，身后是座只修了一半的大坝，从没回过一次头。整个故事就这么多。剩下的，都是烟罢了。"
       },
       "tidewatcher_ondrel": {
         "name": "翁德雷尔·凡恩",
@@ -6729,32 +6729,32 @@ export const zh_CN: EnTranslations = {
         }
       },
       "q_welcome_dam": {
-        "title": "Welcome to The Dam",
-        "text": "First rule of The Dam, {playerName}: nobody earns their spot by sitting still. The haze off the reservoir has clumped into critters again, thick along the water. Swat six of them and come warm up by the fire. Then go hear Junie's story at The Tanque, if you want the whole of it.",
-        "completion": "Six critters lighter and you're still standing. That's the whole trial, {playerName}. Seat by the fire's yours, free of charge. You're one of us now. Stay Baked, AZ.",
+        "title": "欢迎来到大坝",
+        "text": "大坝的第一条规矩，{playerName}：没人靠干坐着挣到自己的位置。水库上的迷雾又聚成小怪了，沿着水边一大片。拍掉六只，然后到篝火边暖暖身子。要是想听全整个故事，就去坦克水塘找朱妮。",
+        "completion": "少了六只小怪，你还稳稳站着。这就是全部的考验了，{playerName}。篝火边的位置归你了，免费。现在你是我们的人了。保持嗨着，亚利桑那。",
         "objectives": {
           "0": {
-            "label": "Haze Critter swatted"
+            "label": "迷雾小怪已拍掉"
           }
         }
       },
       "q_clear_haze": {
-        "title": "Clear the Haze",
-        "text": "Boone had you swat a few, but the haze keeps rolling thick off the reservoir and clumping right back, {playerName}. Annoying little things, and they spook the newer folk. Knock out ten of them along the water and I'll cut you in on the good stash.",
-        "completion": "Ten down, air's already clearer. Here's your cut, and a pull off Seq's own patch on the house. Runs hot. Don't burn out before your first hill.",
+        "title": "驱散迷雾",
+        "text": "布恩让你拍掉了几只，可迷雾还是从水库那头浓浓地滚过来，一转眼又聚回去了，{playerName}。烦人的小东西，还老吓着新来的人。沿着水边干掉十只，我就分你点好货。",
+        "completion": "干掉十只，空气一下就清爽多了。这是你的那份，再送你一口塞哥自留地的货。劲儿很冲。别还没上第一个坡就先烧尽了。",
         "objectives": {
           "0": {
-            "label": "Haze Critter dispersed"
+            "label": "迷雾小怪已驱散"
           }
         }
       },
       "q_dam_driftwood": {
-        "title": "Snapping Driftwood",
-        "text": "The dam's leaking blue and my grows are half in the wet, {playerName}. I'd patch it with good driftwood, but those snappers down in the shallows chew every board I float. Cull ten of them and I can shore the beds up myself. Mind the jaws.",
-        "completion": "Ten fewer sets of teeth in my driftwood. The beds will dry out now. You've got a steady hand for a newcomer. Come back when your boots are drier and I'll teach you the grow.",
+        "title": "咬人的浮木",
+        "text": "大坝正漏着蓝水，我的种植床有一半都泡在水里了，{playerName}。我本想用好浮木把它补上，可浅滩里那些咬客把我漂过去的每一块板子都啃了。宰掉十只，我就能自己把苗床垫高。当心它们的嘴。",
+        "completion": "我的浮木里少了十副牙口。苗床这下能干出来了。作为新来的，你这手挺稳。等你靴子干些了再回来，我教你怎么种。",
         "objectives": {
           "0": {
-            "label": "Driftwood Snapper culled"
+            "label": "浮木咬客已宰杀"
           }
         }
       },
@@ -6825,28 +6825,28 @@ export const zh_CN: EnTranslations = {
     "zones": {
       "the_dam": {
         "name": "The Dam",
-        "welcome": "Nobody invited the Beavers. Boone Cascade waves you in anyway. Stay Baked, AZ.",
+        "welcome": "没人邀请河狸帮，布恩·卡斯凯德还是招手让你进来。保持嗨着，亚利桑那。",
         "pois": {
           "0": {
             "label": "The Dam"
           },
           "1": {
-            "label": "The Tanque"
+            "label": "坦克水塘"
           },
           "2": {
-            "label": "Driftwood Row"
+            "label": "浮木街"
           },
           "3": {
-            "label": "The Blue Grows"
+            "label": "蓝田种植区"
           },
           "4": {
-            "label": "The Reservoir"
+            "label": "水库"
           },
           "5": {
-            "label": "Snapper Shallows"
+            "label": "咬客浅滩"
           },
           "6": {
-            "label": "Frozen Ridges Trail"
+            "label": "冰封山脊小径"
           }
         }
       },

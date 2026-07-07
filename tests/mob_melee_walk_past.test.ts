@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest';
-import { Sim } from '../src/sim/sim';
-import { createMob } from '../src/sim/entity';
 import { MOBS } from '../src/sim/data';
+import { createMob } from '../src/sim/entity';
+import { Rng } from '../src/sim/rng';
+import { Sim } from '../src/sim/sim';
 import { MELEE_RANGE } from '../src/sim/types';
 
 // Regression for "excessive melee range on monsters": a STATIONARY mob used to gain a
@@ -22,6 +23,18 @@ function makeSim() {
   p.maxHp = 100000;
   p.hp = 100000;
   return { sim, p };
+}
+
+// This file asserts REACH geometry via the HP delta of a single swing. The swing
+// still rolls the mob hit table, so its landing depends on the shared rng stream's
+// position after Sim construction, which world-content additions perturb. To keep
+// the geometry assertions deterministic (a swing IN reach must leave a visible HP
+// delta, independent of unrelated content), the tests that assert a landed swing
+// zero the target's avoidance and reseed the sim rng to a fixed, construction-
+// independent stream immediately before the swing.
+function forceLandingSwing(sim: any, p: any) {
+  p.dodgeChance = 0; // reach test: remove avoidance so an in-range swing must connect
+  sim.rng = new Rng(1); // decouple the hit roll from post-construction rng position
 }
 
 // Place a hostile scale-1 mob at distance `dist` along +x. `moved` controls whether
@@ -49,6 +62,7 @@ describe('mob melee reach: walking past a stationary mob', () => {
   it('a stationary mob still swings at a player inside its true 5 yd reach', () => {
     const { sim, p } = makeSim();
     const mob = placeMob(sim, 4.5, false);
+    forceLandingSwing(sim, p);
     const swung = sim.tryMobMeleeSwingInRange(mob, p);
     expect(swung).toBe(true);
     expect(p.hp).toBeLessThan(100000);
@@ -68,7 +82,9 @@ describe('mob melee reach: walking past a stationary mob', () => {
     expect(sim.tryMobMeleeSwingInRange(placeMob(sim, 6.5, true), p)).toBe(false);
     expect(p.hp).toBe(100000);
     // At 5.5 yd the 1 yd grace does let a pursuing mob connect.
-    expect(sim.tryMobMeleeSwingInRange(placeMob(sim, 5.5, true), p)).toBe(true);
+    const pursuing = placeMob(sim, 5.5, true);
+    forceLandingSwing(sim, p);
+    expect(sim.tryMobMeleeSwingInRange(pursuing, p)).toBe(true);
     expect(p.hp).toBeLessThan(100000);
   });
 

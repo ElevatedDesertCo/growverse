@@ -5706,13 +5706,13 @@ export const ko_KR: EnTranslations = {
         "name": "수련사제 테사"
       },
       "haze_critter": {
-        "name": "Haze Critter"
+        "name": "헤이즈 크리터"
       },
       "driftwood_snapper": {
-        "name": "Driftwood Snapper"
+        "name": "유목 스내퍼"
       },
       "overbaked_beaver": {
-        "name": "Overbaked Beaver"
+        "name": "오버베이크 비버"
       },
       "ironvein_foreman": {
         "name": "철맥 감독관"
@@ -5945,29 +5945,29 @@ export const ko_KR: EnTranslations = {
         "greeting": "개조 작업대가 뜨겁게 달아올랐네. 부패의 파편을 가져오게. 자네의 강철을 균열조차 부수지 못할 물건으로 다시 벼려주지."
       },
       "boone_cascade": {
-        "name": "Boone Cascade",
-        "title": "Elder of The Dam",
-        "greeting": "Well, look who wandered down off the map, {playerName}. Our dam is here now, and you're already invited. Haze critters are thick off the reservoir, though. Swat a few for us and the fire's all yours."
+        "name": "분 캐스케이드",
+        "title": "댐의 장로",
+        "greeting": "이런, 지도 밖에서 흘러 내려온 게 누군가 했더니, {playerName}. 우리 댐은 이제 여기 있고, 넌 이미 초대받은 몸이야. 다만 저수지 쪽에 헤이즈 크리터가 잔뜩 껴 있어. 몇 마리 쳐 주면 모닥불은 다 네 거다."
       },
       "sequoia_marsh": {
-        "name": "Sequoia Marsh",
-        "title": "Keeper of the Blue Grows",
-        "greeting": "Careful where you step, that patch runs hot and blue. You buying, or you working? Either way I've got a job needs doing, {playerName}."
+        "name": "세쿼이아 마시",
+        "title": "블루 그로우 관리인",
+        "greeting": "발밑 조심해, 저 밭은 뜨겁고 파랗게 타오르거든. 사러 왔나, 일하러 왔나? 어느 쪽이든 해줬으면 하는 일이 있어, {playerName}."
       },
       "ollie_ridgeback": {
-        "name": "Ollie Ridgeback",
-        "title": "Ridge Scout",
-        "greeting": "You board? Doesn't matter, you'll learn. Haze is thick off the water today, {playerName}, and thick haze means critters. Grab a stick and help me thin it."
+        "name": "올리 리지백",
+        "title": "능선 정찰병",
+        "greeting": "보드 탈 줄 알아? 상관없어, 곧 배우게 될 테니. 오늘은 물 위로 헤이즈가 자욱해, {playerName}, 헤이즈가 짙으면 크리터가 나온다는 뜻이지. 막대기 하나 집어서 솎아내는 걸 도와줘."
       },
       "wren_alder": {
-        "name": "Wren Alder",
-        "title": "The Broadcast",
-        "greeting": "You're live, whether you like it or not. Signal goes out Monday nights, the whole ridge tunes in. Stay Baked, AZ, {playerName}, and try to say something worth broadcasting."
+        "name": "렌 알더",
+        "title": "더 브로드캐스트",
+        "greeting": "좋든 싫든, 넌 지금 생방송 중이야. 신호는 월요일 밤마다 나가고, 능선 전체가 귀를 기울이지. 스테이 베이크드, AZ, {playerName}, 방송할 만한 말 한마디 해보라고."
       },
       "junie_stonewater": {
-        "name": "Junie Stonewater",
-        "title": "Keeper of the Old Ridge",
-        "greeting": "Boone sent you to the Tanque, did he. Good. Sit. We came down the frozen ridges on boards with a half-built dam behind us, and we never once looked back. That's the whole story. The rest is just smoke."
+        "name": "주니 스톤워터",
+        "title": "옛 능선의 관리인",
+        "greeting": "분이 널 탄케로 보냈군, 그래. 좋아. 앉아. 우린 반쯤 지어진 댐을 등지고 얼어붙은 능선을 보드로 타고 내려왔지, 단 한 번도 뒤돌아보지 않았어. 그게 이야기의 전부다. 나머지는 그저 연기일 뿐이야."
       },
       "tidewatcher_ondrel": {
         "name": "온드렐 베인",
@@ -6729,32 +6729,32 @@ export const ko_KR: EnTranslations = {
         }
       },
       "q_welcome_dam": {
-        "title": "Welcome to The Dam",
-        "text": "First rule of The Dam, {playerName}: nobody earns their spot by sitting still. The haze off the reservoir has clumped into critters again, thick along the water. Swat six of them and come warm up by the fire. Then go hear Junie's story at The Tanque, if you want the whole of it.",
-        "completion": "Six critters lighter and you're still standing. That's the whole trial, {playerName}. Seat by the fire's yours, free of charge. You're one of us now. Stay Baked, AZ.",
+        "title": "댐에 온 걸 환영해",
+        "text": "댐의 첫 번째 규칙이야, {playerName}. 가만히 앉아서 제자리를 얻는 자는 없어. 저수지의 헤이즈가 또 크리터로 뭉쳤어, 물가를 따라 잔뜩 말이야. 여섯 마리 쳐 잡고 모닥불에 몸 좀 녹이러 와. 전부 다 알고 싶으면, 탄케로 가서 주니의 이야기를 들어봐.",
+        "completion": "크리터 여섯 마리를 줄이고도 넌 멀쩡히 서 있군. 시련은 그게 전부야, {playerName}. 모닥불 옆자리는 네 거다, 공짜로. 이제 넌 우리 식구야. 스테이 베이크드, AZ.",
         "objectives": {
           "0": {
-            "label": "Haze Critter swatted"
+            "label": "헤이즈 크리터 처치"
           }
         }
       },
       "q_clear_haze": {
-        "title": "Clear the Haze",
-        "text": "Boone had you swat a few, but the haze keeps rolling thick off the reservoir and clumping right back, {playerName}. Annoying little things, and they spook the newer folk. Knock out ten of them along the water and I'll cut you in on the good stash.",
-        "completion": "Ten down, air's already clearer. Here's your cut, and a pull off Seq's own patch on the house. Runs hot. Don't burn out before your first hill.",
+        "title": "헤이즈를 걷어내라",
+        "text": "분이 몇 마리 치게 했다지만, 헤이즈는 저수지에서 자꾸 짙게 밀려와 금세 다시 뭉쳐, {playerName}. 성가신 것들이고 새로 온 이들을 겁주지. 물가를 따라 열 마리를 처치하면 좋은 물건 좀 나눠줄게.",
+        "completion": "열 마리를 잡으니 공기가 벌써 한결 맑아졌어. 이건 네 몫이고, 세크 본인 밭에서 나온 한 모금은 서비스야. 꽤 세게 올라와. 첫 언덕도 넘기 전에 타버리진 마.",
         "objectives": {
           "0": {
-            "label": "Haze Critter dispersed"
+            "label": "헤이즈 크리터 흩어냄"
           }
         }
       },
       "q_dam_driftwood": {
-        "title": "Snapping Driftwood",
-        "text": "The dam's leaking blue and my grows are half in the wet, {playerName}. I'd patch it with good driftwood, but those snappers down in the shallows chew every board I float. Cull ten of them and I can shore the beds up myself. Mind the jaws.",
-        "completion": "Ten fewer sets of teeth in my driftwood. The beds will dry out now. You've got a steady hand for a newcomer. Come back when your boots are drier and I'll teach you the grow.",
+        "title": "물어뜯는 유목",
+        "text": "댐이 파란 물을 새고 있어서 내 밭은 절반이 물에 잠겼어, {playerName}. 좋은 유목으로 막고 싶은데, 여울의 저 스내퍼들이 내가 띄우는 판자를 죄다 물어뜯어. 열 마리만 솎아내 주면 나머지 못자리는 내가 직접 돋울 수 있어. 그 턱을 조심해.",
+        "completion": "내 유목을 갉던 이빨이 열 세트 줄었군. 이제 못자리도 마를 거야. 신참치고는 손이 야무지네. 부츠가 좀 마르거든 다시 와, 재배법을 가르쳐 줄 테니.",
         "objectives": {
           "0": {
-            "label": "Driftwood Snapper culled"
+            "label": "유목 스내퍼 솎아냄"
           }
         }
       },
@@ -6825,28 +6825,28 @@ export const ko_KR: EnTranslations = {
     "zones": {
       "the_dam": {
         "name": "The Dam",
-        "welcome": "Nobody invited the Beavers. Boone Cascade waves you in anyway. Stay Baked, AZ.",
+        "welcome": "아무도 비버스를 초대하지 않았다. 그래도 분 캐스케이드는 당신에게 들어오라 손짓한다. 스테이 베이크드, AZ.",
         "pois": {
           "0": {
             "label": "The Dam"
           },
           "1": {
-            "label": "The Tanque"
+            "label": "더 탄케"
           },
           "2": {
-            "label": "Driftwood Row"
+            "label": "유목 거리"
           },
           "3": {
-            "label": "The Blue Grows"
+            "label": "블루 그로우"
           },
           "4": {
-            "label": "The Reservoir"
+            "label": "저수지"
           },
           "5": {
-            "label": "Snapper Shallows"
+            "label": "스내퍼 여울"
           },
           "6": {
-            "label": "Frozen Ridges Trail"
+            "label": "얼어붙은 능선 길"
           }
         }
       },

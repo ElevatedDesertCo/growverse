@@ -1,9 +1,19 @@
 import { describe, expect, it } from 'vitest';
-import { isBlocked, pathCrossesFence, resolveMovement, resolvePosition } from '../src/sim/colliders';
-import { Sim } from '../src/sim/sim';
-import { findPath, findPlayerPath, PLAYER_SWIM_DEPTH, resolvePlayerDestination } from '../src/sim/pathfind';
-import { groundHeight, WATER_LEVEL } from '../src/sim/world';
+import {
+  isBlocked,
+  pathCrossesFence,
+  resolveMovement,
+  resolvePosition,
+} from '../src/sim/colliders';
 import { PROPS } from '../src/sim/data';
+import {
+  findPath,
+  findPlayerPath,
+  PLAYER_SWIM_DEPTH,
+  resolvePlayerDestination,
+} from '../src/sim/pathfind';
+import { Sim } from '../src/sim/sim';
+import { groundHeight, WATER_LEVEL } from '../src/sim/world';
 
 describe('player pathfinding', () => {
   it('smooths open-grid A* stair steps into one direct movement leg', () => {
@@ -36,12 +46,13 @@ describe('player pathfinding', () => {
 
   it('resolves click destinations inside buildings to the nearest walkable outside point', () => {
     const seed = 20061;
-    const target = resolvePlayerDestination(seed, { x: 10, z: 12 });
+    // (15, 12) sits inside the Bloomhaven house at ~(15.4, 12) on this seed.
+    const target = resolvePlayerDestination(seed, { x: 15, z: 12 });
 
-    expect(isBlocked(seed, 10, 12)).toBe(true);
+    expect(isBlocked(seed, 15, 12)).toBe(true);
     expect(isBlocked(seed, target.x, target.z)).toBe(false);
-    expect(Math.hypot(target.x - 10, target.z - 12)).toBeGreaterThan(0.5);
-    expect(Math.hypot(target.x - 10, target.z - 12)).toBeLessThan(6);
+    expect(Math.hypot(target.x - 15, target.z - 12)).toBeGreaterThan(0.5);
+    expect(Math.hypot(target.x - 15, target.z - 12)).toBeLessThan(6);
   });
 
   it('snaps a water click to shore for walkers but keeps it for swimmers', () => {
@@ -76,10 +87,11 @@ describe('player pathfinding', () => {
 
   it('treats fence runs as movement blockers', () => {
     const seed = 20061;
-    expect(isBlocked(seed, 19, 10)).toBe(true);
+    // (-15, -22) sits on the authored fence run {-15,-18 -> -15,-26} on this seed.
+    expect(isBlocked(seed, -15, -22)).toBe(true);
 
-    const from = { x: 13, z: 7 };
-    const to = { x: 25, z: 13 };
+    const from = { x: -11, z: -22 };
+    const to = { x: -19, z: -22 };
     const path = findPlayerPath(seed, from, to);
 
     expect(path.length).toBeGreaterThan(1);
@@ -88,8 +100,8 @@ describe('player pathfinding', () => {
 
   it('routes over a fence when the mover can jump it (click-to-move)', () => {
     const seed = 20061;
-    const from = { x: 13, z: 7 };
-    const to = { x: 25, z: 13 };
+    const from = { x: -11, z: -22 };
+    const to = { x: -19, z: -22 };
 
     const anySegmentCrossesFence = (path: { x: number; z: number }[]) => {
       let prev = from;
@@ -109,7 +121,7 @@ describe('player pathfinding', () => {
   it('blocks normal player movement through fences', () => {
     const sim = new Sim({ seed: 20061, playerClass: 'warrior' });
     const p = sim.player;
-    const fence = { x1: 16, z1: 16, x2: 22, z2: 4 };
+    const fence = { x1: -15, z1: -18, x2: -15, z2: -26 };
     const mx = (fence.x1 + fence.x2) / 2;
     const mz = (fence.z1 + fence.z2) / 2;
     const dx = fence.x2 - fence.x1;
@@ -134,7 +146,7 @@ describe('player pathfinding', () => {
   it('lets a jumping player clear a fence', () => {
     const sim = new Sim({ seed: 20061, playerClass: 'warrior' });
     const p = sim.player;
-    const fence = { x1: 16, z1: 16, x2: 22, z2: 4 };
+    const fence = { x1: -15, z1: -18, x2: -15, z2: -26 };
     const mx = (fence.x1 + fence.x2) / 2;
     const mz = (fence.z1 + fence.z2) / 2;
     const dx = fence.x2 - fence.x1;
@@ -161,7 +173,7 @@ describe('player pathfinding', () => {
 
   it('sweeps movement segments so a long step cannot tunnel through a fence', () => {
     const seed = 20061;
-    const fence = { x1: 16, z1: 16, x2: 22, z2: 4 };
+    const fence = { x1: -15, z1: -18, x2: -15, z2: -26 };
     const mx = (fence.x1 + fence.x2) / 2;
     const mz = (fence.z1 + fence.z2) / 2;
     const dx = fence.x2 - fence.x1;
@@ -179,7 +191,7 @@ describe('player pathfinding', () => {
 
   it('lets the player stand close to the fence face without crossing it', () => {
     const seed = 20061;
-    const fence = { x1: 16, z1: 16, x2: 22, z2: 4 };
+    const fence = { x1: -15, z1: -18, x2: -15, z2: -26 };
     const mx = (fence.x1 + fence.x2) / 2;
     const mz = (fence.z1 + fence.z2) / 2;
     const dx = fence.x2 - fence.x1;

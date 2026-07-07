@@ -5706,13 +5706,13 @@ export const ru_RU: EnTranslations = {
         "name": "Послушница Тесса"
       },
       "haze_critter": {
-        "name": "Haze Critter"
+        "name": "Дымчатая тварь"
       },
       "driftwood_snapper": {
-        "name": "Driftwood Snapper"
+        "name": "Коряжный кусач"
       },
       "overbaked_beaver": {
-        "name": "Overbaked Beaver"
+        "name": "Перезабалдевший бобёр"
       },
       "ironvein_foreman": {
         "name": "Прораб Железной жилы"
@@ -5945,29 +5945,29 @@ export const ru_RU: EnTranslations = {
         "greeting": "Верстак улучшений раскалён. Принеси мне осколки Порчи, и я перекую твою сталь в то, что не сломит и сам Разлом."
       },
       "boone_cascade": {
-        "name": "Boone Cascade",
-        "title": "Elder of The Dam",
-        "greeting": "Well, look who wandered down off the map, {playerName}. Our dam is here now, and you're already invited. Haze critters are thick off the reservoir, though. Swat a few for us and the fire's all yours."
+        "name": "Бун Каскейд",
+        "title": "Старейшина Плотины",
+        "greeting": "Ну надо же, кого это занесло сюда с края карты, {playerName}. Наша плотина теперь здесь, и тебя уже позвали. Вот только у водохранилища дымчатой твари развелось будь здоров. Прихлопни пару штук для нас, и место у огня твоё."
       },
       "sequoia_marsh": {
-        "name": "Sequoia Marsh",
-        "title": "Keeper of the Blue Grows",
-        "greeting": "Careful where you step, that patch runs hot and blue. You buying, or you working? Either way I've got a job needs doing, {playerName}."
+        "name": "Секвойя Марш",
+        "title": "Хранитель Синих посадок",
+        "greeting": "Смотри, куда ступаешь, эта грядка горячая и синяя. Ты покупать или работать? Так или иначе, у меня есть дело, {playerName}."
       },
       "ollie_ridgeback": {
-        "name": "Ollie Ridgeback",
-        "title": "Ridge Scout",
-        "greeting": "You board? Doesn't matter, you'll learn. Haze is thick off the water today, {playerName}, and thick haze means critters. Grab a stick and help me thin it."
+        "name": "Олли Риджбэк",
+        "title": "Разведчик хребта",
+        "greeting": "На доске катаешь? Неважно, научишься. Сегодня над водой дымка густая, {playerName}, а густая дымка значит тварь. Хватай палку и помоги мне её проредить."
       },
       "wren_alder": {
-        "name": "Wren Alder",
-        "title": "The Broadcast",
-        "greeting": "You're live, whether you like it or not. Signal goes out Monday nights, the whole ridge tunes in. Stay Baked, AZ, {playerName}, and try to say something worth broadcasting."
+        "name": "Рен Олдер",
+        "title": "Вещатель",
+        "greeting": "Хочешь ты того или нет, ты в прямом эфире. Сигнал уходит в понедельник вечером, весь хребет слушает. Оставайся упоротым, Аризона, {playerName}, и постарайся сказать что-нибудь стоящее эфира."
       },
       "junie_stonewater": {
-        "name": "Junie Stonewater",
-        "title": "Keeper of the Old Ridge",
-        "greeting": "Boone sent you to the Tanque, did he. Good. Sit. We came down the frozen ridges on boards with a half-built dam behind us, and we never once looked back. That's the whole story. The rest is just smoke."
+        "name": "Джуни Стоунуотер",
+        "title": "Хранитель Старого хребта",
+        "greeting": "Значит, Бун отправил тебя к Танке. Хорошо. Садись. Мы спустились с замёрзших хребтов на досках, а за спиной осталась недостроенная плотина, и ни разу не оглянулись. Вот и вся история. Остальное просто дым."
       },
       "tidewatcher_ondrel": {
         "name": "Ондрел Вейн",
@@ -6729,32 +6729,32 @@ export const ru_RU: EnTranslations = {
         }
       },
       "q_welcome_dam": {
-        "title": "Welcome to The Dam",
-        "text": "First rule of The Dam, {playerName}: nobody earns their spot by sitting still. The haze off the reservoir has clumped into critters again, thick along the water. Swat six of them and come warm up by the fire. Then go hear Junie's story at The Tanque, if you want the whole of it.",
-        "completion": "Six critters lighter and you're still standing. That's the whole trial, {playerName}. Seat by the fire's yours, free of charge. You're one of us now. Stay Baked, AZ.",
+        "title": "Добро пожаловать на Плотину",
+        "text": "Первое правило Плотины, {playerName}: никто не заслуживает своё место, сидя сложа руки. Дымка над водохранилищем снова сбилась в тварей, густо вдоль воды. Прихлопни шестерых и приходи греться у огня. А захочешь узнать всю историю целиком, ступай послушать Джуни у Танке.",
+        "completion": "Шестью тварями меньше, а ты всё ещё на ногах. Вот и всё испытание, {playerName}. Место у огня твоё, бесплатно. Теперь ты один из нас. Оставайся упоротым, Аризона.",
         "objectives": {
           "0": {
-            "label": "Haze Critter swatted"
+            "label": "Дымчатая тварь прихлопнута"
           }
         }
       },
       "q_clear_haze": {
-        "title": "Clear the Haze",
-        "text": "Boone had you swat a few, but the haze keeps rolling thick off the reservoir and clumping right back, {playerName}. Annoying little things, and they spook the newer folk. Knock out ten of them along the water and I'll cut you in on the good stash.",
-        "completion": "Ten down, air's already clearer. Here's your cut, and a pull off Seq's own patch on the house. Runs hot. Don't burn out before your first hill.",
+        "title": "Развей дымку",
+        "text": "Бун велел тебе прихлопнуть пару штук, но дымка всё валит густо с водохранилища и тут же сбивается обратно, {playerName}. Назойливые твари, да ещё и новичков пугают. Уложи десяток вдоль воды, и я выделю тебе долю из хорошего запаса.",
+        "completion": "Десяток готов, воздух уже чище. Вот твоя доля, и затяжка с собственной грядки Сека за счёт заведения. Забирает крепко. Не сгори до первого же склона.",
         "objectives": {
           "0": {
-            "label": "Haze Critter dispersed"
+            "label": "Дымчатая тварь развеяна"
           }
         }
       },
       "q_dam_driftwood": {
-        "title": "Snapping Driftwood",
-        "text": "The dam's leaking blue and my grows are half in the wet, {playerName}. I'd patch it with good driftwood, but those snappers down in the shallows chew every board I float. Cull ten of them and I can shore the beds up myself. Mind the jaws.",
-        "completion": "Ten fewer sets of teeth in my driftwood. The beds will dry out now. You've got a steady hand for a newcomer. Come back when your boots are drier and I'll teach you the grow.",
+        "title": "Кусачая коряга",
+        "text": "Плотина течёт синим, и мои посадки наполовину в воде, {playerName}. Я бы залатал её добрым корягой, да только кусачи на отмели грызут каждую доску, что я пускаю по воде. Проредь десяток, и грядки я подниму сам. Берегись челюстей.",
+        "completion": "На десять пастей меньше в моих коряжинах. Теперь грядки просохнут. Для новичка у тебя твёрдая рука. Возвращайся, когда обсохнут сапоги, и я научу тебя растить.",
         "objectives": {
           "0": {
-            "label": "Driftwood Snapper culled"
+            "label": "Коряжный кусач истреблён"
           }
         }
       },
@@ -6825,28 +6825,28 @@ export const ru_RU: EnTranslations = {
     "zones": {
       "the_dam": {
         "name": "The Dam",
-        "welcome": "Nobody invited the Beavers. Boone Cascade waves you in anyway. Stay Baked, AZ.",
+        "welcome": "Бобров никто не звал. Бун Каскейд всё равно машет тебе рукой. Оставайся упоротым, Аризона.",
         "pois": {
           "0": {
             "label": "The Dam"
           },
           "1": {
-            "label": "The Tanque"
+            "label": "Танке"
           },
           "2": {
-            "label": "Driftwood Row"
+            "label": "Коряжный ряд"
           },
           "3": {
-            "label": "The Blue Grows"
+            "label": "Синие посадки"
           },
           "4": {
-            "label": "The Reservoir"
+            "label": "Водохранилище"
           },
           "5": {
-            "label": "Snapper Shallows"
+            "label": "Кусачья отмель"
           },
           "6": {
-            "label": "Frozen Ridges Trail"
+            "label": "Тропа Замёрзших хребтов"
           }
         }
       },

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { abilitiesKnownAt } from '../src/sim/content/classes';
 import { MOBS } from '../src/sim/data';
 import { createMob } from '../src/sim/entity';
+import { Rng } from '../src/sim/rng';
 import { Sim } from '../src/sim/sim';
 import {
   abilityScalingPower,
@@ -168,7 +169,12 @@ describe('Spell Power end-to-end through the sim', () => {
     expect(bonus).toBeGreaterThan(0);
 
     // The dummy is only ever hit by our single Frostbolt (the wolf swings at the
-    // mage, not the dummy), so its HP delta IS the spell's damage.
+    // mage, not the dummy), so its HP delta IS the spell's damage. A single spell
+    // hit always carries the >=1% resist floor (spellHitChance caps at 0.99), and
+    // the post-construction rng position (which world-content additions perturb)
+    // decides whether this one cast resists. Reseed to a fixed, construction-
+    // independent stream so the single cast deterministically lands.
+    sim.rng = new Rng(1);
     const before = dummy.hp;
     sim.castAbility('frostbolt', p.id);
     for (let i = 0; i < 80 && dummy.hp === before; i++) sim.tick();

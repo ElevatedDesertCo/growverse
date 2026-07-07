@@ -346,6 +346,20 @@ export default defineConfig({
     },
   },
   test: {
+    // The heavy deterministic sim suites (master-loot 5-minute windows, duel DR chains,
+    // rate-limit floods, parity traces) advance thousands of fixed 20 Hz ticks and finish
+    // in well under a second in isolation, but under the full-suite fan-out (600+ files
+    // across every core at once) a single such test can transiently blow past Vitest's
+    // 5000ms default and spuriously time out. Raise the wall-clock ceiling so a saturated
+    // machine does not fail a correct test; this changes no assertion and no behavior.
+    testTimeout: 30000,
+    hookTimeout: 30000,
+    // jsdom@29 (admin/DOM suites) and its encoder dep @exodus/bytes are ESM-only and are
+    // require()d by html-encoding-sniffer. require(esm) is on by default only on Node
+    // >=20.19 / >=22.12 / >=24 (the deps' own engine floor); on the 22.11.x line it needs
+    // this flag on the pool worker, otherwise it throws ERR_REQUIRE_ESM before any test
+    // runs. The flag is a harmless no-op on versions where require(esm) is already default.
+    execArgv: ['--experimental-require-module'],
     // Two kinds of exclusion, kept together:
     // - .codex/.venv are local-only worktree/venv pollution a clean CI checkout never has;
     //   excluding them keeps the local gate mirroring CI (otherwise stale .codex worktree

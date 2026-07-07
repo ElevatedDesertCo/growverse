@@ -5706,13 +5706,13 @@ export const ja_JP: EnTranslations = {
         "name": "侍祭テッサ"
       },
       "haze_critter": {
-        "name": "Haze Critter"
+        "name": "ヘイズ・クリッター"
       },
       "driftwood_snapper": {
-        "name": "Driftwood Snapper"
+        "name": "流木スナッパー"
       },
       "overbaked_beaver": {
-        "name": "Overbaked Beaver"
+        "name": "焼きすぎビーバー"
       },
       "ironvein_foreman": {
         "name": "鉄脈の現場監督"
@@ -5945,29 +5945,29 @@ export const ja_JP: EnTranslations = {
         "greeting": "アップグレード台は熱く燃えている。腐敗の欠片を持ってこい。お前の鋼をリフトさえ砕けぬ一振りに鍛え直してやろう。"
       },
       "boone_cascade": {
-        "name": "Boone Cascade",
-        "title": "Elder of The Dam",
-        "greeting": "Well, look who wandered down off the map, {playerName}. Our dam is here now, and you're already invited. Haze critters are thick off the reservoir, though. Swat a few for us and the fire's all yours."
+        "name": "ブーン・カスケード",
+        "title": "ザ・ダムの長老",
+        "greeting": "おや、地図の外からふらりと下りてきたのは誰かな、{playerName}。俺たちのダムはもうここにある、君はとっくに招かれた身だ。ただ貯水池のあたりはヘイズ・クリッターがうじゃうじゃでな。何匹か叩いてくれれば、焚き火は君のものだ。"
       },
       "sequoia_marsh": {
-        "name": "Sequoia Marsh",
-        "title": "Keeper of the Blue Grows",
-        "greeting": "Careful where you step, that patch runs hot and blue. You buying, or you working? Either way I've got a job needs doing, {playerName}."
+        "name": "セコイア・マーシュ",
+        "title": "ブルー・グロウの番人",
+        "greeting": "足元に気をつけな、あの畑は熱くて青いんだ。買いに来たのか、働きに来たのか？どっちにしろ、やってもらいたい仕事があるんだ、{playerName}。"
       },
       "ollie_ridgeback": {
-        "name": "Ollie Ridgeback",
-        "title": "Ridge Scout",
-        "greeting": "You board? Doesn't matter, you'll learn. Haze is thick off the water today, {playerName}, and thick haze means critters. Grab a stick and help me thin it."
+        "name": "オリー・リッジバック",
+        "title": "尾根の斥候",
+        "greeting": "板は乗れるか？まあいい、そのうち覚える。今日は水面のヘイズが濃くてな、{playerName}、濃いヘイズはクリッターが出る合図だ。棒を掴んで、間引くのを手伝ってくれ。"
       },
       "wren_alder": {
-        "name": "Wren Alder",
-        "title": "The Broadcast",
-        "greeting": "You're live, whether you like it or not. Signal goes out Monday nights, the whole ridge tunes in. Stay Baked, AZ, {playerName}, and try to say something worth broadcasting."
+        "name": "レン・アルダー",
+        "title": "ザ・ブロードキャスト",
+        "greeting": "好むと好まざるとにかかわらず、君はもう生放送中だ。信号は月曜の夜に流れて、尾根じゅうが耳を傾ける。ステイ・ベイクド、AZ、{playerName}、何か放送する価値のあることを言ってみせろ。"
       },
       "junie_stonewater": {
-        "name": "Junie Stonewater",
-        "title": "Keeper of the Old Ridge",
-        "greeting": "Boone sent you to the Tanque, did he. Good. Sit. We came down the frozen ridges on boards with a half-built dam behind us, and we never once looked back. That's the whole story. The rest is just smoke."
+        "name": "ジュニー・ストーンウォーター",
+        "title": "古き尾根の番人",
+        "greeting": "ブーンが君をタンケに寄こしたか。いい。座りな。俺たちは半分しかできていないダムを背にして、凍てつく尾根を板で滑り降りてきた、一度も振り返らずにな。物語はそれで全部だ。あとはただの煙さ。"
       },
       "tidewatcher_ondrel": {
         "name": "オンドレル・ヴェイン",
@@ -6729,32 +6729,32 @@ export const ja_JP: EnTranslations = {
         }
       },
       "q_welcome_dam": {
-        "title": "Welcome to The Dam",
-        "text": "First rule of The Dam, {playerName}: nobody earns their spot by sitting still. The haze off the reservoir has clumped into critters again, thick along the water. Swat six of them and come warm up by the fire. Then go hear Junie's story at The Tanque, if you want the whole of it.",
-        "completion": "Six critters lighter and you're still standing. That's the whole trial, {playerName}. Seat by the fire's yours, free of charge. You're one of us now. Stay Baked, AZ.",
+        "title": "ザ・ダムへようこそ",
+        "text": "ザ・ダムの第一のルールだ、{playerName}。じっと座っているだけで居場所を勝ち取れる者はいない。貯水池のヘイズがまたクリッターに固まってな、水際にびっしりだ。六匹叩いて、焚き火で温まりに来い。全部を知りたきゃ、タンケでジュニーの話を聞いてこい。",
+        "completion": "クリッターを六匹減らして、まだ立っている。試練はそれで全部だ、{playerName}。焚き火のそばの席は君のもの、タダでな。もう君は仲間だ。ステイ・ベイクド、AZ。",
         "objectives": {
           "0": {
-            "label": "Haze Critter swatted"
+            "label": "ヘイズ・クリッターを叩いた"
           }
         }
       },
       "q_clear_haze": {
-        "title": "Clear the Haze",
-        "text": "Boone had you swat a few, but the haze keeps rolling thick off the reservoir and clumping right back, {playerName}. Annoying little things, and they spook the newer folk. Knock out ten of them along the water and I'll cut you in on the good stash.",
-        "completion": "Ten down, air's already clearer. Here's your cut, and a pull off Seq's own patch on the house. Runs hot. Don't burn out before your first hill.",
+        "title": "ヘイズを晴らせ",
+        "text": "ブーンが何匹か叩かせたそうだが、ヘイズは貯水池からまた濃く流れてきて、すぐに固まり直すんだ、{playerName}。うっとうしい連中で、新入りを怖がらせる。水辺で十匹片づけてくれれば、とっておきの上物を分けてやる。",
+        "completion": "十匹片づいて、空気がもうずっと澄んだ。これが君の取り分だ、それにセコの自前の畑から一服おごりだ。効きが強いぞ。最初の丘を越える前に燃え尽きるなよ。",
         "objectives": {
           "0": {
-            "label": "Haze Critter dispersed"
+            "label": "ヘイズ・クリッターを散らした"
           }
         }
       },
       "q_dam_driftwood": {
-        "title": "Snapping Driftwood",
-        "text": "The dam's leaking blue and my grows are half in the wet, {playerName}. I'd patch it with good driftwood, but those snappers down in the shallows chew every board I float. Cull ten of them and I can shore the beds up myself. Mind the jaws.",
-        "completion": "Ten fewer sets of teeth in my driftwood. The beds will dry out now. You've got a steady hand for a newcomer. Come back when your boots are drier and I'll teach you the grow.",
+        "title": "噛みつく流木",
+        "text": "ダムが青い水を漏らしていて、俺の畑は半分水に浸かっているんだ、{playerName}。上物の流木で塞ぎたいんだが、浅瀬のスナッパーどもが流す板を片っ端から噛み砕きやがる。十匹間引いてくれれば、あとは自分で苗床を補強できる。あの顎に気をつけろ。",
+        "completion": "俺の流木を齧る歯が十組減った。これで苗床も乾くだろう。新入りにしては手が安定している。ブーツが乾いたらまた来い、育て方を教えてやる。",
         "objectives": {
           "0": {
-            "label": "Driftwood Snapper culled"
+            "label": "流木スナッパーを間引いた"
           }
         }
       },
@@ -6825,28 +6825,28 @@ export const ja_JP: EnTranslations = {
     "zones": {
       "the_dam": {
         "name": "The Dam",
-        "welcome": "Nobody invited the Beavers. Boone Cascade waves you in anyway. Stay Baked, AZ.",
+        "welcome": "誰もビーバーズを招いてはいない。それでもブーン・カスケードは君を手招きする。ステイ・ベイクド、AZ。",
         "pois": {
           "0": {
             "label": "The Dam"
           },
           "1": {
-            "label": "The Tanque"
+            "label": "ザ・タンケ"
           },
           "2": {
-            "label": "Driftwood Row"
+            "label": "流木通り"
           },
           "3": {
-            "label": "The Blue Grows"
+            "label": "ブルー・グロウ"
           },
           "4": {
-            "label": "The Reservoir"
+            "label": "貯水池"
           },
           "5": {
-            "label": "Snapper Shallows"
+            "label": "スナッパーの浅瀬"
           },
           "6": {
-            "label": "Frozen Ridges Trail"
+            "label": "凍てつく尾根の道"
           }
         }
       },

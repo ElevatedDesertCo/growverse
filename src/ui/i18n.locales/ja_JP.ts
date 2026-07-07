@@ -2374,6 +2374,55 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.items.tideglass_dirk.name': '潮硝子の短剣',
   'entities.items.tidewatchers_wraps.name': '潮見の手布',
   'entities.items.ysols_pearl_greaves.name': 'イソレイの真珠脚甲',
+  'entities.mobs.haze_critter.name': 'ヘイズ・クリッター',
+  'entities.mobs.driftwood_snapper.name': '流木スナッパー',
+  'entities.mobs.overbaked_beaver.name': '焼きすぎビーバー',
+  'entities.npcs.boone_cascade.name': 'ブーン・カスケード',
+  'entities.npcs.boone_cascade.title': 'ザ・ダムの長老',
+  'entities.npcs.boone_cascade.greeting':
+    'おや、地図の外からふらりと下りてきたのは誰かな、{playerName}。俺たちのダムはもうここにある、君はとっくに招かれた身だ。ただ貯水池のあたりはヘイズ・クリッターがうじゃうじゃでな。何匹か叩いてくれれば、焚き火は君のものだ。',
+  'entities.npcs.sequoia_marsh.name': 'セコイア・マーシュ',
+  'entities.npcs.sequoia_marsh.title': 'ブルー・グロウの番人',
+  'entities.npcs.sequoia_marsh.greeting':
+    '足元に気をつけな、あの畑は熱くて青いんだ。買いに来たのか、働きに来たのか？どっちにしろ、やってもらいたい仕事があるんだ、{playerName}。',
+  'entities.npcs.ollie_ridgeback.name': 'オリー・リッジバック',
+  'entities.npcs.ollie_ridgeback.title': '尾根の斥候',
+  'entities.npcs.ollie_ridgeback.greeting':
+    '板は乗れるか？まあいい、そのうち覚える。今日は水面のヘイズが濃くてな、{playerName}、濃いヘイズはクリッターが出る合図だ。棒を掴んで、間引くのを手伝ってくれ。',
+  'entities.npcs.wren_alder.name': 'レン・アルダー',
+  'entities.npcs.wren_alder.title': 'ザ・ブロードキャスト',
+  'entities.npcs.wren_alder.greeting':
+    '好むと好まざるとにかかわらず、君はもう生放送中だ。信号は月曜の夜に流れて、尾根じゅうが耳を傾ける。ステイ・ベイクド、AZ、{playerName}、何か放送する価値のあることを言ってみせろ。',
+  'entities.npcs.junie_stonewater.name': 'ジュニー・ストーンウォーター',
+  'entities.npcs.junie_stonewater.title': '古き尾根の番人',
+  'entities.npcs.junie_stonewater.greeting':
+    'ブーンが君をタンケに寄こしたか。いい。座りな。俺たちは半分しかできていないダムを背にして、凍てつく尾根を板で滑り降りてきた、一度も振り返らずにな。物語はそれで全部だ。あとはただの煙さ。',
+  'entities.quests.q_welcome_dam.title': 'ザ・ダムへようこそ',
+  'entities.quests.q_welcome_dam.text':
+    'ザ・ダムの第一のルールだ、{playerName}。じっと座っているだけで居場所を勝ち取れる者はいない。貯水池のヘイズがまたクリッターに固まってな、水際にびっしりだ。六匹叩いて、焚き火で温まりに来い。全部を知りたきゃ、タンケでジュニーの話を聞いてこい。',
+  'entities.quests.q_welcome_dam.completion':
+    'クリッターを六匹減らして、まだ立っている。試練はそれで全部だ、{playerName}。焚き火のそばの席は君のもの、タダでな。もう君は仲間だ。ステイ・ベイクド、AZ。',
+  'entities.quests.q_welcome_dam.objectives.0.label': 'ヘイズ・クリッターを叩いた',
+  'entities.quests.q_clear_haze.title': 'ヘイズを晴らせ',
+  'entities.quests.q_clear_haze.text':
+    'ブーンが何匹か叩かせたそうだが、ヘイズは貯水池からまた濃く流れてきて、すぐに固まり直すんだ、{playerName}。うっとうしい連中で、新入りを怖がらせる。水辺で十匹片づけてくれれば、とっておきの上物を分けてやる。',
+  'entities.quests.q_clear_haze.completion':
+    '十匹片づいて、空気がもうずっと澄んだ。これが君の取り分だ、それにセコの自前の畑から一服おごりだ。効きが強いぞ。最初の丘を越える前に燃え尽きるなよ。',
+  'entities.quests.q_clear_haze.objectives.0.label': 'ヘイズ・クリッターを散らした',
+  'entities.quests.q_dam_driftwood.title': '噛みつく流木',
+  'entities.quests.q_dam_driftwood.text':
+    'ダムが青い水を漏らしていて、俺の畑は半分水に浸かっているんだ、{playerName}。上物の流木で塞ぎたいんだが、浅瀬のスナッパーどもが流す板を片っ端から噛み砕きやがる。十匹間引いてくれれば、あとは自分で苗床を補強できる。あの顎に気をつけろ。',
+  'entities.quests.q_dam_driftwood.completion':
+    '俺の流木を齧る歯が十組減った。これで苗床も乾くだろう。新入りにしては手が安定している。ブーツが乾いたらまた来い、育て方を教えてやる。',
+  'entities.quests.q_dam_driftwood.objectives.0.label': '流木スナッパーを間引いた',
+  'entities.zones.the_dam.welcome':
+    '誰もビーバーズを招いてはいない。それでもブーン・カスケードは君を手招きする。ステイ・ベイクド、AZ。',
+  'entities.zones.the_dam.pois.1.label': 'ザ・タンケ',
+  'entities.zones.the_dam.pois.2.label': '流木通り',
+  'entities.zones.the_dam.pois.3.label': 'ブルー・グロウ',
+  'entities.zones.the_dam.pois.4.label': '貯水池',
+  'entities.zones.the_dam.pois.5.label': 'スナッパーの浅瀬',
+  'entities.zones.the_dam.pois.6.label': '凍てつく尾根の道',
   'entities.mobs.forest_wolf.name': '森の狼',
   'entities.mobs.old_greyjaw.name': '老グレイジョー',
   'entities.mobs.wild_boar.name': '野生の猪',

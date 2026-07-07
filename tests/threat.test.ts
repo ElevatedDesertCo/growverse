@@ -2,6 +2,7 @@
 // stealth, pets).
 import { describe, expect, it } from 'vitest';
 import { abilitiesKnownAt } from '../src/sim/data';
+import { Rng } from '../src/sim/rng';
 import { Sim } from '../src/sim/sim';
 import {
   BEAR_FORM_THREAT_MULT,
@@ -1152,6 +1153,11 @@ describe('druid forms', () => {
     sim.player.facing = Math.atan2(wolf.pos.x - sim.player.pos.x, wolf.pos.z - sim.player.pos.z);
     for (let i = 0; i < 32; i++) sim.tick();
     sim.player.resource = 100;
+    // The rake bleed opener always applies, but the combo point is only awarded on
+    // a landing direct hit, whose roll depends on the shared rng stream's position
+    // after Sim construction (which world-content additions perturb). Reseed to a
+    // fixed, construction-independent stream so this one opener deterministically lands.
+    sim.rng = new Rng(1);
     sim.castAbility('rake');
     sim.tick();
     expect(sim.player.auras.some((a) => a.kind === 'stealth')).toBe(false);

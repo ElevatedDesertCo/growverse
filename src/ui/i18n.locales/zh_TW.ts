@@ -2269,6 +2269,55 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.items.tideglass_dirk.name': '潮鏡短劍',
   'entities.items.tidewatchers_wraps.name': '守潮者護腕',
   'entities.items.ysols_pearl_greaves.name': '伊索蕾的珍珠脛甲',
+  'entities.mobs.haze_critter.name': '迷霧小怪',
+  'entities.mobs.driftwood_snapper.name': '浮木咬客',
+  'entities.mobs.overbaked_beaver.name': '嗑嗨的河狸',
+  'entities.npcs.boone_cascade.name': '布恩·卡斯凱德',
+  'entities.npcs.boone_cascade.title': '大壩長老',
+  'entities.npcs.boone_cascade.greeting':
+    '瞧瞧是誰從地圖外頭晃了下來，{playerName}。我們的大壩如今就在這兒，你早就受邀了。不過水庫那邊迷霧小怪成群。替我們拍掉幾隻，篝火就歸你了。',
+  'entities.npcs.sequoia_marsh.name': '紅杉·馬什',
+  'entities.npcs.sequoia_marsh.title': '藍田守護者',
+  'entities.npcs.sequoia_marsh.greeting':
+    '走路當心點，那塊地又燙又藍。你是來買貨，還是來幹活的？不管哪樣，我這兒都有活兒要做，{playerName}。',
+  'entities.npcs.ollie_ridgeback.name': '奧利·瑞奇巴克',
+  'entities.npcs.ollie_ridgeback.title': '山脊斥候',
+  'entities.npcs.ollie_ridgeback.greeting':
+    '你會玩滑板？無所謂，早晚你會學會。今天水面上的迷霧特別濃，{playerName}，霧一濃就有小怪。抄根棍子，幫我把牠們清一清。',
+  'entities.npcs.wren_alder.name': '雷恩·奧爾德',
+  'entities.npcs.wren_alder.title': '廣播',
+  'entities.npcs.wren_alder.greeting':
+    '不管你樂不樂意，你現在正在直播。訊號每週一晚上發出去，整條山脊都在收聽。保持嗨著，亞利桑那，{playerName}，試著說點值得播出去的話吧。',
+  'entities.npcs.junie_stonewater.name': '朱妮·石水',
+  'entities.npcs.junie_stonewater.title': '古脊守護者',
+  'entities.npcs.junie_stonewater.greeting':
+    '布恩把你打發到坦克水塘來了，是吧。好。坐下。當年我們踩著滑板從冰封的山脊上下來，身後是座只修了一半的大壩，從沒回過一次頭。整個故事就這麼多。剩下的，都是煙罷了。',
+  'entities.quests.q_welcome_dam.title': '歡迎來到大壩',
+  'entities.quests.q_welcome_dam.text':
+    '大壩的第一條規矩，{playerName}：沒人靠乾坐著掙到自己的位置。水庫上的迷霧又聚成小怪了，沿著水邊一大片。拍掉六隻，然後到篝火邊暖暖身子。要是想聽全整個故事，就去坦克水塘找朱妮。',
+  'entities.quests.q_welcome_dam.completion':
+    '少了六隻小怪，你還穩穩站著。這就是全部的考驗了，{playerName}。篝火邊的位置歸你了，免費。現在你是我們的人了。保持嗨著，亞利桑那。',
+  'entities.quests.q_welcome_dam.objectives.0.label': '迷霧小怪已拍掉',
+  'entities.quests.q_clear_haze.title': '驅散迷霧',
+  'entities.quests.q_clear_haze.text':
+    '布恩讓你拍掉了幾隻，可迷霧還是從水庫那頭濃濃地滾過來，一轉眼又聚回去了，{playerName}。煩人的小東西，還老嚇著新來的人。沿著水邊幹掉十隻，我就分你點好貨。',
+  'entities.quests.q_clear_haze.completion':
+    '幹掉十隻，空氣一下就清爽多了。這是你的那份，再送你一口塞哥自留地的貨。勁兒很衝。別還沒上第一個坡就先燒盡了。',
+  'entities.quests.q_clear_haze.objectives.0.label': '迷霧小怪已驅散',
+  'entities.quests.q_dam_driftwood.title': '咬人的浮木',
+  'entities.quests.q_dam_driftwood.text':
+    '大壩正漏著藍水，我的種植床有一半都泡在水裡了，{playerName}。我本想用好浮木把它補上，可淺灘裡那些咬客把我漂過去的每一塊板子都啃了。宰掉十隻，我就能自己把苗床墊高。當心牠們的嘴。',
+  'entities.quests.q_dam_driftwood.completion':
+    '我的浮木裡少了十副牙口。苗床這下能乾出來了。作為新來的，你這手挺穩。等你靴子乾些了再回來，我教你怎麼種。',
+  'entities.quests.q_dam_driftwood.objectives.0.label': '浮木咬客已宰殺',
+  'entities.zones.the_dam.welcome':
+    '沒人邀請河狸幫，布恩·卡斯凱德還是招手讓你進來。保持嗨著，亞利桑那。',
+  'entities.zones.the_dam.pois.1.label': '坦克水塘',
+  'entities.zones.the_dam.pois.2.label': '浮木街',
+  'entities.zones.the_dam.pois.3.label': '藍田種植區',
+  'entities.zones.the_dam.pois.4.label': '水庫',
+  'entities.zones.the_dam.pois.5.label': '咬客淺灘',
+  'entities.zones.the_dam.pois.6.label': '冰封山脊小徑',
   'entities.mobs.forest_wolf.name': '森林狼',
   'entities.mobs.old_greyjaw.name': '老灰顎',
   'entities.mobs.wild_boar.name': '野豬',

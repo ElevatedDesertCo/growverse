@@ -2403,6 +2403,55 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.items.tideglass_dirk.name': 'Кинжал Приливного стекла',
   'entities.items.tidewatchers_wraps.name': 'Обмотки Стража приливов',
   'entities.items.ysols_pearl_greaves.name': 'Жемчужные поножи Изолеи',
+  'entities.mobs.haze_critter.name': 'Дымчатая тварь',
+  'entities.mobs.driftwood_snapper.name': 'Коряжный кусач',
+  'entities.mobs.overbaked_beaver.name': 'Перезабалдевший бобёр',
+  'entities.npcs.boone_cascade.name': 'Бун Каскейд',
+  'entities.npcs.boone_cascade.title': 'Старейшина Плотины',
+  'entities.npcs.boone_cascade.greeting':
+    'Ну надо же, кого это занесло сюда с края карты, {playerName}. Наша плотина теперь здесь, и тебя уже позвали. Вот только у водохранилища дымчатой твари развелось будь здоров. Прихлопни пару штук для нас, и место у огня твоё.',
+  'entities.npcs.sequoia_marsh.name': 'Секвойя Марш',
+  'entities.npcs.sequoia_marsh.title': 'Хранитель Синих посадок',
+  'entities.npcs.sequoia_marsh.greeting':
+    'Смотри, куда ступаешь, эта грядка горячая и синяя. Ты покупать или работать? Так или иначе, у меня есть дело, {playerName}.',
+  'entities.npcs.ollie_ridgeback.name': 'Олли Риджбэк',
+  'entities.npcs.ollie_ridgeback.title': 'Разведчик хребта',
+  'entities.npcs.ollie_ridgeback.greeting':
+    'На доске катаешь? Неважно, научишься. Сегодня над водой дымка густая, {playerName}, а густая дымка значит тварь. Хватай палку и помоги мне её проредить.',
+  'entities.npcs.wren_alder.name': 'Рен Олдер',
+  'entities.npcs.wren_alder.title': 'Вещатель',
+  'entities.npcs.wren_alder.greeting':
+    'Хочешь ты того или нет, ты в прямом эфире. Сигнал уходит в понедельник вечером, весь хребет слушает. Оставайся упоротым, Аризона, {playerName}, и постарайся сказать что-нибудь стоящее эфира.',
+  'entities.npcs.junie_stonewater.name': 'Джуни Стоунуотер',
+  'entities.npcs.junie_stonewater.title': 'Хранитель Старого хребта',
+  'entities.npcs.junie_stonewater.greeting':
+    'Значит, Бун отправил тебя к Танке. Хорошо. Садись. Мы спустились с замёрзших хребтов на досках, а за спиной осталась недостроенная плотина, и ни разу не оглянулись. Вот и вся история. Остальное просто дым.',
+  'entities.quests.q_welcome_dam.title': 'Добро пожаловать на Плотину',
+  'entities.quests.q_welcome_dam.text':
+    'Первое правило Плотины, {playerName}: никто не заслуживает своё место, сидя сложа руки. Дымка над водохранилищем снова сбилась в тварей, густо вдоль воды. Прихлопни шестерых и приходи греться у огня. А захочешь узнать всю историю целиком, ступай послушать Джуни у Танке.',
+  'entities.quests.q_welcome_dam.completion':
+    'Шестью тварями меньше, а ты всё ещё на ногах. Вот и всё испытание, {playerName}. Место у огня твоё, бесплатно. Теперь ты один из нас. Оставайся упоротым, Аризона.',
+  'entities.quests.q_welcome_dam.objectives.0.label': 'Дымчатая тварь прихлопнута',
+  'entities.quests.q_clear_haze.title': 'Развей дымку',
+  'entities.quests.q_clear_haze.text':
+    'Бун велел тебе прихлопнуть пару штук, но дымка всё валит густо с водохранилища и тут же сбивается обратно, {playerName}. Назойливые твари, да ещё и новичков пугают. Уложи десяток вдоль воды, и я выделю тебе долю из хорошего запаса.',
+  'entities.quests.q_clear_haze.completion':
+    'Десяток готов, воздух уже чище. Вот твоя доля, и затяжка с собственной грядки Сека за счёт заведения. Забирает крепко. Не сгори до первого же склона.',
+  'entities.quests.q_clear_haze.objectives.0.label': 'Дымчатая тварь развеяна',
+  'entities.quests.q_dam_driftwood.title': 'Кусачая коряга',
+  'entities.quests.q_dam_driftwood.text':
+    'Плотина течёт синим, и мои посадки наполовину в воде, {playerName}. Я бы залатал её добрым корягой, да только кусачи на отмели грызут каждую доску, что я пускаю по воде. Проредь десяток, и грядки я подниму сам. Берегись челюстей.',
+  'entities.quests.q_dam_driftwood.completion':
+    'На десять пастей меньше в моих коряжинах. Теперь грядки просохнут. Для новичка у тебя твёрдая рука. Возвращайся, когда обсохнут сапоги, и я научу тебя растить.',
+  'entities.quests.q_dam_driftwood.objectives.0.label': 'Коряжный кусач истреблён',
+  'entities.zones.the_dam.welcome':
+    'Бобров никто не звал. Бун Каскейд всё равно машет тебе рукой. Оставайся упоротым, Аризона.',
+  'entities.zones.the_dam.pois.1.label': 'Танке',
+  'entities.zones.the_dam.pois.2.label': 'Коряжный ряд',
+  'entities.zones.the_dam.pois.3.label': 'Синие посадки',
+  'entities.zones.the_dam.pois.4.label': 'Водохранилище',
+  'entities.zones.the_dam.pois.5.label': 'Кусачья отмель',
+  'entities.zones.the_dam.pois.6.label': 'Тропа Замёрзших хребтов',
   'entities.mobs.forest_wolf.name': 'Лесной волк',
   'entities.mobs.old_greyjaw.name': 'Старый Серочелюст',
   'entities.mobs.wild_boar.name': 'Дикий кабан',

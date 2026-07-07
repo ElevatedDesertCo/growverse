@@ -2367,6 +2367,55 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.items.tideglass_dirk.name': '조수유리 단검',
   'entities.items.tidewatchers_wraps.name': '조수지기의 손싸개',
   'entities.items.ysols_pearl_greaves.name': '이솔레이의 진주 정강이받이',
+  'entities.mobs.haze_critter.name': '헤이즈 크리터',
+  'entities.mobs.driftwood_snapper.name': '유목 스내퍼',
+  'entities.mobs.overbaked_beaver.name': '오버베이크 비버',
+  'entities.npcs.boone_cascade.name': '분 캐스케이드',
+  'entities.npcs.boone_cascade.title': '댐의 장로',
+  'entities.npcs.boone_cascade.greeting':
+    '이런, 지도 밖에서 흘러 내려온 게 누군가 했더니, {playerName}. 우리 댐은 이제 여기 있고, 넌 이미 초대받은 몸이야. 다만 저수지 쪽에 헤이즈 크리터가 잔뜩 껴 있어. 몇 마리 쳐 주면 모닥불은 다 네 거다.',
+  'entities.npcs.sequoia_marsh.name': '세쿼이아 마시',
+  'entities.npcs.sequoia_marsh.title': '블루 그로우 관리인',
+  'entities.npcs.sequoia_marsh.greeting':
+    '발밑 조심해, 저 밭은 뜨겁고 파랗게 타오르거든. 사러 왔나, 일하러 왔나? 어느 쪽이든 해줬으면 하는 일이 있어, {playerName}.',
+  'entities.npcs.ollie_ridgeback.name': '올리 리지백',
+  'entities.npcs.ollie_ridgeback.title': '능선 정찰병',
+  'entities.npcs.ollie_ridgeback.greeting':
+    '보드 탈 줄 알아? 상관없어, 곧 배우게 될 테니. 오늘은 물 위로 헤이즈가 자욱해, {playerName}, 헤이즈가 짙으면 크리터가 나온다는 뜻이지. 막대기 하나 집어서 솎아내는 걸 도와줘.',
+  'entities.npcs.wren_alder.name': '렌 알더',
+  'entities.npcs.wren_alder.title': '더 브로드캐스트',
+  'entities.npcs.wren_alder.greeting':
+    '좋든 싫든, 넌 지금 생방송 중이야. 신호는 월요일 밤마다 나가고, 능선 전체가 귀를 기울이지. 스테이 베이크드, AZ, {playerName}, 방송할 만한 말 한마디 해보라고.',
+  'entities.npcs.junie_stonewater.name': '주니 스톤워터',
+  'entities.npcs.junie_stonewater.title': '옛 능선의 관리인',
+  'entities.npcs.junie_stonewater.greeting':
+    '분이 널 탄케로 보냈군, 그래. 좋아. 앉아. 우린 반쯤 지어진 댐을 등지고 얼어붙은 능선을 보드로 타고 내려왔지, 단 한 번도 뒤돌아보지 않았어. 그게 이야기의 전부다. 나머지는 그저 연기일 뿐이야.',
+  'entities.quests.q_welcome_dam.title': '댐에 온 걸 환영해',
+  'entities.quests.q_welcome_dam.text':
+    '댐의 첫 번째 규칙이야, {playerName}. 가만히 앉아서 제자리를 얻는 자는 없어. 저수지의 헤이즈가 또 크리터로 뭉쳤어, 물가를 따라 잔뜩 말이야. 여섯 마리 쳐 잡고 모닥불에 몸 좀 녹이러 와. 전부 다 알고 싶으면, 탄케로 가서 주니의 이야기를 들어봐.',
+  'entities.quests.q_welcome_dam.completion':
+    '크리터 여섯 마리를 줄이고도 넌 멀쩡히 서 있군. 시련은 그게 전부야, {playerName}. 모닥불 옆자리는 네 거다, 공짜로. 이제 넌 우리 식구야. 스테이 베이크드, AZ.',
+  'entities.quests.q_welcome_dam.objectives.0.label': '헤이즈 크리터 처치',
+  'entities.quests.q_clear_haze.title': '헤이즈를 걷어내라',
+  'entities.quests.q_clear_haze.text':
+    '분이 몇 마리 치게 했다지만, 헤이즈는 저수지에서 자꾸 짙게 밀려와 금세 다시 뭉쳐, {playerName}. 성가신 것들이고 새로 온 이들을 겁주지. 물가를 따라 열 마리를 처치하면 좋은 물건 좀 나눠줄게.',
+  'entities.quests.q_clear_haze.completion':
+    '열 마리를 잡으니 공기가 벌써 한결 맑아졌어. 이건 네 몫이고, 세크 본인 밭에서 나온 한 모금은 서비스야. 꽤 세게 올라와. 첫 언덕도 넘기 전에 타버리진 마.',
+  'entities.quests.q_clear_haze.objectives.0.label': '헤이즈 크리터 흩어냄',
+  'entities.quests.q_dam_driftwood.title': '물어뜯는 유목',
+  'entities.quests.q_dam_driftwood.text':
+    '댐이 파란 물을 새고 있어서 내 밭은 절반이 물에 잠겼어, {playerName}. 좋은 유목으로 막고 싶은데, 여울의 저 스내퍼들이 내가 띄우는 판자를 죄다 물어뜯어. 열 마리만 솎아내 주면 나머지 못자리는 내가 직접 돋울 수 있어. 그 턱을 조심해.',
+  'entities.quests.q_dam_driftwood.completion':
+    '내 유목을 갉던 이빨이 열 세트 줄었군. 이제 못자리도 마를 거야. 신참치고는 손이 야무지네. 부츠가 좀 마르거든 다시 와, 재배법을 가르쳐 줄 테니.',
+  'entities.quests.q_dam_driftwood.objectives.0.label': '유목 스내퍼 솎아냄',
+  'entities.zones.the_dam.welcome':
+    '아무도 비버스를 초대하지 않았다. 그래도 분 캐스케이드는 당신에게 들어오라 손짓한다. 스테이 베이크드, AZ.',
+  'entities.zones.the_dam.pois.1.label': '더 탄케',
+  'entities.zones.the_dam.pois.2.label': '유목 거리',
+  'entities.zones.the_dam.pois.3.label': '블루 그로우',
+  'entities.zones.the_dam.pois.4.label': '저수지',
+  'entities.zones.the_dam.pois.5.label': '스내퍼 여울',
+  'entities.zones.the_dam.pois.6.label': '얼어붙은 능선 길',
   'entities.mobs.forest_wolf.name': '숲늑대',
   'entities.mobs.old_greyjaw.name': '늙은 그레이죠',
   'entities.mobs.wild_boar.name': '야생 멧돼지',
