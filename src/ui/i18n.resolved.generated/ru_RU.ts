@@ -4947,6 +4947,57 @@ export const ru_RU: EnTranslations = {
       "monarch_crown_helm": {
         "name": "Корона Монарха"
       },
+      "bloom_essence": {
+        "name": "Эссенция цветения"
+      },
+      "ember_essence": {
+        "name": "Эссенция углей"
+      },
+      "flow_essence": {
+        "name": "Эссенция потока"
+      },
+      "spore_essence": {
+        "name": "Эссенция спор"
+      },
+      "common_seed": {
+        "name": "Обычное семя"
+      },
+      "corruption_shard": {
+        "name": "Осколок порчи"
+      },
+      "bloom_nutrient": {
+        "name": "Питательная смесь цветения"
+      },
+      "ember_nutrient": {
+        "name": "Питательная смесь углей"
+      },
+      "flow_nutrient": {
+        "name": "Питательная смесь потока"
+      },
+      "enriched_seed": {
+        "name": "Обогащённое семя"
+      },
+      "prime_strain_seed": {
+        "name": "Семя первичного штамма"
+      },
+      "bloom_lamp": {
+        "name": "Лампа цветения"
+      },
+      "irrigation_coil": {
+        "name": "Оросительный змеевик"
+      },
+      "shard_whetstone": {
+        "name": "Точильный камень осколков"
+      },
+      "riftbound_girdle": {
+        "name": "Пояс, связанный с разломом"
+      },
+      "riftforged_guard": {
+        "name": "Защита, выкованная в разломе"
+      },
+      "riftforged_blade": {
+        "name": "Клинок, выкованный в разломе"
+      },
       "bristleback_maul": {
         "name": "Кувалда Щетиноспина"
       },

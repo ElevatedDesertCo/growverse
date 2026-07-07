@@ -4947,6 +4947,57 @@ export const id_ID: EnTranslations = {
       "monarch_crown_helm": {
         "name": "Mahkota Sang Raja"
       },
+      "bloom_essence": {
+        "name": "Esensi Mekar"
+      },
+      "ember_essence": {
+        "name": "Esensi Bara"
+      },
+      "flow_essence": {
+        "name": "Esensi Aliran"
+      },
+      "spore_essence": {
+        "name": "Esensi Spora"
+      },
+      "common_seed": {
+        "name": "Benih Umum"
+      },
+      "corruption_shard": {
+        "name": "Serpihan Korupsi"
+      },
+      "bloom_nutrient": {
+        "name": "Nutrisi Mekar"
+      },
+      "ember_nutrient": {
+        "name": "Nutrisi Bara"
+      },
+      "flow_nutrient": {
+        "name": "Nutrisi Aliran"
+      },
+      "enriched_seed": {
+        "name": "Benih Diperkaya"
+      },
+      "prime_strain_seed": {
+        "name": "Benih Galur Utama"
+      },
+      "bloom_lamp": {
+        "name": "Lampu Mekar"
+      },
+      "irrigation_coil": {
+        "name": "Kumparan Irigasi"
+      },
+      "shard_whetstone": {
+        "name": "Batu Asah Serpihan"
+      },
+      "riftbound_girdle": {
+        "name": "Sabuk Terikat Celah"
+      },
+      "riftforged_guard": {
+        "name": "Pelindung Tempaan Celah"
+      },
+      "riftforged_blade": {
+        "name": "Bilah Tempaan Celah"
+      },
       "bristleback_maul": {
         "name": "Cabikan Punggung Berbulu"
       },

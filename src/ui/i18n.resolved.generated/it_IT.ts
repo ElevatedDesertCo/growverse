@@ -4947,6 +4947,57 @@ export const it_IT: EnTranslations = {
       "monarch_crown_helm": {
         "name": "Corona del Monarca"
       },
+      "bloom_essence": {
+        "name": "Essenza di Fioritura"
+      },
+      "ember_essence": {
+        "name": "Essenza di Brace"
+      },
+      "flow_essence": {
+        "name": "Essenza di Flusso"
+      },
+      "spore_essence": {
+        "name": "Essenza di Spora"
+      },
+      "common_seed": {
+        "name": "Seme Comune"
+      },
+      "corruption_shard": {
+        "name": "Frammento di Corruzione"
+      },
+      "bloom_nutrient": {
+        "name": "Nutriente di Fioritura"
+      },
+      "ember_nutrient": {
+        "name": "Nutriente di Brace"
+      },
+      "flow_nutrient": {
+        "name": "Nutriente di Flusso"
+      },
+      "enriched_seed": {
+        "name": "Seme Arricchito"
+      },
+      "prime_strain_seed": {
+        "name": "Seme di Ceppo Primario"
+      },
+      "bloom_lamp": {
+        "name": "Lampada di Fioritura"
+      },
+      "irrigation_coil": {
+        "name": "Serpentina d'Irrigazione"
+      },
+      "shard_whetstone": {
+        "name": "Cote per Frammenti"
+      },
+      "riftbound_girdle": {
+        "name": "Cintura Vincolata alla Frattura"
+      },
+      "riftforged_guard": {
+        "name": "Guardia Forgiata nella Frattura"
+      },
+      "riftforged_blade": {
+        "name": "Lama Forgiata nella Frattura"
+      },
       "bristleback_maul": {
         "name": "Maglio Bristleback"
       },

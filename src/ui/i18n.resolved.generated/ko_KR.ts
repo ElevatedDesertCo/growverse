@@ -4947,6 +4947,57 @@ export const ko_KR: EnTranslations = {
       "monarch_crown_helm": {
         "name": "군주의 왕관"
       },
+      "bloom_essence": {
+        "name": "개화 정수"
+      },
+      "ember_essence": {
+        "name": "잉걸불 정수"
+      },
+      "flow_essence": {
+        "name": "흐름 정수"
+      },
+      "spore_essence": {
+        "name": "포자 정수"
+      },
+      "common_seed": {
+        "name": "일반 씨앗"
+      },
+      "corruption_shard": {
+        "name": "부패 파편"
+      },
+      "bloom_nutrient": {
+        "name": "개화 양분"
+      },
+      "ember_nutrient": {
+        "name": "잉걸불 양분"
+      },
+      "flow_nutrient": {
+        "name": "흐름 양분"
+      },
+      "enriched_seed": {
+        "name": "강화 씨앗"
+      },
+      "prime_strain_seed": {
+        "name": "원종 씨앗"
+      },
+      "bloom_lamp": {
+        "name": "개화 등불"
+      },
+      "irrigation_coil": {
+        "name": "관개 코일"
+      },
+      "shard_whetstone": {
+        "name": "파편 숫돌"
+      },
+      "riftbound_girdle": {
+        "name": "균열 속박 허리띠"
+      },
+      "riftforged_guard": {
+        "name": "균열 단조 보호구"
+      },
+      "riftforged_blade": {
+        "name": "균열 단조 칼날"
+      },
       "bristleback_maul": {
         "name": "뻣센등뼈 철퇴"
       },

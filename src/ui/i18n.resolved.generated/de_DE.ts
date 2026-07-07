@@ -4947,6 +4947,57 @@ export const de_DE: EnTranslations = {
       "monarch_crown_helm": {
         "name": "Krone des Monarchen"
       },
+      "bloom_essence": {
+        "name": "Blütenessenz"
+      },
+      "ember_essence": {
+        "name": "Glutessenz"
+      },
+      "flow_essence": {
+        "name": "Flussessenz"
+      },
+      "spore_essence": {
+        "name": "Sporenessenz"
+      },
+      "common_seed": {
+        "name": "Gewöhnlicher Samen"
+      },
+      "corruption_shard": {
+        "name": "Verderbnissplitter"
+      },
+      "bloom_nutrient": {
+        "name": "Blütennährstoff"
+      },
+      "ember_nutrient": {
+        "name": "Glutnährstoff"
+      },
+      "flow_nutrient": {
+        "name": "Flussnährstoff"
+      },
+      "enriched_seed": {
+        "name": "Angereicherter Samen"
+      },
+      "prime_strain_seed": {
+        "name": "Urstamm-Samen"
+      },
+      "bloom_lamp": {
+        "name": "Blütenlampe"
+      },
+      "irrigation_coil": {
+        "name": "Bewässerungsspule"
+      },
+      "shard_whetstone": {
+        "name": "Splitter-Schleifstein"
+      },
+      "riftbound_girdle": {
+        "name": "Rissgebundener Gürtel"
+      },
+      "riftforged_guard": {
+        "name": "Rissgeschmiedeter Schutz"
+      },
+      "riftforged_blade": {
+        "name": "Rissgeschmiedete Klinge"
+      },
       "bristleback_maul": {
         "name": "Bristleback-Schlägel"
       },

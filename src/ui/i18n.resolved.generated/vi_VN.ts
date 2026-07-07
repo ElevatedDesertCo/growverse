@@ -4947,6 +4947,57 @@ export const vi_VN: EnTranslations = {
       "monarch_crown_helm": {
         "name": "Vương Miện Quân Vương"
       },
+      "bloom_essence": {
+        "name": "Tinh Chất Nở Hoa"
+      },
+      "ember_essence": {
+        "name": "Tinh Chất Than Hồng"
+      },
+      "flow_essence": {
+        "name": "Tinh Chất Dòng Chảy"
+      },
+      "spore_essence": {
+        "name": "Tinh Chất Bào Tử"
+      },
+      "common_seed": {
+        "name": "Hạt Giống Thường"
+      },
+      "corruption_shard": {
+        "name": "Mảnh Hủ Hóa"
+      },
+      "bloom_nutrient": {
+        "name": "Dưỡng Chất Nở Hoa"
+      },
+      "ember_nutrient": {
+        "name": "Dưỡng Chất Than Hồng"
+      },
+      "flow_nutrient": {
+        "name": "Dưỡng Chất Dòng Chảy"
+      },
+      "enriched_seed": {
+        "name": "Hạt Giống Giàu Dưỡng"
+      },
+      "prime_strain_seed": {
+        "name": "Hạt Giống Chủng Nguyên"
+      },
+      "bloom_lamp": {
+        "name": "Đèn Nở Hoa"
+      },
+      "irrigation_coil": {
+        "name": "Cuộn Tưới Tiêu"
+      },
+      "shard_whetstone": {
+        "name": "Đá Mài Mảnh Vỡ"
+      },
+      "riftbound_girdle": {
+        "name": "Đai Ràng Buộc Khe Nứt"
+      },
+      "riftforged_guard": {
+        "name": "Hộ Vệ Rèn Từ Khe Nứt"
+      },
+      "riftforged_blade": {
+        "name": "Lưỡi Kiếm Rèn Từ Khe Nứt"
+      },
       "bristleback_maul": {
         "name": "Vồ Lưng Gai"
       },

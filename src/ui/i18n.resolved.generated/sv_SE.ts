@@ -4947,6 +4947,57 @@ export const sv_SE: EnTranslations = {
       "monarch_crown_helm": {
         "name": "Monarkens krona"
       },
+      "bloom_essence": {
+        "name": "Blomningsessens"
+      },
+      "ember_essence": {
+        "name": "Glödessens"
+      },
+      "flow_essence": {
+        "name": "Flödesessens"
+      },
+      "spore_essence": {
+        "name": "Sporessens"
+      },
+      "common_seed": {
+        "name": "Vanligt Frö"
+      },
+      "corruption_shard": {
+        "name": "Fördärvsskärva"
+      },
+      "bloom_nutrient": {
+        "name": "Blomningsnäring"
+      },
+      "ember_nutrient": {
+        "name": "Glödnäring"
+      },
+      "flow_nutrient": {
+        "name": "Flödesnäring"
+      },
+      "enriched_seed": {
+        "name": "Berikat Frö"
+      },
+      "prime_strain_seed": {
+        "name": "Urstamsfrö"
+      },
+      "bloom_lamp": {
+        "name": "Blomningslampa"
+      },
+      "irrigation_coil": {
+        "name": "Bevattningsslinga"
+      },
+      "shard_whetstone": {
+        "name": "Skärvbryne"
+      },
+      "riftbound_girdle": {
+        "name": "Riftbundet Bälte"
+      },
+      "riftforged_guard": {
+        "name": "Riftsmitt Skydd"
+      },
+      "riftforged_blade": {
+        "name": "Riftsmidd Klinga"
+      },
       "bristleback_maul": {
         "name": "Borstryggens klubba"
       },

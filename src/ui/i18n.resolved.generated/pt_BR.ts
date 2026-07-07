@@ -4947,6 +4947,57 @@ export const pt_BR: EnTranslations = {
       "monarch_crown_helm": {
         "name": "Coroa do Monarca"
       },
+      "bloom_essence": {
+        "name": "Essência de Floração"
+      },
+      "ember_essence": {
+        "name": "Essência de Brasa"
+      },
+      "flow_essence": {
+        "name": "Essência de Fluxo"
+      },
+      "spore_essence": {
+        "name": "Essência de Esporo"
+      },
+      "common_seed": {
+        "name": "Semente Comum"
+      },
+      "corruption_shard": {
+        "name": "Fragmento de Corrupção"
+      },
+      "bloom_nutrient": {
+        "name": "Nutriente de Floração"
+      },
+      "ember_nutrient": {
+        "name": "Nutriente de Brasa"
+      },
+      "flow_nutrient": {
+        "name": "Nutriente de Fluxo"
+      },
+      "enriched_seed": {
+        "name": "Semente Enriquecida"
+      },
+      "prime_strain_seed": {
+        "name": "Semente de Linhagem Prima"
+      },
+      "bloom_lamp": {
+        "name": "Lâmpada de Floração"
+      },
+      "irrigation_coil": {
+        "name": "Serpentina de Irrigação"
+      },
+      "shard_whetstone": {
+        "name": "Pedra de Amolar de Fragmentos"
+      },
+      "riftbound_girdle": {
+        "name": "Cinto Vinculado à Fenda"
+      },
+      "riftforged_guard": {
+        "name": "Guarda Forjada na Fenda"
+      },
+      "riftforged_blade": {
+        "name": "Lâmina Forjada na Fenda"
+      },
       "bristleback_maul": {
         "name": "Malho Bristleback"
       },

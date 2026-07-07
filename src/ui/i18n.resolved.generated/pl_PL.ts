@@ -4947,6 +4947,57 @@ export const pl_PL: EnTranslations = {
       "monarch_crown_helm": {
         "name": "Korona monarchy"
       },
+      "bloom_essence": {
+        "name": "Esencja rozkwitu"
+      },
+      "ember_essence": {
+        "name": "Esencja żaru"
+      },
+      "flow_essence": {
+        "name": "Esencja przepływu"
+      },
+      "spore_essence": {
+        "name": "Esencja zarodników"
+      },
+      "common_seed": {
+        "name": "Zwykłe nasiono"
+      },
+      "corruption_shard": {
+        "name": "Odłamek skażenia"
+      },
+      "bloom_nutrient": {
+        "name": "Odżywka rozkwitu"
+      },
+      "ember_nutrient": {
+        "name": "Odżywka żaru"
+      },
+      "flow_nutrient": {
+        "name": "Odżywka przepływu"
+      },
+      "enriched_seed": {
+        "name": "Wzbogacone nasiono"
+      },
+      "prime_strain_seed": {
+        "name": "Nasiono pierwotnego szczepu"
+      },
+      "bloom_lamp": {
+        "name": "Lampa rozkwitu"
+      },
+      "irrigation_coil": {
+        "name": "Wężownica nawadniająca"
+      },
+      "shard_whetstone": {
+        "name": "Osełka do odłamków"
+      },
+      "riftbound_girdle": {
+        "name": "Pas związany z rozdarciem"
+      },
+      "riftforged_guard": {
+        "name": "Osłona wykuta w rozdarciu"
+      },
+      "riftforged_blade": {
+        "name": "Ostrze wykute w rozdarciu"
+      },
       "bristleback_maul": {
         "name": "Tłuk szczeciniastych"
       },

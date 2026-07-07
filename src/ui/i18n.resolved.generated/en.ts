@@ -4947,6 +4947,57 @@ export const en: EnTranslations = {
       "monarch_crown_helm": {
         "name": "Monarch's Crown"
       },
+      "bloom_essence": {
+        "name": "Bloom Essence"
+      },
+      "ember_essence": {
+        "name": "Ember Essence"
+      },
+      "flow_essence": {
+        "name": "Flow Essence"
+      },
+      "spore_essence": {
+        "name": "Spore Essence"
+      },
+      "common_seed": {
+        "name": "Common Seed"
+      },
+      "corruption_shard": {
+        "name": "Corruption Shard"
+      },
+      "bloom_nutrient": {
+        "name": "Bloom Nutrient"
+      },
+      "ember_nutrient": {
+        "name": "Ember Nutrient"
+      },
+      "flow_nutrient": {
+        "name": "Flow Nutrient"
+      },
+      "enriched_seed": {
+        "name": "Enriched Seed"
+      },
+      "prime_strain_seed": {
+        "name": "Prime Strain Seed"
+      },
+      "bloom_lamp": {
+        "name": "Bloom Lamp"
+      },
+      "irrigation_coil": {
+        "name": "Irrigation Coil"
+      },
+      "shard_whetstone": {
+        "name": "Shard Whetstone"
+      },
+      "riftbound_girdle": {
+        "name": "Riftbound Girdle"
+      },
+      "riftforged_guard": {
+        "name": "Riftforged Guard"
+      },
+      "riftforged_blade": {
+        "name": "Riftforged Blade"
+      },
       "bristleback_maul": {
         "name": "Bristleback Maul"
       },
