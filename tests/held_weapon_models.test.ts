@@ -57,11 +57,10 @@ describe('held weapon models', () => {
   });
 
   // Every player class swaps its held mainhand to the equipped weapon, EXCEPT the
-  // hunter (keeps its crossbow) and the mage (its staff is baked into the 1-of-1
-  // Meshy body), regardless of the melee weapon equipped. The cosmetic Combat Mech
-  // (player_mech) is class-agnostic but is included: it still shows the wearer's
-  // equipped mainhand, like every other body.
-  it('all player classes swap the mainhand except the hunter and mage', () => {
+  // hunter (keeps its crossbow), regardless of the melee weapon equipped. The cosmetic
+  // Combat Mech (player_mech) is class-agnostic but is included: it still shows the
+  // wearer's equipped mainhand, like every other body.
+  it('all player classes swap the mainhand except the hunter', () => {
     const players = Object.keys(VISUALS).filter((k) => k.startsWith('player_'));
     expect(players).toContain('player_hunter');
     expect(players).toContain('player_mech');
@@ -69,8 +68,6 @@ describe('held weapon models', () => {
       const def = VISUALS[key];
       if (key === 'player_hunter') {
         expect(def.weaponSlots, 'hunter must keep its crossbow').toBeUndefined();
-      } else if (key === 'player_mage') {
-        expect(def.weaponSlots, 'mage keeps its baked-in staff').toBeUndefined();
       } else {
         expect(def.weaponSlots?.includes(0), `${key} should swap its mainhand`).toBe(true);
       }

@@ -904,7 +904,8 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
       }
     ],
     "model": "player_mage",
-    "still": "/guide-stills/player_mage.webp"
+    "tint": "#3b6fd6",
+    "still": "/guide-stills/player_mage__3b6fd6.webp"
   },
   {
     "id": "warlock",
@@ -1906,9 +1907,20 @@ export const GUIDE_MODELS: Record<string, GuideModelSpec> = {
     "tintStrength": 0.45
   },
   "player_mage": {
-    "url": "models/chars/players/wizard.glb",
-    "idle": "Idle_02",
-    "height": 2.6
+    "url": "models/chars/players/mage.glb",
+    "idle": "Idle",
+    "height": 2.6,
+    "show": [
+      "Mage_Hat",
+      "Mage_Cape"
+    ],
+    "attach": [
+      {
+        "url": "models/weapons/staff.glb",
+        "bone": "handslot.r"
+      }
+    ],
+    "tintStrength": 0.4
   },
   "player_warlock": {
     "url": "models/chars/players/rogue_hooded.glb",
@@ -1986,10 +1998,24 @@ export const GUIDE_MODELS: Record<string, GuideModelSpec> = {
     "tintStrength": 0.2
   },
   "mob_bandit": {
-    "url": "models/chars/enemies/ashen_raider.glb",
-    "idle": "Idle_02",
+    "url": "models/chars/players/rogue_hooded.glb",
+    "idle": "Idle",
     "height": 2.6,
-    "tintStrength": 0.3
+    "show": [
+      "RogueHooded_Cape",
+      "RogueHooded_Mask"
+    ],
+    "attach": [
+      {
+        "url": "models/weapons/dagger.glb",
+        "bone": "handslot.r"
+      },
+      {
+        "url": "models/weapons/dagger.glb",
+        "bone": "handslot.l"
+      }
+    ],
+    "tintStrength": 0.85
   },
   "mob_bruiser": {
     "url": "models/chars/players/rogue_hooded.glb",

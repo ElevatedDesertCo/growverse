@@ -71,8 +71,7 @@ describe('cosmetic skin-select event', () => {
   });
 
   it('locks in an in-rank skin: applies it, consumes the token, clears the pending rank', () => {
-    // Warrior has the full alt-skin catalog; the mage is the 1-of-1 look (SKIN_COUNTS.mage=1)
-    // and cannot receive event alt skins, so the lock-in mechanic is exercised on warrior.
+    // Warrior has the full alt-skin catalog, so the lock-in mechanic is exercised on it.
     const { sim, rank } = rollRank(1, 'warrior');
     const skin = EVENT_SKIN_TIERS[0].skin; // lowest tier, allowed by every rank
     expect(rankAllowsSkin(rank, skin)).toBe(true);
