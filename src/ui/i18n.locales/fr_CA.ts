@@ -230,5 +230,4 @@ export const fr_CA: Partial<Record<TranslationKey, string>> = {
   'hudChrome.auraEffect.school.shadow': 'ombre',
   'hudChrome.auraEffect.school.holy': 'sacré',
   'hudChrome.auraEffect.school.nature': 'nature',
-  'entities.items.baked_beaver_token.name': 'Jeton du Castor Grillé',
 };
