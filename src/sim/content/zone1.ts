@@ -1375,9 +1375,12 @@ export const ZONE1_PROPS: ZonePropsDef = {
     { x1: -15, z1: -18, x2: -15, z2: -26 },
     { x1: -15, z1: -26, x2: -8, z2: -26 },
     // The Sluice: a low split-rail pen behind the beaver lodge, opening toward the
-    // pond so it frames the camp without walling the road spur.
-    { x1: 34, z1: 60, x2: 46, z2: 60 },
-    { x1: 34, z1: 60, x2: 34, z2: 55 },
+    // pond so it frames the camp without walling the road spur. The north rail sits
+    // at z=62, clear of the lodge's rear corner (its collider reaches ~z=60.3): a rail
+    // clipping the building would eject a player out of the lodge onto the pen's far
+    // side, so the rail is kept a full body-width behind the lodge.
+    { x1: 34, z1: 62, x2: 46, z2: 62 },
+    { x1: 34, z1: 62, x2: 34, z2: 55 },
   ],
   graveyards: [
     { x: -14, z: -25.5 }, // churchyard graves in the solemn south (grid grows +x/+z, seated clear of the chapel wall and inside the rail)
