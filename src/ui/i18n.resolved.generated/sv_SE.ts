@@ -5517,6 +5517,12 @@ export const sv_SE: EnTranslations = {
       "gorrak": {
         "name": "Gorrak den skoningslöse"
       },
+      "grinning_jack": {
+        "name": "Grinning Jack"
+      },
+      "marsh_hag": {
+        "name": "Marsh Hag"
+      },
       "mire_prowler": {
         "name": "Kärrströvare"
       },

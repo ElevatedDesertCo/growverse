@@ -225,6 +225,9 @@ const PLAYERS = 'models/chars/players';
 const ENEMIES = 'models/chars/enemies';
 const CREATURES = 'models/creatures';
 const WEAPONS = 'models/weapons';
+// KayKit-style bodies auto-rigged onto Rig_Medium from unrigged seasonal packs (Grinning
+// Jack, the Hedgewitch); textures baked in, so no tint. See docs/design/asset-expansion-plan.md.
+const SPOOKY = 'models/chars/spooky';
 
 /** GLB url for an equipped mainhand item's held weapon model, or null if the item
  *  has no mapped model (then the class default attach is kept). Mirrors the bag
@@ -813,6 +816,20 @@ export const VISUALS: Record<string, VisualDef> = {
     tintStrength: 0.85,
   },
 
+  // -- Hollowmere expansion enemies (auto-rigged KayKit seasonal bodies) ------
+  // Grinning Jack: a pumpkin-headed sentinel. Textures baked in; no tint.
+  mob_pumpkin: {
+    url: `${SPOOKY}/pumpkin.glb`,
+    height: HUMANOID_H,
+    clips: kaykit(['1H_Melee_Attack_Chop', '2H_Melee_Attack_Chop']),
+  },
+  // The Hedgewitch body: a marsh hag (enemy) and, later, the Wispford NPC Morvenna.
+  mob_hag: {
+    url: `${SPOOKY}/witch.glb`,
+    height: HUMANOID_H,
+    clips: kaykit(['Spellcast_Shoot']),
+  },
+
   // -- NPCs ------------------------------------------------------------------
   npc_knight: {
     url: `${PLAYERS}/knight.glb`,
@@ -949,6 +966,9 @@ export const VISUALS: Record<string, VisualDef> = {
 // ---------------------------------------------------------------------------
 
 const MOB_KEYS: Record<string, string> = {
+  // Hollowmere expansion (Phase 0 enemies in the Sunken Wastes)
+  grinning_jack: 'mob_pumpkin',
+  marsh_hag: 'mob_hag',
   imp: 'mob_demon',
   voidwalker: 'mob_demon',
   succubus: 'mob_demon',

@@ -5517,6 +5517,12 @@ export const pl_PL: EnTranslations = {
       "gorrak": {
         "name": "Gorrak Bezwzględny"
       },
+      "grinning_jack": {
+        "name": "Grinning Jack"
+      },
+      "marsh_hag": {
+        "name": "Marsh Hag"
+      },
       "mire_prowler": {
         "name": "Bagienny Czający"
       },

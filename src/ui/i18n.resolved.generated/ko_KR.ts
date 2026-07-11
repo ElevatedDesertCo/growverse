@@ -5517,6 +5517,12 @@ export const ko_KR: EnTranslations = {
       "gorrak": {
         "name": "무자비한 고라크"
       },
+      "grinning_jack": {
+        "name": "Grinning Jack"
+      },
+      "marsh_hag": {
+        "name": "Marsh Hag"
+      },
       "mire_prowler": {
         "name": "수렁 배회자"
       },

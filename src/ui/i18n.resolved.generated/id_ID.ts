@@ -5517,6 +5517,12 @@ export const id_ID: EnTranslations = {
       "gorrak": {
         "name": "Gorrak si Kejam"
       },
+      "grinning_jack": {
+        "name": "Grinning Jack"
+      },
+      "marsh_hag": {
+        "name": "Marsh Hag"
+      },
       "mire_prowler": {
         "name": "Penjelajah Rawa"
       },

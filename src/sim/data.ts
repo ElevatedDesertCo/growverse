@@ -63,6 +63,7 @@ import {
 } from './content/zone1';
 import {
   DEEPFEN_SHALLOWS_LAKE,
+  HAUNTED_FEN_CAMPS,
   ZONE2_CAMPS,
   ZONE2_ITEMS,
   ZONE2_MOBS,
@@ -214,6 +215,9 @@ export const CAMPS: CampDef[] = [
   // The Dam (zone 4) camps are appended LAST so every pre-existing zone keeps its
   // exact world-gen RNG draw order (determinism); see zone4.ts.
   ...ZONE4_CAMPS,
+  // Hollowmere expansion (Phase 0): appended after zone 4 so every pre-existing camp
+  // (incl. zone 4) keeps its exact draw order; see zone2.ts HAUNTED_FEN_CAMPS.
+  ...HAUNTED_FEN_CAMPS,
 ];
 
 export const GROUND_OBJECTS: GroundObjectDef[] = [

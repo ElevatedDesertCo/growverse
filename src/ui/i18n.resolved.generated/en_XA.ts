@@ -5517,6 +5517,12 @@ export const en_XA: EnTranslations = {
       "gorrak": {
         "name": "[Šáŕñ ţĥé Ĥóļļóŵéð]"
       },
+      "grinning_jack": {
+        "name": "[Ĝŕíññíñĝ Ĵáçķ]"
+      },
+      "marsh_hag": {
+        "name": "[Ɱáŕšĥ Ĥáĝ]"
+      },
       "mire_prowler": {
         "name": "[Šíļţ Þŕóŵļéŕ]"
       },

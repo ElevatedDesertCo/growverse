@@ -5517,6 +5517,12 @@ export const zh_TW: EnTranslations = {
       "gorrak": {
         "name": "無情者戈拉克"
       },
+      "grinning_jack": {
+        "name": "Grinning Jack"
+      },
+      "marsh_hag": {
+        "name": "Marsh Hag"
+      },
       "mire_prowler": {
         "name": "泥沼潛伏獸"
       },

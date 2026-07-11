@@ -5517,6 +5517,12 @@ export const ja_JP: EnTranslations = {
       "gorrak": {
         "name": "無慈悲なるゴラック"
       },
+      "grinning_jack": {
+        "name": "Grinning Jack"
+      },
+      "marsh_hag": {
+        "name": "Marsh Hag"
+      },
       "mire_prowler": {
         "name": "沼の徘徊者"
       },

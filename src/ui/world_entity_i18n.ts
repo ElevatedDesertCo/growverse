@@ -28,6 +28,9 @@ const MOB_IDS = [
   'dust_slinger',
   'restless_bones',
   'gorrak',
+  // Hollowmere expansion (zone 2 haunted fen)
+  'grinning_jack',
+  'marsh_hag',
   'mire_prowler',
   'deepfen_murloc',
   'mire_widow',

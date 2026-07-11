@@ -5517,6 +5517,12 @@ export const tr_TR: EnTranslations = {
       "gorrak": {
         "name": "Acımasız Gorrak"
       },
+      "grinning_jack": {
+        "name": "Grinning Jack"
+      },
+      "marsh_hag": {
+        "name": "Marsh Hag"
+      },
       "mire_prowler": {
         "name": "Bataklık Sinsisi"
       },

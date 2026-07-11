@@ -1606,6 +1606,15 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "still": "/guide-stills/mob_bruiser__6e3b2f.webp"
       },
       {
+        "name": "Grinning Jack",
+        "min": 9,
+        "max": 11,
+        "rare": false,
+        "templateId": "grinning_jack",
+        "model": "mob_pumpkin",
+        "still": "/guide-stills/mob_pumpkin.webp"
+      },
+      {
         "name": "Blight Cultist",
         "min": 10,
         "max": 12,
@@ -1614,6 +1623,15 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "model": "mob_dark_caster",
         "tint": "#6c3483",
         "still": "/guide-stills/mob_dark_caster__6c3483.webp"
+      },
+      {
+        "name": "Marsh Hag",
+        "min": 10,
+        "max": 12,
+        "rare": false,
+        "templateId": "marsh_hag",
+        "model": "mob_hag",
+        "still": "/guide-stills/mob_hag.webp"
       },
       {
         "name": "Blightcaller Mender",
@@ -2046,6 +2064,16 @@ export const GUIDE_MODELS: Record<string, GuideModelSpec> = {
     "idle": "Idle_Combat",
     "height": 2.5,
     "tintStrength": 0.25
+  },
+  "mob_pumpkin": {
+    "url": "models/chars/spooky/pumpkin.glb",
+    "idle": "Idle",
+    "height": 2.6
+  },
+  "mob_hag": {
+    "url": "models/chars/spooky/witch.glb",
+    "idle": "Idle",
+    "height": 2.6
   },
   "mob_troll": {
     "url": "models/creatures/orc.glb",

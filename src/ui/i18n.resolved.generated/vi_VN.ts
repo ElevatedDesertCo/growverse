@@ -5517,6 +5517,12 @@ export const vi_VN: EnTranslations = {
       "gorrak": {
         "name": "Gorrak Tàn Nhẫn"
       },
+      "grinning_jack": {
+        "name": "Grinning Jack"
+      },
+      "marsh_hag": {
+        "name": "Marsh Hag"
+      },
       "mire_prowler": {
         "name": "Kẻ Rình Đầm Lầy"
       },
