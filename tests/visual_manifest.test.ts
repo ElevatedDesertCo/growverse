@@ -59,20 +59,6 @@ describe('character visual manifest', () => {
     ).toEqual([]);
   });
 
-  it('procedural Tier C bodies carry the full KayKit clip set grafted from the donor', async () => {
-    const customKeys = Object.keys(VISUALS).filter((k) => k.startsWith('custom_'));
-    expect(customKeys.length).toBeGreaterThanOrEqual(5);
-    for (const key of customKeys) {
-      const visual = VISUALS[key];
-      const animationNames = await glbAnimationNames(`public/${visual.url}`);
-      expect(animationNames.size, `${key} has no clips`).toBeGreaterThan(0);
-      expect(
-        [...new Set(expectedClipNames(visual.clips))].filter((name) => !animationNames.has(name)),
-        `${key} is missing manifest clip names in its GLB`,
-      ).toEqual([]);
-    }
-  });
-
   it('keeps held weapons and props available on low graphics', () => {
     const allWeaponUrls = manifestUrls().filter((url) => url.startsWith('models/weapons/'));
     expect(allWeaponUrls.length).toBeGreaterThan(0);

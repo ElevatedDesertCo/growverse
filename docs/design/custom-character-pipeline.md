@@ -16,6 +16,30 @@ This is "Tier C" in the redress ladder:
 - **Tier C, new body:** a brand-new mesh skinned to the same skeleton. Fully unique, and
   the subject of this doc.
 
+## The easy path: bring an UNRIGGED mesh (auto-rig)
+
+You do not have to rig the mesh yourself. `scripts/rig/autorig_mesh.mjs`
+(`npm run rig:auto -- <input.glb> <out.glb>`) takes a plain static humanoid mesh with NO
+bones and NO animation, weights every vertex onto the `Rig_Medium` skeleton by proximity
+to the bone segments (a smooth inverse-distance blend, so joints bend instead of crack),
+preserves the mesh's UVs + base-color texture, and keeps the donor's clips. Out comes a
+character that plays the full clean clip set. Proven on a Meshy "Azure Wizard" export: idle
+/ walk / run / melee / cast all deform cleanly.
+
+**Input requirements (auto-rig quality tracks how well the input matches these):**
+
+- A single humanoid mesh, GLB, Y-up, facing +Z, standing.
+- A T-pose or light A-pose (arms out to the sides, not glued down). Meshy's default T-pose
+  export is ideal. The further the arms are from horizontal, the rougher the arm weights.
+- Roughly humanoid proportions (the script feet-aligns + height-scales to the skeleton, but
+  does not re-pose limbs).
+- Textures embedded in the GLB (Meshy "with texture" export).
+
+Then: `npm run rig:auto -- in.glb public/models/chars/custom/name.glb`, preview it with
+`render_preview.mjs`, and register a `VisualDef`. Auto-rig is best-effort: a clean
+single-mesh export rigs well; an unusual pose or a multi-part mesh may need the manual
+Blender path below instead. Always eyeball the preview before shipping.
+
 ## The rule that makes it work
 
 Animation clips target bones by NAME. If your mesh is weighted to a skeleton whose bones
@@ -134,34 +158,18 @@ npx vitest run tests/held_weapon_models.test.ts tests/render_asset_preload.test.
   new clip authored, the baked donor clips do not drive bones the donor lacks. A tail as
   a rigid `attach` mesh, or weighted to an existing spine bone, is fine.
 
-## Generating bodies in code (the procedural path)
+## Previewing a candidate mesh
 
-You do not always need an external mesh. `scripts/rig/gen_character.mjs` builds an
-original low-poly body from a data recipe and GRAFTS it onto the donor skeleton
-(reusing the donor's clips), so the mesh, the rig, and the animation all come out of one
-`node` command, no Blender, no art files. Geometry is rigidly skinned (each vertex bound
-100% to one bone, like the Combat Mech's parts), which gives a crisp faceted look that
-articulates cleanly.
-
-- A recipe (`scripts/rig/character_recipes.mjs`) declares `materials` (authored sRGB) and
-  a `build(body, ctx)` that adds boxes/segments bound to named bones, reading live bone
-  positions from `ctx.joints` (nothing is hardcoded to the skeleton's offset).
-- `npm run chars:gen` writes every recipe to `public/models/chars/custom/`.
-- `node scripts/rig/render_preview.mjs <out-dir> <url...>` renders a posed still through
-  the real Guide viewer (doubles as the skinning correctness check: broken skinning
-  renders blank).
-
-The five shipped bodies (Stoneheart Golem, Hollow Wraith, Emberling Imp, Chrome Sentinel,
-Thornwood Sprout) are registered as `custom_*` cosmetic bodies in the manifest and each is
-a distinct silhouette + palette. They are lazy-loaded and not yet dispatched to any entity;
-surfacing them (as a mob, an NPC, or a selectable cosmetic body) is a separate wiring step.
+`node scripts/rig/render_preview.mjs <out-dir> <public-relative-url...>` renders a posed
+still of any character GLB through the real Guide viewer. Because it advances the idle
+clip, it doubles as a skinning correctness check: a correctly rigged body poses naturally,
+a mis-rigged one renders blank or collapsed. Use it to sanity-check a mesh before wiring it
+into the manifest.
 
 ## Files
 
 - `scripts/rig/skeleton_diff.mjs`, pure bone-set comparison (`compareSkeletons`), unit
   tested in `tests/rig_skeleton_diff.test.ts`.
-- `scripts/rig/gen_character.mjs` + `character_recipes.mjs` + `gen_all_characters.mjs`
-  (`npm run chars:gen`), the procedural body generator and the 5 recipes.
 - `scripts/rig/render_preview.mjs`, posed-still preview of arbitrary character GLBs.
 - `scripts/rig/validate_skeleton.mjs` (`npm run rig:validate`), reads GLBs and reports
   compatibility; exit 1 on a mismatch.

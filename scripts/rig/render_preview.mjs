@@ -98,9 +98,11 @@ await page.waitForFunction('window.__ready === true', { timeout: 20000 });
 for (const url of urls) {
   const name = path.basename(url).replace(/\.glb$/, '');
   try {
+    const clip = process.env.CLIP || 'Idle';
     const dataUrl = await page.evaluate(
-      (u) => window.renderStill({ url: u, idle: 'Idle' }, null),
+      (u, c) => window.renderStill({ url: u, idle: c }, null),
       url,
+      clip,
     );
     const png = Buffer.from(dataUrl.split(',')[1], 'base64');
     const alpha = (await sharp(png).stats()).channels[3];

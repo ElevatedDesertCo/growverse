@@ -21,14 +21,14 @@ code map.
 - `bake_clips.mjs` (`npm run rig:bake`): the general donor to target clip baker. Validates
   first (refuses below `--min-coverage`, default 1, unless `--force`), then copies every
   clip onto identically-named bones and rewrites the target in place. Idempotent.
-- `gen_character.mjs`: the PROCEDURAL body generator. Grafts an in-code low-poly mesh onto
-  the donor's skeleton (rigid per-bone skinning) and keeps the donor's clips, so a
-  fully-original body animates cleanly with zero art files. Recipes live in
-  `character_recipes.mjs`; `gen_all_characters.mjs` (`npm run chars:gen`) writes all 5 to
-  `public/models/chars/custom/`. `tests/visual_manifest.test.ts` guards that each shipped
-  GLB carries the manifest's clip names.
+- `autorig_mesh.mjs` (`npm run rig:auto`): EXPERIMENTAL. Auto-rigs an UNRIGGED static
+  humanoid mesh onto the skeleton by proximity weighting (smooth inverse-distance to the
+  bone segments), preserving UVs + base-color texture. Best-effort: a clean single-mesh
+  T-pose export (e.g. Meshy) rigs well; unusual poses/multi-part meshes may need Blender.
+  Always preview the result.
 - `render_preview.mjs`: posed-still preview of arbitrary GLBs via the real Guide viewer
-  (the skinning correctness check, broken weights render blank).
+  (also a skinning correctness check, a mis-rigged body renders blank/collapsed). `CLIP=<name>`
+  poses a clip other than Idle.
 
 ## Conventions
 - The donor defaults to `public/models/chars/players/knight.glb` (the `Rig_Medium` clip

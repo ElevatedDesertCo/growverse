@@ -107,4 +107,55 @@ window.renderStill = (spec, tint) =>
     }, reject);
   });
 
+// Render an ANIMATION as a sequence of frames with a FIXED camera (framed to the union of
+// all poses in the cycle so the subject never clips or pulses), for building a preview GIF
+// of a rig actually moving. Returns an array of PNG data URLs. Used by
+// scripts/rig/render_anim.mjs; not part of the still batch.
+window.renderAnim = (spec, clipName, frames, fps) =>
+  new Promise((resolve, reject) => {
+    buildModel({ ...spec, idle: clipName }, null).then((built) => {
+      try {
+        if (!built.mixer) throw new Error('model has no animation mixer');
+        const scene = new THREE.Scene();
+        scene.add(makeLights());
+        const pivot = new THREE.Group();
+        pivot.rotation.y = STILL_YAW;
+        pivot.add(built.root);
+        built.root.traverse((o) => {
+          if (o.isMesh) o.frustumCulled = false;
+        });
+        scene.add(pivot);
+
+        const dt = 1 / fps;
+        // First pass: union the posed bounds over the whole cycle for a stable framing.
+        const box = new THREE.Box3();
+        for (let k = 0; k < frames; k++) {
+          built.mixer.setTime(k * dt);
+          scene.updateMatrixWorld(true);
+          box.union(skinAwareBounds(built.root));
+        }
+        const center = box.getCenter(new THREE.Vector3());
+        const radius = box.getBoundingSphere(new THREE.Sphere()).radius || built.radius || 1;
+        const camera = new THREE.PerspectiveCamera(40, 1, 0.01, 1000);
+        center.y += radius * 0.02;
+        frameCamera(camera, radius, center);
+
+        // Second pass: render each frame from t=0.
+        const urls = [];
+        for (let k = 0; k < frames; k++) {
+          built.mixer.setTime(k * dt);
+          scene.updateMatrixWorld(true);
+          renderer.render(scene, camera);
+          urls.push(renderer.domElement.toDataURL('image/png'));
+        }
+        pivot.remove(built.root);
+        built.dispose();
+        scene.clear();
+        resolve(urls);
+      } catch (e) {
+        reject(e);
+      }
+    }, reject);
+  });
+
 window.__ready = true;
