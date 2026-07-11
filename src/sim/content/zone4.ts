@@ -370,11 +370,18 @@ export const ZONE4_PROPS: ZonePropsDef = {
   graveyards: [{ x: 16, z: -286 }],
   // The namesake gag: an absurdly huge beaver dam holding back The Reservoir,
   // dwarfing the driftwood town named after it. The crest spans the WEST chord of
-  // the lake (lake at x=-48,z=-352,r=24), entirely OVER the water at x=-58 so it
-  // rises from the reservoir bed through the surface like a real dam. Placed on the
-  // uninhabited west side, >20m clear of every ambient mob camp (the nearest, the
-  // haze_critter camps at (-18,-330)/(0,-358), sit east of the lake), so no wander
-  // path ever collides with the barrier and perturbs the shared rng draw order.
-  // ~36m long, 9m tall: a genuine "they built THAT?" landmark on arrival.
-  beaverDams: [{ x1: -58, z1: -370, x2: -58, z2: -334, h: 9 }],
+  // A U of stacked logs wrapping the reservoir (the pond nearest Bloomhaven, at
+  // x=-48,z=-352,r=24): a north, a west, and a south arm hugging the bank just
+  // outside the waterline, open to the EAST toward the town approach so the whole
+  // pond reads as embraced by the dam on arrival. Each entry is one crest LINE
+  // (x1,z1)->(x2,z2); the render mesh AND the OBB collider (colliders.ts) share
+  // it, so barrier == geometry, and segment 0 (the north arm) carries the mascot.
+  // The east side is left open because the haze_critter camps sit there; the
+  // world-gen rng draw order shifts slightly where the arms meet camp footprints,
+  // so the parity goldens are regenerated with this change. 9m tall stacked logs.
+  beaverDams: [
+    { x1: -73, z1: -326, x2: -24, z2: -326, h: 9 }, // north arm (carries the beaver)
+    { x1: -73, z1: -326, x2: -73, z2: -378, h: 9 }, // west arm
+    { x1: -73, z1: -378, x2: -24, z2: -378, h: 9 }, // south arm
+  ],
 };

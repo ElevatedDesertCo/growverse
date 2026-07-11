@@ -1119,7 +1119,9 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
   // crisscrossed gnawed logs, a crown of chewed stakes, and galaxy-blue glow
   // chinks tying it to the Beavers. Built from primitives (no GLB); the OBB
   // collider (colliders.ts) uses the same crest line so barrier == geometry.
-  for (const d of PROPS.beaverDams ?? []) {
+  const dams = PROPS.beaverDams ?? [];
+  for (let di = 0; di < dams.length; di++) {
+    const d = dams[di];
     const ddx = d.x2 - d.x1;
     const ddz = d.z2 - d.z1;
     const len = Math.hypot(ddx, ddz);
@@ -1144,43 +1146,91 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
 
     const g = new THREE.Group();
 
-    // Triangular mud berm: cross-section (x = thickness, y = height) extruded
-    // along z = length, then rotated so length runs along the crest (local x).
-    const shape = new THREE.Shape();
-    shape.moveTo(-baseHalf, 0);
-    shape.lineTo(baseHalf, 0);
-    shape.lineTo(baseHalf * 0.2, h); // crest leans slightly downstream
-    shape.lineTo(-baseHalf * 0.5, h * 0.8);
-    shape.closePath();
-    const bermGeo = new THREE.ExtrudeGeometry(shape, { depth: len, bevelEnabled: false });
-    bermGeo.rotateY(-Math.PI / 2); // extrude axis (z, 0..len) -> local -x
-    bermGeo.translate(len / 2, 0, 0); // recenter x to [-len/2, len/2]
-    g.add(new THREE.Mesh(bermGeo, mudMat));
+    // A dam built from STACKED LOGS, not a solid berm: gnawed logs laid ALONG the
+    // crest (local +x) in brick-staggered rows climbing to the crest, tied every
+    // other row with a few front-to-back cross-logs, so it reads as a beaver
+    // log-jam. Logs are merged per material into two draw calls. A low packed-mud
+    // footing grounds the stack into the bank (NOT a full-height wall). Local
+    // space: +x along the crest (length), y up, z the up/downstream thickness.
+    const logM = new THREE.Matrix4();
+    const logQ = new THREE.Quaternion();
+    const logE = new THREE.Euler();
+    const logP = new THREE.Vector3();
+    const logS = new THREE.Vector3(1, 1, 1);
+    const logGeos: THREE.BufferGeometry[] = [];
+    const logDkGeos: THREE.BufferGeometry[] = [];
+    const placeLog = (
+      geo: THREE.CylinderGeometry,
+      dark: boolean,
+      px: number,
+      py: number,
+      pz: number,
+      ex: number,
+      ey: number,
+      ez: number,
+    ): void => {
+      logE.set(ex, ey, ez, 'ZYX');
+      logQ.setFromEuler(logE);
+      logP.set(px, py, pz);
+      (dark ? logDkGeos : logGeos).push(geo.applyMatrix4(logM.compose(logP, logQ, logS)));
+    };
 
-    // Woven logs: cylinders lying across the berm faces at crisscrossing yaws,
-    // clustered denser toward the crest so it reads as a gnawed log jam.
-    const logCount = Math.max(10, Math.round(len / 2.2));
-    for (let i = 0; i < logCount; i++) {
-      const t = (i + 0.5) / logCount;
-      const px = -len / 2 + t * len + (propRand(cx + i, cz, 1) - 0.5) * 1.8;
-      const py = 0.5 + propRand(cx, cz + i, 2) * (h - 1.2);
-      const face = propRand(cx + i, cz + i, 3) < 0.5 ? 1 : -1; // downstream / upstream face
-      const lift = 1 - py / h; // thicker base spread lower down
-      const pz = face * (0.4 + lift * (baseHalf - 0.5)) * (0.7 + propRand(cx, cz - i, 4) * 0.5);
-      const logLen = 2.6 + propRand(cx - i, cz, 5) * 3.4;
-      const r = 0.2 + propRand(cx, cz + i * 2, 6) * 0.16;
-      const geo = new THREE.CylinderGeometry(r, r * 0.82, logLen, 6);
-      const log = new THREE.Mesh(geo, i % 3 === 0 ? logDkMat : logMat);
-      // lie the cylinder down (axis Y -> ~X), then yaw it into a crisscross weave
-      log.rotation.set(
-        (propRand(cx + i, cz + i, 7) - 0.5) * 0.5,
-        (propRand(cx, cz + i, 8) - 0.5) * 1.5,
-        Math.PI / 2 + (propRand(cx - i, cz, 9) - 0.5) * 0.5,
-        'ZYX',
-      );
-      log.position.set(px, py, pz);
-      g.add(log);
+    // low packed-mud footing (grounds the logs at the waterline; ~0.9m tall)
+    const footGeo = new THREE.BoxGeometry(len, 0.9, baseHalf * 1.7);
+    const foot = new THREE.Mesh(footGeo, mudMat);
+    foot.position.set(0, 0.35, 0);
+    g.add(foot);
+
+    const ROW_H = 0.72;
+    const rows = Math.max(3, Math.round(h / ROW_H));
+    for (let row = 0; row < rows; row++) {
+      const ly = 0.7 + row * ROW_H;
+      if (ly > h + 0.2) break;
+      const taper = 1 - 0.5 * (ly / h); // the stack narrows toward the crest
+      const zSpread = baseHalf * Math.max(0.35, taper);
+      let x = -len / 2 - (row % 2) * 1.5; // brick-stagger alternate rows
+      let li = 0;
+      while (x < len / 2) {
+        const logLen = 3.0 + propRand(cx + row, cz + li, 20) * 2.8;
+        const px = x + logLen / 2;
+        const zside = (row + li) % 2 === 0 ? 1 : -1;
+        const pz = zside * zSpread * (0.4 + propRand(cx + li, cz + row, 21) * 0.45);
+        const r = 0.3 + propRand(cx + row, cz - li, 22) * 0.14;
+        const dark = (row + li) % 3 === 0;
+        placeLog(
+          new THREE.CylinderGeometry(r, r * 0.88, logLen, 7),
+          dark,
+          px,
+          ly,
+          pz,
+          (propRand(cx + li, cz + row, 23) - 0.5) * 0.22, // slight pitch
+          (propRand(cx + row, cz + li, 24) - 0.5) * 0.28, // yaw into the weave
+          Math.PI / 2 + (propRand(cx - li, cz + row, 25) - 0.5) * 0.12,
+        );
+        x += logLen * (0.66 + propRand(cx + row, cz + li, 26) * 0.22); // overlap
+        li++;
+      }
+      // every other row: a few cross-logs running front-to-back tie the stack
+      if (row % 2 === 1) {
+        const nCross = Math.max(1, Math.round(len / 9));
+        for (let c = 0; c < nCross; c++) {
+          const cxpos =
+            -len / 2 + ((c + 0.5) / nCross) * len + (propRand(cx + c, cz + row, 27) - 0.5) * 2;
+          placeLog(
+            new THREE.CylinderGeometry(0.24, 0.24, baseHalf * 1.8, 6),
+            true,
+            cxpos,
+            ly + 0.12,
+            0,
+            Math.PI / 2,
+            0,
+            0,
+          );
+        }
+      }
     }
+    if (logGeos.length > 0) g.add(new THREE.Mesh(mergeGeometries(logGeos, false), logMat));
+    if (logDkGeos.length > 0) g.add(new THREE.Mesh(mergeGeometries(logDkGeos, false), logDkMat));
 
     // Crown of gnawed vertical stakes poking up along the crest.
     const stakeCount = Math.max(4, Math.round(len / 6));
@@ -1212,8 +1262,9 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     // match the Baked Beaver signature (0x5b6ee1). Static primitives, no VFX; sized
     // ~5m so it reads as the landmark's namesake from across the zone. Rendered on
     // every tier (one cheap static instance): it IS the landmark's identity, not
-    // sheddable cosmetic richness.
-    {
+    // sheddable cosmetic richness. Only ONE beaver for the whole U-shaped dam: it
+    // perches on segment 0 (the north arm, facing out over the reservoir).
+    if (di === 0) {
       const furMat = surfaceMat({ color: 0x6a4a30, roughness: 1 });
       const bellyMat = surfaceMat({ color: 0xa8895f, roughness: 1 });
       const tailMat = surfaceMat({ color: 0x3e2c1c, roughness: 0.95 });
