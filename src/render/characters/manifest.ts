@@ -224,6 +224,10 @@ const PLAYERS = 'models/chars/players';
 const ENEMIES = 'models/chars/enemies';
 const CREATURES = 'models/creatures';
 const WEAPONS = 'models/weapons';
+// Procedural Tier C bodies (scripts/rig/gen_all_characters.mjs): fully-original low-poly
+// meshes grafted onto the shared Rig_Medium skeleton, so they carry the full KayKit clip
+// set. Cosmetic bodies, lazy-loaded (no default entity dispatches to them yet).
+const CUSTOM = 'models/chars/custom';
 
 /** GLB url for an equipped mainhand item's held weapon model, or null if the item
  *  has no mapped model (then the class default attach is kept). Mirrors the bag
@@ -489,6 +493,43 @@ export const VISUALS: Record<string, VisualDef> = {
     // model just like every other class. The sword is only the no-weapon default.
     attach: [{ url: `${WEAPONS}/sword_1handed.glb`, bone: 'handslot.r' }],
     weaponSlots: [0],
+    lazyPreload: true,
+  },
+
+  // -- procedural Tier C bodies (custom, class-agnostic cosmetic bodies) -----
+  // Fully-original low-poly characters generated in code and grafted onto the shared
+  // Rig_Medium skeleton (see scripts/rig/gen_all_characters.mjs + docs/design/
+  // custom-character-pipeline.md), so they animate with the full KayKit clip set. The
+  // authored per-part colours ARE the look (no tint). Lazy-loaded cosmetic bodies; no
+  // default entity dispatches here yet (surfacing as mob/npc/cosmetic is a follow-up).
+  custom_golem: {
+    url: `${CUSTOM}/custom_golem.glb`,
+    height: HUMANOID_H,
+    clips: kaykit(['2H_Melee_Attack_Chop', '1H_Melee_Attack_Chop']),
+    lazyPreload: true,
+  },
+  custom_wraith: {
+    url: `${CUSTOM}/custom_wraith.glb`,
+    height: HUMANOID_H,
+    clips: kaykit(['Spellcast_Shoot']),
+    lazyPreload: true,
+  },
+  custom_imp: {
+    url: `${CUSTOM}/custom_imp.glb`,
+    height: HUMANOID_H,
+    clips: kaykit(['1H_Melee_Attack_Chop']),
+    lazyPreload: true,
+  },
+  custom_sentinel: {
+    url: `${CUSTOM}/custom_sentinel.glb`,
+    height: HUMANOID_H,
+    clips: kaykit(['1H_Melee_Attack_Slice_Diagonal']),
+    lazyPreload: true,
+  },
+  custom_sprout: {
+    url: `${CUSTOM}/custom_sprout.glb`,
+    height: HUMANOID_H,
+    clips: kaykit(['2H_Melee_Attack_Chop']),
     lazyPreload: true,
   },
 

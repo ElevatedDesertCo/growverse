@@ -134,10 +134,35 @@ npx vitest run tests/held_weapon_models.test.ts tests/render_asset_preload.test.
   new clip authored, the baked donor clips do not drive bones the donor lacks. A tail as
   a rigid `attach` mesh, or weighted to an existing spine bone, is fine.
 
+## Generating bodies in code (the procedural path)
+
+You do not always need an external mesh. `scripts/rig/gen_character.mjs` builds an
+original low-poly body from a data recipe and GRAFTS it onto the donor skeleton
+(reusing the donor's clips), so the mesh, the rig, and the animation all come out of one
+`node` command, no Blender, no art files. Geometry is rigidly skinned (each vertex bound
+100% to one bone, like the Combat Mech's parts), which gives a crisp faceted look that
+articulates cleanly.
+
+- A recipe (`scripts/rig/character_recipes.mjs`) declares `materials` (authored sRGB) and
+  a `build(body, ctx)` that adds boxes/segments bound to named bones, reading live bone
+  positions from `ctx.joints` (nothing is hardcoded to the skeleton's offset).
+- `npm run chars:gen` writes every recipe to `public/models/chars/custom/`.
+- `node scripts/rig/render_preview.mjs <out-dir> <url...>` renders a posed still through
+  the real Guide viewer (doubles as the skinning correctness check: broken skinning
+  renders blank).
+
+The five shipped bodies (Stoneheart Golem, Hollow Wraith, Emberling Imp, Chrome Sentinel,
+Thornwood Sprout) are registered as `custom_*` cosmetic bodies in the manifest and each is
+a distinct silhouette + palette. They are lazy-loaded and not yet dispatched to any entity;
+surfacing them (as a mob, an NPC, or a selectable cosmetic body) is a separate wiring step.
+
 ## Files
 
 - `scripts/rig/skeleton_diff.mjs`, pure bone-set comparison (`compareSkeletons`), unit
   tested in `tests/rig_skeleton_diff.test.ts`.
+- `scripts/rig/gen_character.mjs` + `character_recipes.mjs` + `gen_all_characters.mjs`
+  (`npm run chars:gen`), the procedural body generator and the 5 recipes.
+- `scripts/rig/render_preview.mjs`, posed-still preview of arbitrary character GLBs.
 - `scripts/rig/validate_skeleton.mjs` (`npm run rig:validate`), reads GLBs and reports
   compatibility; exit 1 on a mismatch.
 - `scripts/rig/bake_clips.mjs` (`npm run rig:bake`), the general donor to target clip
