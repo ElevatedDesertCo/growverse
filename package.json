@@ -17,6 +17,7 @@
     "rig:validate": "node scripts/rig/validate_skeleton.mjs",
     "rig:bake": "node scripts/rig/bake_clips.mjs",
     "rig:auto": "node scripts/rig/autorig_mesh.mjs",
+    "rig:ingest": "node scripts/rig/ingest_characters.mjs",
     "sitemap:build": "node scripts/build_sitemap.mjs",
     "build:native": "VITE_NATIVE_APP=1 VITE_API_ORIGIN=${VITE_API_ORIGIN:-https://worldofclaudecraft.com} npm run build",
     "native:sync": "npm run build:native && npx cap sync",

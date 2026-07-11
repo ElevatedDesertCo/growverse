@@ -21,6 +21,11 @@ code map.
 - `bake_clips.mjs` (`npm run rig:bake`): the general donor to target clip baker. Validates
   first (refuses below `--min-coverage`, default 1, unless `--force`), then copies every
   clip onto identically-named bones and rewrites the target in place. Idempotent.
+- `ingest_characters.mjs` (`npm run rig:ingest`): the one-command drop-in flow. Validates
+  every `incoming/*.glb`, bakes the KayKit clip set on, places it under
+  `public/models/chars/kaykit/`, and regenerates `custom_bodies.generated.ts` (merged into
+  VISUALS as `custom_<name>`) + the media manifest. Idempotent; rejects non-Rig_Medium GLBs.
+  This is the path for already-rigged KayKit-pack characters.
 - `autorig_mesh.mjs` (`npm run rig:auto`): EXPERIMENTAL. Auto-rigs an UNRIGGED static
   humanoid mesh onto the skeleton by proximity weighting (smooth inverse-distance to the
   bone segments), preserving UVs + base-color texture. Best-effort: a clean single-mesh

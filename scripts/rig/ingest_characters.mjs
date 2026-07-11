@@ -1,0 +1,132 @@
+// One-command ingest: turn GLBs dropped in incoming/ into wired-in game character bodies.
+//
+//   npm run rig:ingest
+//
+// For each incoming/*.glb: validate against the Rig_Medium skeleton, bake the clean KayKit
+// clip set onto it (so it animates like the default classes), place it under
+// public/models/chars/kaykit/, then regenerate src/render/characters/custom_bodies.generated.ts
+// (merged into VISUALS) + the media manifest. Anything that fails validation is reported and
+// left in incoming/, never placed. Idempotent: the registry is rebuilt from whatever GLBs sit
+// in public/models/chars/kaykit/, so re-running is safe. See docs/design/custom-character-pipeline.md.
+import { execFileSync } from 'node:child_process';
+import { copyFileSync, existsSync, mkdirSync, readdirSync, rmSync, writeFileSync } from 'node:fs';
+import { basename, dirname, extname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+import { bakeClips } from './bake_clips.mjs';
+import { compareSkeletons, formatSkeletonDiff } from './skeleton_diff.mjs';
+import { allNodeNames, animatedBoneNames, makeIO } from './validate_skeleton.mjs';
+
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..', '..');
+const INCOMING = resolve(ROOT, 'incoming');
+const DEST = resolve(ROOT, 'public/models/chars/kaykit');
+const DONOR = resolve(ROOT, 'public/models/chars/players/knight.glb');
+const GEN = resolve(ROOT, 'src/render/characters/custom_bodies.generated.ts');
+const DEST_REL = 'models/chars/kaykit';
+
+const slugify = (name) =>
+  name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '_')
+    .replace(/^_+|_+$/g, '');
+
+async function main() {
+  mkdirSync(DEST, { recursive: true });
+  const io = await makeIO();
+  const donorDoc = await io.read(DONOR);
+  const donorBones = animatedBoneNames(donorDoc);
+
+  const dropped = existsSync(INCOMING)
+    ? readdirSync(INCOMING).filter((f) => extname(f).toLowerCase() === '.glb')
+    : [];
+  if (!dropped.length) {
+    console.log('No .glb files in incoming/. Drop KayKit character GLBs there and re-run.');
+  }
+
+  const ingested = [];
+  const rejected = [];
+  for (const file of dropped) {
+    const slug = slugify(basename(file, extname(file)));
+    const destPath = resolve(DEST, `${slug}.glb`);
+    copyFileSync(resolve(INCOMING, file), destPath);
+    const targetDoc = await io.read(destPath);
+    const diff = compareSkeletons(donorBones, allNodeNames(targetDoc));
+    if (!diff.ok) {
+      rmSync(destPath, { force: true });
+      rejected.push({ file, diff });
+      console.log(`\nREJECTED ${file}: not rigged to Rig_Medium`);
+      console.log(formatSkeletonDiff(diff, { donorName: 'skeleton', targetName: file }));
+      continue;
+    }
+    const { copiedAnims } = bakeClips(donorDoc, targetDoc);
+    await io.write(destPath, targetDoc);
+    ingested.push({ file, slug, key: `custom_${slug}`, clips: copiedAnims });
+    console.log(`ok ${file} -> ${DEST_REL}/${slug}.glb  (${copiedAnims} clips baked)`);
+  }
+
+  // Rebuild the registry from EVERY glb currently in the kaykit dir (idempotent).
+  const placed = readdirSync(DEST)
+    .filter((f) => extname(f).toLowerCase() === '.glb')
+    .map((f) => ({ slug: basename(f, extname(f)), file: f }))
+    .sort((a, b) => a.slug.localeCompare(b.slug));
+  writeGenerated(placed);
+  execFileSync(process.execPath, ['scripts/build_media_manifest.mjs', 'generate'], {
+    cwd: ROOT,
+    stdio: 'ignore',
+  });
+
+  // Summary + how to surface each body.
+  console.log(
+    `\n${ingested.length} ingested, ${rejected.length} rejected. ${placed.length} custom bodies registered.`,
+  );
+  if (ingested.length) {
+    console.log('\nEach is now a manifest body. To put one in the world, add ONE mapping in');
+    console.log('src/render/characters/manifest.ts and give it an entity (sim content):');
+    for (const b of ingested) {
+      console.log(
+        `  - ${b.key}:  NPC_KEYS['my_npc_id'] = '${b.key}'   (or MOB_KEYS / a player skin)`,
+      );
+    }
+    console.log(
+      '\nPreview any body:  node scripts/rig/render_preview.mjs <out-dir> ' +
+        `${DEST_REL}/<name>.glb`,
+    );
+  }
+}
+
+function writeGenerated(placed) {
+  const entries = placed
+    .map(
+      (p) =>
+        `  custom_${p.slug}: {\n` +
+        `    url: '${DEST_REL}/${p.file}',\n` +
+        `    height: HUMANOID_H,\n` +
+        `    clips: KAYKIT_CLIPS,\n` +
+        `  },`,
+    )
+    .join('\n');
+  const clipsConst = placed.length
+    ? `\nconst HUMANOID_H = 2.6;\n\n// The canonical KayKit clip set baked onto every ingested body.\n` +
+      `const KAYKIT_CLIPS: VisualDef['clips'] = {\n` +
+      `  idle: 'Idle',\n  walk: 'Walking_A',\n  run: 'Running_A',\n  walkBack: 'Walking_Backwards',\n` +
+      `  attack: ['1H_Melee_Attack_Chop', '1H_Melee_Attack_Slice_Diagonal'],\n` +
+      `  hit: ['Hit_A'],\n  death: 'Death_A',\n  cast: 'Spellcasting',\n` +
+      `  sitDown: 'Sit_Floor_Down',\n  sitIdle: 'Sit_Floor_Idle',\n  swim: 'Lie_Idle',\n  jump: 'Jump_Idle',\n};\n`
+    : '';
+  const body = `// GENERATED by scripts/rig/ingest_characters.mjs (npm run rig:ingest). DO NOT EDIT.
+//
+// Character bodies ingested from GLBs dropped in incoming/: each was validated against the
+// Rig_Medium skeleton and had the clean KayKit clip set baked on, so it animates like the
+// default classes. These are merged into VISUALS (see manifest.ts) as \`custom_<name>\` keys.
+// No default entity dispatches to them; surface one by mapping an NPC/mob templateId or a
+// player skin to its key.
+import type { VisualDef } from './manifest';
+${clipsConst}
+export const CUSTOM_BODIES: Record<string, VisualDef> = {${entries ? `\n${entries}\n` : ''}};
+`;
+  writeFileSync(GEN, body);
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

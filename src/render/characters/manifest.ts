@@ -7,6 +7,7 @@ import { MOBS } from '../../sim/data';
 import type { Entity, PlayerClass } from '../../sim/types';
 import { ITEM_WEAPON_VARIANTS } from '../../ui/weapon_variants';
 import type { OverheadEmoteId } from '../../world_api';
+import { CUSTOM_BODIES } from './custom_bodies.generated';
 
 export interface EmoteClipSpec {
   clips: readonly string[];
@@ -937,6 +938,9 @@ export const VISUALS: Record<string, VisualDef> = {
     height: HUMANOID_H,
     clips: kaykit(['1H_Melee_Attack_Chop']),
   },
+
+  // Bodies ingested from incoming/ via `npm run rig:ingest` (generated; may be empty).
+  ...CUSTOM_BODIES,
 };
 
 // ---------------------------------------------------------------------------

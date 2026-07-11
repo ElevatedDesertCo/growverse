@@ -59,6 +59,19 @@ describe('character visual manifest', () => {
     ).toEqual([]);
   });
 
+  it('every ingested custom body carries its baked clip set (custom_bodies.generated)', async () => {
+    // No minimum: the registry is empty until GLBs are ingested via `npm run rig:ingest`.
+    for (const key of Object.keys(VISUALS).filter((k) => k.startsWith('custom_'))) {
+      const visual = VISUALS[key];
+      const animationNames = await glbAnimationNames(`public/${visual.url}`);
+      expect(animationNames.size, `${key} has no clips`).toBeGreaterThan(0);
+      expect(
+        [...new Set(expectedClipNames(visual.clips))].filter((name) => !animationNames.has(name)),
+        `${key} is missing manifest clip names in its GLB`,
+      ).toEqual([]);
+    }
+  });
+
   it('keeps held weapons and props available on low graphics', () => {
     const allWeaponUrls = manifestUrls().filter((url) => url.startsWith('models/weapons/'));
     expect(allWeaponUrls.length).toBeGreaterThan(0);

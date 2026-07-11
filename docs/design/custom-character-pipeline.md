@@ -16,6 +16,28 @@ This is "Tier C" in the redress ladder:
 - **Tier C, new body:** a brand-new mesh skinned to the same skeleton. Fully unique, and
   the subject of this doc.
 
+## The fast path: drop-in ingest (models already on the KayKit rig)
+
+For models that are ALREADY rigged to the KayKit skeleton, which includes every KayKit
+character pack (Adventurers, Skeletons, the Mystery Monthly Series, etc.), there is a
+one-command flow:
+
+1. Drop the `.glb` files into `incoming/`.
+2. Run `npm run rig:ingest`.
+
+For each file it validates the skeleton (must be Rig_Medium), bakes the clean KayKit clip
+set on (like the Combat Mech), places it under `public/models/chars/kaykit/`, and
+regenerates `src/render/characters/custom_bodies.generated.ts` (merged into `VISUALS` as a
+`custom_<name>` body) plus the media manifest. Anything that fails validation is reported
+and left in `incoming/`, never placed. It is idempotent (the registry is rebuilt from the
+`kaykit/` folder), so re-running is safe.
+
+After ingest each body is a first-class engine asset. Putting it in the WORLD is the one
+remaining manual step (a design choice): map an entity to its key, e.g.
+`NPC_KEYS['my_npc'] = 'custom_vampire'` or `MOB_KEYS['my_mob'] = 'custom_vampire'`, and add
+the matching sim-content record. `tests/visual_manifest.test.ts` guards that every ingested
+body carries its clip set.
+
 ## The easy path: bring an UNRIGGED mesh (auto-rig)
 
 You do not have to rig the mesh yourself. `scripts/rig/autorig_mesh.mjs`
