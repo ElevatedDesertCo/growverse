@@ -5001,7 +5001,7 @@ export const da_DK: EnTranslations = {
         "name": "Riftsmedet Klinge"
       },
       "baked_beaver_token": {
-        "name": "Baked Beaver Token"
+        "name": "Polet for Bagt Bæver"
       },
       "bristleback_maul": {
         "name": "Børsterygs-Lemlæster"

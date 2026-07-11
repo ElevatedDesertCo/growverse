@@ -5235,4 +5235,5 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.quests.q_hollowmere_pumpkin_king.completion':
     '히죽이던 웃음이 어둠에 잠기고, 머리 위로 늪 전체가 일순간 고요해지오, {playerName}. 되살아났던 것들이 줄 끊긴 인형처럼 하나같이 진흙 속으로 무너져 내리니. 위스프포드는 마지막으로 제 망자들을 묻을 것이고, 이번에는 그들이 그대로 머물 것이오. 그대가 이 사람들에게 묘지를 되돌려주었소.',
   'entities.quests.q_hollowmere_pumpkin_king.objectives.0.label': '처치한 호박 왕',
+  'entities.items.baked_beaver_token.name': '구운 비버 징표',
 };

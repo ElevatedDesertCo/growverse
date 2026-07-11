@@ -49,12 +49,27 @@ function horizontalTravel(sim: Sim, pid: number, ticks: number): number {
 }
 
 function findDeepWater(seed: number): { x: number; z: number } {
+  // Return the DEEPEST water in the scan, not the first spot past a shallow
+  // threshold. Main's Sluice terrain added a shallow millpond near Bloomhaven
+  // whose floor is only ~1.7 below the water line; a player there swims out of
+  // it mid-traverse and reverts to a partial wade. The deepest body is ~4.0
+  // below the water line, comfortably past the full-swim depth (SWIM_DEPTH 0.8)
+  // and large enough that the player stays fully submerged the whole time.
+  let best: { x: number; z: number } | null = null;
+  let bestGround = Infinity;
   for (let z = -50; z <= 950; z += 5) {
     for (let x = -170; x <= 170; x += 5) {
-      if (groundHeight(x, z, seed) < WATER_LEVEL - 1.25) return { x, z };
+      const g = groundHeight(x, z, seed);
+      if (g < bestGround) {
+        bestGround = g;
+        best = { x, z };
+      }
     }
   }
-  throw new Error('test fixture needs a deep-water coordinate');
+  if (!best || bestGround >= WATER_LEVEL - 1.25) {
+    throw new Error('test fixture needs a deep-water coordinate');
+  }
+  return best;
 }
 
 // Push a shapeshift toggle aura directly (forms use the 3600s sentinel).

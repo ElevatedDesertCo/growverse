@@ -5093,4 +5093,5 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.update': 'Opdater',
   'errors.api.desktopCodeInvalid':
     'Desktop-loginkoden er ugyldig eller udløbet. Prøv venligst igen.',
+  'entities.items.baked_beaver_token.name': 'Polet for Bagt Bæver',
 };

@@ -5001,7 +5001,7 @@ export const zh_TW: EnTranslations = {
         "name": "裂隙鍛造之刃"
       },
       "baked_beaver_token": {
-        "name": "Baked Beaver Token"
+        "name": "烤海狸徽記"
       },
       "bristleback_maul": {
         "name": "硬鬃重槌"

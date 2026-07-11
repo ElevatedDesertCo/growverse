@@ -5169,4 +5169,5 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Jangan sekarang',
   'hudChrome.nativeUpdate.title': 'Pembaruan Tersedia',
   'hudChrome.nativeUpdate.update': 'Perbarui',
+  'entities.items.baked_beaver_token.name': 'Token Berang-berang Panggang',
 };

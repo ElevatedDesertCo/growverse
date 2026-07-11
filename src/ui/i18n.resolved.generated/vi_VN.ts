@@ -5001,7 +5001,7 @@ export const vi_VN: EnTranslations = {
         "name": "Lưỡi Kiếm Rèn Từ Khe Nứt"
       },
       "baked_beaver_token": {
-        "name": "Baked Beaver Token"
+        "name": "Huy hiệu Hải ly Nướng"
       },
       "bristleback_maul": {
         "name": "Vồ Lưng Gai"

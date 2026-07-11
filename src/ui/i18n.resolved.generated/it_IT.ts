@@ -5001,7 +5001,7 @@ export const it_IT: EnTranslations = {
         "name": "Lama Forgiata nella Frattura"
       },
       "baked_beaver_token": {
-        "name": "Baked Beaver Token"
+        "name": "Gettone del Castoro Tostato"
       },
       "bristleback_maul": {
         "name": "Maglio Bristleback"

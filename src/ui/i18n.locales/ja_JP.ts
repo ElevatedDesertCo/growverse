@@ -5228,4 +5228,5 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.quests.q_hollowmere_pumpkin_king.completion':
     'あの笑みが暗く消え、我らの頭上では湿原じゅうが一斉に静まりかえる、{playerName}、蘇りしものすべてが糸を断たれた操り人形のように泥へと崩れ落ちてゆく。ウィスプフォードは最後にもう一度死者を埋めるだろう、そして今度こそ、彼らは土に留まるのだ。おまえはこの者らに墓地を取り戻してやったのだ。',
   'entities.quests.q_hollowmere_pumpkin_king.objectives.0.label': '討ち倒したパンプキン・キング',
+  'entities.items.baked_beaver_token.name': 'ベイクドビーバーの証',
 };

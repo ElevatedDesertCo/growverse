@@ -5001,7 +5001,7 @@ export const id_ID: EnTranslations = {
         "name": "Bilah Tempaan Celah"
       },
       "baked_beaver_token": {
-        "name": "Baked Beaver Token"
+        "name": "Token Berang-berang Panggang"
       },
       "bristleback_maul": {
         "name": "Cabikan Punggung Berbulu"

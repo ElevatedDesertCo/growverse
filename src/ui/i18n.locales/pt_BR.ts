@@ -5175,4 +5175,5 @@ export const pt_BR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Agora não',
   'hudChrome.nativeUpdate.title': 'Atualização disponível',
   'hudChrome.nativeUpdate.update': 'Atualizar',
+  'entities.items.baked_beaver_token.name': 'Ficha do Castor Tostado',
 };

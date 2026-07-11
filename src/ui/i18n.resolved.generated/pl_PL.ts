@@ -5001,7 +5001,7 @@ export const pl_PL: EnTranslations = {
         "name": "Ostrze wykute w rozdarciu"
       },
       "baked_beaver_token": {
-        "name": "Baked Beaver Token"
+        "name": "Żeton Przypieczonego Bobra"
       },
       "bristleback_maul": {
         "name": "Tłuk szczeciniastych"

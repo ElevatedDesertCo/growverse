@@ -5219,4 +5219,5 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Jetzt nicht',
   'hudChrome.nativeUpdate.title': 'Update verfügbar',
   'hudChrome.nativeUpdate.update': 'Aktualisieren',
+  'entities.items.baked_beaver_token.name': 'Marke des Gerösteten Bibers',
 };

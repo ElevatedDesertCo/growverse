@@ -5001,7 +5001,7 @@ export const es: EnTranslations = {
         "name": "Hoja Forjada en la Fisura"
       },
       "baked_beaver_token": {
-        "name": "Baked Beaver Token"
+        "name": "Distintivo del Castor Tostado"
       },
       "bristleback_maul": {
         "name": "Maza Bristleback"

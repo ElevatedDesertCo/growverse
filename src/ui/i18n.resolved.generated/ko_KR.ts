@@ -5001,7 +5001,7 @@ export const ko_KR: EnTranslations = {
         "name": "균열 단조 칼날"
       },
       "baked_beaver_token": {
-        "name": "Baked Beaver Token"
+        "name": "구운 비버 징표"
       },
       "bristleback_maul": {
         "name": "뻣센등뼈 철퇴"

@@ -5001,7 +5001,7 @@ export const ru_RU: EnTranslations = {
         "name": "Клинок, выкованный в разломе"
       },
       "baked_beaver_token": {
-        "name": "Baked Beaver Token"
+        "name": "Жетон Обжаренного Бобра"
       },
       "bristleback_maul": {
         "name": "Кувалда Щетиноспина"

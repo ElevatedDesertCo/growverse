@@ -4969,4 +4969,5 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'entities.quests.q_hollowmere_pumpkin_king.completion':
     '那咧嘴的火光归于黑暗，在我们头顶，整片沼泽骤然静了下来，{playerName}：每一个起身的亡者都像被剪断丝线的傀儡，重新跌回泥里。鬼火渡将最后一次埋葬它的亡者，而这一次，他们将长眠不起。你把这片墓地还给了这些人。',
   'entities.quests.q_hollowmere_pumpkin_king.objectives.0.label': '已斩杀的南瓜王',
+  'entities.items.baked_beaver_token.name': '烤海狸徽记',
 };

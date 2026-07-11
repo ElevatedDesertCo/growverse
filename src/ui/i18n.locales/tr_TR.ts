@@ -5099,4 +5099,5 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Şimdi Değil',
   'hudChrome.nativeUpdate.title': 'Güncelleme Mevcut',
   'hudChrome.nativeUpdate.update': 'Güncelle',
+  'entities.items.baked_beaver_token.name': 'Kızarmış Kunduz Jetonu',
 };

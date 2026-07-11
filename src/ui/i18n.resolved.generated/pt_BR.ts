@@ -5001,7 +5001,7 @@ export const pt_BR: EnTranslations = {
         "name": "Lâmina Forjada na Fenda"
       },
       "baked_beaver_token": {
-        "name": "Baked Beaver Token"
+        "name": "Ficha do Castor Tostado"
       },
       "bristleback_maul": {
         "name": "Malho Bristleback"

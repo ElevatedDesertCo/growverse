@@ -286,4 +286,5 @@ export const es_ES: Partial<Record<TranslationKey, string>> = {
   'hudChrome.auraEffect.school.shadow': 'Sombra',
   'hudChrome.auraEffect.school.holy': 'Sagrada',
   'hudChrome.auraEffect.school.nature': 'Natural',
+  'entities.items.baked_beaver_token.name': 'Distintivo del Castor Tostado',
 };

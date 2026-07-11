@@ -5162,4 +5162,5 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Niet nu',
   'hudChrome.nativeUpdate.title': 'Update beschikbaar',
   'hudChrome.nativeUpdate.update': 'Bijwerken',
+  'entities.items.baked_beaver_token.name': 'Penning van de Geroosterde Bever',
 };

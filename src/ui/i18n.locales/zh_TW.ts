@@ -4970,4 +4970,5 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.quests.q_hollowmere_pumpkin_king.completion':
     '那咧笑歸於黑暗，我們頭頂上整片沼澤霎時一齊靜寂，{playerName}：每一具復生之物都如斷線傀儡般跌回泥沼。燐渡將最後一次埋葬它的亡者，而這一次，他們將長眠不起。你把墓園歸還給了這些人。',
   'entities.quests.q_hollowmere_pumpkin_king.objectives.0.label': '已擊殺南瓜王',
+  'entities.items.baked_beaver_token.name': '烤海狸徽記',
 };
