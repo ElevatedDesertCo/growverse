@@ -94,7 +94,10 @@ function extractGeometry(doc) {
   const groups = new Map(); // srcMaterial|null -> { P, N, UVs, I }
   const groupFor = (mat) => {
     let g = groups.get(mat);
-    if (!g) groups.set(mat, (g = { P: [], N: [], UVs: [], I: [] }));
+    if (!g) {
+      g = { P: [], N: [], UVs: [], I: [] };
+      groups.set(mat, g);
+    }
     return g;
   };
   const walk = (node, parent) => {

@@ -100,7 +100,14 @@ export const ZONE2_MOBS: Record<string, MobTemplate> = {
     scale: 1.0,
     color: 0xd06a2a,
     // Ember Grin: the carved grin flares, searing the victim with a fire DoT.
-    cinder: { chance: 0.25, perTick: 3, interval: 2, duration: 6, name: 'Ember Grin', school: 'fire' },
+    cinder: {
+      chance: 0.25,
+      perTick: 3,
+      interval: 2,
+      duration: 6,
+      name: 'Ember Grin',
+      school: 'fire',
+    },
   },
   marsh_hag: {
     id: 'marsh_hag',
@@ -123,7 +130,14 @@ export const ZONE2_MOBS: Record<string, MobTemplate> = {
     scale: 1.0,
     color: 0x6fa552,
     // Hexcurse: a rotting shadow curse that festers over time.
-    soulrot: { chance: 0.3, perTick: 3, interval: 2, duration: 8, name: 'Hexcurse', school: 'shadow' },
+    soulrot: {
+      chance: 0.3,
+      perTick: 3,
+      interval: 2,
+      duration: 8,
+      name: 'Hexcurse',
+      school: 'shadow',
+    },
   },
   mire_prowler: {
     id: 'mire_prowler',
