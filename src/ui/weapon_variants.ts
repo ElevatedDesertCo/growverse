@@ -18,6 +18,8 @@ export const ITEM_WEAPON_VARIANTS: Record<string, string> = {
   crossroads_saber: 'sword_d',
   mistcallers_edge: 'sword_e',
   zealotsbane_blade: 'sword_e',
+  riftforged_blade: 'sword_e', // crafted mystical blade
+
   kingsbane_last_oath: 'sword_f', // LEGENDARY: the flaming blade (exclusive)
   valeborn_spellblade: 'sword_g', // crystalline
   maldrecs_soulbinder: 'sword_g',
