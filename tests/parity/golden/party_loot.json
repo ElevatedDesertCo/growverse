@@ -13,7 +13,7 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 485,
+      "nextId": 487,
       "state": "5bc471b0",
       "events": "741638a5",
       "rng": {
@@ -27,9 +27,9 @@
     {
       "tick": 3,
       "time": 0.15,
-      "nextId": 488,
-      "state": "5994c518",
-      "events": "f9e0c769",
+      "nextId": 490,
+      "state": "f61b9d0a",
+      "events": "4b6d9d0b",
       "rng": {
         "draws": 2,
         "digest": "8d6c4219"
@@ -45,7 +45,7 @@
           "counters": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 485,
+          "entityId": 487,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
@@ -70,7 +70,7 @@
           "counters": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 486,
+          "entityId": 488,
           "equipment": {
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
@@ -89,10 +89,10 @@
           "critChance": 0.06,
           "detonateTimer": "Infinity",
           "dodgeChance": 0.06,
-          "fallStartY": 1.109117,
+          "fallStartY": -5.25,
           "fiveSecondRule": 99.15,
           "hp": 90,
-          "id": 485,
+          "id": 487,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -104,7 +104,7 @@
           "petMode": "defensive",
           "pos": {
             "x": 20,
-            "y": 1.109117,
+            "y": -5.25,
             "z": 20
           },
           "potionCooldownUntil": -1,
@@ -137,10 +137,10 @@
           "critChance": 0.056,
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
-          "fallStartY": 0.906513,
+          "fallStartY": -5.25,
           "fiveSecondRule": 99.15,
           "hp": 54,
-          "id": 486,
+          "id": 488,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -152,7 +152,7 @@
           "petMode": "defensive",
           "pos": {
             "x": 21,
-            "y": 0.906513,
+            "y": -5.25,
             "z": 20
           },
           "potionCooldownUntil": -1,
@@ -187,11 +187,11 @@
           "dead": true,
           "detonateTimer": "Infinity",
           "dodgeChance": 0.05,
-          "fallStartY": 1.194048,
+          "fallStartY": -7.73162,
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 42,
-          "id": 487,
+          "id": 489,
           "kind": "mob",
           "level": 2,
           "lootFfaTimer": "Infinity",
@@ -203,20 +203,20 @@
           "petMode": "defensive",
           "pos": {
             "x": 20,
-            "y": 1.194048,
+            "y": -7.73162,
             "z": 22
           },
           "potionCooldownUntil": -1,
           "respawnTimer": -0.15,
           "spawnPos": {
             "x": 20,
-            "y": 1.194048,
+            "y": -7.73162,
             "z": 22
           },
           "stats": {
             "armor": 10
           },
-          "tappedById": 485,
+          "tappedById": 487,
           "templateId": "forest_wolf",
           "weapon": {
             "max": 6,

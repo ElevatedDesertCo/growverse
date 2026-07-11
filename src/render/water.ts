@@ -3,8 +3,9 @@ import { WORLD_MAX_Z, WORLD_MIN_Z, WORLD_SIZE, ZONES } from '../sim/data';
 import { terrainHeight, WATER_LEVEL } from '../sim/world';
 import { loadTexture } from './assets/loader';
 import { registerPreload } from './assets/preload';
-import { GFX, sharedUniforms, SUN_DIR } from './gfx';
+import { GFX, SUN_DIR, sharedUniforms } from './gfx';
 import { waterNormalish, waterNormalMaps } from './textures';
+import { buildWaterfall } from './waterfall';
 
 // Water for the whole zone strip.
 //
@@ -24,11 +25,13 @@ const SEGMENTS_PER_ZONE = 180; // ~2u vertex spacing — enough for the foam ban
 // so it does not pay network/decode/upload cost for water detail.
 const WATER_TEX: Record<string, THREE.Texture> = {};
 function kickWaterTex(key: string, file: string): void {
-  registerPreload(loadTexture(`/textures/water/${file}`, { repeat: true }).then((tex) => {
-    tex.anisotropy = 4;
-    WATER_TEX[key] = tex;
-    return tex;
-  }));
+  registerPreload(
+    loadTexture(`/textures/water/${file}`, { repeat: true }).then((tex) => {
+      tex.anisotropy = 4;
+      WATER_TEX[key] = tex;
+      return tex;
+    }),
+  );
 }
 if (GFX.standardMaterials) {
   kickWaterTex('n1', 'water_1_normal.jpg');
@@ -152,8 +155,12 @@ function buildShaderWater(seed: number): WaterView {
   const meshes: THREE.Mesh[] = [];
   for (const zone of ZONES) {
     const depth = zone.zMax - zone.zMin;
-    const geo = new THREE.PlaneGeometry(WORLD_SIZE, depth, SEGMENTS_PER_ZONE, SEGMENTS_PER_ZONE)
-      .rotateX(-Math.PI / 2);
+    const geo = new THREE.PlaneGeometry(
+      WORLD_SIZE,
+      depth,
+      SEGMENTS_PER_ZONE,
+      SEGMENTS_PER_ZONE,
+    ).rotateX(-Math.PI / 2);
     geo.translate(0, 0, (zone.zMin + zone.zMax) / 2);
     const pos = geo.attributes.position as THREE.BufferAttribute;
     const shoreDepth = new Float32Array(pos.count);
@@ -167,6 +174,9 @@ function buildShaderWater(seed: number): WaterView {
     mesh.position.y = WATER_LEVEL;
     meshes.push(mesh);
   }
+  // The Sluice waterfall rides the same add/freeze loop (animates via uTime); appended
+  // after the per-zone loop so it keeps its own vertical transform, not WATER_LEVEL.
+  meshes.push(...buildWaterfall().meshes);
   return { meshes, update: () => {} };
 }
 
@@ -176,8 +186,13 @@ function buildPhongWater(): WaterView {
   const [norm] = waterNormalMaps();
   norm.repeat.set(26, 78);
   const mat = new THREE.MeshPhongMaterial({
-    color: 0x2a6a96, transparent: true, opacity: 0.8, shininess: 140,
-    specular: 0xd8ecff, map: tex, normalMap: norm,
+    color: 0x2a6a96,
+    transparent: true,
+    opacity: 0.8,
+    shininess: 140,
+    specular: 0xd8ecff,
+    map: tex,
+    normalMap: norm,
     normalScale: new THREE.Vector2(0.8, 0.8),
   });
   const worldDepth = WORLD_MAX_Z - WORLD_MIN_Z;
@@ -187,7 +202,7 @@ function buildPhongWater(): WaterView {
   );
   mesh.position.set(0, WATER_LEVEL, (WORLD_MIN_Z + WORLD_MAX_Z) / 2);
   return {
-    meshes: [mesh],
+    meshes: [mesh, ...buildWaterfall().meshes],
     update(time: number): void {
       tex.offset.x = time * 0.008;
       tex.offset.y = time * 0.011;
@@ -198,5 +213,7 @@ function buildPhongWater(): WaterView {
 }
 
 export function buildWater(seed: number): WaterView {
-  return GFX.standardMaterials && hasWaterShaderAssets() ? buildShaderWater(seed) : buildPhongWater();
+  return GFX.standardMaterials && hasWaterShaderAssets()
+    ? buildShaderWater(seed)
+    : buildPhongWater();
 }

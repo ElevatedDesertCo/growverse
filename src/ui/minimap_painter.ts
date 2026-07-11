@@ -46,6 +46,7 @@ const MARKER_RECT_HALF = MARKER_RECT_SIZE / 2;
 const MARKER_OUTLINE_WIDTH = 1.5; // ally / party disc / party arrow outline
 const PIP_RADIUS_RATIO = 0.35; // inner pip radius = max(PIP_MIN, disc radius * ratio)
 const PIP_MIN_RADIUS = 1;
+const LANDMARK_DIAMOND_RADIUS = 4; // half-diagonal of the landmark diamond glyph
 // The player facing arrow at the centre. The inline site did not set a line width
 // before this stroke (it inherited whatever a prior marker last left, almost always the
 // canvas default 1, since a nearby friend/guild disc is the only unsaved setter and is
@@ -78,6 +79,7 @@ const MINIMAP_COLOR_TOKENS = {
   npcQuest: '--color-minimap-npc-quest',
   portal: '--color-minimap-portal',
   objectLoot: '--color-minimap-object-loot',
+  landmark: '--color-minimap-landmark',
   mobAggro: '--color-minimap-mob-aggro',
   mob: '--color-minimap-mob',
   mobLoot: '--color-minimap-mob-loot',
@@ -203,6 +205,22 @@ export class MinimapPainter {
             MARKER_RECT_SIZE,
           );
           break;
+        case 'landmark': {
+          // A diamond beacon with an outline, so a marquee POI (the Baked Beaver)
+          // pops against terrain the way the party discs do.
+          ctx.fillStyle = colors.landmark;
+          ctx.strokeStyle = colors.outline;
+          ctx.lineWidth = MARKER_OUTLINE_WIDTH;
+          ctx.beginPath();
+          ctx.moveTo(m.mx, m.my - LANDMARK_DIAMOND_RADIUS);
+          ctx.lineTo(m.mx + LANDMARK_DIAMOND_RADIUS, m.my);
+          ctx.lineTo(m.mx, m.my + LANDMARK_DIAMOND_RADIUS);
+          ctx.lineTo(m.mx - LANDMARK_DIAMOND_RADIUS, m.my);
+          ctx.closePath();
+          ctx.fill();
+          ctx.stroke();
+          break;
+        }
         case 'mob':
           ctx.fillStyle = m.aggro ? colors.mobAggro : colors.mob;
           ctx.fillRect(

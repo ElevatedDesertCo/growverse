@@ -2406,6 +2406,14 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.mobs.haze_critter.name': 'Дымчатая тварь',
   'entities.mobs.driftwood_snapper.name': 'Коряжный кусач',
   'entities.mobs.overbaked_beaver.name': 'Перезабалдевший бобёр',
+  'entities.npcs.rowan_sawtooth.name': 'Роуэн Сотут',
+  'entities.npcs.rowan_sawtooth.title': 'Смотритель Шлюза',
+  'entities.npcs.rowan_sawtooth.greeting':
+    'Новое лицо на берегу, {className}. Добро пожаловать на Шлюз, передовой лагерь колонии. Сама Плотина далеко на юге, путь неблизкий, но работа начинается прямо здесь. Оставайся упоротым и берегись воды.',
+  'entities.npcs.hazel_timbers.name': 'Хейзел Тимберс',
+  'entities.npcs.hazel_timbers.title': 'Квартирмейстер Плотины',
+  'entities.npcs.hazel_timbers.greeting':
+    'Инструмент, упряжь и походная еда, всё по честной цене для новичка. Бобёр держит лагерь в строгости, {className}. Что тебе нужно?',
   'entities.npcs.boone_cascade.name': 'Бун Каскейд',
   'entities.npcs.boone_cascade.title': 'Старейшина Плотины',
   'entities.npcs.boone_cascade.greeting':
@@ -2426,6 +2434,18 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.junie_stonewater.title': 'Хранитель Старого хребта',
   'entities.npcs.junie_stonewater.greeting':
     'Значит, Бун отправил тебя к Танке. Хорошо. Садись. Мы спустились с замёрзших хребтов на досках, а за спиной осталась недостроенная плотина, и ни разу не оглянулись. Вот и вся история. Остальное просто дым.',
+  'entities.quests.q_sluice_welcome.title': 'Добро пожаловать на Шлюз',
+  'entities.quests.q_sluice_welcome.text':
+    'Первое, что усвоишь на берегу, {playerName}: бобёр зарабатывает своё место работой, а не глазением. Гнилые волки спускаются с северных склонов, треплют наши поленницы и пугают детёнышей. Проредь шестерых и приходи погреться у огня в домике. Тогда ты один из нас.',
+  'entities.quests.q_sluice_welcome.completion':
+    'На шесть волков у кромки леса меньше, и ты ни разу не пожаловался. Вот это по-нашему, по-шлюзовски, {playerName}. Огонь твой, бесплатно. Оставайся упоротым, Аризона.',
+  'entities.quests.q_sluice_welcome.objectives.0.label': 'Гнилой волк проредён',
+  'entities.quests.q_sluice_pilings.title': 'Беда на сваях',
+  'entities.quests.q_sluice_pilings.text':
+    'Плотина, из-за неё вообще есть пруд, вокруг которого строимся, а щетинистые кабаны с восточного луга всё роют её сваи ради сладкой грязи. Бобёр принимает это как личное, {playerName}. Уложи шестерых копателей, и Шлюз будет должен тебе достойный сувенир, прямиком с самой Плотины.',
+  'entities.quests.q_sluice_pilings.completion':
+    'Сваи держатся, пруд на месте, детёныши спят спокойно. Вот, {playerName}, жетон Запечённого бобра, вырезанный на самой Плотине. Носи его, и ты колония, куда бы ни забрёл. Оставайся упоротым, Аризона.',
+  'entities.quests.q_sluice_pilings.objectives.0.label': 'Щетинистый клык истреблён',
   'entities.quests.q_welcome_dam.title': 'Добро пожаловать на Плотину',
   'entities.quests.q_welcome_dam.text':
     'Первое правило Плотины, {playerName}: никто не заслуживает своё место, сидя сложа руки. Дымка над водохранилищем снова сбилась в тварей, густо вдоль воды. Прихлопни шестерых и приходи греться у огня. А захочешь узнать всю историю целиком, ступай послушать Джуни у Танке.',

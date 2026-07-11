@@ -5000,6 +5000,9 @@ export const ko_KR: EnTranslations = {
       "riftforged_blade": {
         "name": "균열 단조 칼날"
       },
+      "baked_beaver_token": {
+        "name": "Baked Beaver Token"
+      },
       "bristleback_maul": {
         "name": "뻣센등뼈 철퇴"
       },
@@ -5979,6 +5982,16 @@ export const ko_KR: EnTranslations = {
         "title": "균열 대장장이",
         "greeting": "개조 작업대가 뜨겁게 달아올랐네. 부패의 파편을 가져오게. 자네의 강철을 균열조차 부수지 못할 물건으로 다시 벼려주지."
       },
+      "rowan_sawtooth": {
+        "name": "로언 소투스",
+        "title": "수문 관리인",
+        "greeting": "물가에 낯선 얼굴이군, {className}. 수문에 온 걸 환영해, 여긴 무리의 전진 기지야. 진짜 댐은 저 남쪽 멀리 있어 한참 가야 하지만, 일은 바로 여기서 시작된다. 스테이 베이크드, 물 조심하고."
+      },
+      "hazel_timbers": {
+        "name": "헤이즐 팀버스",
+        "title": "댐 병참관",
+        "greeting": "연장에 마구, 그리고 길 양식까지, 신참한테는 다 공정한 값이야. 비버는 기지를 빈틈없이 굴리지, {className}. 뭐가 필요한가?"
+      },
       "boone_cascade": {
         "name": "분 캐스케이드",
         "title": "댐의 장로",
@@ -6773,6 +6786,26 @@ export const ko_KR: EnTranslations = {
           }
         }
       },
+      "q_sluice_welcome": {
+        "title": "수문에 온 걸 환영해",
+        "text": "물가에서 처음 배우는 게 있어, {playerName}. 비버는 일해서 제자리를 얻지, 구경만 해선 안 돼. 북쪽 비탈에서 블라이트 울프가 내려와 우리 장작더미를 헤집고 새끼들을 겁준다. 여섯 마리 솎아내고 오두막 모닥불에 몸 좀 녹이러 와. 그럼 너도 우리 식구야.",
+        "completion": "나무 경계에 늑대 여섯이 줄었는데, 넌 단 한 번도 투덜대지 않았어. 그게 수문의 방식이다, {playerName}. 모닥불은 네 거야, 공짜로. 스테이 베이크드, AZ.",
+        "objectives": {
+          "0": {
+            "label": "블라이트 울프 솎아냄"
+          }
+        }
+      },
+      "q_sluice_pilings": {
+        "title": "말뚝의 골칫거리",
+        "text": "애초에 댐이 있으니 그 둘레로 못을 지을 수 있는 거야. 그런데 동쪽 초원의 브리슬 터스크 멧돼지들이 달콤한 진흙을 노리고 그 말뚝을 자꾸 파헤쳐. 비버는 그걸 사적인 원한으로 받아들인다, {playerName}. 그 굴 파는 놈들 여섯을 처치하면, 수문이 너한테 제대로 된 기념품 하나를 빚지지, 댐에서 곧장 온 물건으로.",
+        "completion": "말뚝은 버티고, 못은 그대로고, 새끼들은 곤히 자는군. 자, {playerName}, 베이크드 비버 토큰이다, 댐에서 깎아 만든 거야. 이걸 지니면 어디를 떠돌든 넌 무리의 일원이다. 스테이 베이크드, AZ.",
+        "objectives": {
+          "0": {
+            "label": "브리슬 터스크 처치"
+          }
+        }
+      },
       "q_welcome_dam": {
         "title": "댐에 온 걸 환영해",
         "text": "댐의 첫 번째 규칙이야, {playerName}. 가만히 앉아서 제자리를 얻는 자는 없어. 저수지의 헤이즈가 또 크리터로 뭉쳤어, 물가를 따라 잔뜩 말이야. 여섯 마리 쳐 잡고 모닥불에 몸 좀 녹이러 와. 전부 다 알고 싶으면, 탄케로 가서 주니의 이야기를 들어봐.",
@@ -6978,6 +7011,12 @@ export const ko_KR: EnTranslations = {
           },
           "9": {
             "label": "브라이트우드 숲"
+          },
+          "10": {
+            "label": "Baked Beaver"
+          },
+          "11": {
+            "label": "The Sluice"
           }
         }
       },

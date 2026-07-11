@@ -65,6 +65,9 @@ export type MinimapMarker =
   | { kind: 'mob'; mx: number; my: number; aggro: boolean }
   // A lootable corpse (mob).
   | { kind: 'mob-loot'; mx: number; my: number }
+  // A named landmark POI flagged `landmark` (e.g. the Baked Beaver): a small beacon
+  // so a marquee site is findable on the minimap, not just the world map.
+  | { kind: 'landmark'; mx: number; my: number }
   // An on-map party member: a proximity-scaled disc, class-colored, with an inner pip
   // when alive.
   | {
@@ -120,7 +123,8 @@ export function createMinimapMarkers(): MinimapMarkers {
       const rim = half - RIM_INSET;
       const rim2 = rim * rim;
       markers.length = 0;
-      model.zoneId = zoneAt(p.pos.z).id;
+      const zone = zoneAt(p.pos.z);
+      model.zoneId = zone.id;
 
       // friend/guild lookup for colouring nearby allies; party members are drawn by the
       // party loop below, so the entity loop skips them (avoiding double dots). Built
@@ -165,6 +169,17 @@ export function createMinimapMarkers(): MinimapMarkers {
         } else if (e.kind === 'mob' && e.lootable) {
           markers.push({ kind: 'mob-loot', mx, my });
         }
+      }
+
+      // Named landmark pins: POIs flagged `landmark` (the Baked Beaver) get a beacon
+      // on the minimap. Projected like entities (+X is map-left) and rim-culled, drawn
+      // under the party + player markers.
+      for (const poi of zone.pois) {
+        if (!poi.landmark) continue;
+        const dx = -(poi.x - p.pos.x) * pxPerYard;
+        const dz = -(poi.z - p.pos.z) * pxPerYard;
+        if (dx * dx + dz * dz > rim2) continue;
+        markers.push({ kind: 'landmark', mx: half + dx, my: half + dz });
       }
 
       // Party members: class-colored. On-map allies are proximity-scaled discs; allies

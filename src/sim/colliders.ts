@@ -266,6 +266,21 @@ function staticWorldColliders(seed: number): Collider[] {
     });
   }
 
+  // Standalone Baked Beaver mascots: a solid circle around the seated body so a
+  // player can't walk through the landmark statue. Radius tracks the body ellipsoid
+  // (~1.55 * scale); camera ghosts through like trees/the dam.
+  for (const m of PROPS.beaverMascots ?? []) {
+    const s = m.scale ?? 1;
+    out.push({
+      type: 'circle',
+      x: m.x,
+      z: m.z,
+      r: 1.5 * s,
+      cameraTopY: topY(seed, m.x, m.z, 5 * s),
+      camGhost: true,
+    });
+  }
+
   // trees & large rocks from the deterministic decoration field
   for (const d of generateDecorations(seed)) {
     if (d.kind === 'rock') {

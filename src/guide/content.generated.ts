@@ -1265,7 +1265,9 @@ export const GUIDE_ZONES: GuideZoneInfo[] = [
       "Ashen Maw Camp",
       "Withered Shrine",
       "Reliquary Hill",
-      "Bloomwood Glade"
+      "Bloomwood Glade",
+      "Baked Beaver",
+      "The Sluice"
     ],
     "welcome": "Find Marshal Redbrook in town, he has work for you."
   },

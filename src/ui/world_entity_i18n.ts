@@ -138,6 +138,9 @@ const NPC_IDS = [
   'brother_halven', // Collapsed Reliquary delve board NPC
   'cultivator_marlow', // Grow Station attendant (Bloomhaven crafting)
   'smith_draxa', // Upgrade Bench attendant (Bloomhaven crafting)
+  // The Sluice (zone 1) beaver work-camp
+  'rowan_sawtooth',
+  'hazel_timbers',
   // The Dam (zone 4) beavers
   'boone_cascade',
   'sequoia_marsh',
@@ -221,6 +224,9 @@ const QUEST_IDS = [
   'q_nythraxis_bound_guardian',
   'q_nythraxis_scourges_end',
   'q_mogger',
+  // The Sluice (zone 1) beaver work-camp quests
+  'q_sluice_welcome',
+  'q_sluice_pilings',
   // The Dam (zone 4) beaver quests
   'q_welcome_dam',
   'q_clear_haze',

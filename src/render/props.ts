@@ -629,6 +629,72 @@ function buildDelveEmbers(
   return pts;
 }
 
+// The Baked Beaver mascot: an absurdly huge beaver built from static primitives.
+// Buck teeth, paddle tail, and galaxy-blue glowing eyes that match the Baked Beaver
+// signature (0x5b6ee1, passed in as `glowMat` so the caller controls tier intensity).
+// Returned centred at local origin with its feet near y=0 and its face toward local
+// +z; the caller positions/rotates/scales it. Shared by the dam-crest perch and the
+// standalone town-edge landmark, so the mascot reads identically everywhere. `faceZ`
+// nudges the whole beaver forward (the dam uses it for the crest's downstream lean).
+function buildBeaverMascot(glowMat: THREE.Material, faceZ = 0): THREE.Group {
+  const furMat = surfaceMat({ color: 0x6a4a30, roughness: 1 });
+  const bellyMat = surfaceMat({ color: 0xa8895f, roughness: 1 });
+  const tailMat = surfaceMat({ color: 0x3e2c1c, roughness: 0.95 });
+  const toothMat = surfaceMat({ color: 0xf2ecd8, roughness: 0.7 });
+  const noseMat = surfaceMat({ color: 0x2a1c12, roughness: 0.85 });
+  const bv = new THREE.Group();
+  const crestZ = faceZ;
+  // seated body: a chonky ellipsoid
+  const body = new THREE.Mesh(new THREE.SphereGeometry(1.55, 14, 12), furMat);
+  body.scale.set(1.05, 1.3, 0.95);
+  body.position.set(0, 1.6, crestZ);
+  bv.add(body);
+  const belly = new THREE.Mesh(new THREE.SphereGeometry(1.02, 12, 10), bellyMat);
+  belly.scale.set(1, 1.2, 0.7);
+  belly.position.set(0, 1.35, crestZ + 0.85);
+  bv.add(belly);
+  // head
+  const head = new THREE.Mesh(new THREE.SphereGeometry(1.12, 14, 12), furMat);
+  head.position.set(0, 3.55, crestZ + 0.35);
+  bv.add(head);
+  for (const sx of [-0.62, 0.62]) {
+    const ear = new THREE.Mesh(new THREE.SphereGeometry(0.3, 8, 8), furMat);
+    ear.position.set(sx, 4.5, crestZ + 0.2);
+    bv.add(ear);
+  }
+  // muzzle + nose + buck teeth
+  const muzzle = new THREE.Mesh(new THREE.SphereGeometry(0.62, 10, 8), bellyMat);
+  muzzle.scale.set(1.1, 0.85, 0.9);
+  muzzle.position.set(0, 3.2, crestZ + 1.25);
+  bv.add(muzzle);
+  const nose = new THREE.Mesh(new THREE.SphereGeometry(0.26, 8, 8), noseMat);
+  nose.position.set(0, 3.45, crestZ + 1.7);
+  bv.add(nose);
+  for (const sx of [-0.18, 0.18]) {
+    const tooth = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.5, 0.14), toothMat);
+    tooth.position.set(sx, 2.72, crestZ + 1.55);
+    bv.add(tooth);
+  }
+  // glowing Baked-Beaver-blue eyes
+  for (const sx of [-0.44, 0.44]) {
+    const eye = new THREE.Mesh(new THREE.SphereGeometry(0.19, 8, 8), glowMat);
+    eye.position.set(sx, 3.75, crestZ + 1.15);
+    bv.add(eye);
+  }
+  // front paws resting on the belly
+  for (const sx of [-0.7, 0.7]) {
+    const paw = new THREE.Mesh(new THREE.SphereGeometry(0.4, 8, 8), furMat);
+    paw.position.set(sx, 1.35, crestZ + 1.15);
+    bv.add(paw);
+  }
+  // flat paddle tail sloping down behind the body
+  const tail = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.24, 2.7), tailMat);
+  tail.position.set(0, 0.55, crestZ - 1.35);
+  tail.rotation.x = -0.5;
+  bv.add(tail);
+  return bv;
+}
+
 // `delveLabel` resolves a delve id to its localized display name for the carved
 // entrance sign. Passed in by renderer.ts (the only render-side i18n surface) so
 // props.ts itself stays string-table-free; falls back to the id if absent.
@@ -1270,68 +1336,14 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     }
 
     // The mascot gag: an absurdly huge beaver perched on the crest, surveying its
-    // absurdly huge dam. Buck teeth, paddle tail, and galaxy-blue glowing eyes that
-    // match the Baked Beaver signature (0x5b6ee1). Static primitives, no VFX; sized
-    // ~5m so it reads as the landmark's namesake from across the zone. Rendered on
-    // every tier (one cheap static instance): it IS the landmark's identity, not
-    // sheddable cosmetic richness. Only ONE beaver for the whole dam: it perches
-    // on the middle segment (see beaverSeg above), facing out over the reservoir.
+    // absurdly huge dam. Sized ~5m so it reads as the landmark's namesake from across
+    // the zone. Rendered on every tier (one cheap static instance): it IS the
+    // landmark's identity, not sheddable cosmetic richness. The mascot geometry is
+    // shared with the standalone town-edge landmark via buildBeaverMascot. Only ONE
+    // beaver for the whole dam: it perches on the middle segment (see beaverSeg
+    // above), facing out over the reservoir centroid.
     if (di === beaverSeg) {
-      const furMat = surfaceMat({ color: 0x6a4a30, roughness: 1 });
-      const bellyMat = surfaceMat({ color: 0xa8895f, roughness: 1 });
-      const tailMat = surfaceMat({ color: 0x3e2c1c, roughness: 0.95 });
-      const toothMat = surfaceMat({ color: 0xf2ecd8, roughness: 0.7 });
-      const noseMat = surfaceMat({ color: 0x2a1c12, roughness: 0.85 });
-      const bv = new THREE.Group();
-      const crestZ = baseHalf * 0.2; // the crest's slight downstream lean
-      // seated body: a chonky ellipsoid
-      const body = new THREE.Mesh(new THREE.SphereGeometry(1.55, 14, 12), furMat);
-      body.scale.set(1.05, 1.3, 0.95);
-      body.position.set(0, 1.6, crestZ);
-      bv.add(body);
-      const belly = new THREE.Mesh(new THREE.SphereGeometry(1.02, 12, 10), bellyMat);
-      belly.scale.set(1, 1.2, 0.7);
-      belly.position.set(0, 1.35, crestZ + 0.85);
-      bv.add(belly);
-      // head
-      const head = new THREE.Mesh(new THREE.SphereGeometry(1.12, 14, 12), furMat);
-      head.position.set(0, 3.55, crestZ + 0.35);
-      bv.add(head);
-      for (const sx of [-0.62, 0.62]) {
-        const ear = new THREE.Mesh(new THREE.SphereGeometry(0.3, 8, 8), furMat);
-        ear.position.set(sx, 4.5, crestZ + 0.2);
-        bv.add(ear);
-      }
-      // muzzle + nose + buck teeth
-      const muzzle = new THREE.Mesh(new THREE.SphereGeometry(0.62, 10, 8), bellyMat);
-      muzzle.scale.set(1.1, 0.85, 0.9);
-      muzzle.position.set(0, 3.2, crestZ + 1.25);
-      bv.add(muzzle);
-      const nose = new THREE.Mesh(new THREE.SphereGeometry(0.26, 8, 8), noseMat);
-      nose.position.set(0, 3.45, crestZ + 1.7);
-      bv.add(nose);
-      for (const sx of [-0.18, 0.18]) {
-        const tooth = new THREE.Mesh(new THREE.BoxGeometry(0.28, 0.5, 0.14), toothMat);
-        tooth.position.set(sx, 2.72, crestZ + 1.55);
-        bv.add(tooth);
-      }
-      // glowing Baked-Beaver-blue eyes
-      for (const sx of [-0.44, 0.44]) {
-        const eye = new THREE.Mesh(new THREE.SphereGeometry(0.19, 8, 8), glowMat);
-        eye.position.set(sx, 3.75, crestZ + 1.15);
-        bv.add(eye);
-      }
-      // front paws resting on the belly
-      for (const sx of [-0.7, 0.7]) {
-        const paw = new THREE.Mesh(new THREE.SphereGeometry(0.4, 8, 8), furMat);
-        paw.position.set(sx, 1.35, crestZ + 1.15);
-        bv.add(paw);
-      }
-      // flat paddle tail sloping down the crest behind the body
-      const tail = new THREE.Mesh(new THREE.BoxGeometry(1.4, 0.24, 2.7), tailMat);
-      tail.position.set(0, 0.55, crestZ - 1.35);
-      tail.rotation.x = -0.5;
-      bv.add(tail);
+      const bv = buildBeaverMascot(glowMat, baseHalf * 0.2); // faceZ = crest downstream lean
       // perch the beaver on the crest, near center, and turn it to face the dam's
       // centroid (out over the water it holds) with a tiny deterministic tilt. The
       // model's front is +z; subtracting the segment yaw `rot` converts the desired
@@ -1347,6 +1359,30 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     g.rotation.y = rot;
     group.add(shadowed(g));
     registerHideable(g, obbFootprint(cx, cz, len / 2, baseHalf, rot, y + h));
+  }
+
+  // ---- standalone Baked Beaver mascots: town-edge landmark statues -----------
+  // The same procedural beaver, planted on open ground (no dam) so a new player
+  // wandering out of Bloomhaven sights it as a marquee landmark. One cheap static
+  // instance each, every tier: it is the town's mascot identity, not sheddable
+  // cosmetic richness.
+  for (const m of PROPS.beaverMascots ?? []) {
+    const gy = ground(m.x, m.z);
+    const s = m.scale ?? 1;
+    const glowMat = surfaceMat({
+      color: 0x5b6ee1,
+      emissive: 0x5b6ee1,
+      emissiveIntensity: usePbr ? 1.6 : 1.0,
+      roughness: 0.5,
+    });
+    const bv = buildBeaverMascot(glowMat, 0);
+    bv.scale.setScalar(s);
+    // seat the beaver's feet on the ground (its lowest geometry sits ~0.3 above the
+    // local origin), then face and place it.
+    bv.position.set(m.x, gy - 0.3 * s, m.z);
+    bv.rotation.y = m.rot ?? 0;
+    group.add(shadowed(bv));
+    registerHideable(bv, obbFootprint(m.x, m.z, 1.7 * s, 1.7 * s, m.rot ?? 0, gy + 5 * s));
   }
 
   // ---- graveyards: Growverse-ORIGINAL procedural weathered headstones --------

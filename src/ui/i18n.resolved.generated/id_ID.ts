@@ -5000,6 +5000,9 @@ export const id_ID: EnTranslations = {
       "riftforged_blade": {
         "name": "Bilah Tempaan Celah"
       },
+      "baked_beaver_token": {
+        "name": "Baked Beaver Token"
+      },
       "bristleback_maul": {
         "name": "Cabikan Punggung Berbulu"
       },
@@ -5979,6 +5982,16 @@ export const id_ID: EnTranslations = {
         "title": "the Riftsmith",
         "greeting": "The Upgrade Bench runs hot. Bring me Corruption Shards and I will reforge your steel into something the rift cannot break."
       },
+      "rowan_sawtooth": {
+        "name": "Rowan Sawtooth",
+        "title": "Sluice Warden",
+        "greeting": "New face on the shore, {className}. Welcome to the Sluice, the colony's forward camp. The Dam proper is a long haul south, but the work starts right here. Stay Baked, and mind the water."
+      },
+      "hazel_timbers": {
+        "name": "Hazel Timbers",
+        "title": "Dam Quartermaster",
+        "greeting": "Tools, tack, and trail food, all fair-priced for a newcomer. A beaver runs a tight camp, {className}. What do you need?"
+      },
       "boone_cascade": {
         "name": "Boone Cascade",
         "title": "Elder of The Dam",
@@ -6773,6 +6786,26 @@ export const id_ID: EnTranslations = {
           }
         }
       },
+      "q_sluice_welcome": {
+        "title": "Welcome to the Sluice",
+        "text": "First thing you learn on the shore, {playerName}: a beaver earns its spot by working, not gawking. The blight wolves come down off the north runs to worry our woodpiles and spook the kits. Thin six of them and come warm up by the lodge fire. Then you're one of us.",
+        "completion": "Six fewer wolves at the treeline, and you never once complained. That's the Sluice way, {playerName}. Fire's yours, free of charge. Stay Baked, AZ.",
+        "objectives": {
+          "0": {
+            "label": "Blight Wolf thinned"
+          }
+        }
+      },
+      "q_sluice_pilings": {
+        "title": "Trouble at the Pilings",
+        "text": "The dam's the whole reason there's a pond to build around, and the bristle-tusk boars off the west meadow keep rooting up its pilings for the sweet mud. A beaver takes that personally, {playerName}. Put down six of the diggers and the Sluice will owe you a proper keepsake, straight from The Dam itself.",
+        "completion": "Pilings hold, pond stays put, and the kits sleep sound. Here, {playerName}, a Baked Beaver token, carved down at The Dam. Carry it and you're colony, wherever you wander. Stay Baked, AZ.",
+        "objectives": {
+          "0": {
+            "label": "Bristle Tusk cleared"
+          }
+        }
+      },
       "q_welcome_dam": {
         "title": "Welcome to The Dam",
         "text": "First rule of The Dam, {playerName}: nobody earns their spot by sitting still. The haze off the reservoir has clumped into critters again, thick along the water. Swat six of them and come warm up by the fire. Then go hear Junie's story at The Tanque, if you want the whole of it.",
@@ -6978,6 +7011,12 @@ export const id_ID: EnTranslations = {
           },
           "9": {
             "label": "Tanah Lapang Brightwood"
+          },
+          "10": {
+            "label": "Baked Beaver"
+          },
+          "11": {
+            "label": "The Sluice"
           }
         }
       },

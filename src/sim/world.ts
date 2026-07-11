@@ -1,8 +1,15 @@
-import { fbm2, hash2 } from './rng';
 import {
-  CAMPS, DUNGEON_FLOOR_Y, DUNGEON_X_THRESHOLD, ROADS, WORLD_MAX_X, WORLD_MAX_Z,
-  WORLD_MIN_X, WORLD_MIN_Z, ZONES,
+  CAMPS,
+  DUNGEON_FLOOR_Y,
+  DUNGEON_X_THRESHOLD,
+  ROADS,
+  WORLD_MAX_X,
+  WORLD_MAX_Z,
+  WORLD_MIN_X,
+  WORLD_MIN_Z,
+  ZONES,
 } from './data';
+import { fbm2, hash2 } from './rng';
 import type { BiomeId } from './types';
 
 // Terrain is a pure function of (x, z, seed): both the sim (ground clamping)
@@ -44,6 +51,32 @@ export const MIREFEN_IMPACT_CRATER = {
   rimHeight: 0.95,
 } as const;
 
+// The Sluice waterway (zone1): a millpond (carved as a lake in content) fed by a
+// river that runs west, roughly level, all the way to a mountain at the world's
+// edge where a waterfall spills into it. These are pure carve/raise primitives
+// (no rng): the river lowers terrain below WATER_LEVEL so the per-zone water plane
+// fills it for free, and a raised peak backs the falls. The pond, dam, and outpost
+// that dress the east end live in src/sim/content/zone1.ts.
+export const SLUICE_RIVER = {
+  z: 24, // centerline; the channel stays roughly level (an east-west run)
+  xEast: 34, // merges into the enlarged Sluice pond
+  xWest: 150, // plunge pool at the foot of the western mountain
+  halfWidth: 4.5, // flat channel half-width at the water line
+  bank: 10, // banks blend back up to natural terrain by this distance
+} as const;
+
+// The mountain that backs the waterfall, at the river's west end. A gaussian peak
+// (steeper and taller than the ambient world rim) whose east foot meets the river.
+export const SLUICE_PEAK = {
+  x: 168,
+  z: 24,
+  height: 42,
+  sigma: 13,
+} as const;
+
+// River/plunge-pool bed height (below WATER_LEVEL so the water plane fills it).
+const SLUICE_RIVER_BED = WATER_LEVEL - 2.5;
+
 function smoothstep(edge0: number, edge1: number, x: number): number {
   const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
   return t * t * (3 - 2 * t);
@@ -60,17 +93,42 @@ export function mirefenImpactCraterOffset(x: number, z: number): number {
   if (d >= MIREFEN_IMPACT_CRATER.radius) return 0;
 
   const bowlT = d / MIREFEN_IMPACT_CRATER.bowlRadius;
-  const bowl = d < MIREFEN_IMPACT_CRATER.bowlRadius
-    ? -MIREFEN_IMPACT_CRATER.depth * (1 - smoothstep(0, 1, bowlT))
-    : 0;
+  const bowl =
+    d < MIREFEN_IMPACT_CRATER.bowlRadius
+      ? -MIREFEN_IMPACT_CRATER.depth * (1 - smoothstep(0, 1, bowlT))
+      : 0;
 
   const rimStart = MIREFEN_IMPACT_CRATER.bowlRadius * 0.82;
   if (d <= rimStart) return bowl;
   const rimT = (d - rimStart) / (MIREFEN_IMPACT_CRATER.radius - rimStart);
-  const rim = MIREFEN_IMPACT_CRATER.rimHeight
-    * smoothstep(0, 0.35, rimT)
-    * (1 - smoothstep(0.72, 1, rimT));
+  const rim =
+    MIREFEN_IMPACT_CRATER.rimHeight * smoothstep(0, 0.35, rimT) * (1 - smoothstep(0.72, 1, rimT));
   return bowl + rim;
+}
+
+// The western mountain that backs the Sluice waterfall: a gaussian peak.
+function sluicePeakOffset(x: number, z: number): number {
+  const dx = x - SLUICE_PEAK.x;
+  const dz = z - SLUICE_PEAK.z;
+  const d2 = dx * dx + dz * dz;
+  const reach = SLUICE_PEAK.sigma * 3;
+  if (d2 >= reach * reach) return 0;
+  return SLUICE_PEAK.height * Math.exp(-d2 / (2 * SLUICE_PEAK.sigma * SLUICE_PEAK.sigma));
+}
+
+// Capsule-shaped river carve: distance to the channel centerline segment, blended
+// from the flat bed out to the natural banks. Carve wins over the peak so the
+// channel and plunge pool stay water even where the mountain foot overlaps them.
+function sluiceRiverCarve(x: number, z: number, h: number): number {
+  const r = SLUICE_RIVER;
+  if (x < r.xEast - r.bank || x > r.xWest + r.bank) return h;
+  const cx = Math.max(r.xEast, Math.min(r.xWest, x));
+  const dx = x - cx;
+  const dz = z - r.z;
+  const d = Math.sqrt(dx * dx + dz * dz);
+  if (d >= r.bank) return h;
+  const blend = smoothstep(r.halfWidth, r.bank, d);
+  return h * blend + SLUICE_RIVER_BED * (1 - blend);
 }
 
 // Blended biome shape at a given z. Zone interiors keep their exact shape;
@@ -90,11 +148,13 @@ function shapeAt(z: number): { hill: number; base: number } {
 
 function baseHeight(x: number, z: number, seed: number): number {
   const shape = shapeAt(z);
-  let h = (fbm2(x * HILL_SCALE + 100, z * HILL_SCALE + 100, seed, 4) - 0.5) * shape.hill + shape.base;
+  let h =
+    (fbm2(x * HILL_SCALE + 100, z * HILL_SCALE + 100, seed, 4) - 0.5) * shape.hill + shape.base;
   h += (fbm2(x * DETAIL_SCALE, z * DETAIL_SCALE, seed + 7, 2) - 0.5) * 2.2;
   // Flatten each zone's hub settlement into a plateau
   for (const zone of ZONES) {
-    const dx = x - zone.hub.x, dz = z - zone.hub.z;
+    const dx = x - zone.hub.x,
+      dz = z - zone.hub.z;
     const dHub = Math.sqrt(dx * dx + dz * dz);
     if (dHub < zone.hub.radius * 1.6) {
       const blend = smoothstep(zone.hub.radius * 0.7, zone.hub.radius * 1.6, dHub);
@@ -114,6 +174,10 @@ function baseHeight(x: number, z: number, seed: number): number {
       }
     }
   }
+  // The Sluice: raise the western mountain, then carve the river last (carve wins
+  // so the channel and plunge pool read as water even at the mountain's foot).
+  h += sluicePeakOffset(x, z);
+  h = sluiceRiverCarve(x, z, h);
   return h;
 }
 
@@ -128,7 +192,8 @@ export function terrainHeight(x: number, z: number, seed: number): number {
 
   // Flatten each camp a little so mobs don't stand on cliffs
   for (const camp of CAMPS) {
-    const dx = x - camp.center.x, dz = z - camp.center.z;
+    const dx = x - camp.center.x,
+      dz = z - camp.center.z;
     const d = Math.sqrt(dx * dx + dz * dz);
     if (d < camp.radius * 1.8) {
       const ch = baseHeight(camp.center.x, camp.center.z, seed);
@@ -164,12 +229,16 @@ export function roadDistance(x: number, z: number): number {
   let best = Infinity;
   for (const road of ROADS) {
     for (let i = 0; i < road.length - 1; i++) {
-      const a = road[i], b = road[i + 1];
-      const abx = b.x - a.x, abz = b.z - a.z;
-      const apx = x - a.x, apz = z - a.z;
+      const a = road[i],
+        b = road[i + 1];
+      const abx = b.x - a.x,
+        abz = b.z - a.z;
+      const apx = x - a.x,
+        apz = z - a.z;
       const len2 = abx * abx + abz * abz;
       const t = len2 > 0 ? Math.max(0, Math.min(1, (apx * abx + apz * abz) / len2)) : 0;
-      const dx = apx - abx * t, dz = apz - abz * t;
+      const dx = apx - abx * t,
+        dz = apz - abz * t;
       const d = Math.sqrt(dx * dx + dz * dz);
       if (d < best) best = d;
     }
@@ -193,10 +262,18 @@ export interface Decoration {
 const DECORATION_EXCLUSION_RADIUS = 1.2;
 const DECORATION_EXCLUSIONS = [
   { x: 2.456450840458274, z: 211.33819991815835 },
+  // The Sluice outpost (zone1): keep stray trees off the Baked Beaver statue and
+  // the beaver lodge/den footprints so nothing clips the pond-shore landmark. The
+  // millpond carve and the road spur clear most of the area; these pin the rest.
+  { x: 42, z: 54 }, // Baked Beaver mascot
+  { x: 38, z: 56 }, // beaver lodge (inn)
+  { x: 46, z: 58 }, // beaver den (house)
 ];
 
 function isExcludedDecoration(x: number, z: number): boolean {
-  return DECORATION_EXCLUSIONS.some((p) => Math.hypot(x - p.x, z - p.z) < DECORATION_EXCLUSION_RADIUS);
+  return DECORATION_EXCLUSIONS.some(
+    (p) => Math.hypot(x - p.x, z - p.z) < DECORATION_EXCLUSION_RADIUS,
+  );
 }
 
 export function zoneBiomeAt(z: number): BiomeId {
@@ -218,35 +295,45 @@ export function generateDecorations(seed: number): Decoration[] {
       let kind: Decoration['kind'] | null = null;
       if (biome === 'vale') {
         if (r > 0.48) continue;
-        kind = r < 0.30 ? 'tree' : r < 0.40 ? 'tree2' : 'rock';
+        kind = r < 0.3 ? 'tree' : r < 0.4 ? 'tree2' : 'rock';
       } else if (biome === 'marsh') {
         if (r > 0.34) continue;
         kind = r < 0.08 ? 'tree' : r < 0.26 ? 'tree2' : 'rock';
       } else {
         if (r > 0.44) continue;
-        kind = r < 0.20 ? 'tree' : r < 0.24 ? 'tree2' : 'rock';
+        kind = r < 0.2 ? 'tree' : r < 0.24 ? 'tree2' : 'rock';
       }
       const ox = (hash2(Math.round(gx), Math.round(gz), seed + 57) - 0.5) * step;
       const oz = (hash2(Math.round(gx), Math.round(gz), seed + 91) - 0.5) * step;
-      const x = gx + ox, z = gz + oz;
+      const x = gx + ox,
+        z = gz + oz;
       if (isExcludedDecoration(x, z)) continue;
       let inHub = false;
       for (const zone of ZONES) {
-        const dx = x - zone.hub.x, dz = z - zone.hub.z;
-        if (Math.sqrt(dx * dx + dz * dz) < zone.hub.radius + 4) { inHub = true; break; }
+        const dx = x - zone.hub.x,
+          dz = z - zone.hub.z;
+        if (Math.sqrt(dx * dx + dz * dz) < zone.hub.radius + 4) {
+          inHub = true;
+          break;
+        }
       }
       if (inHub) continue;
       if (terrainHeight(x, z, seed) < WATER_LEVEL + 1) continue;
       if (roadDistance(x, z) < 5) continue;
       let inCamp = false;
       for (const c of CAMPS) {
-        const dx = x - c.center.x, dz = z - c.center.z;
-        if (Math.sqrt(dx * dx + dz * dz) < c.radius + 3) { inCamp = true; break; }
+        const dx = x - c.center.x,
+          dz = z - c.center.z;
+        if (Math.sqrt(dx * dx + dz * dz) < c.radius + 3) {
+          inCamp = true;
+          break;
+        }
       }
       if (inCamp) continue;
       out.push({
         kind,
-        x, z,
+        x,
+        z,
         scale: 0.7 + hash2(Math.round(gx), Math.round(gz), seed + 13) * 0.9,
         variant: Math.floor(hash2(Math.round(gx), Math.round(gz), seed + 77) * 3),
         biome,
