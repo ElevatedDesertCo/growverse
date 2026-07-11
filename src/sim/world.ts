@@ -51,6 +51,32 @@ export const MIREFEN_IMPACT_CRATER = {
   rimHeight: 0.95,
 } as const;
 
+// The Sluice waterway (zone1): a millpond (carved as a lake in content) fed by a
+// river that runs west, roughly level, all the way to a mountain at the world's
+// edge where a waterfall spills into it. These are pure carve/raise primitives
+// (no rng): the river lowers terrain below WATER_LEVEL so the per-zone water plane
+// fills it for free, and a raised peak backs the falls. The pond, dam, and outpost
+// that dress the east end live in src/sim/content/zone1.ts.
+export const SLUICE_RIVER = {
+  z: 24, // centerline; the channel stays roughly level (an east-west run)
+  xEast: 34, // merges into the enlarged Sluice pond
+  xWest: 150, // plunge pool at the foot of the western mountain
+  halfWidth: 4.5, // flat channel half-width at the water line
+  bank: 10, // banks blend back up to natural terrain by this distance
+} as const;
+
+// The mountain that backs the waterfall, at the river's west end. A gaussian peak
+// (steeper and taller than the ambient world rim) whose east foot meets the river.
+export const SLUICE_PEAK = {
+  x: 168,
+  z: 24,
+  height: 42,
+  sigma: 13,
+} as const;
+
+// River/plunge-pool bed height (below WATER_LEVEL so the water plane fills it).
+const SLUICE_RIVER_BED = WATER_LEVEL - 2.5;
+
 function smoothstep(edge0: number, edge1: number, x: number): number {
   const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
   return t * t * (3 - 2 * t);
@@ -78,6 +104,31 @@ export function mirefenImpactCraterOffset(x: number, z: number): number {
   const rim =
     MIREFEN_IMPACT_CRATER.rimHeight * smoothstep(0, 0.35, rimT) * (1 - smoothstep(0.72, 1, rimT));
   return bowl + rim;
+}
+
+// The western mountain that backs the Sluice waterfall: a gaussian peak.
+function sluicePeakOffset(x: number, z: number): number {
+  const dx = x - SLUICE_PEAK.x;
+  const dz = z - SLUICE_PEAK.z;
+  const d2 = dx * dx + dz * dz;
+  const reach = SLUICE_PEAK.sigma * 3;
+  if (d2 >= reach * reach) return 0;
+  return SLUICE_PEAK.height * Math.exp(-d2 / (2 * SLUICE_PEAK.sigma * SLUICE_PEAK.sigma));
+}
+
+// Capsule-shaped river carve: distance to the channel centerline segment, blended
+// from the flat bed out to the natural banks. Carve wins over the peak so the
+// channel and plunge pool stay water even where the mountain foot overlaps them.
+function sluiceRiverCarve(x: number, z: number, h: number): number {
+  const r = SLUICE_RIVER;
+  if (x < r.xEast - r.bank || x > r.xWest + r.bank) return h;
+  const cx = Math.max(r.xEast, Math.min(r.xWest, x));
+  const dx = x - cx;
+  const dz = z - r.z;
+  const d = Math.sqrt(dx * dx + dz * dz);
+  if (d >= r.bank) return h;
+  const blend = smoothstep(r.halfWidth, r.bank, d);
+  return h * blend + SLUICE_RIVER_BED * (1 - blend);
 }
 
 // Blended biome shape at a given z. Zone interiors keep their exact shape;
@@ -123,6 +174,10 @@ function baseHeight(x: number, z: number, seed: number): number {
       }
     }
   }
+  // The Sluice: raise the western mountain, then carve the river last (carve wins
+  // so the channel and plunge pool read as water even at the mountain's foot).
+  h += sluicePeakOffset(x, z);
+  h = sluiceRiverCarve(x, z, h);
   return h;
 }
 
@@ -208,11 +263,11 @@ const DECORATION_EXCLUSION_RADIUS = 1.2;
 const DECORATION_EXCLUSIONS = [
   { x: 2.456450840458274, z: 211.33819991815835 },
   // The Sluice outpost (zone1): keep stray trees off the Baked Beaver statue and
-  // the beaver lodge/den footprints so nothing clips the near-town landmark. The
+  // the beaver lodge/den footprints so nothing clips the pond-shore landmark. The
   // millpond carve and the road spur clear most of the area; these pin the rest.
-  { x: 22, z: 17 }, // Baked Beaver mascot
-  { x: 12, z: 14 }, // beaver lodge (inn)
-  { x: 16, z: 12 }, // beaver den (house)
+  { x: 42, z: 54 }, // Baked Beaver mascot
+  { x: 38, z: 56 }, // beaver lodge (inn)
+  { x: 46, z: 58 }, // beaver den (house)
 ];
 
 function isExcludedDecoration(x: number, z: number): boolean {

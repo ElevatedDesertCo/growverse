@@ -17,13 +17,14 @@ export const GRAVEYARD_POS = { x: -12, z: -22 };
 // Basin carved into the heightfield. Pushed to the far northeast so its
 // shoreline meets the fishing dock and the murloc camp instead of drowning them.
 export const LAKE = { x: -92, z: 88, radius: 30 };
-// The Sluice millpond: a smaller basin carved a short walk northeast of Bloomhaven,
-// the water feature the Baked Beaver outpost is built around. It sits inside the
-// town-plateau blend but the lake-carve runs last in baseHeight, so the center
-// still drops below the waterline (a shallow, walkable-shore millpond, not a
-// drowning pit). The vale camps that overlap its carve influence sit low near the
-// waterline, so the later camp-flatten only softens the basin, never fills it.
-export const SLUICE_POND = { x: 30, z: 28, radius: 11 };
+// The Sluice millpond: a broad reservoir carved a short walk northwest of
+// Bloomhaven, the water feature the Baked Beaver outpost is built around. It is fed
+// from the west by the Sluice river (a carve primitive in world.ts running level to
+// the mountain waterfall) and held back on its townward (south) side by The Dam. It
+// sits inside the town-plateau blend but the lake-carve runs last in baseHeight, so
+// the center still drops below the waterline (a walkable-shore pond, not a drowning
+// pit). The outpost sits well clear on the north shore, past the carve's blend edge.
+export const SLUICE_POND = { x: 30, z: 28, radius: 16 };
 
 export const ZONE1_ZONE: ZoneDef = {
   id: 'eastbrook_vale',
@@ -38,7 +39,7 @@ export const ZONE1_ZONE: ZoneDef = {
   pois: [
     { x: 0, z: -3, label: 'Bloomhaven' },
     { x: -2, z: 70, label: 'Wolf Run' },
-    { x: 65, z: 0, label: 'Boar Meadow' },
+    { x: 96, z: -12, label: 'Boar Meadow' },
     { x: -88, z: 82, label: 'Mirror Lake' },
     { x: -60, z: 4, label: 'Sporewood' },
     { x: -84, z: -64, label: 'Copper Dig' },
@@ -46,17 +47,17 @@ export const ZONE1_ZONE: ZoneDef = {
     { x: 80, z: 80, label: 'Withered Shrine' },
     { x: -5, z: -52, label: 'Reliquary Hill' },
     { x: 40, z: 140, label: 'Bloomwood Glade' },
-    // The Baked Beaver mascot: a giant procedural beaver statue on the townward
-    // shore of the Sluice millpond, the first landmark a new player sights heading
-    // out of Bloomhaven's east gate. `landmark` gives it a minimap pin + world-map
-    // glyph on top of the subzone banner. (Index 10 is brand-allowlisted in the
-    // i18n completeness test; keep it at this index.)
-    { x: 22, z: 17, label: 'Baked Beaver', landmark: true },
-    // The Sluice: a forward work-camp of the Baked Beaver colony that holds The Dam
-    // far to the south. A carved millpond, a log dam, a beaver lodge, and two Beaver
-    // folk giving newcomers their first trails. `landmark` pins it on the map so a
-    // wandering starter finds the community, not just a lone statue.
-    { x: 16, z: 20, label: 'The Sluice', landmark: true },
+    // The Baked Beaver mascot: a giant procedural beaver statue on the north shore
+    // of the Sluice millpond, watching over the outpost. `landmark` gives it a
+    // minimap pin + world-map glyph on top of the subzone banner. (Index 10 is
+    // brand-allowlisted in the i18n completeness test; keep it at this index.)
+    { x: 42, z: 54, label: 'Baked Beaver', landmark: true },
+    // The Sluice: a forward work-camp of the Baked Beaver colony. A broad millpond
+    // held by a log dam on the townward side, fed by a river from the western
+    // mountain, with a beaver lodge and two Beaver folk giving newcomers their first
+    // trails. `landmark` pins it on the map so a wandering starter finds the
+    // community, not just a lone statue.
+    { x: 40, z: 50, label: 'The Sluice', landmark: true },
   ],
   welcome: 'Find Marshal Redbrook in town, he has work for you.',
   welcomeQuestId: 'q_wolves',
@@ -696,17 +697,18 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     questIds: ['q_mine'],
     greeting: "Whole dig's crawling with those candle-headed vermin!",
   },
-  // The Sluice outpost, on the townward shore of the beaver millpond. Two galaxy-blue
-  // Baked Beaver folk, a forward crew of the colony that holds The Dam far to the
-  // south. They give a wandering newcomer their first trails and the outpost's
-  // keepsake. Same blues as the zone4 Beavers, same "Stay Baked, AZ" colony.
+  // The Sluice outpost, on the north shore of the beaver millpond, clear of town
+  // and the river. Two galaxy-blue Baked Beaver folk, a forward crew of the colony
+  // that holds The Dam far to the south. They give a wandering newcomer their first
+  // trails and the outpost's keepsake. Same blues as the zone4 Beavers, same
+  // "Stay Baked, AZ" colony.
   rowan_sawtooth: {
     id: 'rowan_sawtooth',
     name: 'Rowan Sawtooth',
     title: 'Sluice Warden',
-    // by the lodge hearth, facing the pond and the road in from town
-    pos: { x: 16, z: 18 },
-    facing: 0.9,
+    // by the lodge hearth on the north shore, facing south across the pond
+    pos: { x: 30, z: 54 },
+    facing: 3.1,
     color: 0x4a7ebb,
     questIds: ['q_sluice_welcome', 'q_sluice_pilings'],
     greeting:
@@ -716,9 +718,9 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     id: 'hazel_timbers',
     name: 'Hazel Timbers',
     title: 'Dam Quartermaster',
-    // out on the pond landing by the supply crates, minding the dock
-    pos: { x: 23, z: 22 },
-    facing: -2.4,
+    // on the north shore by the supply crates, minding the dock
+    pos: { x: 37, z: 55 },
+    facing: 3.1,
     color: 0x6fa8dc,
     questIds: [],
     vendorItems: [
@@ -1068,7 +1070,7 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'Trouble at the Pilings',
     giverNpcId: 'rowan_sawtooth',
     turnInNpcId: 'rowan_sawtooth',
-    text: "The dam's the whole reason there's a pond to build around, and the bristle-tusk boars off the east meadow keep rooting up its pilings for the sweet mud. A beaver takes that personally, $N. Put down six of the diggers and the Sluice will owe you a proper keepsake, straight from The Dam itself.",
+    text: "The dam's the whole reason there's a pond to build around, and the bristle-tusk boars off the west meadow keep rooting up its pilings for the sweet mud. A beaver takes that personally, $N. Put down six of the diggers and the Sluice will owe you a proper keepsake, straight from The Dam itself.",
     completionText:
       "Pilings hold, pond stays put, and the kits sleep sound. Here, $N, a Baked Beaver token, carved down at The Dam. Carry it and you're colony, wherever you wander. Stay Baked, AZ.",
     objectives: [
@@ -1119,9 +1121,9 @@ export const ZONE1_CAMPS: CampDef[] = [
   { mobId: 'forest_wolf', center: { x: -15, z: 55 }, radius: 22, count: 7 },
   { mobId: 'forest_wolf', center: { x: 20, z: 70 }, radius: 20, count: 6 },
   { mobId: 'old_greyjaw', center: { x: 0, z: 95 }, radius: 8, count: 1 },
-  // Boars: east meadow
-  { mobId: 'wild_boar', center: { x: 55, z: 12 }, radius: 22, count: 6 },
-  { mobId: 'wild_boar', center: { x: 80, z: -15 }, radius: 18, count: 5 },
+  // Boars: west meadow, well clear of the Sluice pond and the river corridor
+  { mobId: 'wild_boar', center: { x: 90, z: -8 }, radius: 18, count: 6 },
+  { mobId: 'wild_boar', center: { x: 112, z: -22 }, radius: 18, count: 5 },
   { mobId: 'mogger', center: { x: 118, z: -26 }, radius: 5, count: 1 },
   // Spiders: western woods
   { mobId: 'webwood_spider', center: { x: -60, z: 5 }, radius: 22, count: 7 },
@@ -1212,15 +1214,19 @@ export const ZONE1_ROADS: { x: number; z: number }[][] = [
   [
     { x: 2, z: 10 },
     { x: 3, z: 27 },
-    { x: 28, z: 44 },
-    { x: 60, z: 60 },
+    { x: 6, z: 44 },
+    { x: 20, z: 56 },
+    { x: 40, z: 62 },
+    { x: 60, z: 64 },
     { x: 78, z: 74 },
-  ], // northeast to ruins (forks off the north corridor past the ring)
+  ], // northeast to ruins: forks off the north corridor and skirts the enlarged
+  // Sluice pond's town-facing shore, passing north of the outpost on its way east
   [
     { x: 10, z: 3 },
     { x: 30, z: 8 },
-    { x: 55, z: 12 },
-  ], // east to boars
+    { x: 58, z: 4 },
+    { x: 88, z: -6 },
+  ], // west to the boar meadow (south of the Sluice river corridor)
   [
     { x: 7, z: -7 },
     { x: 30, z: -30 },
@@ -1241,11 +1247,13 @@ export const ZONE1_ROADS: { x: number; z: number }[][] = [
   ], // northwest to lake
   [
     { x: 9, z: 7 },
-    { x: 14, z: 13 },
-    { x: 19, z: 17 },
-    { x: 24, z: 19 },
-  ], // northeast spur to The Sluice millpond (leaves the east lane, hugs the shore).
-  // Passing within 5yd of the mascot + lodge, it also clears their decoration trees.
+    { x: 4, z: 26 },
+    { x: 10, z: 48 },
+    { x: 26, z: 54 },
+    { x: 38, z: 54 },
+  ], // spur to The Sluice: up the town-facing (east) shore of the millpond, around
+  // its north end to the outpost, staying clear of the water and the west river.
+  // Passing within 5yd of the lodge + mascot, it also clears their decoration trees.
 ];
 
 // ---------------------------------------------------------------------------
@@ -1271,12 +1279,12 @@ export const ZONE1_PROPS: ZonePropsDef = {
     { kind: 'house', x: -20, z: -1.4, w: 6, d: 5, rot: 1.5 }, // W gap, by Netcaster Brandt
     { kind: 'house', x: 3.8, z: -19.6, w: 7, d: 6, rot: -0.19 }, // south flank (east of axis)
     { kind: 'chapel', x: -6.5, z: -17.8, w: 5, d: 7, rot: 0.35 }, // south flank (west of axis), the solemn ground, set back from the graves
-    // The Sluice outpost, on the townward shore of the millpond (northeast of town,
-    // outside the plaza plateau but on ground the hub-blend still flattens). The
+    // The Sluice outpost, on the north shore of the millpond (a short walk
+    // northwest of town, clear of the plaza, the wolf woods, and the river). The
     // lodge is an `inn`, so its footprint grants classic rested XP: a real reason
     // for a starter to walk out and rest by the beaver pond. Doors face the pond.
-    { kind: 'inn', x: 12, z: 14, w: 6, d: 7, rot: 0.91 }, // beaver lodge (rested XP)
-    { kind: 'house', x: 16, z: 12, w: 6, d: 5, rot: 0.72 }, // beaver den
+    { kind: 'inn', x: 38, z: 56, w: 6, d: 7, rot: 3.05 }, // beaver lodge (rested XP)
+    { kind: 'house', x: 46, z: 58, w: 6, d: 5, rot: 2.9 }, // beaver den
   ],
   wells: [{ x: 0, z: 2, r: 1.5 }],
   stalls: [
@@ -1287,16 +1295,16 @@ export const ZONE1_PROPS: ZonePropsDef = {
   mines: [{ x: -88, z: -68, rot: 0.8 }],
   docks: [
     { x: -64, z: 60, rot: -2.2, hutLocal: { x: 2.8, z: 2.4, hw: 1.7, hd: 1.5 } }, // Mirror Lake fishing dock
-    // The Sluice landing: a short plank dock off the millpond's southwest shore
-    // where the Beaver quartermaster runs supplies, giving the waterfront a working
-    // edge and the pond a human-scale reference.
-    { x: 25, z: 20, rot: 0.7, hutLocal: { x: 2.6, z: 2.2, hw: 1.6, hd: 1.4 } },
+    // The Sluice landing: a short plank dock off the millpond's north shore where
+    // the Beaver quartermaster runs supplies, giving the waterfront a working edge
+    // and the pond a human-scale reference.
+    { x: 36, z: 44, rot: 0.1, hutLocal: { x: 2.6, z: 2.2, hw: 1.6, hd: 1.4 } },
   ],
   // The Sluice work-camp pitches two stock canvas tents beside the lodge for the
   // Beaver crew (the Ashen Maw warcamp uses its own procedural raiderTents below).
   tents: [
-    { x: 8, z: 18, rot: 0.6, scale: 1 },
-    { x: 18, z: 9, rot: -1.1, scale: 1 },
+    { x: 34, z: 55, rot: 0.6, scale: 1 },
+    { x: 48, z: 56, rot: -1.1, scale: 1 },
   ],
   crates: [
     // Bloomhaven crafting stations: supply crates dressing the two craft NPCs.
@@ -1306,8 +1314,8 @@ export const ZONE1_PROPS: ZonePropsDef = {
     [-11.8, 6.4],
     // The Sluice supply stacks: driftwood and trade crates by the beaver lodge and
     // the pond landing, dressing the outpost as a working camp.
-    [10, 17],
-    [23, 22],
+    [44, 56],
+    [38, 52],
     // Ashen Maw plunder stacks: stolen Bloomhaven crates piled by each tier's
     // tents (the q_ringleader steal-back objective reads them off these stacks).
     [59, -62],
@@ -1323,7 +1331,7 @@ export const ZONE1_PROPS: ZonePropsDef = {
     [-16.2, 6.2], // Draxa the Riftsmith's forge fire (Upgrade Bench)
     [-80, -60],
     [-61, 56],
-    [14, 16], // The Sluice: the beaver crew's hearth between lodge and den
+    [42, 56], // The Sluice: the beaver crew's hearth between lodge and den
   ],
   // Ashen Maw cookfires: one hearth at each tier of the warcamp (picket, muster,
   // heart). A Growverse-original procedural log-pyre in a blackened stone ring
@@ -1366,10 +1374,10 @@ export const ZONE1_PROPS: ZonePropsDef = {
     // raider timber rather than a stock pack asset.
     { x1: -15, z1: -18, x2: -15, z2: -26 },
     { x1: -15, z1: -26, x2: -8, z2: -26 },
-    // The Sluice: a low split-rail pen southwest of the beaver lodge, opening toward
-    // the pond so it frames the camp without walling the road spur.
-    { x1: 5, z1: 10, x2: 13, z2: 10 },
-    { x1: 5, z1: 10, x2: 5, z2: 16 },
+    // The Sluice: a low split-rail pen behind the beaver lodge, opening toward the
+    // pond so it frames the camp without walling the road spur.
+    { x1: 34, z1: 60, x2: 46, z2: 60 },
+    { x1: 34, z1: 60, x2: 34, z2: 55 },
   ],
   graveyards: [
     { x: -14, z: -25.5 }, // churchyard graves in the solemn south (grid grows +x/+z, seated clear of the chapel wall and inside the rail)
@@ -1422,16 +1430,17 @@ export const ZONE1_PROPS: ZonePropsDef = {
   // muster before it. Replaces the earlier ill-fitting stone-guardian idol.
   warStandards: [{ x: 86, z: -86, rot: 2.3 }],
   // The Sluice dam: a Growverse-original procedural beaver dam (render/props.ts) of
-  // crisscrossed logs packed with mud, thrown across the north end of the millpond,
-  // the structure that reads as having created the pond. A solid OBB collider along
-  // the crest line (colliders.ts), so players skirt its shore rather than walk it. A
-  // scaled-down cousin of the colossal dam at The Dam colony far to the south.
-  beaverDams: [{ x1: 23, z1: 36, x2: 38, z2: 35, h: 6 }],
-  // The Baked Beaver mascot: a ~7.5m-tall procedural beaver statue (render/props.ts)
-  // on the townward (southwest) shore of the Sluice millpond, facing back toward
-  // Bloomhaven so it greets a player heading out the east gate. A short cylinder
+  // crisscrossed logs packed with mud, thrown across the townward (south) end of the
+  // millpond, the structure that holds the pond back toward Bloomhaven. A solid OBB
+  // collider along the crest line (colliders.ts), so players skirt its shore rather
+  // than walk it. A scaled-down cousin of the colossal dam at The Dam colony far to
+  // the south.
+  beaverDams: [{ x1: 18, z1: 13, x2: 42, z2: 12, h: 6 }],
+  // The Baked Beaver mascot: a ~5m-tall procedural beaver statue (render/props.ts)
+  // on the north shore of the Sluice millpond, facing south across the water so it
+  // watches over the outpost and greets a player circling the pond. A short cylinder
   // collider (colliders.ts) keeps players from walking through it. Matches the
   // `Baked Beaver` landmark POI above. A decoration-exclusion point in world.ts
   // keeps a stray tree from clipping the statue.
-  beaverMascots: [{ x: 22, z: 17, rot: -2.23, scale: 1.6 }],
+  beaverMascots: [{ x: 42, z: 54, rot: 3.1, scale: 1.05 }],
 };
