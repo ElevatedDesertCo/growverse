@@ -3495,7 +3495,8 @@ export const vi_VN: EnTranslations = {
     },
     "cast": {
       "fishing": "Câu Cá",
-      "demonHeal": "Quỷ Trị Liệu"
+      "demonHeal": "Quỷ Trị Liệu",
+      "harvest": "Harvesting"
     }
   },
   "questUi": {

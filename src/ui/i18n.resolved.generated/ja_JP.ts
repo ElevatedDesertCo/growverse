@@ -3495,7 +3495,8 @@ export const ja_JP: EnTranslations = {
     },
     "cast": {
       "fishing": "釣り",
-      "demonHeal": "悪魔の治癒"
+      "demonHeal": "悪魔の治癒",
+      "harvest": "Harvesting"
     }
   },
   "questUi": {

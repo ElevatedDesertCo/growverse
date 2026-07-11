@@ -3495,7 +3495,8 @@ export const ru_RU: EnTranslations = {
     },
     "cast": {
       "fishing": "Рыбная ловля",
-      "demonHeal": "Исцеление демона"
+      "demonHeal": "Исцеление демона",
+      "harvest": "Harvesting"
     }
   },
   "questUi": {

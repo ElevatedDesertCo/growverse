@@ -3495,7 +3495,8 @@ export const sv_SE: EnTranslations = {
     },
     "cast": {
       "fishing": "Fiske",
-      "demonHeal": "Demonläkning"
+      "demonHeal": "Demonläkning",
+      "harvest": "Harvesting"
     }
   },
   "questUi": {

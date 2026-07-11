@@ -10,6 +10,7 @@
 
 export const pending: Record<string, readonly string[]> = {
   "es": [
+    "abilityUi.cast.harvest",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -140,6 +141,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.options.showDailyRewardsChest"
   ],
   "es_ES": [
+    "abilityUi.cast.harvest",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -270,6 +272,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.options.showDailyRewardsChest"
   ],
   "fr_FR": [
+    "abilityUi.cast.harvest",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -400,6 +403,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.options.showDailyRewardsChest"
   ],
   "fr_CA": [
+    "abilityUi.cast.harvest",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -531,6 +535,7 @@ export const pending: Record<string, readonly string[]> = {
   ],
   "en_CA": [],
   "it_IT": [
+    "abilityUi.cast.harvest",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -661,6 +666,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.options.showDailyRewardsChest"
   ],
   "de_DE": [
+    "abilityUi.cast.harvest",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -791,6 +797,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.options.showDailyRewardsChest"
   ],
   "zh_CN": [
+    "abilityUi.cast.harvest",
     "entities.dungeons.sunken_mausoleum.enterText",
     "entities.dungeons.sunken_mausoleum.leaveText",
     "entities.dungeons.sunken_mausoleum.name",
@@ -835,6 +842,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.zones.the_dam.pois.0.label"
   ],
   "zh_TW": [
+    "abilityUi.cast.harvest",
     "entities.dungeons.sunken_mausoleum.enterText",
     "entities.dungeons.sunken_mausoleum.leaveText",
     "entities.dungeons.sunken_mausoleum.name",
@@ -879,6 +887,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.zones.the_dam.pois.0.label"
   ],
   "ko_KR": [
+    "abilityUi.cast.harvest",
     "entities.dungeons.sunken_mausoleum.enterText",
     "entities.dungeons.sunken_mausoleum.leaveText",
     "entities.dungeons.sunken_mausoleum.name",
@@ -923,6 +932,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.zones.the_dam.pois.0.label"
   ],
   "ja_JP": [
+    "abilityUi.cast.harvest",
     "entities.dungeons.sunken_mausoleum.enterText",
     "entities.dungeons.sunken_mausoleum.leaveText",
     "entities.dungeons.sunken_mausoleum.name",
@@ -967,6 +977,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.zones.the_dam.pois.0.label"
   ],
   "pt_BR": [
+    "abilityUi.cast.harvest",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -1097,6 +1108,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.options.showDailyRewardsChest"
   ],
   "ru_RU": [
+    "abilityUi.cast.harvest",
     "entities.dungeons.sunken_mausoleum.enterText",
     "entities.dungeons.sunken_mausoleum.leaveText",
     "entities.dungeons.sunken_mausoleum.name",
@@ -1141,6 +1153,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.zones.the_dam.pois.0.label"
   ],
   "nl_NL": [
+    "abilityUi.cast.harvest",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -1271,6 +1284,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.options.showDailyRewardsChest"
   ],
   "pl_PL": [
+    "abilityUi.cast.harvest",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -1401,6 +1415,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.options.showDailyRewardsChest"
   ],
   "id_ID": [
+    "abilityUi.cast.harvest",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -1531,6 +1546,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.options.showDailyRewardsChest"
   ],
   "tr_TR": [
+    "abilityUi.cast.harvest",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -1661,6 +1677,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.options.showDailyRewardsChest"
   ],
   "sv_SE": [
+    "abilityUi.cast.harvest",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -1791,6 +1808,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.options.showDailyRewardsChest"
   ],
   "vi_VN": [
+    "abilityUi.cast.harvest",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -1921,6 +1939,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.options.showDailyRewardsChest"
   ],
   "da_DK": [
+    "abilityUi.cast.harvest",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",

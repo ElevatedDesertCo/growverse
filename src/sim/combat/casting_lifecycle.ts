@@ -43,6 +43,7 @@ import {
   DT,
   dist2d,
   FISHING_CAST_ID,
+  HARVEST_CAST_ID,
   MELEE_ARC,
   MELEE_RANGE,
   normAngle,
@@ -144,6 +145,10 @@ export function updateCasting(ctx: SimContext, p: Entity, meta: PlayerMeta): voi
     ctx.emit({ type: 'castStop', entityId: p.id, success: true });
     if (castId === FISHING_CAST_ID) {
       ctx.completeFishing(p, meta);
+      return;
+    }
+    if (castId === HARVEST_CAST_ID) {
+      ctx.completeHarvest(p, meta);
       return;
     }
     const res = ctx.resolvedAbility(castId, p.id);

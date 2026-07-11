@@ -3495,7 +3495,8 @@ export const it_IT: EnTranslations = {
     },
     "cast": {
       "fishing": "Pesca",
-      "demonHeal": "Cura demoniaca"
+      "demonHeal": "Cura demoniaca",
+      "harvest": "Harvesting"
     }
   },
   "questUi": {

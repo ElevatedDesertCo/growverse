@@ -3495,7 +3495,8 @@ export const tr_TR: EnTranslations = {
     },
     "cast": {
       "fishing": "Balık Tutma",
-      "demonHeal": "Şeytan İyileştirmesi"
+      "demonHeal": "Şeytan İyileştirmesi",
+      "harvest": "Harvesting"
     }
   },
   "questUi": {

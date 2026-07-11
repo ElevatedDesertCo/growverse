@@ -3495,7 +3495,8 @@ export const da_DK: EnTranslations = {
     },
     "cast": {
       "fishing": "Fiskeri",
-      "demonHeal": "Dæmonhelbredelse"
+      "demonHeal": "Dæmonhelbredelse",
+      "harvest": "Harvesting"
     }
   },
   "questUi": {

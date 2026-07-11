@@ -14,7 +14,7 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 471,
+      "nextId": 485,
       "state": "5bc471b0",
       "events": "741638a5",
       "rng": {
@@ -28,9 +28,9 @@
     {
       "tick": 20,
       "time": 1,
-      "nextId": 473,
-      "state": "a7eba976",
-      "events": "b68a5eb3",
+      "nextId": 487,
+      "state": "75f61716",
+      "events": "cff2bd54",
       "rng": {
         "draws": 0,
         "digest": "811c9dc5"
@@ -39,9 +39,9 @@
     {
       "tick": 40,
       "time": 2,
-      "nextId": 473,
-      "state": "d9455812",
-      "events": "6a0ae020",
+      "nextId": 487,
+      "state": "97f3ab1a",
+      "events": "562a555a",
       "rng": {
         "draws": 0,
         "digest": "811c9dc5"
@@ -50,9 +50,9 @@
     {
       "tick": 60,
       "time": 3,
-      "nextId": 473,
-      "state": "fc9e05a6",
-      "events": "17897d7a",
+      "nextId": 487,
+      "state": "8253b8ea",
+      "events": "e5129ff4",
       "rng": {
         "draws": 86,
         "digest": "60046954"
@@ -61,9 +61,9 @@
     {
       "tick": 61,
       "time": 3.05,
-      "nextId": 473,
-      "state": "3644c4d4",
-      "events": "e24c14ed",
+      "nextId": 487,
+      "state": "235f4b0c",
+      "events": "85fd80b9",
       "rng": {
         "draws": 98,
         "digest": "35a7ef62"
@@ -80,7 +80,7 @@
           "counters": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 471,
+          "entityId": 485,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
@@ -100,7 +100,7 @@
           "counters": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 472,
+          "entityId": 486,
           "equipment": {
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
@@ -122,7 +122,7 @@
           "fallStartY": 1.909488,
           "fiveSecondRule": 102.05,
           "hp": 90,
-          "id": 471,
+          "id": 485,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -169,7 +169,7 @@
           "fallStartY": 1.858055,
           "fiveSecondRule": 102.05,
           "hp": 54,
-          "id": 472,
+          "id": 486,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -213,9 +213,9 @@
     {
       "tick": 61,
       "time": 3.05,
-      "nextId": 473,
-      "state": "0791b8f4",
-      "events": "c17ea626",
+      "nextId": 487,
+      "state": "b81321ce",
+      "events": "db54eee0",
       "rng": {
         "draws": 98,
         "digest": "35a7ef62"
@@ -232,7 +232,7 @@
           "counters": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 471,
+          "entityId": 485,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
@@ -252,7 +252,7 @@
           "counters": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 472,
+          "entityId": 486,
           "equipment": {
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
@@ -274,7 +274,7 @@
           "fallStartY": 1.909488,
           "fiveSecondRule": 102.05,
           "hp": 90,
-          "id": 471,
+          "id": 485,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -321,7 +321,7 @@
           "fallStartY": 1.858055,
           "fiveSecondRule": 102.05,
           "hp": 1,
-          "id": 472,
+          "id": 486,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -365,8 +365,8 @@
     {
       "tick": 80,
       "time": 4,
-      "nextId": 473,
-      "state": "d1c4d6b4",
+      "nextId": 487,
+      "state": "4dc346ca",
       "events": "741638a5",
       "rng": {
         "draws": 191,
@@ -376,8 +376,8 @@
     {
       "tick": 100,
       "time": 5,
-      "nextId": 473,
-      "state": "34cb2768",
+      "nextId": 487,
+      "state": "30ff18fa",
       "events": "741638a5",
       "rng": {
         "draws": 335,
@@ -387,8 +387,8 @@
     {
       "tick": 101,
       "time": 5.05,
-      "nextId": 473,
-      "state": "aa9471a2",
+      "nextId": 487,
+      "state": "1d5bed2c",
       "events": "741638a5",
       "rng": {
         "draws": 343,
@@ -406,7 +406,7 @@
           "counters": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 471,
+          "entityId": 485,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
@@ -426,7 +426,7 @@
           "counters": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 472,
+          "entityId": 486,
           "equipment": {
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
@@ -448,7 +448,7 @@
           "fallStartY": 1.909488,
           "fiveSecondRule": 104.05,
           "hp": 90,
-          "id": 471,
+          "id": 485,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -495,7 +495,7 @@
           "fallStartY": 1.858055,
           "fiveSecondRule": 104.05,
           "hp": 7,
-          "id": 472,
+          "id": 486,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",

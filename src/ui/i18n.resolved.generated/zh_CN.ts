@@ -3495,7 +3495,8 @@ export const zh_CN: EnTranslations = {
     },
     "cast": {
       "fishing": "钓鱼",
-      "demonHeal": "恶魔治疗"
+      "demonHeal": "恶魔治疗",
+      "harvest": "Harvesting"
     }
   },
   "questUi": {

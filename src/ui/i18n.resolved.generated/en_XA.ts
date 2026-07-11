@@ -3495,7 +3495,8 @@ export const en_XA: EnTranslations = {
     },
     "cast": {
       "fishing": "[Ƒíšĥíñĝ]",
-      "demonHeal": "[Ðéɱóñ Ĥéáļ]"
+      "demonHeal": "[Ðéɱóñ Ĥéáļ]",
+      "harvest": "[Ĥáŕʋéšţíñĝ]"
     }
   },
   "questUi": {

@@ -482,7 +482,7 @@ const mergePetHud = {
 const mergeStringsEn = {
   abilityUi: {
     ...abilityStrings.en.abilityUi,
-    cast: { fishing: 'Fishing', demonHeal: 'Demon Heal' },
+    cast: { fishing: 'Fishing', demonHeal: 'Demon Heal', harvest: 'Harvesting' },
     actionBar: {
       ...abilityStrings.en.abilityUi.actionBar,
       clearHint: 'Shift-right-click or Shift-Delete to clear',
@@ -649,7 +649,7 @@ export const mergeStrings = {
   es: {
     abilityUi: {
       ...abilityStrings.es.abilityUi,
-      cast: { fishing: 'Pesca', demonHeal: 'Sanación demoníaca' },
+      cast: { fishing: 'Pesca', demonHeal: 'Sanación demoníaca', harvest: 'Recolectando' },
       actionBar: {
         ...abilityStrings.es.abilityUi.actionBar,
         clearHint: 'Mayús-clic derecho o Mayús-Supr para vaciar',
@@ -811,7 +811,7 @@ export const mergeStrings = {
   fr_FR: {
     abilityUi: {
       ...abilityStrings.fr_FR.abilityUi,
-      cast: { fishing: 'Pêche', demonHeal: 'Soin démoniaque' },
+      cast: { fishing: 'Pêche', demonHeal: 'Soin démoniaque', harvest: 'Récolte' },
       actionBar: {
         ...abilityStrings.fr_FR.abilityUi.actionBar,
         clearHint: 'Maj-clic droit ou Maj-Suppr pour vider',
@@ -969,7 +969,7 @@ export const mergeStrings = {
   it_IT: {
     abilityUi: {
       ...abilityStrings.it_IT.abilityUi,
-      cast: { fishing: 'Pesca', demonHeal: 'Cura demoniaca' },
+      cast: { fishing: 'Pesca', demonHeal: 'Cura demoniaca', harvest: 'Raccolta' },
       actionBar: {
         ...abilityStrings.it_IT.abilityUi.actionBar,
         clearHint: 'Maiusc-clic destro o Maiusc-Canc per svuotare',
@@ -1129,7 +1129,7 @@ export const mergeStrings = {
   de_DE: {
     abilityUi: {
       ...abilityStrings.de_DE.abilityUi,
-      cast: { fishing: 'Angeln', demonHeal: 'Dämonenheilung' },
+      cast: { fishing: 'Angeln', demonHeal: 'Dämonenheilung', harvest: 'Ernten' },
       actionBar: {
         ...abilityStrings.de_DE.abilityUi.actionBar,
         clearHint: 'Umschalt-Rechtsklick oder Umschalt-Entf zum Leeren',
@@ -1289,7 +1289,7 @@ export const mergeStrings = {
   zh_CN: {
     abilityUi: {
       ...abilityStrings.zh_CN.abilityUi,
-      cast: { fishing: '钓鱼', demonHeal: '恶魔治疗' },
+      cast: { fishing: '钓鱼', demonHeal: '恶魔治疗', harvest: '采集中' },
       actionBar: {
         ...abilityStrings.zh_CN.abilityUi.actionBar,
         clearHint: 'Shift-右键或 Shift-Delete 清除',
@@ -1441,7 +1441,7 @@ export const mergeStrings = {
   zh_TW: {
     abilityUi: {
       ...abilityStrings.zh_TW.abilityUi,
-      cast: { fishing: '釣魚', demonHeal: '惡魔治療' },
+      cast: { fishing: '釣魚', demonHeal: '惡魔治療', harvest: '採集中' },
       actionBar: {
         ...abilityStrings.zh_TW.abilityUi.actionBar,
         clearHint: 'Shift-右鍵或 Shift-Delete 清除',
@@ -1593,7 +1593,7 @@ export const mergeStrings = {
   ko_KR: {
     abilityUi: {
       ...abilityStrings.ko_KR.abilityUi,
-      cast: { fishing: '낚시', demonHeal: '악마 치유' },
+      cast: { fishing: '낚시', demonHeal: '악마 치유', harvest: '채집 중' },
       actionBar: {
         ...abilityStrings.ko_KR.abilityUi.actionBar,
         clearHint: 'Shift-우클릭 또는 Shift-Delete로 비우기',
@@ -1748,7 +1748,7 @@ export const mergeStrings = {
   ja_JP: {
     abilityUi: {
       ...abilityStrings.ja_JP.abilityUi,
-      cast: { fishing: '釣り', demonHeal: '悪魔の治癒' },
+      cast: { fishing: '釣り', demonHeal: '悪魔の治癒', harvest: '採集中' },
       actionBar: {
         ...abilityStrings.ja_JP.abilityUi.actionBar,
         clearHint: 'Shift-右クリックまたはShift-Deleteで消去',
@@ -1907,7 +1907,7 @@ export const mergeStrings = {
   pt_BR: {
     abilityUi: {
       ...abilityStrings.pt_BR.abilityUi,
-      cast: { fishing: 'Pesca', demonHeal: 'Cura demoníaca' },
+      cast: { fishing: 'Pesca', demonHeal: 'Cura demoníaca', harvest: 'Coletando' },
       actionBar: {
         ...abilityStrings.pt_BR.abilityUi.actionBar,
         clearHint: 'Shift-clique direito ou Shift-Delete para limpar',
@@ -2068,7 +2068,7 @@ export const mergeStrings = {
   ru_RU: {
     abilityUi: {
       ...abilityStrings.ru_RU.abilityUi,
-      cast: { fishing: 'Рыбная ловля', demonHeal: 'Исцеление демона' },
+      cast: { fishing: 'Рыбная ловля', demonHeal: 'Исцеление демона', harvest: 'Сбор' },
       actionBar: {
         ...abilityStrings.ru_RU.abilityUi.actionBar,
         clearHint: 'Shift-правый щелчок или Shift-Delete, чтобы очистить',

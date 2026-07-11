@@ -3495,7 +3495,8 @@ export const de_DE: EnTranslations = {
     },
     "cast": {
       "fishing": "Angeln",
-      "demonHeal": "Dämonenheilung"
+      "demonHeal": "Dämonenheilung",
+      "harvest": "Harvesting"
     }
   },
   "questUi": {

@@ -41,6 +41,14 @@ export const CAST_COMPLETE_EPS = 1e-9;
 export const FISHING_CAST_ID = 'fishing';
 export const FISHING_CAST_NAME = 'Fishing';
 export const FISHING_CAST_TIME = 5;
+// Resource gathering: a channeled harvest of a world resource node (ore/essence/
+// timber), mirroring the fishing channel. Nodes are ground objects (so the spawn/
+// respawn/interact machinery is reused) marked with a `harvestNodeId`; working one
+// rolls its yield table for an EXISTING crafting reagent, then the node depletes and
+// respawns. Shared by the harvest slice (src/sim/harvest.ts) and pickUpObject.
+export const HARVEST_CAST_ID = 'harvest';
+export const HARVEST_CAST_TIME = 3; // seconds to work a node
+export const HARVEST_RESPAWN = 90; // seconds a worked node stays depleted (> OBJECT_RESPAWN)
 // Seconds an empty instance idles before it resets. Shared by the dungeon instance
 // reaper (instances/dungeons.ts) and the delve reaper (sim.ts). NYTHRAXIS_BOSS_ID
 // (the dungeon raid-door seal also keys off it) lives lower in this file (C1 relocation).
@@ -1174,6 +1182,31 @@ export interface GroundObjectDef {
   positions: { x: number; z: number }[];
 }
 
+// A resource-gathering node (ore/essence/timber). `yields` is a weighted table of
+// EXISTING crafting-reagent item ids rolled once when the harvest channel completes;
+// `tool` (optional) is an item id the player must own to work it. Placed in the world
+// via HARVEST_NODE_SPAWNS, spawned as ground objects carrying `harvestNodeId`.
+export interface HarvestYield {
+  itemId: string;
+  weight: number;
+}
+export interface HarvestNodeDef {
+  id: string;
+  castTime?: number; // seconds to work the node (default HARVEST_CAST_TIME)
+  respawn?: number; // seconds depleted before it returns (default HARVEST_RESPAWN)
+  tool?: string; // item id required to work it (optional; unused until a tool item ships)
+  yields: HarvestYield[];
+}
+// A world placement of a harvest node: `nodeId` -> HARVEST_NODES; `itemId` is the
+// EXISTING reagent whose name labels the node (the nameplate resolves through the
+// item dictionary, so it needs no new i18n); `positions` are its spawn points.
+export interface HarvestNodeSpawn {
+  nodeId: string;
+  itemId: string;
+  name: string;
+  positions: { x: number; z: number }[];
+}
+
 export interface DungeonSpawn {
   mobId: string;
   x: number; // relative to instance origin
@@ -1438,6 +1471,10 @@ export interface Entity {
   // aimed at, captured (server-clamped to range) when the cast begins and read by
   // its area effects when it resolves. null for normal entity/self casts.
   castAim: Vec3 | null;
+  // The resource node (a ground-object entity id) this player is currently working
+  // via the harvest channel; read when the channel completes. null when not
+  // harvesting. Player-side; mirrors how fishing re-samples water each completion.
+  harvestTargetId: number | null;
   channeling: boolean;
   channelTickTimer: number;
   channelTickEvery: number;
@@ -1519,6 +1556,10 @@ export interface Entity {
   vendorItems: string[];
   // object (ground interactable)
   objectItemId: string | null;
+  // Set on a ground object that is a resource node (a HARVEST_NODES key): working
+  // it runs the harvest channel + yield roll instead of an instant pickup. null for
+  // ordinary collectibles/quest objects.
+  harvestNodeId: string | null;
   dungeonId: string | null; // set on dungeon door/exit portals
   // misc
   dead: boolean;
