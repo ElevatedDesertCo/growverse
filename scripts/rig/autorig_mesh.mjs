@@ -88,12 +88,15 @@ function weightsFor(pt, segs, index) {
   return { j, w };
 }
 
-/** World-space geometry of the single input mesh (positions/normals/uvs/indices). */
+/** World-space geometry of the input mesh, grouped by SOURCE material so every part keeps
+ *  its own texture (KayKit characters use several part-materials, not one atlas). */
 function extractGeometry(doc) {
-  const P = [];
-  const N = [];
-  const UVs = [];
-  const I = [];
+  const groups = new Map(); // srcMaterial|null -> { P, N, UVs, I }
+  const groupFor = (mat) => {
+    let g = groups.get(mat);
+    if (!g) groups.set(mat, (g = { P: [], N: [], UVs: [], I: [] }));
+    return g;
+  };
   const walk = (node, parent) => {
     const world = parent.clone().multiply(new THREE.Matrix4().fromArray(node.getMatrix()));
     const mesh = node.getMesh();
@@ -102,32 +105,69 @@ function extractGeometry(doc) {
       for (const prim of mesh.listPrimitives()) {
         const pos = prim.getAttribute('POSITION')?.getArray();
         if (!pos) continue;
+        const g = groupFor(prim.getMaterial() ?? null);
         const nor = prim.getAttribute('NORMAL')?.getArray();
         const uv = prim.getAttribute('TEXCOORD_0')?.getArray();
         const idx = prim.getIndices()?.getArray();
-        const base = P.length / 3;
+        const base = g.P.length / 3;
         const v = new THREE.Vector3();
         const n = new THREE.Vector3();
         for (let i = 0; i < pos.length / 3; i++) {
           v.set(pos[i * 3], pos[i * 3 + 1], pos[i * 3 + 2]).applyMatrix4(world);
-          P.push(v.x, v.y, v.z);
+          g.P.push(v.x, v.y, v.z);
           if (nor) {
             n.set(nor[i * 3], nor[i * 3 + 1], nor[i * 3 + 2])
               .applyMatrix3(nmat)
               .normalize();
-            N.push(n.x, n.y, n.z);
-          } else N.push(0, 1, 0);
-          UVs.push(uv ? uv[i * 2] : 0, uv ? uv[i * 2 + 1] : 0);
+            g.N.push(n.x, n.y, n.z);
+          } else g.N.push(0, 1, 0);
+          g.UVs.push(uv ? uv[i * 2] : 0, uv ? uv[i * 2 + 1] : 0);
         }
-        if (idx) for (const ii of idx) I.push(base + ii);
-        else for (let i = 0; i < pos.length / 3; i++) I.push(base + i);
+        if (idx) for (const ii of idx) g.I.push(base + ii);
+        else for (let i = 0; i < pos.length / 3; i++) g.I.push(base + i);
       }
     }
     for (const c of node.listChildren()) walk(c, world);
   };
   for (const sc of doc.getRoot().listScenes())
     for (const n of sc.listChildren()) walk(n, new THREE.Matrix4());
-  return { P, N, UVs, I };
+  return groups;
+}
+
+/** Copy a source material (+ its textures, deduped) into the donor document. */
+function makeMaterialCopier(donor) {
+  const texCache = new Map();
+  const copyTex = (srcTex) => {
+    if (!srcTex) return null;
+    if (texCache.has(srcTex)) return texCache.get(srcTex);
+    const t = donor
+      .createTexture(srcTex.getName() || 'tex')
+      .setImage(srcTex.getImage())
+      .setMimeType(srcTex.getMimeType());
+    texCache.set(srcTex, t);
+    return t;
+  };
+  return (srcMat) => {
+    const dm = donor.createMaterial(srcMat?.getName() || 'AutoMat');
+    if (!srcMat)
+      return dm
+        .setBaseColorFactor([0.7, 0.7, 0.72, 1])
+        .setRoughnessFactor(0.85)
+        .setMetallicFactor(0);
+    dm.setBaseColorFactor(srcMat.getBaseColorFactor())
+      .setRoughnessFactor(srcMat.getRoughnessFactor())
+      .setMetallicFactor(srcMat.getMetallicFactor());
+    const bt = copyTex(srcMat.getBaseColorTexture());
+    if (bt) dm.setBaseColorTexture(bt);
+    const et = copyTex(srcMat.getEmissiveTexture?.());
+    if (et) dm.setEmissiveTexture(et);
+    const ef = srcMat.getEmissiveFactor?.();
+    if (ef?.some((c) => c > 0)) dm.setEmissiveFactor(ef);
+    if (srcMat.getDoubleSided?.()) dm.setDoubleSided(true);
+    const am = srcMat.getAlphaMode?.();
+    if (am && am !== 'OPAQUE') dm.setAlphaMode(am);
+    return dm;
+  };
 }
 
 export async function autorig(inputPath, outPath, donorPath) {
@@ -135,60 +175,25 @@ export async function autorig(inputPath, outPath, donorPath) {
   const donor = await io.read(donorPath);
   const skel = readSkeleton(donor);
   const input = await io.read(inputPath);
-  const geo = extractGeometry(input);
+  const groups = [...extractGeometry(input).entries()].map(([mat, g]) => ({ mat, ...g }));
 
-  // Feet-align + height-scale + centerline. Robust to arm pose (unlike bbox-center, which the
-  // wide T-pose arm span skews).
+  // Feet-align + height-scale + centerline over the COMBINED bounds (one transform for all
+  // groups). Robust to arm pose, unlike bbox-center, which the wide T-pose arm span skews.
   const bb = new THREE.Box3();
   const v = new THREE.Vector3();
-  for (let i = 0; i < geo.P.length; i += 3)
-    bb.expandByPoint(v.set(geo.P[i], geo.P[i + 1], geo.P[i + 2]));
+  for (const g of groups)
+    for (let i = 0; i < g.P.length; i += 3) bb.expandByPoint(v.set(g.P[i], g.P[i + 1], g.P[i + 2]));
   const meshH = bb.max.y - bb.min.y || 1;
-  const jvals = [...skel.pos.values()];
   const rootY = skel.pos.get('root').y;
   const headY = skel.pos.get('head').y;
+  const jvals = [...skel.pos.values()];
   const cx = jvals.reduce((s, p) => s + p.x, 0) / jvals.length;
   const cz = jvals.reduce((s, p) => s + p.z, 0) / jvals.length;
-  const scale = ((headY - rootY) * 1.28) / meshH; // skeleton feet->head is ~1.28x joint span visually
+  const scale = ((headY - rootY) * 1.28) / meshH; // skeleton feet->head is ~1.28x the joint span
   const meshCx = (bb.min.x + bb.max.x) / 2;
   const meshCz = (bb.min.z + bb.max.z) / 2;
-  for (let i = 0; i < geo.P.length; i += 3) {
-    geo.P[i] = (geo.P[i] - meshCx) * scale + cx;
-    geo.P[i + 1] = (geo.P[i + 1] - bb.min.y) * scale + rootY;
-    geo.P[i + 2] = (geo.P[i + 2] - meshCz) * scale + cz;
-  }
-
   const segs = boneSegments(skel.pos);
-  const n = geo.P.length / 3;
-  const joints = new Uint16Array(n * 4);
-  const weights = new Float32Array(n * 4);
   const pt = new THREE.Vector3();
-  for (let i = 0; i < n; i++) {
-    const { j, w } = weightsFor(
-      pt.set(geo.P[i * 3], geo.P[i * 3 + 1], geo.P[i * 3 + 2]),
-      segs,
-      skel.index,
-    );
-    joints.set(j, i * 4);
-    weights.set(w, i * 4);
-  }
-
-  // Copy the source base-color texture into the donor doc so the result keeps its look.
-  const srcMat = input.getRoot().listMaterials()[0];
-  const donorMat = donor
-    .createMaterial('AutoBodyMat')
-    .setRoughnessFactor(0.85)
-    .setMetallicFactor(0);
-  const srcTex = srcMat?.getBaseColorTexture();
-  if (srcTex) {
-    const tex = donor
-      .createTexture('AutoBase')
-      .setImage(srcTex.getImage())
-      .setMimeType(srcTex.getMimeType());
-    donorMat.setBaseColorTexture(tex);
-    const f = srcMat.getBaseColorFactor();
-    if (f) donorMat.setBaseColorFactor(f);
-  } else donorMat.setBaseColorFactor([0.6, 0.6, 0.66, 1]);
 
   const root = donor.getRoot();
   const buffer = root.listBuffers()[0] ?? donor.createBuffer();
@@ -203,18 +208,41 @@ export async function autorig(inputPath, outPath, donorPath) {
       .setBuffer(buffer),
   );
   const acc = (type, arr) => donor.createAccessor().setType(type).setArray(arr).setBuffer(buffer);
+  const copyMaterial = makeMaterialCopier(donor);
   const mesh = donor.createMesh('AutoBody');
-  mesh.addPrimitive(
-    donor
-      .createPrimitive()
-      .setAttribute('POSITION', acc('VEC3', Float32Array.from(geo.P)))
-      .setAttribute('NORMAL', acc('VEC3', Float32Array.from(geo.N)))
-      .setAttribute('TEXCOORD_0', acc('VEC2', Float32Array.from(geo.UVs)))
-      .setAttribute('JOINTS_0', acc('VEC4', joints))
-      .setAttribute('WEIGHTS_0', acc('VEC4', weights))
-      .setIndices(acc('SCALAR', Uint32Array.from(geo.I)))
-      .setMaterial(donorMat),
-  );
+
+  let totalVerts = 0;
+  for (const g of groups) {
+    const n = g.P.length / 3;
+    if (!n) continue;
+    totalVerts += n;
+    const joints = new Uint16Array(n * 4);
+    const weights = new Float32Array(n * 4);
+    for (let i = 0; i < n; i++) {
+      // align this vertex, then weight it to the skeleton
+      const px = (g.P[i * 3] - meshCx) * scale + cx;
+      const py = (g.P[i * 3 + 1] - bb.min.y) * scale + rootY;
+      const pz = (g.P[i * 3 + 2] - meshCz) * scale + cz;
+      g.P[i * 3] = px;
+      g.P[i * 3 + 1] = py;
+      g.P[i * 3 + 2] = pz;
+      const { j, w } = weightsFor(pt.set(px, py, pz), segs, skel.index);
+      joints.set(j, i * 4);
+      weights.set(w, i * 4);
+    }
+    mesh.addPrimitive(
+      donor
+        .createPrimitive()
+        .setAttribute('POSITION', acc('VEC3', Float32Array.from(g.P)))
+        .setAttribute('NORMAL', acc('VEC3', Float32Array.from(g.N)))
+        .setAttribute('TEXCOORD_0', acc('VEC2', Float32Array.from(g.UVs)))
+        .setAttribute('JOINTS_0', acc('VEC4', joints))
+        .setAttribute('WEIGHTS_0', acc('VEC4', weights))
+        .setIndices(acc('SCALAR', Uint32Array.from(g.I)))
+        .setMaterial(copyMaterial(g.mat)),
+    );
+  }
+
   for (const node of root.listNodes().filter((x) => x.getMesh() && x.getSkin())) {
     const m = node.getMesh();
     const s = node.getSkin();
@@ -224,7 +252,7 @@ export async function autorig(inputPath, outPath, donorPath) {
   }
   root.listScenes()[0].addChild(donor.createNode('AutoBody').setMesh(mesh).setSkin(skin));
   await io.write(outPath, donor);
-  return { verts: n };
+  return { verts: totalVerts, primitives: groups.length };
 }
 
 const isMain =
