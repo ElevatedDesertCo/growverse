@@ -5153,4 +5153,59 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.crafting.errors.tooFarFromStation': '作業台から離れすぎている。',
   'hudChrome.crafting.errors.levelTooLow': 'それを作成するにはまだ技量が足りない。',
   'hudChrome.crafting.errors.missingMaterials': '作成に必要な材料が足りない。',
+  // Hollowmere (zone 2 haunted fen) + harvest channel label
+  'abilityUi.cast.harvest': '採取中',
+  'entities.mobs.grinning_jack.name': 'ほくそ笑むジャック',
+  'entities.mobs.marsh_hag.name': '沼の妖婆',
+  'entities.mobs.wispford_dead.name': 'ウィスプフォードの死者',
+  'entities.mobs.fen_revenant.name': '湿原の亡者',
+  'entities.mobs.hexbound_crone.name': '呪縛の老婆',
+  'entities.mobs.grave_sentinel.name': '墓所の番兵',
+  'entities.mobs.mausoleum_shambler.name': '霊廟のよろめく者',
+  'entities.mobs.crypt_hexward.name': '地下墓所の呪守',
+  'entities.mobs.bonepile_horror.name': '骨山の恐怖',
+  'entities.mobs.pumpkin_spriteling.name': 'カボチャの小妖',
+  'entities.mobs.grinning_king.name': 'パンプキン・キング',
+  'entities.npcs.morvenna_hedgewitch.name': 'モルヴェンナ',
+  'entities.npcs.morvenna_hedgewitch.title': '垣根の魔女',
+  'entities.npcs.morvenna_hedgewitch.greeting':
+    'ランタンの灯りから離れるでないぞ、{className}よ。この沼は黄昏どきに死者を吐き出す、そして私が結んだ守りも獣脂が燃えているあいだしか保たぬ。頼んだものを持ってくれば、ウィスプフォードをもう一晩だけ生かしてやろう。',
+  'entities.npcs.gravewarden_holt.title': '墓守',
+  'entities.npcs.gravewarden_holt.greeting':
+    'ここに眠る者らのほとんどは、この俺自身が埋めたのだ、{playerName}。それを今、二度目にまた土へ還している。北の外れの墓門は、一生かかっても封じられておらぬ。その下の何かが、死者を呼び起こしておるのだ。',
+  'entities.dungeons.sunken_mausoleum.name': '沈める霊廟',
+  'entities.dungeons.sunken_mausoleum.enterText':
+    'あなたは墓門をくぐって濡れた石と獣脂の悪臭のなかへと降りていく、そしてその下のどこかで、何かが暗闇のなかでにたりと笑っている。',
+  'entities.dungeons.sunken_mausoleum.leaveText':
+    'あなたは墓門の階段をのぼり、ランタンに照らされた湿原へと戻る。',
+  'entities.quests.q_hollowmere_risen.title': '安らわぬ湿原',
+  'entities.quests.q_hollowmere_risen.text':
+    '奴らは今や黄昏ごとに沼から這い出てくる、{playerName}、ウィスプフォードの死者どもが、我らが埋めたときのぼろをまとったままにな。集落の柵にたどり着く前に、十体を土へ還してやってくれ。むごい仕事だが、これも慈悲なのだ。',
+  'entities.quests.q_hollowmere_risen.completion':
+    '十体を泥へと戻したか。奴らは戦うわけではない、{playerName}、本当のところはな。ただ灯りに向かって歩くだけだ。何が奴らを呼ぶにせよ、それは墓門の下から呼んでいる。',
+  'entities.quests.q_hollowmere_risen.objectives.0.label': '土へ還したウィスプフォードの死者',
+  'entities.quests.q_hollowmere_revenants.title': 'モルヴェンナの守り',
+  'entities.quests.q_hollowmere_revenants.text':
+    '私の守りを結ぶ蒼白い墓苔は、沼に穢された死者が倒れた地にしか根づかぬのだ、{playerName}。湿原の亡者どもは歩くたびにそれを踏みつぶしてしまう。墓地の縁に沿って八体を斬り伏せれば、苔はまた奴らの占めた地を這い覆ってゆくだろう。',
+  'entities.quests.q_hollowmere_revenants.completion':
+    '奴らが倒れたところは、もう苔が緑を取り戻しておる。よし。集落の環はもう一晩保つだろうし、それを燃やす獣脂もな。おまえはこの者らに時を稼いでやったのだ、{playerName}。',
+  'entities.quests.q_hollowmere_revenants.objectives.0.label': '斬り伏せた湿原の亡者',
+  'entities.quests.q_hollowmere_crones.title': '長き闇を照らせ',
+  'entities.quests.q_hollowmere_crones.text':
+    '古い守りのランタンが墓門への道に沿って並んでおる、{playerName}、そして呪縛の老婆どもが黄昏どきにそこを這い歩き、通りすがりに火という火を消してゆくのだ、死者が暗き道を歩けるようにな。奴らを六体斬り伏せれば、守りの灯はまた夜を徹して燃えるだろう。',
+  'entities.quests.q_hollowmere_crones.completion':
+    '道はふたたび輝き、蘇りし者どもはそれを避けて後ずさり、シューシューと唸っておる。だが永遠には保つまい、{playerName}、下の何かは辛抱強く、その炎とてただの獣脂にすぎぬのだから。',
+  'entities.quests.q_hollowmere_crones.objectives.0.label': '沈黙させた呪縛の老婆',
+  'entities.quests.q_hollowmere_sentinel.title': '墓所の番兵',
+  'entities.quests.q_hollowmere_sentinel.text':
+    'この湿原でただ一つ、蘇った屍ではないものがおる、{playerName}、墓所の番兵、下の何かが墓門への道を守らせるために据えた、篝火の頭を持つ見張り番だ。それが立つかぎり、誰一人として生きて門にはたどり着けぬ。一振りの剣には手強い相手だが、深き死者どもが番を置くほど恐れるものを見る稀なる好機でもある。片をつけてくれ。',
+  'entities.quests.q_hollowmere_sentinel.completion':
+    'あの笑みは燃え尽き、門への道もついに開けた。あの番兵に冠をかぶせたものが何であれ、{playerName}、それはもう近い。下への道が開けたことを、ホルトも知りたがるだろう。',
+  'entities.quests.q_hollowmere_sentinel.objectives.0.label': '破壊した墓所の番兵',
+  'entities.quests.q_hollowmere_pumpkin_king.title': 'パンプキン・キング',
+  'entities.quests.q_hollowmere_pumpkin_king.text':
+    '番兵が倒れ、門への道が開けた今、下に何が待つのか我らは知っている、{playerName}、沈める霊廟のなかで、古い唄がパンプキン・キングと呼んだ篝火の頭を持つものが、みずから死者の王を名乗り、その宮廷を満たさんと湿原じゅうの屍を蘇らせているのだ。仲間を連れて墓門を降り、その首を刎ねてくれ。これは一振りの剣で果たせる使いではない。',
+  'entities.quests.q_hollowmere_pumpkin_king.completion':
+    'あの笑みが暗く消え、我らの頭上では湿原じゅうが一斉に静まりかえる、{playerName}、蘇りしものすべてが糸を断たれた操り人形のように泥へと崩れ落ちてゆく。ウィスプフォードは最後にもう一度死者を埋めるだろう、そして今度こそ、彼らは土に留まるのだ。おまえはこの者らに墓地を取り戻してやったのだ。',
+  'entities.quests.q_hollowmere_pumpkin_king.objectives.0.label': '討ち倒したパンプキン・キング',
 };

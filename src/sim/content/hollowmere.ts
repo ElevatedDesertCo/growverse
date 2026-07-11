@@ -252,13 +252,15 @@ export const MAUSOLEUM_DUNGEON_MOBS: Record<string, MobTemplate> = {
     aoePulse: { min: 18, max: 28, radius: 12, every: 9, name: 'Bonfire Grin' },
     summonAdds: { mobId: 'pumpkin_spriteling', count: 2, atHpPct: [0.6, 0.3] },
     enrage: { belowHpPct: 0.3, dmgMult: 1.35, hasteMult: 1.25 },
+    // Reuses existing level-13-sourced rare gear (tidescale_vest + gravepath_treads
+    // both derive item level 16 at the boss's level) plus a bonus Upgrade-Bench
+    // reagent. Item level is derived from the dropping mob (src/sim/item_level.ts),
+    // so the boss must NOT drop lower-tier showcase gear (that inflates its level).
     loot: [
       { copper: 4200, chance: 1 },
-      { itemId: 'gravepath_treads', chance: 0.5 },
-      // exclusive "one of three" blue chests (weights sum to 1.0)
-      { itemId: 'hollowbone_hauberk', chance: 0.34, rollGroup: 'pumpkinking_blue' },
-      { itemId: 'gravewoven_raiment', chance: 0.33, rollGroup: 'pumpkinking_blue' },
-      { itemId: 'cryptstalker_jerkin', chance: 0.33, rollGroup: 'pumpkinking_blue' },
+      { itemId: 'tidescale_vest', chance: 0.45 },
+      { itemId: 'gravepath_treads', chance: 0.45 },
+      { itemId: 'corruption_shard', chance: 0.5 },
     ],
     scale: 1.6,
     color: 0xe88a2a,

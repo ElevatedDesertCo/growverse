@@ -3496,7 +3496,7 @@ export const zh_CN: EnTranslations = {
     "cast": {
       "fishing": "钓鱼",
       "demonHeal": "恶魔治疗",
-      "harvest": "Harvesting"
+      "harvest": "采集中"
     }
   },
   "questUi": {
@@ -5519,10 +5519,10 @@ export const zh_CN: EnTranslations = {
         "name": "无情者戈拉克"
       },
       "grinning_jack": {
-        "name": "Grinning Jack"
+        "name": "咧嘴杰克"
       },
       "marsh_hag": {
-        "name": "Marsh Hag"
+        "name": "沼泽巫妪"
       },
       "mire_prowler": {
         "name": "泥沼潜伏兽"
@@ -5723,31 +5723,31 @@ export const zh_CN: EnTranslations = {
         "name": "嗑嗨的河狸"
       },
       "wispford_dead": {
-        "name": "Wispford Dead"
+        "name": "鬼火渡亡者"
       },
       "fen_revenant": {
-        "name": "Fen Revenant"
+        "name": "沼地归亡者"
       },
       "hexbound_crone": {
-        "name": "Hexbound Crone"
+        "name": "咒缚老妪"
       },
       "grave_sentinel": {
-        "name": "Grave Sentinel"
+        "name": "墓地哨卫"
       },
       "mausoleum_shambler": {
-        "name": "Mausoleum Shambler"
+        "name": "陵墓蹒跚者"
       },
       "crypt_hexward": {
-        "name": "Crypt Hexward"
+        "name": "墓穴咒卫"
       },
       "bonepile_horror": {
-        "name": "Bonepile Horror"
+        "name": "尸骨堆恐魔"
       },
       "pumpkin_spriteling": {
-        "name": "Pumpkin Spriteling"
+        "name": "南瓜小妖"
       },
       "grinning_king": {
-        "name": "The Pumpkin King"
+        "name": "南瓜王"
       },
       "ironvein_foreman": {
         "name": "铁脉工头"
@@ -6005,14 +6005,14 @@ export const zh_CN: EnTranslations = {
         "greeting": "布恩把你打发到坦克水塘来了，是吧。好。坐下。当年我们踩着滑板从冰封的山脊上下来，身后是座只修了一半的大坝，从没回过一次头。整个故事就这么多。剩下的，都是烟罢了。"
       },
       "morvenna_hedgewitch": {
-        "name": "Morvenna",
-        "title": "the Hedgewitch",
-        "greeting": "Keep to the lantern-light, {className}. The bog gives up its dead at dusk, and the wards I bind hold only while the tallow burns. Bring me what I ask, and I will keep Wispford breathing one more night."
+        "name": "莫文娜",
+        "title": "篱笆女巫",
+        "greeting": "待在灯火照得到的地方，{className}。黄昏时分，泥沼会吐出它埋下的亡者，而我所结的护咒，只在牛脂灯燃着时才管用。把我要的东西带来，我便能让鬼火渡再多喘息一夜。"
       },
       "gravewarden_holt": {
         "name": "Holt",
-        "title": "the Gravewarden",
-        "greeting": "I buried most of these people myself, {playerName}, and now I put them back in the ground a second time. The grave-gate at the north end has not been sealed in a lifetime. Something below it is doing the raising."
+        "title": "守墓人",
+        "greeting": "这些人大多是我亲手埋下的，{playerName}，如今我却要把他们第二次送回土里。北端的那道墓门，已有一辈子不曾封闭过。门下有什么东西，正在唤起亡者。"
       },
       "tidewatcher_ondrel": {
         "name": "翁德雷尔·凡恩",
@@ -6804,52 +6804,52 @@ export const zh_CN: EnTranslations = {
         }
       },
       "q_hollowmere_risen": {
-        "title": "The Restless Fen",
-        "text": "They climb out of the bog every dusk now, {playerName}: the Wispford Dead, still in the rags we buried them in. Put ten of them back down before they reach the hamlet fence. It is grim work, but it is mercy.",
-        "completion": "Ten laid back in the mud. They do not fight, {playerName}, not really. They only walk toward the lights. Whatever calls them, it calls from below the grave-gate.",
+        "title": "不宁之沼",
+        "text": "如今每到黄昏，他们便从泥沼里爬出，{playerName}：鬼火渡的亡者，身上仍穿着我们下葬时的破烂衣衫。趁他们还没走到村落篱笆前，把其中十个重新放倒。这是桩阴森的活计，却也是一种慈悲。",
+        "completion": "十个重新躺回了泥里。他们并不还手，{playerName}，其实压根不还手。他们只是朝着灯火走去。无论是什么在召唤他们，那声音都来自墓门之下。",
         "objectives": {
           "0": {
-            "label": "Wispford Dead put down"
+            "label": "已放倒的鬼火渡亡者"
           }
         }
       },
       "q_hollowmere_revenants": {
-        "title": "Morvenna's Wards",
-        "text": "The pale grave-moss my wards are bound with only takes root where the bog-touched dead have fallen, {playerName}. The Fen Revenants trample it flat where they walk. Cut down eight along the graveyard edge, and the moss will creep back over the ground they held.",
-        "completion": "The moss is already greening where they dropped. Good. The hamlet ring will hold another night, and the tallow to burn it. You have bought these people time, {playerName}.",
+        "title": "莫文娜的护咒",
+        "text": "我用来结护咒的苍白墓苔，只在沾了沼气的亡者倒下之处才会扎根，{playerName}。沼地归亡者所过之处，都把它踩得稀烂。沿着墓地边缘砍倒八个，墓苔便会重新爬回它们占据的土地。",
+        "completion": "它们倒下的地方，墓苔已经泛绿了。很好。村落的护环还能再撑一夜，牛脂也够点燃它。你为这些人争取到了时间，{playerName}。",
         "objectives": {
           "0": {
-            "label": "Fen Revenant felled"
+            "label": "已砍倒的沼地归亡者"
           }
         }
       },
       "q_hollowmere_crones": {
-        "title": "Light the Long Dark",
-        "text": "The old ward-lanterns line the road to the grave-gate, {playerName}, and the Hexbound Crones creep it at dusk, snuffing every flame they pass so the dead can walk a dark road. Cut down six of them, and the wardlights will burn through the night again.",
-        "completion": "The road glows once more, and the risen hang back from it, hissing. It will not hold forever, {playerName}: something below is patient, and the flame is only tallow.",
+        "title": "点亮长夜",
+        "text": "通往墓门的路旁排着古旧的护咒灯，{playerName}，而咒缚老妪们在黄昏时悄悄爬上这条路，掐灭她们经过的每一簇火焰，好让亡者走上一条黑暗之路。砍倒她们六个，护咒灯便会重新燃彻整夜。",
+        "completion": "那条路重新亮了起来，起身的亡者们嘶嘶低鸣，不敢靠近。这撑不了太久，{playerName}：下方的某物极有耐心，而火焰不过是牛脂罢了。",
         "objectives": {
           "0": {
-            "label": "Hexbound Crone silenced"
+            "label": "已了结的咒缚老妪"
           }
         }
       },
       "q_hollowmere_sentinel": {
-        "title": "The Grave Sentinel",
-        "text": "One thing on this fen is no risen corpse, {playerName}: a Grave Sentinel, a bonfire-headed watchman the thing below set to guard the grave-gate road. While it stands, no one reaches the gate alive. It is a hard kill for one blade, but a rare chance to see what the deep dead fear enough to post a guard. End it.",
-        "completion": "The grin guttered out, and the gate-road is open at last. Whatever crowned that sentinel, {playerName}, it is close now. Holt will want to know the way down is clear.",
+        "title": "墓地哨卫",
+        "text": "这片沼泽上有一样东西并非起身的尸首，{playerName}：墓地哨卫，一个以篝火为头颅的看守，是下方之物派来守卫墓门之路的。只要它还立着，就没人能活着走到墓门。凭一柄利刃想杀它绝非易事，但这也是个难得的机会，能看看那深处的亡者究竟惧怕什么，竟要设下守卫。了结它。",
+        "completion": "那咧嘴的火光渐渐熄灭，通往墓门的路终于畅通了。无论是什么为那哨卫加了冕，{playerName}，它如今已近在咫尺。霍尔特会想知道，下行之路已经清开。",
         "objectives": {
           "0": {
-            "label": "The Grave Sentinel destroyed"
+            "label": "已摧毁的墓地哨卫"
           }
         }
       },
       "q_hollowmere_pumpkin_king": {
-        "title": "The Pumpkin King",
-        "text": "With the sentinel down and the gate-road open, we know what waits below, {playerName}: in the Sunken Mausoleum, a bonfire-headed thing the old rhymes called the Pumpkin King has crowned itself king of the dead, raising every corpse in the fen to fill its court. Take companions down the grave-gate and cut the head off it. This is no errand for a lone blade.",
-        "completion": "The grin goes dark, and above us the whole fen goes quiet at once, {playerName}: every risen thing dropping back into the mud like a cut puppet. Wispford will bury its dead one last time, and this time they will stay. You gave these people their graveyard back.",
+        "title": "南瓜王",
+        "text": "哨卫已倒，墓门之路已开，我们已知晓下方等待着的是什么，{playerName}：在沉没陵墓之中，一个以篝火为头颅、被古老歌谣唤作南瓜王的东西，已自封为亡者之王，唤起沼中每一具尸体来充实它的宫廷。带上同伴穿过墓门下去，斩下它的头颅。这可不是一柄孤刃能办成的差事。",
+        "completion": "那咧嘴的火光归于黑暗，在我们头顶，整片沼泽骤然静了下来，{playerName}：每一个起身的亡者都像被剪断丝线的傀儡，重新跌回泥里。鬼火渡将最后一次埋葬它的亡者，而这一次，他们将长眠不起。你把这片墓地还给了这些人。",
         "objectives": {
           "0": {
-            "label": "The Pumpkin King slain"
+            "label": "已斩杀的南瓜王"
           }
         }
       },
@@ -7085,9 +7085,9 @@ export const zh_CN: EnTranslations = {
         "leaveText": "你回到荆峰的寒冷空气中。"
       },
       "sunken_mausoleum": {
-        "name": "The Sunken Mausoleum",
-        "enterText": "You descend through the grave-gate into wet stone and the reek of tallow, and somewhere below, something is grinning in the dark.",
-        "leaveText": "You climb the grave-gate stair back into the lantern-lit fen."
+        "name": "沉没陵墓",
+        "enterText": "你穿过墓门向下走去，四周尽是湿冷的石壁与牛脂的腥臭，而在下方某处，有什么东西正在黑暗中咧嘴而笑。",
+        "leaveText": "你顺着墓门石阶向上，重回灯火摇曳的沼泽。"
       },
       "drowned_temple": {
         "name": "溺亡神殿",

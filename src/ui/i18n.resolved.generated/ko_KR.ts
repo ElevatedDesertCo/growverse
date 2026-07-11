@@ -3496,7 +3496,7 @@ export const ko_KR: EnTranslations = {
     "cast": {
       "fishing": "낚시",
       "demonHeal": "악마 치유",
-      "harvest": "Harvesting"
+      "harvest": "수확하는 중"
     }
   },
   "questUi": {
@@ -5519,10 +5519,10 @@ export const ko_KR: EnTranslations = {
         "name": "무자비한 고라크"
       },
       "grinning_jack": {
-        "name": "Grinning Jack"
+        "name": "히죽이는 잭"
       },
       "marsh_hag": {
-        "name": "Marsh Hag"
+        "name": "습지 마녀"
       },
       "mire_prowler": {
         "name": "수렁 배회자"
@@ -5723,31 +5723,31 @@ export const ko_KR: EnTranslations = {
         "name": "오버베이크 비버"
       },
       "wispford_dead": {
-        "name": "Wispford Dead"
+        "name": "위스프포드의 망자"
       },
       "fen_revenant": {
-        "name": "Fen Revenant"
+        "name": "늪지 망령"
       },
       "hexbound_crone": {
-        "name": "Hexbound Crone"
+        "name": "저주에 묶인 노파"
       },
       "grave_sentinel": {
-        "name": "Grave Sentinel"
+        "name": "무덤 파수꾼"
       },
       "mausoleum_shambler": {
-        "name": "Mausoleum Shambler"
+        "name": "영묘의 비틀걸음이"
       },
       "crypt_hexward": {
-        "name": "Crypt Hexward"
+        "name": "납골당 주술파수꾼"
       },
       "bonepile_horror": {
-        "name": "Bonepile Horror"
+        "name": "뼈무더기 공포"
       },
       "pumpkin_spriteling": {
-        "name": "Pumpkin Spriteling"
+        "name": "호박 정령"
       },
       "grinning_king": {
-        "name": "The Pumpkin King"
+        "name": "호박 왕"
       },
       "ironvein_foreman": {
         "name": "철맥 감독관"
@@ -6005,14 +6005,14 @@ export const ko_KR: EnTranslations = {
         "greeting": "분이 널 탄케로 보냈군, 그래. 좋아. 앉아. 우린 반쯤 지어진 댐을 등지고 얼어붙은 능선을 보드로 타고 내려왔지, 단 한 번도 뒤돌아보지 않았어. 그게 이야기의 전부다. 나머지는 그저 연기일 뿐이야."
       },
       "morvenna_hedgewitch": {
-        "name": "Morvenna",
-        "title": "the Hedgewitch",
-        "greeting": "Keep to the lantern-light, {className}. The bog gives up its dead at dusk, and the wards I bind hold only while the tallow burns. Bring me what I ask, and I will keep Wispford breathing one more night."
+        "name": "모르베나",
+        "title": "산울타리 마녀",
+        "greeting": "등불 빛에서 벗어나지 마시오, {className}. 늪은 해질녘이면 제 망자들을 토해내고, 내가 엮은 결계는 짐승 기름이 타는 동안에만 버티지요. 내가 청하는 것을 가져다주면, 위스프포드를 하룻밤 더 숨 쉬게 해드리리다."
       },
       "gravewarden_holt": {
         "name": "Holt",
-        "title": "the Gravewarden",
-        "greeting": "I buried most of these people myself, {playerName}, and now I put them back in the ground a second time. The grave-gate at the north end has not been sealed in a lifetime. Something below it is doing the raising."
+        "title": "무덤지기",
+        "greeting": "이 사람들 대부분을 내 손으로 묻었소, {playerName}. 그런데 이제 그들을 두 번째로 땅에 묻고 있구려. 북쪽 끝의 무덤문은 한평생 봉인된 적이 없소. 그 아래 무언가가 죽은 자들을 일으키고 있소."
       },
       "tidewatcher_ondrel": {
         "name": "온드렐 베인",
@@ -6804,52 +6804,52 @@ export const ko_KR: EnTranslations = {
         }
       },
       "q_hollowmere_risen": {
-        "title": "The Restless Fen",
-        "text": "They climb out of the bog every dusk now, {playerName}: the Wispford Dead, still in the rags we buried them in. Put ten of them back down before they reach the hamlet fence. It is grim work, but it is mercy.",
-        "completion": "Ten laid back in the mud. They do not fight, {playerName}, not really. They only walk toward the lights. Whatever calls them, it calls from below the grave-gate.",
+        "title": "잠들지 못하는 늪",
+        "text": "이제 해질녘마다 그들이 늪에서 기어 나오고 있소, {playerName}. 위스프포드의 망자들이, 우리가 묻어준 그 누더기를 그대로 걸친 채로. 그들이 마을 울타리에 닿기 전에 열을 다시 뉘어주시오. 참혹한 일이나, 자비이기도 하오.",
+        "completion": "열이 진흙 속으로 돌아갔소. 그들은 싸우지 않소, {playerName}, 진정 그렇지 않지. 그저 불빛을 향해 걸을 뿐이오. 그들을 부르는 것이 무엇이든, 무덤문 아래에서 부르고 있소.",
         "objectives": {
           "0": {
-            "label": "Wispford Dead put down"
+            "label": "처치한 위스프포드의 망자"
           }
         }
       },
       "q_hollowmere_revenants": {
-        "title": "Morvenna's Wards",
-        "text": "The pale grave-moss my wards are bound with only takes root where the bog-touched dead have fallen, {playerName}. The Fen Revenants trample it flat where they walk. Cut down eight along the graveyard edge, and the moss will creep back over the ground they held.",
-        "completion": "The moss is already greening where they dropped. Good. The hamlet ring will hold another night, and the tallow to burn it. You have bought these people time, {playerName}.",
+        "title": "모르베나의 결계",
+        "text": "내 결계를 엮는 창백한 무덤 이끼는 늪에 닿은 망자가 쓰러진 자리에만 뿌리를 내린다오, {playerName}. 늪지 망령들은 지나는 곳마다 그 이끼를 짓밟아 뭉개버리지요. 묘지 가장자리를 따라 여덟을 베어 넘기면, 이끼가 그들이 차지했던 땅 위로 다시 기어들 것이오.",
+        "completion": "그들이 쓰러진 자리에 벌써 이끼가 푸르러지고 있소. 됐군요. 마을을 두른 결계가 하룻밤 더 버틸 것이고, 그것을 태울 짐승 기름도 있소. 그대가 이 사람들에게 시간을 벌어주었소, {playerName}.",
         "objectives": {
           "0": {
-            "label": "Fen Revenant felled"
+            "label": "쓰러뜨린 늪지 망령"
           }
         }
       },
       "q_hollowmere_crones": {
-        "title": "Light the Long Dark",
-        "text": "The old ward-lanterns line the road to the grave-gate, {playerName}, and the Hexbound Crones creep it at dusk, snuffing every flame they pass so the dead can walk a dark road. Cut down six of them, and the wardlights will burn through the night again.",
-        "completion": "The road glows once more, and the risen hang back from it, hissing. It will not hold forever, {playerName}: something below is patient, and the flame is only tallow.",
+        "title": "기나긴 어둠을 밝혀라",
+        "text": "오래된 결계 등불들이 무덤문으로 향하는 길을 따라 늘어서 있소, {playerName}. 저주에 묶인 노파들은 해질녘이면 그 길을 기어다니며 지나는 불꽃마다 꺼뜨려, 망자들이 어두운 길을 걷게 하지요. 그들 여섯을 베어 넘기면, 결계 등불이 다시 밤새도록 타오를 것이오.",
+        "completion": "길이 다시 빛나고, 되살아난 것들이 쉭쉭거리며 물러서 있소. 영원히 버티지는 못하오, {playerName}. 저 아래 무언가는 참을성이 깊고, 불꽃은 그저 짐승 기름일 뿐이니.",
         "objectives": {
           "0": {
-            "label": "Hexbound Crone silenced"
+            "label": "침묵시킨 저주에 묶인 노파"
           }
         }
       },
       "q_hollowmere_sentinel": {
-        "title": "The Grave Sentinel",
-        "text": "One thing on this fen is no risen corpse, {playerName}: a Grave Sentinel, a bonfire-headed watchman the thing below set to guard the grave-gate road. While it stands, no one reaches the gate alive. It is a hard kill for one blade, but a rare chance to see what the deep dead fear enough to post a guard. End it.",
-        "completion": "The grin guttered out, and the gate-road is open at last. Whatever crowned that sentinel, {playerName}, it is close now. Holt will want to know the way down is clear.",
+        "title": "무덤 파수꾼",
+        "text": "이 늪에서 되살아난 시체가 아닌 것이 하나 있소, {playerName}. 바로 무덤 파수꾼, 저 아래 그것이 무덤문 길을 지키라고 세운 화톳불 머리의 감시자요. 그것이 서 있는 한, 누구도 산 채로 문에 닿지 못하오. 칼 하나로 쓰러뜨리기엔 벅찬 상대지만, 깊은 곳의 망자가 파수를 세울 만큼 두려워하는 것이 무엇인지 엿볼 드문 기회요. 끝내주시오.",
+        "completion": "히죽이던 웃음이 스러지고, 마침내 문으로 가는 길이 열렸소. 저 파수꾼에게 왕관을 씌운 것이 무엇이든, {playerName}, 이제 가까이 있소. 홀트가 내려가는 길이 뚫렸다는 걸 알고 싶어할 것이오.",
         "objectives": {
           "0": {
-            "label": "The Grave Sentinel destroyed"
+            "label": "파괴한 무덤 파수꾼"
           }
         }
       },
       "q_hollowmere_pumpkin_king": {
-        "title": "The Pumpkin King",
-        "text": "With the sentinel down and the gate-road open, we know what waits below, {playerName}: in the Sunken Mausoleum, a bonfire-headed thing the old rhymes called the Pumpkin King has crowned itself king of the dead, raising every corpse in the fen to fill its court. Take companions down the grave-gate and cut the head off it. This is no errand for a lone blade.",
-        "completion": "The grin goes dark, and above us the whole fen goes quiet at once, {playerName}: every risen thing dropping back into the mud like a cut puppet. Wispford will bury its dead one last time, and this time they will stay. You gave these people their graveyard back.",
+        "title": "호박 왕",
+        "text": "파수꾼이 쓰러지고 문으로 가는 길이 열리니, 저 아래 무엇이 기다리는지 알겠소, {playerName}. 가라앉은 영묘 안에서, 옛 노랫말이 호박 왕이라 부르던 화톳불 머리의 것이 스스로 망자의 왕으로 즉위하여, 제 궁정을 채우려 늪의 모든 시체를 일으키고 있소. 동료들을 이끌고 무덤문 아래로 내려가 그 머리를 베어버리시오. 이건 홀로 든 칼이 감당할 일이 아니오.",
+        "completion": "히죽이던 웃음이 어둠에 잠기고, 머리 위로 늪 전체가 일순간 고요해지오, {playerName}. 되살아났던 것들이 줄 끊긴 인형처럼 하나같이 진흙 속으로 무너져 내리니. 위스프포드는 마지막으로 제 망자들을 묻을 것이고, 이번에는 그들이 그대로 머물 것이오. 그대가 이 사람들에게 묘지를 되돌려주었소.",
         "objectives": {
           "0": {
-            "label": "The Pumpkin King slain"
+            "label": "처치한 호박 왕"
           }
         }
       },
@@ -7085,9 +7085,9 @@ export const ko_KR: EnTranslations = {
         "leaveText": "쏜피크의 차가운 공기 속으로 돌아옵니다."
       },
       "sunken_mausoleum": {
-        "name": "The Sunken Mausoleum",
-        "enterText": "You descend through the grave-gate into wet stone and the reek of tallow, and somewhere below, something is grinning in the dark.",
-        "leaveText": "You climb the grave-gate stair back into the lantern-lit fen."
+        "name": "가라앉은 영묘",
+        "enterText": "그대는 무덤문을 지나 축축한 돌과 짐승 기름 악취 속으로 내려가고, 저 아래 어딘가에서 무언가가 어둠 속에서 히죽이고 있다.",
+        "leaveText": "그대는 무덤문 계단을 올라 등불이 밝혀진 늪으로 돌아온다."
       },
       "drowned_temple": {
         "name": "익사한 신전",

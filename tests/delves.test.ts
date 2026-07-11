@@ -728,7 +728,7 @@ describe('delve reward chest + surface exit flow', () => {
 
   it('the Bountiful roll is deterministic for a given seed', () => {
     // Read the raw roll via enterReliquary (enterFinale pins it false). Same seed
-    // gives the same outcome; seed 14 is known to roll Bountiful. (The exact seed
+    // gives the same outcome; seed 160 is known to roll Bountiful. (The exact seed
     // that rolls Bountiful shifts whenever content additions move the global rng
     // draw order; pick any current one, the fixtures below set bountiful directly.)
     const rollFor = (seed: number) => {
@@ -738,7 +738,7 @@ describe('delve reward chest + surface exit flow', () => {
       return s.delveRunForPlayer(s.playerId)?.bountiful;
     };
     expect(rollFor(1234)).toBe(rollFor(1234));
-    expect(rollFor(14)).toBe(true);
+    expect(rollFor(160)).toBe(true);
   });
 
   it('a Bountiful Coffer refuses the lower antes and only opens at Hard-tier + Premium ante', () => {

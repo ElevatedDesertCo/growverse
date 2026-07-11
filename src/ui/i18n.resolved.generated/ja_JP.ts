@@ -3496,7 +3496,7 @@ export const ja_JP: EnTranslations = {
     "cast": {
       "fishing": "釣り",
       "demonHeal": "悪魔の治癒",
-      "harvest": "Harvesting"
+      "harvest": "採取中"
     }
   },
   "questUi": {
@@ -5519,10 +5519,10 @@ export const ja_JP: EnTranslations = {
         "name": "無慈悲なるゴラック"
       },
       "grinning_jack": {
-        "name": "Grinning Jack"
+        "name": "ほくそ笑むジャック"
       },
       "marsh_hag": {
-        "name": "Marsh Hag"
+        "name": "沼の妖婆"
       },
       "mire_prowler": {
         "name": "沼の徘徊者"
@@ -5723,31 +5723,31 @@ export const ja_JP: EnTranslations = {
         "name": "焼きすぎビーバー"
       },
       "wispford_dead": {
-        "name": "Wispford Dead"
+        "name": "ウィスプフォードの死者"
       },
       "fen_revenant": {
-        "name": "Fen Revenant"
+        "name": "湿原の亡者"
       },
       "hexbound_crone": {
-        "name": "Hexbound Crone"
+        "name": "呪縛の老婆"
       },
       "grave_sentinel": {
-        "name": "Grave Sentinel"
+        "name": "墓所の番兵"
       },
       "mausoleum_shambler": {
-        "name": "Mausoleum Shambler"
+        "name": "霊廟のよろめく者"
       },
       "crypt_hexward": {
-        "name": "Crypt Hexward"
+        "name": "地下墓所の呪守"
       },
       "bonepile_horror": {
-        "name": "Bonepile Horror"
+        "name": "骨山の恐怖"
       },
       "pumpkin_spriteling": {
-        "name": "Pumpkin Spriteling"
+        "name": "カボチャの小妖"
       },
       "grinning_king": {
-        "name": "The Pumpkin King"
+        "name": "パンプキン・キング"
       },
       "ironvein_foreman": {
         "name": "鉄脈の現場監督"
@@ -6005,14 +6005,14 @@ export const ja_JP: EnTranslations = {
         "greeting": "ブーンが君をタンケに寄こしたか。いい。座りな。俺たちは半分しかできていないダムを背にして、凍てつく尾根を板で滑り降りてきた、一度も振り返らずにな。物語はそれで全部だ。あとはただの煙さ。"
       },
       "morvenna_hedgewitch": {
-        "name": "Morvenna",
-        "title": "the Hedgewitch",
-        "greeting": "Keep to the lantern-light, {className}. The bog gives up its dead at dusk, and the wards I bind hold only while the tallow burns. Bring me what I ask, and I will keep Wispford breathing one more night."
+        "name": "モルヴェンナ",
+        "title": "垣根の魔女",
+        "greeting": "ランタンの灯りから離れるでないぞ、{className}よ。この沼は黄昏どきに死者を吐き出す、そして私が結んだ守りも獣脂が燃えているあいだしか保たぬ。頼んだものを持ってくれば、ウィスプフォードをもう一晩だけ生かしてやろう。"
       },
       "gravewarden_holt": {
         "name": "Holt",
-        "title": "the Gravewarden",
-        "greeting": "I buried most of these people myself, {playerName}, and now I put them back in the ground a second time. The grave-gate at the north end has not been sealed in a lifetime. Something below it is doing the raising."
+        "title": "墓守",
+        "greeting": "ここに眠る者らのほとんどは、この俺自身が埋めたのだ、{playerName}。それを今、二度目にまた土へ還している。北の外れの墓門は、一生かかっても封じられておらぬ。その下の何かが、死者を呼び起こしておるのだ。"
       },
       "tidewatcher_ondrel": {
         "name": "オンドレル・ヴェイン",
@@ -6804,52 +6804,52 @@ export const ja_JP: EnTranslations = {
         }
       },
       "q_hollowmere_risen": {
-        "title": "The Restless Fen",
-        "text": "They climb out of the bog every dusk now, {playerName}: the Wispford Dead, still in the rags we buried them in. Put ten of them back down before they reach the hamlet fence. It is grim work, but it is mercy.",
-        "completion": "Ten laid back in the mud. They do not fight, {playerName}, not really. They only walk toward the lights. Whatever calls them, it calls from below the grave-gate.",
+        "title": "安らわぬ湿原",
+        "text": "奴らは今や黄昏ごとに沼から這い出てくる、{playerName}、ウィスプフォードの死者どもが、我らが埋めたときのぼろをまとったままにな。集落の柵にたどり着く前に、十体を土へ還してやってくれ。むごい仕事だが、これも慈悲なのだ。",
+        "completion": "十体を泥へと戻したか。奴らは戦うわけではない、{playerName}、本当のところはな。ただ灯りに向かって歩くだけだ。何が奴らを呼ぶにせよ、それは墓門の下から呼んでいる。",
         "objectives": {
           "0": {
-            "label": "Wispford Dead put down"
+            "label": "土へ還したウィスプフォードの死者"
           }
         }
       },
       "q_hollowmere_revenants": {
-        "title": "Morvenna's Wards",
-        "text": "The pale grave-moss my wards are bound with only takes root where the bog-touched dead have fallen, {playerName}. The Fen Revenants trample it flat where they walk. Cut down eight along the graveyard edge, and the moss will creep back over the ground they held.",
-        "completion": "The moss is already greening where they dropped. Good. The hamlet ring will hold another night, and the tallow to burn it. You have bought these people time, {playerName}.",
+        "title": "モルヴェンナの守り",
+        "text": "私の守りを結ぶ蒼白い墓苔は、沼に穢された死者が倒れた地にしか根づかぬのだ、{playerName}。湿原の亡者どもは歩くたびにそれを踏みつぶしてしまう。墓地の縁に沿って八体を斬り伏せれば、苔はまた奴らの占めた地を這い覆ってゆくだろう。",
+        "completion": "奴らが倒れたところは、もう苔が緑を取り戻しておる。よし。集落の環はもう一晩保つだろうし、それを燃やす獣脂もな。おまえはこの者らに時を稼いでやったのだ、{playerName}。",
         "objectives": {
           "0": {
-            "label": "Fen Revenant felled"
+            "label": "斬り伏せた湿原の亡者"
           }
         }
       },
       "q_hollowmere_crones": {
-        "title": "Light the Long Dark",
-        "text": "The old ward-lanterns line the road to the grave-gate, {playerName}, and the Hexbound Crones creep it at dusk, snuffing every flame they pass so the dead can walk a dark road. Cut down six of them, and the wardlights will burn through the night again.",
-        "completion": "The road glows once more, and the risen hang back from it, hissing. It will not hold forever, {playerName}: something below is patient, and the flame is only tallow.",
+        "title": "長き闇を照らせ",
+        "text": "古い守りのランタンが墓門への道に沿って並んでおる、{playerName}、そして呪縛の老婆どもが黄昏どきにそこを這い歩き、通りすがりに火という火を消してゆくのだ、死者が暗き道を歩けるようにな。奴らを六体斬り伏せれば、守りの灯はまた夜を徹して燃えるだろう。",
+        "completion": "道はふたたび輝き、蘇りし者どもはそれを避けて後ずさり、シューシューと唸っておる。だが永遠には保つまい、{playerName}、下の何かは辛抱強く、その炎とてただの獣脂にすぎぬのだから。",
         "objectives": {
           "0": {
-            "label": "Hexbound Crone silenced"
+            "label": "沈黙させた呪縛の老婆"
           }
         }
       },
       "q_hollowmere_sentinel": {
-        "title": "The Grave Sentinel",
-        "text": "One thing on this fen is no risen corpse, {playerName}: a Grave Sentinel, a bonfire-headed watchman the thing below set to guard the grave-gate road. While it stands, no one reaches the gate alive. It is a hard kill for one blade, but a rare chance to see what the deep dead fear enough to post a guard. End it.",
-        "completion": "The grin guttered out, and the gate-road is open at last. Whatever crowned that sentinel, {playerName}, it is close now. Holt will want to know the way down is clear.",
+        "title": "墓所の番兵",
+        "text": "この湿原でただ一つ、蘇った屍ではないものがおる、{playerName}、墓所の番兵、下の何かが墓門への道を守らせるために据えた、篝火の頭を持つ見張り番だ。それが立つかぎり、誰一人として生きて門にはたどり着けぬ。一振りの剣には手強い相手だが、深き死者どもが番を置くほど恐れるものを見る稀なる好機でもある。片をつけてくれ。",
+        "completion": "あの笑みは燃え尽き、門への道もついに開けた。あの番兵に冠をかぶせたものが何であれ、{playerName}、それはもう近い。下への道が開けたことを、ホルトも知りたがるだろう。",
         "objectives": {
           "0": {
-            "label": "The Grave Sentinel destroyed"
+            "label": "破壊した墓所の番兵"
           }
         }
       },
       "q_hollowmere_pumpkin_king": {
-        "title": "The Pumpkin King",
-        "text": "With the sentinel down and the gate-road open, we know what waits below, {playerName}: in the Sunken Mausoleum, a bonfire-headed thing the old rhymes called the Pumpkin King has crowned itself king of the dead, raising every corpse in the fen to fill its court. Take companions down the grave-gate and cut the head off it. This is no errand for a lone blade.",
-        "completion": "The grin goes dark, and above us the whole fen goes quiet at once, {playerName}: every risen thing dropping back into the mud like a cut puppet. Wispford will bury its dead one last time, and this time they will stay. You gave these people their graveyard back.",
+        "title": "パンプキン・キング",
+        "text": "番兵が倒れ、門への道が開けた今、下に何が待つのか我らは知っている、{playerName}、沈める霊廟のなかで、古い唄がパンプキン・キングと呼んだ篝火の頭を持つものが、みずから死者の王を名乗り、その宮廷を満たさんと湿原じゅうの屍を蘇らせているのだ。仲間を連れて墓門を降り、その首を刎ねてくれ。これは一振りの剣で果たせる使いではない。",
+        "completion": "あの笑みが暗く消え、我らの頭上では湿原じゅうが一斉に静まりかえる、{playerName}、蘇りしものすべてが糸を断たれた操り人形のように泥へと崩れ落ちてゆく。ウィスプフォードは最後にもう一度死者を埋めるだろう、そして今度こそ、彼らは土に留まるのだ。おまえはこの者らに墓地を取り戻してやったのだ。",
         "objectives": {
           "0": {
-            "label": "The Pumpkin King slain"
+            "label": "討ち倒したパンプキン・キング"
           }
         }
       },
@@ -7085,9 +7085,9 @@ export const ja_JP: EnTranslations = {
         "leaveText": "ソーンピークの冷たい空気へ戻ります。"
       },
       "sunken_mausoleum": {
-        "name": "The Sunken Mausoleum",
-        "enterText": "You descend through the grave-gate into wet stone and the reek of tallow, and somewhere below, something is grinning in the dark.",
-        "leaveText": "You climb the grave-gate stair back into the lantern-lit fen."
+        "name": "沈める霊廟",
+        "enterText": "あなたは墓門をくぐって濡れた石と獣脂の悪臭のなかへと降りていく、そしてその下のどこかで、何かが暗闇のなかでにたりと笑っている。",
+        "leaveText": "あなたは墓門の階段をのぼり、ランタンに照らされた湿原へと戻る。"
       },
       "drowned_temple": {
         "name": "溺れし神殿",

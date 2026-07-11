@@ -3496,7 +3496,7 @@ export const ru_RU: EnTranslations = {
     "cast": {
       "fishing": "Рыбная ловля",
       "demonHeal": "Исцеление демона",
-      "harvest": "Harvesting"
+      "harvest": "Жатва"
     }
   },
   "questUi": {
@@ -5519,10 +5519,10 @@ export const ru_RU: EnTranslations = {
         "name": "Горрак Безжалостный"
       },
       "grinning_jack": {
-        "name": "Grinning Jack"
+        "name": "Ухмыляющийся Джек"
       },
       "marsh_hag": {
-        "name": "Marsh Hag"
+        "name": "Болотная Карга"
       },
       "mire_prowler": {
         "name": "Болотный хищник"
@@ -5723,31 +5723,31 @@ export const ru_RU: EnTranslations = {
         "name": "Перезабалдевший бобёр"
       },
       "wispford_dead": {
-        "name": "Wispford Dead"
+        "name": "Мертвецы Виспфорда"
       },
       "fen_revenant": {
-        "name": "Fen Revenant"
+        "name": "Топяной Ревенант"
       },
       "hexbound_crone": {
-        "name": "Hexbound Crone"
+        "name": "Окованная Порчей Карга"
       },
       "grave_sentinel": {
-        "name": "Grave Sentinel"
+        "name": "Могильный Страж"
       },
       "mausoleum_shambler": {
-        "name": "Mausoleum Shambler"
+        "name": "Мавзолейный Шаркун"
       },
       "crypt_hexward": {
-        "name": "Crypt Hexward"
+        "name": "Порчный Страж Склепа"
       },
       "bonepile_horror": {
-        "name": "Bonepile Horror"
+        "name": "Костяной Ужас"
       },
       "pumpkin_spriteling": {
-        "name": "Pumpkin Spriteling"
+        "name": "Тыквенный Духёнок"
       },
       "grinning_king": {
-        "name": "The Pumpkin King"
+        "name": "Тыквенный Король"
       },
       "ironvein_foreman": {
         "name": "Прораб Железной жилы"
@@ -6005,14 +6005,14 @@ export const ru_RU: EnTranslations = {
         "greeting": "Значит, Бун отправил тебя к Танке. Хорошо. Садись. Мы спустились с замёрзших хребтов на досках, а за спиной осталась недостроенная плотина, и ни разу не оглянулись. Вот и вся история. Остальное просто дым."
       },
       "morvenna_hedgewitch": {
-        "name": "Morvenna",
-        "title": "the Hedgewitch",
-        "greeting": "Keep to the lantern-light, {className}. The bog gives up its dead at dusk, and the wards I bind hold only while the tallow burns. Bring me what I ask, and I will keep Wispford breathing one more night."
+        "name": "Морвенна",
+        "title": "Ведунья",
+        "greeting": "Держись света фонарей, {className}. На закате трясина отдаёт своих мертвецов, а обереги, что я плету, держатся лишь пока горит сало. Принеси мне то, что я прошу, и я подарю Виспфорду ещё одну ночь дыхания."
       },
       "gravewarden_holt": {
         "name": "Holt",
-        "title": "the Gravewarden",
-        "greeting": "I buried most of these people myself, {playerName}, and now I put them back in the ground a second time. The grave-gate at the north end has not been sealed in a lifetime. Something below it is doing the raising."
+        "title": "Хранитель Могил",
+        "greeting": "Большинство из этих людей я похоронил своими руками, {playerName}, а теперь вновь возвращаю их в землю. Могильные врата на северном краю не запечатывали уже целую жизнь. Что-то под ними поднимает мёртвых."
       },
       "tidewatcher_ondrel": {
         "name": "Ондрел Вейн",
@@ -6804,52 +6804,52 @@ export const ru_RU: EnTranslations = {
         }
       },
       "q_hollowmere_risen": {
-        "title": "The Restless Fen",
-        "text": "They climb out of the bog every dusk now, {playerName}: the Wispford Dead, still in the rags we buried them in. Put ten of them back down before they reach the hamlet fence. It is grim work, but it is mercy.",
-        "completion": "Ten laid back in the mud. They do not fight, {playerName}, not really. They only walk toward the lights. Whatever calls them, it calls from below the grave-gate.",
+        "title": "Беспокойная Топь",
+        "text": "Теперь каждый закат они выбираются из трясины, {playerName}: Мертвецы Виспфорда, всё ещё в тех лохмотьях, в которых мы их схоронили. Уложи десятерых обратно, прежде чем они доберутся до ограды деревушки. Работа мрачная, но это милосердие.",
+        "completion": "Десятеро вновь уложены в грязь. Они ведь не сражаются, {playerName}, вовсе нет. Они лишь бредут на свет. Что бы их ни звало, оно зовёт из-под могильных врат.",
         "objectives": {
           "0": {
-            "label": "Wispford Dead put down"
+            "label": "Мертвецы Виспфорда упокоены"
           }
         }
       },
       "q_hollowmere_revenants": {
-        "title": "Morvenna's Wards",
-        "text": "The pale grave-moss my wards are bound with only takes root where the bog-touched dead have fallen, {playerName}. The Fen Revenants trample it flat where they walk. Cut down eight along the graveyard edge, and the moss will creep back over the ground they held.",
-        "completion": "The moss is already greening where they dropped. Good. The hamlet ring will hold another night, and the tallow to burn it. You have bought these people time, {playerName}.",
+        "title": "Обереги Морвенны",
+        "text": "Бледный могильный мох, которым связаны мои обереги, приживается лишь там, где пали тронутые трясиной мертвецы, {playerName}. Топяные Ревенанты вытаптывают его повсюду, где проходят. Сруби восьмерых вдоль края кладбища, и мох вновь расползётся по земле, что они удерживали.",
+        "completion": "Мох уже зеленеет там, где они пали. Хорошо. Кольцо деревушки продержится ещё ночь, и сала хватит, чтобы его жечь. Ты выиграл этим людям время, {playerName}.",
         "objectives": {
           "0": {
-            "label": "Fen Revenant felled"
+            "label": "Топяной Ревенант сражён"
           }
         }
       },
       "q_hollowmere_crones": {
-        "title": "Light the Long Dark",
-        "text": "The old ward-lanterns line the road to the grave-gate, {playerName}, and the Hexbound Crones creep it at dusk, snuffing every flame they pass so the dead can walk a dark road. Cut down six of them, and the wardlights will burn through the night again.",
-        "completion": "The road glows once more, and the risen hang back from it, hissing. It will not hold forever, {playerName}: something below is patient, and the flame is only tallow.",
+        "title": "Озари Долгую Тьму",
+        "text": "Старые обережные фонари тянутся вдоль дороги к могильным вратам, {playerName}, а Окованные Порчей Карги крадутся по ней в сумерках, гася каждый огонь на своём пути, чтобы мёртвые шли по тёмной дороге. Сруби шестерых из них, и обережные огни вновь будут гореть всю ночь.",
+        "completion": "Дорога вновь сияет, и восставшие отступают от неё, шипя. Это не удержит навечно, {playerName}: то, что внизу, терпеливо, а пламя лишь сало.",
         "objectives": {
           "0": {
-            "label": "Hexbound Crone silenced"
+            "label": "Окованная Порчей Карга усмирена"
           }
         }
       },
       "q_hollowmere_sentinel": {
-        "title": "The Grave Sentinel",
-        "text": "One thing on this fen is no risen corpse, {playerName}: a Grave Sentinel, a bonfire-headed watchman the thing below set to guard the grave-gate road. While it stands, no one reaches the gate alive. It is a hard kill for one blade, but a rare chance to see what the deep dead fear enough to post a guard. End it.",
-        "completion": "The grin guttered out, and the gate-road is open at last. Whatever crowned that sentinel, {playerName}, it is close now. Holt will want to know the way down is clear.",
+        "title": "Могильный Страж",
+        "text": "Одно существо на этой топи не восставший труп, {playerName}: Могильный Страж, дозорный с головой-костром, которого тварь снизу поставила стеречь дорогу к могильным вратам. Пока он стоит, никто не дойдёт до врат живым. В одиночку одолеть его тяжело, но это редкий случай увидеть, чего глубинные мертвецы страшатся настолько, чтобы ставить стражу. Покончи с ним.",
+        "completion": "Ухмылка погасла, и дорога к вратам наконец открыта. Что бы ни короновало этого стража, {playerName}, оно теперь близко. Холт захочет знать, что путь вниз свободен.",
         "objectives": {
           "0": {
-            "label": "The Grave Sentinel destroyed"
+            "label": "Могильный Страж уничтожен"
           }
         }
       },
       "q_hollowmere_pumpkin_king": {
-        "title": "The Pumpkin King",
-        "text": "With the sentinel down and the gate-road open, we know what waits below, {playerName}: in the Sunken Mausoleum, a bonfire-headed thing the old rhymes called the Pumpkin King has crowned itself king of the dead, raising every corpse in the fen to fill its court. Take companions down the grave-gate and cut the head off it. This is no errand for a lone blade.",
-        "completion": "The grin goes dark, and above us the whole fen goes quiet at once, {playerName}: every risen thing dropping back into the mud like a cut puppet. Wispford will bury its dead one last time, and this time they will stay. You gave these people their graveyard back.",
+        "title": "Тыквенный Король",
+        "text": "Со стражем поверженным и дорогой к вратам открытой мы знаем, что ждёт внизу, {playerName}: в Затонувшем Мавзолее тварь с головой-костром, которую старые песни звали Тыквенным Королём, короновала себя королём мёртвых, поднимая каждый труп в топи, чтобы наполнить свой двор. Возьми спутников, спустись сквозь могильные врата и снеси ему голову. Это не поручение для одинокого клинка.",
+        "completion": "Ухмылка гаснет, и над нами вся топь разом стихает, {playerName}: каждое восставшее создание падает обратно в грязь, точно кукла с обрезанными нитями. Виспфорд похоронит своих мёртвых в последний раз, и на этот раз они останутся лежать. Ты вернул этим людям их кладбище.",
         "objectives": {
           "0": {
-            "label": "The Pumpkin King slain"
+            "label": "Тыквенный Король повержен"
           }
         }
       },
@@ -7085,9 +7085,9 @@ export const ru_RU: EnTranslations = {
         "leaveText": "Вы возвращаетесь в холодный воздух Терновых высот."
       },
       "sunken_mausoleum": {
-        "name": "The Sunken Mausoleum",
-        "enterText": "You descend through the grave-gate into wet stone and the reek of tallow, and somewhere below, something is grinning in the dark.",
-        "leaveText": "You climb the grave-gate stair back into the lantern-lit fen."
+        "name": "Затонувший Мавзолей",
+        "enterText": "Ты спускаешься сквозь могильные врата в сырой камень и смрад сала, и где-то внизу что-то ухмыляется во тьме.",
+        "leaveText": "Ты поднимаешься по лестнице могильных врат обратно в озарённую фонарями топь."
       },
       "drowned_temple": {
         "name": "Утонувший храм",
