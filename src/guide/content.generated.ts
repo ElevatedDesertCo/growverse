@@ -1337,6 +1337,14 @@ export const GUIDE_DUNGEONS: GuideDungeon[] = [
     "name": "Emberhold Keep"
   },
   {
+    "id": "sunken_mausoleum",
+    "isRaid": false,
+    "suggestedPlayers": 5,
+    "min": 11,
+    "max": 13,
+    "name": "The Sunken Mausoleum"
+  },
+  {
     "id": "sunken_bastion",
     "isRaid": false,
     "suggestedPlayers": 5,

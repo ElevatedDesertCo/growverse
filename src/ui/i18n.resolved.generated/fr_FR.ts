@@ -5721,6 +5721,33 @@ export const fr_FR: EnTranslations = {
       "overbaked_beaver": {
         "name": "Overbaked Beaver"
       },
+      "wispford_dead": {
+        "name": "Wispford Dead"
+      },
+      "fen_revenant": {
+        "name": "Fen Revenant"
+      },
+      "hexbound_crone": {
+        "name": "Hexbound Crone"
+      },
+      "grave_sentinel": {
+        "name": "Grave Sentinel"
+      },
+      "mausoleum_shambler": {
+        "name": "Mausoleum Shambler"
+      },
+      "crypt_hexward": {
+        "name": "Crypt Hexward"
+      },
+      "bonepile_horror": {
+        "name": "Bonepile Horror"
+      },
+      "pumpkin_spriteling": {
+        "name": "Pumpkin Spriteling"
+      },
+      "grinning_king": {
+        "name": "The Pumpkin King"
+      },
       "ironvein_foreman": {
         "name": "Contremaître Veinefer"
       },
@@ -5975,6 +6002,16 @@ export const fr_FR: EnTranslations = {
         "name": "Junie Stonewater",
         "title": "Keeper of the Old Ridge",
         "greeting": "Boone sent you to the Tanque, did he. Good. Sit. We came down the frozen ridges on boards with a half-built dam behind us, and we never once looked back. That's the whole story. The rest is just smoke."
+      },
+      "morvenna_hedgewitch": {
+        "name": "Morvenna",
+        "title": "the Hedgewitch",
+        "greeting": "Keep to the lantern-light, {className}. The bog gives up its dead at dusk, and the wards I bind hold only while the tallow burns. Bring me what I ask, and I will keep Wispford breathing one more night."
+      },
+      "gravewarden_holt": {
+        "name": "Holt",
+        "title": "the Gravewarden",
+        "greeting": "I buried most of these people myself, {playerName}, and now I put them back in the ground a second time. The grave-gate at the north end has not been sealed in a lifetime. Something below it is doing the raising."
       },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
@@ -6765,6 +6802,56 @@ export const fr_FR: EnTranslations = {
           }
         }
       },
+      "q_hollowmere_risen": {
+        "title": "The Restless Fen",
+        "text": "They climb out of the bog every dusk now, {playerName}: the Wispford Dead, still in the rags we buried them in. Put ten of them back down before they reach the hamlet fence. It is grim work, but it is mercy.",
+        "completion": "Ten laid back in the mud. They do not fight, {playerName}, not really. They only walk toward the lights. Whatever calls them, it calls from below the grave-gate.",
+        "objectives": {
+          "0": {
+            "label": "Wispford Dead put down"
+          }
+        }
+      },
+      "q_hollowmere_revenants": {
+        "title": "Morvenna's Wards",
+        "text": "The pale grave-moss my wards are bound with only takes root where the bog-touched dead have fallen, {playerName}. The Fen Revenants trample it flat where they walk. Cut down eight along the graveyard edge, and the moss will creep back over the ground they held.",
+        "completion": "The moss is already greening where they dropped. Good. The hamlet ring will hold another night, and the tallow to burn it. You have bought these people time, {playerName}.",
+        "objectives": {
+          "0": {
+            "label": "Fen Revenant felled"
+          }
+        }
+      },
+      "q_hollowmere_crones": {
+        "title": "Light the Long Dark",
+        "text": "The old ward-lanterns line the road to the grave-gate, {playerName}, and the Hexbound Crones creep it at dusk, snuffing every flame they pass so the dead can walk a dark road. Cut down six of them, and the wardlights will burn through the night again.",
+        "completion": "The road glows once more, and the risen hang back from it, hissing. It will not hold forever, {playerName}: something below is patient, and the flame is only tallow.",
+        "objectives": {
+          "0": {
+            "label": "Hexbound Crone silenced"
+          }
+        }
+      },
+      "q_hollowmere_sentinel": {
+        "title": "The Grave Sentinel",
+        "text": "One thing on this fen is no risen corpse, {playerName}: a Grave Sentinel, a bonfire-headed watchman the thing below set to guard the grave-gate road. While it stands, no one reaches the gate alive. It is a hard kill for one blade, but a rare chance to see what the deep dead fear enough to post a guard. End it.",
+        "completion": "The grin guttered out, and the gate-road is open at last. Whatever crowned that sentinel, {playerName}, it is close now. Holt will want to know the way down is clear.",
+        "objectives": {
+          "0": {
+            "label": "The Grave Sentinel destroyed"
+          }
+        }
+      },
+      "q_hollowmere_pumpkin_king": {
+        "title": "The Pumpkin King",
+        "text": "With the sentinel down and the gate-road open, we know what waits below, {playerName}: in the Sunken Mausoleum, a bonfire-headed thing the old rhymes called the Pumpkin King has crowned itself king of the dead, raising every corpse in the fen to fill its court. Take companions down the grave-gate and cut the head off it. This is no errand for a lone blade.",
+        "completion": "The grin goes dark, and above us the whole fen goes quiet at once, {playerName}: every risen thing dropping back into the mud like a cut puppet. Wispford will bury its dead one last time, and this time they will stay. You gave these people their graveyard back.",
+        "objectives": {
+          "0": {
+            "label": "The Pumpkin King slain"
+          }
+        }
+      },
       "q_drowned_choir": {
         "title": "Le Chœur noyé",
         "text": "Les pataugeurs n'agissent pas seuls. Parmi eux marchent les Dévots noyés — la secte qui a sombré avec le temple, encore vêtue de ses ornements putréfiés, chantant toujours la prière depuis les rochers du rivage. Réduis-en huit au silence et rapporte-moi six des offrandes qu'ils portent. Je veux savoir ce qu'ils comptent donner à leur déesse.",
@@ -6995,6 +7082,11 @@ export const fr_FR: EnTranslations = {
         "name": "Arène de raid de Nythraxis",
         "enterText": "Vous franchissez la porte royale scellée.",
         "leaveText": "Vous retrouvez l'air froid de Thornpeak."
+      },
+      "sunken_mausoleum": {
+        "name": "The Sunken Mausoleum",
+        "enterText": "You descend through the grave-gate into wet stone and the reek of tallow, and somewhere below, something is grinning in the dark.",
+        "leaveText": "You climb the grave-gate stair back into the lantern-lit fen."
       },
       "drowned_temple": {
         "name": "Le Temple noyé",

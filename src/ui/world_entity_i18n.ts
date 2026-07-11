@@ -101,6 +101,16 @@ const MOB_IDS = [
   'haze_critter',
   'driftwood_snapper',
   'overbaked_beaver',
+  // Hollowmere (Phase 1 region): fen + Sunken Mausoleum
+  'wispford_dead',
+  'fen_revenant',
+  'hexbound_crone',
+  'grave_sentinel',
+  'mausoleum_shambler',
+  'crypt_hexward',
+  'bonepile_horror',
+  'pumpkin_spriteling',
+  'grinning_king',
 ] as const;
 
 const NPC_IDS = [
@@ -134,6 +144,9 @@ const NPC_IDS = [
   'ollie_ridgeback',
   'wren_alder',
   'junie_stonewater',
+  // Hollowmere (Phase 1 region): the Wispford survivors
+  'morvenna_hedgewitch',
+  'gravewarden_holt',
 ] as const;
 
 const QUEST_IDS = [
@@ -212,6 +225,12 @@ const QUEST_IDS = [
   'q_welcome_dam',
   'q_clear_haze',
   'q_dam_driftwood',
+  // Hollowmere (Phase 1 region) quest chain
+  'q_hollowmere_risen',
+  'q_hollowmere_revenants',
+  'q_hollowmere_crones',
+  'q_hollowmere_sentinel',
+  'q_hollowmere_pumpkin_king',
 ] as const;
 
 const ZONE_IDS = ['eastbrook_vale', 'mirefen_marsh', 'thornpeak_heights', 'the_dam'] as const;
@@ -223,6 +242,7 @@ const DUNGEON_IDS = [
   'gravewyrm_sanctum',
   'nythraxis_crypt',
   'nythraxis_boss_arena',
+  'sunken_mausoleum',
 ] as const;
 const DELVE_IDS = ['collapsed_reliquary'] as const;
 

@@ -969,6 +969,13 @@ const MOB_KEYS: Record<string, string> = {
   // Hollowmere expansion (Phase 0 enemies in the Sunken Wastes)
   grinning_jack: 'mob_pumpkin',
   marsh_hag: 'mob_hag',
+  // Hollowmere expansion (Phase 1 region): pumpkin sentinels + boss reuse the
+  // Jack body; hag-family casters reuse the Hedgewitch body.
+  grave_sentinel: 'mob_pumpkin',
+  grinning_king: 'mob_pumpkin',
+  pumpkin_spriteling: 'mob_pumpkin',
+  hexbound_crone: 'mob_hag',
+  crypt_hexward: 'mob_hag',
   imp: 'mob_demon',
   voidwalker: 'mob_demon',
   succubus: 'mob_demon',
@@ -1059,6 +1066,10 @@ const NPC_KEYS: Record<string, string> = {
   cultivator_marlow: 'npc_druid',
   smith_draxa: 'npc_riftsmith',
   foreman_odell: 'npc_foreman',
+  // Hollowmere (Phase 1): Morvenna the Hedgewitch reuses the Witch body; Holt the
+  // Gravewarden reuses the hooded reliquary-keeper body.
+  morvenna_hedgewitch: 'mob_hag',
+  gravewarden_holt: 'npc_reliquary_keeper',
 };
 
 export function visualKeyFor(e: Entity): string {
