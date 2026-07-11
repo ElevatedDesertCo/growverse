@@ -279,6 +279,8 @@ import { localizeServerText } from './server_i18n';
 import { localizeSimAuraName, localizeSimText } from './sim_i18n';
 import { SocialWindow } from './social_window';
 import { SpellbookWindow } from './spellbook_window';
+import { createStatFeedbackState, detectStatPulses, type StatPulses } from './stat_feedback';
+import { StatFeedbackFx } from './stat_feedback_fx';
 import {
   type BuffStatSource,
   buildStatTooltip,
@@ -746,6 +748,7 @@ export class Hud {
   private bannerTimer: number | undefined;
   private pfLevelEl = $('#pf-level');
   private pfHpEl = $('#pf-hp');
+  private pfHpTrailEl = $('#pf-hp-trail');
   private pfHpTextEl = $('#pf-hp-text');
   private pfResEl = $('#pf-res');
   private pfResTextEl = $('#pf-res-text');
@@ -2527,9 +2530,24 @@ export class Hud {
     frame: this.playerFrameEl,
     level: this.pfLevelEl,
     hpFill: this.pfHpEl,
+    hpTrail: this.pfHpTrailEl,
     hpText: this.pfHpTextEl,
     absorb: this.pfAbsorbEl,
     resource: { container: this.pfResourceEl, fill: this.pfResEl, text: this.pfResTextEl },
+  });
+  // Player-stat FEEDBACK flourishes (heal glow, mana shimmer, xp pulse, level-up
+  // pop): the pure detector (stat_feedback.ts) compares the per-frame stat snapshot
+  // and returns which one-shot pulses fired; the thin consumer turns them into
+  // event-driven .animate() calls on the overlay elements. Off the write-elision
+  // hot path (rare events, no per-frame DOM writes) and reduced-motion aware.
+  private readonly statFeedbackState = createStatFeedbackState();
+  private readonly statPulses: StatPulses = { heal: false, mana: false, xp: false, levelUp: false };
+  private readonly statFeedbackFx = new StatFeedbackFx({
+    healFlash: $('#pf-hp-heal'),
+    manaShimmer: $('#pf-res-shimmer'),
+    xpGain: $('#xp-gain'),
+    levelGlow: $('#pf-level-glow'),
+    levelChip: this.pfLevelEl,
   });
   // The two cast bars are ONE instance-parameterized painter, over the
   // castBarState core. The PLAYER instance localizes the cast id (castDisplayName),
@@ -4912,6 +4930,26 @@ export class Hud {
       showOverflow,
     });
     this.xpBarPainter.paint(bar);
+
+    // Stat-feedback flourishes: detect one-shot heal/mana/xp/level-up pulses from
+    // the real stat stream and play the (reduced-motion-aware) .animate() flourishes.
+    // The mana shimmer is meaningful only for mana users, so gate it to them (a
+    // warrior's rage or a rogue's energy filling in combat is not a "mana gain").
+    const pulses = detectStatPulses(
+      this.statFeedbackState,
+      {
+        hp: p.hp,
+        maxHp: p.maxHp,
+        resource: p.resource,
+        maxResource: p.maxResource,
+        lifetimeXp: sim.lifetimeXp,
+        level: p.level,
+        now,
+      },
+      this.statPulses,
+    );
+    if (pulses.mana && p.resourceType !== 'mana' && p.resourceType !== null) pulses.mana = false;
+    this.statFeedbackFx.play(pulses);
 
     // FCT painter: drive the pooled floating-combat-text ring on the every-frame
     // tier (folded into the existing `hud` perf bucket, not a second rAF).

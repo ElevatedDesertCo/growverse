@@ -278,7 +278,8 @@ export const id_ID: EnTranslations = {
       "targetAnnounce": "Tandai {name}",
       "partyLabel": "Kelompok Anda",
       "partyGroup": "Grup {n}",
-      "durationUnitSeconds": "d"
+      "durationUnitSeconds": "d",
+      "lvl": "LVL"
     },
     "character": {
       "modelPreview": "Pratinjau Model Karakter"

@@ -278,7 +278,8 @@ export const vi_VN: EnTranslations = {
       "targetAnnounce": "Đánh Dấu {name}",
       "partyLabel": "Đội Của Bạn",
       "partyGroup": "Nhóm {n}",
-      "durationUnitSeconds": "s"
+      "durationUnitSeconds": "s",
+      "lvl": "LVL"
     },
     "character": {
       "modelPreview": "Xem Trước Mô Hình Nhân Vật"

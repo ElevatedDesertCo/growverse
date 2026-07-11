@@ -309,18 +309,31 @@
           <div id="player-frame" class="unitframe" role="group" data-i18n-aria="hudChrome.unitFrame.playerLabel" aria-label="Your Hero">
             <div class="portrait-wrap">
               <div class="portrait"><canvas id="pf-portrait" width="54" height="54"></canvas></div>
+              <div class="level-glow" id="pf-level-glow" aria-hidden="true"></div>
               <div class="level-chip" id="pf-level">1</div>
+              <span class="level-tag" data-i18n="hudChrome.unitFrame.lvl" aria-hidden="true">LVL</span>
               <div class="combat-flash" id="pf-combat" role="status" data-i18n-title="hud.social.status.combat" data-i18n-aria="hud.social.status.combat" title="In Combat" aria-label="In Combat">⚔</div>
               <div class="rest-indicator" id="pf-rest" role="status" data-i18n-title="hudChrome.rest.resting" data-i18n-aria="hudChrome.rest.resting" title="Resting" aria-label="Resting">z</div>
             </div>
             <div class="uf-bars">
               <div class="uf-name" id="pf-name"></div>
-              <div class="bar hp"><div class="bar-fill" id="pf-hp"></div><div class="bar-absorb" id="pf-absorb"></div><div class="bar-text" id="pf-hp-text"></div></div>
-              <div class="bar mana" id="pf-resource"><div class="bar-fill" id="pf-res"></div><div class="bar-text" id="pf-res-text"></div><div class="low-resource-label" id="pf-low-resource"></div></div>
+              <div class="bar hp">
+                <div class="bar-trail" id="pf-hp-trail" aria-hidden="true"></div>
+                <div class="bar-fill" id="pf-hp"><div class="bar-sheen" aria-hidden="true"></div><div class="bar-heal" id="pf-hp-heal" aria-hidden="true"></div></div>
+                <div class="bar-absorb" id="pf-absorb"></div>
+                <i class="bar-glyph bar-glyph-hp" aria-hidden="true"></i>
+                <div class="bar-text" id="pf-hp-text"></div>
+              </div>
+              <div class="bar mana" id="pf-resource">
+                <div class="bar-fill" id="pf-res"><div class="bar-sheen" aria-hidden="true"></div><div class="bar-shimmer" id="pf-res-shimmer" aria-hidden="true"></div></div>
+                <i class="bar-glyph bar-glyph-mana" aria-hidden="true"></i>
+                <div class="bar-text" id="pf-res-text"></div>
+                <div class="low-resource-label" id="pf-low-resource"></div>
+              </div>
             </div>
           </div>
           <div id="petbar" class="panel"></div>
-          <div id="xpbar"><div class="fill"></div><div class="rested"></div><div class="ticks"></div><div class="label"></div></div>
+          <div id="xpbar"><div class="fill"><div class="gain" id="xp-gain" aria-hidden="true"></div></div><div class="rested"></div><div class="ticks" aria-hidden="true"></div><div class="label"></div></div>
           <div id="actionbar2" class="panel"></div>
           <div id="actionbar" class="panel"></div>
         </div>

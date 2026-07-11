@@ -113,7 +113,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "es_ES": [
     "entities.dungeons.blightroot_hollow.enterText",
@@ -219,7 +220,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "fr_FR": [
     "entities.dungeons.blightroot_hollow.enterText",
@@ -325,7 +327,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "fr_CA": [
     "entities.dungeons.blightroot_hollow.enterText",
@@ -431,7 +434,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "en_CA": [],
   "it_IT": [
@@ -538,7 +542,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "de_DE": [
     "entities.dungeons.blightroot_hollow.enterText",
@@ -644,31 +649,36 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "zh_CN": [
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
-    "entities.zones.the_dam.pois.0.label"
+    "entities.zones.the_dam.pois.0.label",
+    "hudChrome.unitFrame.lvl"
   ],
   "zh_TW": [
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
-    "entities.zones.the_dam.pois.0.label"
+    "entities.zones.the_dam.pois.0.label",
+    "hudChrome.unitFrame.lvl"
   ],
   "ko_KR": [
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
-    "entities.zones.the_dam.pois.0.label"
+    "entities.zones.the_dam.pois.0.label",
+    "hudChrome.unitFrame.lvl"
   ],
   "ja_JP": [
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
-    "entities.zones.the_dam.pois.0.label"
+    "entities.zones.the_dam.pois.0.label",
+    "hudChrome.unitFrame.lvl"
   ],
   "pt_BR": [
     "entities.dungeons.blightroot_hollow.enterText",
@@ -774,13 +784,15 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "ru_RU": [
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
-    "entities.zones.the_dam.pois.0.label"
+    "entities.zones.the_dam.pois.0.label",
+    "hudChrome.unitFrame.lvl"
   ],
   "nl_NL": [
     "entities.dungeons.blightroot_hollow.enterText",
@@ -886,7 +898,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "pl_PL": [
     "entities.dungeons.blightroot_hollow.enterText",
@@ -992,7 +1005,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "id_ID": [
     "entities.dungeons.blightroot_hollow.enterText",
@@ -1098,7 +1112,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "tr_TR": [
     "entities.dungeons.blightroot_hollow.enterText",
@@ -1204,7 +1219,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "sv_SE": [
     "entities.dungeons.blightroot_hollow.enterText",
@@ -1310,7 +1326,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "vi_VN": [
     "entities.dungeons.blightroot_hollow.enterText",
@@ -1416,7 +1433,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "da_DK": [
     "entities.dungeons.blightroot_hollow.enterText",
@@ -1522,6 +1540,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ]
 };

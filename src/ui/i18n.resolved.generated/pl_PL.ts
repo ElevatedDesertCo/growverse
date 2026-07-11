@@ -278,7 +278,8 @@ export const pl_PL: EnTranslations = {
       "targetAnnounce": "Oznacz {name}",
       "partyLabel": "Twoja drużyna",
       "partyGroup": "Grupa {n}",
-      "durationUnitSeconds": "s"
+      "durationUnitSeconds": "s",
+      "lvl": "LVL"
     },
     "character": {
       "modelPreview": "Podgląd modelu postaci"

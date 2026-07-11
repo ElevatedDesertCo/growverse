@@ -58,6 +58,11 @@ export interface UnitFrameElements {
   level: HTMLElement;
   /** The hp fill (scaleX transform). */
   hpFill: HTMLElement;
+  /** The optional damage-memory "trail" bar behind the hp fill (scaleX transform,
+   *  same target fraction as hpFill). Only the player frame supplies it; its CSS
+   *  transition lags the fill so a hit leaves a crimson ghost that drains to the new
+   *  health a moment later. Omitted by target/party (no trail element). */
+  hpTrail?: HTMLElement;
   /** The hp text node; omitted by a frame with no health readout (a party frame
    *  shows the hp bar fill only, no "523 / 600" text). */
   hpText?: HTMLElement;
@@ -120,6 +125,10 @@ export class UnitFramePainter {
     this.gatePortrait(view.portraitKey);
     this.writers.setText(this.el.level, view.levelText ?? '');
     this.writers.setTransform(this.el.hpFill, this.barScaleX(view.hpFrac));
+    // The damage-memory trail tracks the SAME fraction; its CSS transition (a slow,
+    // delayed drain) is what makes it lag behind the fill on a hit. Elided, so it
+    // writes only when the fraction changes, exactly like the fill.
+    if (this.el.hpTrail) this.writers.setTransform(this.el.hpTrail, this.barScaleX(view.hpFrac));
     if (this.el.hpText) this.writers.setText(this.el.hpText, view.hpText);
     this.paintAbsorb(view);
     this.paintResource(view);
