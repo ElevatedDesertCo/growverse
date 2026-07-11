@@ -1120,6 +1120,18 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
   // chinks tying it to the Beavers. Built from primitives (no GLB); the OBB
   // collider (colliders.ts) uses the same crest line so barrier == geometry.
   const dams = PROPS.beaverDams ?? [];
+  // ONE beaver for the whole dam: it perches on the MIDDLE segment (for the
+  // U-shaped reservoir dam that is the west arm, the back of the U). It faces the
+  // dam's centroid, i.e. out over the water it holds, whatever the arm's rotation.
+  const beaverSeg = Math.floor(dams.length / 2);
+  let damCx = 0;
+  let damCz = 0;
+  for (const dd of dams) {
+    damCx += (dd.x1 + dd.x2) / 2;
+    damCz += (dd.z1 + dd.z2) / 2;
+  }
+  damCx /= Math.max(1, dams.length);
+  damCz /= Math.max(1, dams.length);
   for (let di = 0; di < dams.length; di++) {
     const d = dams[di];
     const ddx = d.x2 - d.x1;
@@ -1262,9 +1274,9 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     // match the Baked Beaver signature (0x5b6ee1). Static primitives, no VFX; sized
     // ~5m so it reads as the landmark's namesake from across the zone. Rendered on
     // every tier (one cheap static instance): it IS the landmark's identity, not
-    // sheddable cosmetic richness. Only ONE beaver for the whole U-shaped dam: it
-    // perches on segment 0 (the north arm, facing out over the reservoir).
-    if (di === 0) {
+    // sheddable cosmetic richness. Only ONE beaver for the whole dam: it perches
+    // on the middle segment (see beaverSeg above), facing out over the reservoir.
+    if (di === beaverSeg) {
       const furMat = surfaceMat({ color: 0x6a4a30, roughness: 1 });
       const bellyMat = surfaceMat({ color: 0xa8895f, roughness: 1 });
       const tailMat = surfaceMat({ color: 0x3e2c1c, roughness: 0.95 });
@@ -1320,10 +1332,14 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
       tail.position.set(0, 0.55, crestZ - 1.35);
       tail.rotation.x = -0.5;
       bv.add(tail);
-      // perch the beaver on the crest, near center, facing out over the reservoir
-      // (the side players approach from) with a tiny deterministic tilt
+      // perch the beaver on the crest, near center, and turn it to face the dam's
+      // centroid (out over the water it holds) with a tiny deterministic tilt. The
+      // model's front is +z; subtracting the segment yaw `rot` converts the desired
+      // WORLD facing into this rotated group's local frame. A lone segment has no
+      // concave side to infer, so it falls back to facing downstream (local -z).
       bv.position.set((propRand(cx, cz, 17) - 0.5) * len * 0.2, h - 0.3, 0);
-      bv.rotation.y = Math.PI + (propRand(cx, cz, 18) - 0.5) * 0.4;
+      const faceYaw = dams.length > 1 ? Math.atan2(damCx - cx, damCz - cz) - rot : Math.PI;
+      bv.rotation.y = faceYaw + (propRand(cx, cz, 18) - 0.5) * 0.4;
       g.add(bv);
     }
 
