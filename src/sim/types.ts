@@ -1217,7 +1217,9 @@ export interface ZoneDef {
   hub: { x: number; z: number; radius: number; name: string };
   graveyard: { x: number; z: number };
   lakes: { x: number; z: number; radius: number }[];
-  pois: { x: number; z: number; label: string }[];
+  // `landmark` POIs also get a minimap pin + world-map glyph (a marquee site like the
+  // Baked Beaver), not just the subzone banner every POI already fires.
+  pois: { x: number; z: number; label: string; landmark?: boolean }[];
   welcome: string; // chat-log hint shown on first entry
   welcomeQuestId?: string; // only show the hint while this quest is available
 }
@@ -1292,6 +1294,11 @@ export interface ZonePropsDef {
   // line). Deliberately oversized: the joke is that the town literally named
   // "The Dam" is dwarfed by an absurd, actual beaver dam.
   beaverDams?: { x1: number; z1: number; x2: number; z2: number; h?: number }[];
+  // Standalone Baked Beaver mascots: the same procedural beaver that perches on a
+  // dam crest, placed on open ground as a landmark statue (render/props.ts). `scale`
+  // defaults to 1 (~5m tall); `rot` is the Y facing. A small cylinder collider keeps
+  // players from walking through it (colliders.ts).
+  beaverMascots?: { x: number; z: number; rot?: number; scale?: number }[];
 }
 
 export function emptyZoneProps(): ZonePropsDef {

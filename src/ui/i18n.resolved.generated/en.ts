@@ -6884,6 +6884,9 @@ export const en: EnTranslations = {
           },
           "9": {
             "label": "Bloomwood Glade"
+          },
+          "10": {
+            "label": "Baked Beaver"
           }
         }
       },

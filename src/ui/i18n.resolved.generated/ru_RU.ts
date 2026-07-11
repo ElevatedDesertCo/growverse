@@ -6884,6 +6884,9 @@ export const ru_RU: EnTranslations = {
           },
           "9": {
             "label": "Поляна Брайтвуда"
+          },
+          "10": {
+            "label": "Baked Beaver"
           }
         }
       },

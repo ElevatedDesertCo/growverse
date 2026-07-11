@@ -6884,6 +6884,9 @@ export const vi_VN: EnTranslations = {
           },
           "9": {
             "label": "Trảng Rừng Sáng"
+          },
+          "10": {
+            "label": "Baked Beaver"
           }
         }
       },

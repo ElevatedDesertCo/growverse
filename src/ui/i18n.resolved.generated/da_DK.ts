@@ -6884,6 +6884,9 @@ export const da_DK: EnTranslations = {
           },
           "9": {
             "label": "Lysskovlysningen"
+          },
+          "10": {
+            "label": "Baked Beaver"
           }
         }
       },

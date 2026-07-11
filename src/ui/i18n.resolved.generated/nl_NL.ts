@@ -6884,6 +6884,9 @@ export const nl_NL: EnTranslations = {
           },
           "9": {
             "label": "Lichtwoudgaarde"
+          },
+          "10": {
+            "label": "Baked Beaver"
           }
         }
       },

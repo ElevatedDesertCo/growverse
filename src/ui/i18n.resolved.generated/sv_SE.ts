@@ -6884,6 +6884,9 @@ export const sv_SE: EnTranslations = {
           },
           "9": {
             "label": "Ljusskogsgläntan"
+          },
+          "10": {
+            "label": "Baked Beaver"
           }
         }
       },

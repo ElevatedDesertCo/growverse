@@ -6884,6 +6884,9 @@ export const en_XA: EnTranslations = {
           },
           "9": {
             "label": "[Ɓļóóɱŵóóð Ĝļáðé]"
+          },
+          "10": {
+            "label": "[Ɓáķéð Ɓéáʋéŕ]"
           }
         }
       },

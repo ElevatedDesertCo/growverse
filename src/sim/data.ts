@@ -270,6 +270,9 @@ function mergeProps(sets: ZonePropsDef[]): ZonePropsDef {
     // strands the landmark before it reaches the renderer (props.ts) and the
     // collider grid (colliders.ts).
     beaverDams: sets.flatMap((s) => s.beaverDams ?? []),
+    // Standalone Baked Beaver mascots (same optional-field trap): omitting the merge
+    // strands them before props.ts / colliders.ts ever see them.
+    beaverMascots: sets.flatMap((s) => s.beaverMascots ?? []),
   };
 }
 

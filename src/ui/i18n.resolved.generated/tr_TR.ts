@@ -6884,6 +6884,9 @@ export const tr_TR: EnTranslations = {
           },
           "9": {
             "label": "Parlakorman Açıklığı"
+          },
+          "10": {
+            "label": "Baked Beaver"
           }
         }
       },

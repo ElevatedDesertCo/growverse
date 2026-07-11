@@ -6884,6 +6884,9 @@ export const pl_PL: EnTranslations = {
           },
           "9": {
             "label": "Polana Jasnoboru"
+          },
+          "10": {
+            "label": "Baked Beaver"
           }
         }
       },

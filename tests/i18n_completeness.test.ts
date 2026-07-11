@@ -164,6 +164,7 @@ describe('i18n whole-catalog completeness', () => {
       'hudChrome.discord.linkedTitle', // "Discord: {name}" - brand + player name
       'hudChrome.keybinds.discord', // "Discord" - brand (Key Bindings action label)
       'desktop.crash.title', // "Growverse" - brand (desktop crash dialog title)
+      'entities.zones.eastbrook_vale.pois.10.label', // "Baked Beaver" - landmark brand/proper noun
     ]);
     const wordy = (v: string) => /[a-z]{4,}/.test(v.replace(/\{[^}]*\}/g, ''));
     const nonLatin: SupportedLanguage[] = ['zh_CN', 'zh_TW', 'ja_JP', 'ko_KR', 'ru_RU'];

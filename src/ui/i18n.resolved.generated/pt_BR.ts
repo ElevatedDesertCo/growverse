@@ -6884,6 +6884,9 @@ export const pt_BR: EnTranslations = {
           },
           "9": {
             "label": "Clareira de Brightwood"
+          },
+          "10": {
+            "label": "Baked Beaver"
           }
         }
       },

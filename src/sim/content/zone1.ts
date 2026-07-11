@@ -39,6 +39,10 @@ export const ZONE1_ZONE: ZoneDef = {
     { x: 80, z: 80, label: 'Withered Shrine' },
     { x: -5, z: -52, label: 'Reliquary Hill' },
     { x: 40, z: 140, label: 'Bloomwood Glade' },
+    // The town mascot: a giant Baked Beaver statue planted just past the north gate,
+    // the first landmark a new player sights wandering out of Bloomhaven. `landmark`
+    // gives it a minimap pin + world-map glyph on top of the subzone banner.
+    { x: 24, z: 30, label: 'Baked Beaver', landmark: true },
   ],
   welcome: 'Find Marshal Redbrook in town, he has work for you.',
   welcomeQuestId: 'q_wolves',
@@ -1295,4 +1299,9 @@ export const ZONE1_PROPS: ZonePropsDef = {
   // warlord's-heart ward-totem ring, facing the NW approach so raiders (and players)
   // muster before it. Replaces the earlier ill-fitting stone-guardian idol.
   warStandards: [{ x: 86, z: -86, rot: 2.3 }],
+  // The Baked Beaver mascot: a ~7.5m-tall procedural beaver statue (render/props.ts)
+  // planted just past the north gate at r~39 (outside the town plateau, clear of the
+  // north/NE roads and every mob camp), facing back toward the square so it greets a
+  // player heading out to the wolves. Matches the `Baked Beaver` landmark POI above.
+  beaverMascots: [{ x: 24, z: 30, rot: -2.45, scale: 1.5 }],
 };

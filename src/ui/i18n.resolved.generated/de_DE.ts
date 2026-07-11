@@ -6884,6 +6884,9 @@ export const de_DE: EnTranslations = {
           },
           "9": {
             "label": "Hellholz-Lichtung"
+          },
+          "10": {
+            "label": "Baked Beaver"
           }
         }
       },

@@ -63,6 +63,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label",
     "entities.zones.the_dam.pois.1.label",
@@ -153,6 +154,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label",
     "entities.zones.the_dam.pois.1.label",
@@ -243,6 +245,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label",
     "entities.zones.the_dam.pois.1.label",
@@ -333,6 +336,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label",
     "entities.zones.the_dam.pois.1.label",
@@ -424,6 +428,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label",
     "entities.zones.the_dam.pois.1.label",
@@ -514,6 +519,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label",
     "entities.zones.the_dam.pois.1.label",
@@ -551,18 +557,22 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.options.showDailyRewardsChest"
   ],
   "zh_CN": [
+    "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label"
   ],
   "zh_TW": [
+    "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label"
   ],
   "ko_KR": [
+    "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label"
   ],
   "ja_JP": [
+    "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label"
   ],
@@ -620,6 +630,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label",
     "entities.zones.the_dam.pois.1.label",
@@ -657,6 +668,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.options.showDailyRewardsChest"
   ],
   "ru_RU": [
+    "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label"
   ],
@@ -714,6 +726,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label",
     "entities.zones.the_dam.pois.1.label",
@@ -804,6 +817,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label",
     "entities.zones.the_dam.pois.1.label",
@@ -894,6 +908,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label",
     "entities.zones.the_dam.pois.1.label",
@@ -984,6 +999,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label",
     "entities.zones.the_dam.pois.1.label",
@@ -1074,6 +1090,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label",
     "entities.zones.the_dam.pois.1.label",
@@ -1164,6 +1181,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label",
     "entities.zones.the_dam.pois.1.label",
@@ -1254,6 +1272,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label",
     "entities.zones.the_dam.pois.1.label",

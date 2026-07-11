@@ -6884,6 +6884,9 @@ export const ko_KR: EnTranslations = {
           },
           "9": {
             "label": "브라이트우드 숲"
+          },
+          "10": {
+            "label": "Baked Beaver"
           }
         }
       },

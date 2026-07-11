@@ -6884,6 +6884,9 @@ export const es_ES: EnTranslations = {
           },
           "9": {
             "label": "Claro de Brightwood"
+          },
+          "10": {
+            "label": "Baked Beaver"
           }
         }
       },

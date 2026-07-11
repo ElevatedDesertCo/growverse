@@ -6884,6 +6884,9 @@ export const ja_JP: EnTranslations = {
           },
           "9": {
             "label": "ブライトウッドの林間"
+          },
+          "10": {
+            "label": "Baked Beaver"
           }
         }
       },

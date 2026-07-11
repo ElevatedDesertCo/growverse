@@ -6884,6 +6884,9 @@ export const id_ID: EnTranslations = {
           },
           "9": {
             "label": "Tanah Lapang Brightwood"
+          },
+          "10": {
+            "label": "Baked Beaver"
           }
         }
       },

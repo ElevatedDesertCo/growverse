@@ -6884,6 +6884,9 @@ export const zh_TW: EnTranslations = {
           },
           "9": {
             "label": "明木林地"
+          },
+          "10": {
+            "label": "Baked Beaver"
           }
         }
       },

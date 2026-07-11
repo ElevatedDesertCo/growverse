@@ -6884,6 +6884,9 @@ export const it_IT: EnTranslations = {
           },
           "9": {
             "label": "Radura di Brightwood"
+          },
+          "10": {
+            "label": "Baked Beaver"
           }
         }
       },
