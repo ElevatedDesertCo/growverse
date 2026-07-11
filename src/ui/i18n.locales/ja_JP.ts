@@ -2377,6 +2377,14 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.mobs.haze_critter.name': 'ヘイズ・クリッター',
   'entities.mobs.driftwood_snapper.name': '流木スナッパー',
   'entities.mobs.overbaked_beaver.name': '焼きすぎビーバー',
+  'entities.npcs.rowan_sawtooth.name': 'ローワン・ソウトゥース',
+  'entities.npcs.rowan_sawtooth.title': 'ザ・スルースの守り手',
+  'entities.npcs.rowan_sawtooth.greeting':
+    '岸に見ない顔だな、{className}。ようこそザ・スルースへ、群れの前線基地だ。本拠のザ・ダムはずっと南、長い道のりだが、仕事はまさにここから始まる。ステイ・ベイクド、水には気をつけな。',
+  'entities.npcs.hazel_timbers.name': 'ヘイゼル・ティンバーズ',
+  'entities.npcs.hazel_timbers.title': 'ダムの糧秣官',
+  'entities.npcs.hazel_timbers.greeting':
+    '道具に馬具、それに行動食、どれも新入りに優しい値付けだ。ビーバーの営む隙のない基地さ、{className}。何が入り用だい？',
   'entities.npcs.boone_cascade.name': 'ブーン・カスケード',
   'entities.npcs.boone_cascade.title': 'ザ・ダムの長老',
   'entities.npcs.boone_cascade.greeting':
@@ -2397,6 +2405,18 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.junie_stonewater.title': '古き尾根の番人',
   'entities.npcs.junie_stonewater.greeting':
     'ブーンが君をタンケに寄こしたか。いい。座りな。俺たちは半分しかできていないダムを背にして、凍てつく尾根を板で滑り降りてきた、一度も振り返らずにな。物語はそれで全部だ。あとはただの煙さ。',
+  'entities.quests.q_sluice_welcome.title': 'ザ・スルースへようこそ',
+  'entities.quests.q_sluice_welcome.text':
+    '岸で最初に学ぶことだ、{playerName}。ビーバーは働いて居場所を勝ち取る、ぼんやり眺めていてはだめだ。北の斜面からブライト・ウルフが下りてきて、俺たちの薪山を荒らし、子らを怯えさせる。六匹間引いて、ロッジの焚き火で温まりに来い。そうすれば君も仲間だ。',
+  'entities.quests.q_sluice_welcome.completion':
+    '木立の際に狼が六匹減って、君は一度も弱音を吐かなかった。それがザ・スルースの流儀だ、{playerName}。焚き火は君のもの、タダでな。ステイ・ベイクド、AZ。',
+  'entities.quests.q_sluice_welcome.objectives.0.label': 'ブライト・ウルフを間引いた',
+  'entities.quests.q_sluice_pilings.title': '杭のトラブル',
+  'entities.quests.q_sluice_pilings.text':
+    'そもそもダムがあるからこそ、その周りに貯水池を築けるんだ。だが東の草地のブリッスル・タスクの猪どもが、甘い泥目当てにその杭を掘り返し続けてな。ビーバーはそれを個人的な恨みと受け取る、{playerName}。掘り屋を六匹仕留めてくれれば、ザ・スルースは君にふさわしい記念の品を、ザ・ダムじきじきの一品を借りとして渡そう。',
+  'entities.quests.q_sluice_pilings.completion':
+    '杭は持ちこたえ、貯水池はそのまま、子らも安らかに眠る。さあ、{playerName}、ベイクド・ビーバーのトークンだ、ザ・ダムで彫られたものさ。これを持てば、どこをさすらおうと君は群れの一員だ。ステイ・ベイクド、AZ。',
+  'entities.quests.q_sluice_pilings.objectives.0.label': 'ブリッスル・タスクを片づけた',
   'entities.quests.q_welcome_dam.title': 'ザ・ダムへようこそ',
   'entities.quests.q_welcome_dam.text':
     'ザ・ダムの第一のルールだ、{playerName}。じっと座っているだけで居場所を勝ち取れる者はいない。貯水池のヘイズがまたクリッターに固まってな、水際にびっしりだ。六匹叩いて、焚き火で温まりに来い。全部を知りたきゃ、タンケでジュニーの話を聞いてこい。',

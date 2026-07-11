@@ -4999,6 +4999,9 @@ export const zh_CN: EnTranslations = {
       "riftforged_blade": {
         "name": "裂隙锻造之刃"
       },
+      "baked_beaver_token": {
+        "name": "Baked Beaver Token"
+      },
       "bristleback_maul": {
         "name": "硬鬃重槌"
       },
@@ -5945,6 +5948,16 @@ export const zh_CN: EnTranslations = {
         "title": "裂隙铁匠",
         "greeting": "升级台正热着呢。给我带来腐蚀碎片，我会把你的钢铁重铸成裂隙也无法折断的利器。"
       },
+      "rowan_sawtooth": {
+        "name": "罗恩·锯齿",
+        "title": "水闸看守",
+        "greeting": "岸边生面孔啊，{className}。欢迎来到水闸，这是群落的前哨营地。真正的大坝在南边，路远着呢，可活儿就从这儿开始。保持嗨着，当心水。"
+      },
+      "hazel_timbers": {
+        "name": "黑兹尔·廷伯斯",
+        "title": "大坝军需官",
+        "greeting": "工具、马具，还有路上吃的干粮，给新来的都是公道价。海狸把营地管得紧巴巴的，{className}。你要点什么？"
+      },
       "boone_cascade": {
         "name": "布恩·卡斯凯德",
         "title": "大坝长老",
@@ -6729,6 +6742,26 @@ export const zh_CN: EnTranslations = {
           }
         }
       },
+      "q_sluice_welcome": {
+        "title": "欢迎来到水闸",
+        "text": "在岸边你要学的第一件事，{playerName}：海狸靠干活挣位置，不是靠站着看热闹。枯萎狼从北边的坡道下来，糟蹋我们的柴堆，惊吓幼崽。清掉六只，回来到木屋篝火边暖暖身子。然后你就是我们的人了。",
+        "completion": "林线上少了六只狼，你一句怨言都没有。这就是水闸的规矩，{playerName}。篝火归你，免费。保持嗨着，亚利桑那。",
+        "objectives": {
+          "0": {
+            "label": "枯萎狼已清剿"
+          }
+        }
+      },
+      "q_sluice_pilings": {
+        "title": "木桩的麻烦",
+        "text": "正因为有大坝，才有这片可以围着建的水塘，可东边草甸的硬鬃獠牙野猪老是拱开桩基去啃里头的甜泥。海狸把这事当成私仇，{playerName}。放倒六头掘地的家伙，水闸就欠你一件像样的纪念物，直接从大坝那儿捎来。",
+        "completion": "桩基稳住了，水塘留住了，幼崽睡得安稳。给，{playerName}，一枚烤海狸信物，是在大坝那儿刻的。带着它，无论你漂泊到哪儿，你都是群落的一员。保持嗨着，亚利桑那。",
+        "objectives": {
+          "0": {
+            "label": "硬鬃獠牙已肃清"
+          }
+        }
+      },
       "q_welcome_dam": {
         "title": "欢迎来到大坝",
         "text": "大坝的第一条规矩，{playerName}：没人靠干坐着挣到自己的位置。水库上的迷雾又聚成小怪了，沿着水边一大片。拍掉六只，然后到篝火边暖暖身子。要是想听全整个故事，就去坦克水塘找朱妮。",
@@ -6887,6 +6920,9 @@ export const zh_CN: EnTranslations = {
           },
           "10": {
             "label": "Baked Beaver"
+          },
+          "11": {
+            "label": "The Sluice"
           }
         }
       },

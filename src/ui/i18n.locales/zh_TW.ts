@@ -2272,6 +2272,14 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.mobs.haze_critter.name': '迷霧小怪',
   'entities.mobs.driftwood_snapper.name': '浮木咬客',
   'entities.mobs.overbaked_beaver.name': '嗑嗨的河狸',
+  'entities.npcs.rowan_sawtooth.name': '羅恩·鋸齒',
+  'entities.npcs.rowan_sawtooth.title': '水閘看守',
+  'entities.npcs.rowan_sawtooth.greeting':
+    '岸邊生面孔啊，{className}。歡迎來到水閘，這是群落的前哨營地。真正的大壩在南邊，路遠著呢，可活兒就從這兒開始。保持嗨著，當心水。',
+  'entities.npcs.hazel_timbers.name': '黑茲爾·廷伯斯',
+  'entities.npcs.hazel_timbers.title': '大壩軍需官',
+  'entities.npcs.hazel_timbers.greeting':
+    '工具、馬具，還有路上吃的乾糧，給新來的都是公道價。海狸把營地管得緊巴巴的，{className}。你要點什麼？',
   'entities.npcs.boone_cascade.name': '布恩·卡斯凱德',
   'entities.npcs.boone_cascade.title': '大壩長老',
   'entities.npcs.boone_cascade.greeting':
@@ -2292,6 +2300,18 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.junie_stonewater.title': '古脊守護者',
   'entities.npcs.junie_stonewater.greeting':
     '布恩把你打發到坦克水塘來了，是吧。好。坐下。當年我們踩著滑板從冰封的山脊上下來，身後是座只修了一半的大壩，從沒回過一次頭。整個故事就這麼多。剩下的，都是煙罷了。',
+  'entities.quests.q_sluice_welcome.title': '歡迎來到水閘',
+  'entities.quests.q_sluice_welcome.text':
+    '在岸邊你要學的第一件事，{playerName}：海狸靠幹活掙位置，不是靠站著看熱鬧。枯萎狼從北邊的坡道下來，糟蹋我們的柴堆，驚嚇幼崽。清掉六隻，回來到木屋篝火邊暖暖身子。然後你就是我們的人了。',
+  'entities.quests.q_sluice_welcome.completion':
+    '林線上少了六隻狼，你一句怨言都沒有。這就是水閘的規矩，{playerName}。篝火歸你，免費。保持嗨著，亞利桑那。',
+  'entities.quests.q_sluice_welcome.objectives.0.label': '枯萎狼已清剿',
+  'entities.quests.q_sluice_pilings.title': '木樁的麻煩',
+  'entities.quests.q_sluice_pilings.text':
+    '正因為有大壩，才有這片可以圍著建的水塘，可東邊草甸的硬鬃獠牙野豬老是拱開樁基去啃裡頭的甜泥。海狸把這事當成私仇，{playerName}。放倒六頭掘地的傢伙，水閘就欠你一件像樣的紀念物，直接從大壩那兒捎來。',
+  'entities.quests.q_sluice_pilings.completion':
+    '樁基穩住了，水塘留住了，幼崽睡得安穩。給，{playerName}，一枚烤海狸信物，是在大壩那兒刻的。帶著它，無論你漂泊到哪兒，你都是群落的一員。保持嗨著，亞利桑那。',
+  'entities.quests.q_sluice_pilings.objectives.0.label': '硬鬃獠牙已肅清',
   'entities.quests.q_welcome_dam.title': '歡迎來到大壩',
   'entities.quests.q_welcome_dam.text':
     '大壩的第一條規矩，{playerName}：沒人靠乾坐著掙到自己的位置。水庫上的迷霧又聚成小怪了，沿著水邊一大片。拍掉六隻，然後到篝火邊暖暖身子。要是想聽全整個故事，就去坦克水塘找朱妮。',

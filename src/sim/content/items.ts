@@ -965,6 +965,14 @@ export const BASE_ITEMS: Record<string, ItemDef> = {
     sellValue: 0,
     questId: 'q_gravecallers_trail',
   },
+  baked_beaver_token: {
+    id: 'baked_beaver_token',
+    name: 'Baked Beaver Token',
+    kind: 'quest',
+    quality: 'rare',
+    noDiscard: true,
+    sellValue: 0,
+  },
   // --- Brightwood Glade wildlife pack ---
   soft_down: {
     id: 'soft_down',

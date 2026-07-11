@@ -52,15 +52,16 @@ if (!ok) {
   );
 }
 
-// Stand a few yards south of the beaver (24,30) and face it (+Z north).
+// Stand SE of the Sluice hamlet and look NW across the pond toward the mascot,
+// lodge, and dock so the whole outpost is in frame.
 await page.evaluate(() => {
   const g = window.__game;
   const p = g.sim.player;
-  p.pos.x = 24;
-  p.pos.z = 22;
+  // stand in the pond (center 30,28) so the water surface fills the frame
+  p.pos.x = 30;
+  p.pos.z = 30;
   p.pos.y = g.sim.player.pos.y;
-  // face toward +Z (the beaver is north of us): facing = atan2(dx, dz)
-  p.facing = Math.atan2(24 - 24, 30 - 22);
+  p.facing = Math.atan2(22 - 30, 17 - 30); // face the mascot on the shore
 });
 await new Promise((r) => setTimeout(r, 800));
 
@@ -78,8 +79,8 @@ await page.screenshot({ path: 'tmp/beaver-landmark.png' });
 // Stand right on top so the minimap marker is well within the rim, screenshot minimap.
 await page.evaluate(() => {
   const p = window.__game.sim.player;
-  p.pos.x = 20;
-  p.pos.z = 26;
+  p.pos.x = 22;
+  p.pos.z = 17;
 });
 await new Promise((r) => setTimeout(r, 600));
 const mini = await page.$('#minimap');

@@ -1265,7 +1265,8 @@ export const GUIDE_ZONES: GuideZoneInfo[] = [
       "Withered Shrine",
       "Reliquary Hill",
       "Bloomwood Glade",
-      "Baked Beaver"
+      "Baked Beaver",
+      "The Sluice"
     ],
     "welcome": "Find Marshal Redbrook in town, he has work for you."
   },
