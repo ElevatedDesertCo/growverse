@@ -79,12 +79,17 @@ function buildDeckCap(seed: number): THREE.BufferGeometry {
   const b = SLUICE_BRIDGE;
   const zStart = b.z - b.halfSpan - 0.3;
   const zEnd = b.z + b.halfSpan + 0.3;
-  const half = b.halfWidth + 0.15;
+  const halfMax = b.halfWidth + 0.15; // full width across the crown
+  const halfMin = b.halfWidth * 0.32; // narrow tongue where it settles into each bank
   const segs = 44;
   const pos: number[] = [];
   const idx: number[] = [];
   for (let i = 0; i <= segs; i++) {
     const z = zStart + ((zEnd - zStart) * i) / segs;
+    // taper the deck narrower toward each bank so the ends settle into the shore as a
+    // clean tongue instead of a full-width slab that overhangs a gap or buries itself.
+    const endT = Math.min(1, Math.max(0, (b.halfSpan - Math.abs(z - b.z)) / 3.5));
+    const half = halfMin + (halfMax - halfMin) * endT;
     const topY = terrainHeight(b.x, z, seed) + 0.05; // just proud of the walkable surface
     const botY = topY - 0.4;
     pos.push(b.x - half, botY, z);
@@ -255,23 +260,30 @@ export function buildBridge(seed: number): BridgeView {
   // woven look and sit only slightly proud of the walkable terrain (tops ~0.12 above),
   // so the player stands on the deck rather than in a trough. Every log spans the full
   // width and overhangs the edges, and the run covers the whole span end to end.
-  const crestLen = b.halfWidth * 2 + 0.9; // overhang the parapet edges, like a real dam
+  // Cross-log length tapers with the deck: full-width over the crown, shorter toward
+  // each bank so end logs settle into the shore instead of jamming into rising ground.
+  const crestLenMax = b.halfWidth * 2 + 0.9; // overhang the parapet edges, like a real dam
+  const crestLenMin = b.halfWidth * 1.0; // narrow tongue at the banks
   const CREST_PROUD = 0.12; // log tops sit this far above the walkable terrain, on the cap
+  const endTaper = (z: number) => Math.min(1, Math.max(0, (b.halfSpan - Math.abs(z - b.z)) / 3.5));
   for (let z = zStart + 0.1; z <= zEnd - 0.1; z += 0.32) {
     const rad = 0.26 + h3(z, 0, 30) * 0.08;
     const y = terrainHeight(b.x, z, seed) + CREST_PROUD - rad; // tops level, just above the cap
     const tilt = (h3(z, 0, 32) - 0.5) * 0.03; // barely-there, keeps the surface even
     const bucket = h3(z, 0, 33) < 0.3 ? dark : Math.round(z) % 2 === 0 ? light : med;
-    push(bucket, b.x + (h3(z, 0, 34) - 0.5) * 0.1, y, z, crestLen, rad, 'x', tilt, 0);
+    const len = crestLenMin + (crestLenMax - crestLenMin) * endTaper(z);
+    push(bucket, b.x + (h3(z, 0, 34) - 0.5) * 0.1, y, z, len, rad, 'x', tilt, 0);
   }
 
   // ---- continuous log curbs on the two parapet edges (the rail you see == you bump)-
   // Densely overlapped along the whole span so the edge reads as one unbroken rail
-  // that follows the arch, with no sag between segments.
+  // that follows the arch, with no sag between segments; the rail draws inward with
+  // the tapering deck toward each bank so it never hangs out over a gap at the ends.
   for (const side of [-1, 1] as const) {
     for (let z = zStart + 0.5; z <= zEnd - 0.3; z += 0.9) {
       const y = terrainHeight(b.x, z, seed) + 0.26;
-      push(dark, b.x + side * (b.halfWidth - 0.1), y, z, 1.5, 0.2, 'z', 0, 0);
+      const edge = (b.halfWidth - 0.1) * (0.45 + 0.55 * endTaper(z));
+      push(dark, b.x + side * edge, y, z, 1.5, 0.2, 'z', 0, 0);
     }
   }
 
