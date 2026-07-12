@@ -8,11 +8,12 @@ import { surfaceMat } from './gfx';
 // deck you see; this module dresses that causeway as a densely woven beaver dam.
 // A solid packed-mud core fills the body so nothing shows through, then large and
 // medium logs plus small woven branches skin both water faces, tight enough that
-// there are no gaps. The crest is a tight corduroy of cross-logs (butted along the
-// span, tops flush with the walkable terrain) so the deck you walk reads as one
-// continuous, connected surface with no dip or step. Low log curbs sit on the two
-// parapet colliders (colliders.ts, same const). Static geometry, built once, no
-// per-frame work.
+// there are no gaps. Over the crown sits a solid WOOD deck cap (a plank slab a hair
+// above the walkable terrain, overhanging the edges) that hides the earthy causeway,
+// and ON TOP of that a dense corduroy of cross-logs gives the woven timber look while
+// standing only slightly proud so the player walks on the deck, not in a trough.
+// Continuous log curbs run the two parapet edges (colliders.ts, same const). Static
+// geometry, built once, no per-frame work.
 
 export interface BridgeView {
   group: THREE.Group;
@@ -69,6 +70,46 @@ function buildCore(seed: number, baseY: number): THREE.BufferGeometry {
   return g;
 }
 
+// A solid WOOD plank-deck cap laid over the whole crown, its top a hair above the
+// walkable terrain and overhanging the x-edges. This is what hides the earthy
+// causeway: between the crest logs you see this deck, never the ground. Rings along
+// z following the arch, each a filled quad; overhangs the parapet edges so the deck
+// reads as a clean board lip instead of the terrain dropping away.
+function buildDeckCap(seed: number): THREE.BufferGeometry {
+  const b = SLUICE_BRIDGE;
+  const zStart = b.z - b.halfSpan - 0.3;
+  const zEnd = b.z + b.halfSpan + 0.3;
+  const half = b.halfWidth + 0.15;
+  const segs = 44;
+  const pos: number[] = [];
+  const idx: number[] = [];
+  for (let i = 0; i <= segs; i++) {
+    const z = zStart + ((zEnd - zStart) * i) / segs;
+    const topY = terrainHeight(b.x, z, seed) + 0.05; // just proud of the walkable surface
+    const botY = topY - 0.4;
+    pos.push(b.x - half, botY, z);
+    pos.push(b.x - half, topY, z);
+    pos.push(b.x + half, topY, z);
+    pos.push(b.x + half, botY, z);
+  }
+  const ring = (i: number) => i * 4;
+  for (let i = 0; i < segs; i++) {
+    const a = ring(i);
+    const c = ring(i + 1);
+    idx.push(a + 0, a + 1, c + 1, a + 0, c + 1, c + 0); // left edge
+    idx.push(a + 1, a + 2, c + 2, a + 1, c + 2, c + 1); // top deck
+    idx.push(a + 2, a + 3, c + 3, a + 2, c + 3, c + 2); // right edge
+  }
+  const last = ring(segs);
+  idx.push(0, 3, 2, 0, 2, 1);
+  idx.push(last + 0, last + 1, last + 2, last + 0, last + 2, last + 3);
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  g.setIndex(idx);
+  g.computeVertexNormals();
+  return g;
+}
+
 // One instanced set of unit cylinders (radius 1, length 1 along local Y) placed by
 // a list of matrices; the caller varies size/rotation per instance. One draw call
 // for the whole set.
@@ -93,6 +134,13 @@ export function buildBridge(seed: number): BridgeView {
     surfaceMat({ color: MUD_COLOR, roughness: 1 }),
   );
   group.add(core);
+
+  // ---- solid wood deck cap over the crown (hides the earthy causeway) ----------
+  const deckCap = new THREE.Mesh(
+    buildDeckCap(seed),
+    surfaceMat({ color: LOG_MED, roughness: 0.9 }),
+  );
+  group.add(deckCap);
 
   // Instance buckets, split by material so the weave reads as varied timber.
   const light: THREE.Matrix4[] = [];
@@ -201,30 +249,29 @@ export function buildBridge(seed: number): BridgeView {
     }
   }
 
-  // ---- the walkable crest: a tight corduroy of cross-logs laid ACROSS the path and
-  // butted along z, so the deck reads as ONE continuous, connected surface with no
-  // gaps or dips. Every log spans the full deck width and every top sits FLUSH with
-  // the walkable terrain (the arch the player actually walks): the per-log radius
-  // varies for a hand-hewn look but the CENTER is dropped by that radius so the tops
-  // stay level course to course. Because the tops equal `terrainHeight`, the player
-  // stands ON the deck (never sunk into a trough) and steps onto the banks at the ends
-  // with no lip; the arch is inherited from `terrainHeight` so the deck hugs the crown.
-  const crestLen = b.halfWidth * 2 + 0.7; // overhang the parapets a touch, like a real dam
-  for (let z = zStart + 0.3; z <= zEnd - 0.3; z += 0.4) {
-    const rad = 0.24 + h3(z, 0, 30) * 0.07;
-    const y = terrainHeight(b.x, z, seed) - rad; // top == terrain: flush deck the player walks on
+  // ---- the walkable crest: a dense corduroy of cross-logs laid ACROSS the path and
+  // butted along z, riding ON TOP of the solid wood deck cap so the deck reads as one
+  // continuous timber surface. The cap already hides the ground; these logs give the
+  // woven look and sit only slightly proud of the walkable terrain (tops ~0.12 above),
+  // so the player stands on the deck rather than in a trough. Every log spans the full
+  // width and overhangs the edges, and the run covers the whole span end to end.
+  const crestLen = b.halfWidth * 2 + 0.9; // overhang the parapet edges, like a real dam
+  const CREST_PROUD = 0.12; // log tops sit this far above the walkable terrain, on the cap
+  for (let z = zStart + 0.1; z <= zEnd - 0.1; z += 0.32) {
+    const rad = 0.26 + h3(z, 0, 30) * 0.08;
+    const y = terrainHeight(b.x, z, seed) + CREST_PROUD - rad; // tops level, just above the cap
     const tilt = (h3(z, 0, 32) - 0.5) * 0.03; // barely-there, keeps the surface even
     const bucket = h3(z, 0, 33) < 0.3 ? dark : Math.round(z) % 2 === 0 ? light : med;
     push(bucket, b.x + (h3(z, 0, 34) - 0.5) * 0.1, y, z, crestLen, rad, 'x', tilt, 0);
   }
 
-  // ---- low log curbs on the two parapet colliders (the wall you see == you bump)-
-  // Sit them just proud of the flush deck so they read as a low edge rail, not a
-  // trough wall around the player.
+  // ---- continuous log curbs on the two parapet edges (the rail you see == you bump)-
+  // Densely overlapped along the whole span so the edge reads as one unbroken rail
+  // that follows the arch, with no sag between segments.
   for (const side of [-1, 1] as const) {
-    for (let z = zStart + 0.8; z <= zEnd - 0.4; z += 1.6) {
-      const y = terrainHeight(b.x, z, seed) + 0.14;
-      push(dark, b.x + side * (b.halfWidth - 0.2), y, z, 1.9, 0.18, 'z', 0, 0);
+    for (let z = zStart + 0.5; z <= zEnd - 0.3; z += 0.9) {
+      const y = terrainHeight(b.x, z, seed) + 0.26;
+      push(dark, b.x + side * (b.halfWidth - 0.1), y, z, 1.5, 0.2, 'z', 0, 0);
     }
   }
 
