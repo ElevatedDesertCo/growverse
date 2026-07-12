@@ -1226,8 +1226,9 @@ export class Renderer {
     this.fireLights.push(this.impactSite.light);
     this.propsView = props;
 
-    // The Sluice footbridge: a stone skin over the raised terrain causeway
-    // (SLUICE_BRIDGE in sim/world.ts). Static masonry, no per-frame work.
+    // The Sluice dam-crossing: a woven beaver-log dam over the raised terrain
+    // causeway (SLUICE_BRIDGE in sim/world.ts), walkable along its crest. Static
+    // geometry, no per-frame work.
     const bridge = buildBridge(this.sim.cfg.seed);
     setRenderCategory(bridge.group, 'props');
     this.scene.add(bridge.group);

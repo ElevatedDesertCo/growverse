@@ -1,128 +1,260 @@
 import * as THREE from 'three';
-import { SLUICE_BRIDGE, terrainHeight } from '../sim/world';
+import { SLUICE_BRIDGE, terrainHeight, WATER_LEVEL } from '../sim/world';
 import { surfaceMat } from './gfx';
+import { buildBeaverMascot } from './props';
 
-// The Sluice footbridge: a stone skin laid over the raised terrain causeway that
-// `terrainHeight` builds (the `SLUICE_BRIDGE` primitive in sim/world.ts). The deck
-// you walk on is the terrain; this module only DRESSES it as masonry, so it samples
-// the same `terrainHeight` and floats a hair above it (no second floor). Parapet
-// rails match the two OBB colliders in sim/colliders.ts (same const), so the wall
-// you see is the wall you bump. Static geometry, no per-frame work.
-
-const DECK_LIFT = 0.07; // sit the stone slab just above the terrain deck
-const DECK_INSET = 0.05; // pull the slab edge a touch inside the terrain taper
-const RAIL_HEIGHT = 0.72; // parapet top above the deck
-const RAIL_THICK = 0.34; // parapet thickness across x
-const RAIL_SINK = 0.12; // embed the rail base below the deck so no gap shows
-const DECK_SEGMENTS = 48; // z resolution along the span (follows the arch)
-const DECK_COLOR = 0xb89b6f; // mid sandstone, matches village:Stone
-const RAIL_COLOR = 0x8f7550; // shadowed mud-brick, matches village:Stone_Dark
+// The Sluice dam-crossing: a straight beaver-log dam thrown across the river at the
+// corridor crossing (the `SLUICE_BRIDGE` primitive in sim/world.ts). The walkable
+// crest IS the crossing, the raised causeway terrain, so the deck you walk is the
+// deck you see; this module dresses that causeway as a densely woven beaver dam.
+// A solid packed-mud core fills the body so nothing shows through, then large and
+// medium logs plus small woven branches skin both water faces and the crest, tight
+// enough that there are no gaps. Low log curbs sit on the two parapet colliders
+// (colliders.ts, same const). Static geometry, built once, no per-frame work.
 
 export interface BridgeView {
   group: THREE.Group;
 }
 
-// A stone wall running along z at a fixed x, its base/top following the terrain
-// deck. Cross-section is a rectangle in x-y (thickness `thick`, height above the
-// terrain `height`); returns the two side faces + a top cap + two end caps.
-function buildRail(
-  seed: number,
-  xCenter: number,
-  height: number,
-  thick: number,
-): THREE.BufferGeometry {
+const LOG_LIGHT = 0x6f5238;
+const LOG_MED = 0x5c4530;
+const LOG_DARK = 0x4a3722;
+const BRANCH_COLOR = 0x74593c;
+// Deep shadow-brown so the packed interior recedes behind the logs and reads as the
+// dark voids of a log jam, not a lit earthen berm.
+const MUD_COLOR = 0x2a2216;
+
+// Deterministic 0..1 hash so the weave is stable per seed (no Math.random in render).
+function h3(a: number, b: number, c: number): number {
+  const s = Math.sin(a * 12.9898 + b * 78.233 + c * 37.719) * 43758.5453;
+  return s - Math.floor(s);
+}
+
+// A packed-mud core following the causeway crest: a solid ribbon from below the
+// waterline up to the walkable crown, slightly inset from the log faces so any gap
+// between logs reveals mud, never sky or water. Rings along z, each a filled quad.
+function buildCore(seed: number, baseY: number): THREE.BufferGeometry {
   const b = SLUICE_BRIDGE;
-  const zStart = b.z - (b.halfSpan - 0.5);
-  const zEnd = b.z + (b.halfSpan - 0.5);
-  const segs = DECK_SEGMENTS;
-  const x0 = xCenter - thick / 2;
-  const x1 = xCenter + thick / 2;
-  const positions: number[] = [];
-  const indices: number[] = [];
-  // For each z ring we store 4 corner vertices: [innerBottom, innerTop, outerTop, outerBottom].
+  const zStart = b.z - b.halfSpan;
+  const zEnd = b.z + b.halfSpan;
+  const half = b.halfWidth - 0.25;
+  const segs = 40;
+  const pos: number[] = [];
+  const idx: number[] = [];
   for (let i = 0; i <= segs; i++) {
     const z = zStart + ((zEnd - zStart) * i) / segs;
-    const deckY = terrainHeight(xCenter, z, seed);
-    const baseY = deckY - RAIL_SINK;
-    const topY = deckY + height;
-    positions.push(x0, baseY, z); // 0 inner bottom
-    positions.push(x0, topY, z); // 1 inner top
-    positions.push(x1, topY, z); // 2 outer top
-    positions.push(x1, baseY, z); // 3 outer bottom
+    const topY = Math.max(baseY + 0.2, terrainHeight(b.x, z, seed) + 0.05);
+    pos.push(b.x - half, baseY, z); // 0 left base
+    pos.push(b.x - half, topY, z); // 1 left top
+    pos.push(b.x + half, topY, z); // 2 right top
+    pos.push(b.x + half, baseY, z); // 3 right base
   }
   const ring = (i: number) => i * 4;
   for (let i = 0; i < segs; i++) {
     const a = ring(i);
     const c = ring(i + 1);
-    // inner face (x0): a0->a1->c1->c0
-    indices.push(a + 0, a + 1, c + 1, a + 0, c + 1, c + 0);
-    // top face: a1->a2->c2->c1
-    indices.push(a + 1, a + 2, c + 2, a + 1, c + 2, c + 1);
-    // outer face (x1): a2->a3->c3->c2
-    indices.push(a + 2, a + 3, c + 3, a + 2, c + 3, c + 2);
+    idx.push(a + 0, a + 1, c + 1, a + 0, c + 1, c + 0); // left face
+    idx.push(a + 1, a + 2, c + 2, a + 1, c + 2, c + 1); // top
+    idx.push(a + 2, a + 3, c + 3, a + 2, c + 3, c + 2); // right face
   }
-  // end caps (rectangles at first/last ring)
   const last = ring(segs);
-  indices.push(0, 3, 2, 0, 2, 1); // start cap
-  indices.push(last + 0, last + 1, last + 2, last + 0, last + 2, last + 3); // end cap
-  const geo = new THREE.BufferGeometry();
-  geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-  geo.setIndex(indices);
-  geo.computeVertexNormals();
-  return geo;
+  idx.push(0, 3, 2, 0, 2, 1); // start cap
+  idx.push(last + 0, last + 1, last + 2, last + 0, last + 2, last + 3); // end cap
+  const g = new THREE.BufferGeometry();
+  g.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  g.setIndex(idx);
+  g.computeVertexNormals();
+  return g;
 }
 
-// The deck slab: a grid draped over the raised causeway, lifted just above the
-// terrain so the stone reads over the grass/dirt splat the terrain would show.
-function buildDeck(seed: number): THREE.BufferGeometry {
-  const b = SLUICE_BRIDGE;
-  const zStart = b.z - b.halfSpan;
-  const zEnd = b.z + b.halfSpan;
-  const deckHalf = b.halfWidth - DECK_INSET;
-  const nz = DECK_SEGMENTS;
-  const nx = 4;
-  const positions: number[] = [];
-  const indices: number[] = [];
-  for (let i = 0; i <= nz; i++) {
-    const z = zStart + ((zEnd - zStart) * i) / nz;
-    for (let j = 0; j <= nx; j++) {
-      const x = b.x - deckHalf + (2 * deckHalf * j) / nx;
-      const y = terrainHeight(x, z, seed) + DECK_LIFT;
-      positions.push(x, y, z);
-    }
-  }
-  const row = nx + 1;
-  for (let i = 0; i < nz; i++) {
-    for (let j = 0; j < nx; j++) {
-      const a = i * row + j;
-      const c = (i + 1) * row + j;
-      indices.push(a, a + 1, c + 1, a, c + 1, c);
-    }
-  }
-  const geo = new THREE.BufferGeometry();
-  geo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-  geo.setIndex(indices);
-  geo.computeVertexNormals();
-  return geo;
+// One instanced set of unit cylinders (radius 1, length 1 along local Y) placed by
+// a list of matrices; the caller varies size/rotation per instance. One draw call
+// for the whole set.
+function stickMesh(mats: THREE.Matrix4[], color: number, sides: number): THREE.Mesh {
+  const geo = new THREE.CylinderGeometry(1, 1, 1, sides);
+  const mesh = new THREE.InstancedMesh(geo, surfaceMat({ color, roughness: 0.93 }), mats.length);
+  for (let i = 0; i < mats.length; i++) mesh.setMatrixAt(i, mats[i]);
+  mesh.instanceMatrix.needsUpdate = true;
+  return mesh;
 }
 
 export function buildBridge(seed: number): BridgeView {
-  const group = new THREE.Group();
   const b = SLUICE_BRIDGE;
+  const group = new THREE.Group();
+  const zStart = b.z - b.halfSpan;
+  const zEnd = b.z + b.halfSpan;
+  const baseY = WATER_LEVEL - 1.2; // logs/core start well below the waterline
 
-  const deckMat = surfaceMat({ color: DECK_COLOR, roughness: 0.94 });
-  const deck = new THREE.Mesh(buildDeck(seed), deckMat);
-  group.add(deck);
+  // ---- packed-mud core (fills the body so no gap shows through) ----------------
+  const core = new THREE.Mesh(
+    buildCore(seed, baseY),
+    surfaceMat({ color: MUD_COLOR, roughness: 1 }),
+  );
+  group.add(core);
 
-  const railMat = surfaceMat({ color: RAIL_COLOR, roughness: 0.92 });
-  const railX = b.halfWidth - RAIL_THICK / 2; // hug the deck edge, inside the drop
-  for (const side of [-1, 1]) {
-    const rail = new THREE.Mesh(
-      buildRail(seed, b.x + side * railX, RAIL_HEIGHT, RAIL_THICK),
-      railMat,
-    );
-    group.add(rail);
+  // Instance buckets, split by material so the weave reads as varied timber.
+  const light: THREE.Matrix4[] = [];
+  const med: THREE.Matrix4[] = [];
+  const dark: THREE.Matrix4[] = [];
+  const branch: THREE.Matrix4[] = [];
+
+  const q = new THREE.Quaternion();
+  const eul = new THREE.Euler();
+  const pos = new THREE.Vector3();
+  const scl = new THREE.Vector3();
+  // Push a cylinder: length `len` along the given world axis ('z' or 'x'), radius
+  // `rad`, centred at (x,y,z), with small pitch/yaw tilts for a hand-stacked look.
+  const push = (
+    arr: THREE.Matrix4[],
+    x: number,
+    y: number,
+    z: number,
+    len: number,
+    rad: number,
+    axis: 'z' | 'x',
+    tilt: number,
+    yaw: number,
+  ) => {
+    if (axis === 'z') eul.set(Math.PI / 2 + tilt, yaw, 0);
+    else eul.set(0, 0, Math.PI / 2 + tilt);
+    q.setFromEuler(eul);
+    pos.set(x, y, z);
+    scl.set(rad, len, rad);
+    arr.push(new THREE.Matrix4().compose(pos, q, scl));
+  };
+
+  // ---- the two water faces: dense overlapping courses of big + medium logs ------
+  // Rows overlap vertically (rowH < log diameter) so the face is solid timber, and
+  // each course is broken into staggered logs along z with jitter so it reads woven.
+  // Two staggered course-passes per face (offset half a step in z and half a row in
+  // y) so logs overlap tightly with no dirt showing between them.
+  const rowH = 0.36;
+  for (const side of [-1, 1] as const) {
+    for (let pass = 0; pass < 2; pass++) {
+      for (let z = zStart + 0.5 + pass * 0.35; z <= zEnd - 0.5; z += 0.7) {
+        const crestY = terrainHeight(b.x, z, seed) + 0.05;
+        const rows = Math.max(0, Math.round((crestY - baseY) / rowH));
+        for (let r = 0; r < rows; r++) {
+          const t = rows > 1 ? r / (rows - 1) : 0; // 0 base .. 1 crest
+          const y = baseY + r * rowH + rowH * (0.5 + pass * 0.5);
+          if (y > crestY) continue;
+          // batter: the face leans inward toward the crest (a stable dam profile)
+          const faceX = b.x + side * (b.halfWidth + 0.05 - t * 0.7);
+          const jz = (h3(z, r + pass * 7, side + 3) - 0.5) * 0.6; // stagger along the course
+          const big = h3(z, r, 5) > 0.5;
+          const len = big ? 1.6 + h3(z, r, 1) * 0.8 : 1.1 + h3(z, r, 2) * 0.6;
+          const rad = big ? 0.36 + h3(z, r, 7) * 0.1 : 0.24 + h3(z, r, 9) * 0.08;
+          const tilt = (h3(z, r + pass, 11) - 0.5) * 0.2;
+          const yaw = (h3(z, r + pass, 13) - 0.5) * 0.3;
+          const bucket = h3(z, r, 15) < 0.34 ? dark : big ? light : med;
+          push(bucket, faceX, y, z + jz, len, rad, 'z', tilt, yaw);
+        }
+      }
+    }
   }
+
+  // ---- front-to-back tie logs (along x) lacing the two faces together ----------
+  for (let z = zStart + 1.0; z <= zEnd - 1.0; z += 1.5) {
+    const crestY = terrainHeight(b.x, z, seed) + 0.05;
+    const ties = Math.max(1, Math.round((crestY - baseY) / 1.1));
+    for (let k = 0; k < ties; k++) {
+      const y = baseY + 0.7 + k * 1.1 + (h3(z, k, 4) - 0.5) * 0.4;
+      if (y > crestY - 0.2) continue;
+      const rad = 0.19 + h3(z, k, 6) * 0.08;
+      push(med, b.x, y, z + (h3(z, k, 8) - 0.5) * 0.7, b.halfWidth * 2.0, rad, 'x', 0, 0);
+    }
+  }
+
+  // ---- dense woven branches thatched over both faces to kill any remaining gap --
+  for (const side of [-1, 1] as const) {
+    for (let z = zStart + 0.3; z <= zEnd - 0.3; z += 0.34) {
+      const crestY = terrainHeight(b.x, z, seed) + 0.05;
+      const span = crestY - baseY;
+      if (span <= 0.3) continue;
+      const count = Math.max(2, Math.round(span / 0.42));
+      for (let k = 0; k < count; k++) {
+        const y = baseY + 0.15 + h3(z, k, side + 20) * span;
+        const t = (y - baseY) / span;
+        const faceX = b.x + side * (b.halfWidth + 0.14 - t * 0.7);
+        const yaw = (h3(z, k, 21) - 0.5) * 1.4; // branches criss-cross at all angles
+        const tilt = (h3(z, k, 22) - 0.5) * 0.7;
+        const len = 0.9 + h3(z, k, 23) * 1.1;
+        push(
+          branch,
+          faceX,
+          y,
+          z + (h3(z, k, 24) - 0.5) * 0.5,
+          len,
+          0.08 + h3(z, k, 25) * 0.06,
+          'z',
+          tilt,
+          yaw,
+        );
+      }
+    }
+  }
+
+  // ---- the walkable crest: logs laid along the path, tight enough to hide the top-
+  for (let j = -3; j <= 3; j++) {
+    const cx = b.x + j * (b.halfWidth * 0.3);
+    for (let z = zStart + 0.6; z <= zEnd - 0.3; z += 0.85) {
+      const y = terrainHeight(b.x, z, seed) + 0.12;
+      const rad = 0.24 + h3(z, j, 30) * 0.08;
+      const bucket = h3(z, j, 33) < 0.34 ? dark : (j + Math.round(z)) % 2 === 0 ? light : med;
+      push(
+        bucket,
+        cx + (h3(z, j, 34) - 0.5) * 0.25,
+        y,
+        z,
+        1.5 + h3(z, j, 31) * 0.6,
+        rad,
+        'z',
+        (h3(z, j, 32) - 0.5) * 0.08,
+        (h3(z, j, 35) - 0.5) * 0.15,
+      );
+    }
+  }
+  // cross-branches woven over the crest logs to fill the seams between them
+  for (let z = zStart + 0.6; z <= zEnd - 0.4; z += 0.55) {
+    const y = terrainHeight(b.x, z, seed) + 0.24;
+    push(
+      branch,
+      b.x + (h3(z, 0, 40) - 0.5) * 1.6,
+      y,
+      z,
+      b.halfWidth * (1.5 + h3(z, 0, 41) * 0.5),
+      0.1 + h3(z, 0, 42) * 0.05,
+      'x',
+      0,
+      (h3(z, 0, 43) - 0.5) * 0.2,
+    );
+  }
+
+  // ---- low log curbs on the two parapet colliders (the wall you see == you bump)-
+  for (const side of [-1, 1] as const) {
+    for (let z = zStart + 0.8; z <= zEnd - 0.4; z += 1.6) {
+      const y = terrainHeight(b.x, z, seed) + 0.42;
+      push(dark, b.x + side * (b.halfWidth - 0.2), y, z, 1.9, 0.2, 'z', 0, 0);
+    }
+  }
+
+  group.add(stickMesh(light, LOG_LIGHT, 7));
+  group.add(stickMesh(med, LOG_MED, 7));
+  group.add(stickMesh(dark, LOG_DARK, 6));
+  group.add(stickMesh(branch, BRANCH_COLOR, 5));
+
+  // ---- the beaver, perched on the crest at mid-span, facing downstream (-x) ----
+  const glowMat = surfaceMat({
+    color: 0x5b6ee1,
+    emissive: 0x5b6ee1,
+    emissiveIntensity: 1.4,
+    roughness: 0.5,
+  });
+  const beaver = buildBeaverMascot(glowMat, 0);
+  beaver.position.set(b.x, terrainHeight(b.x, b.z, seed) - 0.15, b.z);
+  beaver.rotation.y = -Math.PI / 2; // face west, downstream toward the pond/town
+  beaver.scale.setScalar(0.85);
+  group.add(beaver);
 
   return { group };
 }

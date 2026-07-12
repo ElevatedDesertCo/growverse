@@ -636,7 +636,7 @@ function buildDelveEmbers(
 // +z; the caller positions/rotates/scales it. Shared by the dam-crest perch and the
 // standalone town-edge landmark, so the mascot reads identically everywhere. `faceZ`
 // nudges the whole beaver forward (the dam uses it for the crest's downstream lean).
-function buildBeaverMascot(glowMat: THREE.Material, faceZ = 0): THREE.Group {
+export function buildBeaverMascot(glowMat: THREE.Material, faceZ = 0): THREE.Group {
   const furMat = surfaceMat({ color: 0x6a4a30, roughness: 1 });
   const bellyMat = surfaceMat({ color: 0xa8895f, roughness: 1 });
   const tailMat = surfaceMat({ color: 0x3e2c1c, roughness: 0.95 });
