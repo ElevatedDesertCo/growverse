@@ -394,6 +394,7 @@ function buildHarnesses(shape: WorldShape, facet: PainterHostWriters): PainterHa
       fill: 0.8,
       label: 'fireball',
       fishing: false,
+      harvest: false,
     };
     const input: CastBarPaintInput = { cast, castRemaining: 0.5 };
     harnesses.push({ name: 'cast_bar', drive: () => painter.paint(input) });

@@ -1432,12 +1432,21 @@ export const ZONE1_PROPS: ZonePropsDef = {
   // muster before it. Replaces the earlier ill-fitting stone-guardian idol.
   warStandards: [{ x: 86, z: -86, rot: 2.3 }],
   // The Sluice dam: a Growverse-original procedural beaver dam (render/props.ts) of
-  // crisscrossed logs packed with mud, thrown across the townward (south) end of the
-  // millpond, the structure that holds the pond back toward Bloomhaven. A solid OBB
-  // collider along the crest line (colliders.ts), so players skirt its shore rather
-  // than walk it. A scaled-down cousin of the colossal dam at The Dam colony far to
-  // the south.
-  beaverDams: [{ x1: 18, z1: 13, x2: 42, z2: 12, h: 6 }],
+  // crisscrossed logs packed with mud, wrapping the millpond in a U that hugs its
+  // townward (south) end and runs up both shores, holding the pond back toward
+  // Bloomhaven and opening only to the north where the river and waterfall feed it.
+  // The middle (townward) arm is the back of the U and carries the single beaver
+  // (render/props.ts groups each dam and perches one beaver on its middle segment).
+  // Each arm gets its own OBB collider along its crest line (colliders.ts), so
+  // players skirt the shore rather than walk it. A scaled-down cousin of the colossal
+  // U-dam at The Dam colony far to the south.
+  // Arms reach only to the pond's midline (z~30), wrapping the townward half without
+  // walling off the open starter meadow to the north where the forest wolves roam.
+  beaverDams: [
+    { x1: 18, z1: 13, x2: 18, z2: 30, h: 6 }, // west arm, up the west shore
+    { x1: 18, z1: 13, x2: 42, z2: 13, h: 6 }, // townward wall (back of the U), carries the beaver
+    { x1: 42, z1: 13, x2: 42, z2: 30, h: 6 }, // east arm, up the east shore
+  ],
   // The Baked Beaver mascot: a ~5m-tall procedural beaver statue (render/props.ts)
   // on the north shore of the Sluice millpond, facing south across the water so it
   // watches over the outpost and greets a player circling the pond. A short cylinder

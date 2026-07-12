@@ -904,7 +904,8 @@ export const GUIDE_CLASSES: GuideClassInfo[] = [
       }
     ],
     "model": "player_mage",
-    "still": "/guide-stills/player_mage.webp"
+    "tint": "#3b6fd6",
+    "still": "/guide-stills/player_mage__3b6fd6.webp"
   },
   {
     "id": "warlock",
@@ -1338,6 +1339,14 @@ export const GUIDE_DUNGEONS: GuideDungeon[] = [
     "name": "Emberhold Keep"
   },
   {
+    "id": "sunken_mausoleum",
+    "isRaid": false,
+    "suggestedPlayers": 5,
+    "min": 11,
+    "max": 13,
+    "name": "The Sunken Mausoleum"
+  },
+  {
     "id": "sunken_bastion",
     "isRaid": false,
     "suggestedPlayers": 5,
@@ -1607,6 +1616,15 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "still": "/guide-stills/mob_bruiser__6e3b2f.webp"
       },
       {
+        "name": "Grinning Jack",
+        "min": 9,
+        "max": 11,
+        "rare": false,
+        "templateId": "grinning_jack",
+        "model": "mob_pumpkin",
+        "still": "/guide-stills/mob_pumpkin.webp"
+      },
+      {
         "name": "Blight Cultist",
         "min": 10,
         "max": 12,
@@ -1615,6 +1633,15 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "model": "mob_dark_caster",
         "tint": "#6c3483",
         "still": "/guide-stills/mob_dark_caster__6c3483.webp"
+      },
+      {
+        "name": "Marsh Hag",
+        "min": 10,
+        "max": 12,
+        "rare": false,
+        "templateId": "marsh_hag",
+        "model": "mob_hag",
+        "still": "/guide-stills/mob_hag.webp"
       },
       {
         "name": "Blightcaller Mender",
@@ -1908,9 +1935,20 @@ export const GUIDE_MODELS: Record<string, GuideModelSpec> = {
     "tintStrength": 0.45
   },
   "player_mage": {
-    "url": "models/chars/players/wizard.glb",
-    "idle": "Idle_02",
-    "height": 2.6
+    "url": "models/chars/players/mage.glb",
+    "idle": "Idle",
+    "height": 2.6,
+    "show": [
+      "Mage_Hat",
+      "Mage_Cape"
+    ],
+    "attach": [
+      {
+        "url": "models/weapons/staff.glb",
+        "bone": "handslot.r"
+      }
+    ],
+    "tintStrength": 0.4
   },
   "player_warlock": {
     "url": "models/chars/players/rogue_hooded.glb",
@@ -1988,10 +2026,24 @@ export const GUIDE_MODELS: Record<string, GuideModelSpec> = {
     "tintStrength": 0.2
   },
   "mob_bandit": {
-    "url": "models/chars/enemies/ashen_raider.glb",
-    "idle": "Idle_02",
+    "url": "models/chars/players/rogue_hooded.glb",
+    "idle": "Idle",
     "height": 2.6,
-    "tintStrength": 0.3
+    "show": [
+      "RogueHooded_Cape",
+      "RogueHooded_Mask"
+    ],
+    "attach": [
+      {
+        "url": "models/weapons/dagger.glb",
+        "bone": "handslot.r"
+      },
+      {
+        "url": "models/weapons/dagger.glb",
+        "bone": "handslot.l"
+      }
+    ],
+    "tintStrength": 0.85
   },
   "mob_bruiser": {
     "url": "models/chars/players/rogue_hooded.glb",
@@ -2022,6 +2074,16 @@ export const GUIDE_MODELS: Record<string, GuideModelSpec> = {
     "idle": "Idle_Combat",
     "height": 2.5,
     "tintStrength": 0.25
+  },
+  "mob_pumpkin": {
+    "url": "models/chars/spooky/pumpkin.glb",
+    "idle": "Idle",
+    "height": 2.6
+  },
+  "mob_hag": {
+    "url": "models/chars/spooky/witch.glb",
+    "idle": "Idle",
+    "height": 2.6
   },
   "mob_troll": {
     "url": "models/creatures/orc.glb",

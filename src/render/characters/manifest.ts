@@ -7,6 +7,7 @@ import { MOBS } from '../../sim/data';
 import type { Entity, PlayerClass } from '../../sim/types';
 import { ITEM_WEAPON_VARIANTS } from '../../ui/weapon_variants';
 import type { OverheadEmoteId } from '../../world_api';
+import { CUSTOM_BODIES } from './custom_bodies.generated';
 
 export interface EmoteClipSpec {
   clips: readonly string[];
@@ -205,35 +206,6 @@ const SPIDER: ClipMap = {
   death: 'Spider_Death', // no hit-react in asset
 };
 
-// Custom Meshy-rigged Growverse character (ashen_raider.glb): the first bespoke
-// 1-of-1 body replacing the stock KayKit outlaw. Clip names are normalized to the
-// canonical set at asset-build time (Meshy Idle_8/Running/Dead/Hit_Reaction ->
-// Idle_02/Run_02/Death/HitRecieve). Locomotion is root-stripped at build so the
-// server-driven mob never slides. The Hooded Rogue export ships the full set
-// including a death fall and a hit-react, so both now resolve to real clips.
-const MESHY_ROGUE: ClipMap = {
-  idle: 'Idle_02',
-  walk: 'Walking',
-  run: 'Run_02',
-  attack: ['Attack'],
-  death: 'Death',
-  hit: ['HitRecieve'],
-};
-
-// Custom Meshy-rigged Growverse player body (wizard.glb): the 1-of-1 "Azure Wizard"
-// replacing the stock KayKit mage. Walking/Running are the Meshy animate export;
-// Idle_02/Attack are grafted from ashen_raider.glb (identical Meshy auto-rig
-// skeleton), so the full clip set was assembled headlessly with zero extra credits.
-// Staff and head are rigidly skinned (no bend/smear). No cast/hit/death clips:
-// death freezes the last pose (baseAction falls back), reading as a dropped body.
-const MESHY_WIZARD: ClipMap = {
-  idle: 'Idle_02',
-  walk: 'Walking',
-  run: 'Running',
-  attack: ['Attack'],
-  death: 'Death', // absent -> baseAction no-ops, corpse holds pose
-};
-
 // Chicken-cow rig (chicken_cow.glb, procedurally authored — see
 // scripts/gen_chicken_cow.mjs). Node-transform animations, no hit-react.
 const CHICKEN_COW: ClipMap = {
@@ -253,6 +225,9 @@ const PLAYERS = 'models/chars/players';
 const ENEMIES = 'models/chars/enemies';
 const CREATURES = 'models/creatures';
 const WEAPONS = 'models/weapons';
+// KayKit-style bodies auto-rigged onto Rig_Medium from unrigged seasonal packs (Grinning
+// Jack, the Hedgewitch); textures baked in, so no tint. See docs/design/asset-expansion-plan.md.
+const SPOOKY = 'models/chars/spooky';
 
 /** GLB url for an equipped mainhand item's held weapon model, or null if the item
  *  has no mapped model (then the class default attach is kept). Mirrors the bag
@@ -327,9 +302,14 @@ export const SKINS: Record<string, (string | null)[]> = {
     `${SKINS_DIR}/mage/alt_b.png`,
     `${SKINS_DIR}/mage/alt_c.png`,
   ],
-  // The Meshy wizard body ships a single baked texture; the KayKit mage alt skins
-  // do not map to its UVs, so the mage has one canonical 1-of-1 look.
-  player_mage: [null],
+  // Rebuilt on the KayKit mage body (see VISUALS.player_mage), so the shared mage alt
+  // atlases map to its UVs again and the Azure Wizard gets the full selectable skin set.
+  player_mage: [
+    null,
+    `${SKINS_DIR}/mage/alt_a.png`,
+    `${SKINS_DIR}/mage/alt_b.png`,
+    `${SKINS_DIR}/mage/alt_c.png`,
+  ],
   player_warlock: [
     null,
     `${SKINS_DIR}/mage/alt_a.png`,
@@ -454,13 +434,19 @@ export const VISUALS: Record<string, VisualDef> = {
     tintStrength: 0.45,
   },
   player_mage: {
-    // 1-of-1 custom Meshy "Azure Wizard" body: the pointed hat, robe, and staff are
-    // baked into the mesh and rigidly skinned, so there is no KayKit accessory node
-    // (show) or attached weapon. Shares the ashen_raider Meshy rig, so HUMANOID_H and
-    // the facing-0 yaw carry over unchanged. The authored blue is the look (no tint).
-    url: `${PLAYERS}/wizard.glb`,
+    // Azure Wizard, rebuilt on the solid KayKit mage body (clean hand-authored
+    // locomotion, no Meshy smear). Shares mage.glb with the priest, so it is set apart
+    // by a pointed hat + cape and a vivid azure tint (the priest is bare-headed and
+    // rose), and a distinct staff silhouette, so the two casters never read as twins.
+    url: `${PLAYERS}/mage.glb`,
     height: HUMANOID_H,
-    clips: MESHY_WIZARD,
+    clips: kaykit(['2H_Melee_Attack_Chop']),
+    show: ['Mage_Hat', 'Mage_Cape'],
+    attach: [{ url: `${WEAPONS}/staff.glb`, bone: 'handslot.r' }],
+    weaponSlots: [0],
+    // Arcane: vivid azure, the Azure Wizard identity carried onto the solid body
+    tint: 0x3b6fd6,
+    tintStrength: 0.4,
   },
   player_warlock: {
     // Corruption warlock wears the hooded, masked rogue body (same Rig_Medium as
@@ -772,19 +758,23 @@ export const VISUALS: Record<string, VisualDef> = {
   },
 
   // -- humanoid mobs (KayKit adventurers) ------------------------------------
-  // The Ashen Maw knife-fighter, and the global humanoid-mob fallback. This is
-  // the FIRST bespoke Growverse body: a custom Meshy-authored "Shadowbound Rogue"
-  // (ashen_raider.glb) that replaces the stock KayKit hooded outlaw, so the raider
-  // clan is a 1-of-1 asset, not a reskinned pack model. The GLB is a single merged
-  // mesh with the hood, wraps, and dagger baked in, so there is no show-list and no
-  // attach (the blade is part of the body). A dark red-brown wash keeps the hooded
-  // silhouette hostile (faction-green entity tints read as friendly villagers).
+  // The Ashen Maw knife-fighter, and the global humanoid-mob fallback. Rebuilt on the
+  // solid KayKit hooded-outlaw body (rogue_hooded.glb, the same body its reaver and
+  // slinger kin already use), so the whole raider clan shares one clean-animated hooded
+  // silhouette. Hood mask + cape kept; dual daggers attached (the knife role). The heavy
+  // ash-brown wash (0.85, matching the reaver/slinger) darkens the stock KayKit tunic's
+  // forest green; the mask + hood + drawn blade carry the hostile read.
   mob_bandit: {
-    url: `${ENEMIES}/ashen_raider.glb`,
+    url: `${PLAYERS}/rogue_hooded.glb`,
     height: HUMANOID_H,
-    clips: MESHY_ROGUE,
+    clips: kaykit(['Dualwield_Melee_Attack_Chop']),
+    show: ['RogueHooded_Cape', 'RogueHooded_Mask'],
+    attach: [
+      { url: `${WEAPONS}/dagger.glb`, bone: 'handslot.r' },
+      { url: `${WEAPONS}/dagger.glb`, bone: 'handslot.l' },
+    ],
     tint: 0x6b3a32,
-    tintStrength: 0.3,
+    tintStrength: 0.85,
   },
   mob_dark_caster: {
     url: `${PLAYERS}/mage.glb`,
@@ -824,6 +814,20 @@ export const VISUALS: Record<string, VisualDef> = {
     attach: [{ url: `${WEAPONS}/crossbow_2handed.glb`, bone: 'handslot.r' }],
     tint: 'entity',
     tintStrength: 0.85,
+  },
+
+  // -- Hollowmere expansion enemies (auto-rigged KayKit seasonal bodies) ------
+  // Grinning Jack: a pumpkin-headed sentinel. Textures baked in; no tint.
+  mob_pumpkin: {
+    url: `${SPOOKY}/pumpkin.glb`,
+    height: HUMANOID_H,
+    clips: kaykit(['1H_Melee_Attack_Chop', '2H_Melee_Attack_Chop']),
+  },
+  // The Hedgewitch body: a marsh hag (enemy) and, later, the Wispford NPC Morvenna.
+  mob_hag: {
+    url: `${SPOOKY}/witch.glb`,
+    height: HUMANOID_H,
+    clips: kaykit(['Spellcast_Shoot']),
   },
 
   // -- NPCs ------------------------------------------------------------------
@@ -951,6 +955,9 @@ export const VISUALS: Record<string, VisualDef> = {
     height: HUMANOID_H,
     clips: kaykit(['1H_Melee_Attack_Chop']),
   },
+
+  // Bodies ingested from incoming/ via `npm run rig:ingest` (generated; may be empty).
+  ...CUSTOM_BODIES,
 };
 
 // ---------------------------------------------------------------------------
@@ -959,6 +966,16 @@ export const VISUALS: Record<string, VisualDef> = {
 // ---------------------------------------------------------------------------
 
 const MOB_KEYS: Record<string, string> = {
+  // Hollowmere expansion (Phase 0 enemies in the Sunken Wastes)
+  grinning_jack: 'mob_pumpkin',
+  marsh_hag: 'mob_hag',
+  // Hollowmere expansion (Phase 1 region): pumpkin sentinels + boss reuse the
+  // Jack body; hag-family casters reuse the Hedgewitch body.
+  grave_sentinel: 'mob_pumpkin',
+  grinning_king: 'mob_pumpkin',
+  pumpkin_spriteling: 'mob_pumpkin',
+  hexbound_crone: 'mob_hag',
+  crypt_hexward: 'mob_hag',
   imp: 'mob_demon',
   voidwalker: 'mob_demon',
   succubus: 'mob_demon',
@@ -1049,6 +1066,10 @@ const NPC_KEYS: Record<string, string> = {
   cultivator_marlow: 'npc_druid',
   smith_draxa: 'npc_riftsmith',
   foreman_odell: 'npc_foreman',
+  // Hollowmere (Phase 1): Morvenna the Hedgewitch reuses the Witch body; Holt the
+  // Gravewarden reuses the hooded reliquary-keeper body.
+  morvenna_hedgewitch: 'mob_hag',
+  gravewarden_holt: 'npc_reliquary_keeper',
 };
 
 export function visualKeyFor(e: Entity): string {

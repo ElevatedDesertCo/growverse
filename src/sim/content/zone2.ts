@@ -77,6 +77,68 @@ export const ZONE2_ROADS: { x: number; z: number }[][] = [
 // ---------------------------------------------------------------------------
 
 export const ZONE2_MOBS: Record<string, MobTemplate> = {
+  // -- Hollowmere expansion (Phase 0): a haunted pocket in the western fen. Render
+  //    bodies are auto-rigged KayKit seasonal characters (see manifest MOB_KEYS). --
+  grinning_jack: {
+    id: 'grinning_jack',
+    name: 'Grinning Jack',
+    minLevel: 9,
+    maxLevel: 11,
+    family: 'humanoid',
+    hpBase: 58,
+    hpPerLevel: 20,
+    dmgBase: 9,
+    dmgPerLevel: 2.4,
+    attackSpeed: 2.2,
+    armorPerLevel: 12,
+    moveSpeed: 8,
+    aggroRadius: 12,
+    loot: [
+      { copper: 40, chance: 1 },
+      { itemId: 'lesser_healing_potion', chance: 0.1 },
+    ],
+    scale: 1.0,
+    color: 0xd06a2a,
+    // Ember Grin: the carved grin flares, searing the victim with a fire DoT.
+    cinder: {
+      chance: 0.25,
+      perTick: 3,
+      interval: 2,
+      duration: 6,
+      name: 'Ember Grin',
+      school: 'fire',
+    },
+  },
+  marsh_hag: {
+    id: 'marsh_hag',
+    name: 'Marsh Hag',
+    minLevel: 10,
+    maxLevel: 12,
+    family: 'humanoid',
+    hpBase: 54,
+    hpPerLevel: 19,
+    dmgBase: 8,
+    dmgPerLevel: 2.5,
+    attackSpeed: 2.4,
+    armorPerLevel: 11,
+    moveSpeed: 7.5,
+    aggroRadius: 13,
+    loot: [
+      { copper: 45, chance: 1 },
+      { itemId: 'lesser_mana_potion', chance: 0.12 },
+    ],
+    scale: 1.0,
+    color: 0x6fa552,
+    // Hexcurse: a rotting shadow curse that festers over time.
+    soulrot: {
+      chance: 0.3,
+      perTick: 3,
+      interval: 2,
+      duration: 8,
+      name: 'Hexcurse',
+      school: 'shadow',
+    },
+  },
   mire_prowler: {
     id: 'mire_prowler',
     name: 'Silt Prowler',
@@ -2043,3 +2105,12 @@ export const ZONE2_PROPS: ZonePropsDef = {
   ],
   graveyards: [{ x: -18, z: 286 }],
 };
+
+// Hollowmere expansion (Phase 0): a haunted pocket in the western fen, off the
+// Deepfen Shallows. Exported SEPARATELY (not in ZONE2_CAMPS) and appended LAST in
+// data.ts so every pre-existing zone camp keeps its exact world-gen RNG draw order.
+export const HAUNTED_FEN_CAMPS: CampDef[] = [
+  { mobId: 'grinning_jack', center: { x: -128, z: 380 }, radius: 15, count: 5 },
+  { mobId: 'grinning_jack', center: { x: -112, z: 402 }, radius: 14, count: 4 },
+  { mobId: 'marsh_hag', center: { x: -124, z: 388 }, radius: 12, count: 3 },
+];

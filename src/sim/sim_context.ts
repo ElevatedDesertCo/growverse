@@ -471,6 +471,10 @@ export interface SimContextCallbacks {
   startAutoAttack(pid?: number): void;
   revivePet(pid?: number): void;
   completeFishing(p: Entity, meta: PlayerMeta): void;
+  // Resource gathering (harvest.ts). startHarvest begins the channel on a node from
+  // pickUpObject; completeHarvest is invoked by the casting lifecycle when it ends.
+  startHarvest(objId: number, pid?: number): void;
+  completeHarvest(p: Entity, meta: PlayerMeta): void;
   applyDemonHealTick(owner: Entity): void;
 
   // C4b effect dispatch (src/sim/combat/effect_dispatch.ts) consumes these; all stay
@@ -867,6 +871,8 @@ export function createSimContext(host: SimContextHost): SimContext {
     startAutoAttack: host.startAutoAttack,
     revivePet: host.revivePet,
     completeFishing: host.completeFishing,
+    startHarvest: host.startHarvest,
+    completeHarvest: host.completeHarvest,
     applyDemonHealTick: host.applyDemonHealTick,
     awardCombo: host.awardCombo,
     meleeSwing: host.meleeSwing,

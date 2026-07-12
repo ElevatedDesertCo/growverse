@@ -32,7 +32,18 @@ import {
   DELVE_MOBS,
 } from './content/delves';
 import { DUNGEON_DEFS, DUNGEON_MOBS } from './content/dungeons';
+import { HARVEST_NODE_SPAWNS, HARVEST_NODES } from './content/gathering';
 import { GROUND_PICKUP_LINES } from './content/ground_pickup_lines';
+import {
+  HOLLOWMERE_CAMPS,
+  HOLLOWMERE_MOBS,
+  HOLLOWMERE_NPCS,
+  HOLLOWMERE_PROPS,
+  HOLLOWMERE_QUEST_ORDER,
+  HOLLOWMERE_QUESTS,
+  MAUSOLEUM_DUNGEON_DEFS,
+  MAUSOLEUM_DUNGEON_MOBS,
+} from './content/hollowmere';
 import {
   TEMPLE_CAMPS,
   TEMPLE_DUNGEON_DEFS,
@@ -63,6 +74,7 @@ import {
 } from './content/zone1';
 import {
   DEEPFEN_SHALLOWS_LAKE,
+  HAUNTED_FEN_CAMPS,
   ZONE2_CAMPS,
   ZONE2_ITEMS,
   ZONE2_MOBS,
@@ -171,6 +183,8 @@ export const MOBS: Record<string, MobTemplate> = {
   ...WARLOCK_PET_MOBS,
   ...TEMPLE_MOBS,
   ...TEMPLE_DUNGEON_MOBS,
+  ...HOLLOWMERE_MOBS,
+  ...MAUSOLEUM_DUNGEON_MOBS,
   ...DELVE_MOBS,
 };
 
@@ -180,6 +194,7 @@ export const NPCS: Record<string, NpcDef> = {
   ...ZONE3_NPCS,
   ...ZONE4_NPCS,
   ...TEMPLE_NPCS,
+  ...HOLLOWMERE_NPCS,
   ...CRAFT_NPCS,
   brother_halven: BROTHER_HALVEN,
 };
@@ -190,6 +205,7 @@ export const QUESTS: Record<string, QuestDef> = {
   ...ZONE3_QUESTS,
   ...ZONE4_QUESTS,
   ...TEMPLE_QUESTS,
+  ...HOLLOWMERE_QUESTS,
 };
 
 export const QUEST_ORDER: string[] = [
@@ -198,6 +214,7 @@ export const QUEST_ORDER: string[] = [
   ...ZONE3_QUEST_ORDER,
   ...ZONE4_QUEST_ORDER,
   ...TEMPLE_QUEST_ORDER,
+  ...HOLLOWMERE_QUEST_ORDER,
 ];
 
 // Camps spawn in array order, each drawing world-gen RNG, so an entry inserted
@@ -214,6 +231,12 @@ export const CAMPS: CampDef[] = [
   // The Dam (zone 4) camps are appended LAST so every pre-existing zone keeps its
   // exact world-gen RNG draw order (determinism); see zone4.ts.
   ...ZONE4_CAMPS,
+  // Hollowmere expansion (Phase 0): appended after zone 4 so every pre-existing camp
+  // (incl. zone 4) keeps its exact draw order; see zone2.ts HAUNTED_FEN_CAMPS.
+  ...HAUNTED_FEN_CAMPS,
+  // Hollowmere expansion (Phase 1 region): appended LAST so every pre-existing camp
+  // (incl. the Phase 0 haunted fen) keeps its exact draw order; see hollowmere.ts.
+  ...HOLLOWMERE_CAMPS,
 ];
 
 export const GROUND_OBJECTS: GroundObjectDef[] = [
@@ -223,6 +246,10 @@ export const GROUND_OBJECTS: GroundObjectDef[] = [
   ...ZONE4_OBJECTS,
   ...TEMPLE_OBJECTS,
 ];
+
+// Resource-gathering nodes (harvest.ts): the node defs + their world placements.
+// Spawned as ground objects carrying `harvestNodeId` in the Sim world-init.
+export { HARVEST_NODE_SPAWNS, HARVEST_NODES };
 
 export const ROADS: { x: number; z: number }[][] = [
   ...ZONE1_ROADS,
@@ -237,6 +264,7 @@ export const PROPS: ZonePropsDef = mergeProps([
   ZONE3_PROPS,
   ZONE4_PROPS,
   TEMPLE_PROPS,
+  HOLLOWMERE_PROPS,
 ]);
 
 function mergeProps(sets: ZonePropsDef[]): ZonePropsDef {
@@ -362,7 +390,11 @@ export function instanceOrigin(dungeonIndex: number, slot: number): { x: number;
   return { x: 900 + dungeonIndex * 600, z: -1250 + slot * 500 };
 }
 
-export const DUNGEONS: Record<string, DungeonDef> = { ...DUNGEON_DEFS, ...TEMPLE_DUNGEON_DEFS };
+export const DUNGEONS: Record<string, DungeonDef> = {
+  ...DUNGEON_DEFS,
+  ...TEMPLE_DUNGEON_DEFS,
+  ...MAUSOLEUM_DUNGEON_DEFS,
+};
 
 export const DUNGEON_LIST: DungeonDef[] = Object.values(DUNGEONS).sort((a, b) => a.index - b.index);
 

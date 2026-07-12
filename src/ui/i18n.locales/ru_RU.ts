@@ -5284,4 +5284,59 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.crafting.errors.tooFarFromStation': 'Вы слишком далеко от верстака.',
   'hudChrome.crafting.errors.levelTooLow': 'Вам пока не хватает мастерства, чтобы создать это.',
   'hudChrome.crafting.errors.missingMaterials': 'У вас недостаточно материалов для создания этого.',
+  // Hollowmere (zone 2 haunted fen) + harvest channel label
+  'abilityUi.cast.harvest': 'Жатва',
+  'entities.mobs.grinning_jack.name': 'Ухмыляющийся Джек',
+  'entities.mobs.marsh_hag.name': 'Болотная Карга',
+  'entities.mobs.wispford_dead.name': 'Мертвецы Виспфорда',
+  'entities.mobs.fen_revenant.name': 'Топяной Ревенант',
+  'entities.mobs.hexbound_crone.name': 'Окованная Порчей Карга',
+  'entities.mobs.grave_sentinel.name': 'Могильный Страж',
+  'entities.mobs.mausoleum_shambler.name': 'Мавзолейный Шаркун',
+  'entities.mobs.crypt_hexward.name': 'Порчный Страж Склепа',
+  'entities.mobs.bonepile_horror.name': 'Костяной Ужас',
+  'entities.mobs.pumpkin_spriteling.name': 'Тыквенный Духёнок',
+  'entities.mobs.grinning_king.name': 'Тыквенный Король',
+  'entities.npcs.morvenna_hedgewitch.name': 'Морвенна',
+  'entities.npcs.morvenna_hedgewitch.title': 'Ведунья',
+  'entities.npcs.morvenna_hedgewitch.greeting':
+    'Держись света фонарей, {className}. На закате трясина отдаёт своих мертвецов, а обереги, что я плету, держатся лишь пока горит сало. Принеси мне то, что я прошу, и я подарю Виспфорду ещё одну ночь дыхания.',
+  'entities.npcs.gravewarden_holt.title': 'Хранитель Могил',
+  'entities.npcs.gravewarden_holt.greeting':
+    'Большинство из этих людей я похоронил своими руками, {playerName}, а теперь вновь возвращаю их в землю. Могильные врата на северном краю не запечатывали уже целую жизнь. Что-то под ними поднимает мёртвых.',
+  'entities.dungeons.sunken_mausoleum.name': 'Затонувший Мавзолей',
+  'entities.dungeons.sunken_mausoleum.enterText':
+    'Ты спускаешься сквозь могильные врата в сырой камень и смрад сала, и где-то внизу что-то ухмыляется во тьме.',
+  'entities.dungeons.sunken_mausoleum.leaveText':
+    'Ты поднимаешься по лестнице могильных врат обратно в озарённую фонарями топь.',
+  'entities.quests.q_hollowmere_risen.title': 'Беспокойная Топь',
+  'entities.quests.q_hollowmere_risen.text':
+    'Теперь каждый закат они выбираются из трясины, {playerName}: Мертвецы Виспфорда, всё ещё в тех лохмотьях, в которых мы их схоронили. Уложи десятерых обратно, прежде чем они доберутся до ограды деревушки. Работа мрачная, но это милосердие.',
+  'entities.quests.q_hollowmere_risen.completion':
+    'Десятеро вновь уложены в грязь. Они ведь не сражаются, {playerName}, вовсе нет. Они лишь бредут на свет. Что бы их ни звало, оно зовёт из-под могильных врат.',
+  'entities.quests.q_hollowmere_risen.objectives.0.label': 'Мертвецы Виспфорда упокоены',
+  'entities.quests.q_hollowmere_revenants.title': 'Обереги Морвенны',
+  'entities.quests.q_hollowmere_revenants.text':
+    'Бледный могильный мох, которым связаны мои обереги, приживается лишь там, где пали тронутые трясиной мертвецы, {playerName}. Топяные Ревенанты вытаптывают его повсюду, где проходят. Сруби восьмерых вдоль края кладбища, и мох вновь расползётся по земле, что они удерживали.',
+  'entities.quests.q_hollowmere_revenants.completion':
+    'Мох уже зеленеет там, где они пали. Хорошо. Кольцо деревушки продержится ещё ночь, и сала хватит, чтобы его жечь. Ты выиграл этим людям время, {playerName}.',
+  'entities.quests.q_hollowmere_revenants.objectives.0.label': 'Топяной Ревенант сражён',
+  'entities.quests.q_hollowmere_crones.title': 'Озари Долгую Тьму',
+  'entities.quests.q_hollowmere_crones.text':
+    'Старые обережные фонари тянутся вдоль дороги к могильным вратам, {playerName}, а Окованные Порчей Карги крадутся по ней в сумерках, гася каждый огонь на своём пути, чтобы мёртвые шли по тёмной дороге. Сруби шестерых из них, и обережные огни вновь будут гореть всю ночь.',
+  'entities.quests.q_hollowmere_crones.completion':
+    'Дорога вновь сияет, и восставшие отступают от неё, шипя. Это не удержит навечно, {playerName}: то, что внизу, терпеливо, а пламя лишь сало.',
+  'entities.quests.q_hollowmere_crones.objectives.0.label': 'Окованная Порчей Карга усмирена',
+  'entities.quests.q_hollowmere_sentinel.title': 'Могильный Страж',
+  'entities.quests.q_hollowmere_sentinel.text':
+    'Одно существо на этой топи не восставший труп, {playerName}: Могильный Страж, дозорный с головой-костром, которого тварь снизу поставила стеречь дорогу к могильным вратам. Пока он стоит, никто не дойдёт до врат живым. В одиночку одолеть его тяжело, но это редкий случай увидеть, чего глубинные мертвецы страшатся настолько, чтобы ставить стражу. Покончи с ним.',
+  'entities.quests.q_hollowmere_sentinel.completion':
+    'Ухмылка погасла, и дорога к вратам наконец открыта. Что бы ни короновало этого стража, {playerName}, оно теперь близко. Холт захочет знать, что путь вниз свободен.',
+  'entities.quests.q_hollowmere_sentinel.objectives.0.label': 'Могильный Страж уничтожен',
+  'entities.quests.q_hollowmere_pumpkin_king.title': 'Тыквенный Король',
+  'entities.quests.q_hollowmere_pumpkin_king.text':
+    'Со стражем поверженным и дорогой к вратам открытой мы знаем, что ждёт внизу, {playerName}: в Затонувшем Мавзолее тварь с головой-костром, которую старые песни звали Тыквенным Королём, короновала себя королём мёртвых, поднимая каждый труп в топи, чтобы наполнить свой двор. Возьми спутников, спустись сквозь могильные врата и снеси ему голову. Это не поручение для одинокого клинка.',
+  'entities.quests.q_hollowmere_pumpkin_king.completion':
+    'Ухмылка гаснет, и над нами вся топь разом стихает, {playerName}: каждое восставшее создание падает обратно в грязь, точно кукла с обрезанными нитями. Виспфорд похоронит своих мёртвых в последний раз, и на этот раз они останутся лежать. Ты вернул этим людям их кладбище.',
+  'entities.quests.q_hollowmere_pumpkin_king.objectives.0.label': 'Тыквенный Король повержен',
 };

@@ -97,6 +97,11 @@ export function pickUpObject(ctx: SimContext, objId: number, pid?: number): void
     ctx.error(meta.entityId, 'Too far away.');
     return;
   }
+  // Resource nodes are worked with a harvest channel instead of an instant pickup.
+  if (obj.harvestNodeId) {
+    ctx.startHarvest(objId, meta.entityId);
+    return;
+  }
   if (tryStartNythraxisWardChannel(ctx, obj, p)) return;
   if (activateNythraxisRelic(ctx, obj, meta)) return;
   if (interactObjectForQuests(ctx, obj, meta)) return;

@@ -94,6 +94,7 @@ import {
   FISHING_RARE_ID,
   FISHING_TABLES,
   GROUND_OBJECTS,
+  HARVEST_NODE_SPAWNS,
   INSTANCE_SLOT_COUNT,
   ITEMS,
   isDelvePos,
@@ -134,6 +135,7 @@ import {
 import { canEquipItem } from './equipment_rules';
 import { fleeSpeed } from './flee_speed';
 import { formatMoney } from './format_money';
+import * as harvest from './harvest';
 import * as interaction from './interaction';
 import { meetsLevelRequirement } from './item_level_req';
 import * as items from './items';
@@ -992,6 +994,22 @@ export class Sim {
           objDef.name,
           this.groundPos(p.x, p.z),
         );
+        this.addEntity(obj);
+      }
+    }
+
+    // Resource-gathering nodes: ground objects marked with a harvestNodeId, so
+    // pickUpObject routes them to the harvest channel (harvest.ts). Placed at fixed
+    // positions (no rng), yielding existing crafting reagents (see gathering.ts).
+    for (const nodeDef of HARVEST_NODE_SPAWNS) {
+      for (const p of nodeDef.positions) {
+        const obj = createGroundObject(
+          this.nextId++,
+          nodeDef.itemId,
+          nodeDef.name,
+          this.groundPos(p.x, p.z),
+        );
+        obj.harvestNodeId = nodeDef.nodeId;
         this.addEntity(obj);
       }
     }
@@ -2222,6 +2240,10 @@ export class Sim {
       startAutoAttack: sim.startAutoAttack.bind(sim),
       revivePet: sim.revivePet.bind(sim),
       completeFishing: sim.completeFishing.bind(sim),
+      // Resource gathering (harvest.ts): thin delegates so pickUpObject + the casting
+      // lifecycle resolve these on the Sim facade; the bodies live in the slice.
+      startHarvest: (objId, pid) => harvest.startHarvest(sim.ctx, objId, pid),
+      completeHarvest: (p, meta) => harvest.completeHarvest(sim.ctx, p, meta),
       applyDemonHealTick: sim.applyDemonHealTick.bind(sim),
       // C4b effect-dispatch surface: the per-effect switch the cast lifecycle hands
       // off to. awardCombo, the stat/LoS helpers, and meleeSwing STAY on Sim

@@ -3123,7 +3123,6 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.items.riftbound_girdle.name': '裂隙縛系腰帶',
   'entities.items.riftforged_guard.name': '裂隙鍛造護衛',
   'entities.items.riftforged_blade.name': '裂隙鍛造之刃',
-  'entities.items.baked_beaver_token.name': '烤海狸徽記',
   // v0.10.0 release fill (Fiesta / skin-select / NPC voices / chat channels / Brightwood Glade)
   'hud.core.chatChannels.add': '新增聊天頻道',
   'hud.core.chatChannels.addTitle': '新增頻道',
@@ -4917,4 +4916,59 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'hudChrome.crafting.errors.tooFarFromStation': '你離工作台太遠了。',
   'hudChrome.crafting.errors.levelTooLow': '你的技藝還不足以製作那個。',
   'hudChrome.crafting.errors.missingMaterials': '你缺少製作所需的材料。',
+  // Hollowmere (zone 2 haunted fen) + harvest channel label
+  'abilityUi.cast.harvest': '採集中',
+  'entities.mobs.grinning_jack.name': '咧笑傑克',
+  'entities.mobs.marsh_hag.name': '沼澤妖婆',
+  'entities.mobs.wispford_dead.name': '燐渡亡者',
+  'entities.mobs.fen_revenant.name': '沼地還魂者',
+  'entities.mobs.hexbound_crone.name': '咒縛老嫗',
+  'entities.mobs.grave_sentinel.name': '墓塚哨衛',
+  'entities.mobs.mausoleum_shambler.name': '陵墓蹣跚者',
+  'entities.mobs.crypt_hexward.name': '墓窖咒守',
+  'entities.mobs.bonepile_horror.name': '骨堆恐魔',
+  'entities.mobs.pumpkin_spriteling.name': '南瓜小妖',
+  'entities.mobs.grinning_king.name': '南瓜王',
+  'entities.npcs.morvenna_hedgewitch.name': '莫溫娜',
+  'entities.npcs.morvenna_hedgewitch.title': '荒籬女巫',
+  'entities.npcs.morvenna_hedgewitch.greeting':
+    '待在燈火之中，{className}。黃昏一到，沼澤便會吐出它的亡者，而我所束縛的結界，只在獸脂燃燒之時方能維繫。將我所求之物帶來，我便能讓燐渡再多喘息一夜。',
+  'entities.npcs.gravewarden_holt.title': '守墓人',
+  'entities.npcs.gravewarden_holt.greeting':
+    '這些人大多是我親手埋下的，{playerName}，如今我卻得再把他們送回土裡第二次。北端那道墓門，已有一輩子不曾封閉。底下有某種東西，正在喚起亡者。',
+  'entities.dungeons.sunken_mausoleum.name': '沉沒陵墓',
+  'entities.dungeons.sunken_mausoleum.enterText':
+    '你穿過墓門而下，步入濕冷的石道與獸脂的腥臭之中，而在下方某處，有某種東西正在黑暗裡咧嘴而笑。',
+  'entities.dungeons.sunken_mausoleum.leaveText': '你拾級登上墓門石階，重回燈火映照的沼澤。',
+  'entities.quests.q_hollowmere_risen.title': '不安的沼澤',
+  'entities.quests.q_hollowmere_risen.text':
+    '如今每逢黃昏，他們便從沼澤中爬出，{playerName}：那些燐渡亡者，依舊裹著我們下葬時的破衣。趁他們尚未逼近村落的圍籬，將其中十具重新放倒。這是樁陰森的活計，卻也是一種慈悲。',
+  'entities.quests.q_hollowmere_risen.completion':
+    '十具已重歸泥沼。他們其實並不反抗，{playerName}，並不真的反抗。他們只是朝著燈火走去。無論是什麼在召喚他們，那召喚都來自墓門之下。',
+  'entities.quests.q_hollowmere_risen.objectives.0.label': '已放倒的燐渡亡者',
+  'entities.quests.q_hollowmere_revenants.title': '莫溫娜的結界',
+  'entities.quests.q_hollowmere_revenants.text':
+    '我用來束縛結界的那種蒼白墓苔，唯有在沼氣浸染的亡者倒下之處才會生根，{playerName}。沼地還魂者所過之處，卻將它盡數踐踏。沿著墓地邊緣斬倒八具，墓苔便會重新蔓回它們所佔據的土地。',
+  'entities.quests.q_hollowmere_revenants.completion':
+    '他們倒下之處，墓苔已然轉綠。很好。村落的護環還能再撐一夜，供其燃燒的獸脂也還夠。你為這些人爭取到了時間，{playerName}。',
+  'entities.quests.q_hollowmere_revenants.objectives.0.label': '已斬倒的沼地還魂者',
+  'entities.quests.q_hollowmere_crones.title': '照亮漫漫幽暗',
+  'entities.quests.q_hollowmere_crones.text':
+    '古老的結界燈籠沿著通往墓門的道路排列，{playerName}，而咒縛老嫗每逢黃昏便沿路潛行，掐熄途經的每一簇火焰，好讓亡者能行走於黑暗之路。斬倒她們六人，結界之燈便能再度徹夜燃燒。',
+  'entities.quests.q_hollowmere_crones.completion':
+    '道路再度亮起，復生的亡者退縮其外，嘶嘶低鳴。這撐不了永遠，{playerName}：底下的某物極有耐性，而火焰不過是獸脂罷了。',
+  'entities.quests.q_hollowmere_crones.objectives.0.label': '已使噤聲的咒縛老嫗',
+  'entities.quests.q_hollowmere_sentinel.title': '墓塚哨衛',
+  'entities.quests.q_hollowmere_sentinel.text':
+    '這片沼澤上有一物並非復生的屍首，{playerName}：一具墓塚哨衛，一名以篝火為首的守望者，是底下那東西派來看守墓門之路的。只要它還矗立，便無人能活著抵達墓門。單憑一柄刀刃難以將其斬殺，卻是難得的機會，能一窺深處的亡者究竟畏懼何物，竟要立下守衛。終結它。',
+  'entities.quests.q_hollowmere_sentinel.completion':
+    '那咧笑的火光終於黯滅，通往墓門的道路總算暢通。無論是什麼為那哨衛加冕，{playerName}，它如今已近在咫尺。霍特會想知道，下行之路已然清空。',
+  'entities.quests.q_hollowmere_sentinel.objectives.0.label': '已摧毀墓塚哨衛',
+  'entities.quests.q_hollowmere_pumpkin_king.title': '南瓜王',
+  'entities.quests.q_hollowmere_pumpkin_king.text':
+    '哨衛既倒，門路既通，我們便知曉底下究竟有何物等待，{playerName}：在沉沒陵墓之中，一具以篝火為首的東西，古老歌謠稱其為南瓜王，已自封為亡者之王，喚起沼澤中的每一具屍首以充實它的宮廷。帶上同伴穿過墓門而下，斬落它的首級。這絕非孤身一刃所能承擔的差事。',
+  'entities.quests.q_hollowmere_pumpkin_king.completion':
+    '那咧笑歸於黑暗，我們頭頂上整片沼澤霎時一齊靜寂，{playerName}：每一具復生之物都如斷線傀儡般跌回泥沼。燐渡將最後一次埋葬它的亡者，而這一次，他們將長眠不起。你把墓園歸還給了這些人。',
+  'entities.quests.q_hollowmere_pumpkin_king.objectives.0.label': '已擊殺南瓜王',
+  'entities.items.baked_beaver_token.name': '烤海狸徽記',
 };

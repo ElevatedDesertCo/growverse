@@ -439,8 +439,10 @@ export class NameplatePainter {
     // cast_bar.ts keeps st.label as a stable id (DOM/i18n-free); localize here.
     v.castLabel.textContent = st.fishing
       ? t('abilityUi.cast.fishing')
-      : ABILITIES[st.label]
-        ? tEntity({ kind: 'ability', id: st.label, field: 'name' })
-        : st.label;
+      : st.harvest
+        ? t('abilityUi.cast.harvest')
+        : ABILITIES[st.label]
+          ? tEntity({ kind: 'ability', id: st.label, field: 'name' })
+          : st.label;
   }
 }

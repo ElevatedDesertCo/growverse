@@ -67,7 +67,15 @@ const PLAYER_OPTS: CastBarOptions = {
 const TARGET_OPTS: CastBarOptions = { resolveCastLabel: (s) => s.label };
 
 function castState(over: Partial<CastBarState> = {}): CastBarState {
-  return { visible: true, channel: false, fill: 0.8, label: 'fireball', fishing: false, ...over };
+  return {
+    visible: true,
+    channel: false,
+    fill: 0.8,
+    label: 'fireball',
+    fishing: false,
+    harvest: false,
+    ...over,
+  };
 }
 function consumeState(over: Partial<ConsumeBarState> = {}): ConsumeBarState {
   return { visible: true, fill: 0.5, mode: 'eat', remaining: 9, ...over };
@@ -78,6 +86,7 @@ const HIDDEN_CAST: CastBarState = {
   fill: 0,
   label: '',
   fishing: false,
+  harvest: false,
 };
 
 function paint(input: CastBarPaintInput, opts: CastBarOptions): Call[] {

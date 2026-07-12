@@ -3496,7 +3496,8 @@ export const zh_TW: EnTranslations = {
     },
     "cast": {
       "fishing": "釣魚",
-      "demonHeal": "惡魔治療"
+      "demonHeal": "惡魔治療",
+      "harvest": "採集中"
     }
   },
   "questUi": {
@@ -5521,6 +5522,12 @@ export const zh_TW: EnTranslations = {
       "gorrak": {
         "name": "無情者戈拉克"
       },
+      "grinning_jack": {
+        "name": "咧笑傑克"
+      },
+      "marsh_hag": {
+        "name": "沼澤妖婆"
+      },
       "mire_prowler": {
         "name": "泥沼潛伏獸"
       },
@@ -5718,6 +5725,33 @@ export const zh_TW: EnTranslations = {
       },
       "overbaked_beaver": {
         "name": "嗑嗨的河狸"
+      },
+      "wispford_dead": {
+        "name": "燐渡亡者"
+      },
+      "fen_revenant": {
+        "name": "沼地還魂者"
+      },
+      "hexbound_crone": {
+        "name": "咒縛老嫗"
+      },
+      "grave_sentinel": {
+        "name": "墓塚哨衛"
+      },
+      "mausoleum_shambler": {
+        "name": "陵墓蹣跚者"
+      },
+      "crypt_hexward": {
+        "name": "墓窖咒守"
+      },
+      "bonepile_horror": {
+        "name": "骨堆恐魔"
+      },
+      "pumpkin_spriteling": {
+        "name": "南瓜小妖"
+      },
+      "grinning_king": {
+        "name": "南瓜王"
       },
       "ironvein_foreman": {
         "name": "鐵脈工頭"
@@ -5983,6 +6017,16 @@ export const zh_TW: EnTranslations = {
         "name": "朱妮·石水",
         "title": "古脊守護者",
         "greeting": "布恩把你打發到坦克水塘來了，是吧。好。坐下。當年我們踩著滑板從冰封的山脊上下來，身後是座只修了一半的大壩，從沒回過一次頭。整個故事就這麼多。剩下的，都是煙罷了。"
+      },
+      "morvenna_hedgewitch": {
+        "name": "莫溫娜",
+        "title": "荒籬女巫",
+        "greeting": "待在燈火之中，{className}。黃昏一到，沼澤便會吐出它的亡者，而我所束縛的結界，只在獸脂燃燒之時方能維繫。將我所求之物帶來，我便能讓燐渡再多喘息一夜。"
+      },
+      "gravewarden_holt": {
+        "name": "Holt",
+        "title": "守墓人",
+        "greeting": "這些人大多是我親手埋下的，{playerName}，如今我卻得再把他們送回土裡第二次。北端那道墓門，已有一輩子不曾封閉。底下有某種東西，正在喚起亡者。"
       },
       "tidewatcher_ondrel": {
         "name": "翁德瑞爾·韋恩",
@@ -6793,6 +6837,56 @@ export const zh_TW: EnTranslations = {
           }
         }
       },
+      "q_hollowmere_risen": {
+        "title": "不安的沼澤",
+        "text": "如今每逢黃昏，他們便從沼澤中爬出，{playerName}：那些燐渡亡者，依舊裹著我們下葬時的破衣。趁他們尚未逼近村落的圍籬，將其中十具重新放倒。這是樁陰森的活計，卻也是一種慈悲。",
+        "completion": "十具已重歸泥沼。他們其實並不反抗，{playerName}，並不真的反抗。他們只是朝著燈火走去。無論是什麼在召喚他們，那召喚都來自墓門之下。",
+        "objectives": {
+          "0": {
+            "label": "已放倒的燐渡亡者"
+          }
+        }
+      },
+      "q_hollowmere_revenants": {
+        "title": "莫溫娜的結界",
+        "text": "我用來束縛結界的那種蒼白墓苔，唯有在沼氣浸染的亡者倒下之處才會生根，{playerName}。沼地還魂者所過之處，卻將它盡數踐踏。沿著墓地邊緣斬倒八具，墓苔便會重新蔓回它們所佔據的土地。",
+        "completion": "他們倒下之處，墓苔已然轉綠。很好。村落的護環還能再撐一夜，供其燃燒的獸脂也還夠。你為這些人爭取到了時間，{playerName}。",
+        "objectives": {
+          "0": {
+            "label": "已斬倒的沼地還魂者"
+          }
+        }
+      },
+      "q_hollowmere_crones": {
+        "title": "照亮漫漫幽暗",
+        "text": "古老的結界燈籠沿著通往墓門的道路排列，{playerName}，而咒縛老嫗每逢黃昏便沿路潛行，掐熄途經的每一簇火焰，好讓亡者能行走於黑暗之路。斬倒她們六人，結界之燈便能再度徹夜燃燒。",
+        "completion": "道路再度亮起，復生的亡者退縮其外，嘶嘶低鳴。這撐不了永遠，{playerName}：底下的某物極有耐性，而火焰不過是獸脂罷了。",
+        "objectives": {
+          "0": {
+            "label": "已使噤聲的咒縛老嫗"
+          }
+        }
+      },
+      "q_hollowmere_sentinel": {
+        "title": "墓塚哨衛",
+        "text": "這片沼澤上有一物並非復生的屍首，{playerName}：一具墓塚哨衛，一名以篝火為首的守望者，是底下那東西派來看守墓門之路的。只要它還矗立，便無人能活著抵達墓門。單憑一柄刀刃難以將其斬殺，卻是難得的機會，能一窺深處的亡者究竟畏懼何物，竟要立下守衛。終結它。",
+        "completion": "那咧笑的火光終於黯滅，通往墓門的道路總算暢通。無論是什麼為那哨衛加冕，{playerName}，它如今已近在咫尺。霍特會想知道，下行之路已然清空。",
+        "objectives": {
+          "0": {
+            "label": "已摧毀墓塚哨衛"
+          }
+        }
+      },
+      "q_hollowmere_pumpkin_king": {
+        "title": "南瓜王",
+        "text": "哨衛既倒，門路既通，我們便知曉底下究竟有何物等待，{playerName}：在沉沒陵墓之中，一具以篝火為首的東西，古老歌謠稱其為南瓜王，已自封為亡者之王，喚起沼澤中的每一具屍首以充實它的宮廷。帶上同伴穿過墓門而下，斬落它的首級。這絕非孤身一刃所能承擔的差事。",
+        "completion": "那咧笑歸於黑暗，我們頭頂上整片沼澤霎時一齊靜寂，{playerName}：每一具復生之物都如斷線傀儡般跌回泥沼。燐渡將最後一次埋葬它的亡者，而這一次，他們將長眠不起。你把墓園歸還給了這些人。",
+        "objectives": {
+          "0": {
+            "label": "已擊殺南瓜王"
+          }
+        }
+      },
       "q_drowned_choir": {
         "title": "溺亡唱詩班",
         "text": "那些涉者並非單獨行動。在牠們之間行走的，是溺亡信徒——隨神殿一同沉沒的邪教徒，仍披著腐朽的法衣，仍從岸岩之間唱著那篇禱文。讓其中八人歸於沉寂，並為我帶回他們所攜的六件供品。我想知道他們要獻給女神的究竟是什麼。",
@@ -7029,6 +7123,11 @@ export const zh_TW: EnTranslations = {
         "name": "尼思拉克西斯團隊競技場",
         "enterText": "你穿過封印的王室之門。",
         "leaveText": "你回到荊峰的寒冷空氣中。"
+      },
+      "sunken_mausoleum": {
+        "name": "沉沒陵墓",
+        "enterText": "你穿過墓門而下，步入濕冷的石道與獸脂的腥臭之中，而在下方某處，有某種東西正在黑暗裡咧嘴而笑。",
+        "leaveText": "你拾級登上墓門石階，重回燈火映照的沼澤。"
       },
       "drowned_temple": {
         "name": "溺亡神殿",

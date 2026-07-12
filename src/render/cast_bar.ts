@@ -2,7 +2,13 @@
 // (and free of i18n: no t()/tEntity here) so the fill + label rules stay
 // unit-testable without a WebGL context. The renderer turns this into DOM and
 // resolves the visible text (fishing label vs. ability name) via i18n.
-import { CONSUME_DURATION, type Consuming, type Entity, FISHING_CAST_ID } from '../sim/types';
+import {
+  CONSUME_DURATION,
+  type Consuming,
+  type Entity,
+  FISHING_CAST_ID,
+  HARVEST_CAST_ID,
+} from '../sim/types';
 
 export interface CastBarState {
   /** whether the bar should be shown at all this frame */
@@ -19,9 +25,18 @@ export interface CastBarState {
   label: string;
   /** the cast is the fishing channel → renderer shows the localized fishing label */
   fishing: boolean;
+  /** the cast is the harvest channel → renderer shows the localized harvest label */
+  harvest: boolean;
 }
 
-const HIDDEN: CastBarState = { visible: false, channel: false, fill: 0, label: '', fishing: false };
+const HIDDEN: CastBarState = {
+  visible: false,
+  channel: false,
+  fill: 0,
+  label: '',
+  fishing: false,
+  harvest: false,
+};
 
 export function castBarState(e: Entity): CastBarState {
   // corpses, doors/crates, and idle entities show nothing; guard the divide too
@@ -34,6 +49,7 @@ export function castBarState(e: Entity): CastBarState {
     fill,
     label: e.castingAbility,
     fishing: e.castingAbility === FISHING_CAST_ID,
+    harvest: e.castingAbility === HARVEST_CAST_ID,
   };
 }
 
