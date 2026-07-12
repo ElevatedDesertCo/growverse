@@ -3186,6 +3186,7 @@ export const es: Partial<Record<TranslationKey, string>> = {
   'entities.items.riftbound_girdle.name': 'Faja Vinculada a la Fisura',
   'entities.items.riftforged_guard.name': 'Guarda Forjada en la Fisura',
   'entities.items.riftforged_blade.name': 'Hoja Forjada en la Fisura',
+  'entities.items.baked_beaver_token.name': 'Ficha de Baked Beaver',
   // v0.10.0 release fill (Fiesta / skin-select / NPC voices / chat channels / Brightwood Glade)
   'hud.core.chatChannels.add': 'Añadir canal de chat',
   'hud.core.chatChannels.addTitle': 'Añadir canal',

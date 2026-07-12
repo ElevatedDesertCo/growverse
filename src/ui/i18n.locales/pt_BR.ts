@@ -3172,6 +3172,7 @@ export const pt_BR: Partial<Record<TranslationKey, string>> = {
   'entities.items.riftbound_girdle.name': 'Cinto Vinculado à Fenda',
   'entities.items.riftforged_guard.name': 'Guarda Forjada na Fenda',
   'entities.items.riftforged_blade.name': 'Lâmina Forjada na Fenda',
+  'entities.items.baked_beaver_token.name': 'Ficha de Baked Beaver',
   // v0.10.0 release fill (Fiesta / skin-select / NPC voices / chat channels / Brightwood Glade)
   'hud.core.chatChannels.add': 'Adicionar canal de chat',
   'hud.core.chatChannels.addTitle': 'Adicionar canal',

@@ -1088,6 +1088,7 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'entities.items.riftbound_girdle.name': 'Đai Ràng Buộc Khe Nứt',
   'entities.items.riftforged_guard.name': 'Hộ Vệ Rèn Từ Khe Nứt',
   'entities.items.riftforged_blade.name': 'Lưỡi Kiếm Rèn Từ Khe Nứt',
+  'entities.items.baked_beaver_token.name': 'Thẻ Baked Beaver',
   'entities.items.moongate_rubbing.name': 'Bản Rập Bùa Phòng Hộ',
   'entities.items.moonpale_scale.name': 'Vảy Trăng Nhợt',
   'entities.items.moonscale_saber.name': 'Mã Tấu Vảy Trăng',

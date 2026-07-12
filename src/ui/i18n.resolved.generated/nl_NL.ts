@@ -5000,7 +5000,7 @@ export const nl_NL: EnTranslations = {
         "name": "Kloofgesmede Kling"
       },
       "baked_beaver_token": {
-        "name": "Baked Beaver Token"
+        "name": "Baked Beaver-penning"
       },
       "bristleback_maul": {
         "name": "Borstelrug-Strijdhamer"

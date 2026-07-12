@@ -5000,7 +5000,7 @@ export const tr_TR: EnTranslations = {
         "name": "Yarıkta Dövülmüş Kılıç"
       },
       "baked_beaver_token": {
-        "name": "Baked Beaver Token"
+        "name": "Baked Beaver Jetonu"
       },
       "bristleback_maul": {
         "name": "Dikensırt Balyozu"

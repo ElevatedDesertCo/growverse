@@ -3257,6 +3257,7 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.items.riftbound_girdle.name': '균열 속박 허리띠',
   'entities.items.riftforged_guard.name': '균열 단조 보호구',
   'entities.items.riftforged_blade.name': '균열 단조 칼날',
+  'entities.items.baked_beaver_token.name': '구운 비버 증표',
   // v0.10.0 release fill (Fiesta / skin-select / NPC voices / chat channels / Brightwood Glade)
   'hud.core.chatChannels.add': '채팅 채널 추가',
   'hud.core.chatChannels.addTitle': '채널 추가',

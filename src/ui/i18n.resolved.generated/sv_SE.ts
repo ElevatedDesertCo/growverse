@@ -5000,7 +5000,7 @@ export const sv_SE: EnTranslations = {
         "name": "Riftsmidd Klinga"
       },
       "baked_beaver_token": {
-        "name": "Baked Beaver Token"
+        "name": "Baked Beaver-märke"
       },
       "bristleback_maul": {
         "name": "Borstryggens klubba"

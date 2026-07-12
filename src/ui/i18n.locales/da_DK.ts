@@ -1074,6 +1074,7 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'entities.items.riftbound_girdle.name': 'Riftbundet Bælte',
   'entities.items.riftforged_guard.name': 'Riftsmedet Værn',
   'entities.items.riftforged_blade.name': 'Riftsmedet Klinge',
+  'entities.items.baked_beaver_token.name': 'Baked Beaver-mærke',
   'entities.items.moongate_rubbing.name': 'Værneaftryk',
   'entities.items.moonpale_scale.name': 'Måneblegt Skæl',
   'entities.items.moonscale_saber.name': 'Måneskæl-Sabel',

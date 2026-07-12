@@ -5000,7 +5000,7 @@ export const ja_JP: EnTranslations = {
         "name": "亀裂鍛造の刃"
       },
       "baked_beaver_token": {
-        "name": "Baked Beaver Token"
+        "name": "焼きビーバーの証"
       },
       "bristleback_maul": {
         "name": "ブリストルバックの大槌"

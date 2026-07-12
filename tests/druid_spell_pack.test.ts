@@ -49,9 +49,15 @@ function horizontalTravel(sim: Sim, pid: number, ticks: number): number {
 }
 
 function findDeepWater(seed: number): { x: number; z: number } {
+  // Require the candidate AND its four neighbors to be deep, so the scan lands on
+  // open mid-water rather than a shore edge that a nearby structure collider (e.g.
+  // the Sluice beaver dam OBB) overlaps. A cell inside a collider would eject the
+  // swimmer on tick 0 and inflate the measured swim distance.
+  const deep = (x: number, z: number) => groundHeight(x, z, seed) < WATER_LEVEL - 1.25;
   for (let z = -50; z <= 950; z += 5) {
     for (let x = -170; x <= 170; x += 5) {
-      if (groundHeight(x, z, seed) < WATER_LEVEL - 1.25) return { x, z };
+      if (deep(x, z) && deep(x + 5, z) && deep(x - 5, z) && deep(x, z + 5) && deep(x, z - 5))
+        return { x, z };
     }
   }
   throw new Error('test fixture needs a deep-water coordinate');

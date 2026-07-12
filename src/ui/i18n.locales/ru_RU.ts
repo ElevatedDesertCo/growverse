@@ -3297,6 +3297,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.items.riftbound_girdle.name': 'Пояс, связанный с разломом',
   'entities.items.riftforged_guard.name': 'Защита, выкованная в разломе',
   'entities.items.riftforged_blade.name': 'Клинок, выкованный в разломе',
+  'entities.items.baked_beaver_token.name': 'Жетон запечённого бобра',
   // v0.10.0 release fill (Fiesta / skin-select / NPC voices / chat channels / Brightwood Glade)
   'hud.core.chatChannels.add': 'Добавить канал чата',
   'hud.core.chatChannels.addTitle': 'Добавить канал',

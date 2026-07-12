@@ -5000,7 +5000,7 @@ export const fr_CA: EnTranslations = {
         "name": "Lame Forgée dans la Faille"
       },
       "baked_beaver_token": {
-        "name": "Baked Beaver Token"
+        "name": "Jeton Baked Beaver"
       },
       "bristleback_maul": {
         "name": "Maillet Bristleback"

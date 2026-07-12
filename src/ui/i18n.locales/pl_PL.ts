@@ -1084,6 +1084,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'entities.items.riftbound_girdle.name': 'Pas związany z rozdarciem',
   'entities.items.riftforged_guard.name': 'Osłona wykuta w rozdarciu',
   'entities.items.riftforged_blade.name': 'Ostrze wykute w rozdarciu',
+  'entities.items.baked_beaver_token.name': 'Żeton Baked Beaver',
   'entities.items.moongate_rubbing.name': 'Odbitka ochronnego znaku',
   'entities.items.moonpale_scale.name': 'Księżycowoblada łuska',
   'entities.items.moonscale_saber.name': 'Szabla z księżycowej łuski',

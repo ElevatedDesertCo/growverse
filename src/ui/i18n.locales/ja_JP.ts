@@ -3261,6 +3261,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.items.riftbound_girdle.name': '亀裂に縛られた帯',
   'entities.items.riftforged_guard.name': '亀裂鍛造の護具',
   'entities.items.riftforged_blade.name': '亀裂鍛造の刃',
+  'entities.items.baked_beaver_token.name': '焼きビーバーの証',
   'entities.mobs.nythraxis_skeleton_warrior.name': '蘇った王家の衛兵',
   'entities.mobs.nythraxis_scourge_of_thornpeak.name': 'ナイスラクシス、ソーンピークの災厄',
   'entities.mobs.rootfen_crawler.name': '根沼の這行者',

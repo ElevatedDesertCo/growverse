@@ -5000,7 +5000,7 @@ export const de_DE: EnTranslations = {
         "name": "Rissgeschmiedete Klinge"
       },
       "baked_beaver_token": {
-        "name": "Baked Beaver Token"
+        "name": "Baked-Beaver-Marke"
       },
       "bristleback_maul": {
         "name": "Bristleback-Schlägel"
