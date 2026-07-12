@@ -713,6 +713,235 @@
       opacity: 1;
     }
   }
+
+  /* ---------- growverse player HUD ---------- */
+  /* A polished dark-fantasy pass over the PLAYER frame only (target/party keep the
+     base look): aged-bronze portrait ring + level medallion, taller recessed
+     health/mana tracks with emerald/sapphire fills, a moving sheen, a delayed
+     damage-memory trail, and the reduced-motion-safe heal/mana/xp/level flourishes
+     driven from the real stat stream (stat_feedback_fx.ts). Colours here are CSS
+     literals by design: hud.css is the stylesheet, not a painter, and the painters
+     that DO drive tokens (unit_frame_painter/xp_bar_painter) are untouched. */
+
+  /* Portrait: a carved aged-bronze ring with a soft inner shadow (not bulky). */
+  #player-frame .portrait {
+    border: 3px solid var(--border);
+    box-shadow:
+      0 0 0 1px #17110a,
+      0 2px 8px #000c,
+      inset 0 2px 7px rgba(0, 0, 0, 0.78),
+      inset 0 0 10px rgba(0, 0, 0, 0.5);
+    background: radial-gradient(circle at 35% 28%, #3c3c50, #131319);
+  }
+
+  /* Level medallion: dark bronze outer ring, gold inner face, large readable
+     number, overlapping the portrait's lower-left corner. */
+  #player-frame .level-chip {
+    width: 27px;
+    height: 27px;
+    bottom: -4px;
+    left: -4px;
+    background: radial-gradient(circle at 42% 34%, #f7db85 0%, #d8a63a 44%, #6f4c10 100%);
+    border: 2px solid #2c1f0b;
+    box-shadow:
+      0 0 0 1px #c9a24a,
+      0 2px 5px rgba(0, 0, 0, 0.7),
+      inset 0 1px 2px rgba(255, 240, 200, 0.75),
+      inset 0 -2px 3px rgba(70, 45, 10, 0.6);
+    color: #241a06;
+    font-size: 13px;
+    font-weight: 800;
+    font-family: var(--title-font);
+    text-shadow: 0 1px 0 rgba(255, 244, 210, 0.55);
+    will-change: transform;
+  }
+  /* "LVL" caption riding the top of the medallion. */
+  #player-frame .level-tag {
+    position: absolute;
+    bottom: 23px;
+    left: -1px;
+    z-index: 4;
+    font-size: 7px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    line-height: 1;
+    color: var(--gold);
+    font-family: var(--title-font);
+    text-shadow:
+      0 0 3px #000,
+      0 1px 1px #000;
+    pointer-events: none;
+  }
+  /* Gold pulse ring behind the medallion, lit by the level-up flourish. */
+  #player-frame .level-glow {
+    position: absolute;
+    bottom: -4px;
+    left: -4px;
+    width: 27px;
+    height: 27px;
+    border-radius: 50%;
+    z-index: 2;
+    opacity: 0;
+    pointer-events: none;
+    background: radial-gradient(
+      circle,
+      rgba(255, 224, 130, 0.95) 0%,
+      rgba(255, 198, 74, 0.42) 45%,
+      transparent 70%
+    );
+  }
+
+  /* Bars: taller, dark recessed/inset track. */
+  #player-frame .bar {
+    height: 18px;
+    margin-top: 4px;
+    border-radius: 3px;
+    background: linear-gradient(#0a0a0d, #16161c);
+    border: 1px solid #000;
+    box-shadow:
+      inset 0 2px 3px rgba(0, 0, 0, 0.8),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.04);
+  }
+  #player-frame .bar-text,
+  #player-frame .low-resource-label {
+    line-height: 18px;
+  }
+  /* Smooth interpolation on health/mana changes (no snap). */
+  #player-frame .bar-fill {
+    transition: transform 0.34s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  /* Richer emerald health / sapphire-to-cyan mana fills (subtle top highlight, no
+     repetitive stripe). */
+  #player-frame .hp .bar-fill {
+    background-color: var(--color-hp);
+    background-image: linear-gradient(
+      180deg,
+      rgba(120, 235, 150, 0.55) 0%,
+      rgba(34, 184, 60, 0) 42%,
+      rgba(0, 0, 0, 0.32) 100%
+    );
+  }
+  #player-frame .mana .bar-fill {
+    background-color: var(--color-mana);
+    background-image: linear-gradient(180deg, #5fd0ff 0%, #2b7bd4 46%, #143f74 100%);
+  }
+  /* Damage-memory trail: sits behind the fill and shares its target fraction, but a
+     slow, delayed transition makes it LAG so a hit leaves a crimson ghost that then
+     drains to the new health. On a heal it is covered by the fill (invisible). */
+  #player-frame .bar-trail {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    transform-origin: left;
+    transform: scaleX(1);
+    background: linear-gradient(180deg, #e6564a, #8f1d16);
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.4);
+    transition: transform 0.55s cubic-bezier(0.22, 1, 0.36, 1) 0.32s;
+  }
+  /* Ambient sheen sweeping across the filled portion (replaces the flat look). */
+  #player-frame .bar-sheen {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 55%;
+    pointer-events: none;
+    opacity: 0.55;
+    background: linear-gradient(
+      100deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.28) 50%,
+      transparent 100%
+    );
+    transform: translateX(-130%);
+    animation: bar-sheen 3.6s ease-in-out infinite;
+    animation-duration: calc(3.6s * var(--motion-scale, 1));
+    animation-play-state: var(--fx-ambient-anim, running);
+  }
+  @keyframes bar-sheen {
+    0% {
+      transform: translateX(-130%);
+    }
+    55%,
+    100% {
+      transform: translateX(320%);
+    }
+  }
+  /* Heal-restore glow: brightest at the leading edge, opacity driven by .animate(). */
+  #player-frame .bar-heal {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0;
+    mix-blend-mode: screen;
+    background: linear-gradient(
+      90deg,
+      rgba(140, 255, 175, 0.12) 0%,
+      rgba(200, 255, 220, 0.85) 100%
+    );
+  }
+  /* Mana-regen shimmer: a bright sweep, translateX + opacity driven by .animate(). */
+  #player-frame .bar-shimmer {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 50%;
+    opacity: 0;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    background: linear-gradient(
+      100deg,
+      transparent 0%,
+      rgba(150, 235, 255, 0.9) 50%,
+      transparent 100%
+    );
+  }
+  /* Health/mana glyphs (heart / mana crystal): a token-coloured gradient clipped to
+     an SVG mask, so no emoji and no image asset. */
+  #player-frame .bar-glyph {
+    position: absolute;
+    left: 3px;
+    top: 50%;
+    width: 13px;
+    height: 13px;
+    z-index: 3;
+    transform: translateY(-50%);
+    pointer-events: none;
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.85));
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    -webkit-mask-position: center;
+    mask-position: center;
+    -webkit-mask-size: contain;
+    mask-size: contain;
+  }
+  #player-frame .bar-glyph-hp {
+    background: linear-gradient(#ff9a8d, #d33122);
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21C12 21 3 14.5 3 8.5C3 5.4 5.4 3 8.5 3C10.3 3 11.5 4 12 5.2C12.5 4 13.7 3 15.5 3C18.6 3 21 5.4 21 8.5C21 14.5 12 21 12 21Z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 21C12 21 3 14.5 3 8.5C3 5.4 5.4 3 8.5 3C10.3 3 11.5 4 12 5.2C12.5 4 13.7 3 15.5 3C18.6 3 21 5.4 21 8.5C21 14.5 12 21 12 21Z'/%3E%3C/svg%3E");
+  }
+  #player-frame .bar-glyph-mana {
+    background: linear-gradient(#9fe6ff, #2f7fd6);
+    -webkit-mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2L20 9L12 22L4 9Z'/%3E%3C/svg%3E");
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12 2L20 9L12 22L4 9Z'/%3E%3C/svg%3E");
+  }
+  /* Give the readouts room so the glyph never crowds the number. */
+  #player-frame .bar-text {
+    padding-left: 14px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #player-frame .bar-sheen {
+      animation: none;
+      opacity: 0.4;
+    }
+    #player-frame .bar-fill,
+    #player-frame .bar-trail,
+    #xpbar .fill {
+      transition: none;
+    }
+  }
+
   .combo-row {
     display: flex;
     gap: 4px;
@@ -937,22 +1166,44 @@
     bottom: 6px;
     text-align: center;
   }
+  /* XP progression bar: a proper RPG bar seamed into the bottom of the HUD frame.
+     A very dark purple inset track with a glowing violet fill, milestone markers at
+     25/50/75%, and a bright pulse that sweeps the added section on a gain
+     (stat_feedback_fx.ts). Its width is written by xp_bar_painter.ts. */
   #xpbar {
     width: 612px;
-    height: 10px;
-    background: #14101e;
+    height: 11px;
+    background: linear-gradient(#120b1e, #1d1230);
     border: 1px solid #000;
-    outline: 1px solid #3a3148;
+    outline: 1px solid #3a2f52;
     margin: 0 auto 4px;
     position: relative;
-    border-radius: 2px;
+    border-radius: 0 0 5px 5px;
     overflow: hidden;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.75);
   }
   #xpbar .fill {
+    position: relative;
     height: 100%;
     width: 0%;
-    background: linear-gradient(#b85eff, #6a1bb0);
-    transition: background 0.3s;
+    background: linear-gradient(180deg, #c77dff 0%, #9b4dea 46%, #6a1bb0 100%);
+    box-shadow:
+      0 0 6px rgba(168, 85, 247, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.28);
+    transition:
+      width 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+      background 0.3s;
+  }
+  /* The bright leading-edge pulse (opacity/translateX driven by .animate()). */
+  #xpbar .fill .gain {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 28px;
+    opacity: 0;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent, rgba(244, 226, 255, 0.95));
   }
   /* Rested XP overlay (classic inn-rested bonus): a blue segment ahead of the fill. */
   #xpbar .rested {
@@ -966,16 +1217,25 @@
   }
   #xpbar.rested {
     outline-color: #2b6fd0;
-    box-shadow: 0 0 6px #4a9eff55;
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.75),
+      0 0 6px #4a9eff55;
   }
+  /* Milestone markers at 25 / 50 / 75%: thin lines drawn on the tick overlay. */
   #xpbar .ticks {
     position: absolute;
     inset: 0;
-    display: flex;
-  }
-  #xpbar .ticks i {
-    flex: 1;
-    border-right: 1px solid #00000055;
+    pointer-events: none;
+    background: linear-gradient(
+      90deg,
+      transparent 0 calc(25% - 1px),
+      rgba(255, 255, 255, 0.24) calc(25% - 1px) calc(25% + 1px),
+      transparent calc(25% + 1px) calc(50% - 1px),
+      rgba(255, 255, 255, 0.24) calc(50% - 1px) calc(50% + 1px),
+      transparent calc(50% + 1px) calc(75% - 1px),
+      rgba(255, 255, 255, 0.24) calc(75% - 1px) calc(75% + 1px),
+      transparent calc(75% + 1px)
+    );
   }
   #xpbar .label {
     position: absolute;
@@ -983,8 +1243,10 @@
     font-size: 10px;
     color: #fff;
     text-align: center;
-    line-height: 10px;
-    text-shadow: 1px 1px 1px #000;
+    line-height: 11px;
+    text-shadow:
+      0 0 3px #000,
+      1px 1px 1px #000;
     opacity: 0;
     transition: opacity 0.15s;
   }
@@ -994,10 +1256,15 @@
   /* Post-cap overflow bar (Max-Level XP Overflow): gold/prestige tint. */
   #xpbar.overflow {
     outline-color: #b8902a;
-    box-shadow: 0 0 6px #f5c84355;
+    box-shadow:
+      inset 0 2px 4px rgba(0, 0, 0, 0.75),
+      0 0 6px #f5c84355;
   }
   #xpbar.overflow .fill {
-    background: linear-gradient(#ffe27a, #d99a1c);
+    background: linear-gradient(180deg, #ffe27a, #d99a1c);
+    box-shadow:
+      0 0 6px rgba(245, 200, 67, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
   #actionbar-row {
     display: flex;

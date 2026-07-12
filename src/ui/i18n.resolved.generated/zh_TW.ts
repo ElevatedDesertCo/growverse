@@ -278,7 +278,8 @@ export const zh_TW: EnTranslations = {
       "targetAnnounce": "目標：{name}",
       "partyLabel": "你的隊伍",
       "partyGroup": "小隊 {n}",
-      "durationUnitSeconds": "秒"
+      "durationUnitSeconds": "秒",
+      "lvl": "LVL"
     },
     "character": {
       "modelPreview": "角色模型預覽"

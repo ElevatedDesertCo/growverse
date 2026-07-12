@@ -177,6 +177,11 @@ export const hudChromeStrings = {
     // char (non-wordy: no four-plus consecutive-lowercase run), so an English-filled non-Latin
     // overlay does not trip the M16 untranslated-leak guard; the maintainer localizes at release.
     durationUnitSeconds: 's',
+    // lvl is the small decorative caption above the level medallion on the player
+    // frame ("LVL"). Non-wordy (no four-plus consecutive-lowercase run), so an
+    // English-filled non-Latin overlay does not trip the M16 untranslated-leak
+    // guard; the maintainer localizes at release.
+    lvl: 'LVL',
   },
   // Character sheet (#char-window) accessible names. modelPreview names the role=img 3D
   // turntable HOST distinctly from the title's level/class subtitle (the canvas pixels

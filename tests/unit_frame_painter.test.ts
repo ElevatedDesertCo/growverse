@@ -53,6 +53,7 @@ const FRAME = { tag: 'frame' } as unknown as HTMLElement;
 const NAME = { tag: 'name' } as unknown as HTMLElement;
 const LEVEL = { tag: 'level' } as unknown as HTMLElement;
 const HP_FILL = { tag: 'hpFill' } as unknown as HTMLElement;
+const HP_TRAIL = { tag: 'hpTrail' } as unknown as HTMLElement;
 const HP_TEXT = { tag: 'hpText' } as unknown as HTMLElement;
 const ABSORB = { tag: 'absorb' } as unknown as HTMLElement;
 const RES_CONTAINER = { tag: 'resContainer' } as unknown as HTMLElement;
@@ -65,6 +66,7 @@ const PLAYER_ELEMENTS: UnitFrameElements = {
   frame: FRAME,
   level: LEVEL,
   hpFill: HP_FILL,
+  hpTrail: HP_TRAIL,
   hpText: HP_TEXT,
   absorb: ABSORB,
   resource: { container: RES_CONTAINER, fill: RES_FILL, text: RES_TEXT },
@@ -104,15 +106,16 @@ function paint(
 describe('UnitFramePainter: the player instance routes every write through the elided writers', () => {
   it('paints level, hp, absorb, resource type/fill/text and NOTHING else (byte-faithful)', () => {
     const calls = paint(playerDescriptor());
-    // absorb { hp: 300, maxHp: 600, auras: [] } -> fillFrac = 300/600 = 0.5 (no shield).
-    // No setDisplay (CSS owns it), no name (static, set at login), no dead/oor
-    // (player frame never carries them): exactly the inline block + the absorb /
-    // resource-type folds.
+    // absorb { hp: 300, maxHp: 600, auras: [] } -> NO shield, so the overlay frac is
+    // 0 (the redesign no longer hatches ordinary health). The damage-memory trail
+    // tracks the SAME fraction as the hp fill (0.5). No setDisplay (CSS owns it), no
+    // name (static, set at login), no dead/oor (player frame never carries them).
     expect(calls).toEqual([
       { m: 'setText', args: [LEVEL, '60'] },
       { m: 'setTransform', args: [HP_FILL, 'scaleX(0.5)'] },
+      { m: 'setTransform', args: [HP_TRAIL, 'scaleX(0.5)'] },
       { m: 'setText', args: [HP_TEXT, '300 / 600'] },
-      { m: 'setTransform', args: [ABSORB, 'scaleX(0.5)'] },
+      { m: 'setTransform', args: [ABSORB, 'scaleX(0)'] },
       { m: 'toggleClass', args: [ABSORB, 'overshield', false] },
       { m: 'toggleClass', args: [RES_CONTAINER, 'rage', false] },
       { m: 'toggleClass', args: [RES_CONTAINER, 'energy', false] },

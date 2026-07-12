@@ -278,7 +278,8 @@ export const fr_FR: EnTranslations = {
       "targetAnnounce": "Cible : {name}",
       "partyLabel": "Votre groupe",
       "partyGroup": "Groupe {n}",
-      "durationUnitSeconds": "s"
+      "durationUnitSeconds": "s",
+      "lvl": "LVL"
     },
     "character": {
       "modelPreview": "Aperçu du modèle du personnage"
