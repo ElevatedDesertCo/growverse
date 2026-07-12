@@ -14,13 +14,21 @@ import { GFX, sharedUniforms } from './gfx';
 
 // Where the ribbon lands: right at the pool waterline, standing just in front of the
 // cliff foot so it reads as spilling INTO the pool (not buried in the bank). Sampled at
-// z=24: water ends ~x154.7 (h -4.5), then the face shoots up x155->x160 (h -3.3 -> +43).
-// Foot at x154.3 keeps the ribbon's base in open water, one step east of the cliff base.
+// z=24: water ends ~x154.7, then the face shoots up x155->x160 (h -3.3 -> +43) and keeps
+// climbing to the summit (~66 at x168). Foot at x154.3 keeps the ribbon's base in open
+// water, one step east of the cliff base.
 const FALLS_X = SLUICE_RIVER.xWest + 4.3; // ~154.3, foot in the pool at the cliff base
 const FALLS_Z = SLUICE_RIVER.z; // river centerline (roughly level)
 const FALLS_WIDTH = 8;
-const FALLS_TOP = 26; // ribbon crest height above the pool (backed by the +40 cliff)
 const FALLS_BOTTOM = WATER_LEVEL - 0.5; // just below the pool surface so it reads as feeding it
+// The crest reaches the top of the steep escarpment (sampled ~y45 near x160), so the
+// ribbon spills the whole face instead of ending a third of the way up. The crest leans
+// back toward the peak (x168) so the sheet hugs the concave face rather than floating in
+// front of it; matching the face's ~0.11 x-per-y slope keeps it a hair in front the whole
+// length. Going higher (true summit ~66) would drive a straight ribbon into the rock,
+// since the face is concave (steep at the foot, laying back near the top).
+const FALLS_TOP_Y = 45; // crest height: top of the steep face, near the summit
+const FALLS_TOP_X = FALLS_X + 5.7; // lean the crest back toward the peak, tracking the face
 
 export interface WaterfallView {
   meshes: THREE.Mesh[];
@@ -108,9 +116,14 @@ function fogUniforms(): Record<string, THREE.IUniform> {
 export function buildWaterfall(): WaterfallView {
   const meshes: THREE.Mesh[] = [];
 
-  // The falling curtain: a vertical plane facing east (-X), toward a player
-  // approaching up the river from the pond. Local plane XY -> world (Z width, Y height).
-  const sheetGeo = new THREE.PlaneGeometry(FALLS_WIDTH, FALLS_TOP - FALLS_BOTTOM, 1, 12);
+  // The falling curtain: a plane facing east (-X), toward a player approaching up the
+  // river from the pond, leaning back up the cliff so its crest reaches the ridge. Local
+  // plane XY -> world (Z width, slanted height); the geometry length is the slant of the
+  // face, not the vertical drop, and the mesh is tipped about Z to lay it against the face.
+  const dropX = FALLS_TOP_X - FALLS_X;
+  const dropY = FALLS_TOP_Y - FALLS_BOTTOM;
+  const slant = Math.hypot(dropX, dropY);
+  const sheetGeo = new THREE.PlaneGeometry(FALLS_WIDTH, slant, 1, 24);
   sheetGeo.rotateY(-Math.PI / 2); // normal now points -X (east)
   const sheetMat = new THREE.ShaderMaterial({
     uniforms: { ...fogUniforms(), uTime: sharedUniforms.uTime },
@@ -122,7 +135,8 @@ export function buildWaterfall(): WaterfallView {
     fog: true,
   });
   const sheet = new THREE.Mesh(sheetGeo, sheetMat);
-  sheet.position.set(FALLS_X, (FALLS_TOP + FALLS_BOTTOM) / 2, FALLS_Z);
+  sheet.position.set((FALLS_X + FALLS_TOP_X) / 2, (FALLS_BOTTOM + FALLS_TOP_Y) / 2, FALLS_Z);
+  sheet.rotation.z = -Math.atan2(dropX, dropY); // tip the crest back into the face
   meshes.push(sheet);
 
   // Plunge-pool foam: a flat disc lying on the water where the ribbon lands.
