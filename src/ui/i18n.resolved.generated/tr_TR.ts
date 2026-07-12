@@ -278,7 +278,8 @@ export const tr_TR: EnTranslations = {
       "targetAnnounce": "{name} hedefini işaretle",
       "partyLabel": "Takımın",
       "partyGroup": "Grup {n}",
-      "durationUnitSeconds": "sn"
+      "durationUnitSeconds": "sn",
+      "lvl": "LVL"
     },
     "character": {
       "modelPreview": "Karakter Modeli Önizlemesi"
@@ -5001,7 +5002,7 @@ export const tr_TR: EnTranslations = {
         "name": "Yarıkta Dövülmüş Kılıç"
       },
       "baked_beaver_token": {
-        "name": "Kızarmış Kunduz Jetonu"
+        "name": "Baked Beaver Jetonu"
       },
       "bristleback_maul": {
         "name": "Dikensırt Balyozu"

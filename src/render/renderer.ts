@@ -37,6 +37,7 @@ import { isVisuallyDead } from './anim_state';
 import { AOE_RING_LIFETIME, aoeRingAnim } from './aoe_ring';
 import type { SpatialAudioSink, Surface } from './audio_sink';
 import { type BirdsView, buildBirds } from './birds';
+import { buildBridge } from './bridge';
 import { type CameraOcclusionState, stepCameraOcclusion } from './camera_collision';
 import { characterSoulRendActive } from './character_effects';
 import { type AnimState, type CharacterVisual, createCharacterVisual } from './characters';
@@ -1224,6 +1225,13 @@ export class Renderer {
     // numPointLights -> materials never recompile for a light-count change).
     this.fireLights.push(this.impactSite.light);
     this.propsView = props;
+
+    // The Sluice footbridge: a stone skin over the raised terrain causeway
+    // (SLUICE_BRIDGE in sim/world.ts). Static masonry, no per-frame work.
+    const bridge = buildBridge(this.sim.cfg.seed);
+    setRenderCategory(bridge.group, 'props');
+    this.scene.add(bridge.group);
+    freezeStaticMatrices(bridge.group);
 
     // selection ring — a classic target reticle: a base ring plus four
     // inward-pointing ticks. The base ring is draped over the terrain each

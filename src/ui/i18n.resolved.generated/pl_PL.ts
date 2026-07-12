@@ -278,7 +278,8 @@ export const pl_PL: EnTranslations = {
       "targetAnnounce": "Oznacz {name}",
       "partyLabel": "Twoja drużyna",
       "partyGroup": "Grupa {n}",
-      "durationUnitSeconds": "s"
+      "durationUnitSeconds": "s",
+      "lvl": "LVL"
     },
     "character": {
       "modelPreview": "Podgląd modelu postaci"
@@ -5001,7 +5002,7 @@ export const pl_PL: EnTranslations = {
         "name": "Ostrze wykute w rozdarciu"
       },
       "baked_beaver_token": {
-        "name": "Żeton Przypieczonego Bobra"
+        "name": "Żeton Baked Beaver"
       },
       "bristleback_maul": {
         "name": "Tłuk szczeciniastych"

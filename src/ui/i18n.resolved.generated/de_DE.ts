@@ -278,7 +278,8 @@ export const de_DE: EnTranslations = {
       "targetAnnounce": "Ziel: {name}",
       "partyLabel": "Eure Gruppe",
       "partyGroup": "Gruppe {n}",
-      "durationUnitSeconds": "s"
+      "durationUnitSeconds": "s",
+      "lvl": "LVL"
     },
     "character": {
       "modelPreview": "Charaktermodell-Vorschau"
@@ -5001,7 +5002,7 @@ export const de_DE: EnTranslations = {
         "name": "Rissgeschmiedete Klinge"
       },
       "baked_beaver_token": {
-        "name": "Marke des Gerösteten Bibers"
+        "name": "Baked-Beaver-Marke"
       },
       "bristleback_maul": {
         "name": "Bristleback-Schlägel"

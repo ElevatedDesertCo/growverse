@@ -278,7 +278,8 @@ export const id_ID: EnTranslations = {
       "targetAnnounce": "Tandai {name}",
       "partyLabel": "Kelompok Anda",
       "partyGroup": "Grup {n}",
-      "durationUnitSeconds": "d"
+      "durationUnitSeconds": "d",
+      "lvl": "LVL"
     },
     "character": {
       "modelPreview": "Pratinjau Model Karakter"
@@ -5001,7 +5002,7 @@ export const id_ID: EnTranslations = {
         "name": "Bilah Tempaan Celah"
       },
       "baked_beaver_token": {
-        "name": "Token Berang-berang Panggang"
+        "name": "Token Baked Beaver"
       },
       "bristleback_maul": {
         "name": "Cabikan Punggung Berbulu"

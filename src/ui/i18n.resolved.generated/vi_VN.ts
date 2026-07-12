@@ -278,7 +278,8 @@ export const vi_VN: EnTranslations = {
       "targetAnnounce": "Đánh Dấu {name}",
       "partyLabel": "Đội Của Bạn",
       "partyGroup": "Nhóm {n}",
-      "durationUnitSeconds": "s"
+      "durationUnitSeconds": "s",
+      "lvl": "LVL"
     },
     "character": {
       "modelPreview": "Xem Trước Mô Hình Nhân Vật"
@@ -5001,7 +5002,7 @@ export const vi_VN: EnTranslations = {
         "name": "Lưỡi Kiếm Rèn Từ Khe Nứt"
       },
       "baked_beaver_token": {
-        "name": "Huy hiệu Hải ly Nướng"
+        "name": "Thẻ Baked Beaver"
       },
       "bristleback_maul": {
         "name": "Vồ Lưng Gai"

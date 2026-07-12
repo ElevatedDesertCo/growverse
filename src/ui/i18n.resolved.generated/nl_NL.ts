@@ -278,7 +278,8 @@ export const nl_NL: EnTranslations = {
       "targetAnnounce": "Markeer {name}",
       "partyLabel": "Je Bende",
       "partyGroup": "Groep {n}",
-      "durationUnitSeconds": "s"
+      "durationUnitSeconds": "s",
+      "lvl": "LVL"
     },
     "character": {
       "modelPreview": "Voorbeeld van Personagemodel"
@@ -5001,7 +5002,7 @@ export const nl_NL: EnTranslations = {
         "name": "Kloofgesmede Kling"
       },
       "baked_beaver_token": {
-        "name": "Penning van de Geroosterde Bever"
+        "name": "Baked Beaver-penning"
       },
       "bristleback_maul": {
         "name": "Borstelrug-Strijdhamer"

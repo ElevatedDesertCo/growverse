@@ -74,6 +74,25 @@ export const SLUICE_PEAK = {
   sigma: 13,
 } as const;
 
+// A stone crossing over the Sluice river, mid-corridor, so a player on the south
+// (boar-meadow) bank can reach the north shore without swimming. It is a pure
+// terrain primitive (a raised, gently-arched causeway), NOT a walkable-platform
+// subsystem: because the renderer samples the same `terrainHeight`, the deck you
+// see is exactly the deck you walk on. The ends ramp down onto the natural banks
+// (below the climb-slope cap) and the crown clears the water; the crisp x-edges
+// drop back to the river so it reads as a bridge, with parapet rails added in
+// colliders.ts and the stone skin in render/bridge.ts, all off THIS one const.
+export const SLUICE_BRIDGE = {
+  x: 70, // crossing centered on the open river corridor
+  z: 24, // river centerline (SLUICE_RIVER.z)
+  halfSpan: 11, // deck runs z in [13, 35], solid south bank to solid north bank
+  halfWidth: 2.8, // deck half-width across x (a comfortable footbridge, ~4yd of deck)
+  deckBase: 0.4, // deck height at the ramp ends (world y)
+  crown: 1.9, // extra rise at the span center, so the crown clears the water
+  rampZ: 4, // z-length over which each end ramps down onto the bank
+  edge: 0.8, // x-taper at the deck edge before it drops to the river
+} as const;
+
 // River/plunge-pool bed height (below WATER_LEVEL so the water plane fills it).
 const SLUICE_RIVER_BED = WATER_LEVEL - 2.5;
 
@@ -129,6 +148,24 @@ function sluiceRiverCarve(x: number, z: number, h: number): number {
   if (d >= r.bank) return h;
   const blend = smoothstep(r.halfWidth, r.bank, d);
   return h * blend + SLUICE_RIVER_BED * (1 - blend);
+}
+
+// Raise the Sluice bridge causeway: a gently-arched deck spanning the channel.
+// Only ever RAISES terrain (max against the natural surface), ramps to the banks
+// at the span ends, and tapers to a crisp edge across x so the river shows on
+// either side. Applied last in terrainHeight so nothing washes the deck out.
+function sluiceBridgeOffset(x: number, z: number, h: number): number {
+  const b = SLUICE_BRIDGE;
+  const dx = x - b.x;
+  const dz = z - b.z;
+  if (Math.abs(dx) >= b.halfWidth || Math.abs(dz) >= b.halfSpan) return h;
+  const zt = dz / b.halfSpan;
+  const deck = b.deckBase + b.crown * (1 - zt * zt); // parabolic crown, high at center
+  const lenBlend = smoothstep(b.halfSpan, b.halfSpan - b.rampZ, Math.abs(dz)); // ramp to banks
+  const widthBlend = smoothstep(b.halfWidth, b.halfWidth - b.edge, Math.abs(dx)); // parapet edge
+  const blend = lenBlend * widthBlend;
+  const target = Math.max(h, deck); // never dig below the natural bank at the ends
+  return h + (target - h) * blend;
 }
 
 // Blended biome shape at a given z. Zone interiors keep their exact shape;
@@ -221,6 +258,7 @@ export function terrainHeight(x: number, z: number, seed: number): number {
   const rim = Math.max(rimX, rimS, rimN);
   h += rim * 40;
   h += mirefenImpactCraterOffset(x, z);
+  h = sluiceBridgeOffset(x, z, h);
   return h;
 }
 
@@ -276,6 +314,14 @@ function isExcludedDecoration(x: number, z: number): boolean {
   );
 }
 
+// The Sluice bridge deck rises above the water-line decoration cutoff, so keep the
+// tree/rock field off its footprint (plus a small margin) or a trunk would sprout
+// mid-span. Mirrors how the road/lake/hub gates keep decorations off structures.
+function isOnSluiceBridge(x: number, z: number): boolean {
+  const b = SLUICE_BRIDGE;
+  return Math.abs(x - b.x) < b.halfWidth + 2 && Math.abs(z - b.z) < b.halfSpan + 2;
+}
+
 export function zoneBiomeAt(z: number): BiomeId {
   for (const zone of ZONES) {
     if (z < zone.zMax) return zone.biome;
@@ -308,6 +354,7 @@ export function generateDecorations(seed: number): Decoration[] {
       const x = gx + ox,
         z = gz + oz;
       if (isExcludedDecoration(x, z)) continue;
+      if (isOnSluiceBridge(x, z)) continue;
       let inHub = false;
       for (const zone of ZONES) {
         const dx = x - zone.hub.x,

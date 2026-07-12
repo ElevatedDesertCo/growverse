@@ -278,7 +278,8 @@ export const it_IT: EnTranslations = {
       "targetAnnounce": "Bersaglio: {name}",
       "partyLabel": "Il tuo gruppo",
       "partyGroup": "Gruppo {n}",
-      "durationUnitSeconds": "s"
+      "durationUnitSeconds": "s",
+      "lvl": "LVL"
     },
     "character": {
       "modelPreview": "Anteprima del modello del personaggio"
@@ -5001,7 +5002,7 @@ export const it_IT: EnTranslations = {
         "name": "Lama Forgiata nella Frattura"
       },
       "baked_beaver_token": {
-        "name": "Gettone del Castoro Tostato"
+        "name": "Gettone Baked Beaver"
       },
       "bristleback_maul": {
         "name": "Maglio Bristleback"

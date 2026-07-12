@@ -278,7 +278,8 @@ export const en_XA: EnTranslations = {
       "targetAnnounce": "[Ɱáŕķ {name}]",
       "partyLabel": "[Ýóúŕ Ɓáñð]",
       "partyGroup": "[Ĝŕóúþ {n}]",
-      "durationUnitSeconds": "[š]"
+      "durationUnitSeconds": "[š]",
+      "lvl": "[ĻƲĻ]"
     },
     "character": {
       "modelPreview": "[Çĥáŕáçţéŕ Ɱóðéļ Þŕéʋíéŵ]"

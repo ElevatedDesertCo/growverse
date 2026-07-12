@@ -3199,6 +3199,7 @@ export const fr_FR: Partial<Record<TranslationKey, string>> = {
   'entities.items.riftbound_girdle.name': 'Ceinture Liée à la Faille',
   'entities.items.riftforged_guard.name': 'Garde Forgée dans la Faille',
   'entities.items.riftforged_blade.name': 'Lame Forgée dans la Faille',
+  'entities.items.baked_beaver_token.name': 'Jeton Baked Beaver',
   // v0.10.0 release fill (Fiesta / skin-select / NPC voices / chat channels / Brightwood Glade)
   'hud.core.chatChannels.add': 'Ajouter un canal de discussion',
   'hud.core.chatChannels.addTitle': 'Ajouter un canal',
@@ -5234,5 +5235,4 @@ export const fr_FR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Pas maintenant',
   'hudChrome.nativeUpdate.title': 'Mise à jour disponible',
   'hudChrome.nativeUpdate.update': 'Mettre à jour',
-  'entities.items.baked_beaver_token.name': 'Jeton du Castor Grillé',
 };

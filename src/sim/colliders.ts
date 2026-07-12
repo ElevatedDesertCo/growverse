@@ -20,7 +20,7 @@ import {
   SANCTUM_LAYOUT,
   TEMPLE_LAYOUT,
 } from './dungeon_layout';
-import { generateDecorations, groundHeight } from './world';
+import { generateDecorations, groundHeight, SLUICE_BRIDGE } from './world';
 
 // Static world collision. Prop placement comes from the per-zone content
 // modules (merged into PROPS by sim/data.ts): the renderer builds its meshes
@@ -279,6 +279,31 @@ function staticWorldColliders(seed: number): Collider[] {
       cameraTopY: topY(seed, m.x, m.z, 5 * s),
       camGhost: true,
     });
+  }
+
+  // The Sluice bridge parapets: two solid stone rails running the length of the
+  // causeway (along z) so a player crossing can't step off the deck into the
+  // river. The deck itself is the raised terrain (terrainHeight), so these only
+  // fence the sides. The render mesh (render/bridge.ts) uses the SAME const, so
+  // rail == geometry. Straight along z, so rot=0 (hw across x, hd along z).
+  {
+    const b = SLUICE_BRIDGE;
+    const railHd = b.halfSpan - 0.5; // rails stop just shy of the ramp mouths
+    const railHw = 0.25; // thin across x
+    const railX = b.halfWidth - railHw; // hug the deck edge, inside the drop
+    for (const side of [-1, 1]) {
+      const x = b.x + side * railX;
+      out.push({
+        type: 'obb',
+        x,
+        z: b.z,
+        hw: railHw,
+        hd: railHd,
+        rot: 0,
+        cameraTopY: topY(seed, x, b.z, 0.7),
+        camGhost: true,
+      });
+    }
   }
 
   // trees & large rocks from the deterministic decoration field

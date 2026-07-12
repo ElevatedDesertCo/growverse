@@ -278,7 +278,8 @@ export const es: EnTranslations = {
       "targetAnnounce": "Objetivo: {name}",
       "partyLabel": "Tu grupo",
       "partyGroup": "Grupo {n}",
-      "durationUnitSeconds": "s"
+      "durationUnitSeconds": "s",
+      "lvl": "LVL"
     },
     "character": {
       "modelPreview": "Vista previa del modelo del personaje"
@@ -5001,7 +5002,7 @@ export const es: EnTranslations = {
         "name": "Hoja Forjada en la Fisura"
       },
       "baked_beaver_token": {
-        "name": "Distintivo del Castor Tostado"
+        "name": "Ficha de Baked Beaver"
       },
       "bristleback_maul": {
         "name": "Maza Bristleback"

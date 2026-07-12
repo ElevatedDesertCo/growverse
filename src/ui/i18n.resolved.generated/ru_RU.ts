@@ -278,7 +278,8 @@ export const ru_RU: EnTranslations = {
       "targetAnnounce": "Цель: {name}",
       "partyLabel": "Ваша группа",
       "partyGroup": "Группа {n}",
-      "durationUnitSeconds": "с"
+      "durationUnitSeconds": "с",
+      "lvl": "LVL"
     },
     "character": {
       "modelPreview": "Предпросмотр модели персонажа"
@@ -5001,7 +5002,7 @@ export const ru_RU: EnTranslations = {
         "name": "Клинок, выкованный в разломе"
       },
       "baked_beaver_token": {
-        "name": "Жетон Обжаренного Бобра"
+        "name": "Жетон запечённого бобра"
       },
       "bristleback_maul": {
         "name": "Кувалда Щетиноспина"

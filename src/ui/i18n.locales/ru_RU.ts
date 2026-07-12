@@ -3297,6 +3297,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.items.riftbound_girdle.name': 'Пояс, связанный с разломом',
   'entities.items.riftforged_guard.name': 'Защита, выкованная в разломе',
   'entities.items.riftforged_blade.name': 'Клинок, выкованный в разломе',
+  'entities.items.baked_beaver_token.name': 'Жетон запечённого бобра',
   // v0.10.0 release fill (Fiesta / skin-select / NPC voices / chat channels / Brightwood Glade)
   'hud.core.chatChannels.add': 'Добавить канал чата',
   'hud.core.chatChannels.addTitle': 'Добавить канал',
@@ -5338,5 +5339,4 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.quests.q_hollowmere_pumpkin_king.completion':
     'Ухмылка гаснет, и над нами вся топь разом стихает, {playerName}: каждое восставшее создание падает обратно в грязь, точно кукла с обрезанными нитями. Виспфорд похоронит своих мёртвых в последний раз, и на этот раз они останутся лежать. Ты вернул этим людям их кладбище.',
   'entities.quests.q_hollowmere_pumpkin_king.objectives.0.label': 'Тыквенный Король повержен',
-  'entities.items.baked_beaver_token.name': 'Жетон Обжаренного Бобра',
 };

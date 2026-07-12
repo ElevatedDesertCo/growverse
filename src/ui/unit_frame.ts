@@ -121,8 +121,8 @@ const HIDDEN: UnitFrameView = {
 };
 
 // The no-shield absorb result, matching the inline updateAbsorb fallback for a
-// null entity (`{ fillFrac: 0, overshield: false }`).
-const NO_ABSORB = { fillFrac: 0, overshield: false } as const;
+// null entity (`{ total: 0, fillFrac: 0, overshield: false }`).
+const NO_ABSORB = { total: 0, fillFrac: 0, overshield: false } as const;
 
 /**
  * Map the descriptor's resource kind to the painter's class discriminator. This
@@ -144,6 +144,11 @@ export function unitResourceClass(kind: UnitResourceKind): UnitResourceClass {
 export function unitFrameView(d: UnitFrameDescriptor): UnitFrameView {
   if (!d.present) return HIDDEN;
   const absorb = d.absorb ? absorbBarView(d.absorb) : NO_ABSORB;
+  // Only paint the hatched shield overlay when a shield is actually active. With no
+  // shield the absorb fraction equals current health, which would hatch the WHOLE
+  // health bar (the "repetitive diagonal stripe" the redesign removes); a 0 frac
+  // keeps the overlay invisible until a real Power Word: Shield / Ice Barrier lands.
+  const hasShield = absorb.total > 0;
   return {
     present: true,
     hpFrac: d.hpFrac,
@@ -154,7 +159,7 @@ export function unitFrameView(d: UnitFrameDescriptor): UnitFrameView {
     levelText: d.levelText,
     name: d.name,
     portraitKey: d.portraitKey,
-    absorbFrac: absorb.fillFrac,
+    absorbFrac: hasShield ? absorb.fillFrac : 0,
     absorbOvershield: absorb.overshield,
     dead: d.dead,
     outOfRange: d.outOfRange,

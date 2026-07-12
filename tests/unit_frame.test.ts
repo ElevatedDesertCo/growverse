@@ -106,6 +106,14 @@ describe('unitFrameView: absorb resolution via the shared absorbBarView core', (
     expect(v.absorbFrac).toBe(0);
     expect(v.absorbOvershield).toBe(false);
   });
+
+  it('keeps the shield overlay invisible when present but unshielded (no full-bar hatch)', () => {
+    // A live unit at partial health with NO absorb aura: the overlay must be 0, not
+    // hp/maxHp, so the hatched stripe never paints over ordinary health.
+    const v = unitFrameView(playerDescriptor({ absorb: { hp: 300, maxHp: 600, auras: [] } }));
+    expect(v.absorbFrac).toBe(0);
+    expect(v.absorbOvershield).toBe(false);
+  });
 });
 
 describe('unitFrameView: TWO-DESCRIPTOR contract (the FULL field set)', () => {

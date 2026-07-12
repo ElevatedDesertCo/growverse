@@ -278,7 +278,8 @@ export const ja_JP: EnTranslations = {
       "targetAnnounce": "ターゲット：{name}",
       "partyLabel": "あなたのパーティ",
       "partyGroup": "グループ {n}",
-      "durationUnitSeconds": "秒"
+      "durationUnitSeconds": "秒",
+      "lvl": "LVL"
     },
     "character": {
       "modelPreview": "キャラクターモデルプレビュー"
@@ -5001,7 +5002,7 @@ export const ja_JP: EnTranslations = {
         "name": "亀裂鍛造の刃"
       },
       "baked_beaver_token": {
-        "name": "ベイクドビーバーの証"
+        "name": "焼きビーバーの証"
       },
       "bristleback_maul": {
         "name": "ブリストルバックの大槌"

@@ -1082,6 +1082,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'entities.items.riftbound_girdle.name': 'Yarığa Bağlı Kuşak',
   'entities.items.riftforged_guard.name': 'Yarıkta Dövülmüş Koruma',
   'entities.items.riftforged_blade.name': 'Yarıkta Dövülmüş Kılıç',
+  'entities.items.baked_beaver_token.name': 'Baked Beaver Jetonu',
   'entities.items.moongate_rubbing.name': 'Koruyucu İz Baskısı',
   'entities.items.moonpale_scale.name': 'Ay Solgunu Pul',
   'entities.items.moonscale_saber.name': 'Aypulu Pala',
@@ -5099,5 +5100,4 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Şimdi Değil',
   'hudChrome.nativeUpdate.title': 'Güncelleme Mevcut',
   'hudChrome.nativeUpdate.update': 'Güncelle',
-  'entities.items.baked_beaver_token.name': 'Kızarmış Kunduz Jetonu',
 };

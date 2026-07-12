@@ -278,7 +278,8 @@ export const fr_CA: EnTranslations = {
       "targetAnnounce": "Cible : {name}",
       "partyLabel": "Votre groupe",
       "partyGroup": "Groupe {n}",
-      "durationUnitSeconds": "s"
+      "durationUnitSeconds": "s",
+      "lvl": "LVL"
     },
     "character": {
       "modelPreview": "Aperçu du modèle du personnage"
@@ -5001,7 +5002,7 @@ export const fr_CA: EnTranslations = {
         "name": "Lame Forgée dans la Faille"
       },
       "baked_beaver_token": {
-        "name": "Jeton du Castor Grillé"
+        "name": "Jeton Baked Beaver"
       },
       "bristleback_maul": {
         "name": "Maillet Bristleback"

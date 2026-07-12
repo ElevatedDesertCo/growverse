@@ -278,7 +278,8 @@ export const ko_KR: EnTranslations = {
       "targetAnnounce": "대상: {name}",
       "partyLabel": "내 파티",
       "partyGroup": "{n}번 그룹",
-      "durationUnitSeconds": "초"
+      "durationUnitSeconds": "초",
+      "lvl": "LVL"
     },
     "character": {
       "modelPreview": "캐릭터 모델 미리보기"
@@ -5001,7 +5002,7 @@ export const ko_KR: EnTranslations = {
         "name": "균열 단조 칼날"
       },
       "baked_beaver_token": {
-        "name": "구운 비버 징표"
+        "name": "구운 비버 증표"
       },
       "bristleback_maul": {
         "name": "뻣센등뼈 철퇴"

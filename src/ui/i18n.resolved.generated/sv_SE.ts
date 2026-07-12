@@ -278,7 +278,8 @@ export const sv_SE: EnTranslations = {
       "targetAnnounce": "Markera {name}",
       "partyLabel": "Ditt följe",
       "partyGroup": "Grupp {n}",
-      "durationUnitSeconds": "s"
+      "durationUnitSeconds": "s",
+      "lvl": "LVL"
     },
     "character": {
       "modelPreview": "Förhandsvisning av karaktärsmodell"
@@ -5001,7 +5002,7 @@ export const sv_SE: EnTranslations = {
         "name": "Riftsmidd Klinga"
       },
       "baked_beaver_token": {
-        "name": "Pollett för Bakad Bäver"
+        "name": "Baked Beaver-märke"
       },
       "bristleback_maul": {
         "name": "Borstryggens klubba"

@@ -154,7 +154,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "es_ES": [
     "abilityUi.cast.harvest",
@@ -301,7 +302,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "fr_FR": [
     "abilityUi.cast.harvest",
@@ -448,7 +450,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "fr_CA": [
     "abilityUi.cast.harvest",
@@ -595,7 +598,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "en_CA": [],
   "it_IT": [
@@ -743,7 +747,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "de_DE": [
     "abilityUi.cast.harvest",
@@ -890,35 +895,40 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "zh_CN": [
     "entities.npcs.gravewarden_holt.name",
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
-    "entities.zones.the_dam.pois.0.label"
+    "entities.zones.the_dam.pois.0.label",
+    "hudChrome.unitFrame.lvl"
   ],
   "zh_TW": [
     "entities.npcs.gravewarden_holt.name",
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
-    "entities.zones.the_dam.pois.0.label"
+    "entities.zones.the_dam.pois.0.label",
+    "hudChrome.unitFrame.lvl"
   ],
   "ko_KR": [
     "entities.npcs.gravewarden_holt.name",
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
-    "entities.zones.the_dam.pois.0.label"
+    "entities.zones.the_dam.pois.0.label",
+    "hudChrome.unitFrame.lvl"
   ],
   "ja_JP": [
     "entities.npcs.gravewarden_holt.name",
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
-    "entities.zones.the_dam.pois.0.label"
+    "entities.zones.the_dam.pois.0.label",
+    "hudChrome.unitFrame.lvl"
   ],
   "pt_BR": [
     "abilityUi.cast.harvest",
@@ -1065,14 +1075,16 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "ru_RU": [
     "entities.npcs.gravewarden_holt.name",
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
-    "entities.zones.the_dam.pois.0.label"
+    "entities.zones.the_dam.pois.0.label",
+    "hudChrome.unitFrame.lvl"
   ],
   "nl_NL": [
     "abilityUi.cast.harvest",
@@ -1219,7 +1231,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "pl_PL": [
     "abilityUi.cast.harvest",
@@ -1366,7 +1379,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "id_ID": [
     "abilityUi.cast.harvest",
@@ -1513,7 +1527,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "tr_TR": [
     "abilityUi.cast.harvest",
@@ -1660,7 +1675,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "sv_SE": [
     "abilityUi.cast.harvest",
@@ -1807,7 +1823,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "vi_VN": [
     "abilityUi.cast.harvest",
@@ -1954,7 +1971,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ],
   "da_DK": [
     "abilityUi.cast.harvest",
@@ -2101,6 +2119,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
-    "hudChrome.options.showDailyRewardsChest"
+    "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.unitFrame.lvl"
   ]
 };

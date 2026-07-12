@@ -1107,6 +1107,7 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'entities.items.riftbound_girdle.name': 'Sabuk Terikat Celah',
   'entities.items.riftforged_guard.name': 'Pelindung Tempaan Celah',
   'entities.items.riftforged_blade.name': 'Bilah Tempaan Celah',
+  'entities.items.baked_beaver_token.name': 'Token Baked Beaver',
   'entities.items.moongate_rubbing.name': 'Gosokan Penangkal',
   'entities.items.moonpale_scale.name': 'Sisik Pucat Bulan',
   'entities.items.moonscale_saber.name': 'Sabel Sisik Bulan',
@@ -5169,5 +5170,4 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Jangan sekarang',
   'hudChrome.nativeUpdate.title': 'Pembaruan Tersedia',
   'hudChrome.nativeUpdate.update': 'Perbarui',
-  'entities.items.baked_beaver_token.name': 'Token Berang-berang Panggang',
 };

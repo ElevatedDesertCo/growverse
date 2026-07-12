@@ -3172,6 +3172,7 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'entities.items.riftbound_girdle.name': 'Cintura Vincolata alla Frattura',
   'entities.items.riftforged_guard.name': 'Guardia Forgiata nella Frattura',
   'entities.items.riftforged_blade.name': 'Lama Forgiata nella Frattura',
+  'entities.items.baked_beaver_token.name': 'Gettone Baked Beaver',
   // v0.10.0 release fill (Fiesta / skin-select / NPC voices / chat channels / Brightwood Glade)
   'hud.core.chatChannels.add': 'Aggiungi canale di chat',
   'hud.core.chatChannels.addTitle': 'Aggiungi canale',
@@ -5187,5 +5188,4 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Non ora',
   'hudChrome.nativeUpdate.title': 'Aggiornamento disponibile',
   'hudChrome.nativeUpdate.update': 'Aggiorna',
-  'entities.items.baked_beaver_token.name': 'Gettone del Castoro Tostato',
 };

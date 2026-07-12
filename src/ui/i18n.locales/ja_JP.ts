@@ -3261,6 +3261,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.items.riftbound_girdle.name': '亀裂に縛られた帯',
   'entities.items.riftforged_guard.name': '亀裂鍛造の護具',
   'entities.items.riftforged_blade.name': '亀裂鍛造の刃',
+  'entities.items.baked_beaver_token.name': '焼きビーバーの証',
   'entities.mobs.nythraxis_skeleton_warrior.name': '蘇った王家の衛兵',
   'entities.mobs.nythraxis_scourge_of_thornpeak.name': 'ナイスラクシス、ソーンピークの災厄',
   'entities.mobs.rootfen_crawler.name': '根沼の這行者',
@@ -5228,5 +5229,4 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.quests.q_hollowmere_pumpkin_king.completion':
     'あの笑みが暗く消え、我らの頭上では湿原じゅうが一斉に静まりかえる、{playerName}、蘇りしものすべてが糸を断たれた操り人形のように泥へと崩れ落ちてゆく。ウィスプフォードは最後にもう一度死者を埋めるだろう、そして今度こそ、彼らは土に留まるのだ。おまえはこの者らに墓地を取り戻してやったのだ。',
   'entities.quests.q_hollowmere_pumpkin_king.objectives.0.label': '討ち倒したパンプキン・キング',
-  'entities.items.baked_beaver_token.name': 'ベイクドビーバーの証',
 };
