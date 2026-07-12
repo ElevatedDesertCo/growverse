@@ -751,6 +751,26 @@ export const ko_KR: EnTranslations = {
       "leaderOnly": "공격대장만 파티로 전환할 수 있습니다.",
       "tooLarge": "인원이 5명을 초과하는 공격대는 파티로 다시 전환할 수 없습니다."
     },
+    "bank": {
+      "none": "근처에 은행이 없습니다.",
+      "full": "은행이 가득 찼습니다.",
+      "notInBank": "그 아이템은 은행에 없습니다.",
+      "open": "은행",
+      "title": "{name}의 금고",
+      "close": "은행 닫기",
+      "bankedTitle": "금고 안",
+      "bankedEmpty": "금고가 비어 있습니다.",
+      "bagsTitle": "가방",
+      "bagsEmpty": "가방이 비어 있습니다.",
+      "withdrawAria": "{item} 인출",
+      "depositAria": "{item} 예치",
+      "clickWithdraw": "클릭하여 인출",
+      "clickDeposit": "클릭하여 예치",
+      "hint": "가방 아이템을 클릭하여 보관하거나 금고 아이템을 클릭하여 되찾으세요.",
+      "fullHint": "금고가 가득 찼습니다. 무언가를 인출하여 공간을 만드세요.",
+      "deposited": "{name}을(를) 예치했습니다.",
+      "withdrew": "{name}을(를) 인출했습니다."
+    },
     "itemArmorType": {
       "cloth": "천",
       "leather": "가죽",
@@ -5982,6 +6002,11 @@ export const ko_KR: EnTranslations = {
         "name": "드락사",
         "title": "균열 대장장이",
         "greeting": "개조 작업대가 뜨겁게 달아올랐네. 부패의 파편을 가져오게. 자네의 강철을 균열조차 부수지 못할 물건으로 다시 벼려주지."
+      },
+      "banker_thistle": {
+        "name": "금고지기 시슬",
+        "title": "블룸헤이븐 은행가",
+        "greeting": "당신의 금화와 소중한 물건은 금고에서 안전합니다, {className}. 지니고 다닐 수 없는 것을 맡기고 지나갈 때마다 되찾으세요."
       },
       "rowan_sawtooth": {
         "name": "로언 소투스",

@@ -5229,4 +5229,27 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.quests.q_hollowmere_pumpkin_king.completion':
     'あの笑みが暗く消え、我らの頭上では湿原じゅうが一斉に静まりかえる、{playerName}、蘇りしものすべてが糸を断たれた操り人形のように泥へと崩れ落ちてゆく。ウィスプフォードは最後にもう一度死者を埋めるだろう、そして今度こそ、彼らは土に留まるのだ。おまえはこの者らに墓地を取り戻してやったのだ。',
   'entities.quests.q_hollowmere_pumpkin_king.objectives.0.label': '討ち倒したパンプキン・キング',
+  'hudChrome.bank.none': '近くに銀行がありません。',
+  'hudChrome.bank.full': '銀行がいっぱいです。',
+  'hudChrome.bank.notInBank': 'そのアイテムは銀行にありません。',
+  'hudChrome.bank.open': '銀行',
+  'hudChrome.bank.title': '{name}の金庫',
+  'hudChrome.bank.close': '銀行を閉じる',
+  'hudChrome.bank.bankedTitle': '金庫の中',
+  'hudChrome.bank.bankedEmpty': '金庫は空です。',
+  'hudChrome.bank.bagsTitle': 'バッグ',
+  'hudChrome.bank.bagsEmpty': 'バッグは空です。',
+  'hudChrome.bank.withdrawAria': '{item}を引き出す',
+  'hudChrome.bank.depositAria': '{item}を預ける',
+  'hudChrome.bank.clickWithdraw': 'クリックして引き出す',
+  'hudChrome.bank.clickDeposit': 'クリックして預ける',
+  'hudChrome.bank.hint':
+    'バッグのアイテムをクリックして預けるか、金庫のアイテムをクリックして引き出します。',
+  'hudChrome.bank.fullHint': '金庫がいっぱいです。何かを引き出して空きを作ってください。',
+  'hudChrome.bank.deposited': '{name}を預けました。',
+  'hudChrome.bank.withdrew': '{name}を引き出しました。',
+  'entities.npcs.banker_thistle.name': '金庫番シスル',
+  'entities.npcs.banker_thistle.title': 'ブルームヘイヴンの銀行家',
+  'entities.npcs.banker_thistle.greeting':
+    'あなたの金貨も宝物も金庫で安全に守られます、{className}。持ちきれないものを預け、立ち寄るたびに引き出してください。',
 };

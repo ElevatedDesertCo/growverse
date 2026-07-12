@@ -66,6 +66,7 @@ import { requiredLevelFor } from '../sim/item_level_req';
 import type { Ante, PickAction } from '../sim/lockpick';
 import { PICK_ACTIONS } from '../sim/lockpick';
 import type { ResolvedAbility } from '../sim/sim';
+import { STASH_LIMIT } from '../sim/stash';
 import type {
   AbilityDef,
   EquipSlot,
@@ -279,6 +280,8 @@ import { localizeServerText } from './server_i18n';
 import { localizeSimAuraName, localizeSimText } from './sim_i18n';
 import { SocialWindow } from './social_window';
 import { SpellbookWindow } from './spellbook_window';
+import { buildStashView } from './stash_view';
+import { renderStashWindow } from './stash_window';
 import { createStatFeedbackState, detectStatPulses, type StatPulses } from './stat_feedback';
 import { StatFeedbackFx } from './stat_feedback_fx';
 import {
@@ -888,6 +891,7 @@ export class Hud {
   >();
   private openVendorNpcId: number | null = null;
   private openCraftingNpcId: number | null = null;
+  private openStashNpcId: number | null = null;
   private openDelveBoardNpcId: number | null = null;
   private lastDelveTrackerSig = '';
   private selectedDelveTier: 'normal' | 'heroic' = 'normal';
@@ -1686,6 +1690,9 @@ export class Hud {
         break;
       case 'craft-window':
         this.closeCrafting();
+        break;
+      case 'stash-window':
+        this.closeStash();
         break;
       case 'loot-window':
         this.closeLoot();
@@ -6551,6 +6558,19 @@ export class Hud {
             );
           break;
         }
+        case 'stash': {
+          if ($('#bags').style.display !== 'none') this.renderBags();
+          if (this.openStashNpcId !== null) this.renderStash();
+          const stashItem = ev.itemId ? ITEMS[ev.itemId] : undefined;
+          if (stashItem)
+            this.log(
+              t(ev.action === 'deposit' ? 'hudChrome.bank.deposited' : 'hudChrome.bank.withdrew', {
+                name: itemDisplayName(stashItem),
+              }),
+              '#d4c37d',
+            );
+          break;
+        }
         case 'skinEvent':
           this.openSkinEvent(ev.rank, ev.catalog === 'mech' ? { mech: true } : undefined);
           break;
@@ -8103,6 +8123,9 @@ export class Hud {
       );
       html += `<button type="button" class="qd-list-item" data-craft="1" aria-label="${esc(craftLabel)}"><span class="gold">${svgIcon('anvil')}</span> ${esc(craftLabel)}</button>`;
     }
+    if (def?.stash) {
+      html += `<button type="button" class="qd-list-item" data-bank="1" aria-label="${esc(t('hudChrome.bank.open'))}"><span class="gold">${svgIcon('chest')}</span> ${esc(t('hudChrome.bank.open'))}</button>`;
+    }
     if (Object.values(DELVES).some((d) => d.boardNpcId === npc.templateId)) {
       html += `<button type="button" class="qd-list-item" data-delve-board="1" aria-label="${esc(t('delveUi.board.openDelveAria', { name: npcName }))}"><span class="gold">${svgIcon('skull')}</span> ${esc(t('delveUi.board.openDelve'))}</button>`;
     }
@@ -8130,6 +8153,10 @@ export class Hud {
     el.querySelector('[data-craft]')?.addEventListener('click', () => {
       this.closeQuestDialog(false);
       this.openCrafting(npc.id);
+    });
+    el.querySelector('[data-bank]')?.addEventListener('click', () => {
+      this.closeQuestDialog(false);
+      this.openStash(npc.id);
     });
     el.querySelector('[data-delve-board]')?.addEventListener('click', () => {
       this.closeQuestDialog(false);
@@ -8785,6 +8812,66 @@ export class Hud {
 
   get craftingOpen(): boolean {
     return this.openCraftingNpcId !== null;
+  }
+
+  // -------------------------------------------------------------------------
+  // The account bank (stash). A self-contained window: unlike vendor/craft it
+  // shows BOTH the banked stacks (withdraw) and the depositable bag stacks in
+  // one panel, so no companion #bags is opened. Hud stays the coordinator
+  // (closeManagedWindow + the 'stash' SimEvent refresh need its private state);
+  // stash_view decides the rows and stash_window paints #stash-window. The root
+  // is created lazily (index.html is not edited) beside #vendor-window so it
+  // inherits the same window container and CSS.
+  // -------------------------------------------------------------------------
+  private stashWindowEl(): HTMLElement {
+    let el = document.getElementById('stash-window');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'stash-window';
+      el.className = 'window panel';
+      const sibling = document.getElementById('vendor-window');
+      (sibling?.parentElement ?? document.getElementById('ui') ?? document.body).appendChild(el);
+    }
+    return el;
+  }
+
+  openStash(npcId: number): void {
+    this.closeOtherWindows('#stash-window');
+    this.openStashNpcId = npcId;
+    this.renderStash();
+  }
+
+  private renderStash(): void {
+    if (this.openStashNpcId === null) return;
+    const npc = this.sim.entities.get(this.openStashNpcId);
+    if (!npc) return;
+    const depositAndRefresh = (act: () => void) => {
+      act();
+      this.renderStash();
+    };
+    renderStashWindow(
+      this.stashWindowEl(),
+      entityDisplayName(npc),
+      buildStashView(this.sim.stash, this.sim.inventory, ITEMS, STASH_LIMIT),
+      {
+        ...this.presentationBag,
+        hideTooltip: () => this.hideTooltip(),
+        onDeposit: (itemId) => depositAndRefresh(() => this.sim.depositToStash(itemId)),
+        onWithdraw: (itemId) => depositAndRefresh(() => this.sim.withdrawFromStash(itemId)),
+        onClose: () => this.closeStash(),
+      },
+    );
+  }
+
+  closeStash(): void {
+    const el = document.getElementById('stash-window');
+    if (el) el.style.display = 'none';
+    this.openStashNpcId = null;
+    this.hideTooltip();
+  }
+
+  get stashOpen(): boolean {
+    return this.openStashNpcId !== null;
   }
 
   // -------------------------------------------------------------------------

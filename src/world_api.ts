@@ -283,6 +283,8 @@ export const COMMAND_NAMES = [
   'lockpick_abort',
   'collect_delve_chest_loot',
   'craft',
+  'deposit_stash',
+  'withdraw_stash',
   'telemetry',
 ] as const;
 
@@ -474,4 +476,9 @@ export const COMMAND_FACETS = {
   // IWorldCrafting: submit a craft at the Grow Station / Upgrade Bench (the recipe
   // table is data-as-code read directly by the HUD; craft is the only wire command).
   craft: 'IWorldCrafting',
+  // IWorldInventory: the account bank (stash) deposit/withdraw at a stash-keeper NPC.
+  // The vendor buy/sell/buyback wire commands predate this table and stay untagged;
+  // stash + inventory reads (inventory/stash/vendorBuyback) ride the self-snapshot.
+  deposit_stash: 'IWorldInventory',
+  withdraw_stash: 'IWorldInventory',
 } as const satisfies Partial<Record<ClientCommand, WorldFacet>>;

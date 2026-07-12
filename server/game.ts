@@ -256,6 +256,8 @@ const HEAVY_SELF_CMDS = new Set<string>([
   'buy',
   'sell',
   'buyback',
+  'deposit_stash',
+  'withdraw_stash',
   'loot',
   'pickup',
   'interact',
@@ -2344,6 +2346,20 @@ export class GameServer {
       case 'craft':
         if (typeof msg.recipe === 'string') sim.craft(msg.recipe, pid);
         break;
+      case 'deposit_stash':
+        if (typeof msg.item === 'string') {
+          sim.depositToStash(msg.item, typeof msg.count === 'number' ? msg.count : undefined, pid);
+        }
+        break;
+      case 'withdraw_stash':
+        if (typeof msg.item === 'string') {
+          sim.withdrawFromStash(
+            msg.item,
+            typeof msg.count === 'number' ? msg.count : undefined,
+            pid,
+          );
+        }
+        break;
       case 'change_skin':
         if (typeof msg.skin === 'number') {
           if (msg.catalog === 'mech') {
@@ -3157,6 +3173,7 @@ export class GameServer {
       session.lastWireRev = meta.wireRev;
       maybe('inv', meta.inventory);
       maybe('buyback', meta.vendorBuyback);
+      maybe('stash', meta.stash);
       maybe('equip', meta.equipment);
       maybe('cosmetics', anchorSession.accountCosmetics);
       maybe('qlog', [...meta.questLog.values()]);

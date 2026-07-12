@@ -248,6 +248,7 @@ import {
 import * as fiestaBotsMod from './social/fiesta_bots';
 import { PartyMachine } from './social/party';
 import { SpatialGrid } from './spatial';
+import * as stash from './stash';
 import { isStunDrCategory } from './stun_dr';
 import { Targeting } from './targeting';
 import {
@@ -641,6 +642,9 @@ export interface PlayerMeta {
   wireRev: number;
   inventory: InvSlot[];
   vendorBuyback: InvSlot[];
+  // Account bank: items parked at a stash-keeper NPC. Server-authoritative,
+  // persists in CharacterState, structurally identical to inventory/vendorBuyback.
+  stash: InvSlot[];
   copper: number;
   equipment: PlayerEquipment;
   xp: number;
@@ -754,6 +758,8 @@ export interface CharacterState {
   equipment: PlayerEquipment;
   inventory: InvSlot[];
   vendorBuyback?: InvSlot[];
+  // Account bank contents. Optional so pre-stash saves load cleanly (defaults to []).
+  stash?: InvSlot[];
   questLog: { questId: string; counts: number[]; state: 'active' | 'ready' | 'done' }[];
   questsDone: string[];
   // Legacy arenaRating/Wins/Losses are treated as 1v1 data. The explicit
@@ -1196,6 +1202,7 @@ export class Sim {
       wireRev: 0,
       inventory: [],
       vendorBuyback: [],
+      stash: [],
       copper: 0,
       equipment: { mainhand: classDef.startWeapon, chest: classDef.startChest },
       xp: 0,
@@ -1257,6 +1264,7 @@ export class Sim {
       meta.equipment = { ...s.equipment };
       meta.inventory = s.inventory.map((i) => ({ ...i }));
       meta.vendorBuyback = (s.vendorBuyback ?? []).map((i) => ({ ...i }));
+      meta.stash = (s.stash ?? []).map((i) => ({ ...i }));
       for (const q of s.questLog) {
         if (q.state !== 'done')
           meta.questLog.set(q.questId, {
@@ -1463,6 +1471,7 @@ export class Sim {
       equipment: { ...meta.equipment },
       inventory: meta.inventory.map((i) => ({ ...i })),
       vendorBuyback: meta.vendorBuyback.map((i) => ({ ...i })),
+      stash: meta.stash.map((i) => ({ ...i })),
       questLog: [...meta.questLog.values()].map((q) => ({
         questId: q.questId,
         counts: [...q.counts],
@@ -1656,6 +1665,9 @@ export class Sim {
   }
   get vendorBuyback(): InvSlot[] {
     return this.primary.vendorBuyback;
+  }
+  get stash(): InvSlot[] {
+    return this.primary.stash;
   }
   get equipment(): PlayerEquipment {
     return this.primary.equipment;
@@ -4482,6 +4494,16 @@ export class Sim {
   // (server-authoritative validation lives in crafting.craft).
   craft(recipeId: string, pid?: number): void {
     crafting.craft(this.ctx, recipeId, pid);
+  }
+
+  // Account bank: move a stack between bags and the persistent stash while standing
+  // next to a stash-keeper NPC (server-authoritative validation lives in stash.ts).
+  depositToStash(itemId: string, count = 1, pid?: number): void {
+    stash.stashDeposit(this.ctx, itemId, count, pid);
+  }
+
+  withdrawFromStash(itemId: string, count = 1, pid?: number): void {
+    stash.stashWithdraw(this.ctx, itemId, count, pid);
   }
 
   private maybeAutoEquip(itemId: string, meta: PlayerMeta): void {

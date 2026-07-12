@@ -4172,6 +4172,11 @@ const RULES: Rule[] = [
     re: /^A raid with more than five members cannot convert back to a party\.$/,
     build: () => t('hudChrome.raidConvert.tooLarge'),
   },
+  // Account bank (stash) error toasts (src/sim/stash.ts). "You don't have that item."
+  // and "You can't do that while dead." reuse the existing EXACT sim error keys.
+  { re: /^There is no bank nearby\.$/, build: () => t('hudChrome.bank.none') },
+  { re: /^Your bank is full\.$/, build: () => t('hudChrome.bank.full') },
+  { re: /^That item is not in your bank\.$/, build: () => t('hudChrome.bank.notInBank') },
   { re: /^Raid group (.+) is full\.$/, build: (m) => tRaidExtra('groupFull', { group: m[1] }) },
   { re: /^Your raid is full\.$/, build: () => tRaidExtra('yourRaidFull') },
   { re: /^That raid is full\.$/, build: () => tRaidExtra('thatRaidFull') },

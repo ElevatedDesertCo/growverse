@@ -138,6 +138,7 @@ const NPC_IDS = [
   'brother_halven', // Collapsed Reliquary delve board NPC
   'cultivator_marlow', // Grow Station attendant (Bloomhaven crafting)
   'smith_draxa', // Upgrade Bench attendant (Bloomhaven crafting)
+  'banker_thistle', // Bloomhaven banker (account stash / bank)
   // The Sluice (zone 1) beaver work-camp
   'rowan_sawtooth',
   'hazel_timbers',

@@ -5339,4 +5339,27 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.quests.q_hollowmere_pumpkin_king.completion':
     'Ухмылка гаснет, и над нами вся топь разом стихает, {playerName}: каждое восставшее создание падает обратно в грязь, точно кукла с обрезанными нитями. Виспфорд похоронит своих мёртвых в последний раз, и на этот раз они останутся лежать. Ты вернул этим людям их кладбище.',
   'entities.quests.q_hollowmere_pumpkin_king.objectives.0.label': 'Тыквенный Король повержен',
+  'hudChrome.bank.none': 'Поблизости нет банка.',
+  'hudChrome.bank.full': 'Ваш банк переполнен.',
+  'hudChrome.bank.notInBank': 'Этого предмета нет в вашем банке.',
+  'hudChrome.bank.open': 'Банк',
+  'hudChrome.bank.title': 'Хранилище {name}',
+  'hudChrome.bank.close': 'Закрыть банк',
+  'hudChrome.bank.bankedTitle': 'В хранилище',
+  'hudChrome.bank.bankedEmpty': 'Ваше хранилище пусто.',
+  'hudChrome.bank.bagsTitle': 'Ваши сумки',
+  'hudChrome.bank.bagsEmpty': 'Ваши сумки пусты.',
+  'hudChrome.bank.withdrawAria': 'Забрать {item}',
+  'hudChrome.bank.depositAria': 'Положить {item}',
+  'hudChrome.bank.clickWithdraw': 'Нажмите, чтобы забрать',
+  'hudChrome.bank.clickDeposit': 'Нажмите, чтобы положить',
+  'hudChrome.bank.hint':
+    'Нажмите на предмет в сумке, чтобы убрать его, или на предмет в хранилище, чтобы забрать обратно.',
+  'hudChrome.bank.fullHint': 'Хранилище заполнено. Заберите что-нибудь, чтобы освободить место.',
+  'hudChrome.bank.deposited': 'Положено: {name}.',
+  'hudChrome.bank.withdrew': 'Забрано: {name}.',
+  'entities.npcs.banker_thistle.name': 'Хранитель Тистл',
+  'entities.npcs.banker_thistle.title': 'Банкир Блумхейвена',
+  'entities.npcs.banker_thistle.greeting':
+    'Ваши монеты и ценности в безопасности в хранилище, {className}. Сдайте то, что не можете унести, и забирайте, когда будете проходить мимо.',
 };

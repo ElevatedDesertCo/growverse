@@ -832,6 +832,8 @@ export class ClientWorld implements IWorld {
   realm = '';
   inventory: InvSlot[] = [];
   vendorBuyback: InvSlot[] = [];
+  // --- IWorldInventory: the account bank (stash), mirrored from snapshot self. ---
+  stash: InvSlot[] = [];
   equipment: Partial<Record<EquipSlot, string>> = {};
   copper = 0;
   // --- IWorldCosmetics: account cosmetics (completed-quest + mech-chroma ids),
@@ -1502,6 +1504,12 @@ export class ClientWorld implements IWorld {
         this.vendorBuyback = s.buyback;
         this.invChanged = true;
       }
+      // IWorldInventory bank (stash): delta-guarded like buyback; a missing field
+      // keeps the prior mirror.
+      if (s.stash !== undefined) {
+        this.stash = s.stash;
+        this.invChanged = true;
+      }
       if (s.equip !== undefined) this.equipment = s.equip;
       // IWorldCosmetics facet (W7) self-decode: cosmetics is delta-guarded (a
       // missing field keeps the prior mirror); normalizeAccountCosmetics rebuilds it.
@@ -1766,6 +1774,14 @@ export class ClientWorld implements IWorld {
   }
   buyBackItem(itemId: string): void {
     this.cmd({ cmd: 'buyback', item: itemId });
+  }
+  // --- IWorldInventory: account bank (stash). Server re-validates proximity to a
+  // stash-keeper NPC and the stack move; the self-snapshot reconciles stash + inv.
+  depositToStash(itemId: string, count?: number): void {
+    this.cmd({ cmd: 'deposit_stash', item: itemId, count });
+  }
+  withdrawFromStash(itemId: string, count?: number): void {
+    this.cmd({ cmd: 'withdraw_stash', item: itemId, count });
   }
   // --- IWorldCrafting: submit a recipe at the nearby station. Server re-validates
   // proximity, copper, and reagents; result flows back as an events frame.

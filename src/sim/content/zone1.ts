@@ -734,6 +734,20 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     greeting:
       'Tools, tack, and trail food, all fair-priced for a newcomer. A beaver runs a tight camp, $C. What do you need?',
   },
+  banker_thistle: {
+    id: 'banker_thistle',
+    name: 'Vault Keeper Thistle',
+    title: 'Bloomhaven Banker',
+    // beside the strongbox on the east side of the plaza, across the lane from
+    // the World Market stall, facing the customers who cross from town center
+    pos: { x: 3, z: 7 },
+    facing: -2.4,
+    color: 0x9a7d0a,
+    questIds: [],
+    stash: true,
+    greeting:
+      'Your coin and your keepsakes are safe in the vault, $C. Deposit what you cannot carry and draw it back whenever you pass through.',
+  },
 };
 
 // ---------------------------------------------------------------------------

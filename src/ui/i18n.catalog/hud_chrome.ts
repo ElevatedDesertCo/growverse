@@ -817,6 +817,30 @@ export const hudChromeStrings = {
     leaderOnly: 'Only the raid leader may convert to a party.',
     tooLarge: 'A raid with more than five members cannot convert back to a party.',
   },
+  // The account bank (stash): error toasts the sim emits (src/sim/stash.ts) when a
+  // deposit/withdraw is rejected, re-localized from English via sim_i18n RULES like
+  // raidConvert above. "no item"/"can't while dead" reuse existing sim error keys.
+  bank: {
+    none: 'There is no bank nearby.',
+    full: 'Your bank is full.',
+    notInBank: 'That item is not in your bank.',
+    // The account bank (stash) window: gossip entry, title, sections, aria + hints.
+    open: 'Bank',
+    title: "{name}'s Vault",
+    close: 'Close bank',
+    bankedTitle: 'In the vault',
+    bankedEmpty: 'Your vault is empty.',
+    bagsTitle: 'Your bags',
+    bagsEmpty: 'Your bags are empty.',
+    withdrawAria: 'Withdraw {item}',
+    depositAria: 'Deposit {item}',
+    clickWithdraw: 'Click to withdraw',
+    clickDeposit: 'Click to deposit',
+    hint: 'Click a bag item to store it, or a vault item to take it back.',
+    fullHint: 'The vault is full. Withdraw something to make room.',
+    deposited: 'Deposited {name}.',
+    withdrew: 'Withdrew {name}.',
+  },
   // Armor subtype shown on an armor item's slot line (classic shows the slot on the
   // left, the armor class on the right). Resolved from src/ui/item_armor_type.ts via
   // the sim's armorTypeForItem; tells the player which classes the gear is meant for.
