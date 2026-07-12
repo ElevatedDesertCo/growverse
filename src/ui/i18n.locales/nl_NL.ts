@@ -1097,6 +1097,7 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'entities.items.riftbound_girdle.name': 'Kloofgebonden Gordel',
   'entities.items.riftforged_guard.name': 'Kloofgesmede Wacht',
   'entities.items.riftforged_blade.name': 'Kloofgesmede Kling',
+  'entities.items.baked_beaver_token.name': 'Baked Beaver-penning',
   'entities.items.moongate_rubbing.name': 'Bezweringsafdruk',
   'entities.items.moonpale_scale.name': 'Maanbleke Schub',
   'entities.items.moonscale_saber.name': 'Maanschub-Sabel',

@@ -3190,6 +3190,7 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'entities.items.riftbound_girdle.name': 'Rissgebundener Gürtel',
   'entities.items.riftforged_guard.name': 'Rissgeschmiedeter Schutz',
   'entities.items.riftforged_blade.name': 'Rissgeschmiedete Klinge',
+  'entities.items.baked_beaver_token.name': 'Baked-Beaver-Marke',
   // v0.10.0 release fill (Fiesta / skin-select / NPC voices / chat channels / Brightwood Glade)
   'hud.core.chatChannels.add': 'Chatkanal hinzufügen',
   'hud.core.chatChannels.addTitle': 'Kanal hinzufügen',

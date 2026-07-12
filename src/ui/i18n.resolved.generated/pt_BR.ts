@@ -5000,7 +5000,7 @@ export const pt_BR: EnTranslations = {
         "name": "Lâmina Forjada na Fenda"
       },
       "baked_beaver_token": {
-        "name": "Baked Beaver Token"
+        "name": "Ficha de Baked Beaver"
       },
       "bristleback_maul": {
         "name": "Malho Bristleback"
@@ -6754,7 +6754,7 @@ export const pt_BR: EnTranslations = {
       },
       "q_sluice_pilings": {
         "title": "Trouble at the Pilings",
-        "text": "The dam's the whole reason there's a pond to build around, and the bristle-tusk boars off the east meadow keep rooting up its pilings for the sweet mud. A beaver takes that personally, {playerName}. Put down six of the diggers and the Sluice will owe you a proper keepsake, straight from The Dam itself.",
+        "text": "The dam's the whole reason there's a pond to build around, and the bristle-tusk boars off the west meadow keep rooting up its pilings for the sweet mud. A beaver takes that personally, {playerName}. Put down six of the diggers and the Sluice will owe you a proper keepsake, straight from The Dam itself.",
         "completion": "Pilings hold, pond stays put, and the kits sleep sound. Here, {playerName}, a Baked Beaver token, carved down at The Dam. Carry it and you're colony, wherever you wander. Stay Baked, AZ.",
         "objectives": {
           "0": {

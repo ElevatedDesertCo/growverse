@@ -1374,10 +1374,12 @@ export const ZONE1_PROPS: ZonePropsDef = {
     // raider timber rather than a stock pack asset.
     { x1: -15, z1: -18, x2: -15, z2: -26 },
     { x1: -15, z1: -26, x2: -8, z2: -26 },
-    // The Sluice: a low split-rail pen behind the beaver lodge, opening toward the
-    // pond so it frames the camp without walling the road spur.
-    { x1: 34, z1: 60, x2: 46, z2: 60 },
-    { x1: 34, z1: 60, x2: 34, z2: 55 },
+    // The Sluice: a low split-rail pen set on the open ground behind (north of) the
+    // beaver lodge, clear of the lodge footprint so it frames the camp without
+    // walling the road spur. (The lodge sits at ~z52.5-59.5; the pen stands north of
+    // it, its back to the pond on the south shore.)
+    { x1: 34, z1: 64, x2: 46, z2: 64 },
+    { x1: 34, z1: 64, x2: 34, z2: 59 },
   ],
   graveyards: [
     { x: -14, z: -25.5 }, // churchyard graves in the solemn south (grid grows +x/+z, seated clear of the chapel wall and inside the rail)

@@ -3123,6 +3123,7 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.items.riftbound_girdle.name': '裂隙縛系腰帶',
   'entities.items.riftforged_guard.name': '裂隙鍛造護衛',
   'entities.items.riftforged_blade.name': '裂隙鍛造之刃',
+  'entities.items.baked_beaver_token.name': '烤海狸徽記',
   // v0.10.0 release fill (Fiesta / skin-select / NPC voices / chat channels / Brightwood Glade)
   'hud.core.chatChannels.add': '新增聊天頻道',
   'hud.core.chatChannels.addTitle': '新增頻道',

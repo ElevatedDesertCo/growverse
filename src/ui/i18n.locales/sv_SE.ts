@@ -1076,6 +1076,7 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'entities.items.riftbound_girdle.name': 'Riftbundet Bälte',
   'entities.items.riftforged_guard.name': 'Riftsmitt Skydd',
   'entities.items.riftforged_blade.name': 'Riftsmidd Klinga',
+  'entities.items.baked_beaver_token.name': 'Baked Beaver-märke',
   'entities.items.moongate_rubbing.name': 'Skyddande avgnidning',
   'entities.items.moonpale_scale.name': 'Månblekt fjäll',
   'entities.items.moonscale_saber.name': 'Månfjällsabel',
