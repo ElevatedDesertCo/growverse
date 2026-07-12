@@ -1186,18 +1186,44 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
   // chinks tying it to the Beavers. Built from primitives (no GLB); the OBB
   // collider (colliders.ts) uses the same crest line so barrier == geometry.
   const dams = PROPS.beaverDams ?? [];
-  // ONE beaver for the whole dam: it perches on the MIDDLE segment (for the
-  // U-shaped reservoir dam that is the west arm, the back of the U). It faces the
-  // dam's centroid, i.e. out over the water it holds, whatever the arm's rotation.
-  const beaverSeg = Math.floor(dams.length / 2);
-  let damCx = 0;
-  let damCz = 0;
-  for (const dd of dams) {
-    damCx += (dd.x1 + dd.x2) / 2;
-    damCz += (dd.z1 + dd.z2) / 2;
+  // `PROPS.beaverDams` holds the segments of EVERY dam in the world merged into one
+  // flat array (e.g. the Sluice U near Bloomhaven and the colossal U at The Dam
+  // colony far to the south). Cluster the segments back into separate dams by
+  // proximity: the arms of one dam share endpoints and sit within a stone's throw,
+  // while distinct dams are hundreds of yards apart. Each dam then gets ONE beaver on
+  // its OWN middle segment, facing its OWN centroid (out over the water it holds).
+  const damMid = (dd: { x1: number; z1: number; x2: number; z2: number }) => ({
+    x: (dd.x1 + dd.x2) / 2,
+    z: (dd.z1 + dd.z2) / 2,
+  });
+  const DAM_GROUP_DIST_SQ = 120 * 120; // >> an arm's span, << the gap between dams
+  const damGroups: number[][] = [];
+  for (let i = 0; i < dams.length; i++) {
+    const mi = damMid(dams[i]);
+    const g = damGroups.find((grp) =>
+      grp.some((j) => {
+        const mj = damMid(dams[j]);
+        return (mj.x - mi.x) ** 2 + (mj.z - mi.z) ** 2 <= DAM_GROUP_DIST_SQ;
+      }),
+    );
+    if (g) g.push(i);
+    else damGroups.push([i]);
   }
-  damCx /= Math.max(1, dams.length);
-  damCz /= Math.max(1, dams.length);
+  // segment index -> the centroid its beaver should face (only the middle segment of
+  // each group is present; every other segment has no beaver).
+  const damBeaverFace = new Map<number, { cx: number; cz: number }>();
+  for (const grp of damGroups) {
+    let cx = 0;
+    let cz = 0;
+    for (const j of grp) {
+      const m = damMid(dams[j]);
+      cx += m.x;
+      cz += m.z;
+    }
+    cx /= grp.length;
+    cz /= grp.length;
+    damBeaverFace.set(grp[Math.floor(grp.length / 2)], { cx, cz });
+  }
   for (let di = 0; di < dams.length; di++) {
     const d = dams[di];
     const ddx = d.x2 - d.x1;
@@ -1340,17 +1366,19 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     // the zone. Rendered on every tier (one cheap static instance): it IS the
     // landmark's identity, not sheddable cosmetic richness. The mascot geometry is
     // shared with the standalone town-edge landmark via buildBeaverMascot. Only ONE
-    // beaver for the whole dam: it perches on the middle segment (see beaverSeg
-    // above), facing out over the reservoir centroid.
-    if (di === beaverSeg) {
+    // beaver per dam: it perches on that dam's middle segment (see the clustering
+    // above), facing out over the water THAT dam holds.
+    const beaverFace = damBeaverFace.get(di);
+    if (beaverFace) {
       const bv = buildBeaverMascot(glowMat, baseHalf * 0.2); // faceZ = crest downstream lean
-      // perch the beaver on the crest, near center, and turn it to face the dam's
-      // centroid (out over the water it holds) with a tiny deterministic tilt. The
+      // perch the beaver on the crest, near center, and turn it to face this dam's
+      // own centroid (out over the water it holds) with a tiny deterministic tilt. The
       // model's front is +z; subtracting the segment yaw `rot` converts the desired
-      // WORLD facing into this rotated group's local frame. A lone segment has no
-      // concave side to infer, so it falls back to facing downstream (local -z).
+      // WORLD facing into this rotated group's local frame. A single-segment dam has
+      // no concave side to infer, so it falls back to facing downstream (local -z).
       bv.position.set((propRand(cx, cz, 17) - 0.5) * len * 0.2, h - 0.3, 0);
-      const faceYaw = dams.length > 1 ? Math.atan2(damCx - cx, damCz - cz) - rot : Math.PI;
+      const solo = Math.abs(beaverFace.cx - cx) < 1e-6 && Math.abs(beaverFace.cz - cz) < 1e-6;
+      const faceYaw = solo ? Math.PI : Math.atan2(beaverFace.cx - cx, beaverFace.cz - cz) - rot;
       bv.rotation.y = faceYaw + (propRand(cx, cz, 18) - 0.5) * 0.4;
       g.add(bv);
     }
