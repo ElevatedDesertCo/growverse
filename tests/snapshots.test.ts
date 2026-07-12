@@ -707,6 +707,26 @@ describe('delta snapshots', () => {
     expect(client.consumeInventoryChanged()).toBe(true);
   });
 
+  it('mirrors account bank (stash) deltas to the client', () => {
+    // Poke the bank directly (deposit needs a stash-keeper in range; the wire
+    // round-trip is what this pins). The delta guard ships stash only on change.
+    const meta = server.sim.meta(session.pid)!;
+    meta.stash = [{ itemId: 'linen_scrap', count: 5 }];
+    meta.wireRev++;
+    fc.sent.length = 0;
+    broadcast(server);
+    const snap = lastSnap(fc.sent);
+    expect(snap.self).toHaveProperty('stash');
+    expect(snap.self.stash).toEqual([{ itemId: 'linen_scrap', count: 5 }]);
+
+    const client = bareClient(session.pid);
+    const stashOnly = { ...snap, self: { ...snap.self } };
+    delete stashOnly.self.inv;
+    (client as any).applySnapshot(stashOnly);
+    expect(client.stash).toEqual([{ itemId: 'linen_scrap', count: 5 }]);
+    expect(client.consumeInventoryChanged()).toBe(true);
+  });
+
   it('quest commands force a quest-state resync even when rejected', () => {
     broadcast(server);
     fc.sent.length = 0;
@@ -1851,6 +1871,7 @@ const ALL_DELTA_KEYS = [
   'party',
   'qdone',
   'qlog',
+  'stash',
   'stats',
   'tal',
   'trade',
@@ -1950,6 +1971,7 @@ function dirtyEveryDeltaField(): {
   // Direct PlayerMeta fields.
   meta.inventory = [{ itemId: 'baked_bread', count: 3 }];
   meta.vendorBuyback = [{ itemId: 'apprentice_staff', count: 1 }];
+  meta.stash = [{ itemId: 'linen_scrap', count: 9 }];
   meta.equipment = { ...meta.equipment, mainhand: 'zealotsbane_blade' };
   meta.questLog.set('q_widows', { questId: 'q_widows', counts: [10, 0], state: 'active' });
   meta.questsDone.add('q_wolves');
@@ -2004,7 +2026,7 @@ function dirtyEveryDeltaField(): {
 }
 
 describe('full self-state snapshot delta fixture', () => {
-  it('carries every one of the 25 dirtied delta keys on the first snapshot', () => {
+  it('carries every one of the 26 dirtied delta keys on the first snapshot', () => {
     const { server, fc } = dirtyEveryDeltaField();
     broadcast(server);
     const snap = lastSnap(fc.sent);
@@ -2038,6 +2060,7 @@ describe('full self-state snapshot delta fixture', () => {
     // --- fields that decode onto the client ---
     expect(client.inventory).toEqual([{ itemId: 'baked_bread', count: 3 }]); // inv -> inventory
     expect(client.vendorBuyback).toEqual([{ itemId: 'apprentice_staff', count: 1 }]); // buyback -> vendorBuyback
+    expect(client.stash).toEqual([{ itemId: 'linen_scrap', count: 9 }]); // stash -> stash
     expect(client.equipment).toMatchObject({ mainhand: 'zealotsbane_blade' }); // equip -> equipment
     // cosmetics -> accountCosmetics, asserted against the normalized shape (the input
     // is already the normal {completedQuestIds, mechChromaIds} form, see :192-202)
@@ -2114,9 +2137,9 @@ describe('full self-state snapshot delta fixture', () => {
 });
 
 describe('delta-key contract pins (anti-drift)', () => {
-  it('ALL_DELTA_KEYS contains exactly 25 unique keys in sorted order', () => {
-    expect(ALL_DELTA_KEYS).toHaveLength(25);
-    expect(new Set(ALL_DELTA_KEYS).size).toBe(25);
+  it('ALL_DELTA_KEYS contains exactly 26 unique keys in sorted order', () => {
+    expect(ALL_DELTA_KEYS).toHaveLength(26);
+    expect(new Set(ALL_DELTA_KEYS).size).toBe(26);
     expect([...ALL_DELTA_KEYS]).toEqual([...ALL_DELTA_KEYS].sort());
   });
 
@@ -2128,7 +2151,7 @@ describe('delta-key contract pins (anti-drift)', () => {
     const scraped = new Set<string>();
     for (let m = re.exec(src); m !== null; m = re.exec(src)) scraped.add(m[1]);
     expect(scraped.has('lockouts')).toBe(true); // the multi-line call IS captured
-    expect(scraped.size).toBe(25);
+    expect(scraped.size).toBe(26);
     expect([...scraped].sort()).toEqual([...ALL_DELTA_KEYS].sort());
   });
 

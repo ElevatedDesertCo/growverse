@@ -751,6 +751,26 @@ export const pt_BR: EnTranslations = {
       "leaderOnly": "Só o líder da raide pode converter em um grupo.",
       "tooLarge": "Uma raide com mais de cinco membros não pode ser convertida de volta em um grupo."
     },
+    "bank": {
+      "none": "There is no bank nearby.",
+      "full": "Your bank is full.",
+      "notInBank": "That item is not in your bank.",
+      "open": "Bank",
+      "title": "{name}'s Vault",
+      "close": "Close bank",
+      "bankedTitle": "In the vault",
+      "bankedEmpty": "Your vault is empty.",
+      "bagsTitle": "Your bags",
+      "bagsEmpty": "Your bags are empty.",
+      "withdrawAria": "Withdraw {item}",
+      "depositAria": "Deposit {item}",
+      "clickWithdraw": "Click to withdraw",
+      "clickDeposit": "Click to deposit",
+      "hint": "Click a bag item to store it, or a vault item to take it back.",
+      "fullHint": "The vault is full. Withdraw something to make room.",
+      "deposited": "Deposited {name}.",
+      "withdrew": "Withdrew {name}."
+    },
     "itemArmorType": {
       "cloth": "Tecido",
       "leather": "Couro",
@@ -5982,6 +6002,11 @@ export const pt_BR: EnTranslations = {
         "name": "Draxa",
         "title": "the Riftsmith",
         "greeting": "The Upgrade Bench runs hot. Bring me Corruption Shards and I will reforge your steel into something the rift cannot break."
+      },
+      "banker_thistle": {
+        "name": "Vault Keeper Thistle",
+        "title": "Bloomhaven Banker",
+        "greeting": "Your coin and your keepsakes are safe in the vault, {className}. Deposit what you cannot carry and draw it back whenever you pass through."
       },
       "rowan_sawtooth": {
         "name": "Rowan Sawtooth",

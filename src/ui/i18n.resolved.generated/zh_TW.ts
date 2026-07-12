@@ -751,6 +751,26 @@ export const zh_TW: EnTranslations = {
       "leaderOnly": "只有團隊領袖可以轉換為隊伍。",
       "tooLarge": "超過五名成員的團隊無法轉換回隊伍。"
     },
+    "bank": {
+      "none": "附近沒有銀行。",
+      "full": "你的銀行已滿。",
+      "notInBank": "你的銀行裡沒有那件物品。",
+      "open": "銀行",
+      "title": "{name}的金庫",
+      "close": "關閉銀行",
+      "bankedTitle": "金庫中",
+      "bankedEmpty": "你的金庫是空的。",
+      "bagsTitle": "你的背包",
+      "bagsEmpty": "你的背包是空的。",
+      "withdrawAria": "取出{item}",
+      "depositAria": "存入{item}",
+      "clickWithdraw": "點擊取出",
+      "clickDeposit": "點擊存入",
+      "hint": "點擊背包物品將其存入，或點擊金庫物品將其取回。",
+      "fullHint": "金庫已滿。取出一些物品以騰出空間。",
+      "deposited": "已存入{name}。",
+      "withdrew": "已取出{name}。"
+    },
     "itemArmorType": {
       "cloth": "布甲",
       "leather": "皮甲",
@@ -5982,6 +6002,11 @@ export const zh_TW: EnTranslations = {
         "name": "德拉克薩",
         "title": "裂隙鐵匠",
         "greeting": "升級台正熱著呢。給我帶來腐蝕碎片，我會把你的鋼鐵重鑄成裂隙也無法折斷的利器。"
+      },
+      "banker_thistle": {
+        "name": "金庫管理員西斯爾",
+        "title": "布魯姆海文銀行家",
+        "greeting": "你的金幣和珍藏都在金庫裡安然無恙，{className}。把帶不走的東西存進來，路過時隨時取回。"
       },
       "rowan_sawtooth": {
         "name": "羅恩·鋸齒",

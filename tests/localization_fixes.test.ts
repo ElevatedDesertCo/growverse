@@ -827,6 +827,11 @@ describe('S3: every sim.ts emit is recognized (drift guard)', () => {
     // move, so their hud/sim_i18n matchers are unchanged; scan them here so they stay
     // under the drift guard now that they live outside sim.ts.
     fs.readFileSync(path.resolve(process.cwd(), 'src/sim/items.ts'), 'utf8'),
+    // Phase 2: the account bank (stash) command bodies. Its bank-specific error
+    // literals ("There is no bank nearby.", "Your bank is full.", "That item is not
+    // in your bank.") are registered in sim_i18n.ts; scan them here so they stay
+    // under the drift guard.
+    fs.readFileSync(path.resolve(process.cwd(), 'src/sim/stash.ts'), 'utf8'),
     // L1: the loot-distribution layer's player-facing loot emits ("You loot ...",
     // "Everyone passed on ...", "<name> wins ...").
     fs.readFileSync(path.resolve(process.cwd(), 'src/sim/loot/loot_roll.ts'), 'utf8'),

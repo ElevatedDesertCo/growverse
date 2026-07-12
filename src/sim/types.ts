@@ -1160,6 +1160,10 @@ export interface NpcDef {
   // filtered to this station. 'grow' = the Grow Station (nutrients, seed strains,
   // grow accessories); 'upgrade' = the Upgrade Bench (weapon/armor reforging).
   crafting?: CraftStation;
+  // A bank attendant: talking to this NPC opens the account stash window, where the
+  // player deposits/withdraws items into a persistent bank. Like `crafting`, the role
+  // lives on the def and is resolved by the entity's templateId (no entity field).
+  stash?: true;
   greeting: string;
   // Registered but not surface-placed at world init. The owning system spawns
   // the entity on demand (e.g. the Nythraxis encounter walks Brother Aldric in
@@ -1707,6 +1711,10 @@ export type SimEvent = { pid?: number } & (
   // itemId names the single item for buy/sell/buyback; it is omitted for the
   // bulk "sell all junk" sweep, which the client treats as a plain refresh signal.
   | { type: 'vendor'; action: 'buy' | 'sell' | 'buyback'; itemId?: string }
+  // Bank movement: the client refreshes the open stash window. itemId names the
+  // moved stack; the client logs a line built locally so the sim stays
+  // language-agnostic, like 'vendor'/'craft'.
+  | { type: 'stash'; action: 'deposit' | 'withdraw'; itemId?: string }
   // A successful craft: the client refreshes the crafting window and logs a line
   // built locally from the recipe's output (kept structured so the sim stays
   // language-agnostic, like 'vendor').

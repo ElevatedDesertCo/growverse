@@ -751,6 +751,26 @@ export const zh_CN: EnTranslations = {
       "leaderOnly": "只有团队领袖可以转换为队伍。",
       "tooLarge": "成员超过五人的团队无法转换回队伍。"
     },
+    "bank": {
+      "none": "附近没有银行。",
+      "full": "你的银行已满。",
+      "notInBank": "你的银行里没有那件物品。",
+      "open": "银行",
+      "title": "{name}的金库",
+      "close": "关闭银行",
+      "bankedTitle": "金库中",
+      "bankedEmpty": "你的金库是空的。",
+      "bagsTitle": "你的背包",
+      "bagsEmpty": "你的背包是空的。",
+      "withdrawAria": "取出{item}",
+      "depositAria": "存入{item}",
+      "clickWithdraw": "点击取出",
+      "clickDeposit": "点击存入",
+      "hint": "点击背包物品将其存入，或点击金库物品将其取回。",
+      "fullHint": "金库已满。取出一些物品以腾出空间。",
+      "deposited": "已存入{name}。",
+      "withdrew": "已取出{name}。"
+    },
     "itemArmorType": {
       "cloth": "布甲",
       "leather": "皮甲",
@@ -5982,6 +6002,11 @@ export const zh_CN: EnTranslations = {
         "name": "德拉克萨",
         "title": "裂隙铁匠",
         "greeting": "升级台正热着呢。给我带来腐蚀碎片，我会把你的钢铁重铸成裂隙也无法折断的利器。"
+      },
+      "banker_thistle": {
+        "name": "金库管理员西斯尔",
+        "title": "布鲁姆海文银行家",
+        "greeting": "你的金币和珍藏都在金库里安然无恙，{className}。把带不走的东西存进来，路过时随时取回。"
       },
       "rowan_sawtooth": {
         "name": "罗恩·锯齿",

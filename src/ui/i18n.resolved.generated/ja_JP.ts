@@ -751,6 +751,26 @@ export const ja_JP: EnTranslations = {
       "leaderOnly": "パーティに変換できるのはレイドリーダーだけです。",
       "tooLarge": "メンバーが5人を超えるレイドはパーティに戻せません。"
     },
+    "bank": {
+      "none": "近くに銀行がありません。",
+      "full": "銀行がいっぱいです。",
+      "notInBank": "そのアイテムは銀行にありません。",
+      "open": "銀行",
+      "title": "{name}の金庫",
+      "close": "銀行を閉じる",
+      "bankedTitle": "金庫の中",
+      "bankedEmpty": "金庫は空です。",
+      "bagsTitle": "バッグ",
+      "bagsEmpty": "バッグは空です。",
+      "withdrawAria": "{item}を引き出す",
+      "depositAria": "{item}を預ける",
+      "clickWithdraw": "クリックして引き出す",
+      "clickDeposit": "クリックして預ける",
+      "hint": "バッグのアイテムをクリックして預けるか、金庫のアイテムをクリックして引き出します。",
+      "fullHint": "金庫がいっぱいです。何かを引き出して空きを作ってください。",
+      "deposited": "{name}を預けました。",
+      "withdrew": "{name}を引き出しました。"
+    },
     "itemArmorType": {
       "cloth": "布",
       "leather": "革",
@@ -5982,6 +6002,11 @@ export const ja_JP: EnTranslations = {
         "name": "ドラクサ",
         "title": "リフト鍛冶",
         "greeting": "アップグレード台は熱く燃えている。腐敗の欠片を持ってこい。お前の鋼をリフトさえ砕けぬ一振りに鍛え直してやろう。"
+      },
+      "banker_thistle": {
+        "name": "金庫番シスル",
+        "title": "ブルームヘイヴンの銀行家",
+        "greeting": "あなたの金貨も宝物も金庫で安全に守られます、{className}。持ちきれないものを預け、立ち寄るたびに引き出してください。"
       },
       "rowan_sawtooth": {
         "name": "ローワン・ソウトゥース",
