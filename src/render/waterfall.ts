@@ -1,37 +1,86 @@
 import * as THREE from 'three';
-import { SLUICE_RIVER, WATER_LEVEL } from '../sim/world';
+import { SLUICE_PEAK, SLUICE_RIVER, terrainHeight, WATER_LEVEL } from '../sim/world';
 import { GFX, sharedUniforms } from './gfx';
 
-// The Sluice waterfall: a scrolling water ribbon spilling down the steep east face
-// of the western mountain (a carve/raise primitive in sim/world.ts) into the river's
-// plunge pool, plus a foam disc where it lands. Procedural (no texture/asset gate):
-// the falling sheet and foam are generated in-shader and animate off the one shared
+// The Sluice waterfall: a scrolling water ribbon spilling the whole west face of the
+// mountain (a carve/raise primitive in sim/world.ts) into the river's plunge pool,
+// plus a foam disc where it lands. Procedural (no texture/asset gate): the falling
+// sheet and foam are generated in-shader and animate off the one shared
 // `sharedUniforms.uTime` clock, so this pays no per-frame CPU and needs no update().
 //
-// Placement tracks the sim primitives so the visual and the heightfield never drift:
-// the ribbon sits just west (toward the mountain) of the river's plunge pool at the
-// river centerline z, spanning from the pool waterline up the cliff face.
+// The face is CONCAVE (steep at the foot, laying back toward the rounded summit), so
+// a flat plane can only cover the lower third before it would punch into the rock.
+// Instead the ribbon is a curved curtain whose spine SAMPLES the real terrain profile
+// (`terrainHeight`) from the pool up to just below the summit and floats a hair off
+// the face along its outward normal, so the sheet hugs the whole escarpment and its
+// crest actually reaches the top of the mountain.
 
-// Where the ribbon lands: right at the pool waterline, standing just in front of the
-// cliff foot so it reads as spilling INTO the pool (not buried in the bank). Sampled at
-// z=24: water ends ~x154.7, then the face shoots up x155->x160 (h -3.3 -> +43) and keeps
-// climbing to the summit (~66 at x168). Foot at x154.3 keeps the ribbon's base in open
-// water, one step east of the cliff base.
-const FALLS_X = SLUICE_RIVER.xWest + 4.3; // ~154.3, foot in the pool at the cliff base
-const FALLS_Z = SLUICE_RIVER.z; // river centerline (roughly level)
-const FALLS_WIDTH = 8;
-const FALLS_BOTTOM = WATER_LEVEL - 0.5; // just below the pool surface so it reads as feeding it
-// The crest reaches the top of the steep escarpment (sampled ~y45 near x160), so the
-// ribbon spills the whole face instead of ending a third of the way up. The crest leans
-// back toward the peak (x168) so the sheet hugs the concave face rather than floating in
-// front of it; matching the face's ~0.11 x-per-y slope keeps it a hair in front the whole
-// length. Going higher (true summit ~66) would drive a straight ribbon into the rock,
-// since the face is concave (steep at the foot, laying back near the top).
-const FALLS_TOP_Y = 45; // crest height: top of the steep face, near the summit
-const FALLS_TOP_X = FALLS_X + 5.7; // lean the crest back toward the peak, tracking the face
+const FALLS_WIDTH_BASE = 9; // spreads at the plunge
+const FALLS_WIDTH_TOP = 5; // narrower at the crest lip
+const FALLS_BOTTOM = WATER_LEVEL - 0.5; // just below the pool surface so it feeds it
+const FALLS_FRONT = 0.7; // how far the sheet floats off the rock, along the face normal
+const CREST_BELOW_SUMMIT = 4; // stop a touch below the rounded top
 
 export interface WaterfallView {
   meshes: THREE.Mesh[];
+}
+
+// Ordered points up the mountain's west face at the river centerline, from the
+// waterline to just below the summit. Increasing in both x and height.
+function faceProfile(seed: number): { x: number; y: number }[] {
+  const z = SLUICE_RIVER.z;
+  const topY = terrainHeight(SLUICE_PEAK.x, z, seed) - CREST_BELOW_SUMMIT;
+  const pts: { x: number; y: number }[] = [];
+  for (let x = SLUICE_RIVER.xWest - 2; x <= SLUICE_PEAK.x; x += 0.25) {
+    const y = terrainHeight(x, z, seed);
+    if (y < FALLS_BOTTOM) continue; // still under the pool
+    pts.push({ x, y });
+    if (y >= topY) break; // reached the crest
+  }
+  return pts;
+}
+
+// A curved curtain hugging the face: two vertices per profile point, offset off the
+// rock along the local outward normal, tapering narrower toward the crest.
+function buildRibbonGeo(seed: number): { geo: THREE.BufferGeometry; footX: number } {
+  const z = SLUICE_RIVER.z;
+  const pts = faceProfile(seed);
+  const n = pts.length;
+  const pos: number[] = [];
+  const uv: number[] = [];
+  const idx: number[] = [];
+  for (let i = 0; i < n; i++) {
+    const p = pts[i];
+    const a = pts[Math.max(0, i - 1)];
+    const b = pts[Math.min(n - 1, i + 1)];
+    let tx = b.x - a.x;
+    let ty = b.y - a.y;
+    const tl = Math.hypot(tx, ty) || 1;
+    tx /= tl;
+    ty /= tl;
+    // outward normal (toward the viewer, -x side of the up-going tangent)
+    const nx = -ty;
+    const ny = tx;
+    const px = p.x + nx * FALLS_FRONT;
+    const py = p.y + ny * FALLS_FRONT;
+    const v = n > 1 ? i / (n - 1) : 0; // 0 pool .. 1 crest
+    const halfW = (FALLS_WIDTH_BASE + (FALLS_WIDTH_TOP - FALLS_WIDTH_BASE) * v) * 0.5;
+    pos.push(px, py, z - halfW);
+    uv.push(0, v);
+    pos.push(px, py, z + halfW);
+    uv.push(1, v);
+  }
+  for (let i = 0; i < n - 1; i++) {
+    const a = i * 2;
+    const c = (i + 1) * 2;
+    idx.push(a, a + 1, c + 1, a, c + 1, c);
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+  geo.setIndex(idx);
+  geo.computeVertexNormals();
+  return { geo, footX: pts.length ? pts[0].x : SLUICE_RIVER.xWest };
 }
 
 const SHEET_VERT = /* glsl */ `
@@ -48,8 +97,9 @@ const SHEET_VERT = /* glsl */ `
   }
 `;
 
-// A falling curtain: vertical UV scroll for the plunge, layered streaks for the
-// braided flow, brighter foam at the crest lip and where it hits the pool.
+// A falling curtain: braided vertical streaks scrolling down, a bright foam lip at the
+// crest and churn at the plunge, a translucent blue body so the cliff shows faintly
+// through the veil rather than a flat white slab.
 const SHEET_FRAG = /* glsl */ `
   uniform float uTime;
   varying vec2 vUv;
@@ -59,27 +109,35 @@ const SHEET_FRAG = /* glsl */ `
   float hash(float n) { return fract(sin(n) * 43758.5453); }
   void main() {
     // vUv.y: 0 at the pool, 1 at the crest. Water falls downward (toward y=0).
-    float fall = uTime * 0.9;
-    // braided vertical streaks: several columns scrolling down at varied speeds
+    float fall = uTime * 0.95;
+    // a gentle sideways sway of the whole sheet as it pours
+    float sway = sin(vUv.y * 5.0 - uTime * 0.8) * 0.02;
+    float ux = vUv.x + sway;
+    // braided vertical strands: several columns scrolling down at varied speeds
     float streak = 0.0;
-    for (float i = 0.0; i < 4.0; i += 1.0) {
-      float col = vUv.x * (6.0 + i * 2.0) + hash(i) * 10.0;
-      float speed = 0.7 + hash(i + 3.0) * 0.9;
-      float s = sin(col * 3.1416 + (vUv.y * (7.0 + i) - fall * speed) * 6.283);
-      streak += smoothstep(0.55, 1.0, s);
+    float rope = 0.0;
+    for (float i = 0.0; i < 5.0; i += 1.0) {
+      float col = ux * (7.0 + i * 2.0) + hash(i) * 10.0;
+      float speed = 0.7 + hash(i + 3.0) * 1.0;
+      float phase = (vUv.y * (7.0 + i) - fall * speed) * 6.283;
+      float s = sin(col * 3.1416 + phase);
+      streak += smoothstep(0.5, 1.0, s);
+      rope += smoothstep(0.85, 1.0, s); // tighter bright cores
     }
-    streak = clamp(streak * 0.45, 0.0, 1.0);
-    // base body tint: bright blue-white water, whiter (foamier) toward the streaks so
-    // it stands out against the sunlit tan cliff behind it rather than washing into it
-    vec3 body = mix(vec3(0.60, 0.80, 0.96), vec3(1.02, 1.04, 1.08), streak);
-    // crest foam (top) where the water tips over, and plunge foam (bottom)
-    float crest = smoothstep(0.80, 1.0, vUv.y);
-    float plunge = smoothstep(0.26, 0.0, vUv.y) * (0.6 + 0.4 * sin(uTime * 6.0 + vUv.x * 20.0));
+    streak = clamp(streak * 0.4, 0.0, 1.0);
+    rope = clamp(rope * 0.5, 0.0, 1.0);
+    // translucent blue-white body, brightening along the strands and their cores
+    vec3 body = mix(vec3(0.42, 0.66, 0.92), vec3(0.86, 0.95, 1.04), streak);
+    body = mix(body, vec3(1.05, 1.07, 1.10), rope);
+    // crest foam (top lip) and plunge churn (bottom)
+    float crest = smoothstep(0.86, 1.0, vUv.y);
+    float plunge = smoothstep(0.22, 0.0, vUv.y) * (0.6 + 0.4 * sin(uTime * 6.0 + vUv.x * 20.0));
     float foam = clamp(crest + plunge, 0.0, 1.0);
-    vec3 col = mix(body, vec3(1.1), foam);
-    // taper the ribbon at its vertical edges so it reads as a channel, not a slab
-    float edge = smoothstep(0.0, 0.12, vUv.x) * smoothstep(1.0, 0.88, vUv.x);
-    float alpha = (0.82 + 0.18 * streak + 0.4 * foam) * edge;
+    vec3 col = mix(body, vec3(1.12), foam);
+    // taper the ribbon at its z-edges so it reads as a channel with soft sides
+    float edge = smoothstep(0.0, 0.14, vUv.x) * smoothstep(1.0, 0.86, vUv.x);
+    // veil-like: translucent between strands, near-opaque along cores + foam
+    float alpha = (0.5 + 0.34 * streak + 0.28 * rope + 0.45 * foam) * edge;
     gl_FragColor = vec4(col, clamp(alpha, 0.0, 1.0));
     #include <tonemapping_fragment>
     #include <colorspace_fragment>
@@ -113,18 +171,10 @@ function fogUniforms(): Record<string, THREE.IUniform> {
 
 // Build the falling ribbon + plunge-pool foam. Kept lightweight (two meshes, shared
 // uTime) so it is affordable on every tier; on the low water tier it still animates.
-export function buildWaterfall(): WaterfallView {
+export function buildWaterfall(seed: number): WaterfallView {
   const meshes: THREE.Mesh[] = [];
 
-  // The falling curtain: a plane facing east (-X), toward a player approaching up the
-  // river from the pond, leaning back up the cliff so its crest reaches the ridge. Local
-  // plane XY -> world (Z width, slanted height); the geometry length is the slant of the
-  // face, not the vertical drop, and the mesh is tipped about Z to lay it against the face.
-  const dropX = FALLS_TOP_X - FALLS_X;
-  const dropY = FALLS_TOP_Y - FALLS_BOTTOM;
-  const slant = Math.hypot(dropX, dropY);
-  const sheetGeo = new THREE.PlaneGeometry(FALLS_WIDTH, slant, 1, 24);
-  sheetGeo.rotateY(-Math.PI / 2); // normal now points -X (east)
+  const { geo, footX } = buildRibbonGeo(seed);
   const sheetMat = new THREE.ShaderMaterial({
     uniforms: { ...fogUniforms(), uTime: sharedUniforms.uTime },
     vertexShader: SHEET_VERT,
@@ -134,13 +184,12 @@ export function buildWaterfall(): WaterfallView {
     side: THREE.DoubleSide,
     fog: true,
   });
-  const sheet = new THREE.Mesh(sheetGeo, sheetMat);
-  sheet.position.set((FALLS_X + FALLS_TOP_X) / 2, (FALLS_BOTTOM + FALLS_TOP_Y) / 2, FALLS_Z);
-  sheet.rotation.z = -Math.atan2(dropX, dropY); // tip the crest back into the face
+  // geometry is already in world space (spine sampled from terrain); identity transform
+  const sheet = new THREE.Mesh(geo, sheetMat);
   meshes.push(sheet);
 
   // Plunge-pool foam: a flat disc lying on the water where the ribbon lands.
-  const foamGeo = new THREE.PlaneGeometry(FALLS_WIDTH + 3, FALLS_WIDTH + 3, 1, 1).rotateX(
+  const foamGeo = new THREE.PlaneGeometry(FALLS_WIDTH_BASE + 3, FALLS_WIDTH_BASE + 3, 1, 1).rotateX(
     -Math.PI / 2,
   );
   const foamMat = new THREE.ShaderMaterial({
@@ -153,7 +202,7 @@ export function buildWaterfall(): WaterfallView {
   });
   const foam = new THREE.Mesh(foamGeo, foamMat);
   // a step out into the pool (lower x) from the ribbon foot, just above the surface
-  foam.position.set(FALLS_X - 3, WATER_LEVEL + 0.06, FALLS_Z);
+  foam.position.set(footX - 2.5, WATER_LEVEL + 0.06, SLUICE_RIVER.z);
   meshes.push(foam);
 
   // On the low tier keep only the ribbon (drop the extra pool-foam draw).

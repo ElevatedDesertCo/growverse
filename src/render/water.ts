@@ -176,11 +176,11 @@ function buildShaderWater(seed: number): WaterView {
   }
   // The Sluice waterfall rides the same add/freeze loop (animates via uTime); appended
   // after the per-zone loop so it keeps its own vertical transform, not WATER_LEVEL.
-  meshes.push(...buildWaterfall().meshes);
+  meshes.push(...buildWaterfall(seed).meshes);
   return { meshes, update: () => {} };
 }
 
-function buildPhongWater(): WaterView {
+function buildPhongWater(seed: number): WaterView {
   const tex = waterNormalish();
   tex.repeat.set(30, 30);
   const [norm] = waterNormalMaps();
@@ -202,7 +202,7 @@ function buildPhongWater(): WaterView {
   );
   mesh.position.set(0, WATER_LEVEL, (WORLD_MIN_Z + WORLD_MAX_Z) / 2);
   return {
-    meshes: [mesh, ...buildWaterfall().meshes],
+    meshes: [mesh, ...buildWaterfall(seed).meshes],
     update(time: number): void {
       tex.offset.x = time * 0.008;
       tex.offset.y = time * 0.011;
@@ -215,5 +215,5 @@ function buildPhongWater(): WaterView {
 export function buildWater(seed: number): WaterView {
   return GFX.standardMaterials && hasWaterShaderAssets()
     ? buildShaderWater(seed)
-    : buildPhongWater();
+    : buildPhongWater(seed);
 }
