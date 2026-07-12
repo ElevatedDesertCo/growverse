@@ -1,16 +1,18 @@
 import * as THREE from 'three';
 import { SLUICE_BRIDGE, terrainHeight, WATER_LEVEL } from '../sim/world';
 import { surfaceMat } from './gfx';
-import { buildBeaverMascot } from './props';
 
 // The Sluice dam-crossing: a straight beaver-log dam thrown across the river at the
 // corridor crossing (the `SLUICE_BRIDGE` primitive in sim/world.ts). The walkable
 // crest IS the crossing, the raised causeway terrain, so the deck you walk is the
 // deck you see; this module dresses that causeway as a densely woven beaver dam.
 // A solid packed-mud core fills the body so nothing shows through, then large and
-// medium logs plus small woven branches skin both water faces and the crest, tight
-// enough that there are no gaps. Low log curbs sit on the two parapet colliders
-// (colliders.ts, same const). Static geometry, built once, no per-frame work.
+// medium logs plus small woven branches skin both water faces, tight enough that
+// there are no gaps. The crest is a tight corduroy of cross-logs (butted along the
+// span, tops flush with the walkable terrain) so the deck you walk reads as one
+// continuous, connected surface with no dip or step. Low log curbs sit on the two
+// parapet colliders (colliders.ts, same const). Static geometry, built once, no
+// per-frame work.
 
 export interface BridgeView {
   group: THREE.Group;
@@ -194,40 +196,40 @@ export function buildBridge(seed: number): BridgeView {
     }
   }
 
-  // ---- the walkable crest: logs laid along the path, tight enough to hide the top-
-  for (let j = -3; j <= 3; j++) {
-    const cx = b.x + j * (b.halfWidth * 0.3);
-    for (let z = zStart + 0.6; z <= zEnd - 0.3; z += 0.85) {
-      const y = terrainHeight(b.x, z, seed) + 0.12;
-      const rad = 0.24 + h3(z, j, 30) * 0.08;
-      const bucket = h3(z, j, 33) < 0.34 ? dark : (j + Math.round(z)) % 2 === 0 ? light : med;
+  // ---- the walkable crest: a tight corduroy of cross-logs laid ACROSS the path and
+  // butted along z, so the deck reads as ONE continuous, connected surface with no
+  // gaps or dips. Every log spans the full deck width and all tops sit at the same
+  // small height above the walkable terrain (the arch the player actually walks): the
+  // per-log radius varies for a hand-hewn look but the CENTER is dropped by that radius
+  // so the tops stay flush course to course. `terrainHeight` gives the arch, so the
+  // corduroy hugs the causeway crown and ramps without a step anywhere.
+  const CREST_TOP = 0.08; // deck-log tops sit this far proud of the walkable terrain
+  const crestLen = b.halfWidth * 2 + 0.7; // overhang the parapets a touch, like a real dam
+  for (let z = zStart + 0.35; z <= zEnd - 0.35; z += 0.42) {
+    const rad = 0.24 + h3(z, 0, 30) * 0.07;
+    const y = terrainHeight(b.x, z, seed) + CREST_TOP - rad; // top stays flush across courses
+    const tilt = (h3(z, 0, 32) - 0.5) * 0.04; // barely-there, keeps the surface even
+    const bucket = h3(z, 0, 33) < 0.3 ? dark : Math.round(z) % 2 === 0 ? light : med;
+    push(bucket, b.x + (h3(z, 0, 34) - 0.5) * 0.12, y, z, crestLen, rad, 'x', tilt, 0);
+  }
+  // thin runner sticks tucked into the grooves between courses, low enough to stay
+  // flush with the deck: they lace the corduroy together without breaking the surface.
+  for (const lane of [-1, 1] as const) {
+    const cx = b.x + lane * (b.halfWidth * 0.5);
+    for (let z = zStart + 0.7; z <= zEnd - 0.5; z += 1.5) {
+      const y = terrainHeight(b.x, z, seed) - 0.04;
       push(
-        bucket,
-        cx + (h3(z, j, 34) - 0.5) * 0.25,
+        branch,
+        cx,
         y,
         z,
-        1.5 + h3(z, j, 31) * 0.6,
-        rad,
+        1.4 + h3(z, lane, 41) * 0.5,
+        0.11,
         'z',
-        (h3(z, j, 32) - 0.5) * 0.08,
-        (h3(z, j, 35) - 0.5) * 0.15,
+        0,
+        (h3(z, lane, 43) - 0.5) * 0.1,
       );
     }
-  }
-  // cross-branches woven over the crest logs to fill the seams between them
-  for (let z = zStart + 0.6; z <= zEnd - 0.4; z += 0.55) {
-    const y = terrainHeight(b.x, z, seed) + 0.24;
-    push(
-      branch,
-      b.x + (h3(z, 0, 40) - 0.5) * 1.6,
-      y,
-      z,
-      b.halfWidth * (1.5 + h3(z, 0, 41) * 0.5),
-      0.1 + h3(z, 0, 42) * 0.05,
-      'x',
-      0,
-      (h3(z, 0, 43) - 0.5) * 0.2,
-    );
   }
 
   // ---- low log curbs on the two parapet colliders (the wall you see == you bump)-
@@ -242,19 +244,6 @@ export function buildBridge(seed: number): BridgeView {
   group.add(stickMesh(med, LOG_MED, 7));
   group.add(stickMesh(dark, LOG_DARK, 6));
   group.add(stickMesh(branch, BRANCH_COLOR, 5));
-
-  // ---- the beaver, perched on the crest at mid-span, facing downstream (-x) ----
-  const glowMat = surfaceMat({
-    color: 0x5b6ee1,
-    emissive: 0x5b6ee1,
-    emissiveIntensity: 1.4,
-    roughness: 0.5,
-  });
-  const beaver = buildBeaverMascot(glowMat, 0);
-  beaver.position.set(b.x, terrainHeight(b.x, b.z, seed) - 0.15, b.z);
-  beaver.rotation.y = -Math.PI / 2; // face west, downstream toward the pond/town
-  beaver.scale.setScalar(0.85);
-  group.add(beaver);
 
   return { group };
 }
