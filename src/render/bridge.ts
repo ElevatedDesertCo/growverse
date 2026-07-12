@@ -45,7 +45,7 @@ function buildCore(seed: number, baseY: number): THREE.BufferGeometry {
   const idx: number[] = [];
   for (let i = 0; i <= segs; i++) {
     const z = zStart + ((zEnd - zStart) * i) / segs;
-    const topY = Math.max(baseY + 0.2, terrainHeight(b.x, z, seed) + 0.05);
+    const topY = Math.max(baseY + 0.2, terrainHeight(b.x, z, seed) - 0.06);
     pos.push(b.x - half, baseY, z); // 0 left base
     pos.push(b.x - half, topY, z); // 1 left top
     pos.push(b.x + half, topY, z); // 2 right top
@@ -134,7 +134,9 @@ export function buildBridge(seed: number): BridgeView {
   for (const side of [-1, 1] as const) {
     for (let pass = 0; pass < 2; pass++) {
       for (let z = zStart + 0.5 + pass * 0.35; z <= zEnd - 0.5; z += 0.7) {
-        const crestY = terrainHeight(b.x, z, seed) + 0.05;
+        // stop the woven face just below the deck so its logs never poke up through
+        // the walkable surface: the flush crest corduroy caps the wall.
+        const crestY = terrainHeight(b.x, z, seed) - 0.45;
         const rows = Math.max(0, Math.round((crestY - baseY) / rowH));
         for (let r = 0; r < rows; r++) {
           const t = rows > 1 ? r / (rows - 1) : 0; // 0 base .. 1 crest
@@ -167,19 +169,22 @@ export function buildBridge(seed: number): BridgeView {
     }
   }
 
-  // ---- dense woven branches thatched over both faces to kill any remaining gap --
+  // ---- woven branches laid flat over both faces to kill any remaining gap --------
+  // Kept tight to the face (small outward float) and near-parallel to the courses
+  // (gentle yaw/tilt) so they read as lashed-down thatch, never loose sticks poking
+  // out. Capped below the deck like the courses above.
   for (const side of [-1, 1] as const) {
     for (let z = zStart + 0.3; z <= zEnd - 0.3; z += 0.34) {
-      const crestY = terrainHeight(b.x, z, seed) + 0.05;
+      const crestY = terrainHeight(b.x, z, seed) - 0.45;
       const span = crestY - baseY;
       if (span <= 0.3) continue;
       const count = Math.max(2, Math.round(span / 0.42));
       for (let k = 0; k < count; k++) {
         const y = baseY + 0.15 + h3(z, k, side + 20) * span;
         const t = (y - baseY) / span;
-        const faceX = b.x + side * (b.halfWidth + 0.14 - t * 0.7);
-        const yaw = (h3(z, k, 21) - 0.5) * 1.4; // branches criss-cross at all angles
-        const tilt = (h3(z, k, 22) - 0.5) * 0.7;
+        const faceX = b.x + side * (b.halfWidth + 0.04 - t * 0.7);
+        const yaw = (h3(z, k, 21) - 0.5) * 0.5; // gentle angles, lie along the courses
+        const tilt = (h3(z, k, 22) - 0.5) * 0.3;
         const len = 0.9 + h3(z, k, 23) * 1.1;
         push(
           branch,
@@ -198,45 +203,28 @@ export function buildBridge(seed: number): BridgeView {
 
   // ---- the walkable crest: a tight corduroy of cross-logs laid ACROSS the path and
   // butted along z, so the deck reads as ONE continuous, connected surface with no
-  // gaps or dips. Every log spans the full deck width and all tops sit at the same
-  // small height above the walkable terrain (the arch the player actually walks): the
-  // per-log radius varies for a hand-hewn look but the CENTER is dropped by that radius
-  // so the tops stay flush course to course. `terrainHeight` gives the arch, so the
-  // corduroy hugs the causeway crown and ramps without a step anywhere.
-  const CREST_TOP = 0.08; // deck-log tops sit this far proud of the walkable terrain
+  // gaps or dips. Every log spans the full deck width and every top sits FLUSH with
+  // the walkable terrain (the arch the player actually walks): the per-log radius
+  // varies for a hand-hewn look but the CENTER is dropped by that radius so the tops
+  // stay level course to course. Because the tops equal `terrainHeight`, the player
+  // stands ON the deck (never sunk into a trough) and steps onto the banks at the ends
+  // with no lip; the arch is inherited from `terrainHeight` so the deck hugs the crown.
   const crestLen = b.halfWidth * 2 + 0.7; // overhang the parapets a touch, like a real dam
-  for (let z = zStart + 0.35; z <= zEnd - 0.35; z += 0.42) {
+  for (let z = zStart + 0.3; z <= zEnd - 0.3; z += 0.4) {
     const rad = 0.24 + h3(z, 0, 30) * 0.07;
-    const y = terrainHeight(b.x, z, seed) + CREST_TOP - rad; // top stays flush across courses
-    const tilt = (h3(z, 0, 32) - 0.5) * 0.04; // barely-there, keeps the surface even
+    const y = terrainHeight(b.x, z, seed) - rad; // top == terrain: flush deck the player walks on
+    const tilt = (h3(z, 0, 32) - 0.5) * 0.03; // barely-there, keeps the surface even
     const bucket = h3(z, 0, 33) < 0.3 ? dark : Math.round(z) % 2 === 0 ? light : med;
-    push(bucket, b.x + (h3(z, 0, 34) - 0.5) * 0.12, y, z, crestLen, rad, 'x', tilt, 0);
-  }
-  // thin runner sticks tucked into the grooves between courses, low enough to stay
-  // flush with the deck: they lace the corduroy together without breaking the surface.
-  for (const lane of [-1, 1] as const) {
-    const cx = b.x + lane * (b.halfWidth * 0.5);
-    for (let z = zStart + 0.7; z <= zEnd - 0.5; z += 1.5) {
-      const y = terrainHeight(b.x, z, seed) - 0.04;
-      push(
-        branch,
-        cx,
-        y,
-        z,
-        1.4 + h3(z, lane, 41) * 0.5,
-        0.11,
-        'z',
-        0,
-        (h3(z, lane, 43) - 0.5) * 0.1,
-      );
-    }
+    push(bucket, b.x + (h3(z, 0, 34) - 0.5) * 0.1, y, z, crestLen, rad, 'x', tilt, 0);
   }
 
   // ---- low log curbs on the two parapet colliders (the wall you see == you bump)-
+  // Sit them just proud of the flush deck so they read as a low edge rail, not a
+  // trough wall around the player.
   for (const side of [-1, 1] as const) {
     for (let z = zStart + 0.8; z <= zEnd - 0.4; z += 1.6) {
-      const y = terrainHeight(b.x, z, seed) + 0.42;
-      push(dark, b.x + side * (b.halfWidth - 0.2), y, z, 1.9, 0.2, 'z', 0, 0);
+      const y = terrainHeight(b.x, z, seed) + 0.14;
+      push(dark, b.x + side * (b.halfWidth - 0.2), y, z, 1.9, 0.18, 'z', 0, 0);
     }
   }
 
