@@ -19,8 +19,10 @@ export interface BridgeView {
 const LOG_LIGHT = 0x6f5238;
 const LOG_MED = 0x5c4530;
 const LOG_DARK = 0x4a3722;
-const BRANCH_COLOR = 0x7c6142;
-const MUD_COLOR = 0x54432f;
+const BRANCH_COLOR = 0x74593c;
+// Deep shadow-brown so the packed interior recedes behind the logs and reads as the
+// dark voids of a log jam, not a lit earthen berm.
+const MUD_COLOR = 0x2a2216;
 
 // Deterministic 0..1 hash so the weave is stable per seed (no Math.random in render).
 function h3(a: number, b: number, c: number): number {
@@ -124,61 +126,66 @@ export function buildBridge(seed: number): BridgeView {
   // ---- the two water faces: dense overlapping courses of big + medium logs ------
   // Rows overlap vertically (rowH < log diameter) so the face is solid timber, and
   // each course is broken into staggered logs along z with jitter so it reads woven.
-  const rowH = 0.44;
+  // Two staggered course-passes per face (offset half a step in z and half a row in
+  // y) so logs overlap tightly with no dirt showing between them.
+  const rowH = 0.36;
   for (const side of [-1, 1] as const) {
-    for (let z = zStart + 0.6; z <= zEnd - 0.6; z += 1.15) {
-      const crestY = terrainHeight(b.x, z, seed) + 0.05;
-      const rows = Math.max(0, Math.round((crestY - baseY) / rowH));
-      for (let r = 0; r < rows; r++) {
-        const t = rows > 1 ? r / (rows - 1) : 0; // 0 base .. 1 crest
-        const y = baseY + r * rowH + rowH * 0.5;
-        // batter: the face leans inward toward the crest (a stable dam profile)
-        const faceX = b.x + side * (b.halfWidth - 0.05 - t * 0.8);
-        const jz = (h3(z, r, side + 3) - 0.5) * 0.5; // stagger along the course
-        const big = h3(z, r, 5) > 0.45;
-        const len = big ? 1.5 + h3(z, r, 1) * 0.7 : 1.0 + h3(z, r, 2) * 0.5;
-        const rad = big ? 0.34 + h3(z, r, 7) * 0.08 : 0.22 + h3(z, r, 9) * 0.06;
-        const tilt = (h3(z, r, 11) - 0.5) * 0.16;
-        const yaw = (h3(z, r, 13) - 0.5) * 0.22;
-        const bucket = r % 3 === 0 ? dark : big ? light : med;
-        push(bucket, faceX, y, z + jz, len, rad, 'z', tilt, yaw);
+    for (let pass = 0; pass < 2; pass++) {
+      for (let z = zStart + 0.5 + pass * 0.35; z <= zEnd - 0.5; z += 0.7) {
+        const crestY = terrainHeight(b.x, z, seed) + 0.05;
+        const rows = Math.max(0, Math.round((crestY - baseY) / rowH));
+        for (let r = 0; r < rows; r++) {
+          const t = rows > 1 ? r / (rows - 1) : 0; // 0 base .. 1 crest
+          const y = baseY + r * rowH + rowH * (0.5 + pass * 0.5);
+          if (y > crestY) continue;
+          // batter: the face leans inward toward the crest (a stable dam profile)
+          const faceX = b.x + side * (b.halfWidth + 0.05 - t * 0.7);
+          const jz = (h3(z, r + pass * 7, side + 3) - 0.5) * 0.6; // stagger along the course
+          const big = h3(z, r, 5) > 0.5;
+          const len = big ? 1.6 + h3(z, r, 1) * 0.8 : 1.1 + h3(z, r, 2) * 0.6;
+          const rad = big ? 0.36 + h3(z, r, 7) * 0.1 : 0.24 + h3(z, r, 9) * 0.08;
+          const tilt = (h3(z, r + pass, 11) - 0.5) * 0.2;
+          const yaw = (h3(z, r + pass, 13) - 0.5) * 0.3;
+          const bucket = h3(z, r, 15) < 0.34 ? dark : big ? light : med;
+          push(bucket, faceX, y, z + jz, len, rad, 'z', tilt, yaw);
+        }
       }
     }
   }
 
   // ---- front-to-back tie logs (along x) lacing the two faces together ----------
-  for (let z = zStart + 1.2; z <= zEnd - 1.2; z += 2.2) {
+  for (let z = zStart + 1.0; z <= zEnd - 1.0; z += 1.5) {
     const crestY = terrainHeight(b.x, z, seed) + 0.05;
-    const ties = Math.max(1, Math.round((crestY - baseY) / 1.5));
+    const ties = Math.max(1, Math.round((crestY - baseY) / 1.1));
     for (let k = 0; k < ties; k++) {
-      const y = baseY + 0.8 + k * 1.5 + (h3(z, k, 4) - 0.5) * 0.3;
+      const y = baseY + 0.7 + k * 1.1 + (h3(z, k, 4) - 0.5) * 0.4;
       if (y > crestY - 0.2) continue;
-      const rad = 0.2 + h3(z, k, 6) * 0.08;
-      push(med, b.x, y, z + (h3(z, k, 8) - 0.5) * 0.6, b.halfWidth * 2.0, rad, 'x', 0, 0);
+      const rad = 0.19 + h3(z, k, 6) * 0.08;
+      push(med, b.x, y, z + (h3(z, k, 8) - 0.5) * 0.7, b.halfWidth * 2.0, rad, 'x', 0, 0);
     }
   }
 
-  // ---- small woven branches packed over the faces to kill any remaining gap -----
+  // ---- dense woven branches thatched over both faces to kill any remaining gap --
   for (const side of [-1, 1] as const) {
-    for (let z = zStart + 0.4; z <= zEnd - 0.4; z += 0.6) {
+    for (let z = zStart + 0.3; z <= zEnd - 0.3; z += 0.34) {
       const crestY = terrainHeight(b.x, z, seed) + 0.05;
       const span = crestY - baseY;
       if (span <= 0.3) continue;
-      const count = Math.max(1, Math.round(span / 0.7));
+      const count = Math.max(2, Math.round(span / 0.42));
       for (let k = 0; k < count; k++) {
-        const y = baseY + 0.2 + h3(z, k, side + 20) * span;
+        const y = baseY + 0.15 + h3(z, k, side + 20) * span;
         const t = (y - baseY) / span;
-        const faceX = b.x + side * (b.halfWidth + 0.06 - t * 0.8);
-        const yaw = (h3(z, k, 21) - 0.5) * 1.1; // branches criss-cross
-        const tilt = (h3(z, k, 22) - 0.5) * 0.5;
-        const len = 0.8 + h3(z, k, 23) * 0.9;
+        const faceX = b.x + side * (b.halfWidth + 0.14 - t * 0.7);
+        const yaw = (h3(z, k, 21) - 0.5) * 1.4; // branches criss-cross at all angles
+        const tilt = (h3(z, k, 22) - 0.5) * 0.7;
+        const len = 0.9 + h3(z, k, 23) * 1.1;
         push(
           branch,
           faceX,
           y,
           z + (h3(z, k, 24) - 0.5) * 0.5,
           len,
-          0.09 + h3(z, k, 25) * 0.05,
+          0.08 + h3(z, k, 25) * 0.06,
           'z',
           tilt,
           yaw,
@@ -187,20 +194,40 @@ export function buildBridge(seed: number): BridgeView {
     }
   }
 
-  // ---- the walkable crest: logs laid along the path, flush on the causeway top --
-  for (let j = -2; j <= 2; j++) {
-    const cx = b.x + j * (b.halfWidth * 0.42);
-    for (let z = zStart + 0.7; z <= zEnd - 0.4; z += 1.5) {
-      const y = terrainHeight(b.x, z, seed) + 0.1;
-      const rad = 0.26 + h3(z, j, 30) * 0.07;
-      const bucket = (j + Math.round(z)) % 2 === 0 ? light : med;
-      push(bucket, cx, y, z, 1.7 + h3(z, j, 31) * 0.5, rad, 'z', (h3(z, j, 32) - 0.5) * 0.06, 0);
+  // ---- the walkable crest: logs laid along the path, tight enough to hide the top-
+  for (let j = -3; j <= 3; j++) {
+    const cx = b.x + j * (b.halfWidth * 0.3);
+    for (let z = zStart + 0.6; z <= zEnd - 0.3; z += 0.85) {
+      const y = terrainHeight(b.x, z, seed) + 0.12;
+      const rad = 0.24 + h3(z, j, 30) * 0.08;
+      const bucket = h3(z, j, 33) < 0.34 ? dark : (j + Math.round(z)) % 2 === 0 ? light : med;
+      push(
+        bucket,
+        cx + (h3(z, j, 34) - 0.5) * 0.25,
+        y,
+        z,
+        1.5 + h3(z, j, 31) * 0.6,
+        rad,
+        'z',
+        (h3(z, j, 32) - 0.5) * 0.08,
+        (h3(z, j, 35) - 0.5) * 0.15,
+      );
     }
   }
-  // a few cross-branches woven over the crest logs
-  for (let z = zStart + 1.0; z <= zEnd - 0.6; z += 1.1) {
-    const y = terrainHeight(b.x, z, seed) + 0.22;
-    push(branch, b.x + (h3(z, 0, 40) - 0.5) * 1.2, y, z, b.halfWidth * 1.7, 0.12, 'x', 0, 0);
+  // cross-branches woven over the crest logs to fill the seams between them
+  for (let z = zStart + 0.6; z <= zEnd - 0.4; z += 0.55) {
+    const y = terrainHeight(b.x, z, seed) + 0.24;
+    push(
+      branch,
+      b.x + (h3(z, 0, 40) - 0.5) * 1.6,
+      y,
+      z,
+      b.halfWidth * (1.5 + h3(z, 0, 41) * 0.5),
+      0.1 + h3(z, 0, 42) * 0.05,
+      'x',
+      0,
+      (h3(z, 0, 43) - 0.5) * 0.2,
+    );
   }
 
   // ---- low log curbs on the two parapet colliders (the wall you see == you bump)-
