@@ -8116,11 +8116,7 @@ export class Hud {
       html += `<button type="button" class="qd-list-item" data-market="1" aria-label="${esc(t('questUi.dialog.worldMarketAria'))}"><span class="gold">${svgIcon('market')}</span> ${esc(t('questUi.dialog.worldMarket'))}</button>`;
     }
     if (def?.crafting) {
-      const craftLabel = t(
-        def.crafting === 'grow'
-          ? 'hudChrome.crafting.growTitle'
-          : 'hudChrome.crafting.upgradeTitle',
-      );
+      const craftLabel = t(`hudChrome.crafting.${def.crafting}Title` as Parameters<typeof t>[0]);
       html += `<button type="button" class="qd-list-item" data-craft="1" aria-label="${esc(craftLabel)}"><span class="gold">${svgIcon('anvil')}</span> ${esc(craftLabel)}</button>`;
     }
     if (def?.stash) {

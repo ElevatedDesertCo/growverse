@@ -1130,8 +1130,10 @@ export const hudChromeStrings = {
   crafting: {
     growTitle: 'Grow Station',
     upgradeTitle: 'Upgrade Bench',
+    cookTitle: 'Cookfire',
     growHint: 'Craft nutrients, upgrade seed strains, and build growing gear.',
     upgradeHint: 'Reforge gear and cut battle consumables from Corruption Shards.',
+    cookHint: 'Cook the fish you catch into hearty meals that restore health and mana.',
     craftButton: 'Craft',
     costLabel: 'Cost',
     requiresLabel: 'Requires',
@@ -1146,6 +1148,7 @@ export const hudChromeStrings = {
       accessory: 'Grow Accessories',
       consumable: 'Consumables',
       gear: 'Reforged Gear',
+      food: 'Cooked Food',
     },
     errors: {
       recipeUnavailable: 'That recipe is not available here.',

@@ -2075,23 +2075,61 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     registerHideable(g, circleFootprint(mx, mz, 5, ground(mx, mz) + 5.2));
   }
 
-  // ---- fishing docks: pirate-kit platforms, moored rowboat, stone hut ------
+  // ---- fishing docks: a walkable plank pier out over the water, moored rowboat,
+  // stone hut. The deck rides the raised dock-deck terrain (sim/world.ts
+  // `dockDeckOffset`), so the planks you see ARE the surface you walk on; pilings drop
+  // from the deck edges into the water and a low rail runs both sides. Local -z faces
+  // the water (matches the terrain offset's local frame).
+  const dockPlankMat = surfaceMat({ color: 0x7a5c3c, roughness: 0.9 });
+  const dockPostMat = surfaceMat({ color: 0x4a3722, roughness: 0.95 });
+  const dockPostGeo = new THREE.CylinderGeometry(0.12, 0.14, 1, 6);
+  const dockRailGeo = new THREE.CylinderGeometry(0.06, 0.06, 1, 5);
+  const DOCK_PILE_BOTTOM = WATER_LEVEL - 2.6;
+  const DOCK_DECK_Y = WATER_LEVEL + 1.4; // must match sim/world.ts dockDeckOffset
   for (const d of PROPS.docks) {
     const y = ground(d.x, d.z);
     const g = new THREE.Group();
     const key = d.x * 3.3 + d.z * 1.7;
-    for (let i = 0; i < 3; i++) {
-      // step each pier section down toward the water so the far legs stay
-      // grounded on a dropping shore (flat shores keep a level deck)
-      const lz = -1.05 - i * 2.13;
-      const wx = d.x + lz * Math.sin(d.rot);
-      const wz = d.z + lz * Math.cos(d.rot);
+    const dc = Math.cos(d.rot);
+    const ds = Math.sin(d.rot);
+    // local (lx,lz) -> world, matching the group's position + rotation.y = d.rot
+    const worldOf = (lx: number, lz: number): [number, number] => [
+      d.x + lx * dc + lz * ds,
+      d.z - lx * ds + lz * dc,
+    ];
+    // plank sections seated on the raised deck, marching out over the water
+    for (let i = 0; i < 5; i++) {
+      const lz = -0.7 - i * 2.05;
+      const [wx, wz] = worldOf(0, lz);
       addParts(g, 'dockPlatform', {
         z: lz,
-        y: Math.min(0, ground(wx, wz) - y + 0.15),
-        rot: (keyRand(key, i) - 0.5) * 0.04,
-        scale: [0.78, 0.52, 0.85],
+        y: ground(wx, wz) - y + 0.02,
+        rot: (keyRand(key, i) - 0.5) * 0.03,
+        scale: [0.92, 0.5, 0.85],
       });
+    }
+    // support pilings dropping into the water + a rail post above the deck each side
+    for (const side of [-1, 1] as const) {
+      const lx = side * 1.5;
+      for (let i = 0; i < 6; i++) {
+        const lz = -0.4 - i * 1.7;
+        const [wx, wz] = worldOf(lx, lz);
+        const deckTop = ground(wx, wz); // the raised deck height here
+        const pile = new THREE.Mesh(dockPostGeo, dockPostMat);
+        pile.position.set(lx, (deckTop + DOCK_PILE_BOTTOM) / 2 - y, lz);
+        pile.scale.y = Math.max(0.3, deckTop - DOCK_PILE_BOTTOM);
+        g.add(pile);
+        const railPost = new THREE.Mesh(dockPostGeo, dockPostMat);
+        railPost.position.set(lx, deckTop - y + 0.42, lz);
+        railPost.scale.set(0.72, 0.9, 0.72);
+        g.add(railPost);
+      }
+      // a level top rail running the pier length (the deck is flat over the water)
+      const rail = new THREE.Mesh(dockRailGeo, dockPlankMat);
+      rail.position.set(lx, DOCK_DECK_Y - y + 0.82, -4.65);
+      rail.rotation.x = Math.PI / 2;
+      rail.scale.y = 9.2;
+      g.add(rail);
     }
     const hut = propAsset('house3');
     addParts(g, 'house3', {
@@ -2100,15 +2138,31 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
       scale: [(d.hutLocal.hw * 2) / hut.size.x, 2.6 / hut.size.y, (d.hutLocal.hd * 2) / hut.size.z],
     });
     if (!lowProps) {
+      // clutter on the shore end of the deck (sits on the raised planks)
+      const barrelA = worldOf(0.7, 1.1);
+      const barrelB = worldOf(-0.7, 0.6);
+      const crate = worldOf(0.0, -1.4);
       addParts(g, 'barrel', {
-        x: 0.55,
-        y: 0.52,
-        z: -0.55,
+        x: 0.7,
+        y: ground(barrelA[0], barrelA[1]) - y + 0.5,
+        z: 1.1,
         rot: keyRand(key, 5) * Math.PI,
         scale: 0.95,
       });
-      addParts(g, 'barrel', { x: 1.45, z: 0.9, rot: keyRand(key, 6) * Math.PI, scale: 1.15 });
-      addParts(g, 'crateWooden', { x: -0.6, y: 0.52, z: -2.2, rot: keyRand(key, 7), scale: 0.9 });
+      addParts(g, 'barrel', {
+        x: -0.7,
+        y: ground(barrelB[0], barrelB[1]) - y + 0.58,
+        z: 0.6,
+        rot: keyRand(key, 6) * Math.PI,
+        scale: 1.15,
+      });
+      addParts(g, 'crateWooden', {
+        x: 0.0,
+        y: ground(crate[0], crate[1]) - y + 0.45,
+        z: -1.4,
+        rot: keyRand(key, 7),
+        scale: 0.9,
+      });
     }
     // rowboat beside the deck's far end: floats at water level when the
     // shore dips below it, otherwise sits hauled up on the bank

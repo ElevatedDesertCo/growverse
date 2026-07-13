@@ -2324,6 +2324,12 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.items.nhalias_dirgeblade.name': '날리아의 비가검',
   'entities.items.nhalias_funeral_wraps.name': '날리아의 장례 붕대',
   'entities.items.raw_mirror_trout.name': '날거울송어',
+  'entities.items.cooked_mirror_trout.name': '구운 거울송어',
+  'entities.items.cooked_river_perch.name': '강농어 팬구이',
+  'entities.items.cooked_marsh_pike.name': '구운 습지 창꼬치',
+  'entities.items.cooked_bog_eel.name': '훈제 늪장어',
+  'entities.items.cooked_frostgill_trout.name': '구운 서리아가미송어',
+  'entities.items.cooked_stonescale_carp.name': '돌비늘잉어 오븐구이',
   'entities.items.sableweb_slippers.name': '검은그물 슬리퍼',
   'entities.items.simple_fishing_pole.name': '간단한 낚싯대',
   'entities.items.tangled_weed.name': '엉킨 물풀',
@@ -5258,4 +5264,21 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.banker_thistle.title': '블룸헤이븐 은행가',
   'entities.npcs.banker_thistle.greeting':
     '당신의 금화와 소중한 물건은 금고에서 안전합니다, {className}. 지니고 다닐 수 없는 것을 맡기고 지나갈 때마다 되찾으세요.',
+  // Dockside Cook / Cookfire (M16 non-Latin fill)
+  'hudChrome.crafting.cookTitle': '모닥불 요리',
+  'hudChrome.crafting.cookHint':
+    '잡은 물고기를 요리하여 체력과 마나를 회복시켜 주는 든든한 음식을 만드세요.',
+  'hudChrome.crafting.categories.food': '조리된 음식',
+  'entities.npcs.cook_ferra.name': '페라',
+  'entities.npcs.cook_ferra.title': '부둣가 요리사',
+  'entities.npcs.cook_ferra.greeting':
+    '부두 너머로 창꼬치가 깊이 헤엄친답니다, {className}. 낚싯대를 사서 몇 마리 낚아 오면 모닥불에 뜨끈하게 구워 드리죠.',
+  'entities.npcs.cook_cobb.name': '코브',
+  'entities.npcs.cook_cobb.title': '부둣가 요리사',
+  'entities.npcs.cook_cobb.greeting':
+    '거울 호수는 인내심 있는 낚싯줄에 훌륭한 송어를 내어 준답니다. 낚싯대를 챙겨 잡은 것을 내 모닥불로 가져오세요.',
+  'entities.npcs.cook_marta.name': '마르타',
+  'entities.npcs.cook_marta.title': '부둣가 요리사',
+  'entities.npcs.cook_marta.greeting':
+    '물방앗간 연못은 잔잔하고 농어가 잘 물고 있어요. 낚싯대는 저렴하고, 조리된 한 끼는 따뜻하답니다, {className}.',
 };

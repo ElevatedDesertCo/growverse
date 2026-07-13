@@ -2226,6 +2226,12 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.items.nhalias_dirgeblade.name': '娜莉亞的輓歌刃',
   'entities.items.nhalias_funeral_wraps.name': '娜莉亞的葬纏',
   'entities.items.raw_mirror_trout.name': '生鏡鱒魚',
+  'entities.items.cooked_mirror_trout.name': '烤鏡鱒魚',
+  'entities.items.cooked_river_perch.name': '香煎河鱸',
+  'entities.items.cooked_marsh_pike.name': '炙烤沼澤狗魚',
+  'entities.items.cooked_bog_eel.name': '煙燻沼鰻',
+  'entities.items.cooked_frostgill_trout.name': '烤霜鰓鱒魚',
+  'entities.items.cooked_stonescale_carp.name': '烘烤石鱗鯉',
   'entities.items.sableweb_slippers.name': '黑網便鞋',
   'entities.items.simple_fishing_pole.name': '簡易釣竿',
   'entities.items.tangled_weed.name': '纏結水草',
@@ -4993,4 +4999,20 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.banker_thistle.title': '布魯姆海文銀行家',
   'entities.npcs.banker_thistle.greeting':
     '你的金幣和珍藏都在金庫裡安然無恙，{className}。把帶不走的東西存進來，路過時隨時取回。',
+  // Dockside Cook / Cookfire (M16 non-Latin fill)
+  'hudChrome.crafting.cookTitle': '炊火',
+  'hudChrome.crafting.cookHint': '將你釣到的魚烹煮成豐盛餐點，恢復生命與法力。',
+  'hudChrome.crafting.categories.food': '烹煮食物',
+  'entities.npcs.cook_ferra.name': '費拉',
+  'entities.npcs.cook_ferra.title': '碼頭廚子',
+  'entities.npcs.cook_ferra.greeting':
+    '碼頭外的梭子魚藏得很深，{className}。買根釣竿，釣上幾條，我就在火上為你熱騰騰地烹好。',
+  'entities.npcs.cook_cobb.name': '柯布',
+  'entities.npcs.cook_cobb.title': '碼頭廚子',
+  'entities.npcs.cook_cobb.greeting':
+    '明鏡湖會賞給耐心垂釣者一尾上好的鱒魚。拿根釣竿，把漁獲帶回我的火堆旁。',
+  'entities.npcs.cook_marta.name': '瑪塔',
+  'entities.npcs.cook_marta.title': '碼頭廚子',
+  'entities.npcs.cook_marta.greeting':
+    '磨坊池水面平靜，鱸魚正上鉤。釣竿便宜，一頓熱食暖心，{className}。',
 };

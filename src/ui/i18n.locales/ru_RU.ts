@@ -2360,6 +2360,12 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.items.nhalias_dirgeblade.name': 'Плачущий клинок Налии',
   'entities.items.nhalias_funeral_wraps.name': 'Погребальные обмотки Налии',
   'entities.items.raw_mirror_trout.name': 'Сырая зеркальная форель',
+  'entities.items.cooked_mirror_trout.name': 'Зеркальная форель на гриле',
+  'entities.items.cooked_river_perch.name': 'Жареный речной окунь',
+  'entities.items.cooked_marsh_pike.name': 'Запечённая болотная щука',
+  'entities.items.cooked_bog_eel.name': 'Копчёный болотный угорь',
+  'entities.items.cooked_frostgill_trout.name': 'Морозножаберная форель на гриле',
+  'entities.items.cooked_stonescale_carp.name': 'Запечённый каменночешуйчатый карп',
   'entities.items.sableweb_slippers.name': 'Туфли Сейблвеб',
   'entities.items.simple_fishing_pole.name': 'Простая удочка',
   'entities.items.tangled_weed.name': 'Спутанные водоросли',
@@ -5362,4 +5368,21 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.banker_thistle.title': 'Банкир Блумхейвена',
   'entities.npcs.banker_thistle.greeting':
     'Ваши монеты и ценности в безопасности в хранилище, {className}. Сдайте то, что не можете унести, и забирайте, когда будете проходить мимо.',
+  // Dockside Cook / Cookfire (M16 non-Latin fill)
+  'hudChrome.crafting.cookTitle': 'Костёр для готовки',
+  'hudChrome.crafting.cookHint':
+    'Приготовьте пойманную рыбу в сытные блюда, восстанавливающие здоровье и ману.',
+  'hudChrome.crafting.categories.food': 'Приготовленная еда',
+  'entities.npcs.cook_ferra.name': 'Ферра',
+  'entities.npcs.cook_ferra.title': 'Портовая кухарка',
+  'entities.npcs.cook_ferra.greeting':
+    'У самого пирса щука ходит на глубине, {className}. Купи удочку, налови немного, а я поджарю их прямо на костре.',
+  'entities.npcs.cook_cobb.name': 'Кобб',
+  'entities.npcs.cook_cobb.title': 'Портовая кухарка',
+  'entities.npcs.cook_cobb.greeting':
+    'Зеркальное озеро дарит отменную форель терпеливой удочке. Возьми снасть и неси улов к моему костру.',
+  'entities.npcs.cook_marta.name': 'Марта',
+  'entities.npcs.cook_marta.title': 'Портовая кухарка',
+  'entities.npcs.cook_marta.greeting':
+    'Мельничный пруд спокоен, и окунь хорошо клюёт. Удочка стоит недорого, а горячая еда согревает, {className}.',
 };

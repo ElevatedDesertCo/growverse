@@ -1034,8 +1034,10 @@ export const ja_JP: EnTranslations = {
     "crafting": {
       "growTitle": "栽培ステーション",
       "upgradeTitle": "アップグレード台",
+      "cookTitle": "料理のかまど",
       "growHint": "栄養剤の作成、種子品種の強化、栽培装備の製作。",
       "upgradeHint": "装備を鍛え直し、腐敗の欠片から戦闘用消耗品を削り出す。",
+      "cookHint": "釣った魚を調理して、体力とマナを回復する滋味豊かな料理に仕上げましょう。",
       "craftButton": "作成",
       "costLabel": "コスト",
       "requiresLabel": "必要",
@@ -1049,7 +1051,8 @@ export const ja_JP: EnTranslations = {
         "seed": "種子品種",
         "accessory": "栽培アクセサリー",
         "consumable": "消耗品",
-        "gear": "再鍛造装備"
+        "gear": "再鍛造装備",
+        "food": "調理済みの料理"
       },
       "errors": {
         "recipeUnavailable": "ここではそのレシピは利用できない。",
@@ -5024,6 +5027,24 @@ export const ja_JP: EnTranslations = {
       "baked_beaver_token": {
         "name": "焼きビーバーの証"
       },
+      "cooked_mirror_trout": {
+        "name": "鏡マスの塩焼き"
+      },
+      "cooked_river_perch": {
+        "name": "川スズキのソテー"
+      },
+      "cooked_marsh_pike": {
+        "name": "沼カワカマスのロースト"
+      },
+      "cooked_bog_eel": {
+        "name": "沼ウナギの燻製"
+      },
+      "cooked_frostgill_trout": {
+        "name": "霜エラマスの塩焼き"
+      },
+      "cooked_stonescale_carp": {
+        "name": "石鱗コイのオーブン焼き"
+      },
       "bristleback_maul": {
         "name": "ブリストルバックの大槌"
       },
@@ -6007,6 +6028,21 @@ export const ja_JP: EnTranslations = {
         "name": "金庫番シスル",
         "title": "ブルームヘイヴンの銀行家",
         "greeting": "あなたの金貨も宝物も金庫で安全に守られます、{className}。持ちきれないものを預け、立ち寄るたびに引き出してください。"
+      },
+      "cook_ferra": {
+        "name": "フェラ",
+        "title": "波止場の料理人",
+        "greeting": "桟橋の先ではカワカマスが深みに潜んでいるよ、{className}。竿を買って何匹か釣り上げておいで、かまどで熱々に焼いてあげよう。"
+      },
+      "cook_cobb": {
+        "name": "コブ",
+        "title": "波止場の料理人",
+        "greeting": "ミラー湖は、辛抱強く糸を垂らせば見事なマスを恵んでくれる。竿を手に取って、釣った魚を私のかまどまで持ってきておくれ。"
+      },
+      "cook_marta": {
+        "name": "マルタ",
+        "title": "波止場の料理人",
+        "greeting": "水車池は穏やかで、パーチがよく食いついているよ。竿は安いし、調理した料理は温かいからね、{className}。"
       },
       "rowan_sawtooth": {
         "name": "ローワン・ソウトゥース",

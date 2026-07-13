@@ -1034,8 +1034,10 @@ export const ko_KR: EnTranslations = {
     "crafting": {
       "growTitle": "재배 시설",
       "upgradeTitle": "개조 작업대",
+      "cookTitle": "모닥불 요리",
       "growHint": "영양제 제작, 씨앗 품종 강화, 재배 장비 제작.",
       "upgradeHint": "장비를 다시 벼리고, 부패의 파편으로 전투 소모품을 깎아낸다.",
+      "cookHint": "잡은 물고기를 요리하여 체력과 마나를 회복시켜 주는 든든한 음식을 만드세요.",
       "craftButton": "제작",
       "costLabel": "비용",
       "requiresLabel": "필요",
@@ -1049,7 +1051,8 @@ export const ko_KR: EnTranslations = {
         "seed": "씨앗 품종",
         "accessory": "재배 장신구",
         "consumable": "소모품",
-        "gear": "재련 장비"
+        "gear": "재련 장비",
+        "food": "조리된 음식"
       },
       "errors": {
         "recipeUnavailable": "여기서는 그 제조법을 쓸 수 없습니다.",
@@ -5024,6 +5027,24 @@ export const ko_KR: EnTranslations = {
       "baked_beaver_token": {
         "name": "구운 비버 증표"
       },
+      "cooked_mirror_trout": {
+        "name": "구운 거울송어"
+      },
+      "cooked_river_perch": {
+        "name": "강농어 팬구이"
+      },
+      "cooked_marsh_pike": {
+        "name": "구운 습지 창꼬치"
+      },
+      "cooked_bog_eel": {
+        "name": "훈제 늪장어"
+      },
+      "cooked_frostgill_trout": {
+        "name": "구운 서리아가미송어"
+      },
+      "cooked_stonescale_carp": {
+        "name": "돌비늘잉어 오븐구이"
+      },
       "bristleback_maul": {
         "name": "뻣센등뼈 철퇴"
       },
@@ -6007,6 +6028,21 @@ export const ko_KR: EnTranslations = {
         "name": "금고지기 시슬",
         "title": "블룸헤이븐 은행가",
         "greeting": "당신의 금화와 소중한 물건은 금고에서 안전합니다, {className}. 지니고 다닐 수 없는 것을 맡기고 지나갈 때마다 되찾으세요."
+      },
+      "cook_ferra": {
+        "name": "페라",
+        "title": "부둣가 요리사",
+        "greeting": "부두 너머로 창꼬치가 깊이 헤엄친답니다, {className}. 낚싯대를 사서 몇 마리 낚아 오면 모닥불에 뜨끈하게 구워 드리죠."
+      },
+      "cook_cobb": {
+        "name": "코브",
+        "title": "부둣가 요리사",
+        "greeting": "거울 호수는 인내심 있는 낚싯줄에 훌륭한 송어를 내어 준답니다. 낚싯대를 챙겨 잡은 것을 내 모닥불로 가져오세요."
+      },
+      "cook_marta": {
+        "name": "마르타",
+        "title": "부둣가 요리사",
+        "greeting": "물방앗간 연못은 잔잔하고 농어가 잘 물고 있어요. 낚싯대는 저렴하고, 조리된 한 끼는 따뜻하답니다, {className}."
       },
       "rowan_sawtooth": {
         "name": "로언 소투스",

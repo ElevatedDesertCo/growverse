@@ -1034,8 +1034,10 @@ export const zh_TW: EnTranslations = {
     "crafting": {
       "growTitle": "培育站",
       "upgradeTitle": "升級台",
+      "cookTitle": "炊火",
       "growHint": "製作營養劑、升級種子品系、打造種植裝備。",
       "upgradeHint": "重鑄裝備，並用腐蝕碎片切割戰鬥消耗品。",
+      "cookHint": "將你釣到的魚烹煮成豐盛餐點，恢復生命與法力。",
       "craftButton": "製作",
       "costLabel": "花費",
       "requiresLabel": "需要",
@@ -1049,7 +1051,8 @@ export const zh_TW: EnTranslations = {
         "seed": "種子品系",
         "accessory": "種植配件",
         "consumable": "消耗品",
-        "gear": "重鑄裝備"
+        "gear": "重鑄裝備",
+        "food": "烹煮食物"
       },
       "errors": {
         "recipeUnavailable": "這裡沒有該配方。",
@@ -5024,6 +5027,24 @@ export const zh_TW: EnTranslations = {
       "baked_beaver_token": {
         "name": "烤海狸徽記"
       },
+      "cooked_mirror_trout": {
+        "name": "烤鏡鱒魚"
+      },
+      "cooked_river_perch": {
+        "name": "香煎河鱸"
+      },
+      "cooked_marsh_pike": {
+        "name": "炙烤沼澤狗魚"
+      },
+      "cooked_bog_eel": {
+        "name": "煙燻沼鰻"
+      },
+      "cooked_frostgill_trout": {
+        "name": "烤霜鰓鱒魚"
+      },
+      "cooked_stonescale_carp": {
+        "name": "烘烤石鱗鯉"
+      },
       "bristleback_maul": {
         "name": "硬鬃重槌"
       },
@@ -6007,6 +6028,21 @@ export const zh_TW: EnTranslations = {
         "name": "金庫管理員西斯爾",
         "title": "布魯姆海文銀行家",
         "greeting": "你的金幣和珍藏都在金庫裡安然無恙，{className}。把帶不走的東西存進來，路過時隨時取回。"
+      },
+      "cook_ferra": {
+        "name": "費拉",
+        "title": "碼頭廚子",
+        "greeting": "碼頭外的梭子魚藏得很深，{className}。買根釣竿，釣上幾條，我就在火上為你熱騰騰地烹好。"
+      },
+      "cook_cobb": {
+        "name": "柯布",
+        "title": "碼頭廚子",
+        "greeting": "明鏡湖會賞給耐心垂釣者一尾上好的鱒魚。拿根釣竿，把漁獲帶回我的火堆旁。"
+      },
+      "cook_marta": {
+        "name": "瑪塔",
+        "title": "碼頭廚子",
+        "greeting": "磨坊池水面平靜，鱸魚正上鉤。釣竿便宜，一頓熱食暖心，{className}。"
       },
       "rowan_sawtooth": {
         "name": "羅恩·鋸齒",

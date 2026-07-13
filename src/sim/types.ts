@@ -1123,11 +1123,12 @@ export interface AbilityDef {
 // modules in sim/content/ export records of these; sim/data.ts merges them.
 // ---------------------------------------------------------------------------
 
-// The two Growverse crafting stations. The Grow Station is growing-only (it never
+// The Growverse crafting stations. The Grow Station is growing-only (it never
 // grows plants itself, it makes the inputs: nutrients, upgraded seed strains, and
 // grow accessories). The Upgrade Bench reforges weapons and armor and cuts
-// combat consumables from Corruption Shards.
-export type CraftStation = 'grow' | 'upgrade';
+// combat consumables from Corruption Shards. The Cookfire (Dockside Cooks at the
+// fishing docks) turns raw fish into cooked meals.
+export type CraftStation = 'grow' | 'upgrade' | 'cook';
 
 // A crafting recipe: consumes reagent items + copper at a station and yields an
 // output item. Pure data-as-code (content/crafting.ts); the engine reads it in
