@@ -592,9 +592,9 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     name: 'Marshal Redbrook',
     title: 'Marshal of Bloomhaven',
     // his own post at the NE guard house, out of the plaza center, watching
-    // over the town (faces SW across town)
+    // over the town (faces S down the plaza)
     pos: { x: 11, z: 8 },
-    facing: 2.36,
+    facing: Math.PI,
     color: 0xb7950b,
     questIds: ['q_wolves', 'q_greyjaw', 'q_bandits', 'q_ringleader', 'q_mogger'],
     greeting:
