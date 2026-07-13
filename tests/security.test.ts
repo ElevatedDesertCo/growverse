@@ -97,7 +97,7 @@ describe('websocket authentication', () => {
 
 describe('desktop app request origins', () => {
   it('allows the Electron app protocol through the web-client login guard', () => {
-    const req = fakeReq({ origin: 'app://worldofclaudecraft' }, '127.0.0.1');
+    const req = fakeReq({ origin: 'app://growverse' }, '127.0.0.1');
 
     expect(isWebClientRequest(req)).toBe(true);
   });
@@ -836,11 +836,7 @@ describe('Turnstile gate policy (passesTurnstile)', () => {
 
   it('bypasses verification for every desktop app origin even with a secret set', async () => {
     const fetchSpy = vi.fn();
-    for (const origin of [
-      'app://worldofclaudecraft',
-      'http://127.0.0.1:5173',
-      'http://localhost:5173',
-    ]) {
+    for (const origin of ['app://growverse', 'http://127.0.0.1:5173', 'http://localhost:5173']) {
       const req = fakeReq({ origin }, '203.0.113.55');
       await expect(passesTurnstile(req, {}, testSecret, fetchSpy as any)).resolves.toBe(true);
     }
@@ -884,7 +880,7 @@ describe('Turnstile gate policy (passesTurnstile)', () => {
       const native = fakeReq({ origin: 'capacitor://localhost' }, '203.0.113.55');
       await expect(passesTurnstile(native, {}, '')).resolves.toBe(false);
       // and the desktop bypass still admits its own origins under the same env
-      const desktop = fakeReq({ origin: 'app://worldofclaudecraft' }, '203.0.113.55');
+      const desktop = fakeReq({ origin: 'app://growverse' }, '203.0.113.55');
       await expect(passesTurnstile(desktop, {}, testSecret)).resolves.toBe(true);
     } finally {
       delete process.env.NATIVE_ATTESTATION_REQUIRED;

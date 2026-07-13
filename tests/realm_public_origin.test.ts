@@ -17,7 +17,9 @@ describe('publicOriginFromRequest', () => {
           'x-forwarded-proto': 'javascript',
         }),
       );
-      expect(origin).toBe('https://worldofclaudecraft.com');
+      // With no PUBLIC_ORIGIN configured and no baked-in host map, an untrusted
+      // production Host yields '' (relative URLs) rather than a hardcoded domain.
+      expect(origin).toBe('');
     } finally {
       if (old === undefined) delete process.env.NODE_ENV;
       else process.env.NODE_ENV = old;
