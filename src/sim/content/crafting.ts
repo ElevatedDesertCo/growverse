@@ -227,6 +227,42 @@ export const CRAFT_ITEMS: Record<string, ItemDef> = {
     drinkMana: 70,
     sellValue: 40,
   },
+
+  // --- Alchemist outputs: potions + elixir brewed from harvested blooms ------
+  // Bloom Extract is pressed from the vale's flower patches (a harvest node); the
+  // Alchemist brews it into restorative draughts and a battle elixir. The draughts
+  // are instant and share the potion cooldown; the elixir grants a timed buff.
+  bloom_extract: {
+    id: 'bloom_extract',
+    name: 'Bloom Extract',
+    kind: 'junk',
+    quality: 'common',
+    sellValue: 3,
+  },
+  swirling_healing_draught: {
+    id: 'swirling_healing_draught',
+    name: 'Swirling Healing Draught',
+    kind: 'potion',
+    quality: 'common',
+    potionHp: 90,
+    sellValue: 12,
+  },
+  swirling_mana_draught: {
+    id: 'swirling_mana_draught',
+    name: 'Swirling Mana Draught',
+    kind: 'potion',
+    quality: 'common',
+    potionMana: 120,
+    sellValue: 12,
+  },
+  elixir_of_the_bloom: {
+    id: 'elixir_of_the_bloom',
+    name: 'Elixir of the Bloom',
+    kind: 'elixir',
+    quality: 'uncommon',
+    elixir: { aura: 'Blessing of the Bloom', kind: 'buff_int', value: 8, duration: 900 },
+    sellValue: 20,
+  },
 };
 
 // The reagents the Cultivator sells, so the grow loop is self-contained (buy
@@ -309,6 +345,21 @@ export const CRAFT_NPCS: Record<string, NpcDef> = {
     crafting: 'cook',
     greeting:
       'The millpond is calm and the perch are biting. A pole is cheap, and a cooked meal is warm, $C.',
+  },
+  // The Alchemist: runs the Alchemy Lab in Bloomhaven, near the Grow Station. Brew
+  // Bloom Extract (harvested from vale flower patches) into healing/mana draughts
+  // and a battle elixir.
+  alchemist_sable: {
+    id: 'alchemist_sable',
+    name: 'Sable',
+    title: 'the Alchemist',
+    pos: { x: -24, z: 0 },
+    facing: 0,
+    color: 0x2f9a7a,
+    questIds: [],
+    crafting: 'alchemy',
+    greeting:
+      'Bring me blooms from the vale, $C, and I will draw out their virtue: draughts to mend flesh, to quicken the mind, and an elixir to sharpen your wits.',
   },
 };
 
@@ -477,6 +528,34 @@ export const CRAFT_RECIPES: CraftRecipe[] = [
     copperCost: 12,
     requiredLevel: 15,
     output: { itemId: 'cooked_stonescale_carp', count: 1 },
+  },
+  // --- Alchemy Lab (the Alchemist): bloom extract -> potions + elixir --------
+  // Blooms harvested from the vale's flower patches, pressed to extract, brewed
+  // into restorative draughts and a battle elixir.
+  {
+    id: 'alchemy_healing_draught',
+    station: 'alchemy',
+    category: 'consumable',
+    inputs: [{ itemId: 'bloom_extract', count: 2 }],
+    copperCost: 10,
+    output: { itemId: 'swirling_healing_draught', count: 1 },
+  },
+  {
+    id: 'alchemy_mana_draught',
+    station: 'alchemy',
+    category: 'consumable',
+    inputs: [{ itemId: 'bloom_extract', count: 2 }],
+    copperCost: 10,
+    output: { itemId: 'swirling_mana_draught', count: 1 },
+  },
+  {
+    id: 'alchemy_elixir_of_the_bloom',
+    station: 'alchemy',
+    category: 'consumable',
+    inputs: [{ itemId: 'bloom_extract', count: 4 }],
+    copperCost: 40,
+    requiredLevel: 5,
+    output: { itemId: 'elixir_of_the_bloom', count: 1 },
   },
 ];
 

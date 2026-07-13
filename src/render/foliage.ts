@@ -83,6 +83,7 @@ const FOLIAGE_MODEL_URLS_HIGH = {
   mushroom: [`${MODEL_DIR}mushroom.glb`],
   grass: [`${MODEL_DIR}grass.glb`],
   grassTall: [`${MODEL_DIR}grass_tall.glb`],
+  flower: [`${MODEL_DIR}flower.glb`],
 };
 const FOLIAGE_MODEL_URLS_LOW = {
   pine: [1].map((i) => `${MODEL_DIR}pine_${i}.glb`),
@@ -96,6 +97,7 @@ const FOLIAGE_MODEL_URLS_LOW = {
   mushroom: [`${MODEL_DIR}mushroom.glb`],
   grass: [`${MODEL_DIR}grass.glb`],
   grassTall: [`${MODEL_DIR}grass_tall.glb`],
+  flower: [`${MODEL_DIR}flower.glb`],
 };
 const MODEL_URLS = GFX.leanFoliage ? FOLIAGE_MODEL_URLS_LOW : FOLIAGE_MODEL_URLS_HIGH;
 
@@ -602,6 +604,7 @@ export function buildFoliageMaterialPrewarmGroup(): THREE.Group {
     MODEL_URLS.mushroom[0],
     MODEL_URLS.grass[0],
     MODEL_URLS.grassTall[0],
+    MODEL_URLS.flower[0],
   ];
   for (const url of speciesUrls) {
     for (const part of extractParts(url)) add(part.geometry, part.material);
@@ -1056,7 +1059,7 @@ function buildTrees(
 // Ground dressing: bushes, ferns, mushrooms on a deterministic hash grid
 // ---------------------------------------------------------------------------
 
-type DressKind = 'bush' | 'bushFlowers' | 'fern' | 'mushroom' | 'grass' | 'grassTall';
+type DressKind = 'bush' | 'bushFlowers' | 'fern' | 'mushroom' | 'grass' | 'grassTall' | 'flower';
 
 interface DressingSpot {
   x: number;
@@ -1083,7 +1086,8 @@ function dressKindFor(biome: BiomeId, r: number): DressKind {
     if (r < 0.42) return 'bush';
     if (r < 0.52) return 'grass';
     if (r < 0.58) return 'grassTall';
-    if (r < 0.72) return 'bushFlowers';
+    if (r < 0.68) return 'bushFlowers';
+    if (r < 0.72) return 'flower'; // geometric desert blooms, a sparse accent
     return 'fern';
   }
   if (biome === 'marsh') {
@@ -1106,6 +1110,7 @@ const DRESS_SCALE: Record<DressKind, [number, number]> = {
   mushroom: [0.9, 0.8],
   grass: [0.7, 0.9],
   grassTall: [0.85, 1.0],
+  flower: [0.5, 0.3], // small, bush-sized so it settles into the scrub
 };
 
 function tooSteep(x: number, z: number, seed: number): boolean {
@@ -1163,6 +1168,7 @@ function buildDressing(parent: THREE.Group, seed: number, registry: BucketMesh[]
     mushroom: extractParts(MODEL_URLS.mushroom[0]),
     grass: extractParts(MODEL_URLS.grass[0]),
     grassTall: extractParts(MODEL_URLS.grassTall[0]),
+    flower: extractParts(MODEL_URLS.flower[0]),
   };
   const buckets = new Map<string, DressingSpot[]>();
   for (const spot of generateDressing(seed)) {
@@ -1193,10 +1199,10 @@ function buildDressing(parent: THREE.Group, seed: number, registry: BucketMesh[]
       if (list) list.push(s);
       else byKind.set(s.kind, [s]);
     }
-    // Keep all six low-cost dressing kinds. Recent low-tier telemetry has
+    // Keep all seven low-cost dressing kinds. Recent low-tier telemetry has
     // dressing well below both call and triangle budgets, so variety here is
     // higher ROI than adding more far canopy or post-processing work.
-    const maxKinds = 6;
+    const maxKinds = 7;
     const kept = [...byKind.entries()].sort((a, b) => b[1].length - a[1].length).slice(0, maxKinds);
     for (const [kind, list] of kept) {
       for (const part of kindParts[kind]) {

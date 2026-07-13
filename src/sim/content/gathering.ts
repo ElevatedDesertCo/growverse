@@ -19,6 +19,14 @@ export const HARVEST_NODES: Record<string, HarvestNodeDef> = {
       { itemId: 'common_seed', weight: 1 },
     ],
   },
+  // Vale flower patches: pressed for Bloom Extract, the Alchemist's potion reagent.
+  flower_patch: {
+    id: 'flower_patch',
+    yields: [
+      { itemId: 'bloom_extract', weight: 3 },
+      { itemId: 'common_seed', weight: 1 },
+    ],
+  },
   ember_vent: {
     id: 'ember_vent',
     yields: [
@@ -65,6 +73,16 @@ export const HARVEST_NODE_SPAWNS: HarvestNodeSpawn[] = [
       { x: -44, z: 118 },
       { x: 52, z: 118 },
       { x: -98, z: 40 },
+    ],
+  },
+  {
+    nodeId: 'flower_patch',
+    itemId: 'bloom_extract',
+    name: 'Flower Patch',
+    positions: [
+      { x: -40, z: 108 },
+      { x: 56, z: 108 },
+      { x: -92, z: 48 },
     ],
   },
   {

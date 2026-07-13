@@ -1035,9 +1035,11 @@ export const id_ID: EnTranslations = {
       "growTitle": "Grow Station",
       "upgradeTitle": "Upgrade Bench",
       "cookTitle": "Cookfire",
+      "alchemyTitle": "Alchemy Lab",
       "growHint": "Craft nutrients, upgrade seed strains, and build growing gear.",
       "upgradeHint": "Reforge gear and cut battle consumables from Corruption Shards.",
       "cookHint": "Cook the fish you catch into hearty meals that restore health and mana.",
+      "alchemyHint": "Brew harvested blooms into healing and mana draughts and a battle elixir.",
       "craftButton": "Craft",
       "costLabel": "Cost",
       "requiresLabel": "Requires",
@@ -5051,6 +5053,18 @@ export const id_ID: EnTranslations = {
       "cooked_stonescale_carp": {
         "name": "Ikan Mas Sisik Batu Panggang"
       },
+      "bloom_extract": {
+        "name": "Ekstrak Bunga"
+      },
+      "swirling_healing_draught": {
+        "name": "Ramuan Penyembuh Berpusar"
+      },
+      "swirling_mana_draught": {
+        "name": "Ramuan Mana Berpusar"
+      },
+      "elixir_of_the_bloom": {
+        "name": "Eliksir Bunga Mekar"
+      },
       "bristleback_maul": {
         "name": "Cabikan Punggung Berbulu"
       },
@@ -6029,6 +6043,11 @@ export const id_ID: EnTranslations = {
         "name": "Draxa",
         "title": "the Riftsmith",
         "greeting": "The Upgrade Bench runs hot. Bring me Corruption Shards and I will reforge your steel into something the rift cannot break."
+      },
+      "alchemist_sable": {
+        "name": "Sable",
+        "title": "the Alchemist",
+        "greeting": "Bring me blooms from the vale, {className}, and I will draw out their virtue: draughts to mend flesh, to quicken the mind, and an elixir to sharpen your wits."
       },
       "banker_thistle": {
         "name": "Vault Keeper Thistle",
