@@ -233,7 +233,9 @@ describe('world generation', () => {
   it('terrain is deterministic, town is flat, lake is below water level', () => {
     expect(terrainHeight(10, 10, 42)).toBe(terrainHeight(10, 10, 42));
     expect(Math.abs(terrainHeight(0, 0, 42) - terrainHeight(8, 8, 42))).toBeLessThan(1.5);
-    expect(terrainHeight(-85, 80, 42)).toBeLessThan(-4.5);
+    // Sample the Mirror Lake center (open water); the SE waterline now carries a
+    // fishing dock whose deck raises the terrain to a walkable jetty height.
+    expect(terrainHeight(-92, 88, 42)).toBeLessThan(-4.5);
   });
 });
 
