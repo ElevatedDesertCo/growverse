@@ -592,9 +592,9 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     name: 'Marshal Redbrook',
     title: 'Marshal of Bloomhaven',
     // his own post at the NE guard house, out of the plaza center, watching
-    // over the town (faces SW toward the well and market)
+    // over the town (faces SW across town)
     pos: { x: 11, z: 8 },
-    facing: -2.2,
+    facing: 2.36,
     color: 0xb7950b,
     questIds: ['q_wolves', 'q_greyjaw', 'q_bandits', 'q_ringleader', 'q_mogger'],
     greeting:
@@ -622,7 +622,8 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     id: 'apothecary_lin',
     name: 'Herbalist Lin',
     title: 'Bloom Herbalist',
-    pos: { x: 11, z: -3 },
+    // drawn in close to the eastern house at her back
+    pos: { x: 15.5, z: -4.8 },
     facing: -Math.PI / 2,
     color: 0x7d3c98,
     questIds: ['q_spiders'],
@@ -689,10 +690,10 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     id: 'foreman_odell',
     name: 'Foreman Odell',
     title: 'Dig Foreman',
-    // in town (south edge, scowling toward his overrun dig) — his old spot
-    // sat inside the Tunnel Rat spawn radius
-    pos: { x: 3, z: -11 },
-    facing: -2.14,
+    // posted by his dwelling on the town's south flank, turned to glare back
+    // north at the town cookfire while his dig stays overrun
+    pos: { x: 3.5, z: -15 },
+    facing: -0.05,
     color: 0xa04000,
     questIds: ['q_mine'],
     greeting: "Whole dig's crawling with those candle-headed vermin!",
@@ -1321,9 +1322,11 @@ export const ZONE1_PROPS: ZonePropsDef = {
     { x: 48, z: 56, rot: -1.1, scale: 1 },
   ],
   crates: [
-    // Bloomhaven crafting stations: supply crates dressing the two craft NPCs.
-    [8.7, 6.6], // Marlow the Cultivator's Grow Station supplies
-    [8.3, 3.4],
+    // Draxa the Riftsmith's Upgrade Bench stock dresses the western craft stall.
+    // Trade crates stacked by the eastern house behind Herbalist Lin, moved
+    // out of the plaza so they no longer clutter the center of Bloomhaven.
+    [21.6, -8],
+    [22.4, -8],
     [-16, 2], // Draxa the Riftsmith's Upgrade Bench stock
     [-11.8, 6.4],
     // The Sluice supply stacks: driftwood and trade crates by the beaver lodge and
