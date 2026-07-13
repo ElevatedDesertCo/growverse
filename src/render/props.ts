@@ -2091,16 +2091,17 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
   const dockPlankMat = surfaceMat({ color: 0x8a6a45, roughness: 0.92 }); // weathered desert timber (matches village Wood)
   const dockPlankMat2 = surfaceMat({ color: 0x775638, roughness: 0.92 }); // alternating board tone for plank seams
   const dockPostMat = surfaceMat({ color: 0x5a4228, roughness: 0.95 });
-  const dockPostGeo = new THREE.CylinderGeometry(0.14, 0.17, 1, 6);
-  const dockRailGeo = new THREE.CylinderGeometry(0.11, 0.11, 1, 6); // chunky top/mid rail, reads as a real barrier
+  const dockPostGeo = new THREE.CylinderGeometry(0.14, 0.17, 1, 6); // underwater support pilings
+  const railPostGeo = new THREE.BoxGeometry(0.2, 1, 0.2); // square milled newel posts
+  const railBeamGeo = new THREE.BoxGeometry(0.16, 0.14, 1); // rectangular rail beams (long axis +z)
   const DOCK_PILE_BOTTOM = WATER_LEVEL - 2.6;
   const DOCK_HALFW = 2.4; // walkable half-width, must match sim/world.ts DOCK_HALFW
   const DECK_HALFW = 2.5; // visual half-width: overhangs the walkable strip so the raised terrain lip never shows as a sandbar (the overhang hangs over water, unreachable)
   const DECK_THICK = 0.3;
   const DECK_LIFT = 0.05; // seat the boards a hair ABOVE the walkable terrain so plank tops never z-fight with the ground mesh
-  const DECK_Z_SHORE = 3.2; // shore end of the boards (local +z): runs PAST the graded shore ramp (sim DOCK_BACK=2.8) onto natural land so no raised earth shows at the dock mouth
+  const DECK_Z_SHORE = 3.9; // shore end of the boards (local +z): buried well onto land past the graded ramp (sim DOCK_BACK=2.8) so the deck meets the ground with no raw dirt seam
   const DECK_Z_TIP = -7.7; // water tip (local -z), at the terrain tip-taper start so the deck stays full-height
-  const N_PLANKS = 24;
+  const N_PLANKS = 26;
   const deckPlankGeo = new THREE.BoxGeometry(DECK_HALFW * 2, DECK_THICK, 0.72);
   for (const d of PROPS.docks) {
     const y = ground(d.x, d.z);
@@ -2129,75 +2130,85 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
       plank.position.set(0, top - y - DECK_THICK / 2 + lift, lz);
       g.add(plank);
     }
-    // solid substrate ribbon under the boards: a dense chain of overlapping boxes whose
-    // TOP tracks the local terrain (so it sits right under the plank underside) and whose
-    // body drops SUB_DEPTH below. Where the deck ramps up onto the shore the stepped
-    // cross-boards open vertical riser gaps that used to show dirt through them; each
-    // substrate box is deep enough to fill that riser and overlaps its neighbours in z, so
-    // looking straight down through any gap now lands on wood, never the earth beneath.
+    // The deck TOP profile, sampled at the deck CENTER (lx=0). This is the key to a clean
+    // railing: the sim's dockDeckOffset only raises the deck fully in the middle and blends
+    // OUT toward the edges, so sampling terrain at the rail line (the outer edge) returned a
+    // noisy, partially-raised height that made the rail sawtooth. The center profile is flat
+    // over the water span and a smooth ramp at the shore, so every post/rail/skirt reads off
+    // it for a level, uniform railing.
+    const deckTopAt = (lz: number): number => {
+      const [wx, wz] = worldOf(0, lz);
+      return ground(wx, wz) - y;
+    };
+    // solid substrate ribbon under the boards + a fascia skirt down BOTH long edges: a dense
+    // chain of overlapping boxes whose TOP tracks the deck profile and whose body drops
+    // SUB_DEPTH below. The wide substrate backs the shore-ramp riser gaps (no dirt shows
+    // through the boards from above) and the edge skirts are outset past the board edge and
+    // hang down past the terrain, hiding the raised-earth embankment beside the shore ramp so
+    // no dirt shows from the sides either. Everything is wood, from every angle.
     const SUB_STEPS = N_PLANKS * 2; // dense: no gap between substrate boxes
-    const SUB_DEPTH = 1.0; // tall enough to seal any shore-ramp riser
+    const SUB_DEPTH = 1.4; // tall enough to seal any shore-ramp riser and skirt the embankment
     const subStep = (DECK_Z_TIP - DECK_Z_SHORE) / SUB_STEPS;
     const subGeo = new THREE.BoxGeometry(DECK_HALFW * 2, SUB_DEPTH, Math.abs(subStep) + 0.28);
+    const skirtGeo = new THREE.BoxGeometry(0.16, SUB_DEPTH, Math.abs(subStep) + 0.28);
     for (let i = 0; i <= SUB_STEPS; i++) {
       const lz = DECK_Z_SHORE + i * subStep;
-      const [wx, wz] = worldOf(0, lz);
-      const top = ground(wx, wz);
+      const top = deckTopAt(lz);
       const sub = new THREE.Mesh(subGeo, dockPlankMat2);
-      // seat the box TOP a hair below the terrain/plank top so it backs the risers
-      sub.position.set(0, top - y - SUB_DEPTH / 2 - 0.02, lz);
+      // seat the box TOP a hair below the deck top so it backs the risers
+      sub.position.set(0, top - SUB_DEPTH / 2 - 0.02, lz);
       g.add(sub);
+      for (const side of [-1, 1]) {
+        const skirt = new THREE.Mesh(skirtGeo, dockPlankMat);
+        skirt.position.set(side * (DECK_HALFW + 0.06), top - SUB_DEPTH / 2 - 0.02, lz);
+        g.add(skirt);
+      }
     }
-    // Railing: evenly spaced posts down both long edges, with support pilings dropping
-    // into the water, and top + mid rails built as SEGMENTS between consecutive posts so
-    // the rail follows the deck (staying a fixed height above it as it ramps at the shore)
-    // instead of a single flat bar that detaches from the posts. Both sides use the same
-    // node list mirrored by `side`, so the railing is symmetric and fully connected. The
-    // side rails run the FULL deck length end to end (shore board to water tip); since they
-    // hug the two long edges only, the shore end face stays open so players still walk on.
-    // Each rail segment is offset a fixed height above the LOCAL deck top at its two posts,
-    // so the rail keeps a uniform height above the deck along the whole run (including the
-    // shore ramp), never dipping or riding high.
-    const N_RAIL_POSTS = 11;
-    const RAIL_Z_SHORE = DECK_Z_SHORE - 0.2; // first post at the shore end of the boards
+    // Railing: square newel posts down both long edges connected by three stacked
+    // rectangular rail beams (top, mid, kick). Post heights and beam heights are all offset
+    // from the CENTER-sampled deck profile (deckTopAt), so over the flat water span the rail
+    // is dead level and it ramps smoothly with the deck at the shore, uniform height end to
+    // end. The rails hug the two long edges only, so the shore end face stays open to walk on.
+    const N_RAIL_POSTS = 12;
+    const RAIL_Z_SHORE = DECK_Z_SHORE - 0.35; // first post at the shore end of the boards
     const RAIL_Z_TIP = DECK_Z_TIP; // last post at the water tip: rails reach the deck end
-    const RAIL_TOP_H = 1.15; // top-rail height above the deck
-    const RAIL_MID_H = 0.62; // mid-rail height
-    const railLx = DECK_HALFW - 0.2;
+    const RAIL_HEIGHTS = [1.12, 0.72, 0.32]; // top, mid, kick beam heights above the deck
+    const RAIL_POST_H = 1.24; // newel post height above the deck (a touch above the top rail)
+    const railLx = DECK_HALFW - 0.18;
     for (const side of [-1, 1] as const) {
       const lx = side * railLx;
       const nodes: { lz: number; deckTop: number }[] = [];
       for (let i = 0; i < N_RAIL_POSTS; i++) {
         const lz = RAIL_Z_SHORE + (i / (N_RAIL_POSTS - 1)) * (RAIL_Z_TIP - RAIL_Z_SHORE);
-        const [wx, wz] = worldOf(lx, lz);
-        const deckTop = ground(wx, wz) - y; // local deck height at this post
+        const deckTop = deckTopAt(lz);
         nodes.push({ lz, deckTop });
-        // support piling dropping from the deck into the water
+        // support piling dropping from the deck into the water (kept round like a real pile)
         const pileBottom = DOCK_PILE_BOTTOM - y;
         const pile = new THREE.Mesh(dockPostGeo, dockPostMat);
         pile.position.set(lx, (deckTop + pileBottom) / 2, lz);
         pile.scale.y = Math.max(0.3, deckTop - pileBottom);
         g.add(pile);
-        // rail post standing proud of the deck
-        const railPost = new THREE.Mesh(dockPostGeo, dockPostMat);
-        railPost.position.set(lx, deckTop + (RAIL_TOP_H + 0.1) / 2, lz);
-        railPost.scale.set(0.85, RAIL_TOP_H + 0.1, 0.85);
-        g.add(railPost);
+        // square newel post standing proud of the deck
+        const post = new THREE.Mesh(railPostGeo, dockPostMat);
+        post.position.set(lx, deckTop + RAIL_POST_H / 2, lz);
+        post.scale.y = RAIL_POST_H;
+        g.add(post);
       }
-      // connect consecutive posts with top + mid rail segments that ramp with the deck
+      // connect consecutive posts with three box rail beams that ramp with the deck. A beam
+      // long axis is +z; to align it along the (z,y) segment rotate about X by atan2(-dy,dz).
       for (let i = 0; i < N_RAIL_POSTS - 1; i++) {
         const a = nodes[i];
         const b = nodes[i + 1];
         const dz = b.lz - a.lz;
-        for (const railH of [RAIL_TOP_H, RAIL_MID_H]) {
+        for (const railH of RAIL_HEIGHTS) {
           const y0 = a.deckTop + railH;
           const y1 = b.deckTop + railH;
           const dy = y1 - y0;
-          const rail = new THREE.Mesh(dockRailGeo, dockPostMat);
-          rail.position.set(lx, (y0 + y1) / 2, (a.lz + b.lz) / 2);
-          rail.rotation.x = Math.atan2(dz, dy); // align the bar along the (z,y) segment
-          rail.scale.y = Math.hypot(dz, dy);
-          g.add(rail);
+          const beam = new THREE.Mesh(railBeamGeo, dockPostMat);
+          beam.position.set(lx, (y0 + y1) / 2, (a.lz + b.lz) / 2);
+          beam.rotation.x = Math.atan2(-dy, dz);
+          beam.scale.z = Math.hypot(dz, dy) + 0.02; // slight overlap into the posts, no gaps
+          g.add(beam);
         }
       }
     }
