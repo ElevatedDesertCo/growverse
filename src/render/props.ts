@@ -194,6 +194,11 @@ const MAT_OVERRIDES: Record<
     emissiveIntensity?: number;
     metalness?: number;
     roughness?: number;
+    // drop the source colormap so `color` paints flat, for Kenney palette-atlas
+    // kits whose swatch is too saturated to retint by multiply (e.g. the pirate
+    // dock's bright-orange plank cell). The colormap carries no grain detail, so
+    // nothing is lost but the swatch hue.
+    noMap?: boolean;
   }
 > = {
   'village:Windows': { emissive: 0x2a3c55, emissiveIntensity: 1.1, roughness: 0.4 },
@@ -233,7 +238,7 @@ const MAT_OVERRIDES: Record<
   // pirate-kit dock platform ships a salmon/orange painted plank atlas that clashes
   // with Bloomhaven's weathered desert timber; retint it onto the same warm bleached
   // wood tone as the village Wood override so the Sluice pier reads as sun-worn planks.
-  'pirate:colormap': { color: 0x8a6a45, roughness: 0.9, metalness: 0 },
+  'pirate:colormap': { color: 0x8a6a45, roughness: 0.9, metalness: 0, noMap: true },
 };
 
 // ---------------------------------------------------------------------------
@@ -285,7 +290,7 @@ function convertMaterial(
     ov?.color !== undefined
       ? new THREE.Color(ov.color)
       : (s.color?.clone() ?? new THREE.Color(0xffffff));
-  const map = s.map ?? null;
+  const map = ov?.noMap ? null : (s.map ?? null);
   let mat: THREE.Material;
   if (GFX.standardMaterials) {
     mat = new THREE.MeshStandardMaterial({
