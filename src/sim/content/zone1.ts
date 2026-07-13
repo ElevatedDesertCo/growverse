@@ -1263,8 +1263,8 @@ export const ZONE1_ROADS: { x: number; z: number }[][] = [
     { x: -9, z: 7 },
     { x: -35, z: 25 },
     { x: -58, z: 48 },
-    { x: -66, z: 58 },
-  ], // northwest to lake
+    { x: -72, z: 63 },
+  ], // northwest to the Mirror Lake pier
   [
     { x: 9, z: 7 },
     { x: 4, z: 26 },
@@ -1316,7 +1316,7 @@ export const ZONE1_PROPS: ZonePropsDef = {
   ],
   mines: [{ x: -88, z: -68, rot: 0.8 }],
   docks: [
-    { x: -64, z: 60, rot: -2.2, hutLocal: { x: 2.8, z: 2.4, hw: 1.7, hd: 1.5 } }, // Mirror Lake fishing dock
+    { x: -79.3, z: 75.3, rot: 2.356, hutLocal: { x: 2.8, z: 2.4, hw: 1.7, hd: 1.5 } }, // Mirror Lake fishing dock (seated on the SE waterline, deck out over the basin)
     // The Sluice landing: a short plank dock off the millpond's north shore where
     // the Beaver quartermaster runs supplies, giving the waterfront a working edge
     // and the pond a human-scale reference.
@@ -1354,7 +1354,7 @@ export const ZONE1_PROPS: ZonePropsDef = {
     [3, -4],
     [-16.2, 6.2], // Draxa the Riftsmith's forge fire (Upgrade Bench)
     [-80, -60],
-    [-61, 56],
+    [-77.5, 68], // Cobb the Dockside Cook's hearth, beside the Mirror Lake pier
     [42, 60], // The Sluice: the beaver crew's hearth between lodge and den
   ],
   // Ashen Maw cookfires: one hearth at each tier of the warcamp (picket, muster,
