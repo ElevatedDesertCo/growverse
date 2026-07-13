@@ -28,7 +28,7 @@ import {
 } from '../sim/data';
 import type { DelveModuleId } from '../sim/delve_layout';
 import type { BiomeId } from '../sim/types';
-import { ALL_CLASSES, type Entity, type SimEvent } from '../sim/types';
+import { ALL_CLASSES, type Entity, FISHING_CAST_ID, type SimEvent } from '../sim/types';
 import { groundHeight, WATER_LEVEL, zoneBiomeAt } from '../sim/world';
 import { attachAvatarFallback } from '../ui/avatar_fallback';
 import { tEntity } from '../ui/entity_i18n';
@@ -52,6 +52,7 @@ import { DungeonInteriors, ensureDungeonAssets } from './dungeon';
 import { objectDisplayName } from './entity_labels';
 import { releaseSelfFacing, stepSelfFacing } from './facing_smooth';
 import { buildFish, type FishView } from './fish';
+import { buildFishing, type FishingView } from './fishing';
 import {
   buildFoliage,
   buildFoliageMaterialPrewarmGroup,
@@ -827,6 +828,7 @@ export class Renderer {
   private terrainView: TerrainView;
   private foliage: FoliageView;
   private fish: FishView;
+  private fishing: FishingView;
   private critters: CritterField;
   private motes: MotesView;
   private birds: BirdsView;
@@ -1199,6 +1201,9 @@ export class Renderer {
     this.fish = buildFish(this.sim.cfg.seed);
     setRenderCategory(this.fish.group, 'fish');
     this.scene.add(this.fish.group);
+    this.fishing = buildFishing(this.sim.cfg.seed);
+    setRenderCategory(this.fishing.group, 'fish');
+    this.scene.add(this.fishing.group);
     this.critters = buildCritters(this.sim.cfg.seed);
     this.scene.add(this.critters.group);
     this.motes = buildMotes(this.sim.cfg.seed);
@@ -2035,6 +2040,7 @@ export class Renderer {
       fogFar,
     );
     this.fish.update(p.pos.x, p.pos.z, dt);
+    this.updateFishingView(dt);
     this.vfx.update(dt);
     const pv = this.views.get(p.id);
     if (pv) {
@@ -3594,6 +3600,21 @@ export class Renderer {
     this.buildAllDelveModules(delve.id, slot, origin, modules);
   }
 
+  // Drive the local player's fishing bobber/line/splash. Uses the RENDERED
+  // (interpolated) player transform so the line anchors to the drawn model, and
+  // the player's cast state to know when a fishing channel is running. Reads only;
+  // the sim owns the actual fishing outcome.
+  private updateFishingView(dt: number): void {
+    const p = this.sim.player;
+    const pv = this.views.get(p.id);
+    const px = pv ? pv.group.position.x : p.pos.x;
+    const py = pv ? pv.group.position.y : p.pos.y;
+    const pz = pv ? pv.group.position.z : p.pos.z;
+    const facing = pv ? pv.group.rotation.y : p.facing;
+    const fishing = !p.dead && p.castingAbility === FISHING_CAST_ID;
+    this.fishing.update(px, py, pz, facing, fishing, p.castRemaining, dt);
+  }
+
   private updateAmbience(px: number, camY: number, dt: number): void {
     const inside = px > DUNGEON_X_THRESHOLD;
     const pz = this.sim.player.pos.z;
@@ -4453,6 +4474,7 @@ export class Renderer {
     );
     worldStart = markWorldPhase('foliage', worldStart);
     this.fish.update(p.pos.x, p.pos.z, dt);
+    this.updateFishingView(dt);
     this.critters.update(p.pos.x, p.pos.z, dt);
     this.motes.update(p.pos.x, p.pos.z, dt);
     this.birds.update(p.pos.x, p.pos.z, dt);
