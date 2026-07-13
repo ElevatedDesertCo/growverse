@@ -151,22 +151,40 @@ function sluiceRiverCarve(x: number, z: number, h: number): number {
   return h * blend + SLUICE_RIVER_BED * (1 - blend);
 }
 
-// Raise the Sluice bridge causeway: a gently-arched deck spanning the channel.
-// Only ever RAISES terrain (max against the natural surface), ramps to the banks
-// at the span ends, and tapers to a crisp edge across x so the river shows on
-// either side. Applied last in terrainHeight so nothing washes the deck out.
-function sluiceBridgeOffset(x: number, z: number, h: number): number {
+// Raise the Sluice bridge causeway: a deck that LANDS on each shore at its own
+// natural height (the south bank is low, the north bank is higher), humped in the
+// middle to clear the water. Landing on the REAL bank heights is what keeps the deck
+// flush with each shore: a fixed end height undershot the higher north bank, leaving
+// a dip the deck dropped into and logs the rising bank buried. Only ever RAISES (max
+// against natural) and tapers to a crisp x-edge so the river shows on either side.
+// Applied last in terrainHeight; `seed` lets it sample the two bank heights.
+let sluiceBankCache: { seed: number; south: number; north: number } | null = null;
+function sluiceBankHeights(seed: number): { south: number; north: number } {
+  if (sluiceBankCache && sluiceBankCache.seed === seed) return sluiceBankCache;
+  const b = SLUICE_BRIDGE;
+  // Sample natural terrain just past each end; the bridge offset is identity there
+  // (|dz| >= halfSpan), so these calls do not recurse into the bank sampling.
+  const south = terrainHeight(b.x, b.z - b.halfSpan - 2, seed);
+  const north = terrainHeight(b.x, b.z + b.halfSpan + 2, seed);
+  sluiceBankCache = { seed, south, north };
+  return sluiceBankCache;
+}
+
+function sluiceBridgeOffset(x: number, z: number, h: number, seed: number): number {
   const b = SLUICE_BRIDGE;
   const dx = x - b.x;
   const dz = z - b.z;
   if (Math.abs(dx) >= b.halfWidth || Math.abs(dz) >= b.halfSpan) return h;
-  const zt = dz / b.halfSpan;
-  const deck = b.deckBase + b.crown * (1 - zt * zt); // parabolic crown, high at center
-  const lenBlend = smoothstep(b.halfSpan, b.halfSpan - b.rampZ, Math.abs(dz)); // ramp to banks
+  const zt = dz / b.halfSpan; // -1 at the south end .. +1 at the north end
+  const banks = sluiceBankHeights(seed);
+  // a straight baseline connecting the two shores at their real heights, plus a
+  // parabolic crown humped above it: the deck descends monotonically to each bank
+  // with no local dip, and meets the shore flush where natural terrain takes over.
+  const baseline = banks.south + (banks.north - banks.south) * (zt + 1) * 0.5;
+  const deck = baseline + b.crown * (1 - zt * zt);
   const widthBlend = smoothstep(b.halfWidth, b.halfWidth - b.edge, Math.abs(dx)); // parapet edge
-  const blend = lenBlend * widthBlend;
-  const target = Math.max(h, deck); // never dig below the natural bank at the ends
-  return h + (target - h) * blend;
+  const target = Math.max(h, deck); // never dig below the natural surface
+  return h + (target - h) * widthBlend;
 }
 
 // Fishing-dock piers (zone1/zone2 `PROPS.docks`): raise a flat, walkable deck strip
@@ -311,7 +329,7 @@ export function terrainHeight(x: number, z: number, seed: number): number {
   const rim = Math.max(rimX, rimS, rimN);
   h += rim * 40;
   h += mirefenImpactCraterOffset(x, z);
-  h = sluiceBridgeOffset(x, z, h);
+  h = sluiceBridgeOffset(x, z, h, seed);
   h = dockDeckOffset(x, z, h);
   return h;
 }
