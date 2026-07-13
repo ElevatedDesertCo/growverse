@@ -720,8 +720,9 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     name: 'Hazel Timbers',
     title: 'Dam Quartermaster',
     // on the shore by the millpond dock landing, facing east along the water
+    // (east is -x in this world, so facing -PI/2; see the layout note below)
     pos: { x: 48, z: 47 },
-    facing: 1.57,
+    facing: -Math.PI / 2,
     color: 0x6fa8dc,
     questIds: [],
     vendorItems: [
@@ -1262,8 +1263,8 @@ export const ZONE1_ROADS: { x: number; z: number }[][] = [
     { x: -9, z: 7 },
     { x: -35, z: 25 },
     { x: -58, z: 48 },
-    { x: -66, z: 58 },
-  ], // northwest to lake
+    { x: -72, z: 63 },
+  ], // northwest to the Mirror Lake pier
   [
     { x: 9, z: 7 },
     { x: 4, z: 26 },
@@ -1315,18 +1316,16 @@ export const ZONE1_PROPS: ZonePropsDef = {
   ],
   mines: [{ x: -88, z: -68, rot: 0.8 }],
   docks: [
-    { x: -64, z: 60, rot: -2.2, hutLocal: { x: 2.8, z: 2.4, hw: 1.7, hd: 1.5 } }, // Mirror Lake fishing dock
+    { x: -79.3, z: 75.3, rot: 2.356, hutLocal: { x: 2.8, z: 2.4, hw: 1.7, hd: 1.5 } }, // Mirror Lake fishing dock (seated on the SE waterline, deck out over the basin)
     // The Sluice landing: a short plank dock off the millpond's north shore where
     // the Beaver quartermaster runs supplies, giving the waterfront a working edge
     // and the pond a human-scale reference.
     { x: 36, z: 44, rot: 0.1, hutLocal: { x: 10.8, z: 2.1, hw: 1.6, hd: 1.4 } }, // shack set back to world (47,45), off the dock
   ],
-  // The Sluice work-camp pitches two stock canvas tents beside the lodge for the
-  // Beaver crew (the Ashen Maw warcamp uses its own procedural raiderTents below).
-  tents: [
-    { x: 34, z: 59, rot: 0.6, scale: 1 },
-    { x: 48, z: 60, rot: -1.1, scale: 1 },
-  ],
+  // The Sluice work-camp is an open, tent-free landing: the two stock canvas tents
+  // that used to flank the lodge were removed so the shore reads clean (the Ashen Maw
+  // warcamp still uses its own procedural raiderTents below).
+  tents: [],
   crates: [
     // Draxa the Riftsmith's Upgrade Bench stock dresses the western craft stall.
     // Trade crates stacked by the eastern house behind Herbalist Lin, moved
@@ -1336,8 +1335,10 @@ export const ZONE1_PROPS: ZonePropsDef = {
     [-16, 2], // Draxa the Riftsmith's Upgrade Bench stock
     [-11.8, 6.4],
     // The Sluice supply stacks: driftwood and trade crates by the beaver lodge and
-    // the pond landing, dressing the outpost as a working camp.
-    [44, 60],
+    // the pond landing, dressing the outpost as a working camp. The first stack was
+    // pulled south off the den/campfire (it clipped the den corner at 44,60) to open
+    // ground between the lodge and the shore.
+    [46, 57],
     [40, 56],
     // Ashen Maw plunder stacks: stolen Bloomhaven crates piled by each tier's
     // tents (the q_ringleader steal-back objective reads them off these stacks).
@@ -1353,7 +1354,7 @@ export const ZONE1_PROPS: ZonePropsDef = {
     [3, -4],
     [-16.2, 6.2], // Draxa the Riftsmith's forge fire (Upgrade Bench)
     [-80, -60],
-    [-61, 56],
+    [-77.5, 68], // Cobb the Dockside Cook's hearth, beside the Mirror Lake pier
     [42, 60], // The Sluice: the beaver crew's hearth between lodge and den
   ],
   // Ashen Maw cookfires: one hearth at each tier of the warcamp (picket, muster,
