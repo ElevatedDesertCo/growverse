@@ -82,7 +82,6 @@ const PROP_ASSET_DEFS: Record<string, PropAssetDef> = {
   rockLargeF: { url: '/models/props/rock_large_f.glb', kit: 'minerock' },
   mushroomRed: { url: '/models/props/mushroom_red.glb', kit: 'shroom' },
   mushroomTan: { url: '/models/props/mushroom_tan.glb', kit: 'shroom' },
-  dockPlatform: { url: '/models/props/dock_platform.glb', kit: 'pirate' },
   rowboat: { url: '/models/props/rowboat.glb', kit: 'pirate' },
   timberPillar: { url: '/models/props/timber_pillar.glb', kit: 'town' },
   crateWooden: { url: '/models/props/crate_wooden.glb', kit: 'qprops' },
@@ -131,7 +130,6 @@ const LOW_TIER_PROP_KEYS: readonly PropKey[] = [
   'tentSmall',
   'rockLargeD',
   'mushroomRed',
-  'dockPlatform',
   'rowboat',
   'timberPillar',
   'crateWooden',
@@ -235,9 +233,10 @@ const MAT_OVERRIDES: Record<
   // Elevated Obelisk ships materialless (GLTFLoader's white default): grade it to
   // weathered desert sandstone so the waystone reads as carved stone, not plastic.
   'obelisk:': { color: 0xc2a878, roughness: 0.82, metalness: 0 },
-  // pirate-kit dock platform ships a salmon/orange painted plank atlas that clashes
-  // with Bloomhaven's weathered desert timber; retint it onto the same warm bleached
-  // wood tone as the village Wood override so the Sluice pier reads as sun-worn planks.
+  // pirate-kit rowboat ships a salmon/orange palette-atlas swatch that clashes with
+  // Bloomhaven's weathered timber; drop the atlas and paint the boat flat on the same
+  // warm bleached-wood tone as the village Wood override. (The dock deck is procedural,
+  // so this now only touches the moored rowboat.)
   'pirate:colormap': { color: 0x8a6a45, roughness: 0.9, metalness: 0, noMap: true },
 };
 
@@ -2089,12 +2088,19 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
   // `dockDeckOffset`), so the planks you see ARE the surface you walk on; pilings drop
   // from the deck edges into the water and a low rail runs both sides. Local -z faces
   // the water (matches the terrain offset's local frame).
-  const dockPlankMat = surfaceMat({ color: 0x7a5c3c, roughness: 0.9 });
-  const dockPostMat = surfaceMat({ color: 0x4a3722, roughness: 0.95 });
-  const dockPostGeo = new THREE.CylinderGeometry(0.12, 0.14, 1, 6);
-  const dockRailGeo = new THREE.CylinderGeometry(0.06, 0.06, 1, 5);
+  const dockPlankMat = surfaceMat({ color: 0x8a6a45, roughness: 0.92 }); // weathered desert timber (matches village Wood)
+  const dockPlankMat2 = surfaceMat({ color: 0x775638, roughness: 0.92 }); // alternating board tone for plank seams
+  const dockPostMat = surfaceMat({ color: 0x5a4228, roughness: 0.95 });
+  const dockPostGeo = new THREE.CylinderGeometry(0.14, 0.17, 1, 6);
+  const dockRailGeo = new THREE.CylinderGeometry(0.07, 0.07, 1, 5);
   const DOCK_PILE_BOTTOM = WATER_LEVEL - 2.6;
-  const DOCK_DECK_Y = WATER_LEVEL + 1.4; // must match sim/world.ts dockDeckOffset
+  const DOCK_HALFW = 2.2; // walkable half-width, must match sim/world.ts DOCK_HALFW
+  const DECK_HALFW = 2.55; // visual half-width: overhangs the walkable strip so its edge never shows as a sandbar
+  const DECK_THICK = 0.26;
+  const DECK_Z_SHORE = 1.3; // shore end of the boards (local +z, on land)
+  const DECK_Z_TIP = -7.7; // water tip (local -z), at the terrain tip-taper start so the deck stays full-height
+  const N_PLANKS = 22;
+  const deckPlankGeo = new THREE.BoxGeometry(DECK_HALFW * 2, DECK_THICK, 0.64);
   for (const d of PROPS.docks) {
     const y = ground(d.x, d.z);
     const g = new THREE.Group();
@@ -2106,25 +2112,24 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
       d.x + lx * dc + lz * ds,
       d.z - lx * ds + lz * dc,
     ];
-    // plank sections seated on the raised deck, marching out over the water. Stop
-    // short of the deck's tip-taper (sim/world.ts dockDeckOffset tapers the deck DOWN
-    // to the natural lakebed past lz -7.8); the last section sits at -6.85, on flat
-    // deck, so no plank sinks into the deepened Sluice pond.
-    for (let i = 0; i < 4; i++) {
-      const lz = -0.7 - i * 2.05;
+    // solid plank deck: overlapping cross-boards, each seated so its TOP meets the
+    // walkable terrain here (sim/world.ts dockDeckOffset). Over the water that is the
+    // flat raised deck; at the shore it follows the natural ramp up onto land. The
+    // step is shorter than the board depth, so there is no gap to see the water
+    // through, and the boards overhang the raised strip so it never reads as a sandbar.
+    for (let i = 0; i <= N_PLANKS; i++) {
+      const lz = DECK_Z_SHORE + (i / N_PLANKS) * (DECK_Z_TIP - DECK_Z_SHORE);
       const [wx, wz] = worldOf(0, lz);
-      addParts(g, 'dockPlatform', {
-        z: lz,
-        y: ground(wx, wz) - y + 0.02,
-        rot: (keyRand(key, i) - 0.5) * 0.03,
-        scale: [0.92, 0.5, 0.85],
-      });
+      const top = ground(wx, wz);
+      const plank = new THREE.Mesh(deckPlankGeo, i % 2 ? dockPlankMat2 : dockPlankMat);
+      plank.position.set(0, top - y - DECK_THICK / 2, lz);
+      g.add(plank);
     }
     // support pilings dropping into the water + a rail post above the deck each side
     for (const side of [-1, 1] as const) {
-      const lx = side * 1.5;
-      for (let i = 0; i < 5; i++) {
-        const lz = -0.4 - i * 1.7;
+      const lx = side * (DECK_HALFW - 0.2);
+      for (let i = 0; i < 6; i++) {
+        const lz = DECK_Z_SHORE - 0.4 - (i / 5) * (DECK_Z_SHORE - DECK_Z_TIP - 0.4);
         const [wx, wz] = worldOf(lx, lz);
         const deckTop = ground(wx, wz); // the raised deck height here
         const pile = new THREE.Mesh(dockPostGeo, dockPostMat);
@@ -2132,40 +2137,45 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
         pile.scale.y = Math.max(0.3, deckTop - DOCK_PILE_BOTTOM);
         g.add(pile);
         const railPost = new THREE.Mesh(dockPostGeo, dockPostMat);
-        railPost.position.set(lx, deckTop - y + 0.42, lz);
-        railPost.scale.set(0.72, 0.9, 0.72);
+        railPost.position.set(lx, deckTop - y + 0.5, lz);
+        railPost.scale.set(0.7, 1.0, 0.7);
         g.add(railPost);
       }
-      // a level top rail running the pier length (the deck is flat over the water);
-      // spans the shortened deck (~0 to -7.2) so it does not overhang open water
+      // a level top rail running the deck length (seated on the flat over-water deck)
+      const railMidLz = (DECK_Z_SHORE + DECK_Z_TIP) / 2;
+      const [rwx, rwz] = worldOf(lx, railMidLz);
       const rail = new THREE.Mesh(dockRailGeo, dockPlankMat);
-      rail.position.set(lx, DOCK_DECK_Y - y + 0.82, -3.6);
+      rail.position.set(lx, ground(rwx, rwz) - y + 0.92, railMidLz);
       rail.rotation.x = Math.PI / 2;
-      rail.scale.y = 7.4;
+      rail.scale.y = DECK_Z_SHORE - DECK_Z_TIP;
       g.add(rail);
     }
+    // shoreside hut: seat it on the natural ground under its OWN footprint (offset
+    // from the deck origin), so it is not left floating at the group origin height
     const hut = propAsset('house3');
+    const [hutWx, hutWz] = worldOf(d.hutLocal.x, d.hutLocal.z);
     addParts(g, 'house3', {
       x: d.hutLocal.x,
       z: d.hutLocal.z,
+      y: ground(hutWx, hutWz) - y,
       scale: [(d.hutLocal.hw * 2) / hut.size.x, 2.6 / hut.size.y, (d.hutLocal.hd * 2) / hut.size.z],
     });
     if (!lowProps) {
-      // clutter on the shore end of the deck (sits on the raised planks)
-      const barrelA = worldOf(0.7, 1.1);
-      const barrelB = worldOf(-0.7, 0.6);
+      // clutter on the shore end of the deck (sits on the boards)
+      const barrelA = worldOf(1.2, 0.9);
+      const barrelB = worldOf(-1.2, 0.4);
       const crate = worldOf(0.0, -1.4);
       addParts(g, 'barrel', {
-        x: 0.7,
+        x: 1.2,
         y: ground(barrelA[0], barrelA[1]) - y + 0.5,
-        z: 1.1,
+        z: 0.9,
         rot: keyRand(key, 5) * Math.PI,
         scale: 0.95,
       });
       addParts(g, 'barrel', {
-        x: -0.7,
+        x: -1.2,
         y: ground(barrelB[0], barrelB[1]) - y + 0.58,
-        z: 0.6,
+        z: 0.4,
         rot: keyRand(key, 6) * Math.PI,
         scale: 1.15,
       });
@@ -2177,9 +2187,9 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
         scale: 0.9,
       });
     }
-    // rowboat beside the deck's far end: floats at water level when the
+    // rowboat moored beside the deck's far end: floats at water level when the
     // shore dips below it, otherwise sits hauled up on the bank
-    const boatLx = 2.4,
+    const boatLx = DECK_HALFW + 1.05,
       boatLz = -5.0;
     const boatWx = d.x + boatLx * Math.cos(d.rot) + boatLz * Math.sin(d.rot);
     const boatWz = d.z - boatLx * Math.sin(d.rot) + boatLz * Math.cos(d.rot);
@@ -2188,9 +2198,9 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     addParts(g, 'rowboat', {
       x: boatLx,
       z: boatLz,
-      y: (isAfloat ? WATER_LEVEL + 0.18 : boatGround + 0.06) - y,
+      y: (isAfloat ? WATER_LEVEL + 0.22 : boatGround + 0.08) - y,
       rot: 0.5 + (keyRand(key, 8) - 0.5) * 0.4,
-      scale: 0.85,
+      scale: 1.35,
       euler: isAfloat
         ? undefined
         : new THREE.Euler(0.04, 0.5 + (keyRand(key, 8) - 0.5) * 0.4, 0.16),

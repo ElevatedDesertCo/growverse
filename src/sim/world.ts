@@ -193,10 +193,10 @@ function sluiceBridgeOffset(x: number, z: number, h: number, seed: number): numb
 // pallets clamped to the lakebed. Like the bridge it ONLY raises (max against the
 // natural surface), tapers at the side edges and the water tip, and eases in at the
 // shore end. The deck sits a touch above the water line so it reads as a low jetty.
-const DOCK_DECK_Y = WATER_LEVEL + 1.4; // flat deck height, just above the water
+const DOCK_DECK_Y = WATER_LEVEL + 0.7; // flat deck height, a low jetty just above the water
 const DOCK_LEN = 9; // how far the pier reaches out over the water (local -z, toward water)
 const DOCK_BACK = 1.5; // how far it reaches back onto the shore (local +z)
-const DOCK_HALFW = 1.6; // pier half-width across (local x)
+const DOCK_HALFW = 2.2; // pier half-width across (local x); must match render DOCK_HALFW
 const DOCK_EDGE = 1.0; // side taper before the deck drops to the water
 const DOCK_TIP = 1.2; // taper in from the water tip
 const DOCK_SHORE = 1.2; // ease-in at the shore end
