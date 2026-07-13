@@ -2224,6 +2224,12 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'entities.items.nhalias_dirgeblade.name': '娜莉娅的挽歌刃',
   'entities.items.nhalias_funeral_wraps.name': '娜莉娅的葬缠',
   'entities.items.raw_mirror_trout.name': '生镜鳟鱼',
+  'entities.items.cooked_mirror_trout.name': '烤镜鳟鱼',
+  'entities.items.cooked_river_perch.name': '香煎河鲈',
+  'entities.items.cooked_marsh_pike.name': '炙烤沼泽狗鱼',
+  'entities.items.cooked_bog_eel.name': '烟熏沼鳗',
+  'entities.items.cooked_frostgill_trout.name': '烤霜鳃鳟鱼',
+  'entities.items.cooked_stonescale_carp.name': '烘烤石鳞鲤',
   'entities.items.sableweb_slippers.name': '黑网便鞋',
   'entities.items.simple_fishing_pole.name': '简易鱼竿',
   'entities.items.tangled_weed.name': '缠结水草',
@@ -4992,4 +4998,20 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.banker_thistle.title': '布鲁姆海文银行家',
   'entities.npcs.banker_thistle.greeting':
     '你的金币和珍藏都在金库里安然无恙，{className}。把带不走的东西存进来，路过时随时取回。',
+  // Dockside Cook / Cookfire (M16 non-Latin fill)
+  'hudChrome.crafting.cookTitle': '篝火烹饪',
+  'hudChrome.crafting.cookHint': '将你钓到的鱼烹制成丰盛的餐食，恢复生命值与法力值。',
+  'hudChrome.crafting.categories.food': '熟食',
+  'entities.npcs.cook_ferra.name': '费拉',
+  'entities.npcs.cook_ferra.title': '码头厨师',
+  'entities.npcs.cook_ferra.greeting':
+    '{className}，码头外的深水里游着不少狗鱼。买根钓竿，钓上几条，我就在篝火上给你热腾腾地烹好。',
+  'entities.npcs.cook_cobb.name': '科布',
+  'entities.npcs.cook_cobb.title': '码头厨师',
+  'entities.npcs.cook_cobb.greeting':
+    '只要有耐心垂钓，明镜湖便会赏你一尾上好的鳟鱼。拿上钓竿，把渔获带回我的篝火旁吧。',
+  'entities.npcs.cook_marta.name': '玛尔塔',
+  'entities.npcs.cook_marta.title': '码头厨师',
+  'entities.npcs.cook_marta.greeting':
+    '{className}，磨坊池塘水面平静，鲈鱼正上钩呢。钓竿便宜，热腾腾的熟食暖心暖胃。',
 };

@@ -2,6 +2,7 @@ import {
   CAMPS,
   DUNGEON_FLOOR_Y,
   DUNGEON_X_THRESHOLD,
+  PROPS,
   ROADS,
   WORLD_MAX_X,
   WORLD_MAX_Z,
@@ -168,6 +169,58 @@ function sluiceBridgeOffset(x: number, z: number, h: number): number {
   return h + (target - h) * blend;
 }
 
+// Fishing-dock piers (zone1/zone2 `PROPS.docks`): raise a flat, walkable deck strip
+// that runs from the shore out over the water, so the render planks (which sample this
+// same terrainHeight) form a pier you can actually walk onto and fish from, instead of
+// pallets clamped to the lakebed. Like the bridge it ONLY raises (max against the
+// natural surface), tapers at the side edges and the water tip, and eases in at the
+// shore end. The deck sits a touch above the water line so it reads as a low jetty.
+const DOCK_DECK_Y = WATER_LEVEL + 1.4; // flat deck height, just above the water
+const DOCK_LEN = 9; // how far the pier reaches out over the water (local -z, toward water)
+const DOCK_BACK = 1.5; // how far it reaches back onto the shore (local +z)
+const DOCK_HALFW = 1.6; // pier half-width across (local x)
+const DOCK_EDGE = 1.0; // side taper before the deck drops to the water
+const DOCK_TIP = 1.2; // taper in from the water tip
+const DOCK_SHORE = 1.2; // ease-in at the shore end
+
+function dockDeckOffset(x: number, z: number, h: number): number {
+  for (const d of PROPS.docks) {
+    const dx = x - d.x;
+    const dz = z - d.z;
+    if (dx * dx + dz * dz > (DOCK_LEN + 3) * (DOCK_LEN + 3)) continue;
+    // world->local (inverse of the render's local->world in props.ts: local -z faces
+    // the water). lx = c*dx - s*dz, lz = s*dx + c*dz.
+    const c = Math.cos(d.rot);
+    const s = Math.sin(d.rot);
+    const lx = c * dx - s * dz;
+    const lz = s * dx + c * dz;
+    if (lx <= -DOCK_HALFW || lx >= DOCK_HALFW) continue;
+    if (lz >= DOCK_BACK || lz <= -DOCK_LEN) continue;
+    const wBlend = smoothstep(DOCK_HALFW, DOCK_HALFW - DOCK_EDGE, Math.abs(lx));
+    const tipBlend = smoothstep(-DOCK_LEN, -DOCK_LEN + DOCK_TIP, lz); // 0 at the tip, 1 inward
+    const backBlend = smoothstep(DOCK_BACK, DOCK_BACK - DOCK_SHORE, lz); // ease at the shore end
+    const blend = wBlend * tipBlend * backBlend;
+    const target = Math.max(h, DOCK_DECK_Y);
+    return h + (target - h) * blend;
+  }
+  return h;
+}
+
+// A point is on a dock pier deck (used to keep decorations off the walkable planks).
+function isOnDock(x: number, z: number): boolean {
+  for (const d of PROPS.docks) {
+    const dx = x - d.x;
+    const dz = z - d.z;
+    if (dx * dx + dz * dz > (DOCK_LEN + 3) * (DOCK_LEN + 3)) continue;
+    const c = Math.cos(d.rot);
+    const s = Math.sin(d.rot);
+    const lx = c * dx - s * dz;
+    const lz = s * dx + c * dz;
+    if (Math.abs(lx) < DOCK_HALFW + 1 && lz < DOCK_BACK + 1 && lz > -DOCK_LEN - 1) return true;
+  }
+  return false;
+}
+
 // Blended biome shape at a given z. Zone interiors keep their exact shape;
 // blends happen across ±~35yd windows at the band boundaries.
 function shapeAt(z: number): { hill: number; base: number } {
@@ -259,6 +312,7 @@ export function terrainHeight(x: number, z: number, seed: number): number {
   h += rim * 40;
   h += mirefenImpactCraterOffset(x, z);
   h = sluiceBridgeOffset(x, z, h);
+  h = dockDeckOffset(x, z, h);
   return h;
 }
 
@@ -355,6 +409,7 @@ export function generateDecorations(seed: number): Decoration[] {
         z = gz + oz;
       if (isExcludedDecoration(x, z)) continue;
       if (isOnSluiceBridge(x, z)) continue;
+      if (isOnDock(x, z)) continue;
       let inHub = false;
       for (const zone of ZONES) {
         const dx = x - zone.hub.x,

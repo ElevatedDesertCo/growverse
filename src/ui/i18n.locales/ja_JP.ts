@@ -2331,6 +2331,12 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.items.nhalias_dirgeblade.name': 'ナリアの哀歌刃',
   'entities.items.nhalias_funeral_wraps.name': 'ナリアの葬送巻き',
   'entities.items.raw_mirror_trout.name': '生の鏡マス',
+  'entities.items.cooked_mirror_trout.name': '鏡マスの塩焼き',
+  'entities.items.cooked_river_perch.name': '川スズキのソテー',
+  'entities.items.cooked_marsh_pike.name': '沼カワカマスのロースト',
+  'entities.items.cooked_bog_eel.name': '沼ウナギの燻製',
+  'entities.items.cooked_frostgill_trout.name': '霜エラマスの塩焼き',
+  'entities.items.cooked_stonescale_carp.name': '石鱗コイのオーブン焼き',
   'entities.items.sableweb_slippers.name': 'セーブルウェブのスリッパ',
   'entities.items.simple_fishing_pole.name': '簡素な釣り竿',
   'entities.items.tangled_weed.name': '絡まった水草',
@@ -5252,4 +5258,21 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.banker_thistle.title': 'ブルームヘイヴンの銀行家',
   'entities.npcs.banker_thistle.greeting':
     'あなたの金貨も宝物も金庫で安全に守られます、{className}。持ちきれないものを預け、立ち寄るたびに引き出してください。',
+  // Dockside Cook / Cookfire (M16 non-Latin fill)
+  'hudChrome.crafting.cookTitle': '料理のかまど',
+  'hudChrome.crafting.cookHint':
+    '釣った魚を調理して、体力とマナを回復する滋味豊かな料理に仕上げましょう。',
+  'hudChrome.crafting.categories.food': '調理済みの料理',
+  'entities.npcs.cook_ferra.name': 'フェラ',
+  'entities.npcs.cook_ferra.title': '波止場の料理人',
+  'entities.npcs.cook_ferra.greeting':
+    '桟橋の先ではカワカマスが深みに潜んでいるよ、{className}。竿を買って何匹か釣り上げておいで、かまどで熱々に焼いてあげよう。',
+  'entities.npcs.cook_cobb.name': 'コブ',
+  'entities.npcs.cook_cobb.title': '波止場の料理人',
+  'entities.npcs.cook_cobb.greeting':
+    'ミラー湖は、辛抱強く糸を垂らせば見事なマスを恵んでくれる。竿を手に取って、釣った魚を私のかまどまで持ってきておくれ。',
+  'entities.npcs.cook_marta.name': 'マルタ',
+  'entities.npcs.cook_marta.title': '波止場の料理人',
+  'entities.npcs.cook_marta.greeting':
+    '水車池は穏やかで、パーチがよく食いついているよ。竿は安いし、調理した料理は温かいからね、{className}。',
 };

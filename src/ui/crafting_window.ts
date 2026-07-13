@@ -43,12 +43,8 @@ export function renderCraftingWindow(
   const scrollTop = el.scrollTop;
 
   const station: CraftStation = view.station;
-  const title = t(
-    station === 'grow' ? 'hudChrome.crafting.growTitle' : 'hudChrome.crafting.upgradeTitle',
-  );
-  const hint = t(
-    station === 'grow' ? 'hudChrome.crafting.growHint' : 'hudChrome.crafting.upgradeHint',
-  );
+  const title = t(`hudChrome.crafting.${station}Title` as Parameters<typeof t>[0]);
+  const hint = t(`hudChrome.crafting.${station}Hint` as Parameters<typeof t>[0]);
 
   el.innerHTML = `<div class="panel-title"><span>${esc(title)}</span><button type="button" class="x-btn" data-close aria-label="${esc(t('hudChrome.crafting.close'))}">${svgIcon('close')}</button></div><div class="craft-hint">${esc(hint)}</div>`;
 

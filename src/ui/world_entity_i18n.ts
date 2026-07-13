@@ -139,6 +139,10 @@ const NPC_IDS = [
   'cultivator_marlow', // Grow Station attendant (Bloomhaven crafting)
   'smith_draxa', // Upgrade Bench attendant (Bloomhaven crafting)
   'banker_thistle', // Bloomhaven banker (account stash / bank)
+  // Dockside Cooks: fishing-pole vendor + Cookfire station at each fishing dock
+  'cook_ferra', // Sunken Wastes dock (zone 2)
+  'cook_cobb', // Mirror Lake dock (zone 1)
+  'cook_marta', // Sluice landing dock (zone 1)
   // The Sluice (zone 1) beaver work-camp
   'rowan_sawtooth',
   'hazel_timbers',

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
+import { ITEMS } from '../src/sim/data';
 import { Sim } from '../src/sim/sim';
-import { type Entity, type SimEvent } from '../src/sim/types';
+import type { Entity, SimEvent } from '../src/sim/types';
 
 // Sim-layer tests for the Grow Station / Upgrade Bench crafting path
 // (src/sim/crafting.ts, behind the SimContext seam). They drive the public
@@ -126,6 +127,47 @@ describe('crafting: station proximity', () => {
     expect(sim.countItem('corruption_shard', pid)).toBe(0);
     expect(meta.copper).toBe(475); // 500 - 25 copperCost
     expect(craftEvents(evs)).toHaveLength(1);
+  });
+});
+
+describe('crafting: Cookfire (dockside cook)', () => {
+  it('cooks a raw fish into a meal at the Dockside Cook', () => {
+    const sim = makeWorld();
+    const { pid, meta } = craftPlayer(sim, 'cook_ferra');
+    meta.copper = 50;
+    sim.addItem('raw_river_perch', 1, pid);
+    sim.drainEvents();
+
+    sim.craft('cook_river_perch', pid);
+    const evs = sim.drainEvents();
+
+    expect(sim.countItem('cooked_river_perch', pid)).toBe(1);
+    expect(sim.countItem('raw_river_perch', pid)).toBe(0);
+    expect(meta.copper).toBe(45); // 50 - 5 copperCost
+    expect(craftEvents(evs)).toHaveLength(1);
+  });
+
+  it('gates a higher-tier fish recipe on the required level', () => {
+    const sim = makeWorld();
+    const { pid, meta } = craftPlayer(sim, 'cook_ferra');
+    meta.copper = 50;
+    sim.addItem('raw_marsh_pike', 1, pid); // cook_marsh_pike requires level 8
+    sim.drainEvents();
+
+    sim.craft('cook_marsh_pike', pid);
+    const evs = sim.drainEvents();
+
+    expect(sim.countItem('cooked_marsh_pike', pid)).toBe(0);
+    expect(sim.countItem('raw_marsh_pike', pid)).toBe(1); // reagent untouched
+    expect(errorTexts(evs)).toContain('You are not skilled enough to craft that yet.');
+  });
+
+  it('makes cooked fish a better meal than the raw catch (heals more, restores mana)', () => {
+    const raw = ITEMS.raw_marsh_pike;
+    const cooked = ITEMS.cooked_marsh_pike;
+    expect(cooked.kind).toBe('food');
+    expect(cooked.foodHp ?? 0).toBeGreaterThan(raw.foodHp ?? 0);
+    expect(cooked.drinkMana ?? 0).toBeGreaterThan(0);
   });
 });
 

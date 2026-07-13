@@ -167,6 +167,66 @@ export const CRAFT_ITEMS: Record<string, ItemDef> = {
     stats: { str: 2 },
     sellValue: 130,
   },
+
+  // --- Dockside Cook outputs: cooked fish -----------------------------------
+  // A cooked fish restores more health than its raw catch AND some mana (the
+  // eating slot ticks both foodHp and drinkMana over the sit), so a cooked meal
+  // is a real upgrade over eating the raw fish. quality uncommon so they never
+  // get swept as junk. Made from the raw fish you catch (FISHING_TABLES).
+  cooked_mirror_trout: {
+    id: 'cooked_mirror_trout',
+    name: 'Grilled Mirror Trout',
+    kind: 'food',
+    quality: 'uncommon',
+    foodHp: 105,
+    drinkMana: 40,
+    sellValue: 20,
+  },
+  cooked_river_perch: {
+    id: 'cooked_river_perch',
+    name: 'Pan-Fried River Perch',
+    kind: 'food',
+    quality: 'uncommon',
+    foodHp: 80,
+    drinkMana: 30,
+    sellValue: 16,
+  },
+  cooked_marsh_pike: {
+    id: 'cooked_marsh_pike',
+    name: 'Roasted Marsh Pike',
+    kind: 'food',
+    quality: 'uncommon',
+    foodHp: 150,
+    drinkMana: 55,
+    sellValue: 30,
+  },
+  cooked_bog_eel: {
+    id: 'cooked_bog_eel',
+    name: 'Smoked Bog Eel',
+    kind: 'food',
+    quality: 'uncommon',
+    foodHp: 150,
+    drinkMana: 55,
+    sellValue: 30,
+  },
+  cooked_frostgill_trout: {
+    id: 'cooked_frostgill_trout',
+    name: 'Grilled Frostgill Trout',
+    kind: 'food',
+    quality: 'uncommon',
+    foodHp: 195,
+    drinkMana: 70,
+    sellValue: 40,
+  },
+  cooked_stonescale_carp: {
+    id: 'cooked_stonescale_carp',
+    name: 'Baked Stonescale Carp',
+    kind: 'food',
+    quality: 'uncommon',
+    foodHp: 195,
+    drinkMana: 70,
+    sellValue: 40,
+  },
 };
 
 // The reagents the Cultivator sells, so the grow loop is self-contained (buy
@@ -206,6 +266,49 @@ export const CRAFT_NPCS: Record<string, NpcDef> = {
     crafting: 'upgrade',
     greeting:
       'The Upgrade Bench runs hot. Bring me Corruption Shards and I will reforge your steel into something the rift cannot break.',
+  },
+  // Dockside Cooks: one at each fishing dock. Each sells the fishing pole and runs
+  // the Cookfire (the 'cook' station), so a dock is a full loop: buy a pole, fish
+  // the water off the pier, then cook your catch into a hearty meal. Placed on the
+  // shore beside each dock (props.docks positions in zone1/zone2).
+  cook_ferra: {
+    id: 'cook_ferra',
+    name: 'Ferra',
+    title: 'the Dockside Cook',
+    pos: { x: -62, z: 303 },
+    facing: -2.0,
+    color: 0xc8791e,
+    questIds: [],
+    vendorItems: ['simple_fishing_pole'],
+    crafting: 'cook',
+    greeting:
+      'Off the pier the pike run deep, $C. Buy a pole, land a few, and I will cook them up hot on the fire.',
+  },
+  cook_cobb: {
+    id: 'cook_cobb',
+    name: 'Cobb',
+    title: 'the Dockside Cook',
+    pos: { x: -60, z: 60 },
+    facing: -0.4,
+    color: 0xb5813a,
+    questIds: [],
+    vendorItems: ['simple_fishing_pole'],
+    crafting: 'cook',
+    greeting:
+      'Mirror Lake gives up a fine trout to a patient line. Grab a pole, and bring the catch back to my fire.',
+  },
+  cook_marta: {
+    id: 'cook_marta',
+    name: 'Marta',
+    title: 'the Dockside Cook',
+    pos: { x: 37, z: 47 },
+    facing: 2.6,
+    color: 0xd08a3c,
+    questIds: [],
+    vendorItems: ['simple_fishing_pole'],
+    crafting: 'cook',
+    greeting:
+      'The millpond is calm and the perch are biting. A pole is cheap, and a cooked meal is warm, $C.',
   },
 };
 
@@ -319,6 +422,61 @@ export const CRAFT_RECIPES: CraftRecipe[] = [
     ],
     copperCost: 260,
     output: { itemId: 'riftforged_blade', count: 1 },
+  },
+  // --- Cookfire (Dockside Cook): raw fish -> cooked meal ---------------------
+  // One recipe per catchable fish. A few coppers of firewood turns a raw catch
+  // into a hearty meal that restores more health and some mana.
+  {
+    id: 'cook_mirror_trout',
+    station: 'cook',
+    category: 'food',
+    inputs: [{ itemId: 'raw_mirror_trout', count: 1 }],
+    copperCost: 5,
+    output: { itemId: 'cooked_mirror_trout', count: 1 },
+  },
+  {
+    id: 'cook_river_perch',
+    station: 'cook',
+    category: 'food',
+    inputs: [{ itemId: 'raw_river_perch', count: 1 }],
+    copperCost: 5,
+    output: { itemId: 'cooked_river_perch', count: 1 },
+  },
+  {
+    id: 'cook_marsh_pike',
+    station: 'cook',
+    category: 'food',
+    inputs: [{ itemId: 'raw_marsh_pike', count: 1 }],
+    copperCost: 8,
+    requiredLevel: 8,
+    output: { itemId: 'cooked_marsh_pike', count: 1 },
+  },
+  {
+    id: 'cook_bog_eel',
+    station: 'cook',
+    category: 'food',
+    inputs: [{ itemId: 'raw_bog_eel', count: 1 }],
+    copperCost: 8,
+    requiredLevel: 8,
+    output: { itemId: 'cooked_bog_eel', count: 1 },
+  },
+  {
+    id: 'cook_frostgill_trout',
+    station: 'cook',
+    category: 'food',
+    inputs: [{ itemId: 'raw_frostgill_trout', count: 1 }],
+    copperCost: 12,
+    requiredLevel: 15,
+    output: { itemId: 'cooked_frostgill_trout', count: 1 },
+  },
+  {
+    id: 'cook_stonescale_carp',
+    station: 'cook',
+    category: 'food',
+    inputs: [{ itemId: 'raw_stonescale_carp', count: 1 }],
+    copperCost: 12,
+    requiredLevel: 15,
+    output: { itemId: 'cooked_stonescale_carp', count: 1 },
   },
 ];
 

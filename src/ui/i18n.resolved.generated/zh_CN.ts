@@ -1034,8 +1034,10 @@ export const zh_CN: EnTranslations = {
     "crafting": {
       "growTitle": "培育站",
       "upgradeTitle": "升级台",
+      "cookTitle": "篝火烹饪",
       "growHint": "制作营养剂、升级种子品系、打造种植装备。",
       "upgradeHint": "重铸装备，并用腐蚀碎片切割战斗消耗品。",
+      "cookHint": "将你钓到的鱼烹制成丰盛的餐食，恢复生命值与法力值。",
       "craftButton": "制作",
       "costLabel": "花费",
       "requiresLabel": "需要",
@@ -1049,7 +1051,8 @@ export const zh_CN: EnTranslations = {
         "seed": "种子品系",
         "accessory": "种植配件",
         "consumable": "消耗品",
-        "gear": "重铸装备"
+        "gear": "重铸装备",
+        "food": "熟食"
       },
       "errors": {
         "recipeUnavailable": "这里没有该配方。",
@@ -5024,6 +5027,24 @@ export const zh_CN: EnTranslations = {
       "baked_beaver_token": {
         "name": "烤海狸徽记"
       },
+      "cooked_mirror_trout": {
+        "name": "烤镜鳟鱼"
+      },
+      "cooked_river_perch": {
+        "name": "香煎河鲈"
+      },
+      "cooked_marsh_pike": {
+        "name": "炙烤沼泽狗鱼"
+      },
+      "cooked_bog_eel": {
+        "name": "烟熏沼鳗"
+      },
+      "cooked_frostgill_trout": {
+        "name": "烤霜鳃鳟鱼"
+      },
+      "cooked_stonescale_carp": {
+        "name": "烘烤石鳞鲤"
+      },
       "bristleback_maul": {
         "name": "硬鬃重槌"
       },
@@ -6007,6 +6028,21 @@ export const zh_CN: EnTranslations = {
         "name": "金库管理员西斯尔",
         "title": "布鲁姆海文银行家",
         "greeting": "你的金币和珍藏都在金库里安然无恙，{className}。把带不走的东西存进来，路过时随时取回。"
+      },
+      "cook_ferra": {
+        "name": "费拉",
+        "title": "码头厨师",
+        "greeting": "{className}，码头外的深水里游着不少狗鱼。买根钓竿，钓上几条，我就在篝火上给你热腾腾地烹好。"
+      },
+      "cook_cobb": {
+        "name": "科布",
+        "title": "码头厨师",
+        "greeting": "只要有耐心垂钓，明镜湖便会赏你一尾上好的鳟鱼。拿上钓竿，把渔获带回我的篝火旁吧。"
+      },
+      "cook_marta": {
+        "name": "玛尔塔",
+        "title": "码头厨师",
+        "greeting": "{className}，磨坊池塘水面平静，鲈鱼正上钩呢。钓竿便宜，热腾腾的熟食暖心暖胃。"
       },
       "rowan_sawtooth": {
         "name": "罗恩·锯齿",

@@ -1034,8 +1034,10 @@ export const tr_TR: EnTranslations = {
     "crafting": {
       "growTitle": "Grow Station",
       "upgradeTitle": "Upgrade Bench",
+      "cookTitle": "Cookfire",
       "growHint": "Craft nutrients, upgrade seed strains, and build growing gear.",
       "upgradeHint": "Reforge gear and cut battle consumables from Corruption Shards.",
+      "cookHint": "Cook the fish you catch into hearty meals that restore health and mana.",
       "craftButton": "Craft",
       "costLabel": "Cost",
       "requiresLabel": "Requires",
@@ -1049,7 +1051,8 @@ export const tr_TR: EnTranslations = {
         "seed": "Seed Strains",
         "accessory": "Grow Accessories",
         "consumable": "Consumables",
-        "gear": "Reforged Gear"
+        "gear": "Reforged Gear",
+        "food": "Cooked Food"
       },
       "errors": {
         "recipeUnavailable": "That recipe is not available here.",
@@ -5024,6 +5027,24 @@ export const tr_TR: EnTranslations = {
       "baked_beaver_token": {
         "name": "Baked Beaver Jetonu"
       },
+      "cooked_mirror_trout": {
+        "name": "Izgara Ayna Alabalığı"
+      },
+      "cooked_river_perch": {
+        "name": "Tavada Nehir Levreği"
+      },
+      "cooked_marsh_pike": {
+        "name": "Fırınlanmış Bataklık Turnası"
+      },
+      "cooked_bog_eel": {
+        "name": "Füme Bataklık Yılan Balığı"
+      },
+      "cooked_frostgill_trout": {
+        "name": "Izgara Buzsolungaç Alabalığı"
+      },
+      "cooked_stonescale_carp": {
+        "name": "Fırında Taşpul Sazanı"
+      },
       "bristleback_maul": {
         "name": "Dikensırt Balyozu"
       },
@@ -6007,6 +6028,21 @@ export const tr_TR: EnTranslations = {
         "name": "Vault Keeper Thistle",
         "title": "Bloomhaven Banker",
         "greeting": "Your coin and your keepsakes are safe in the vault, {className}. Deposit what you cannot carry and draw it back whenever you pass through."
+      },
+      "cook_ferra": {
+        "name": "Ferra",
+        "title": "the Dockside Cook",
+        "greeting": "Off the pier the pike run deep, {className}. Buy a pole, land a few, and I will cook them up hot on the fire."
+      },
+      "cook_cobb": {
+        "name": "Cobb",
+        "title": "the Dockside Cook",
+        "greeting": "Mirror Lake gives up a fine trout to a patient line. Grab a pole, and bring the catch back to my fire."
+      },
+      "cook_marta": {
+        "name": "Marta",
+        "title": "the Dockside Cook",
+        "greeting": "The millpond is calm and the perch are biting. A pole is cheap, and a cooked meal is warm, {className}."
       },
       "rowan_sawtooth": {
         "name": "Rowan Sawtooth",
