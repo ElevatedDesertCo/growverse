@@ -1313,7 +1313,7 @@ export const ZONE1_PROPS: ZonePropsDef = {
     // The Sluice landing: a short plank dock off the millpond's north shore where
     // the Beaver quartermaster runs supplies, giving the waterfront a working edge
     // and the pond a human-scale reference.
-    { x: 36, z: 44, rot: 0.1, hutLocal: { x: 2.6, z: 2.2, hw: 1.6, hd: 1.4 } },
+    { x: 36, z: 44, rot: 0.1, hutLocal: { x: 10.8, z: 2.1, hw: 1.6, hd: 1.4 } }, // shack set back to world (47,45), off the dock
   ],
   // The Sluice work-camp pitches two stock canvas tents beside the lodge for the
   // Beaver crew (the Ashen Maw warcamp uses its own procedural raiderTents below).

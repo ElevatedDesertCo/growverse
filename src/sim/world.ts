@@ -195,11 +195,11 @@ function sluiceBridgeOffset(x: number, z: number, h: number, seed: number): numb
 // shore end. The deck sits a touch above the water line so it reads as a low jetty.
 const DOCK_DECK_Y = WATER_LEVEL + 0.7; // flat deck height, a low jetty just above the water
 const DOCK_LEN = 9; // how far the pier reaches out over the water (local -z, toward water)
-const DOCK_BACK = 1.5; // how far it reaches back onto the shore (local +z)
-const DOCK_HALFW = 2.2; // pier half-width across (local x); must match render DOCK_HALFW
-const DOCK_EDGE = 1.0; // side taper before the deck drops to the water
+const DOCK_BACK = 2.8; // how far it reaches back onto the shore (local +z)
+const DOCK_HALFW = 2.4; // pier walkable half-width (local x); >= render DECK_HALFW so you never slip off
+const DOCK_EDGE = 0.15; // side taper: keep it tiny so the deck stays flat across its full width
 const DOCK_TIP = 1.2; // taper in from the water tip
-const DOCK_SHORE = 1.2; // ease-in at the shore end
+const DOCK_SHORE = 2.6; // long ease-in at the shore end so the bank grades smoothly to the deck
 
 function dockDeckOffset(x: number, z: number, h: number): number {
   for (const d of PROPS.docks) {
@@ -218,7 +218,10 @@ function dockDeckOffset(x: number, z: number, h: number): number {
     const tipBlend = smoothstep(-DOCK_LEN, -DOCK_LEN + DOCK_TIP, lz); // 0 at the tip, 1 inward
     const backBlend = smoothstep(DOCK_BACK, DOCK_BACK - DOCK_SHORE, lz); // ease at the shore end
     const blend = wBlend * tipBlend * backBlend;
-    const target = Math.max(h, DOCK_DECK_Y);
+    // Over the water (lz < 0) only RAISE (never dig below the natural lakebed). Over the
+    // shore half (lz >= 0) drive straight to the deck height so a high bank grades DOWN to
+    // meet the jetty instead of leaving a steep dip at the shore junction.
+    const target = lz < 0 ? Math.max(h, DOCK_DECK_Y) : DOCK_DECK_Y;
     return h + (target - h) * blend;
   }
   return h;

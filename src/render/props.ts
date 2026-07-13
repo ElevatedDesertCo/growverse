@@ -2094,10 +2094,10 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
   const dockPostGeo = new THREE.CylinderGeometry(0.14, 0.17, 1, 6);
   const dockRailGeo = new THREE.CylinderGeometry(0.07, 0.07, 1, 5);
   const DOCK_PILE_BOTTOM = WATER_LEVEL - 2.6;
-  const DOCK_HALFW = 2.2; // walkable half-width, must match sim/world.ts DOCK_HALFW
-  const DECK_HALFW = 2.55; // visual half-width: overhangs the walkable strip so its edge never shows as a sandbar
+  const DOCK_HALFW = 2.4; // walkable half-width, must match sim/world.ts DOCK_HALFW
+  const DECK_HALFW = 2.2; // visual half-width: sits INSIDE the flat walkable strip so you never slip off its edge
   const DECK_THICK = 0.26;
-  const DECK_Z_SHORE = 1.3; // shore end of the boards (local +z, on land)
+  const DECK_Z_SHORE = 2.6; // shore end of the boards (local +z): covers the graded shore ramp so there is no dip
   const DECK_Z_TIP = -7.7; // water tip (local -z), at the terrain tip-taper start so the deck stays full-height
   const N_PLANKS = 22;
   const deckPlankGeo = new THREE.BoxGeometry(DECK_HALFW * 2, DECK_THICK, 0.64);
@@ -2167,21 +2167,21 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
       const crate = worldOf(0.0, -1.4);
       addParts(g, 'barrel', {
         x: 1.2,
-        y: ground(barrelA[0], barrelA[1]) - y + 0.5,
+        y: ground(barrelA[0], barrelA[1]) - y + 0.02,
         z: 0.9,
         rot: keyRand(key, 5) * Math.PI,
         scale: 0.95,
       });
       addParts(g, 'barrel', {
         x: -1.2,
-        y: ground(barrelB[0], barrelB[1]) - y + 0.58,
+        y: ground(barrelB[0], barrelB[1]) - y + 0.02,
         z: 0.4,
         rot: keyRand(key, 6) * Math.PI,
         scale: 1.15,
       });
       addParts(g, 'crateWooden', {
         x: 0.0,
-        y: ground(crate[0], crate[1]) - y + 0.45,
+        y: ground(crate[0], crate[1]) - y + 0.02,
         z: -1.4,
         rot: keyRand(key, 7),
         scale: 0.9,
@@ -2189,7 +2189,7 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     }
     // rowboat moored beside the deck's far end: floats at water level when the
     // shore dips below it, otherwise sits hauled up on the bank
-    const boatLx = DECK_HALFW + 1.05,
+    const boatLx = DECK_HALFW + 1.8,
       boatLz = -5.0;
     const boatWx = d.x + boatLx * Math.cos(d.rot) + boatLz * Math.sin(d.rot);
     const boatWz = d.z - boatLx * Math.sin(d.rot) + boatLz * Math.cos(d.rot);
