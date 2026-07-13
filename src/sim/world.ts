@@ -379,8 +379,8 @@ const DECORATION_EXCLUSIONS = [
   // the beaver lodge/den footprints so nothing clips the pond-shore landmark. The
   // millpond carve and the road spur clear most of the area; these pin the rest.
   { x: 42, z: 54 }, // Baked Beaver mascot
-  { x: 38, z: 56 }, // beaver lodge (inn)
-  { x: 46, z: 58 }, // beaver den (house)
+  { x: 38, z: 60 }, // beaver lodge (inn)
+  { x: 46, z: 62 }, // beaver den (house)
 ];
 
 function isExcludedDecoration(x: number, z: number): boolean {

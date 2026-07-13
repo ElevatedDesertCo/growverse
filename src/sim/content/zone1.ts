@@ -38,7 +38,7 @@ export const ZONE1_ZONE: ZoneDef = {
   lakes: [LAKE, SLUICE_POND],
   pois: [
     { x: 0, z: -3, label: 'Bloomhaven' },
-    { x: -2, z: 70, label: 'Wolf Run' },
+    { x: -2, z: 88, label: 'Wolf Run' },
     { x: 96, z: -12, label: 'Boar Meadow' },
     { x: -88, z: 82, label: 'Mirror Lake' },
     { x: -60, z: 4, label: 'Sporewood' },
@@ -1132,10 +1132,14 @@ export const ZONE1_QUEST_ORDER = [
 // ---------------------------------------------------------------------------
 
 export const ZONE1_CAMPS: CampDef[] = [
-  // Wolves: north woods
-  { mobId: 'forest_wolf', center: { x: -15, z: 55 }, radius: 22, count: 7 },
-  { mobId: 'forest_wolf', center: { x: 20, z: 70 }, radius: 20, count: 6 },
-  { mobId: 'old_greyjaw', center: { x: 0, z: 95 }, radius: 8, count: 1 },
+  // Wolves: FAR-north woods. Pushed well north of the Baked Beaver outpost (the
+  // Sluice, x34-48 z52-64) and its approach so the pond community is a safe place
+  // to build and rest, not a mob gauntlet. Counts are unchanged: the camp loop is
+  // the final RNG consumer at construction, so re-centering moves the packs without
+  // shifting any downstream spawn roll (parity holds); changing a count would not.
+  { mobId: 'forest_wolf', center: { x: -20, z: 82 }, radius: 20, count: 7 },
+  { mobId: 'forest_wolf', center: { x: 6, z: 94 }, radius: 18, count: 6 },
+  { mobId: 'old_greyjaw', center: { x: -6, z: 100 }, radius: 8, count: 1 },
   // Boars: west meadow, well clear of the Sluice pond and the river corridor
   { mobId: 'wild_boar', center: { x: 90, z: -8 }, radius: 18, count: 6 },
   { mobId: 'wild_boar', center: { x: 112, z: -22 }, radius: 18, count: 5 },
@@ -1223,19 +1227,19 @@ export const ZONE1_ROADS: { x: number; z: number }[][] = [
     { x: 2, z: 10 },
     { x: -4, z: 27 },
     { x: -12, z: 48 },
-    { x: -15, z: 55 },
-    { x: -2, z: 78 },
-  ], // north to wolves
+    { x: -15, z: 62 },
+    { x: -18, z: 82 },
+  ], // north to the wolf woods (now the far-north packs, clear of the Sluice)
   [
     { x: 2, z: 10 },
     { x: 3, z: 27 },
     { x: 6, z: 44 },
-    { x: 20, z: 56 },
-    { x: 40, z: 62 },
-    { x: 60, z: 64 },
-    { x: 78, z: 74 },
+    { x: 20, z: 58 },
+    { x: 42, z: 70 },
+    { x: 62, z: 72 },
+    { x: 78, z: 80 },
   ], // northeast to ruins: forks off the north corridor and skirts the enlarged
-  // Sluice pond's town-facing shore, passing north of the outpost on its way east
+  // Sluice pond's town-facing shore, passing well north of the outpost on its way east
   [
     { x: 10, z: 3 },
     { x: 30, z: 8 },
@@ -1264,11 +1268,11 @@ export const ZONE1_ROADS: { x: number; z: number }[][] = [
     { x: 9, z: 7 },
     { x: 4, z: 26 },
     { x: 10, z: 48 },
-    { x: 26, z: 54 },
-    { x: 38, z: 54 },
+    { x: 26, z: 52 },
+    { x: 40, z: 52 },
   ], // spur to The Sluice: up the town-facing (east) shore of the millpond, around
   // its north end to the outpost, staying clear of the water and the west river.
-  // Passing within 5yd of the lodge + mascot, it also clears their decoration trees.
+  // The path runs SOUTH of the lodge + den, so the houses sit clearly on its north side.
 ];
 
 // ---------------------------------------------------------------------------
@@ -1297,9 +1301,11 @@ export const ZONE1_PROPS: ZonePropsDef = {
     // The Sluice outpost, on the north shore of the millpond (a short walk
     // northwest of town, clear of the plaza, the wolf woods, and the river). The
     // lodge is an `inn`, so its footprint grants classic rested XP: a real reason
-    // for a starter to walk out and rest by the beaver pond. Doors face the pond.
-    { kind: 'inn', x: 38, z: 56, w: 6, d: 7, rot: 3.05 }, // beaver lodge (rested XP)
-    { kind: 'house', x: 46, z: 58, w: 6, d: 5, rot: 2.9 }, // beaver den
+    // for a starter to walk out and rest by the beaver pond. Both houses sit on the
+    // NORTH side of the dirt-path spur (which now runs along z52), doors facing the
+    // pond and the path to the south.
+    { kind: 'inn', x: 38, z: 60, w: 6, d: 7, rot: 3.05 }, // beaver lodge (rested XP)
+    { kind: 'house', x: 46, z: 62, w: 6, d: 5, rot: 2.9 }, // beaver den
   ],
   wells: [{ x: 0, z: 2, r: 1.5 }],
   stalls: [
@@ -1318,8 +1324,8 @@ export const ZONE1_PROPS: ZonePropsDef = {
   // The Sluice work-camp pitches two stock canvas tents beside the lodge for the
   // Beaver crew (the Ashen Maw warcamp uses its own procedural raiderTents below).
   tents: [
-    { x: 34, z: 55, rot: 0.6, scale: 1 },
-    { x: 48, z: 56, rot: -1.1, scale: 1 },
+    { x: 34, z: 59, rot: 0.6, scale: 1 },
+    { x: 48, z: 60, rot: -1.1, scale: 1 },
   ],
   crates: [
     // Draxa the Riftsmith's Upgrade Bench stock dresses the western craft stall.
@@ -1331,8 +1337,8 @@ export const ZONE1_PROPS: ZonePropsDef = {
     [-11.8, 6.4],
     // The Sluice supply stacks: driftwood and trade crates by the beaver lodge and
     // the pond landing, dressing the outpost as a working camp.
-    [44, 56],
-    [38, 52],
+    [44, 60],
+    [40, 56],
     // Ashen Maw plunder stacks: stolen Bloomhaven crates piled by each tier's
     // tents (the q_ringleader steal-back objective reads them off these stacks).
     [59, -62],
@@ -1348,7 +1354,7 @@ export const ZONE1_PROPS: ZonePropsDef = {
     [-16.2, 6.2], // Draxa the Riftsmith's forge fire (Upgrade Bench)
     [-80, -60],
     [-61, 56],
-    [42, 56], // The Sluice: the beaver crew's hearth between lodge and den
+    [42, 60], // The Sluice: the beaver crew's hearth between lodge and den
   ],
   // Ashen Maw cookfires: one hearth at each tier of the warcamp (picket, muster,
   // heart). A Growverse-original procedural log-pyre in a blackened stone ring
@@ -1391,12 +1397,9 @@ export const ZONE1_PROPS: ZonePropsDef = {
     // raider timber rather than a stock pack asset.
     { x1: -15, z1: -18, x2: -15, z2: -26 },
     { x1: -15, z1: -26, x2: -8, z2: -26 },
-    // The Sluice: a low split-rail pen set on the open ground behind (north of) the
-    // beaver lodge, clear of the lodge footprint so it frames the camp without
-    // walling the road spur. (The lodge sits at ~z52.5-59.5; the pen stands north of
-    // it, its back to the pond on the south shore.)
-    { x1: 34, z1: 64, x2: 46, z2: 64 },
-    { x1: 34, z1: 64, x2: 34, z2: 59 },
+    // (The Sluice split-rail pen that used to stand behind the beaver lodge has been
+    // removed: the outpost is now an open, fence-free camp so nothing reads as walling
+    // the dirt-path spur that runs along its south side.)
   ],
   graveyards: [
     { x: -14, z: -25.5 }, // churchyard graves in the solemn south (grid grows +x/+z, seated clear of the chapel wall and inside the rail)
