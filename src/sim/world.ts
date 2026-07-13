@@ -200,6 +200,7 @@ const DOCK_HALFW = 2.4; // pier walkable half-width (local x); >= render DECK_HA
 const DOCK_EDGE = 0.15; // side taper: keep it tiny so the deck stays flat across its full width
 const DOCK_TIP = 1.2; // taper in from the water tip
 const DOCK_SHORE = 2.6; // long ease-in at the shore end so the bank grades smoothly to the deck
+const DOCK_APRON = 3.5; // sand ramp BEYOND the deck: raises a low shore up to deck level so there is no step-up onto the planks
 
 function dockDeckOffset(x: number, z: number, h: number): number {
   for (const d of PROPS.docks) {
@@ -213,18 +214,21 @@ function dockDeckOffset(x: number, z: number, h: number): number {
     const lx = c * dx - s * dz;
     const lz = s * dx + c * dz;
     if (lx <= -DOCK_HALFW || lx >= DOCK_HALFW) continue;
-    if (lz >= DOCK_BACK || lz <= -DOCK_LEN) continue;
+    if (lz >= DOCK_BACK + DOCK_APRON || lz <= -DOCK_LEN) continue;
     const wBlend = smoothstep(DOCK_HALFW, DOCK_HALFW - DOCK_EDGE, Math.abs(lx));
     const tipBlend = smoothstep(-DOCK_LEN, -DOCK_LEN + DOCK_TIP, lz); // 0 at the tip, 1 inward
     const backBlend = smoothstep(DOCK_BACK, DOCK_BACK - DOCK_SHORE, lz); // ease at the shore end
     // Over the shore half (lz >= 0) where the natural ground is at or BELOW the deck
     // (a low/wet bank), fill it straight UP to the flat deck with the width taper only
-    // (no shore ease-in), exactly like the water side. Easing DOWN into a low basin is
-    // what left the shore end of the jetty sagging below its own planks; keeping it flat
-    // means the deck start and its rails stay perfectly level. A HIGH bank (h > deck) still
-    // uses the full backBlend ease so it grades smoothly DOWN to meet the jetty.
+    // (no shore ease-in). The deck planks stay flat over [0, DOCK_BACK], then a sand
+    // apron over (DOCK_BACK, DOCK_BACK + DOCK_APRON] eases the RAISED ground back down to
+    // the natural bank, so the shore grades UP to meet the deck instead of leaving a
+    // step-up you have to jump onto the planks. Easing DOWN inside the plank region is what
+    // sagged the shore end below its own boards; a HIGH bank (h > deck) still uses the full
+    // backBlend ease below to grade smoothly DOWN to meet the jetty.
     if (lz >= 0 && h <= DOCK_DECK_Y) {
-      return h + (DOCK_DECK_Y - h) * wBlend * tipBlend;
+      const shoreProfile = smoothstep(DOCK_BACK + DOCK_APRON, DOCK_BACK, lz); // 1 through the deck, eases to 0 across the apron
+      return h + (DOCK_DECK_Y - h) * wBlend * tipBlend * shoreProfile;
     }
     const blend = wBlend * tipBlend * backBlend;
     // Over the water (lz < 0) only RAISE (never dig below the natural lakebed). Over a
