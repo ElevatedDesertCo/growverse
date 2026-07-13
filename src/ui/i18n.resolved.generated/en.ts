@@ -6064,11 +6064,6 @@ export const en: EnTranslations = {
         "title": "the Dockside Cook",
         "greeting": "Mirror Lake gives up a fine trout to a patient line. Grab a pole, and bring the catch back to my fire."
       },
-      "cook_marta": {
-        "name": "Marta",
-        "title": "the Dockside Cook",
-        "greeting": "The millpond is calm and the perch are biting. A pole is cheap, and a cooked meal is warm, {className}."
-      },
       "rowan_sawtooth": {
         "name": "Rowan Sawtooth",
         "title": "Sluice Warden",

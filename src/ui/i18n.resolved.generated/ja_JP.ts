@@ -6064,11 +6064,6 @@ export const ja_JP: EnTranslations = {
         "title": "波止場の料理人",
         "greeting": "ミラー湖は、辛抱強く糸を垂らせば見事なマスを恵んでくれる。竿を手に取って、釣った魚を私のかまどまで持ってきておくれ。"
       },
-      "cook_marta": {
-        "name": "マルタ",
-        "title": "波止場の料理人",
-        "greeting": "水車池は穏やかで、パーチがよく食いついているよ。竿は安いし、調理した料理は温かいからね、{className}。"
-      },
       "rowan_sawtooth": {
         "name": "ローワン・ソウトゥース",
         "title": "ザ・スルースの守り手",

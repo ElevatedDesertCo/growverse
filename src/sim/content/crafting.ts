@@ -333,19 +333,6 @@ export const CRAFT_NPCS: Record<string, NpcDef> = {
     greeting:
       'Mirror Lake gives up a fine trout to a patient line. Grab a pole, and bring the catch back to my fire.',
   },
-  cook_marta: {
-    id: 'cook_marta',
-    name: 'Marta',
-    title: 'the Dockside Cook',
-    pos: { x: 37, z: 47 },
-    facing: 2.6,
-    color: 0xd08a3c,
-    questIds: [],
-    vendorItems: ['simple_fishing_pole'],
-    crafting: 'cook',
-    greeting:
-      'The millpond is calm and the perch are biting. A pole is cheap, and a cooked meal is warm, $C.',
-  },
   // The Alchemist: runs the Alchemy Lab in Bloomhaven, near the Grow Station. Brew
   // Bloom Extract (harvested from vale flower patches) into healing/mana draughts
   // and a battle elixir.

@@ -719,9 +719,9 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     id: 'hazel_timbers',
     name: 'Hazel Timbers',
     title: 'Dam Quartermaster',
-    // on the north shore by the supply crates, minding the dock
-    pos: { x: 37, z: 55 },
-    facing: 3.1,
+    // on the shore by the millpond dock landing, facing east along the water
+    pos: { x: 48, z: 47 },
+    facing: 1.57,
     color: 0x6fa8dc,
     questIds: [],
     vendorItems: [
