@@ -135,12 +135,13 @@ export const CONFIGURED_PUBLIC_ORIGIN = resolvePublicOrigin(process.env.PUBLIC_O
 export const REALM_PUBLIC_ORIGIN =
   CONFIGURED_PUBLIC_ORIGIN || publicOriginForRealm(REALM, REALM_DIRECTORY);
 
-const DEFAULT_PRODUCTION_PUBLIC_ORIGIN = 'https://worldofclaudecraft.com';
-const TRUSTED_PUBLIC_HOST_ORIGINS = new Map([
-  ['worldofclaudecraft.com', DEFAULT_PRODUCTION_PUBLIC_ORIGIN],
-  ['www.worldofclaudecraft.com', DEFAULT_PRODUCTION_PUBLIC_ORIGIN],
-  ['dev.worldofclaudecraft.com', 'https://dev.worldofclaudecraft.com'],
-]);
+// Absolute origin used for OG/card URLs in production when the request Host is
+// not otherwise resolved. Deployers set it via PUBLIC_ORIGIN; when unset this is
+// '' so URLs fall back to relative rather than baking in a specific domain. The
+// trusted host->origin map is empty by default (no baked-in hosts); a configured
+// deploy is served by REALM_PUBLIC_ORIGIN, which short-circuits the lookups below.
+const DEFAULT_PRODUCTION_PUBLIC_ORIGIN = CONFIGURED_PUBLIC_ORIGIN;
+const TRUSTED_PUBLIC_HOST_ORIGINS = new Map<string, string>();
 
 function firstHeaderValue(value: string | string[] | undefined): string {
   return (Array.isArray(value) ? (value[0] ?? '') : (value ?? '')).split(',')[0].trim();

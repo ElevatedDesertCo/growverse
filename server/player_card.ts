@@ -23,7 +23,7 @@ import {
 import { isUniqueViolation, json, parsePngInfo, readBinaryBody } from './http_util';
 import { PLAYERCARD_NEW } from './player_card.newlocales';
 import { recordUsageMetric } from './provider_usage';
-import { REALM_PUBLIC_ORIGIN } from './realm';
+import { CONFIGURED_PUBLIC_ORIGIN, REALM_PUBLIC_ORIGIN } from './realm';
 
 // A composited card is ~1200×630 @2× PNG - comfortably under this bound, which
 // is generous enough to never reject a legitimate upload yet caps memory.
@@ -35,12 +35,13 @@ const CARD_PNG_DIMENSIONS = [
 const MAX_CARD_DECODED_BYTES = (2400 * 4 + 1) * 1260;
 const MAX_SLUG_LENGTH = 64;
 const MAX_SLUG_ATTEMPTS = 25;
-const DEFAULT_PRODUCTION_PUBLIC_ORIGIN = 'https://worldofclaudecraft.com';
-const TRUSTED_PUBLIC_HOST_ORIGINS = new Map([
-  ['worldofclaudecraft.com', DEFAULT_PRODUCTION_PUBLIC_ORIGIN],
-  ['www.worldofclaudecraft.com', DEFAULT_PRODUCTION_PUBLIC_ORIGIN],
-  ['dev.worldofclaudecraft.com', 'https://dev.worldofclaudecraft.com'],
-]);
+// Absolute origin for card OG/canonical URLs in production when the request Host
+// is not otherwise resolved. Deployers set it via PUBLIC_ORIGIN; when unset this
+// is '' so URLs fall back to relative rather than baking in a specific domain. The
+// trusted host->origin map is empty by default (no baked-in hosts); a configured
+// deploy is served by REALM_PUBLIC_ORIGIN, which short-circuits the lookups below.
+const DEFAULT_PRODUCTION_PUBLIC_ORIGIN = CONFIGURED_PUBLIC_ORIGIN;
+const TRUSTED_PUBLIC_HOST_ORIGINS = new Map<string, string>();
 const CARD_NOT_FOUND_HEADERS = {
   'Content-Type': 'text/plain',
   'Cache-Control': 'no-store, max-age=0',
@@ -316,8 +317,7 @@ export const PUBLIC_CARD_COPY: Record<PublicCardLocale, PublicCardCopy> = {
     gameName: 'Growverse',
     unknownClass: '모험가',
     levelClass: '{level}레벨 {className}',
-    description:
-      '{name}님이 Growverse에서 전설을 만들어 가고 있습니다. 세계에 합류하세요.',
+    description: '{name}님이 Growverse에서 전설을 만들어 가고 있습니다. 세계에 합류하세요.',
     cta: '나만의 전설 만들기',
     missingTitle: '카드를 찾을 수 없음',
     missingHeading: '이 카드는 더 이상 사용할 수 없습니다.',
