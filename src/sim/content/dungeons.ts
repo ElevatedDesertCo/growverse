@@ -840,7 +840,7 @@ export const DUNGEON_DEFS: Record<string, DungeonDef> = {
     id: 'hollow_crypt',
     name: 'The Hollow Crypt',
     index: 0,
-    doorPos: { x: 80, z: 90 }, // entrance portal at the chapel ruin
+    doorPos: { x: 168, z: 84 }, // cave-mouth at the back cliff of the Skeleton Grotto (west rim)
     entry: { x: 0, z: 4 },
     exitOffset: { x: 0, z: -6 },
     spawns: CRYPT_SPAWN_LIST,

@@ -52,6 +52,25 @@ export const MIREFEN_IMPACT_CRATER = {
   rimHeight: 0.95,
 } as const;
 
+// The Skeleton Grotto (zone1): a great hollow gouged into the foot of the western
+// rim mountain, where the Hollow Crypt's undead now muster. It is a pure terrain
+// primitive (no rng, no props, no colliders): a flat bowl floor pinned well below
+// the rim, ringed by steep rock walls on three sides, with a single wide mouth
+// opening EAST toward the vale (east is -x here). Applied LAST in terrainHeight so
+// the floor carve WINS over the ambient world rim (like the Sluice river beats the
+// peak). The walls rise faster than PLAYER_MAX_CLIMB_SLOPE, so they contain the
+// player exactly the way the world rim does, and the renderer paints their steep,
+// high faces as bare rock on its own. The crypt cave-mouth (DUNGEONS.hollow_crypt.
+// doorPos) sits at the floor's west edge, set into the base of the back cliff.
+export const SKELETON_GROTTO = {
+  x: 150, // grotto center (foot of the western rim, well north of the Sluice)
+  z: 84,
+  floorY: 8, // flat floor height (a touch above the ambient vale field so the mouth grades out)
+  bowlRadius: 22, // flat floor reach: the walkable encounter arena
+  radius: 34, // outer reach: the rock-wall crest ring beyond the floor
+  wallHeight: 16, // how far the enclosing rock wall rises above the floor on the walled arcs
+} as const;
+
 // The Sluice waterway (zone1): a millpond (carved as a lake in content) fed by a
 // river that runs west, roughly level, all the way to a mountain at the world's
 // edge where a waterfall spills into it. These are pure carve/raise primitives
@@ -124,6 +143,40 @@ export function mirefenImpactCraterOffset(x: number, z: number): number {
   const rim =
     MIREFEN_IMPACT_CRATER.rimHeight * smoothstep(0, 0.35, rimT) * (1 - smoothstep(0.72, 1, rimT));
   return bowl + rim;
+}
+
+// Carve the Skeleton Grotto into whatever terrain h already is (called AFTER the rim
+// so the floor overrides it). Inside the bowl the floor is pinned to floorY; in the
+// ring beyond it a steep rock wall rises on every arc EXCEPT the eastern mouth cone,
+// which instead grades the floor back out to the natural field so the player can walk
+// in. Returns the new height (never touched outside `radius`).
+export function skeletonGrottoOffset(x: number, z: number, h: number): number {
+  const g = SKELETON_GROTTO;
+  const dx = x - g.x;
+  const dz = z - g.z;
+  const d = Math.sqrt(dx * dx + dz * dz);
+  if (d >= g.radius) return h;
+  // Mouth faces EAST (-x): points east of center have dx < 0, so -dx/d is +1 due east.
+  // `openness` is 1 inside the east mouth cone and 0 on the walled sides and back.
+  const eastDot = d > 1e-3 ? -dx / d : 0;
+  const openness = smoothstep(0.15, 0.72, eastDot);
+  // Floor: hard-pin toward floorY across the bowl, feathering back to natural at the
+  // outer ring so the wall (walled arcs) or the field (mouth) takes over cleanly.
+  const floorPin = smoothstep(g.radius, g.bowlRadius, d); // 1 for d <= bowlRadius, 0 at radius
+  let out = h * (1 - floorPin) + g.floorY * floorPin;
+  // Wall: a steep rock lip in the ring, suppressed across the mouth. Peaks mid-ring so
+  // the rise from the floor rim clears PLAYER_MAX_CLIMB_SLOPE and reads as a cliff.
+  const ringMid = (g.bowlRadius + g.radius) / 2;
+  const wallProfile = smoothstep(g.bowlRadius, ringMid, d) * (1 - smoothstep(ringMid, g.radius, d));
+  out += g.wallHeight * wallProfile * (1 - openness);
+  return out;
+}
+
+// A point sits on the grotto's walkable floor (used to keep the decoration field off
+// the encounter arena; the wall arcs still take their natural rocks/pines).
+function isOnGrottoFloor(x: number, z: number): boolean {
+  const g = SKELETON_GROTTO;
+  return Math.hypot(x - g.x, z - g.z) < g.bowlRadius + 1;
 }
 
 // The western mountain that backs the Sluice waterfall: a gaussian peak.
@@ -344,6 +397,8 @@ export function terrainHeight(x: number, z: number, seed: number): number {
   const rimN = smoothstep(WORLD_MAX_Z - 30, WORLD_MAX_Z, z);
   const rim = Math.max(rimX, rimS, rimN);
   h += rim * 40;
+  // Carve the Skeleton Grotto AFTER the rim so its floor wins over the mountainside.
+  h = skeletonGrottoOffset(x, z, h);
   h += mirefenImpactCraterOffset(x, z);
   h = sluiceBridgeOffset(x, z, h, seed);
   h = dockDeckOffset(x, z, h);
@@ -446,6 +501,7 @@ export function generateDecorations(seed: number): Decoration[] {
       if (isExcludedDecoration(x, z)) continue;
       if (isOnSluiceBridge(x, z)) continue;
       if (isOnDock(x, z)) continue;
+      if (isOnGrottoFloor(x, z)) continue;
       let inHub = false;
       for (const zone of ZONES) {
         const dx = x - zone.hub.x,

@@ -10,8 +10,8 @@
     "pulseGroundAoE over 2+ in-radius hostiles: rng.range per target, stable order",
     "class:paladin"
   ],
-  "draws": 967,
-  "drawDigest": "1b1e2bfb",
+  "draws": 968,
+  "drawDigest": "b4b00de0",
   "frames": [
     {
       "tick": 0,
@@ -772,19 +772,19 @@
       "state": "5e22121f",
       "events": "741638a5",
       "rng": {
-        "draws": 949,
-        "digest": "67536440"
+        "draws": 950,
+        "digest": "523589d3"
       }
     },
     {
       "tick": 182,
       "time": 9.1,
       "nextId": 498,
-      "state": "54d6354b",
-      "events": "5f98d3fd",
+      "state": "15bdb93b",
+      "events": "c5605240",
       "rng": {
-        "draws": 967,
-        "digest": "1b1e2bfb"
+        "draws": 968,
+        "digest": "b4b00de0"
       },
       "label": "final",
       "players": [
@@ -796,7 +796,7 @@
           "cls": "paladin",
           "companionUpgrades": {},
           "counters": {
-            "damageDealt": 258,
+            "damageDealt": 255,
             "damageTaken": 27
           },
           "delveClears": {},
@@ -930,7 +930,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 39869,
+          "hp": 39874,
           "id": 496,
           "inCombat": true,
           "kind": "mob",
@@ -963,7 +963,7 @@
           "threat": [
             [
               494,
-              132
+              127
             ]
           ],
           "weapon": {
@@ -983,7 +983,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 39873,
+          "hp": 39871,
           "id": 497,
           "inCombat": true,
           "kind": "mob",
@@ -1016,7 +1016,7 @@
           "threat": [
             [
               494,
-              128
+              130
             ]
           ],
           "weapon": {

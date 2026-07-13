@@ -1163,9 +1163,15 @@ export const ZONE1_CAMPS: CampDef[] = [
   { mobId: 'dust_reaver', center: { x: 80, z: -77 }, radius: 15, count: 3 },
   { mobId: 'vale_bandit', center: { x: 91, z: -90 }, radius: 13, count: 3 },
   { mobId: 'gorrak', center: { x: 92, z: -92 }, radius: 2, count: 1 },
-  // Undead: ruins northeast
-  { mobId: 'restless_bones', center: { x: 80, z: 78 }, radius: 18, count: 8 },
-  { mobId: 'captain_verlan', center: { x: 92, z: 90 }, radius: 4, count: 1 },
+  // Undead: the Skeleton Grotto, a hollow gouged into the foot of the western rim
+  // mountain (SKELETON_GROTTO in world.ts). The husk pack musters across the flat
+  // arena floor; the husk radius is tightened from 18 to 14 so the pack sits inside
+  // the bowl instead of spilling onto the walls (radius only scales each spawn's
+  // drawn offset, so this shifts NO rng draw order). Verlan holds the back, near the
+  // crypt cave-mouth. (Re-centering + radius are the camp loop's own final draws, so
+  // moving these moves mobs without shifting any downstream spawn roll.)
+  { mobId: 'restless_bones', center: { x: 146, z: 84 }, radius: 14, count: 8 },
+  { mobId: 'captain_verlan', center: { x: 160, z: 84 }, radius: 4, count: 1 },
 ];
 
 // Spawned LAST in the merged CAMPS array (see data.ts) so these appended draws
@@ -1174,9 +1180,10 @@ export const ZONE1_CAMPS: CampDef[] = [
 // none). Keeping the rare elite at the tail means adding it shifts no other
 // content's deterministic spawn rolls, so fixed-seed tests stay stable.
 export const ZONE1_CHAPEL_CAMPS: CampDef[] = [
-  // A pair of bone guardians flank the chapel's broken altar; their binder lurks within.
-  { mobId: 'restless_bones', center: { x: 88, z: 90 }, radius: 6, count: 2 },
-  { mobId: 'wraithbinder_maldrec', center: { x: 88, z: 92 }, radius: 3, count: 1 },
+  // A pair of bone guardians flank the ruined altar at the grotto's back; their binder
+  // lurks by the crypt cave-mouth in the cliff.
+  { mobId: 'restless_bones', center: { x: 163, z: 84 }, radius: 5, count: 2 },
+  { mobId: 'wraithbinder_maldrec', center: { x: 164, z: 86 }, radius: 3, count: 1 },
 ];
 
 export const ZONE1_OBJECTS: GroundObjectDef[] = [
@@ -1195,24 +1202,25 @@ export const ZONE1_OBJECTS: GroundObjectDef[] = [
   {
     itemId: 'gravecaller_sigil',
     name: "Blightcaller's Sigil",
+    // Scattered across the Skeleton Grotto floor among the husks (see SKELETON_GROTTO).
     positions: [
-      { x: 84, z: 88 },
-      { x: 76, z: 92 },
+      { x: 151, z: 88 },
+      { x: 143, z: 80 },
     ],
   },
   {
     itemId: 'weathered_ledger_page',
     name: 'Weathered Ledger Page',
     positions: [
-      { x: 78, z: 84 },
-      { x: 83, z: 88 },
-      { x: 86, z: 92 },
+      { x: 145, z: 84 },
+      { x: 150, z: 90 },
+      { x: 154, z: 79 },
     ],
   },
   {
     itemId: 'morthen_grimoire',
     name: "Morthen's Grimoire",
-    positions: [{ x: 78, z: 86 }],
+    positions: [{ x: 158, z: 87 }],
   },
 ];
 
@@ -1238,9 +1246,12 @@ export const ZONE1_ROADS: { x: number; z: number }[][] = [
     { x: 20, z: 58 },
     { x: 42, z: 70 },
     { x: 62, z: 72 },
-    { x: 78, z: 80 },
-  ], // northeast to ruins: forks off the north corridor and skirts the enlarged
-  // Sluice pond's town-facing shore, passing well north of the outpost on its way east
+    { x: 82, z: 78 },
+    { x: 104, z: 82 },
+    { x: 126, z: 84 },
+  ], // to the Skeleton Grotto: forks off the north corridor, skirts the enlarged
+  // Sluice pond's town-facing shore, then runs west across the field to the grotto
+  // mouth at the foot of the western rim mountain
   [
     { x: 10, z: 3 },
     { x: 30, z: 8 },
@@ -1385,7 +1396,7 @@ export const ZONE1_PROPS: ZonePropsDef = {
     [-69, 55],
   ],
   ruinRings: [
-    { x: 80, z: 78, ringR: 7, columns: 7 },
+    { x: 154, z: 84, ringR: 7, columns: 7 }, // toppled chapel columns on the Skeleton Grotto floor
     { x: -5, z: -60, ringR: 8, columns: 6 },
   ],
   // A low L-shaped churchyard rail southwest of the chapel + graves (well clear
