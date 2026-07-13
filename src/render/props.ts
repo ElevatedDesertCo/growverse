@@ -230,6 +230,10 @@ const MAT_OVERRIDES: Record<
   // Elevated Obelisk ships materialless (GLTFLoader's white default): grade it to
   // weathered desert sandstone so the waystone reads as carved stone, not plastic.
   'obelisk:': { color: 0xc2a878, roughness: 0.82, metalness: 0 },
+  // pirate-kit dock platform ships a salmon/orange painted plank atlas that clashes
+  // with Bloomhaven's weathered desert timber; retint it onto the same warm bleached
+  // wood tone as the village Wood override so the Sluice pier reads as sun-worn planks.
+  'pirate:colormap': { color: 0x8a6a45, roughness: 0.9, metalness: 0 },
 };
 
 // ---------------------------------------------------------------------------
@@ -2097,8 +2101,11 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
       d.x + lx * dc + lz * ds,
       d.z - lx * ds + lz * dc,
     ];
-    // plank sections seated on the raised deck, marching out over the water
-    for (let i = 0; i < 5; i++) {
+    // plank sections seated on the raised deck, marching out over the water. Stop
+    // short of the deck's tip-taper (sim/world.ts dockDeckOffset tapers the deck DOWN
+    // to the natural lakebed past lz -7.8); the last section sits at -6.85, on flat
+    // deck, so no plank sinks into the deepened Sluice pond.
+    for (let i = 0; i < 4; i++) {
       const lz = -0.7 - i * 2.05;
       const [wx, wz] = worldOf(0, lz);
       addParts(g, 'dockPlatform', {
@@ -2111,7 +2118,7 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     // support pilings dropping into the water + a rail post above the deck each side
     for (const side of [-1, 1] as const) {
       const lx = side * 1.5;
-      for (let i = 0; i < 6; i++) {
+      for (let i = 0; i < 5; i++) {
         const lz = -0.4 - i * 1.7;
         const [wx, wz] = worldOf(lx, lz);
         const deckTop = ground(wx, wz); // the raised deck height here
@@ -2124,11 +2131,12 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
         railPost.scale.set(0.72, 0.9, 0.72);
         g.add(railPost);
       }
-      // a level top rail running the pier length (the deck is flat over the water)
+      // a level top rail running the pier length (the deck is flat over the water);
+      // spans the shortened deck (~0 to -7.2) so it does not overhang open water
       const rail = new THREE.Mesh(dockRailGeo, dockPlankMat);
-      rail.position.set(lx, DOCK_DECK_Y - y + 0.82, -4.65);
+      rail.position.set(lx, DOCK_DECK_Y - y + 0.82, -3.6);
       rail.rotation.x = Math.PI / 2;
-      rail.scale.y = 9.2;
+      rail.scale.y = 7.4;
       g.add(rail);
     }
     const hut = propAsset('house3');
