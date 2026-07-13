@@ -2129,26 +2129,38 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
       plank.position.set(0, top - y - DECK_THICK / 2 + lift, lz);
       g.add(plank);
     }
-    // underfill boards seated between and just below the surface planks: where the deck
-    // ramps up onto the shore the stepped boards would otherwise open riser gaps that
-    // show the dirt beneath, so this lower course backs those gaps with wood everywhere.
-    for (let i = 0; i < N_PLANKS; i++) {
-      const lz = DECK_Z_SHORE + (i + 0.5) * plankStep;
+    // solid substrate ribbon under the boards: a dense chain of overlapping boxes whose
+    // TOP tracks the local terrain (so it sits right under the plank underside) and whose
+    // body drops SUB_DEPTH below. Where the deck ramps up onto the shore the stepped
+    // cross-boards open vertical riser gaps that used to show dirt through them; each
+    // substrate box is deep enough to fill that riser and overlaps its neighbours in z, so
+    // looking straight down through any gap now lands on wood, never the earth beneath.
+    const SUB_STEPS = N_PLANKS * 2; // dense: no gap between substrate boxes
+    const SUB_DEPTH = 1.0; // tall enough to seal any shore-ramp riser
+    const subStep = (DECK_Z_TIP - DECK_Z_SHORE) / SUB_STEPS;
+    const subGeo = new THREE.BoxGeometry(DECK_HALFW * 2, SUB_DEPTH, Math.abs(subStep) + 0.28);
+    for (let i = 0; i <= SUB_STEPS; i++) {
+      const lz = DECK_Z_SHORE + i * subStep;
       const [wx, wz] = worldOf(0, lz);
       const top = ground(wx, wz);
-      const fill = new THREE.Mesh(deckPlankGeo, dockPlankMat2);
-      fill.position.set(0, top - y - DECK_THICK / 2 - 0.06, lz);
-      g.add(fill);
+      const sub = new THREE.Mesh(subGeo, dockPlankMat2);
+      // seat the box TOP a hair below the terrain/plank top so it backs the risers
+      sub.position.set(0, top - y - SUB_DEPTH / 2 - 0.02, lz);
+      g.add(sub);
     }
     // Railing: evenly spaced posts down both long edges, with support pilings dropping
     // into the water, and top + mid rails built as SEGMENTS between consecutive posts so
     // the rail follows the deck (staying a fixed height above it as it ramps at the shore)
     // instead of a single flat bar that detaches from the posts. Both sides use the same
     // node list mirrored by `side`, so the railing is symmetric and fully connected. The
-    // rail stops short of the shore mouth (RAIL_Z_SHORE) to leave an open entry.
-    const N_RAIL_POSTS = 9;
-    const RAIL_Z_SHORE = 2.0; // terminal post; deck stays open from here to the shore mouth
-    const RAIL_Z_TIP = DECK_Z_TIP + 0.3;
+    // side rails run the FULL deck length end to end (shore board to water tip); since they
+    // hug the two long edges only, the shore end face stays open so players still walk on.
+    // Each rail segment is offset a fixed height above the LOCAL deck top at its two posts,
+    // so the rail keeps a uniform height above the deck along the whole run (including the
+    // shore ramp), never dipping or riding high.
+    const N_RAIL_POSTS = 11;
+    const RAIL_Z_SHORE = DECK_Z_SHORE - 0.2; // first post at the shore end of the boards
+    const RAIL_Z_TIP = DECK_Z_TIP; // last post at the water tip: rails reach the deck end
     const RAIL_TOP_H = 1.15; // top-rail height above the deck
     const RAIL_MID_H = 0.62; // mid-rail height
     const railLx = DECK_HALFW - 0.2;
