@@ -1,11 +1,11 @@
-# Deploying World of Claudecraft on AWS
+# Self-hosting The Growverse multiplayer server on AWS
 
-> **Levy Street production** is deployed via Ansible, not this document:
-> the `eastbrook_game` role in the internal `ansible-scripts` repo runs
-> the stack on `idyllic-games-prod` behind nginx + certbot at
-> https://worldofclaudecraft.com. Re-running
-> `ansible-playbook playbooks/setup_server.yml -e target_host=idyllic-games-prod`
-> pulls and redeploys. The guide below is the generic, standalone path.
+> **You do not need any of this to ship The Growverse.** The Growverse is a
+> browser client: the primary deploy is the static client bundle (hosted on
+> Vercel or any static host) plus the offline single-player mode, which runs the
+> whole game in the browser with no backend at all. This guide covers only the
+> OPTIONAL authoritative multiplayer server (Postgres-backed accounts sharing one
+> live world).
 
 One EC2 instance runs everything: the game server, Postgres, MediaWiki, and Caddy
 (TLS reverse proxy). Sized for a small population — a `t4g.small`
@@ -13,9 +13,8 @@ One EC2 instance runs everything: the game server, Postgres, MediaWiki, and Cadd
 
 ## 1. Confirm the repo is public
 
-The standalone first-boot script clones
-`https://github.com/levy-street/world-of-claudecraft.git` anonymously. If you
-are deploying a private fork instead, use a deploy key or another secret
+The standalone first-boot script clones the game repo anonymously. If you are
+deploying a private fork instead, use a deploy key or another secret
 manager-specific flow; do not paste long-lived personal access tokens into EC2
 user data.
 
@@ -137,8 +136,8 @@ For off-box safety, sync the directory to S3 occasionally:
   - `VITE_TURNSTILE_SITEKEY` (public): renders the widget. This is read by the
     **client and inlined at `npm run build` time**, so it must be present when the
     image/bundle is built, not just at runtime. Use a separate Turnstile widget per
-    environment (dev vs prod). If the origin's nginx (in the `ansible-scripts` repo)
-    sets a Content-Security-Policy, it must allow `script-src`/`frame-src
+    environment (dev vs prod). If your origin's reverse proxy (nginx/Caddy) sets a
+    Content-Security-Policy, it must allow `script-src`/`frame-src
     https://challenges.cloudflare.com` or the widget won't load.
 - **Wallet linking**: the wallet UI uses injected Solana browser wallets and no
   third-party wallet-connect project id. $WOC balance reads are server-side
@@ -173,11 +172,10 @@ For off-box safety, sync the directory to S3 occasionally:
 The admin dashboard (account/character/session metrics, live players,
 server health) is served by the same game server process:
 
-- **Production**: point `admin.worldofclaudecraft.com` at the instance
-  (A record) and add a server block for it in the nginx config in the
-  internal `ansible-scripts` repo, proxying to the same game port as the
-  main site. The Node server serves the dashboard for any hostname
-  starting with `admin.`.
+- **Production**: point an `admin.<your-domain>` A record at the instance and
+  add a server block for it in your reverse-proxy config, proxying to the same
+  game port as the main site. The Node server serves the dashboard for any
+  hostname starting with `admin.`.
 - **Standalone/Caddy**: set `ADMIN_DOMAIN` in `deploy/user-data.sh`
   (or add the extra site block to `/etc/caddy/Caddyfile` by hand).
 - **Local dev**: open `http://localhost:8787/admin` (or `/admin` under

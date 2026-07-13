@@ -1,6 +1,6 @@
 # Security Policy
 
-We take the security of World of ClaudeCraft seriously, and we appreciate the work
+We take the security of The Growverse seriously, and we appreciate the work
 of everyone who helps keep players and self-hosters safe.
 
 ## Reporting a vulnerability
@@ -9,16 +9,10 @@ of everyone who helps keep players and self-hosters safe.
 pull requests, or Discord.** Public disclosure before a fix is available puts
 players and people running their own servers at risk.
 
-Instead, report privately using one of these channels:
-
-- **GitHub private advisory (preferred).** Go to the
-  [Security tab](https://github.com/levy-street/world-of-claudecraft/security/advisories/new)
-  and open a draft advisory. This keeps the report private between you and the
-  maintainers until a fix is ready.
-- **Discord.** If you can't use GitHub advisories, send a private message to a
-  member of the **Levy St**, **Admin**, or **Devs** group on the
-  [community Discord](https://discord.gg/KSTJkrCq3) and ask for a secure way to
-  share the details.
+Instead, report privately using a **GitHub private advisory (preferred).** Go to the
+[Security tab](https://github.com/ElevatedDesertCo/growverse/security/advisories/new)
+and open a draft advisory. This keeps the report private between you and the
+maintainers until a fix is ready.
 
 Please include as much as you can:
 
@@ -41,7 +35,7 @@ without permission.
 
 ## Supported versions
 
-World of ClaudeCraft is under active development and is currently pre-1.0. Security
+The Growverse is under active development and is currently pre-1.0. Security
 fixes land on the `main` branch and ship in the next release, so the most recent
 release and the current `main` are the supported targets. If you run a self-hosted
 server, please keep it up to date.

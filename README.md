@@ -1,6 +1,6 @@
 <div align="center">
 
-# Growverse
+# The Growverse
 
 **Quest, group up, and raid a hand-built world, free in your browser.**
 
@@ -10,7 +10,7 @@ A project by Elevated Desert Co.
 
 ## What this is
 
-Growverse is a classic-style browser MMO built on one deterministic TypeScript simulation core that runs in three places:
+The Growverse is a classic-style browser MMO built on one deterministic TypeScript simulation core that runs in three places:
 
 - the **offline browser world** — click Play Offline and you are in,
 - the **authoritative multiplayer server** — Postgres-backed accounts sharing a live world,
@@ -52,6 +52,6 @@ See `DEPLOY.md` for production hosting and `CLAUDE.md` for the architecture guid
 
 ## Credits and license
 
-Growverse is a fork of [World of ClaudeCraft](https://github.com/levy-street/world-of-claudecraft) by levy-street, used under the MIT License. See `LICENSE`, `CREDITS.md`, and `THIRD_PARTY_NOTICES.md` for full attribution.
+The Growverse is a fork of [World of ClaudeCraft](https://github.com/levy-street/world-of-claudecraft) by levy-street, used under the MIT License. See `LICENSE`, `CREDITS.md`, and `THIRD_PARTY_NOTICES.md` for full attribution.
 
 MIT licensed.
