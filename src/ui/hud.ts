@@ -175,6 +175,7 @@ import {
 import { esc } from './esc';
 import { fctSpawnShape } from './fct_event';
 import { FctPainter } from './fct_painter';
+import { createFishingCatchPopup, type FishingCatchPopup } from './fishing_catch_popup';
 import { FocusManager, type FocusTrapHandle } from './focus_manager';
 import {
   type AimPoint,
@@ -744,6 +745,10 @@ export class Hud {
   private errorEl = $('#error-msg');
   private bannerEl = $('#banner');
   private subzoneEl = $('#subzone-banner');
+  // One-shot fishing catch/miss card, composed over the HUD (its own module).
+  private fishingCatchPopup: FishingCatchPopup = createFishingCatchPopup(
+    this.bannerEl.parentElement ?? document.body,
+  );
   private tooltipEl = $('#tooltip');
   // Distinguishes a touch long-press "peek" (inspect, no action) from a tap.
   private peekGuard = new TouchPeekGuard();
@@ -6547,6 +6552,19 @@ export class Hud {
           break; // logged by sim
         case 'comboPoint':
           break;
+        case 'fishCatch': {
+          // The sim only sends the item id (or null on a miss); localize the fish
+          // name + copy here and show the icon. The plain 'log' catch line the sim
+          // also emitted still records the moment in chat.
+          const title = ev.itemId
+            ? t('hudChrome.fishing.caughtPopup', {
+                item: tEntity({ kind: 'item', id: ev.itemId, field: 'name' }),
+              })
+            : t('hudChrome.fishing.nothing');
+          this.fishingCatchPopup.show({ title, itemId: ev.itemId, rare: ev.rare });
+          if (ev.itemId) audio.lootItem();
+          break;
+        }
         case 'loot': {
           this.log(this.localizeLootText(ev.text), '#7fdc4f');
           if (

@@ -17,6 +17,8 @@ import {
   assembleModel,
   ensureSkinTexture,
   prepareVisual,
+  resolveHandBone,
+  setFishingStance,
   setHeldWeapon,
   skinEmissiveTexture,
   skinTexture,
@@ -105,6 +107,9 @@ export class CharacterVisual {
   private shadowOn = true;
   private far = false;
   private soulRend = false;
+  private fishing = false;
+  private handBone: THREE.Object3D | null = null;
+  private handBoneResolved = false;
   private bobPhase = Math.random() * Math.PI * 2;
 
   constructor(
@@ -465,6 +470,33 @@ export class CharacterVisual {
     this.originalMaterials.clear();
     this.rebuildCasters();
     this.applyVisualMaterials();
+    // a mid-fishing gear swap re-creates the weapon meshes visible; re-stow them
+    // so the rod stance survives an equip during the 5s cast.
+    if (this.fishing) setFishingStance(this.model, true);
+  }
+
+  /** Stow the equipped weapon(s) into a fishing stance (hidden) or restore them.
+   *  Idempotent by state, so the renderer can call it every frame with the current
+   *  fishing flag. The held rod itself is a world-space prop the renderer anchors to
+   *  {@link handAnchorWorld}; this only clears the hands. */
+  setFishing(active: boolean): void {
+    if (active === this.fishing) return;
+    this.fishing = active;
+    setFishingStance(this.model, active);
+  }
+
+  /** World position of the mainhand bone, for anchoring a held prop (the fishing
+   *  rod) to the actual hand rather than a facing-derived guess. Returns false if
+   *  the rig has no resolvable hand bone (the caller then falls back). The bone is
+   *  resolved once and cached. */
+  handAnchorWorld(out: THREE.Vector3): boolean {
+    if (!this.handBoneResolved) {
+      this.handBone = resolveHandBone(this.model);
+      this.handBoneResolved = true;
+    }
+    if (!this.handBone) return false;
+    this.handBone.getWorldPosition(out);
+    return true;
   }
 
   /** Rebuild the shadow-caster list and original-material snapshot after the model

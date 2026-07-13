@@ -1065,7 +1065,9 @@ export const ru_RU: EnTranslations = {
     },
     "fishing": {
       "caught": "Вы поймали: {item}!",
-      "introHint": "Повернитесь к воде и используйте удочку, чтобы ловить рыбу."
+      "introHint": "Повернитесь к открытой воде и нажмите F, чтобы забросить леску.",
+      "caughtPopup": "Вы поймали: {item}!",
+      "nothing": "Ничего не поймано."
     }
   },
   "guide": {

@@ -193,7 +193,9 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
     "hudChrome.fishing.caught",
+    "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
+    "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -381,7 +383,9 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
     "hudChrome.fishing.caught",
+    "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
+    "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -569,7 +573,9 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
     "hudChrome.fishing.caught",
+    "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
+    "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -757,7 +763,9 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
     "hudChrome.fishing.caught",
+    "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
+    "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -946,7 +954,9 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
     "hudChrome.fishing.caught",
+    "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
+    "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -1134,7 +1144,9 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
     "hudChrome.fishing.caught",
+    "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
+    "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -1354,7 +1366,9 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
     "hudChrome.fishing.caught",
+    "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
+    "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -1550,7 +1564,9 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
     "hudChrome.fishing.caught",
+    "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
+    "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -1738,7 +1754,9 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
     "hudChrome.fishing.caught",
+    "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
+    "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -1926,7 +1944,9 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
     "hudChrome.fishing.caught",
+    "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
+    "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -2114,7 +2134,9 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
     "hudChrome.fishing.caught",
+    "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
+    "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -2302,7 +2324,9 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
     "hudChrome.fishing.caught",
+    "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
+    "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -2490,7 +2514,9 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
     "hudChrome.fishing.caught",
+    "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
+    "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -2678,7 +2704,9 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
     "hudChrome.fishing.caught",
+    "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
+    "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ]
