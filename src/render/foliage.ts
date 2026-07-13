@@ -1086,8 +1086,8 @@ function dressKindFor(biome: BiomeId, r: number): DressKind {
     if (r < 0.42) return 'bush';
     if (r < 0.52) return 'grass';
     if (r < 0.58) return 'grassTall';
-    if (r < 0.66) return 'bushFlowers';
-    if (r < 0.74) return 'flower'; // geometric desert blooms, an occasional accent
+    if (r < 0.68) return 'bushFlowers';
+    if (r < 0.72) return 'flower'; // geometric desert blooms, a sparse accent
     return 'fern';
   }
   if (biome === 'marsh') {
@@ -1110,7 +1110,7 @@ const DRESS_SCALE: Record<DressKind, [number, number]> = {
   mushroom: [0.9, 0.8],
   grass: [0.7, 0.9],
   grassTall: [0.85, 1.0],
-  flower: [0.7, 0.4],
+  flower: [0.5, 0.3], // small, bush-sized so it settles into the scrub
 };
 
 function tooSteep(x: number, z: number, seed: number): boolean {
