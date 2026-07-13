@@ -86,13 +86,94 @@ function bobberNoseGeometry(): THREE.ConeGeometry {
   return nose;
 }
 
-// PURE: the rod, a thin tapered pole along local +Y with the BUTT at the origin and
-// the TIP at (0, ROD_LENGTH, 0), so the caller only has to place the butt in the hand
-// and aim +Y up-and-out; the line then hangs off the tip.
-function rodGeometry(): THREE.CylinderGeometry {
-  const rod = new THREE.CylinderGeometry(0.008, 0.026, ROD_LENGTH, 6);
-  rod.translate(0, ROD_LENGTH / 2, 0);
-  return rod;
+// The rod: a detailed procedural spinning rod as a small group, BUTT at the local
+// origin and TIP at (0, ROD_LENGTH, 0) along +Y, so the caller only places the butt in
+// the hand and aims +Y up-and-out; the line then hangs off the tip. Parts are merged by
+// colour into a handful of solid-lambert meshes (cork grip, tapered graphite blank,
+// black fittings + line guides, reel body, metal reel faces/handle) to keep the
+// draw-call count low. Sizes are in yards; the reel hangs off the local -Z side.
+function buildRod(): THREE.Group {
+  const g = new THREE.Group();
+  g.name = 'rod';
+
+  const cork: THREE.BufferGeometry[] = [];
+  const graphite: THREE.BufferGeometry[] = [];
+  const black: THREE.BufferGeometry[] = [];
+  const reelBody: THREE.BufferGeometry[] = [];
+  const metal: THREE.BufferGeometry[] = [];
+
+  // rubber butt cap at the very end (in the hand)
+  black.push(new THREE.SphereGeometry(0.036, 10, 8));
+
+  // cork fore-grip
+  const grip = new THREE.CylinderGeometry(0.03, 0.034, 0.3, 12);
+  grip.translate(0, 0.15, 0);
+  cork.push(grip);
+
+  // reel seat: a black collar above the grip
+  const seat = new THREE.CylinderGeometry(0.024, 0.028, 0.1, 12);
+  seat.translate(0, 0.35, 0);
+  black.push(seat);
+
+  // reel foot/arm dropping below the seat to the spool
+  const arm = new THREE.BoxGeometry(0.024, 0.02, 0.1);
+  arm.translate(0, 0.335, -0.05);
+  black.push(arm);
+
+  // reel body (spool), axis along local X so a round face shows to each side
+  const body = new THREE.CylinderGeometry(0.066, 0.066, 0.052, 16);
+  body.rotateZ(Math.PI / 2);
+  body.translate(0, 0.3, -0.11);
+  reelBody.push(body);
+
+  // two metal spool faces
+  for (const sx of [0.03, -0.03]) {
+    const face = new THREE.CylinderGeometry(0.072, 0.072, 0.012, 18);
+    face.rotateZ(Math.PI / 2);
+    face.translate(sx, 0.3, -0.11);
+    metal.push(face);
+  }
+
+  // reel handle: a metal arm off the +X face plus a black knob
+  const handleArm = new THREE.BoxGeometry(0.055, 0.012, 0.012);
+  handleArm.translate(0.06, 0.3, -0.15);
+  metal.push(handleArm);
+  const knob = new THREE.CylinderGeometry(0.014, 0.014, 0.03, 8);
+  knob.rotateZ(Math.PI / 2);
+  knob.translate(0.088, 0.3, -0.175);
+  black.push(knob);
+
+  // tapered graphite blank from the reel seat to the tip
+  const blankBottom = 0.4;
+  const blankLen = ROD_LENGTH - blankBottom;
+  const blank = new THREE.CylinderGeometry(0.006, 0.02, blankLen, 8);
+  blank.translate(0, blankBottom + blankLen / 2, 0);
+  graphite.push(blank);
+
+  // line guides encircling the blank, plus a smaller tip guide
+  for (const gy of [0.6, 0.86, 1.12, 1.36]) {
+    const ring = new THREE.TorusGeometry(0.022, 0.005, 6, 12);
+    ring.rotateX(Math.PI / 2);
+    ring.translate(0, gy, 0);
+    black.push(ring);
+  }
+  const tipRing = new THREE.TorusGeometry(0.018, 0.006, 6, 12);
+  tipRing.rotateX(Math.PI / 2);
+  tipRing.translate(0, ROD_LENGTH - 0.02, 0);
+  black.push(tipRing);
+
+  const add = (geos: THREE.BufferGeometry[], color: number): void => {
+    if (geos.length === 0) return;
+    const merged = geos.length === 1 ? geos[0] : mergeGeometries(geos);
+    g.add(new THREE.Mesh(merged, new THREE.MeshLambertMaterial({ color })));
+  };
+  add(cork, 0xcaa66e); // cork tan
+  add(graphite, 0x26262c); // graphite blank
+  add(black, 0x141417); // fittings, guides, knob
+  add(reelBody, 0x3b3e45); // reel body
+  add(metal, 0x9aa0a8); // spool faces + handle arm
+
+  return g;
 }
 
 // A flat expanding ring for the surface splash, laid in the XZ plane (mirrors fish.ts).
@@ -118,11 +199,8 @@ export function buildFishing(seed: number): FishingView {
   bobber.visible = false;
   group.add(bobber);
 
-  // --- rod (procedural pole held in the local player's hand) ---
-  const rod = new THREE.Mesh(
-    rodGeometry(),
-    new THREE.MeshLambertMaterial({ color: 0x6a4a2b }), // varnished-wood brown
-  );
+  // --- rod (procedural spinning rod held in the local player's hand) ---
+  const rod = buildRod();
   rod.visible = false;
   group.add(rod);
   // reused per-frame scratch so aiming the rod allocates nothing

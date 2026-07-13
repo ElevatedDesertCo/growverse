@@ -1163,5 +1163,8 @@ export const hudChromeStrings = {
   fishing: {
     caught: 'You caught a {item}!',
     introHint: 'Face open water and press F to cast your line.',
+    // The one-shot catch/miss card the HUD pops when a cast resolves.
+    caughtPopup: 'You caught a {item}!',
+    nothing: 'Nothing was caught.',
   },
 };

@@ -1063,7 +1063,9 @@ export const ko_KR: EnTranslations = {
     },
     "fishing": {
       "caught": "{item}을(를) 낚았습니다!",
-      "introHint": "트인 물을 향한 뒤 F 키를 눌러 낚싯줄을 던지세요."
+      "introHint": "트인 물을 향한 뒤 F 키를 눌러 낚싯줄을 던지세요.",
+      "caughtPopup": "{item}을(를) 낚았습니다!",
+      "nothing": "아무것도 잡히지 않았습니다."
     }
   },
   "guide": {

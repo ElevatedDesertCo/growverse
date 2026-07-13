@@ -1679,6 +1679,11 @@ export type SimEvent = { pid?: number } & (
   | { type: 'virtualLevelUp'; level: number }
   | { type: 'milestoneUnlocked'; milestoneId: string }
   | { type: 'learnAbility'; abilityId: string; rank: number }
+  // End of a fishing cast: itemId names the caught fish (null = nothing bit), rare
+  // flags the special catch. Structured (no text) so the sim stays language-agnostic
+  // and the client can show the fish's icon + localized name in a catch popup; the
+  // plain 'log' catch line still records the moment in chat.
+  | { type: 'fishCatch'; itemId: string | null; rare: boolean }
   | { type: 'loot'; text: string }
   | {
       type: 'lootRoll';

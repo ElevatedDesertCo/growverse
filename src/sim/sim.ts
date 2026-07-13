@@ -4451,9 +4451,13 @@ export class Sim {
     }
     if (caught === null) {
       this.emit({ type: 'log', text: 'No fish are biting.', color: '#999', pid: p.id });
+      // structured "nothing bit" signal for the client's catch popup (no text, so the
+      // sim stays language-agnostic; the client renders "Nothing was caught").
+      this.emit({ type: 'fishCatch', itemId: null, rare: false, pid: p.id });
       return;
     }
-    if (caught === FISHING_RARE_ID) {
+    const rare = caught === FISHING_RARE_ID;
+    if (rare) {
       this.emit({
         type: 'log',
         text: 'A rare catch! Something gleams on your line.',
@@ -4469,6 +4473,9 @@ export class Sim {
       color: '#5cc8ff',
       pid: p.id,
     });
+    // structured catch signal: the client shows the fish's icon + localized name in a
+    // popup. Carries only the item id (no text), so the sim stays language-agnostic.
+    this.emit({ type: 'fishCatch', itemId: caught, rare, pid: p.id });
     this.addItem(caught, 1, meta.entityId);
   }
 

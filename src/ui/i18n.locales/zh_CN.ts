@@ -18,6 +18,8 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'hudChrome.dailyRewards.title': '每日奖励',
   'hudChrome.fishing.caught': '你钓到了 {item}！',
   'hudChrome.fishing.introHint': '面向开阔水面并按 F 抛出鱼线。',
+  'hudChrome.fishing.caughtPopup': '你钓到了 {item}！',
+  'hudChrome.fishing.nothing': '什么都没钓到。',
   'hudChrome.dailyRewards.close': '关闭每日奖励',
   'hudChrome.dailyRewards.loading': '正在加载每日奖励...',
   'hudChrome.dailyRewards.error': '无法加载每日奖励。',

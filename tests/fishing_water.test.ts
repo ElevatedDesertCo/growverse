@@ -89,3 +89,48 @@ describe('fishing pole cast gate', () => {
     expect(p.castingAbility).not.toBe(FISHING_CAST_ID);
   });
 });
+
+// The client's catch popup is driven by a structured `fishCatch` SimEvent (no
+// text, so the sim stays language-agnostic). Lock the emit contract: a resolved
+// cast always emits exactly one fishCatch, carrying the caught item id (or null
+// on a miss) so the HUD can show the fish icon + localized name.
+describe('completeFishing fishCatch event', () => {
+  type FishCatch = { type: 'fishCatch'; itemId: string | null; rare: boolean };
+  // Drive completeFishing directly on a seeded Sim and capture the fishCatch it
+  // emits. `players` is a Map<entityId, PlayerMeta>; `completeFishing(p, meta)`
+  // is private, reached via the standard test cast-to-any escape hatch.
+  const resolveCast = (seed: number): FishCatch => {
+    const s = new Sim({ seed, playerClass: 'warrior', autoEquip: true });
+    const p = s.player;
+    const meta = (s as unknown as { players: Map<number, unknown> }).players.get(p.id);
+    p.pos.x = SHORE.x;
+    p.pos.z = SHORE.z;
+    const events: FishCatch[] = [];
+    const orig = (s as unknown as { emit(ev: unknown): void }).emit.bind(s);
+    (s as unknown as { emit(ev: unknown): void }).emit = (ev: unknown): void => {
+      if ((ev as { type?: string }).type === 'fishCatch') events.push(ev as FishCatch);
+      orig(ev);
+    };
+    (s as unknown as { completeFishing(e: typeof p, m: unknown): void }).completeFishing(p, meta);
+    // Exactly one fishCatch per resolved cast, always.
+    expect(events).toHaveLength(1);
+    const ev = events[0];
+    // A caught fish is added to the bag, so its id must be a real item; a miss
+    // (null id) is never flagged rare.
+    if (ev.itemId === null) expect(ev.rare).toBe(false);
+    else expect(s.countItem(ev.itemId)).toBeGreaterThan(0);
+    return ev;
+  };
+
+  it('emits exactly one fishCatch per cast, covering both a catch and a miss', () => {
+    let sawCatch = false;
+    let sawMiss = false;
+    for (let seed = 0; seed < 60 && !(sawCatch && sawMiss); seed++) {
+      const ev = resolveCast(seed);
+      if (ev.itemId === null) sawMiss = true;
+      else sawCatch = true;
+    }
+    expect(sawCatch).toBe(true);
+    expect(sawMiss).toBe(true);
+  });
+});

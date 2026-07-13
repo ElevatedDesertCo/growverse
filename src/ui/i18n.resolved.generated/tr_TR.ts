@@ -1063,7 +1063,9 @@ export const tr_TR: EnTranslations = {
     },
     "fishing": {
       "caught": "You caught a {item}!",
-      "introHint": "Face open water and press F to cast your line."
+      "introHint": "Face open water and press F to cast your line.",
+      "caughtPopup": "You caught a {item}!",
+      "nothing": "Nothing was caught."
     }
   },
   "guide": {

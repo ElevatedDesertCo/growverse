@@ -284,6 +284,7 @@ const HEAVY_SELF_CMDS = new Set<string>([
 ]);
 const HEAVY_SELF_EVENTS = new Set<string>([
   'loot',
+  'fishCatch',
   'levelup',
   'virtualLevelUp',
   'milestoneUnlocked',

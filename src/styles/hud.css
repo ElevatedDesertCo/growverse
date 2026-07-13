@@ -3565,6 +3565,75 @@
     white-space: nowrap;
   }
 
+  /* ---------- fishing catch popup ---------- */
+  /* One-shot card the HUD pops when a fishing cast resolves (built in
+     src/ui/fishing_catch_popup.ts): the caught fish's icon over its localized
+     name, or a "nothing was caught" line on a miss. Hidden until JS adds .show,
+     which fades + rises it in; .rare tints it green for the special catch. */
+  #fishing-catch {
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, 8px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 22px;
+    min-width: 160px;
+    background: var(--panel-bg);
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    box-shadow:
+      0 0 20px #00000099,
+      0 4px 14px #000000aa;
+    opacity: 0;
+    transition:
+      opacity 0.35s ease,
+      transform 0.35s ease;
+    pointer-events: none;
+    z-index: 6;
+  }
+  #fishing-catch.show {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  #fishing-catch.rare {
+    border-color: #1eff00;
+    box-shadow:
+      0 0 22px #1eff0055,
+      0 4px 14px #000000aa;
+  }
+  .fishing-catch-icon {
+    width: 64px;
+    height: 64px;
+    image-rendering: auto;
+    filter: drop-shadow(0 2px 4px #000000cc);
+  }
+  .fishing-catch-label {
+    color: var(--gold);
+    font-family: var(--title-font);
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow:
+      0 0 12px #00000088,
+      1px 1px 3px #000;
+    letter-spacing: 0.5px;
+  }
+  #fishing-catch.rare .fishing-catch-label {
+    color: #1eff00;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #fishing-catch {
+      transform: translate(-50%, 0);
+      transition: opacity 0.35s ease;
+    }
+    #fishing-catch.show {
+      transform: translate(-50%, 0);
+    }
+  }
+
   /* ---------- low-health screen vignette ---------- */
   /* Pulsing red edge glow that fades in as the player nears death. Opacity and
      pulse cadence are driven from JS via the --lhv-* custom properties; the
