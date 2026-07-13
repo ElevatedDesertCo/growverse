@@ -381,6 +381,7 @@ const DECORATION_EXCLUSIONS = [
   { x: 42, z: 54 }, // Baked Beaver mascot
   { x: 38, z: 60 }, // beaver lodge (inn)
   { x: 46, z: 62 }, // beaver den (house)
+  { x: 55.07, z: 58.14 }, // the lone big tree on the outpost's east shore (cleared)
 ];
 
 function isExcludedDecoration(x: number, z: number): boolean {

@@ -720,8 +720,9 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     name: 'Hazel Timbers',
     title: 'Dam Quartermaster',
     // on the shore by the millpond dock landing, facing east along the water
+    // (east is -x in this world, so facing -PI/2; see the layout note below)
     pos: { x: 48, z: 47 },
-    facing: 1.57,
+    facing: -Math.PI / 2,
     color: 0x6fa8dc,
     questIds: [],
     vendorItems: [
@@ -1321,12 +1322,10 @@ export const ZONE1_PROPS: ZonePropsDef = {
     // and the pond a human-scale reference.
     { x: 36, z: 44, rot: 0.1, hutLocal: { x: 10.8, z: 2.1, hw: 1.6, hd: 1.4 } }, // shack set back to world (47,45), off the dock
   ],
-  // The Sluice work-camp pitches two stock canvas tents beside the lodge for the
-  // Beaver crew (the Ashen Maw warcamp uses its own procedural raiderTents below).
-  tents: [
-    { x: 34, z: 59, rot: 0.6, scale: 1 },
-    { x: 48, z: 60, rot: -1.1, scale: 1 },
-  ],
+  // The Sluice work-camp is an open, tent-free landing: the two stock canvas tents
+  // that used to flank the lodge were removed so the shore reads clean (the Ashen Maw
+  // warcamp still uses its own procedural raiderTents below).
+  tents: [],
   crates: [
     // Draxa the Riftsmith's Upgrade Bench stock dresses the western craft stall.
     // Trade crates stacked by the eastern house behind Herbalist Lin, moved
@@ -1336,8 +1335,10 @@ export const ZONE1_PROPS: ZonePropsDef = {
     [-16, 2], // Draxa the Riftsmith's Upgrade Bench stock
     [-11.8, 6.4],
     // The Sluice supply stacks: driftwood and trade crates by the beaver lodge and
-    // the pond landing, dressing the outpost as a working camp.
-    [44, 60],
+    // the pond landing, dressing the outpost as a working camp. The first stack was
+    // pulled south off the den/campfire (it clipped the den corner at 44,60) to open
+    // ground between the lodge and the shore.
+    [46, 57],
     [40, 56],
     // Ashen Maw plunder stacks: stolen Bloomhaven crates piled by each tier's
     // tents (the q_ringleader steal-back objective reads them off these stacks).
