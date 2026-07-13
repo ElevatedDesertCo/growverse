@@ -99,10 +99,19 @@ import { pathCrossesFence } from './sim/colliders';
 import { ABILITIES, CLASSES } from './sim/content/classes';
 import { ITEMS } from './sim/data';
 import { canEquipItem } from './sim/equipment_rules';
+import { facesFishableWater } from './sim/fishing_water';
 import { findPlayerPath, resolvePlayerDestination } from './sim/pathfind';
 import { type CharacterState, Sim } from './sim/sim';
 import { TAB_NEAR_RADIUS, TAB_QUERY_RADIUS, tabConeHalfAt } from './sim/tab_target';
-import { DT, dist2d, INTERACT_RANGE, MELEE_RANGE, type PlayerClass, RUN_SPEED } from './sim/types';
+import {
+  DT,
+  dist2d,
+  FISHING_CAST_ID,
+  INTERACT_RANGE,
+  MELEE_RANGE,
+  type PlayerClass,
+  RUN_SPEED,
+} from './sim/types';
 import { zoneBiomeAt } from './sim/world';
 import { startSitePresence } from './site_presence';
 import {
@@ -1667,6 +1676,8 @@ async function startGame(
         }),
     });
   }
+  // The starter fishing tool (src/sim/content/items.ts). Owning one enables F-to-cast.
+  const FISHING_POLE_ID = 'simple_fishing_pole';
   function interactKey(): void {
     const p = world.player;
     let bestCorpse: number | null = null,
@@ -1727,6 +1738,21 @@ async function startGame(
       const npc = world.entities.get(bestNpc);
       if (npc?.kind === 'npc' && npc.templateId === 'brother_halven') hud.openDelveBoard(bestNpc);
       else hud.openQuestDialog(bestNpc);
+      return;
+    }
+    // Fishing is the lowest-priority interact: with a pole in your bags, open water
+    // dead ahead, and no cast already running, the interact key (F by default) casts
+    // the line, so there is no need to click the pole on the hotbar. Checked last so
+    // it never steals a nearby corpse, delve node, pickup, or NPC press. The client
+    // water pre-check shares the sim's exact terrain math (facesFishableWater), and
+    // the sim re-validates every guard in startFishing, so this can only ever succeed
+    // where a manual pole-use would have.
+    if (
+      p.castingAbility !== FISHING_CAST_ID &&
+      world.inventory.some((s) => s.itemId === FISHING_POLE_ID) &&
+      facesFishableWater(p.pos, p.facing, world.cfg.seed)
+    ) {
+      world.useItem(FISHING_POLE_ID);
       return;
     }
     hud.showError(t('errors.nothingInteract'));

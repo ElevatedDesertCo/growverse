@@ -1063,7 +1063,7 @@ export const en_XA: EnTranslations = {
     },
     "fishing": {
       "caught": "[Ýóú çáúĝĥţ á {item}!]",
-      "introHint": "[Ƒáçé ŵáţéŕ áñð úšé ýóúŕ ƒíšĥíñĝ þóļé ţó ƒíšĥ.]"
+      "introHint": "[Ƒáçé óþéñ ŵáţéŕ áñð þŕéšš Ƒ ţó çášţ ýóúŕ ļíñé.]"
     }
   },
   "guide": {

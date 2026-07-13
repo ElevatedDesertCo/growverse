@@ -43,6 +43,8 @@ export interface FishingView {
    * per-frame: drive the bobber/line for the local player's fishing cast.
    * `px,py,pz` and `facing` are the RENDERED (interpolated) player transform;
    * `fishing` is castingAbility === FISHING_CAST_ID; `castRemaining` is seconds left.
+   * `hand` is the mainhand bone's world position (from CharacterVisual) so the rod
+   * butt anchors to the real hand; pass null to fall back to a facing-derived guess.
    */
   update(
     px: number,
@@ -52,6 +54,7 @@ export interface FishingView {
     fishing: boolean,
     castRemaining: number,
     dt: number,
+    hand: { x: number; y: number; z: number } | null,
   ): void;
 }
 
@@ -219,19 +222,35 @@ export function buildFishing(seed: number): FishingView {
     splash.visible = true;
   };
 
-  // place + aim the rod in the player's hand; returns the world-space rod TIP so the
-  // line hangs from the tip, not the fist. The butt sits at the hand anchor (up +
-  // forward + a little to the casting side) and the rod points up-and-out toward the
-  // bobber; scratch vectors are reused so this allocates nothing per frame.
+  // place + aim the rod in the player's hand; sets the world-space rod TIP (`tip`) so
+  // the line hangs from the tip, not the fist. The butt sits at the mainhand bone's
+  // real world position when the renderer supplies it (so the rod is genuinely held
+  // and tracks the casting arm), falling back to a facing-derived guess otherwise; the
+  // rod points up-and-out over the water. Scratch vectors are reused (no per-frame alloc).
   const tip = { x: 0, y: 0, z: 0 };
-  const placeRod = (px: number, py: number, pz: number, facing: number): void => {
+  const placeRod = (
+    px: number,
+    py: number,
+    pz: number,
+    facing: number,
+    hand: { x: number; y: number; z: number } | null,
+  ): void => {
     const fx = Math.sin(facing);
     const fz = Math.cos(facing);
-    const rx = Math.cos(facing); // right = forward rotated -90 deg
-    const rz = -Math.sin(facing);
-    const handX = px + fx * 0.34 + rx * 0.2;
-    const handZ = pz + fz * 0.34 + rz * 0.2;
-    const handY = py + 1.42;
+    let handX: number;
+    let handY: number;
+    let handZ: number;
+    if (hand) {
+      handX = hand.x;
+      handY = hand.y;
+      handZ = hand.z;
+    } else {
+      const rx = Math.cos(facing); // right = forward rotated -90 deg
+      const rz = -Math.sin(facing);
+      handX = px + fx * 0.34 + rx * 0.2;
+      handZ = pz + fz * 0.34 + rz * 0.2;
+      handY = py + 1.42;
+    }
     // aim: mostly up, leaning forward over the water
     const fwd = 1 - ROD_UP_BIAS;
     rodAim.set(fx * fwd, ROD_UP_BIAS, fz * fwd).normalize();
@@ -264,7 +283,7 @@ export function buildFishing(seed: number): FishingView {
 
   return {
     group,
-    update(px, py, pz, facing, fishing, castRemaining, dt): void {
+    update(px, py, pz, facing, fishing, castRemaining, dt, hand): void {
       // edge-detect the cast so the bobber freezes where it first landed
       if (fishing && !active) {
         active = true;
@@ -309,7 +328,7 @@ export function buildFishing(seed: number): FishingView {
         bobber.visible = true;
         line.visible = true;
         rod.visible = true;
-        placeRod(px, py, pz, facing);
+        placeRod(px, py, pz, facing, hand);
         drawLine(y + 0.13);
       }
 

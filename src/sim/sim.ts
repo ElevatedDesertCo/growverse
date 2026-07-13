@@ -133,6 +133,7 @@ import {
   tickGroundAoEs,
 } from './entity_roster';
 import { canEquipItem } from './equipment_rules';
+import { facesFishableWater } from './fishing_water';
 import { fleeSpeed } from './flee_speed';
 import { formatMoney } from './format_money';
 import * as harvest from './harvest';
@@ -431,7 +432,6 @@ const SOCIAL_PULL_RADIUS: Partial<Record<MobFamily, number>> = {
 const SWIM_SURFACE_Y = WATER_LEVEL - 0.75; // body bobs just below the water line
 const SWIM_DEPTH = PLAYER_SWIM_DEPTH; // ground this far under the water line = deep water
 const SWIM_SPEED_MULT = 0.65;
-const FISHING_SAMPLE_DISTANCES = [4, 8, 12, 16, 20, 24];
 const DEEPFEN_FISHING_SHORE_MARGIN = 10;
 const THE_CODFATHER_ITEM_ID = 'the_codfather';
 const THE_CODFATHER_QUEST_ID = 'q_the_codfather';
@@ -4379,13 +4379,7 @@ export class Sim {
   }
 
   private hasFishableWaterAhead(p: Entity): boolean {
-    const sin = Math.sin(p.facing);
-    const cos = Math.cos(p.facing);
-    return FISHING_SAMPLE_DISTANCES.some(
-      (d) =>
-        groundHeight(p.pos.x + sin * d, p.pos.z + cos * d, this.cfg.seed) <
-        WATER_LEVEL - SWIM_DEPTH,
-    );
+    return facesFishableWater(p.pos, p.facing, this.cfg.seed);
   }
 
   private isAtDeepfenShallowsFishingSpot(p: Entity): boolean {

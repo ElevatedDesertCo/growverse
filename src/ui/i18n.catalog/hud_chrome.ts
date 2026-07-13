@@ -1162,6 +1162,6 @@ export const hudChromeStrings = {
   // the one-time discoverability hint the HUD logs when you first get a pole.
   fishing: {
     caught: 'You caught a {item}!',
-    introHint: 'Face water and use your fishing pole to fish.',
+    introHint: 'Face open water and press F to cast your line.',
   },
 };

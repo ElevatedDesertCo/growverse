@@ -1063,7 +1063,7 @@ export const pt_BR: EnTranslations = {
     },
     "fishing": {
       "caught": "You caught a {item}!",
-      "introHint": "Face water and use your fishing pole to fish."
+      "introHint": "Face open water and press F to cast your line."
     }
   },
   "guide": {

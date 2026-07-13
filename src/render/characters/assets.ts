@@ -280,6 +280,24 @@ function resolveBone(root: THREE.Object3D, name: string): THREE.Object3D | null 
   return root.getObjectByName(name) ?? root.getObjectByName(name.replace(/[[\].:/]/g, '')) ?? null;
 }
 
+// The character's mainhand bone (right hand, falling back to left), for anchoring a
+// world-space held prop like the fishing rod. Sanitized-name aware like every other
+// bone lookup here (GLTFLoader strips the authored "handslot.r" to "handslotr").
+export function resolveHandBone(root: THREE.Object3D): THREE.Object3D | null {
+  return resolveBone(root, 'handslotr') ?? resolveBone(root, 'handslotl');
+}
+
+// Toggle the "weapons stowed" fishing stance: hide (or restore) every held weapon
+// mesh so the character reads as holding a fishing rod instead of a sword/staff/bow.
+// A reversible visibility flip (cheap, keeps the mixer/materials), unlike
+// setHeldWeapon which rebuilds the attachment graph. Covers all nine classes: every
+// attached weapon mesh is tagged `weaponMesh` at attach time, fixed offhands included.
+export function setFishingStance(root: THREE.Object3D, active: boolean): void {
+  root.traverse((o) => {
+    if (o.userData.weaponMesh) o.visible = !active;
+  });
+}
+
 // ---------------------------------------------------------------------------
 // Preload
 // ---------------------------------------------------------------------------

@@ -1063,7 +1063,7 @@ export const zh_TW: EnTranslations = {
     },
     "fishing": {
       "caught": "你釣到了 {item}！",
-      "introHint": "面向水面並使用釣竿即可釣魚。"
+      "introHint": "面向開闊水面並按 F 拋出釣線。"
     }
   },
   "guide": {

@@ -3604,6 +3604,7 @@ export class Renderer {
   // (interpolated) player transform so the line anchors to the drawn model, and
   // the player's cast state to know when a fishing channel is running. Reads only;
   // the sim owns the actual fishing outcome.
+  private readonly fishingHand = new THREE.Vector3();
   private updateFishingView(dt: number): void {
     const p = this.sim.player;
     const pv = this.views.get(p.id);
@@ -3612,7 +3613,14 @@ export class Renderer {
     const pz = pv ? pv.group.position.z : p.pos.z;
     const facing = pv ? pv.group.rotation.y : p.facing;
     const fishing = !p.dead && p.castingAbility === FISHING_CAST_ID;
-    this.fishing.update(px, py, pz, facing, fishing, p.castRemaining, dt);
+    // Put the weapons away while fishing and read the real mainhand bone world
+    // position so the rod anchors to the actual hand (not a facing-derived guess).
+    let hand: THREE.Vector3 | null = null;
+    if (pv?.visual) {
+      pv.visual.setFishing(fishing);
+      if (fishing && pv.visual.handAnchorWorld(this.fishingHand)) hand = this.fishingHand;
+    }
+    this.fishing.update(px, py, pz, facing, fishing, p.castRemaining, dt, hand);
   }
 
   private updateAmbience(px: number, camY: number, dt: number): void {
