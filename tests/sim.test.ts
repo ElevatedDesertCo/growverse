@@ -1467,7 +1467,8 @@ describe('quests', () => {
 
   it('collect quest tracks inventory and consumes items on turn-in', () => {
     const sim = makeSim('warrior');
-    teleportTo(sim, -7, 1);
+    const wilkes = [...sim.entities.values()].find((e) => e.templateId === 'trader_wilkes')!;
+    teleportTo(sim, wilkes.pos.x + 2, wilkes.pos.z);
     sim.interact();
     expect(sim.questState('q_boars')).toBe('active');
     sim.addItem('boar_hide', 5);

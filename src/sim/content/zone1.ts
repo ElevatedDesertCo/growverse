@@ -604,8 +604,8 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     id: 'trader_wilkes',
     name: 'Provisioner Wilkes',
     title: 'Provisioner',
-    pos: { x: -8.5, z: -0.5 },
-    facing: Math.PI / 2,
+    pos: { x: -11, z: -5 },
+    facing: Math.PI / 2, // W (compass bearing 270)
     color: 0x1e8449,
     questIds: ['q_boars', 'q_supplies'],
     vendorItems: [
