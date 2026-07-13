@@ -4068,6 +4068,11 @@ const RULES: Rule[] = [
   { re: /^Equipped (?!\()(.+)\.$/, build: (m) => tSim('log.equipped', { item: locItem(m[1]) }) },
   { re: /^Unequipped (.+)\.$/, build: (m) => tSim('log.unequipped', { item: locItem(m[1]) }) },
   { re: /^You quaff (.+)\.$/, build: (m) => tSim('log.quaff', { item: locItem(m[1]) }) },
+  // fishing catch celebration ("You caught a {name}!"); item name localized via locItem
+  {
+    re: /^You caught a (.+)!$/,
+    build: (m) => t('hudChrome.fishing.caught', { item: locItem(m[1]) }),
+  },
   {
     re: /^(.+) wins (.+) \((\d+)\)$/,
     build: (m) => tSim('loot.rollWin', { winner: m[1], item: m[2], roll: m[3] }),

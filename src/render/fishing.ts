@@ -34,6 +34,8 @@ const LINE_SEGMENTS = 14; // catenary sag resolution
 // the cast completes when castRemaining reaches 0; if fishing ends with less than
 // this left we treat it as a real catch (splash), otherwise it was cancelled.
 const CATCH_REMAINING = 0.35;
+const ROD_LENGTH = 1.55; // yards, butt (hand) to tip
+const ROD_UP_BIAS = 0.86; // how much the rod points up vs forward (0..1)
 
 export interface FishingView {
   group: THREE.Group;
@@ -81,6 +83,15 @@ function bobberNoseGeometry(): THREE.ConeGeometry {
   return nose;
 }
 
+// PURE: the rod, a thin tapered pole along local +Y with the BUTT at the origin and
+// the TIP at (0, ROD_LENGTH, 0), so the caller only has to place the butt in the hand
+// and aim +Y up-and-out; the line then hangs off the tip.
+function rodGeometry(): THREE.CylinderGeometry {
+  const rod = new THREE.CylinderGeometry(0.008, 0.026, ROD_LENGTH, 6);
+  rod.translate(0, ROD_LENGTH / 2, 0);
+  return rod;
+}
+
 // A flat expanding ring for the surface splash, laid in the XZ plane (mirrors fish.ts).
 function splashGeometry(): THREE.RingGeometry {
   const ring = new THREE.RingGeometry(0.5, 1, 16);
@@ -104,7 +115,19 @@ export function buildFishing(seed: number): FishingView {
   bobber.visible = false;
   group.add(bobber);
 
-  // --- line (catenary from rod hand to bobber) ---
+  // --- rod (procedural pole held in the local player's hand) ---
+  const rod = new THREE.Mesh(
+    rodGeometry(),
+    new THREE.MeshLambertMaterial({ color: 0x6a4a2b }), // varnished-wood brown
+  );
+  rod.visible = false;
+  group.add(rod);
+  // reused per-frame scratch so aiming the rod allocates nothing
+  const rodUp = new THREE.Vector3(0, 1, 0);
+  const rodAim = new THREE.Vector3();
+  const rodQuat = new THREE.Quaternion();
+
+  // --- line (catenary from rod tip to bobber) ---
   const linePos = new Float32Array((LINE_SEGMENTS + 1) * 3);
   const lineGeo = new THREE.BufferGeometry();
   lineGeo.setAttribute('position', new THREE.BufferAttribute(linePos, 3));
@@ -196,31 +219,41 @@ export function buildFishing(seed: number): FishingView {
     splash.visible = true;
   };
 
-  // draw the sagging line from the rod hand to the top of the bobber
-  const drawLine = (
-    px: number,
-    py: number,
-    pz: number,
-    facing: number,
-    bobberTopY: number,
-  ): void => {
-    // rod hand anchor: up + forward + a little to the casting side of the model
+  // place + aim the rod in the player's hand; returns the world-space rod TIP so the
+  // line hangs from the tip, not the fist. The butt sits at the hand anchor (up +
+  // forward + a little to the casting side) and the rod points up-and-out toward the
+  // bobber; scratch vectors are reused so this allocates nothing per frame.
+  const tip = { x: 0, y: 0, z: 0 };
+  const placeRod = (px: number, py: number, pz: number, facing: number): void => {
     const fx = Math.sin(facing);
     const fz = Math.cos(facing);
     const rx = Math.cos(facing); // right = forward rotated -90 deg
     const rz = -Math.sin(facing);
-    const tipX = px + fx * 0.34 + rx * 0.2;
-    const tipZ = pz + fz * 0.34 + rz * 0.2;
-    const tipY = py + 1.42;
-    const dx = bx - tipX;
-    const dz = bz - tipZ;
+    const handX = px + fx * 0.34 + rx * 0.2;
+    const handZ = pz + fz * 0.34 + rz * 0.2;
+    const handY = py + 1.42;
+    // aim: mostly up, leaning forward over the water
+    const fwd = 1 - ROD_UP_BIAS;
+    rodAim.set(fx * fwd, ROD_UP_BIAS, fz * fwd).normalize();
+    rodQuat.setFromUnitVectors(rodUp, rodAim);
+    rod.position.set(handX, handY, handZ);
+    rod.quaternion.copy(rodQuat);
+    tip.x = handX + rodAim.x * ROD_LENGTH;
+    tip.y = handY + rodAim.y * ROD_LENGTH;
+    tip.z = handZ + rodAim.z * ROD_LENGTH;
+  };
+
+  // draw the sagging line from the rod tip to the top of the bobber
+  const drawLine = (bobberTopY: number): void => {
+    const dx = bx - tip.x;
+    const dz = bz - tip.z;
     const span = Math.hypot(dx, dz);
     const sag = Math.min(0.5, span * 0.06);
     for (let i = 0; i <= LINE_SEGMENTS; i++) {
       const t = i / LINE_SEGMENTS;
-      const x = tipX + dx * t;
-      const z = tipZ + dz * t;
-      const y = tipY + (bobberTopY - tipY) * t - sag * Math.sin(Math.PI * t);
+      const x = tip.x + dx * t;
+      const z = tip.z + dz * t;
+      const y = tip.y + (bobberTopY - tip.y) * t - sag * Math.sin(Math.PI * t);
       linePos[i * 3] = x;
       linePos[i * 3 + 1] = y;
       linePos[i * 3 + 2] = z;
@@ -244,6 +277,7 @@ export function buildFishing(seed: number): FishingView {
         }
         bobber.visible = false;
         line.visible = false;
+        rod.visible = false;
       }
       if (fishing) lastRemaining = castRemaining;
 
@@ -274,7 +308,9 @@ export function buildFishing(seed: number): FishingView {
         bobber.position.set(bx, y, bz);
         bobber.visible = true;
         line.visible = true;
-        drawLine(px, py, pz, facing, y + 0.13);
+        rod.visible = true;
+        placeRod(px, py, pz, facing);
+        drawLine(y + 0.13);
       }
 
       animateSplash(dt);

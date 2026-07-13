@@ -3647,6 +3647,42 @@ export class Hud {
     return true;
   }
 
+  private hotbarIndexForItem(itemId: string): number {
+    return this.hotbarActions.findIndex(
+      (action) => action?.type === 'item' && action.id === itemId,
+    );
+  }
+
+  // Discoverability: the first time a character carries a fishing pole, drop it on
+  // the action bar (first empty slot only, never clobbering an existing action) and
+  // log a one-time hint on how to fish. A per-character localStorage marker makes it
+  // fire at most once; `fishingIntroChecked` avoids re-reading storage every tick.
+  private introducedFishingPole = false;
+  private fishingIntroChecked = false;
+  private maybeIntroduceFishingPole(): void {
+    if (this.introducedFishingPole) return;
+    const key = `woc_fishing_intro_${this.sim.cfg.playerClass}_${this.sim.player.name}`;
+    if (!this.fishingIntroChecked) {
+      this.fishingIntroChecked = true;
+      if (localStorage.getItem(key)) {
+        this.introducedFishingPole = true;
+        return;
+      }
+    }
+    const poleId = 'simple_fishing_pole';
+    if (!this.sim.inventory.some((s) => s.itemId === poleId)) return;
+    if (this.hotbarIndexForItem(poleId) === -1) {
+      const target = this.firstEmptyHotbarIndex();
+      if (target !== -1) {
+        this.hotbarActions = placeItemOnSlot(this.hotbarActions, poleId, target);
+        this.saveSlotMap();
+      }
+    }
+    this.combatLog(t('hudChrome.fishing.introHint'), '#8fd3ff');
+    localStorage.setItem(key, '1');
+    this.introducedFishingPole = true;
+  }
+
   // Rebuild the active bar from its default kit (form bars get their form kit;
   // the caster/stealth bar gets the form-filtered known abilities). Item
   // shortcuts and manual arrangement are intentionally discarded — it's a reset.
@@ -4678,6 +4714,7 @@ export class Hud {
     if (mediumHud) this.lastHudMediumAt = now;
     const slowHud = now - this.lastHudSlowAt >= 500;
     if (slowHud) this.lastHudSlowAt = now;
+    if (slowHud) this.maybeIntroduceFishingPole();
 
     // Drain a trailing combat-announcement burst to the polite live region (push()
     // already flushes; this catches the last buffered line once combat goes quiet).

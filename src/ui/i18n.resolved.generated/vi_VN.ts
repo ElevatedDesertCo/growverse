@@ -1060,6 +1060,10 @@ export const vi_VN: EnTranslations = {
         "levelTooLow": "You are not skilled enough to craft that yet.",
         "missingMaterials": "You lack the materials to craft that."
       }
+    },
+    "fishing": {
+      "caught": "You caught a {item}!",
+      "introHint": "Face water and use your fishing pole to fish."
     }
   },
   "guide": {

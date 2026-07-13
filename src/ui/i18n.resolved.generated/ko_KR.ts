@@ -1060,6 +1060,10 @@ export const ko_KR: EnTranslations = {
         "levelTooLow": "아직 그것을 제작할 만한 실력이 안 됩니다.",
         "missingMaterials": "제작에 필요한 재료가 부족합니다."
       }
+    },
+    "fishing": {
+      "caught": "{item}을(를) 낚았습니다!",
+      "introHint": "물을 향한 뒤 낚싯대를 사용하면 낚시를 할 수 있습니다."
     }
   },
   "guide": {

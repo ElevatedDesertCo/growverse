@@ -16,6 +16,8 @@ import type { TranslationKey } from '../i18n.catalog';
 export const ru_RU: Partial<Record<TranslationKey, string>> = {
   // Daily rewards (M16 non-Latin fill)
   'hudChrome.dailyRewards.title': 'Ежедневные награды',
+  'hudChrome.fishing.caught': 'Вы поймали: {item}!',
+  'hudChrome.fishing.introHint': 'Повернитесь к воде и используйте удочку, чтобы ловить рыбу.',
   'hudChrome.dailyRewards.close': 'Закрыть ежедневные награды',
   'hudChrome.dailyRewards.loading': 'Загрузка ежедневных наград...',
   'hudChrome.dailyRewards.error': 'Не удалось загрузить ежедневные награды.',

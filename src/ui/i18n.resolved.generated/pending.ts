@@ -187,6 +187,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
+    "hudChrome.fishing.caught",
+    "hudChrome.fishing.introHint",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -368,6 +370,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
+    "hudChrome.fishing.caught",
+    "hudChrome.fishing.introHint",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -549,6 +553,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
+    "hudChrome.fishing.caught",
+    "hudChrome.fishing.introHint",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -730,6 +736,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
+    "hudChrome.fishing.caught",
+    "hudChrome.fishing.introHint",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -912,6 +920,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
+    "hudChrome.fishing.caught",
+    "hudChrome.fishing.introHint",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -1093,6 +1103,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
+    "hudChrome.fishing.caught",
+    "hudChrome.fishing.introHint",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -1306,6 +1318,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
+    "hudChrome.fishing.caught",
+    "hudChrome.fishing.introHint",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -1495,6 +1509,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
+    "hudChrome.fishing.caught",
+    "hudChrome.fishing.introHint",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -1676,6 +1692,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
+    "hudChrome.fishing.caught",
+    "hudChrome.fishing.introHint",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -1857,6 +1875,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
+    "hudChrome.fishing.caught",
+    "hudChrome.fishing.introHint",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -2038,6 +2058,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
+    "hudChrome.fishing.caught",
+    "hudChrome.fishing.introHint",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -2219,6 +2241,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
+    "hudChrome.fishing.caught",
+    "hudChrome.fishing.introHint",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -2400,6 +2424,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
+    "hudChrome.fishing.caught",
+    "hudChrome.fishing.introHint",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -2581,6 +2607,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.dailyRewards.hideChestButton",
     "hudChrome.dailyRewards.showChestButton",
     "hudChrome.discord.roleTag.beaver",
+    "hudChrome.fishing.caught",
+    "hudChrome.fishing.introHint",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ]

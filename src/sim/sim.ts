@@ -4467,6 +4467,14 @@ export class Sim {
         pid: p.id,
       });
     }
+    // a distinct, celebratory "moment" for the catch (the plain loot line still
+    // records it in the log); localized client-side in sim_i18n's fishing RULE.
+    this.emit({
+      type: 'log',
+      text: `You caught a ${ITEMS[caught]?.name ?? caught}!`,
+      color: '#5cc8ff',
+      pid: p.id,
+    });
     this.addItem(caught, 1, meta.entityId);
   }
 

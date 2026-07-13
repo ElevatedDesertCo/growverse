@@ -1060,6 +1060,10 @@ export const zh_CN: EnTranslations = {
         "levelTooLow": "你的技艺还不足以制作那个。",
         "missingMaterials": "你缺少制作所需的材料。"
       }
+    },
+    "fishing": {
+      "caught": "你钓到了 {item}！",
+      "introHint": "面向水面并使用钓竿即可钓鱼。"
     }
   },
   "guide": {

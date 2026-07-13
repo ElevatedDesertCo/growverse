@@ -1157,4 +1157,11 @@ export const hudChromeStrings = {
       missingMaterials: 'You lack the materials to craft that.',
     },
   },
+  // Fishing: the celebratory catch line the sim emits as English ("You caught a
+  // {name}!"), re-localized client-side by the fishing RULE in sim_i18n.ts; plus
+  // the one-time discoverability hint the HUD logs when you first get a pole.
+  fishing: {
+    caught: 'You caught a {item}!',
+    introHint: 'Face water and use your fishing pole to fish.',
+  },
 };

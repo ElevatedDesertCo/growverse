@@ -1060,6 +1060,10 @@ export const en_XA: EnTranslations = {
         "levelTooLow": "[Ýóú áŕé ñóţ šķíļļéð éñóúĝĥ ţó çŕáƒţ ţĥáţ ýéţ.]",
         "missingMaterials": "[Ýóú ļáçķ ţĥé ɱáţéŕíáļš ţó çŕáƒţ ţĥáţ.]"
       }
+    },
+    "fishing": {
+      "caught": "[Ýóú çáúĝĥţ á {item}!]",
+      "introHint": "[Ƒáçé ŵáţéŕ áñð úšé ýóúŕ ƒíšĥíñĝ þóļé ţó ƒíšĥ.]"
     }
   },
   "guide": {

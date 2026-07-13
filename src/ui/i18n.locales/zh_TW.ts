@@ -16,6 +16,8 @@ import type { TranslationKey } from '../i18n.catalog';
 export const zh_TW: Partial<Record<TranslationKey, string>> = {
   // Daily rewards (M16 non-Latin fill)
   'hudChrome.dailyRewards.title': '每日獎勵',
+  'hudChrome.fishing.caught': '你釣到了 {item}！',
+  'hudChrome.fishing.introHint': '面向水面並使用釣竿即可釣魚。',
   'hudChrome.dailyRewards.close': '關閉每日獎勵',
   'hudChrome.dailyRewards.loading': '正在載入每日獎勵...',
   'hudChrome.dailyRewards.error': '無法載入每日獎勵。',

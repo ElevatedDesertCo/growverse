@@ -16,6 +16,8 @@ import type { TranslationKey } from '../i18n.catalog';
 export const ko_KR: Partial<Record<TranslationKey, string>> = {
   // Daily rewards (M16 non-Latin fill)
   'hudChrome.dailyRewards.title': '일일 보상',
+  'hudChrome.fishing.caught': '{item}을(를) 낚았습니다!',
+  'hudChrome.fishing.introHint': '물을 향한 뒤 낚싯대를 사용하면 낚시를 할 수 있습니다.',
   'hudChrome.dailyRewards.close': '일일 보상 닫기',
   'hudChrome.dailyRewards.loading': '일일 보상 불러오는 중...',
   'hudChrome.dailyRewards.error': '일일 보상을 불러올 수 없습니다.',

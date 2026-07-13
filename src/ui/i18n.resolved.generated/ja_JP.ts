@@ -1060,6 +1060,10 @@ export const ja_JP: EnTranslations = {
         "levelTooLow": "それを作成するにはまだ技量が足りない。",
         "missingMaterials": "作成に必要な材料が足りない。"
       }
+    },
+    "fishing": {
+      "caught": "{item} を釣り上げた！",
+      "introHint": "水辺を向いて釣り竿を使うと釣りができます。"
     }
   },
   "guide": {
