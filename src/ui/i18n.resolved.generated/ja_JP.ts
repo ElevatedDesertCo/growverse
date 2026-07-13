@@ -1035,9 +1035,11 @@ export const ja_JP: EnTranslations = {
       "growTitle": "栽培ステーション",
       "upgradeTitle": "アップグレード台",
       "cookTitle": "料理のかまど",
+      "alchemyTitle": "錬金術ラボ",
       "growHint": "栄養剤の作成、種子品種の強化、栽培装備の製作。",
       "upgradeHint": "装備を鍛え直し、腐敗の欠片から戦闘用消耗品を削り出す。",
       "cookHint": "釣った魚を調理して、体力とマナを回復する滋味豊かな料理に仕上げましょう。",
+      "alchemyHint": "採取した花蕾を治療とマナの水薬、そして戦闘用エリクサーに調合する。",
       "craftButton": "作成",
       "costLabel": "コスト",
       "requiresLabel": "必要",
@@ -5049,6 +5051,18 @@ export const ja_JP: EnTranslations = {
       "cooked_stonescale_carp": {
         "name": "石鱗コイのオーブン焼き"
       },
+      "bloom_extract": {
+        "name": "花蕾のエキス"
+      },
+      "swirling_healing_draught": {
+        "name": "渦巻く癒しの水薬"
+      },
+      "swirling_mana_draught": {
+        "name": "渦巻くマナの水薬"
+      },
+      "elixir_of_the_bloom": {
+        "name": "花咲きのエリクサー"
+      },
       "bristleback_maul": {
         "name": "ブリストルバックの大槌"
       },
@@ -6027,6 +6041,11 @@ export const ja_JP: EnTranslations = {
         "name": "ドラクサ",
         "title": "リフト鍛冶",
         "greeting": "アップグレード台は熱く燃えている。腐敗の欠片を持ってこい。お前の鋼をリフトさえ砕けぬ一振りに鍛え直してやろう。"
+      },
+      "alchemist_sable": {
+        "name": "セイブル",
+        "title": "錬金術師",
+        "greeting": "{className}よ、谷から花蕾を持ってきておくれ。そうすればその精髄を引き出そう。肉を癒す水薬、心を研ぎ澄ます水薬、そして知恵を鋭くするエリクサーをな。"
       },
       "banker_thistle": {
         "name": "金庫番シスル",

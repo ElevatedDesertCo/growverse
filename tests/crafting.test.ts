@@ -171,6 +171,39 @@ describe('crafting: Cookfire (dockside cook)', () => {
   });
 });
 
+describe('crafting: Alchemy Lab (the Alchemist)', () => {
+  it('brews bloom extract into a healing draught at the Alchemist', () => {
+    const sim = makeWorld();
+    const { pid, meta } = craftPlayer(sim, 'alchemist_sable');
+    meta.copper = 50;
+    sim.addItem('bloom_extract', 2, pid);
+    sim.drainEvents();
+
+    sim.craft('alchemy_healing_draught', pid);
+    const evs = sim.drainEvents();
+
+    expect(sim.countItem('swirling_healing_draught', pid)).toBe(1);
+    expect(sim.countItem('bloom_extract', pid)).toBe(0);
+    expect(meta.copper).toBe(40); // 50 - 10 copperCost
+    expect(craftEvents(evs)).toHaveLength(1);
+  });
+
+  it('gates the bloom elixir on its required level', () => {
+    const sim = makeWorld();
+    const { pid, meta } = craftPlayer(sim, 'alchemist_sable');
+    meta.copper = 50;
+    sim.addItem('bloom_extract', 4, pid); // alchemy_elixir_of_the_bloom requires level 5
+    sim.drainEvents();
+
+    sim.craft('alchemy_elixir_of_the_bloom', pid);
+    const evs = sim.drainEvents();
+
+    expect(sim.countItem('elixir_of_the_bloom', pid)).toBe(0);
+    expect(sim.countItem('bloom_extract', pid)).toBe(4); // reagents untouched
+    expect(errorTexts(evs)).toContain('You are not skilled enough to craft that yet.');
+  });
+});
+
 describe('crafting: bad input', () => {
   it('rejects an unknown recipe id', () => {
     const sim = makeWorld();

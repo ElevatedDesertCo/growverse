@@ -2332,6 +2332,17 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.items.cooked_bog_eel.name': '훈제 늪장어',
   'entities.items.cooked_frostgill_trout.name': '구운 서리아가미송어',
   'entities.items.cooked_stonescale_carp.name': '돌비늘잉어 오븐구이',
+  'entities.items.bloom_extract.name': '꽃봉오리 추출물',
+  'entities.items.swirling_healing_draught.name': '소용돌이 치유 물약',
+  'entities.items.swirling_mana_draught.name': '소용돌이 마나 물약',
+  'entities.items.elixir_of_the_bloom.name': '만개의 엘릭서',
+  'entities.npcs.alchemist_sable.name': '세이블',
+  'entities.npcs.alchemist_sable.title': '연금술사',
+  'entities.npcs.alchemist_sable.greeting':
+    '{className}이여, 골짜기에서 꽃봉오리를 가져다주게. 그러면 내가 그 정수를 뽑아내겠네. 살을 아물게 하는 물약, 정신을 맑게 하는 물약, 그리고 지혜를 날카롭게 하는 엘릭서를 말일세.',
+  'hudChrome.crafting.alchemyTitle': '연금술 실험실',
+  'hudChrome.crafting.alchemyHint':
+    '수확한 꽃봉오리를 치유와 마나 물약, 그리고 전투용 엘릭서로 조제합니다.',
   'entities.items.sableweb_slippers.name': '검은그물 슬리퍼',
   'entities.items.simple_fishing_pole.name': '간단한 낚싯대',
   'entities.items.tangled_weed.name': '엉킨 물풀',

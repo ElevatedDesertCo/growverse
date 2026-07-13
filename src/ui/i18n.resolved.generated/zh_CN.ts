@@ -1035,9 +1035,11 @@ export const zh_CN: EnTranslations = {
       "growTitle": "培育站",
       "upgradeTitle": "升级台",
       "cookTitle": "篝火烹饪",
+      "alchemyTitle": "炼金实验室",
       "growHint": "制作营养剂、升级种子品系、打造种植装备。",
       "upgradeHint": "重铸装备，并用腐蚀碎片切割战斗消耗品。",
       "cookHint": "将你钓到的鱼烹制成丰盛的餐食，恢复生命值与法力值。",
+      "alchemyHint": "将采集的花蕾酿成治疗药水、法力药水和一瓶战斗灵药。",
       "craftButton": "制作",
       "costLabel": "花费",
       "requiresLabel": "需要",
@@ -5049,6 +5051,18 @@ export const zh_CN: EnTranslations = {
       "cooked_stonescale_carp": {
         "name": "烘烤石鳞鲤"
       },
+      "bloom_extract": {
+        "name": "绽放萃取物"
+      },
+      "swirling_healing_draught": {
+        "name": "漩涡治疗药水"
+      },
+      "swirling_mana_draught": {
+        "name": "漩涡法力药水"
+      },
+      "elixir_of_the_bloom": {
+        "name": "绽放灵药"
+      },
       "bristleback_maul": {
         "name": "硬鬃重槌"
       },
@@ -6027,6 +6041,11 @@ export const zh_CN: EnTranslations = {
         "name": "德拉克萨",
         "title": "裂隙铁匠",
         "greeting": "升级台正热着呢。给我带来腐蚀碎片，我会把你的钢铁重铸成裂隙也无法折断的利器。"
+      },
+      "alchemist_sable": {
+        "name": "塞布尔",
+        "title": "炼金术士",
+        "greeting": "{className}，从山谷里给我采来花蕾，我便能提炼出其中的精华：治愈血肉的药水、令心神敏捷的药剂，还有一瓶磨砺神智的灵药。"
       },
       "banker_thistle": {
         "name": "金库管理员西斯尔",

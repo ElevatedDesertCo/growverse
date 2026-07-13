@@ -2339,6 +2339,17 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.items.cooked_bog_eel.name': '沼ウナギの燻製',
   'entities.items.cooked_frostgill_trout.name': '霜エラマスの塩焼き',
   'entities.items.cooked_stonescale_carp.name': '石鱗コイのオーブン焼き',
+  'entities.items.bloom_extract.name': '花蕾のエキス',
+  'entities.items.swirling_healing_draught.name': '渦巻く癒しの水薬',
+  'entities.items.swirling_mana_draught.name': '渦巻くマナの水薬',
+  'entities.items.elixir_of_the_bloom.name': '花咲きのエリクサー',
+  'entities.npcs.alchemist_sable.name': 'セイブル',
+  'entities.npcs.alchemist_sable.title': '錬金術師',
+  'entities.npcs.alchemist_sable.greeting':
+    '{className}よ、谷から花蕾を持ってきておくれ。そうすればその精髄を引き出そう。肉を癒す水薬、心を研ぎ澄ます水薬、そして知恵を鋭くするエリクサーをな。',
+  'hudChrome.crafting.alchemyTitle': '錬金術ラボ',
+  'hudChrome.crafting.alchemyHint':
+    '採取した花蕾を治療とマナの水薬、そして戦闘用エリクサーに調合する。',
   'entities.items.sableweb_slippers.name': 'セーブルウェブのスリッパ',
   'entities.items.simple_fishing_pole.name': '簡素な釣り竿',
   'entities.items.tangled_weed.name': '絡まった水草',

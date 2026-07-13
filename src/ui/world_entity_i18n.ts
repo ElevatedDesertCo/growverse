@@ -138,6 +138,7 @@ const NPC_IDS = [
   'brother_halven', // Collapsed Reliquary delve board NPC
   'cultivator_marlow', // Grow Station attendant (Bloomhaven crafting)
   'smith_draxa', // Upgrade Bench attendant (Bloomhaven crafting)
+  'alchemist_sable', // Alchemy Lab attendant (Bloomhaven crafting)
   'banker_thistle', // Bloomhaven banker (account stash / bank)
   // Dockside Cooks: fishing-pole vendor + Cookfire station at each fishing dock
   'cook_ferra', // Sunken Wastes dock (zone 2)

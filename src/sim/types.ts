@@ -1127,8 +1127,9 @@ export interface AbilityDef {
 // grows plants itself, it makes the inputs: nutrients, upgraded seed strains, and
 // grow accessories). The Upgrade Bench reforges weapons and armor and cuts
 // combat consumables from Corruption Shards. The Cookfire (Dockside Cooks at the
-// fishing docks) turns raw fish into cooked meals.
-export type CraftStation = 'grow' | 'upgrade' | 'cook';
+// fishing docks) turns raw fish into cooked meals. The Alchemy Lab (the Alchemist
+// in Bloomhaven) brews harvested blooms into potions and a battle elixir.
+export type CraftStation = 'grow' | 'upgrade' | 'cook' | 'alchemy';
 
 // A crafting recipe: consumes reagent items + copper at a station and yields an
 // output item. Pure data-as-code (content/crafting.ts); the engine reads it in

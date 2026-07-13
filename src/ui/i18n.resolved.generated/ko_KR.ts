@@ -1035,9 +1035,11 @@ export const ko_KR: EnTranslations = {
       "growTitle": "재배 시설",
       "upgradeTitle": "개조 작업대",
       "cookTitle": "모닥불 요리",
+      "alchemyTitle": "연금술 실험실",
       "growHint": "영양제 제작, 씨앗 품종 강화, 재배 장비 제작.",
       "upgradeHint": "장비를 다시 벼리고, 부패의 파편으로 전투 소모품을 깎아낸다.",
       "cookHint": "잡은 물고기를 요리하여 체력과 마나를 회복시켜 주는 든든한 음식을 만드세요.",
+      "alchemyHint": "수확한 꽃봉오리를 치유와 마나 물약, 그리고 전투용 엘릭서로 조제합니다.",
       "craftButton": "제작",
       "costLabel": "비용",
       "requiresLabel": "필요",
@@ -5049,6 +5051,18 @@ export const ko_KR: EnTranslations = {
       "cooked_stonescale_carp": {
         "name": "돌비늘잉어 오븐구이"
       },
+      "bloom_extract": {
+        "name": "꽃봉오리 추출물"
+      },
+      "swirling_healing_draught": {
+        "name": "소용돌이 치유 물약"
+      },
+      "swirling_mana_draught": {
+        "name": "소용돌이 마나 물약"
+      },
+      "elixir_of_the_bloom": {
+        "name": "만개의 엘릭서"
+      },
       "bristleback_maul": {
         "name": "뻣센등뼈 철퇴"
       },
@@ -6027,6 +6041,11 @@ export const ko_KR: EnTranslations = {
         "name": "드락사",
         "title": "균열 대장장이",
         "greeting": "개조 작업대가 뜨겁게 달아올랐네. 부패의 파편을 가져오게. 자네의 강철을 균열조차 부수지 못할 물건으로 다시 벼려주지."
+      },
+      "alchemist_sable": {
+        "name": "세이블",
+        "title": "연금술사",
+        "greeting": "{className}이여, 골짜기에서 꽃봉오리를 가져다주게. 그러면 내가 그 정수를 뽑아내겠네. 살을 아물게 하는 물약, 정신을 맑게 하는 물약, 그리고 지혜를 날카롭게 하는 엘릭서를 말일세."
       },
       "banker_thistle": {
         "name": "금고지기 시슬",

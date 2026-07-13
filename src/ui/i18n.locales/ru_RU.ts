@@ -2368,6 +2368,17 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.items.cooked_bog_eel.name': 'Копчёный болотный угорь',
   'entities.items.cooked_frostgill_trout.name': 'Морозножаберная форель на гриле',
   'entities.items.cooked_stonescale_carp.name': 'Запечённый каменночешуйчатый карп',
+  'entities.items.bloom_extract.name': 'Цветочный экстракт',
+  'entities.items.swirling_healing_draught.name': 'Вихревое лечебное зелье',
+  'entities.items.swirling_mana_draught.name': 'Вихревое зелье маны',
+  'entities.items.elixir_of_the_bloom.name': 'Эликсир цветения',
+  'entities.npcs.alchemist_sable.name': 'Сейбл',
+  'entities.npcs.alchemist_sable.title': 'Алхимик',
+  'entities.npcs.alchemist_sable.greeting':
+    'Принеси мне цветы из долины, {className}, и я извлеку их суть: настои, что исцеляют плоть, что бодрят разум, и эликсир, что обостряет ум.',
+  'hudChrome.crafting.alchemyTitle': 'Алхимическая лаборатория',
+  'hudChrome.crafting.alchemyHint':
+    'Варите собранные цветы в лечебные настои, зелья маны и боевой эликсир.',
   'entities.items.sableweb_slippers.name': 'Туфли Сейблвеб',
   'entities.items.simple_fishing_pole.name': 'Простая удочка',
   'entities.items.tangled_weed.name': 'Спутанные водоросли',
