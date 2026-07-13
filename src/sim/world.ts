@@ -217,10 +217,19 @@ function dockDeckOffset(x: number, z: number, h: number): number {
     const wBlend = smoothstep(DOCK_HALFW, DOCK_HALFW - DOCK_EDGE, Math.abs(lx));
     const tipBlend = smoothstep(-DOCK_LEN, -DOCK_LEN + DOCK_TIP, lz); // 0 at the tip, 1 inward
     const backBlend = smoothstep(DOCK_BACK, DOCK_BACK - DOCK_SHORE, lz); // ease at the shore end
+    // Over the shore half (lz >= 0) where the natural ground is at or BELOW the deck
+    // (a low/wet bank), fill it straight UP to the flat deck with the width taper only
+    // (no shore ease-in), exactly like the water side. Easing DOWN into a low basin is
+    // what left the shore end of the jetty sagging below its own planks; keeping it flat
+    // means the deck start and its rails stay perfectly level. A HIGH bank (h > deck) still
+    // uses the full backBlend ease so it grades smoothly DOWN to meet the jetty.
+    if (lz >= 0 && h <= DOCK_DECK_Y) {
+      return h + (DOCK_DECK_Y - h) * wBlend * tipBlend;
+    }
     const blend = wBlend * tipBlend * backBlend;
-    // Over the water (lz < 0) only RAISE (never dig below the natural lakebed). Over the
-    // shore half (lz >= 0) drive straight to the deck height so a high bank grades DOWN to
-    // meet the jetty instead of leaving a steep dip at the shore junction.
+    // Over the water (lz < 0) only RAISE (never dig below the natural lakebed). Over a
+    // high shore bank drive straight to the deck height so it grades DOWN to meet the
+    // jetty instead of leaving a steep dip at the shore junction.
     const target = lz < 0 ? Math.max(h, DOCK_DECK_Y) : DOCK_DECK_Y;
     return h + (target - h) * blend;
   }
@@ -382,6 +391,7 @@ const DECORATION_EXCLUSIONS = [
   { x: 38, z: 60 }, // beaver lodge (inn)
   { x: 46, z: 62 }, // beaver den (house)
   { x: 55.07, z: 58.14 }, // the lone big tree on the outpost's east shore (cleared)
+  { x: 38.1, z: 58.12 }, // the tree sprouting through the beaver lodge roof (cleared)
 ];
 
 function isExcludedDecoration(x: number, z: number): boolean {
