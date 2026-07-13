@@ -187,6 +187,32 @@ function staticWorldColliders(seed: number): Collider[] {
     });
   }
 
+  // dock side rails: a solid barrier along each long edge of the pier so you cannot
+  // walk off into the water. Matches the render rail line (render/props.ts DECK_HALFW-0.2
+  // and DECK_Z_SHORE/DECK_Z_TIP); the shore end (+z) and the fishing tip (-z) stay open.
+  for (const d of PROPS.docks) {
+    const RAIL_LX = 2.3; // render DECK_HALFW(2.5) - 0.2
+    const Z_SHORE = 2.6;
+    const Z_TIP = -7.7;
+    const railMidLz = (Z_SHORE + Z_TIP) / 2;
+    const hd = (Z_SHORE - Z_TIP) / 2;
+    for (const side of [-1, 1] as const) {
+      const p = rotY(side * RAIL_LX, railMidLz, d.rot);
+      const x = d.x + p.x,
+        z = d.z + p.z;
+      out.push({
+        type: 'obb',
+        x,
+        z,
+        hw: 0.14,
+        hd,
+        rot: d.rot,
+        cameraTopY: topY(seed, x, z, 1.2),
+        camGhost: true,
+      });
+    }
+  }
+
   for (const t of PROPS.tents)
     out.push({
       type: 'circle',
