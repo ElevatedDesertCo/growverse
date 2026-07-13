@@ -5292,8 +5292,4 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.cook_cobb.title': '부둣가 요리사',
   'entities.npcs.cook_cobb.greeting':
     '거울 호수는 인내심 있는 낚싯줄에 훌륭한 송어를 내어 준답니다. 낚싯대를 챙겨 잡은 것을 내 모닥불로 가져오세요.',
-  'entities.npcs.cook_marta.name': '마르타',
-  'entities.npcs.cook_marta.title': '부둣가 요리사',
-  'entities.npcs.cook_marta.greeting':
-    '물방앗간 연못은 잔잔하고 농어가 잘 물고 있어요. 낚싯대는 저렴하고, 조리된 한 끼는 따뜻하답니다, {className}.',
 };

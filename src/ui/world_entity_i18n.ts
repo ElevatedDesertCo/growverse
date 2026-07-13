@@ -143,7 +143,6 @@ const NPC_IDS = [
   // Dockside Cooks: fishing-pole vendor + Cookfire station at each fishing dock
   'cook_ferra', // Sunken Wastes dock (zone 2)
   'cook_cobb', // Mirror Lake dock (zone 1)
-  'cook_marta', // Sluice landing dock (zone 1)
   // The Sluice (zone 1) beaver work-camp
   'rowan_sawtooth',
   'hazel_timbers',

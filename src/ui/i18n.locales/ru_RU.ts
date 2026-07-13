@@ -5396,8 +5396,4 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.cook_cobb.title': 'Портовая кухарка',
   'entities.npcs.cook_cobb.greeting':
     'Зеркальное озеро дарит отменную форель терпеливой удочке. Возьми снасть и неси улов к моему костру.',
-  'entities.npcs.cook_marta.name': 'Марта',
-  'entities.npcs.cook_marta.title': 'Портовая кухарка',
-  'entities.npcs.cook_marta.greeting':
-    'Мельничный пруд спокоен, и окунь хорошо клюёт. Удочка стоит недорого, а горячая еда согревает, {className}.',
 };

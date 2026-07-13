@@ -5024,8 +5024,4 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.cook_cobb.title': '码头厨师',
   'entities.npcs.cook_cobb.greeting':
     '只要有耐心垂钓，明镜湖便会赏你一尾上好的鳟鱼。拿上钓竿，把渔获带回我的篝火旁吧。',
-  'entities.npcs.cook_marta.name': '玛尔塔',
-  'entities.npcs.cook_marta.title': '码头厨师',
-  'entities.npcs.cook_marta.greeting':
-    '{className}，磨坊池塘水面平静，鲈鱼正上钩呢。钓竿便宜，热腾腾的熟食暖心暖胃。',
 };

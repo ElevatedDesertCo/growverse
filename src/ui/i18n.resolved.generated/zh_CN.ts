@@ -6064,11 +6064,6 @@ export const zh_CN: EnTranslations = {
         "title": "码头厨师",
         "greeting": "只要有耐心垂钓，明镜湖便会赏你一尾上好的鳟鱼。拿上钓竿，把渔获带回我的篝火旁吧。"
       },
-      "cook_marta": {
-        "name": "玛尔塔",
-        "title": "码头厨师",
-        "greeting": "{className}，磨坊池塘水面平静，鲈鱼正上钩呢。钓竿便宜，热腾腾的熟食暖心暖胃。"
-      },
       "rowan_sawtooth": {
         "name": "罗恩·锯齿",
         "title": "水闸看守",

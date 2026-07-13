@@ -5025,8 +5025,4 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.cook_cobb.title': '碼頭廚子',
   'entities.npcs.cook_cobb.greeting':
     '明鏡湖會賞給耐心垂釣者一尾上好的鱒魚。拿根釣竿，把漁獲帶回我的火堆旁。',
-  'entities.npcs.cook_marta.name': '瑪塔',
-  'entities.npcs.cook_marta.title': '碼頭廚子',
-  'entities.npcs.cook_marta.greeting':
-    '磨坊池水面平靜，鱸魚正上鉤。釣竿便宜，一頓熱食暖心，{className}。',
 };

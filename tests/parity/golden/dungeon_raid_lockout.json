@@ -13,7 +13,7 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 495,
+      "nextId": 494,
       "state": "5bc471b0",
       "events": "741638a5",
       "rng": {
@@ -27,9 +27,9 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 500,
-      "state": "19709aab",
-      "events": "8883f8b1",
+      "nextId": 499,
+      "state": "8d1f4d8b",
+      "events": "3db6db83",
       "rng": {
         "draws": 0,
         "digest": "811c9dc5"
@@ -45,7 +45,7 @@
           "counters": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 495,
+          "entityId": 494,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
@@ -59,6 +59,25 @@
               999999999
             ]
           ],
+          "talents": {
+            "choices": {},
+            "ranks": {}
+          }
+        },
+        {
+          "activeLoadout": -1,
+          "arena2v2Rating": 1500,
+          "arenaRating": 1500,
+          "cls": "priest",
+          "companionUpgrades": {},
+          "counters": {},
+          "delveClears": {},
+          "delveDaily": {},
+          "entityId": 495,
+          "equipment": {
+            "chest": "apprentice_robe",
+            "mainhand": "gnarled_staff"
+          },
           "talents": {
             "choices": {},
             "ranks": {}
@@ -120,25 +139,6 @@
             "choices": {},
             "ranks": {}
           }
-        },
-        {
-          "activeLoadout": -1,
-          "arena2v2Rating": 1500,
-          "arenaRating": 1500,
-          "cls": "priest",
-          "companionUpgrades": {},
-          "counters": {},
-          "delveClears": {},
-          "delveDaily": {},
-          "entityId": 499,
-          "equipment": {
-            "chest": "apprentice_robe",
-            "mainhand": "gnarled_staff"
-          },
-          "talents": {
-            "choices": {},
-            "ranks": {}
-          }
         }
       ],
       "entities": [
@@ -152,7 +152,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 90,
-          "id": 495,
+          "id": 494,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -188,6 +188,55 @@
             "max": 5,
             "min": 2,
             "speed": 2
+          }
+        },
+        {
+          "aiState": "idle",
+          "attackPower": 10,
+          "combatTimer": 99,
+          "critChance": 0.0555,
+          "detonateTimer": "Infinity",
+          "dodgeChance": 0.0555,
+          "fallStartY": 1.5,
+          "fiveSecondRule": 99,
+          "hp": 51,
+          "id": 495,
+          "kind": "player",
+          "level": 1,
+          "lootFfaTimer": "Infinity",
+          "maxHp": 51,
+          "maxResource": 175,
+          "moveSpeed": 7,
+          "onGround": true,
+          "overpowerUntil": -1,
+          "petMode": "defensive",
+          "pos": {
+            "x": 2,
+            "y": 1.5,
+            "z": -2
+          },
+          "potionCooldownUntil": -1,
+          "resource": 175,
+          "resourceType": "mana",
+          "spawnPos": {
+            "x": 2,
+            "y": 1.5,
+            "z": -2
+          },
+          "spellPower": 12,
+          "stats": {
+            "agi": 11,
+            "armor": 50,
+            "int": 23,
+            "spi": 24,
+            "sta": 13,
+            "str": 10
+          },
+          "templateId": "priest",
+          "weapon": {
+            "max": 6,
+            "min": 3,
+            "speed": 2.9
           }
         },
         {
@@ -299,55 +348,6 @@
           "fiveSecondRule": 99,
           "hp": 51,
           "id": 498,
-          "kind": "player",
-          "level": 1,
-          "lootFfaTimer": "Infinity",
-          "maxHp": 51,
-          "maxResource": 175,
-          "moveSpeed": 7,
-          "onGround": true,
-          "overpowerUntil": -1,
-          "petMode": "defensive",
-          "pos": {
-            "x": 2,
-            "y": 1.5,
-            "z": -2
-          },
-          "potionCooldownUntil": -1,
-          "resource": 175,
-          "resourceType": "mana",
-          "spawnPos": {
-            "x": 2,
-            "y": 1.5,
-            "z": -2
-          },
-          "spellPower": 12,
-          "stats": {
-            "agi": 11,
-            "armor": 50,
-            "int": 23,
-            "spi": 24,
-            "sta": 13,
-            "str": 10
-          },
-          "templateId": "priest",
-          "weapon": {
-            "max": 6,
-            "min": 3,
-            "speed": 2.9
-          }
-        },
-        {
-          "aiState": "idle",
-          "attackPower": 10,
-          "combatTimer": 99,
-          "critChance": 0.0555,
-          "detonateTimer": "Infinity",
-          "dodgeChance": 0.0555,
-          "fallStartY": 1.5,
-          "fiveSecondRule": 99,
-          "hp": 51,
-          "id": 499,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -391,9 +391,9 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 500,
-      "state": "19709aab",
-      "events": "f8bf8698",
+      "nextId": 499,
+      "state": "8d1f4d8b",
+      "events": "3bfd4ba7",
       "rng": {
         "draws": 0,
         "digest": "811c9dc5"
@@ -409,7 +409,7 @@
           "counters": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 495,
+          "entityId": 494,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
@@ -423,6 +423,25 @@
               999999999
             ]
           ],
+          "talents": {
+            "choices": {},
+            "ranks": {}
+          }
+        },
+        {
+          "activeLoadout": -1,
+          "arena2v2Rating": 1500,
+          "arenaRating": 1500,
+          "cls": "priest",
+          "companionUpgrades": {},
+          "counters": {},
+          "delveClears": {},
+          "delveDaily": {},
+          "entityId": 495,
+          "equipment": {
+            "chest": "apprentice_robe",
+            "mainhand": "gnarled_staff"
+          },
           "talents": {
             "choices": {},
             "ranks": {}
@@ -484,25 +503,6 @@
             "choices": {},
             "ranks": {}
           }
-        },
-        {
-          "activeLoadout": -1,
-          "arena2v2Rating": 1500,
-          "arenaRating": 1500,
-          "cls": "priest",
-          "companionUpgrades": {},
-          "counters": {},
-          "delveClears": {},
-          "delveDaily": {},
-          "entityId": 499,
-          "equipment": {
-            "chest": "apprentice_robe",
-            "mainhand": "gnarled_staff"
-          },
-          "talents": {
-            "choices": {},
-            "ranks": {}
-          }
         }
       ],
       "entities": [
@@ -516,7 +516,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 90,
-          "id": 495,
+          "id": 494,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -552,6 +552,55 @@
             "max": 5,
             "min": 2,
             "speed": 2
+          }
+        },
+        {
+          "aiState": "idle",
+          "attackPower": 10,
+          "combatTimer": 99,
+          "critChance": 0.0555,
+          "detonateTimer": "Infinity",
+          "dodgeChance": 0.0555,
+          "fallStartY": 1.5,
+          "fiveSecondRule": 99,
+          "hp": 51,
+          "id": 495,
+          "kind": "player",
+          "level": 1,
+          "lootFfaTimer": "Infinity",
+          "maxHp": 51,
+          "maxResource": 175,
+          "moveSpeed": 7,
+          "onGround": true,
+          "overpowerUntil": -1,
+          "petMode": "defensive",
+          "pos": {
+            "x": 2,
+            "y": 1.5,
+            "z": -2
+          },
+          "potionCooldownUntil": -1,
+          "resource": 175,
+          "resourceType": "mana",
+          "spawnPos": {
+            "x": 2,
+            "y": 1.5,
+            "z": -2
+          },
+          "spellPower": 12,
+          "stats": {
+            "agi": 11,
+            "armor": 50,
+            "int": 23,
+            "spi": 24,
+            "sta": 13,
+            "str": 10
+          },
+          "templateId": "priest",
+          "weapon": {
+            "max": 6,
+            "min": 3,
+            "speed": 2.9
           }
         },
         {
@@ -663,55 +712,6 @@
           "fiveSecondRule": 99,
           "hp": 51,
           "id": 498,
-          "kind": "player",
-          "level": 1,
-          "lootFfaTimer": "Infinity",
-          "maxHp": 51,
-          "maxResource": 175,
-          "moveSpeed": 7,
-          "onGround": true,
-          "overpowerUntil": -1,
-          "petMode": "defensive",
-          "pos": {
-            "x": 2,
-            "y": 1.5,
-            "z": -2
-          },
-          "potionCooldownUntil": -1,
-          "resource": 175,
-          "resourceType": "mana",
-          "spawnPos": {
-            "x": 2,
-            "y": 1.5,
-            "z": -2
-          },
-          "spellPower": 12,
-          "stats": {
-            "agi": 11,
-            "armor": 50,
-            "int": 23,
-            "spi": 24,
-            "sta": 13,
-            "str": 10
-          },
-          "templateId": "priest",
-          "weapon": {
-            "max": 6,
-            "min": 3,
-            "speed": 2.9
-          }
-        },
-        {
-          "aiState": "idle",
-          "attackPower": 10,
-          "combatTimer": 99,
-          "critChance": 0.0555,
-          "detonateTimer": "Infinity",
-          "dodgeChance": 0.0555,
-          "fallStartY": 1.5,
-          "fiveSecondRule": 99,
-          "hp": 51,
-          "id": 499,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -755,8 +755,8 @@
     {
       "tick": 1,
       "time": 0.05,
-      "nextId": 500,
-      "state": "e35ee917",
+      "nextId": 499,
+      "state": "cfd50d8f",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -773,7 +773,7 @@
           "counters": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 495,
+          "entityId": 494,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
@@ -787,6 +787,25 @@
               999999999
             ]
           ],
+          "talents": {
+            "choices": {},
+            "ranks": {}
+          }
+        },
+        {
+          "activeLoadout": -1,
+          "arena2v2Rating": 1500,
+          "arenaRating": 1500,
+          "cls": "priest",
+          "companionUpgrades": {},
+          "counters": {},
+          "delveClears": {},
+          "delveDaily": {},
+          "entityId": 495,
+          "equipment": {
+            "chest": "apprentice_robe",
+            "mainhand": "gnarled_staff"
+          },
           "talents": {
             "choices": {},
             "ranks": {}
@@ -848,25 +867,6 @@
             "choices": {},
             "ranks": {}
           }
-        },
-        {
-          "activeLoadout": -1,
-          "arena2v2Rating": 1500,
-          "arenaRating": 1500,
-          "cls": "priest",
-          "companionUpgrades": {},
-          "counters": {},
-          "delveClears": {},
-          "delveDaily": {},
-          "entityId": 499,
-          "equipment": {
-            "chest": "apprentice_robe",
-            "mainhand": "gnarled_staff"
-          },
-          "talents": {
-            "choices": {},
-            "ranks": {}
-          }
         }
       ],
       "entities": [
@@ -880,7 +880,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99.05,
           "hp": 90,
-          "id": 495,
+          "id": 494,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -916,6 +916,55 @@
             "max": 5,
             "min": 2,
             "speed": 2
+          }
+        },
+        {
+          "aiState": "idle",
+          "attackPower": 10,
+          "combatTimer": 99.05,
+          "critChance": 0.0555,
+          "detonateTimer": "Infinity",
+          "dodgeChance": 0.0555,
+          "fallStartY": 1.5,
+          "fiveSecondRule": 99.05,
+          "hp": 51,
+          "id": 495,
+          "kind": "player",
+          "level": 1,
+          "lootFfaTimer": "Infinity",
+          "maxHp": 51,
+          "maxResource": 175,
+          "moveSpeed": 7,
+          "onGround": true,
+          "overpowerUntil": -1,
+          "petMode": "defensive",
+          "pos": {
+            "x": 2,
+            "y": 1.5,
+            "z": -2
+          },
+          "potionCooldownUntil": -1,
+          "resource": 175,
+          "resourceType": "mana",
+          "spawnPos": {
+            "x": 2,
+            "y": 1.5,
+            "z": -2
+          },
+          "spellPower": 12,
+          "stats": {
+            "agi": 11,
+            "armor": 50,
+            "int": 23,
+            "spi": 24,
+            "sta": 13,
+            "str": 10
+          },
+          "templateId": "priest",
+          "weapon": {
+            "max": 6,
+            "min": 3,
+            "speed": 2.9
           }
         },
         {
@@ -1027,55 +1076,6 @@
           "fiveSecondRule": 99.05,
           "hp": 51,
           "id": 498,
-          "kind": "player",
-          "level": 1,
-          "lootFfaTimer": "Infinity",
-          "maxHp": 51,
-          "maxResource": 175,
-          "moveSpeed": 7,
-          "onGround": true,
-          "overpowerUntil": -1,
-          "petMode": "defensive",
-          "pos": {
-            "x": 2,
-            "y": 1.5,
-            "z": -2
-          },
-          "potionCooldownUntil": -1,
-          "resource": 175,
-          "resourceType": "mana",
-          "spawnPos": {
-            "x": 2,
-            "y": 1.5,
-            "z": -2
-          },
-          "spellPower": 12,
-          "stats": {
-            "agi": 11,
-            "armor": 50,
-            "int": 23,
-            "spi": 24,
-            "sta": 13,
-            "str": 10
-          },
-          "templateId": "priest",
-          "weapon": {
-            "max": 6,
-            "min": 3,
-            "speed": 2.9
-          }
-        },
-        {
-          "aiState": "idle",
-          "attackPower": 10,
-          "combatTimer": 99.05,
-          "critChance": 0.0555,
-          "detonateTimer": "Infinity",
-          "dodgeChance": 0.0555,
-          "fallStartY": 1.5,
-          "fiveSecondRule": 99.05,
-          "hp": 51,
-          "id": 499,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",

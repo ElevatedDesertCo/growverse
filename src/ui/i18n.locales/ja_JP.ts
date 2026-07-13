@@ -5286,8 +5286,4 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.cook_cobb.title': '波止場の料理人',
   'entities.npcs.cook_cobb.greeting':
     'ミラー湖は、辛抱強く糸を垂らせば見事なマスを恵んでくれる。竿を手に取って、釣った魚を私のかまどまで持ってきておくれ。',
-  'entities.npcs.cook_marta.name': 'マルタ',
-  'entities.npcs.cook_marta.title': '波止場の料理人',
-  'entities.npcs.cook_marta.greeting':
-    '水車池は穏やかで、パーチがよく食いついているよ。竿は安いし、調理した料理は温かいからね、{className}。',
 };

@@ -6064,11 +6064,6 @@ export const zh_TW: EnTranslations = {
         "title": "碼頭廚子",
         "greeting": "明鏡湖會賞給耐心垂釣者一尾上好的鱒魚。拿根釣竿，把漁獲帶回我的火堆旁。"
       },
-      "cook_marta": {
-        "name": "瑪塔",
-        "title": "碼頭廚子",
-        "greeting": "磨坊池水面平靜，鱸魚正上鉤。釣竿便宜，一頓熱食暖心，{className}。"
-      },
       "rowan_sawtooth": {
         "name": "羅恩·鋸齒",
         "title": "水閘看守",
