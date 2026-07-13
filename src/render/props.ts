@@ -2092,13 +2092,13 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
   const dockPlankMat2 = surfaceMat({ color: 0x775638, roughness: 0.92 }); // alternating board tone for plank seams
   const dockPostMat = surfaceMat({ color: 0x5a4228, roughness: 0.95 });
   const dockPostGeo = new THREE.CylinderGeometry(0.14, 0.17, 1, 6);
-  const dockRailGeo = new THREE.CylinderGeometry(0.07, 0.07, 1, 5);
+  const dockRailGeo = new THREE.CylinderGeometry(0.11, 0.11, 1, 6); // chunky top/mid rail, reads as a real barrier
   const DOCK_PILE_BOTTOM = WATER_LEVEL - 2.6;
   const DOCK_HALFW = 2.4; // walkable half-width, must match sim/world.ts DOCK_HALFW
   const DECK_HALFW = 2.5; // visual half-width: overhangs the walkable strip so the raised terrain lip never shows as a sandbar (the overhang hangs over water, unreachable)
   const DECK_THICK = 0.26;
   const DECK_LIFT = 0.05; // seat the boards a hair ABOVE the walkable terrain so plank tops never z-fight with the ground mesh
-  const DECK_Z_SHORE = 2.6; // shore end of the boards (local +z): covers the graded shore ramp so there is no dip
+  const DECK_Z_SHORE = 3.2; // shore end of the boards (local +z): runs PAST the graded shore ramp (sim DOCK_BACK=2.8) onto natural land so no raised earth shows at the dock mouth
   const DECK_Z_TIP = -7.7; // water tip (local -z), at the terrain tip-taper start so the deck stays full-height
   const N_PLANKS = 22;
   const deckPlankGeo = new THREE.BoxGeometry(DECK_HALFW * 2, DECK_THICK, 0.64);
@@ -2128,29 +2128,35 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
       plank.position.set(0, top - y - DECK_THICK / 2 + lift, lz);
       g.add(plank);
     }
-    // support pilings dropping into the water + a rail post above the deck each side
+    // support pilings dropping into the water + a tall, obvious rail post each side
+    const N_RAIL_POSTS = 8;
+    const RAIL_TOP_H = 1.15; // top-rail height above the deck
+    const RAIL_MID_H = 0.62; // mid-rail height
     for (const side of [-1, 1] as const) {
       const lx = side * (DECK_HALFW - 0.2);
-      for (let i = 0; i < 6; i++) {
-        const lz = DECK_Z_SHORE - 0.4 - (i / 5) * (DECK_Z_SHORE - DECK_Z_TIP - 0.4);
+      for (let i = 0; i < N_RAIL_POSTS; i++) {
+        const lz =
+          DECK_Z_SHORE - 0.4 - (i / (N_RAIL_POSTS - 1)) * (DECK_Z_SHORE - DECK_Z_TIP - 0.4);
         const [wx, wz] = worldOf(lx, lz);
         const deckTop = ground(wx, wz); // the raised deck height here
         const pile = new THREE.Mesh(dockPostGeo, dockPostMat);
         pile.position.set(lx, (deckTop + DOCK_PILE_BOTTOM) / 2 - y, lz);
         pile.scale.y = Math.max(0.3, deckTop - DOCK_PILE_BOTTOM);
         g.add(pile);
+        // rail post standing proud of the deck: full-thickness and tall so the railing
+        // is clearly visible from the deck and the shore
         const railPost = new THREE.Mesh(dockPostGeo, dockPostMat);
-        railPost.position.set(lx, deckTop - y + 0.5, lz);
-        railPost.scale.set(0.7, 1.0, 0.7);
+        railPost.position.set(lx, deckTop - y + RAIL_TOP_H / 2, lz);
+        railPost.scale.set(0.85, RAIL_TOP_H, 0.85);
         g.add(railPost);
       }
       // two level rails (top + mid) running the deck length so the railing reads as a
-      // solid barrier, not a single skinny bar (seated on the flat over-water deck)
+      // solid barrier, in the dark post tone so it stands out against the pale boards
       const railMidLz = (DECK_Z_SHORE + DECK_Z_TIP) / 2;
       const [rwx, rwz] = worldOf(lx, railMidLz);
       const railGroundY = ground(rwx, rwz) - y;
-      for (const railH of [0.92, 0.5]) {
-        const rail = new THREE.Mesh(dockRailGeo, dockPlankMat);
+      for (const railH of [RAIL_TOP_H, RAIL_MID_H]) {
+        const rail = new THREE.Mesh(dockRailGeo, dockPostMat);
         rail.position.set(lx, railGroundY + railH, railMidLz);
         rail.rotation.x = Math.PI / 2;
         rail.scale.y = DECK_Z_SHORE - DECK_Z_TIP;
