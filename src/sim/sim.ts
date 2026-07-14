@@ -304,7 +304,7 @@ import {
   type FactionId,
   FISHING_CAST_ID,
   FISHING_CAST_TIME,
-  GARDEN_PLOT_POS,
+  GARDEN_PLOT_GRID,
   GCD,
   type InvSlot,
   isConsuming,
@@ -1068,21 +1068,24 @@ export class Sim {
       }
     }
 
-    // Cultivation: a visible personal Garden plot in the world (next to Marlow, the Grow
-    // Station cultivator) so a player can walk up and interact to open their garden,
-    // instead of the garden living only behind the NPC dialog. templateId 'garden_plot'
-    // routes to the Garden window client-side (interactions.ts); the server never mutates
-    // on interact, so this draws no rng and is a fixed, deterministic placement.
-    const gardenPlot = createGroundObject(
-      this.nextId++,
-      '',
-      'Garden Plot',
-      this.groundPos(GARDEN_PLOT_POS.x, GARDEN_PLOT_POS.z),
-    );
-    gardenPlot.templateId = 'garden_plot';
-    gardenPlot.objectItemId = null;
-    gardenPlot.lootable = true; // interactable affordance (hover/range), not a pickup
-    this.addEntity(gardenPlot);
+    // Cultivation: the physical Garden, the early-game growing hub at the Baked Beaver
+    // colony's grounds (The Sluice outpost). One raised bed per plot laid out as a grid of
+    // squares on the shore clearing, so a player walks up to a bed and interacts to tend
+    // their garden. templateId 'garden_plot' routes to the Garden window client-side
+    // (interactions.ts); the server never mutates on interact, so these draw no rng and are
+    // fixed, deterministic placements.
+    for (const spot of GARDEN_PLOT_GRID) {
+      const bed = createGroundObject(
+        this.nextId++,
+        '',
+        'Garden Plot',
+        this.groundPos(spot.x, spot.z),
+      );
+      bed.templateId = 'garden_plot';
+      bed.objectItemId = null;
+      bed.lootable = true; // interactable affordance (hover/range), not a pickup
+      this.addEntity(bed);
+    }
 
     // Resource-gathering nodes: ground objects marked with a harvestNodeId, so
     // pickUpObject routes them to the harvest channel (harvest.ts). Placed at fixed

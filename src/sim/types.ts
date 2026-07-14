@@ -1240,9 +1240,19 @@ export interface PlotView {
 // it later. Kept here (a shared tuning constant) so entity init and persistence agree.
 export const GARDEN_PLOT_COUNT = 6;
 
-// World placement of the interactable Garden plot object (near Marlow the Cultivator's
-// Grow Station in the starter town), so a player can walk up and open their garden.
-export const GARDEN_PLOT_POS = { x: -24, z: -8 };
+// The garden's physical home: the Baked Beaver colony's grounds at The Sluice outpost
+// (the north shore of the beaver millpond), the early-game growing hub. One raised bed per
+// plot, laid out as a 3x2 grid of squares on the shore clearing, all on solid land clear of
+// the pond. GARDEN_PLOT_GRID has exactly GARDEN_PLOT_COUNT entries; a settlement/reputation
+// expansion can grow the set later.
+export const GARDEN_PLOT_GRID: readonly { x: number; z: number }[] = [
+  { x: 44.5, z: 44.2 },
+  { x: 47, z: 44.2 },
+  { x: 49.5, z: 44.2 },
+  { x: 44.5, z: 46.8 },
+  { x: 47, z: 46.8 },
+  { x: 49.5, z: 46.8 },
+];
 
 // ---- Strain genetics (Phase C) ----------------------------------------------------
 // The signature breeding mechanic. A strain carries a bounded diploid genotype: a fixed

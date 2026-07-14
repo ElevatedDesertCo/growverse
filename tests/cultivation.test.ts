@@ -9,7 +9,7 @@ import { Sim } from '../src/sim/sim';
 import {
   type Entity,
   GARDEN_PLOT_COUNT,
-  GARDEN_PLOT_POS,
+  GARDEN_PLOT_GRID,
   type PlayerClass,
 } from '../src/sim/types';
 
@@ -30,14 +30,20 @@ describe('cultivation', () => {
     expect(sim.plots.every((p) => p.seedItemId === null)).toBe(true);
   });
 
-  it('spawns a single interactable garden_plot object in the world at the fixed spot', () => {
-    const plots = [
+  it('spawns one interactable garden_plot bed per plot, in a grid at the outpost', () => {
+    const beds = [
       ...(sim as unknown as { entities: Map<number, Entity> }).entities.values(),
     ].filter((e) => e.kind === 'object' && e.templateId === 'garden_plot');
-    expect(plots).toHaveLength(1);
-    expect(plots[0].pos.x).toBeCloseTo(GARDEN_PLOT_POS.x, 5);
-    expect(plots[0].pos.z).toBeCloseTo(GARDEN_PLOT_POS.z, 5);
-    expect(plots[0].objectItemId).toBeNull(); // not a pickup/collectible
+    expect(beds).toHaveLength(GARDEN_PLOT_COUNT);
+    expect(GARDEN_PLOT_GRID).toHaveLength(GARDEN_PLOT_COUNT);
+    // every configured grid position has a bed placed on it (x/z match; y is terrain)
+    for (const spot of GARDEN_PLOT_GRID) {
+      const bed = beds.find(
+        (b) => Math.abs(b.pos.x - spot.x) < 1e-5 && Math.abs(b.pos.z - spot.z) < 1e-5,
+      );
+      expect(bed, `no bed at (${spot.x}, ${spot.z})`).toBeDefined();
+      expect(bed?.objectItemId).toBeNull(); // not a pickup/collectible
+    }
   });
 
   it('planting a seed consumes it and starts the plot growing', () => {

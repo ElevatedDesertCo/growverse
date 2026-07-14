@@ -333,7 +333,9 @@ export const CRAFT_NPCS: Record<string, NpcDef> = {
     id: 'cultivator_marlow',
     name: 'Marlow',
     title: 'the Cultivator',
-    pos: { x: -20, z: -6 },
+    // Relocated to the Baked Beaver colony's grounds at The Sluice outpost, beside the
+    // garden beds: the early-game growing hub (Grow Station + the physical garden).
+    pos: { x: 42, z: 46 },
     facing: Math.PI,
     color: 0x4e9a2f,
     questIds: [],
