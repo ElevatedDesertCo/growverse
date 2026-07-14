@@ -1203,6 +1203,15 @@ export interface CampDef {
 export interface Plot {
   seedItemId: string | null;
   plantedAt: number;
+  // Effective grow time (sim-seconds) for THIS planting, resolved at plant time. A plain
+  // seed uses its PlantDef.growSeconds; a planted strain shortens it by its vigor. Stored
+  // on the plot so stage/progress/view reads stay library-free (no genotype lookup). 0
+  // when the plot is empty.
+  growSeconds: number;
+  // The library strain growing here, or null for a plain base-seed plant. Drives the
+  // harvest trait bonuses (extra yield, the potency essence drop). Not exposed to the
+  // client view; the plot still shows its lineage seed.
+  strainId: string | null;
 }
 export interface PlantYield {
   itemId: string;

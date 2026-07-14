@@ -789,7 +789,14 @@ export interface CharacterState {
   // Stores `grown` (elapsed sim-seconds) rather than an absolute plant time so growth
   // resumes correctly after a restart (the sim clock resets); rebased to plantedAt on
   // load. A null entry (or a short array) is an empty plot; missing entries pad empty.
-  plots?: ({ seedItemId: string; grown: number } | null)[];
+  // A strain plot also carries strainId + the vigor-resolved growSeconds (a plain seed
+  // plot omits both, staying byte-identical to the pre-genetics save shape).
+  plots?: ({
+    seedItemId: string;
+    grown: number;
+    strainId?: string;
+    growSeconds?: number;
+  } | null)[];
   // Strain library + its id counter. Optional so pre-genetics saves load cleanly (default
   // to an empty library / seq 0). Strains store name + genotype self-contained, so a load
   // does not depend on the base-strain content table. See src/sim/strain_library.ts.
@@ -4579,6 +4586,12 @@ export class Sim {
   // per-player PlayerMeta state, persisted in the character save.
   plantSeed(plotIndex: number, seedItemId: string, pid?: number): void {
     cultivation.plantSeed(this.ctx, plotIndex, seedItemId, pid);
+  }
+
+  // Genetics: plant a library strain (rather than a raw seed) into an empty plot. Consumes
+  // the strain's lineage seed as the medium; the harvest then applies the strain's traits.
+  plantStrain(plotIndex: number, strainId: string, pid?: number): void {
+    cultivation.plantStrain(this.ctx, plotIndex, strainId, pid);
   }
 
   harvestPlot(plotIndex: number, pid?: number): void {

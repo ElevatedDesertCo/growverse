@@ -227,3 +227,77 @@ describe('strain library: discovery + breeding over a Sim', () => {
     expect(reloaded.strains.map((s) => s.name)).toEqual(savedLibrary.map((s) => s.name));
   });
 });
+
+// Inject a strain (with a chosen genotype + lineage) straight into the library so a test
+// can assert exact plant/harvest payoff without breeding toward a target genotype.
+const injectStrain = (sim: Sim, baseId: string, genotype: Genotype, name = 'Injected'): string => {
+  const s: Strain = { id: 'inj', baseId, name, genotype, landrace: isLandrace(genotype) };
+  (sim as unknown as { primary: { strains: Strain[] } }).primary.strains.push(s);
+  return s.id;
+};
+const plotOf = (sim: Sim, i: number) => sim.plots[i];
+const simTime = (sim: Sim) => (sim as unknown as { time: number }).time;
+const forceReady = (sim: Sim, plot = 0) => {
+  plotOf(sim, plot).plantedAt = simTime(sim) - plotOf(sim, plot).growSeconds - 1;
+};
+
+describe('genetics: planting a strain (the payoff)', () => {
+  it('consumes the lineage seed and grows faster for high vigor', () => {
+    const sim = makeSim();
+    // vigor 3 -> shortened grow time vs the base common_seed grow time.
+    const id = injectStrain(sim, 'common_bloom', g([1, 1], [3, 3], [1, 1]));
+    sim.addItem('common_seed', 1);
+    sim.plantStrain(0, id);
+    expect(sim.countItem('common_seed')).toBe(0);
+    expect(plotOf(sim, 0).strainId).toBe(id);
+    expect(plotOf(sim, 0).growSeconds).toBeLessThan(PLANTS.common_seed.growSeconds);
+    expect(plotOf(sim, 0).growSeconds).toBeGreaterThan(0);
+  });
+
+  it('rejects planting a strain with no lineage seed in the bag', () => {
+    const sim = makeSim();
+    const id = injectStrain(sim, 'common_bloom', g([1, 1], [1, 1], [1, 1]));
+    sim.plantStrain(0, id); // no common_seed carried
+    expect(plotOf(sim, 0).seedItemId).toBeNull();
+  });
+
+  it('a high-yield, high-potency strain harvests extra Extract plus Essence', () => {
+    const sim = makeSim();
+    const baseExtract = PLANTS.common_seed.yields[0].count;
+    const id = injectStrain(sim, 'common_bloom', g([3, 3], [0, 0], [2, 2])); // potency3, yield2
+    sim.addItem('common_seed', 1);
+    sim.plantStrain(0, id);
+    forceReady(sim, 0);
+    sim.harvestPlot(0);
+    // base yield + yieldBonus(2) extra units of the bulk item...
+    expect(sim.countItem('bloom_extract')).toBe(baseExtract + yieldBonus(2));
+    // ...and potency >= 2 also drops one essence.
+    expect(sim.countItem('bloom_essence')).toBe(1);
+  });
+
+  it('a low-potency, low-yield strain harvests only the base yield (no essence)', () => {
+    const sim = makeSim();
+    const baseExtract = PLANTS.common_seed.yields[0].count;
+    const id = injectStrain(sim, 'common_bloom', g([1, 0], [1, 0], [0, 0])); // potency1, yield0
+    sim.addItem('common_seed', 1);
+    sim.plantStrain(0, id);
+    forceReady(sim, 0);
+    sim.harvestPlot(0);
+    expect(sim.countItem('bloom_extract')).toBe(baseExtract);
+    expect(sim.countItem('bloom_essence')).toBe(0);
+  });
+
+  it('a strain plot survives save/load with its resolved grow time and strain tag', () => {
+    const sim = makeSim();
+    const id = injectStrain(sim, 'common_bloom', g([1, 1], [2, 2], [1, 1]));
+    sim.addItem('common_seed', 1);
+    sim.plantStrain(0, id);
+    const grow = plotOf(sim, 0).growSeconds;
+    const saved = sim.serializeCharacter(sim.playerId)!;
+    const reloaded = new Sim({ seed: 42, playerClass: 'warrior', noPlayer: true });
+    reloaded.addPlayer('warrior', 'Test', { state: saved });
+    expect(reloaded.plots[0].seedItemId).toBe('common_seed');
+    expect(reloaded.plots[0].strainId).toBe(id);
+    expect(reloaded.plots[0].growSeconds).toBeCloseTo(grow, 5);
+  });
+});
