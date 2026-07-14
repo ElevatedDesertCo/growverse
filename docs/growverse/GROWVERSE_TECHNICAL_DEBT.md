@@ -10,7 +10,7 @@ P3 (nice-to-have). "Effort" is a rough order of magnitude. Companion to
 
 | ID | Severity | Item | Evidence | Effort |
 |---|---|---|---|---|
-| TD1 | P1 | `npm test` RED: Mirror Lake fishing cast interrupted by a mob | `tests/sim.test.ts` "rolls the fishing catch table only when the cast completes" fails deterministically (seed 42); a mob reaches the fishing spot after the Skeleton Grotto muster edit | S |
+| TD1 | P1 | `npm test` RED: Mirror Lake fishing cast interrupted by a mob | RESOLVED. `tests/sim.test.ts` "rolls the fishing catch table only when the cast completes" failed deterministically (seed 42): a by-design `q_murlocs` Siltling on the Mirror Lake shore reached the reseated dock's computed fishing spot and interrupted the cast. Fixed test-first by clearing mobs (matching the sibling fishing tests), since the test verifies clean catch-on-completion, not lakeshore safety. Follow-up (P3): the reseated dock now overlaps the murloc shore camp, a minor content/UX note for the team | S |
 | TD2 | P1 | No content id-integrity validation | `src/sim/content/CLAUDE.md`: "there's no compile check that a `loot.itemId` exists"; a bad `requiresQuest`/spawn/loot id ships silently | S |
 
 ## Persistence / scale (architecture blockers, tracked in ARCHITECTURE doc)

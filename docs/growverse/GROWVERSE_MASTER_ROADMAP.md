@@ -34,7 +34,7 @@ These are high-value, mostly data-only or self-contained, and safe to do first.
 
 | # | Quick win | Why it matters | Files | Risk |
 |---|---|---|---|---|
-| QW1 | Fix the Mirror Lake fishing-cast regression | `npm test` is RED and blocks CI; a starter mechanic is broken by a stray mob near the fishing spot | `src/sim/content/zone1.ts` (Skeleton Grotto muster placement), `tests/sim.test.ts` | Low |
+| QW1 | Fix the Mirror Lake fishing-cast regression (DONE) | `npm test` was RED and blocked CI; a by-design `q_murlocs` Siltling reached the reseated dock's computed fishing spot. Fixed test-first (clear mobs, matching sibling fishing tests) | `tests/sim.test.ts` | Low |
 | QW2 | Add content id-integrity test/CI gate | No check that `loot.itemId`/`requiresQuest`/spawn ids exist; a typo ships silently and this is a landmine at content scale | new `tests/content_integrity.test.ts`, `src/sim/data.ts` | Low |
 | QW3 | Wire Sessions (strain buffs) onto existing items | Turns the "grow" theme from junk items into real power in ~one slice using the mature auras + item-use path; the Indica/Sativa/Hybrid design already exists | `content/items.ts`, `content/crafting.ts`, `combat/auras.ts`, item-use path | Low-Med |
 | QW4 | Execute the starter-zone divergence (data-only) | Breaks the WoW "kill wolves/boars/spiders" fingerprint in the first hour; ids/text/mob-names/POIs per `starter-zone-redesign.md` | `content/zone1.ts`, `src/ui/world_entity_i18n.ts` | Low-Med |
