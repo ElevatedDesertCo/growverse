@@ -1079,11 +1079,12 @@ function dressStep(): number {
 function dressKindFor(biome: BiomeId, r: number): DressKind {
   if (biome === 'vale') {
     // desert scrub: dry brush dominant, mixed low and tall tufts of sun-bleached
-    // grass, sparse flowering succulents, no fungi
-    if (r < 0.42) return 'bush';
-    if (r < 0.52) return 'grass';
-    if (r < 0.58) return 'grassTall';
-    if (r < 0.78) return 'flower'; // every vale bloom is the yellow+purple flower
+    // grass, no fungi. No decorative flowers: every flower in the vale is a
+    // harvestable Flower Patch node (see sim/content/gathering.ts), so the only
+    // blooms you see are ones you can work, never dressing you cannot pick.
+    if (r < 0.5) return 'bush';
+    if (r < 0.66) return 'grass';
+    if (r < 0.8) return 'grassTall';
     return 'fern';
   }
   if (biome === 'marsh') {

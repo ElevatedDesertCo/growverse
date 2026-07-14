@@ -193,6 +193,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
+    "hudChrome.harvest.gatheredPopup",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -380,6 +381,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
+    "hudChrome.harvest.gatheredPopup",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -567,6 +569,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
+    "hudChrome.harvest.gatheredPopup",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -754,6 +757,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
+    "hudChrome.harvest.gatheredPopup",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -942,6 +946,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
+    "hudChrome.harvest.gatheredPopup",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -1129,6 +1134,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
+    "hudChrome.harvest.gatheredPopup",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -1348,6 +1354,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
+    "hudChrome.harvest.gatheredPopup",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -1543,6 +1550,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
+    "hudChrome.harvest.gatheredPopup",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -1730,6 +1738,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
+    "hudChrome.harvest.gatheredPopup",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -1917,6 +1926,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
+    "hudChrome.harvest.gatheredPopup",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -2104,6 +2114,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
+    "hudChrome.harvest.gatheredPopup",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -2291,6 +2302,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
+    "hudChrome.harvest.gatheredPopup",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -2478,6 +2490,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
+    "hudChrome.harvest.gatheredPopup",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ],
@@ -2665,6 +2678,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.caughtPopup",
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
+    "hudChrome.harvest.gatheredPopup",
     "hudChrome.options.showDailyRewardsChest",
     "hudChrome.unitFrame.lvl"
   ]

@@ -19,6 +19,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.fishing.caught': 'Вы поймали: {item}!',
   'hudChrome.fishing.introHint': 'Повернитесь к открытой воде и нажмите F, чтобы забросить леску.',
   'hudChrome.fishing.caughtPopup': 'Вы поймали: {item}!',
+  'hudChrome.harvest.gatheredPopup': 'Собрано: {item}',
   'hudChrome.fishing.nothing': 'Ничего не поймано.',
   'hudChrome.dailyRewards.close': 'Закрыть ежедневные награды',
   'hudChrome.dailyRewards.loading': 'Загрузка ежедневных наград...',

@@ -1068,6 +1068,9 @@ export const zh_CN: EnTranslations = {
       "introHint": "面向开阔水面并按 F 抛出鱼线。",
       "caughtPopup": "你钓到了 {item}！",
       "nothing": "什么都没钓到。"
+    },
+    "harvest": {
+      "gatheredPopup": "采集到 {item}"
     }
   },
   "guide": {

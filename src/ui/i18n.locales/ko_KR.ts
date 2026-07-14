@@ -19,6 +19,7 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.fishing.caught': '{item}을(를) 낚았습니다!',
   'hudChrome.fishing.introHint': '트인 물을 향한 뒤 F 키를 눌러 낚싯줄을 던지세요.',
   'hudChrome.fishing.caughtPopup': '{item}을(를) 낚았습니다!',
+  'hudChrome.harvest.gatheredPopup': '{item}을(를) 채집했습니다',
   'hudChrome.fishing.nothing': '아무것도 잡히지 않았습니다.',
   'hudChrome.dailyRewards.close': '일일 보상 닫기',
   'hudChrome.dailyRewards.loading': '일일 보상 불러오는 중...',

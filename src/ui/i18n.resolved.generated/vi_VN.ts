@@ -1068,6 +1068,9 @@ export const vi_VN: EnTranslations = {
       "introHint": "Face open water and press F to cast your line.",
       "caughtPopup": "You caught a {item}!",
       "nothing": "Nothing was caught."
+    },
+    "harvest": {
+      "gatheredPopup": "You gathered {item}"
     }
   },
   "guide": {

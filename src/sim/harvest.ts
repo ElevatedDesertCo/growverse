@@ -80,6 +80,9 @@ export function completeHarvest(ctx: SimContext, p: Entity, meta: PlayerMeta): v
     }
   }
   ctx.addItem(got, 1, meta.entityId);
+  // Structured gather event (alongside addItem's "You receive" loot line): lets the
+  // client pop a card with the reagent's icon + localized name on each harvest.
+  ctx.emit({ type: 'harvestGather', itemId: got, pid: meta.entityId });
   obj.lootable = false;
   obj.respawnTimer = node.respawn ?? HARVEST_RESPAWN;
 }

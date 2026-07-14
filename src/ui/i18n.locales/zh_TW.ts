@@ -19,6 +19,7 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'hudChrome.fishing.caught': '你釣到了 {item}！',
   'hudChrome.fishing.introHint': '面向開闊水面並按 F 拋出釣線。',
   'hudChrome.fishing.caughtPopup': '你釣到了 {item}！',
+  'hudChrome.harvest.gatheredPopup': '採集到 {item}',
   'hudChrome.fishing.nothing': '什麼都沒釣到。',
   'hudChrome.dailyRewards.close': '關閉每日獎勵',
   'hudChrome.dailyRewards.loading': '正在載入每日獎勵...',

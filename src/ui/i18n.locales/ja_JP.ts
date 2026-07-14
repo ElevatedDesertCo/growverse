@@ -19,6 +19,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.fishing.caught': '{item} を釣り上げた！',
   'hudChrome.fishing.introHint': '開けた水辺を向いて F キーで仕掛けを投げましょう。',
   'hudChrome.fishing.caughtPopup': '{item} を釣り上げた！',
+  'hudChrome.harvest.gatheredPopup': '{item} を採取した',
   'hudChrome.fishing.nothing': '何も釣れなかった。',
   'hudChrome.dailyRewards.close': 'デイリー報酬を閉じる',
   'hudChrome.dailyRewards.loading': 'デイリー報酬を読み込み中...',

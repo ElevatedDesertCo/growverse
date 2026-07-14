@@ -1169,4 +1169,8 @@ export const hudChromeStrings = {
     caughtPopup: 'You caught a {item}!',
     nothing: 'Nothing was caught.',
   },
+  harvest: {
+    // The one-shot gather card the HUD pops when a resource node finishes being worked.
+    gatheredPopup: 'You gathered {item}',
+  },
 };
