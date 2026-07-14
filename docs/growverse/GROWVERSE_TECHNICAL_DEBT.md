@@ -51,6 +51,8 @@ P3 (nice-to-have). "Effort" is a rough order of magnitude. Companion to
 | TD19 | P2 | Guilds are a name+rank string, no bank/perms/progression | `PlayerMeta.guild`, `server/social_db.ts` |
 | TD20 | P2 | Scripted bosses are bespoke code (Nythraxis 1.2k lines), no authoring framework | `encounters/nythraxis.ts` |
 | TD21 | P3 | Character customization is skin-only (no gender/hair/face/clothing) | `src/ui/character_appearance.ts` (46 lines) |
+| TD24 | P3 | Bloom Session buff names ship as English backstops (not localized) | `Restful/Lively/Balanced Bloom`, `Couch-Lock`, `Slow-Bloom` in `content/crafting.ts`; consistent with existing `Blessing of the Bloom`/`Riftforged Edge`. Register `aura.*` keys + fills at localization pass |
+| TD25 | P3 | A pending edible Session is transient (lost on relog) | `Entity.pendingSession` is not serialized; onset is ~12s so impact is minimal. Persist if edibles get long onsets |
 
 ## Security / supply chain (monitor)
 

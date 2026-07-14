@@ -64,6 +64,7 @@ function baseEntity(id: number, pos: Vec3): Entity {
     overpowerUntil: -1,
     potionCooldownUntil: -1,
     potionCdRemaining: 0,
+    pendingSession: null,
     savedMana: 0,
     chargeTargetId: null,
     chargeTimeLeft: 0,

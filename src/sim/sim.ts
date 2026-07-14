@@ -196,6 +196,7 @@ import { advancePendingProjectiles, type PendingProjectile } from './projectile_
 import { sanitizeRemovedZone1Content } from './removed_zone1_content';
 import { Rng } from './rng';
 import { persistedResource } from './serialize_resource';
+import { tickPendingSession } from './sessions';
 import { createSimContext, type SimContext, type SimContextHost } from './sim_context';
 import * as chatMod from './social/chat';
 import * as tradeMod from './social/trade';
@@ -2486,6 +2487,7 @@ export class Sim {
         this.updateCasting(p, meta);
         this.updatePlayerAutoAttack(p, meta);
         updateRegen(this.ctx, p, meta);
+        tickPendingSession(this.ctx, p);
         updateRested(p, meta);
       }
       updateTimers(p);

@@ -263,6 +263,57 @@ export const CRAFT_ITEMS: Record<string, ItemDef> = {
     elixir: { aura: 'Blessing of the Bloom', kind: 'buff_int', value: 8, duration: 900 },
     sellValue: 20,
   },
+
+  // --- Alchemist outputs: Bloom Sessions (the cultivation-to-power buff loop) -----
+  // A "Session" is a Bloom tonic brewed from the vale's blooms, drawing out one of
+  // three profiles. Sparks (instant) are the everyday buff; the edible lozenge is a
+  // slow-release draught that takes hold after a delay but runs longer and stronger.
+  // These are the first consumers wiring a harvest into real combat power; when
+  // cultivation lands (Phase B), grown strains feed the same tonics. Values fold
+  // through the normal elixir/aura path (see src/sim/sessions.ts).
+  //
+  // Restful (indica-style): stamina to soak hits, with a couch-lock movement tradeoff.
+  restful_bloom_tonic: {
+    id: 'restful_bloom_tonic',
+    name: 'Restful Bloom Tonic',
+    kind: 'elixir',
+    quality: 'uncommon',
+    elixir: { aura: 'Restful Bloom', kind: 'buff_sta', value: 10, duration: 600, couchLock: 0.85 },
+    sellValue: 18,
+  },
+  // Lively (sativa-style): a quicker hand, no tradeoff, but a shorter buzz.
+  lively_bloom_tonic: {
+    id: 'lively_bloom_tonic',
+    name: 'Lively Bloom Tonic',
+    kind: 'elixir',
+    quality: 'uncommon',
+    elixir: { aura: 'Lively Bloom', kind: 'buff_haste', value: 1.12, duration: 300 },
+    sellValue: 18,
+  },
+  // Hybrid: a balanced lift across every attribute.
+  balanced_bloom_tonic: {
+    id: 'balanced_bloom_tonic',
+    name: 'Balanced Bloom Tonic',
+    kind: 'elixir',
+    quality: 'uncommon',
+    elixir: { aura: 'Balanced Bloom', kind: 'buff_allstats', value: 4, duration: 600 },
+    sellValue: 22,
+  },
+  // Edible: a slow-release lozenge. Takes hold after a delay, then runs long and strong.
+  slow_bloom_lozenge: {
+    id: 'slow_bloom_lozenge',
+    name: 'Slow-Bloom Lozenge',
+    kind: 'elixir',
+    quality: 'rare',
+    elixir: {
+      aura: 'Slow-Bloom',
+      kind: 'buff_allstats',
+      value: 7,
+      duration: 1200,
+      onset: 12,
+    },
+    sellValue: 45,
+  },
 };
 
 // The reagents the Cultivator sells, so the grow loop is self-contained (buy
@@ -543,6 +594,40 @@ export const CRAFT_RECIPES: CraftRecipe[] = [
     copperCost: 40,
     requiredLevel: 5,
     output: { itemId: 'elixir_of_the_bloom', count: 1 },
+  },
+  // --- Alchemy Lab: Bloom Sessions (spark tonics + the edible lozenge) ------------
+  {
+    id: 'alchemy_restful_bloom_tonic',
+    station: 'alchemy',
+    category: 'consumable',
+    inputs: [{ itemId: 'bloom_extract', count: 3 }],
+    copperCost: 15,
+    output: { itemId: 'restful_bloom_tonic', count: 1 },
+  },
+  {
+    id: 'alchemy_lively_bloom_tonic',
+    station: 'alchemy',
+    category: 'consumable',
+    inputs: [{ itemId: 'bloom_extract', count: 3 }],
+    copperCost: 15,
+    output: { itemId: 'lively_bloom_tonic', count: 1 },
+  },
+  {
+    id: 'alchemy_balanced_bloom_tonic',
+    station: 'alchemy',
+    category: 'consumable',
+    inputs: [{ itemId: 'bloom_extract', count: 3 }],
+    copperCost: 15,
+    output: { itemId: 'balanced_bloom_tonic', count: 1 },
+  },
+  {
+    id: 'alchemy_slow_bloom_lozenge',
+    station: 'alchemy',
+    category: 'consumable',
+    inputs: [{ itemId: 'bloom_extract', count: 5 }],
+    copperCost: 40,
+    requiredLevel: 8,
+    output: { itemId: 'slow_bloom_lozenge', count: 1 },
   },
 ];
 

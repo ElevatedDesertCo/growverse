@@ -323,7 +323,21 @@ interface BaseItemDef {
   // elixirs: a temporary stat-buff aura granted on use (classic battle elixirs).
   // `aura` is a flavor name shown in the buff frame; `value` is the stat amount,
   // `duration` the buff length in seconds. Folds through the normal aura/stat path.
-  elixir?: { aura: string; kind: AuraKind; value: number; duration: number };
+  //
+  // Bloom "Sessions" (Growverse) reuse this field: a Bloom tonic is an elixir with
+  // optional `onset`/`couchLock`. `onset` > 0 makes it an edible (a slow-release
+  // draught whose buff takes hold after `onset` seconds via Entity.pendingSession);
+  // `onset` 0/omitted is a spark (instant). `couchLock` (0..1) is the restful
+  // (indica-style) tradeoff: a movement-speed multiplier applied for `duration`
+  // alongside the buff (0.85 = 15% slower). Both fold through the normal aura path.
+  elixir?: {
+    aura: string;
+    kind: AuraKind;
+    value: number;
+    duration: number;
+    onset?: number;
+    couchLock?: number;
+  };
   quality?: 'poor' | 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary'; // gray/white/green/blue/purple/orange name colors
   requiredClass?: PlayerClass[];
   // Minimum character level needed to equip this piece. When omitted, the level
@@ -1504,6 +1518,11 @@ export interface Entity {
   // gcdRemaining) so the action bar can paint a cooldown swipe without a client
   // clock. Derived from potionCooldownUntil; excluded from the parity trace.
   potionCdRemaining: number;
+  // Bloom "Session" edible: a slow-release tonic whose buff has not taken hold yet.
+  // Set on use when the elixir has an `onset`; the per-player session tick applies the
+  // buff once sim-time reaches `activateAt`, then clears this. Transient (not
+  // serialized); a spark session leaves this null and applies its buff immediately.
+  pendingSession: { itemId: string; activateAt: number } | null;
   // warrior charge: forced run toward the target along a pathfound route
   chargeTargetId: number | null;
   chargeTimeLeft: number; // seconds; failsafe so a blocked charge can't run forever

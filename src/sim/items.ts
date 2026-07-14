@@ -21,6 +21,7 @@ import { recalcPlayerStats } from './entity';
 import { canEquipItem } from './equipment_rules';
 import { formatMoney } from './format_money';
 import { meetsLevelRequirement, requiredLevelFor } from './item_level_req';
+import { startSession } from './sessions';
 import type { ItemUseResult, PlayerMeta } from './sim';
 import type { SimContext } from './sim_context';
 import {
@@ -192,22 +193,13 @@ export function useItem(ctx: SimContext, itemId: string, pid?: number): ItemUseR
     }
     ctx.emit({ type: 'log', text: `You quaff ${def.name}.`, color: '#c9f', pid: meta.entityId });
   } else if (def.kind === 'elixir') {
-    // Battle elixir: grant a temporary stat-buff aura. Usable in combat (classic),
-    // no shared potion cooldown; re-quaffing refreshes the buff via applyAura.
+    // Battle elixir / Bloom Session: grant a temporary stat-buff aura. Usable in combat
+    // (classic), no shared potion cooldown; re-quaffing refreshes the buff. Sessions
+    // (spark vs edible onset, the couch-lock tradeoff) fold through the same path in
+    // sessions.ts; a plain elixir is just a spark with a single aura and no couch-lock.
     const elx = def.elixir;
     if (!elx) return;
-    ctx.removeItem(itemId, 1, meta.entityId);
-    ctx.applyAura(p, {
-      id: `elixir_${itemId}`,
-      name: elx.aura,
-      kind: elx.kind,
-      remaining: elx.duration,
-      duration: elx.duration,
-      value: elx.value,
-      sourceId: p.id,
-      school: 'nature',
-    });
-    ctx.emit({ type: 'log', text: `You quaff ${def.name}.`, color: '#c9f', pid: meta.entityId });
+    startSession(ctx, itemId, p, meta, elx);
   } else if (def.kind === 'weapon' || def.kind === 'armor') {
     equipItem(ctx, itemId, meta.entityId);
   }
