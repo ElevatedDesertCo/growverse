@@ -7098,7 +7098,7 @@ export const zh_TW: EnTranslations = {
             "label": "Baked Beaver"
           },
           "11": {
-            "label": "The Sluice"
+            "label": "The Lodge"
           }
         }
       },

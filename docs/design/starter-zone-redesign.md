@@ -92,7 +92,7 @@ around the first and greatest Bloom garden, watered by the beavers' dams.
 | Withered Shrine | The Withered Bloom | a first patch of Bloom killed by the Dry |
 | Reliquary Hill | Seedvault Hill | where the beavers keep heirloom genetics |
 | Bloomwood Glade | Bloomwood Glade (keep) | already yours |
-| The Sluice (landmark) | The Sluice (keep) | already yours |
+| The Sluice (landmark) | The Lodge | beaver forward camp; the pond outpost, renamed off "Sluice" |
 
 ## 4. New starter quest chain (breaks the fingerprint, teaches the pillars)
 Objectives (kill N, collect N, talk to X) are mechanics and stay; names, givers, story, and

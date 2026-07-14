@@ -7098,7 +7098,7 @@ export const ja_JP: EnTranslations = {
             "label": "Baked Beaver"
           },
           "11": {
-            "label": "The Sluice"
+            "label": "The Lodge"
           }
         }
       },

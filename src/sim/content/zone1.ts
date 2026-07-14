@@ -52,12 +52,12 @@ export const ZONE1_ZONE: ZoneDef = {
     // minimap pin + world-map glyph on top of the subzone banner. (Index 10 is
     // brand-allowlisted in the i18n completeness test; keep it at this index.)
     { x: 42, z: 54, label: 'Baked Beaver', landmark: true },
-    // The Sluice: a forward work-camp of the Baked Beaver colony. A broad millpond
+    // The Lodge: a forward work-camp of the Baked Beaver colony. A broad millpond
     // held by a log dam on the townward side, fed by a river from the western
     // mountain, with a beaver lodge and two Beaver folk giving newcomers their first
     // trails. `landmark` pins it on the map so a wandering starter finds the
     // community, not just a lone statue.
-    { x: 40, z: 50, label: 'The Sluice', landmark: true },
+    { x: 40, z: 50, label: 'The Lodge', landmark: true },
   ],
   welcome: 'Find Marshal Redbrook in town, he has work for you.',
   welcomeQuestId: 'q_wolves',
@@ -698,7 +698,7 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     questIds: ['q_mine'],
     greeting: "Whole dig's crawling with those candle-headed vermin!",
   },
-  // The Sluice outpost, on the north shore of the beaver millpond, clear of town
+  // The Lodge outpost, on the north shore of the beaver millpond, clear of town
   // and the river. Two galaxy-blue Baked Beaver folk, a forward crew of the colony
   // that holds The Dam far to the south. They give a wandering newcomer their first
   // trails and the outpost's keepsake. Same blues as the zone4 Beavers, same
@@ -706,14 +706,14 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
   rowan_sawtooth: {
     id: 'rowan_sawtooth',
     name: 'Rowan Sawtooth',
-    title: 'Sluice Warden',
+    title: 'Lodge Warden',
     // by the lodge hearth on the north shore, facing south across the pond
     pos: { x: 30, z: 54 },
     facing: 3.1,
     color: 0x4a7ebb,
     questIds: ['q_sluice_welcome', 'q_sluice_pilings'],
     greeting:
-      "New face on the shore, $C. Welcome to the Sluice, the colony's forward camp. The Dam proper is a long haul south, but the work starts right here. Stay Baked, and mind the water.",
+      "New face on the shore, $C. Welcome to the Lodge, the colony's forward camp. The Dam proper is a long haul south, but the work starts right here. Stay Baked, and mind the water.",
   },
   hazel_timbers: {
     id: 'hazel_timbers',
@@ -1064,20 +1064,22 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     minLevel: 6,
     suggestedPlayers: 3,
   },
-  // The Sluice outpost chain: two low-level trails from the Baked Beaver crew, given
+  // The Lodge outpost chain: two low-level trails from the Baked Beaver crew, given
   // right where a starter first wanders out of Bloomhaven. Both are kill objectives
   // on existing vale mobs (no new mob or drop, so the deterministic spawn/loot rolls
-  // are untouched); the second hands over the outpost's keepsake artifact.
+  // are untouched); the second hands over the outpost's keepsake artifact. Neither
+  // reuses the Bloomhaven opener mobs (coyotes/javelinas): the beaver work is water
+  // and dam work, so these point at the pond snappers and the piling-gnawing gremlins.
   q_sluice_welcome: {
     id: 'q_sluice_welcome',
-    name: 'Welcome to the Sluice',
+    name: 'Welcome to the Lodge',
     giverNpcId: 'rowan_sawtooth',
     turnInNpcId: 'rowan_sawtooth',
-    text: "First thing you learn on the shore, $N: a beaver earns its spot by working, not gawking. The munchie coyotes come down off Coyote Wash to worry our woodpiles and spook the kits. Thin six of them and come warm up by the lodge fire. Then you're one of us.",
+    text: "First thing you learn on the shore, $N: a beaver earns its spot by working, not gawking. The pond is the whole of this camp, and reservoir snappers have crowded the shallows, biting at the kits and fouling the water we drink. Clear six of them out of the water and come warm up by the lodge fire. Then you're one of us.",
     completionText:
-      "Six fewer coyotes at the treeline, and you never once complained. That's the Sluice way, $N. Fire's yours, free of charge. Stay Baked, AZ.",
+      "Shallows are clear and the water runs clean again, and you never once complained. That's the Lodge way, $N. Fire's yours, free of charge. Stay Baked, AZ.",
     objectives: [
-      { type: 'kill', targetMobId: 'forest_wolf', count: 6, label: 'Munchie Coyote thinned' },
+      { type: 'kill', targetMobId: 'mudfin_murloc', count: 6, label: 'Reservoir Snapper cleared' },
     ],
     xpReward: 240,
     copperReward: 80,
@@ -1085,14 +1087,14 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
   },
   q_sluice_pilings: {
     id: 'q_sluice_pilings',
-    name: 'Trouble at the Pilings',
+    name: 'Gnaw at the Pilings',
     giverNpcId: 'rowan_sawtooth',
     turnInNpcId: 'rowan_sawtooth',
-    text: "The dam's the whole reason there's a pond to build around, and the razorback javelinas off Javelina Flats keep rooting up its pilings for the sweet mud. A beaver takes that personally, $N. Put down six of the diggers and the Sluice will owe you a proper keepsake, straight from The Dam itself.",
+    text: "The dam is the whole reason there's a pond to build around, and trimmer gremlins have crept up from their diggings to gnaw the pilings hollow for the sweet greenwood. A beaver takes that personally, $N. Put down six of the little thieves and the Lodge will owe you a proper keepsake, straight from The Dam itself.",
     completionText:
       "Pilings hold, pond stays put, and the kits sleep sound. Here, $N, a Baked Beaver token, carved down at The Dam. Carry it and you're colony, wherever you wander. Stay Baked, AZ.",
     objectives: [
-      { type: 'kill', targetMobId: 'wild_boar', count: 6, label: 'Razorback Javelina cleared' },
+      { type: 'kill', targetMobId: 'tunnel_rat', count: 6, label: 'Trimmer Gremlin put down' },
     ],
     xpReward: 320,
     copperReward: 120,

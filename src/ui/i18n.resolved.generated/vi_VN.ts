@@ -6066,8 +6066,8 @@ export const vi_VN: EnTranslations = {
       },
       "rowan_sawtooth": {
         "name": "Rowan Sawtooth",
-        "title": "Sluice Warden",
-        "greeting": "New face on the shore, {className}. Welcome to the Sluice, the colony's forward camp. The Dam proper is a long haul south, but the work starts right here. Stay Baked, and mind the water."
+        "title": "Lodge Warden",
+        "greeting": "New face on the shore, {className}. Welcome to the Lodge, the colony's forward camp. The Dam proper is a long haul south, but the work starts right here. Stay Baked, and mind the water."
       },
       "hazel_timbers": {
         "name": "Hazel Timbers",
@@ -6869,22 +6869,22 @@ export const vi_VN: EnTranslations = {
         }
       },
       "q_sluice_welcome": {
-        "title": "Welcome to the Sluice",
-        "text": "First thing you learn on the shore, {playerName}: a beaver earns its spot by working, not gawking. The munchie coyotes come down off Coyote Wash to worry our woodpiles and spook the kits. Thin six of them and come warm up by the lodge fire. Then you're one of us.",
-        "completion": "Six fewer coyotes at the treeline, and you never once complained. That's the Sluice way, {playerName}. Fire's yours, free of charge. Stay Baked, AZ.",
+        "title": "Welcome to the Lodge",
+        "text": "First thing you learn on the shore, {playerName}: a beaver earns its spot by working, not gawking. The pond is the whole of this camp, and reservoir snappers have crowded the shallows, biting at the kits and fouling the water we drink. Clear six of them out of the water and come warm up by the lodge fire. Then you're one of us.",
+        "completion": "Shallows are clear and the water runs clean again, and you never once complained. That's the Lodge way, {playerName}. Fire's yours, free of charge. Stay Baked, AZ.",
         "objectives": {
           "0": {
-            "label": "Munchie Coyote thinned"
+            "label": "Reservoir Snapper cleared"
           }
         }
       },
       "q_sluice_pilings": {
-        "title": "Trouble at the Pilings",
-        "text": "The dam's the whole reason there's a pond to build around, and the razorback javelinas off Javelina Flats keep rooting up its pilings for the sweet mud. A beaver takes that personally, {playerName}. Put down six of the diggers and the Sluice will owe you a proper keepsake, straight from The Dam itself.",
+        "title": "Gnaw at the Pilings",
+        "text": "The dam is the whole reason there's a pond to build around, and trimmer gremlins have crept up from their diggings to gnaw the pilings hollow for the sweet greenwood. A beaver takes that personally, {playerName}. Put down six of the little thieves and the Lodge will owe you a proper keepsake, straight from The Dam itself.",
         "completion": "Pilings hold, pond stays put, and the kits sleep sound. Here, {playerName}, a Baked Beaver token, carved down at The Dam. Carry it and you're colony, wherever you wander. Stay Baked, AZ.",
         "objectives": {
           "0": {
-            "label": "Razorback Javelina cleared"
+            "label": "Trimmer Gremlin put down"
           }
         }
       },
@@ -7098,7 +7098,7 @@ export const vi_VN: EnTranslations = {
             "label": "Baked Beaver"
           },
           "11": {
-            "label": "The Sluice"
+            "label": "The Lodge"
           }
         }
       },
