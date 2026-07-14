@@ -306,6 +306,7 @@ import {
   type PetMode,
   type PlayerClass,
   type Plot,
+  type PlotView,
   type QuestProgress,
   type QuestState,
   RUN_SPEED,
@@ -1687,6 +1688,12 @@ export class Sim {
   }
   get plots(): Plot[] {
     return this.primary.plots;
+  }
+  // IWorldCultivation read: the client-facing garden view (one PlotView per plot),
+  // computed live from the plots + the sim clock. The online ClientWorld mirrors the
+  // same shape from the self-snapshot.
+  get garden(): PlotView[] {
+    return cultivation.gardenView(this.primary.plots, this.time);
   }
   get equipment(): PlayerEquipment {
     return this.primary.equipment;

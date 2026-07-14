@@ -1862,6 +1862,7 @@ const ALL_DELTA_KEYS = [
   'drun',
   'duel',
   'equip',
+  'garden',
   'inv',
   'lockouts',
   'lroll',
@@ -2137,9 +2138,9 @@ describe('full self-state snapshot delta fixture', () => {
 });
 
 describe('delta-key contract pins (anti-drift)', () => {
-  it('ALL_DELTA_KEYS contains exactly 26 unique keys in sorted order', () => {
-    expect(ALL_DELTA_KEYS).toHaveLength(26);
-    expect(new Set(ALL_DELTA_KEYS).size).toBe(26);
+  it('ALL_DELTA_KEYS contains exactly 27 unique keys in sorted order', () => {
+    expect(ALL_DELTA_KEYS).toHaveLength(27);
+    expect(new Set(ALL_DELTA_KEYS).size).toBe(27);
     expect([...ALL_DELTA_KEYS]).toEqual([...ALL_DELTA_KEYS].sort());
   });
 
@@ -2151,7 +2152,7 @@ describe('delta-key contract pins (anti-drift)', () => {
     const scraped = new Set<string>();
     for (let m = re.exec(src); m !== null; m = re.exec(src)) scraped.add(m[1]);
     expect(scraped.has('lockouts')).toBe(true); // the multi-line call IS captured
-    expect(scraped.size).toBe(26);
+    expect(scraped.size).toBe(27);
     expect([...scraped].sort()).toEqual([...ALL_DELTA_KEYS].sort());
   });
 

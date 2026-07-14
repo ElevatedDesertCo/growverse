@@ -36,6 +36,7 @@ import {
   type MasterLootThreshold,
   type MoveInput,
   type PlayerClass,
+  type PlotView,
   type QuestProgress,
   type QuestState,
   type SimEvent,
@@ -835,6 +836,8 @@ export class ClientWorld implements IWorld {
   vendorBuyback: InvSlot[] = [];
   // --- IWorldInventory: the account bank (stash), mirrored from snapshot self. ---
   stash: InvSlot[] = [];
+  // --- IWorldCultivation: the garden view (one PlotView per plot), mirrored from self. ---
+  garden: PlotView[] = [];
   equipment: Partial<Record<EquipSlot, string>> = {};
   copper = 0;
   // --- IWorldCosmetics: account cosmetics (completed-quest + mech-chroma ids),
@@ -1511,6 +1514,8 @@ export class ClientWorld implements IWorld {
         this.stash = s.stash;
         this.invChanged = true;
       }
+      // IWorldCultivation garden: delta-guarded; a missing field keeps the prior mirror.
+      if (s.garden !== undefined) this.garden = s.garden;
       if (s.equip !== undefined) this.equipment = s.equip;
       // IWorldCosmetics facet (W7) self-decode: cosmetics is delta-guarded (a
       // missing field keeps the prior mirror); normalizeAccountCosmetics rebuilds it.
@@ -1783,6 +1788,14 @@ export class ClientWorld implements IWorld {
   }
   withdrawFromStash(itemId: string, count?: number): void {
     this.cmd({ cmd: 'withdraw_stash', item: itemId, count });
+  }
+  // --- IWorldCultivation: plant into / harvest a garden plot. Server re-validates the
+  // seed, the plot, and inventory; the garden read reconciles from the self-snapshot.
+  plantSeed(plotIndex: number, seedItemId: string): void {
+    this.cmd({ cmd: 'plant_seed', plot: plotIndex, item: seedItemId });
+  }
+  harvestPlot(plotIndex: number): void {
+    this.cmd({ cmd: 'harvest_plot', plot: plotIndex });
   }
   // --- IWorldCrafting: submit a recipe at the nearby station. Server re-validates
   // proximity, copper, and reagents; result flows back as an events frame.

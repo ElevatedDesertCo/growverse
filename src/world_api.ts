@@ -49,6 +49,7 @@ import type { IWorldChat } from './world_api/chat';
 import type { IWorldCombat } from './world_api/combat';
 import type { IWorldCosmetics } from './world_api/cosmetics';
 import type { IWorldCrafting } from './world_api/crafting';
+import type { IWorldCultivation } from './world_api/cultivation';
 import type { IWorldDailyRewards } from './world_api/daily_rewards';
 import type { IWorldDelves } from './world_api/delves';
 import type { IWorldDuelArena } from './world_api/duel_arena';
@@ -74,7 +75,13 @@ export type {
   GuildLeaderboardPage,
   LeaderboardPage,
 } from './sim/leaderboard_page';
-export type { ArenaCombatant, ArenaFormat, ArenaStanding, OverheadEmoteId } from './sim/types';
+export type {
+  ArenaCombatant,
+  ArenaFormat,
+  ArenaStanding,
+  OverheadEmoteId,
+  PlotView,
+} from './sim/types';
 
 // --- facet aux-type + value re-exports (each travels with its facet file) ---
 export { isOverheadEmoteId, OVERHEAD_EMOTES } from './world_api/chat';
@@ -149,6 +156,7 @@ export interface IWorld
     IWorldDelves,
     IWorldDailyRewards,
     IWorldCrafting,
+    IWorldCultivation,
     IWorldTelemetry {}
 
 // ---------------------------------------------------------------------------
@@ -285,6 +293,8 @@ export const COMMAND_NAMES = [
   'craft',
   'deposit_stash',
   'withdraw_stash',
+  'plant_seed',
+  'harvest_plot',
   'telemetry',
 ] as const;
 
@@ -349,6 +359,7 @@ export type WorldFacet =
   | 'IWorldDelves'
   | 'IWorldDailyRewards'
   | 'IWorldCrafting'
+  | 'IWorldCultivation'
   | 'IWorldTelemetry';
 
 export const COMMAND_FACETS = {
@@ -481,4 +492,8 @@ export const COMMAND_FACETS = {
   // stash + inventory reads (inventory/stash/vendorBuyback) ride the self-snapshot.
   deposit_stash: 'IWorldInventory',
   withdraw_stash: 'IWorldInventory',
+  // IWorldCultivation: plant a seed into / harvest a garden plot. The `garden` read
+  // rides the self-snapshot; these two are the server-authoritative mutations.
+  plant_seed: 'IWorldCultivation',
+  harvest_plot: 'IWorldCultivation',
 } as const satisfies Partial<Record<ClientCommand, WorldFacet>>;

@@ -1214,6 +1214,16 @@ export interface PlantDef {
   growSeconds: number;
   yields: PlantYield[]; // granted on harvest
 }
+// The client-facing view of one garden plot: what IWorld exposes and what rides the
+// self-snapshot. Computed from a Plot + the sim clock (see cultivation.gardenView), so
+// both the offline Sim and the online ClientWorld present it identically. `progress`
+// (0..1) and `secondsRemaining` are quantized to keep the snapshot delta stable.
+export interface PlotView {
+  seedItemId: string | null;
+  stage: 'empty' | 'growing' | 'ready';
+  progress: number;
+  secondsRemaining: number;
+}
 // A player's garden size. A small fixed set for v1; a settlement/upgrade path can grow
 // it later. Kept here (a shared tuning constant) so entity init and persistence agree.
 export const GARDEN_PLOT_COUNT = 6;

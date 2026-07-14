@@ -3,6 +3,7 @@ import { createBotDetector } from '#bot-detector';
 import { verifyChallenge } from '../src/sim/client_challenge';
 import { MECH_CHROMAS, mechChromaItemId, mechChromaSkinIndex } from '../src/sim/content/skins';
 import type { TalentAllocation } from '../src/sim/content/talents';
+import { gardenView } from '../src/sim/cultivation';
 import {
   DELVES,
   DUNGEON_X_THRESHOLD,
@@ -2361,6 +2362,14 @@ export class GameServer {
           );
         }
         break;
+      case 'plant_seed':
+        if (typeof msg.plot === 'number' && typeof msg.item === 'string') {
+          sim.plantSeed(msg.plot, msg.item, pid);
+        }
+        break;
+      case 'harvest_plot':
+        if (typeof msg.plot === 'number') sim.harvestPlot(msg.plot, pid);
+        break;
       case 'change_skin':
         if (typeof msg.skin === 'number') {
           if (msg.catalog === 'mech') {
@@ -3175,6 +3184,7 @@ export class GameServer {
       maybe('inv', meta.inventory);
       maybe('buyback', meta.vendorBuyback);
       maybe('stash', meta.stash);
+      maybe('garden', gardenView(meta.plots, this.sim.time));
       maybe('equip', meta.equipment);
       maybe('cosmetics', anchorSession.accountCosmetics);
       maybe('qlog', [...meta.questLog.values()]);

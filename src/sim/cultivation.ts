@@ -17,7 +17,7 @@
 
 import { PLANTS } from './data';
 import type { SimContext } from './sim_context';
-import { GARDEN_PLOT_COUNT, type Plot } from './types';
+import { GARDEN_PLOT_COUNT, type Plot, type PlotView } from './types';
 
 export type PlotStage = 'empty' | 'growing' | 'ready';
 
@@ -41,6 +41,27 @@ export function plotProgress(plot: Plot, now: number): number {
   const def = PLANTS[plot.seedItemId];
   if (!def || def.growSeconds <= 0) return plot.seedItemId ? 1 : 0;
   return Math.min(1, Math.max(0, (now - plot.plantedAt) / def.growSeconds));
+}
+
+// The client-facing view of a garden: one PlotView per plot, computed from the plots +
+// the sim clock. Used by the IWorld `garden` read (both worlds) and the self-snapshot
+// encoder. Quantized (progress to 2 decimals, secondsRemaining to whole seconds) so a
+// growing plant only nudges the snapshot delta about once a second, not every tick.
+export function gardenView(plots: Plot[], now: number): PlotView[] {
+  return plots.map((plot) => {
+    const stage = plotStage(plot, now);
+    if (stage === 'empty') {
+      return { seedItemId: null, stage, progress: 0, secondsRemaining: 0 };
+    }
+    const def = plot.seedItemId ? PLANTS[plot.seedItemId] : undefined;
+    const remaining = def ? Math.max(0, Math.ceil(def.growSeconds - (now - plot.plantedAt))) : 0;
+    return {
+      seedItemId: plot.seedItemId,
+      stage,
+      progress: Math.round(plotProgress(plot, now) * 100) / 100,
+      secondsRemaining: stage === 'ready' ? 0 : remaining,
+    };
+  });
 }
 
 // Plant a seed the player carries into an empty plot. Guards mirror the other
