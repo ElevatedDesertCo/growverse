@@ -78,7 +78,6 @@ const FOLIAGE_MODEL_URLS_HIGH = {
   dead: [1, 2, 3].map((i) => `${MODEL_DIR}dead_${i}.glb`),
   rock: [1, 2, 3].map((i) => `${MODEL_DIR}rock_${i}.glb`),
   bush: [`${MODEL_DIR}bush.glb`],
-  bushFlowers: [`${MODEL_DIR}bush_flowers.glb`],
   fern: [`${MODEL_DIR}fern.glb`],
   mushroom: [`${MODEL_DIR}mushroom.glb`],
   grass: [`${MODEL_DIR}grass.glb`],
@@ -92,7 +91,6 @@ const FOLIAGE_MODEL_URLS_LOW = {
   dead: [1].map((i) => `${MODEL_DIR}dead_${i}.glb`),
   rock: [1].map((i) => `${MODEL_DIR}rock_${i}.glb`),
   bush: [`${MODEL_DIR}bush.glb`],
-  bushFlowers: [`${MODEL_DIR}bush_flowers.glb`],
   fern: [`${MODEL_DIR}fern.glb`],
   mushroom: [`${MODEL_DIR}mushroom.glb`],
   grass: [`${MODEL_DIR}grass.glb`],
@@ -599,7 +597,6 @@ export function buildFoliageMaterialPrewarmGroup(): THREE.Group {
     ...MODEL_URLS.dead,
     ...MODEL_URLS.rock,
     MODEL_URLS.bush[0],
-    MODEL_URLS.bushFlowers[0],
     MODEL_URLS.fern[0],
     MODEL_URLS.mushroom[0],
     MODEL_URLS.grass[0],
@@ -1059,7 +1056,7 @@ function buildTrees(
 // Ground dressing: bushes, ferns, mushrooms on a deterministic hash grid
 // ---------------------------------------------------------------------------
 
-type DressKind = 'bush' | 'bushFlowers' | 'fern' | 'mushroom' | 'grass' | 'grassTall' | 'flower';
+type DressKind = 'bush' | 'fern' | 'mushroom' | 'grass' | 'grassTall' | 'flower';
 
 interface DressingSpot {
   x: number;
@@ -1086,8 +1083,7 @@ function dressKindFor(biome: BiomeId, r: number): DressKind {
     if (r < 0.42) return 'bush';
     if (r < 0.52) return 'grass';
     if (r < 0.58) return 'grassTall';
-    if (r < 0.68) return 'bushFlowers';
-    if (r < 0.78) return 'flower'; // geometric desert blooms, a visible accent
+    if (r < 0.78) return 'flower'; // every vale bloom is the yellow+purple flower
     return 'fern';
   }
   if (biome === 'marsh') {
@@ -1105,7 +1101,6 @@ function dressKindFor(biome: BiomeId, r: number): DressKind {
 
 const DRESS_SCALE: Record<DressKind, [number, number]> = {
   bush: [0.9, 0.7],
-  bushFlowers: [0.9, 0.7],
   fern: [0.85, 0.6],
   mushroom: [0.9, 0.8],
   grass: [0.7, 0.9],
@@ -1163,7 +1158,6 @@ function generateDressing(seed: number): DressingSpot[] {
 function buildDressing(parent: THREE.Group, seed: number, registry: BucketMesh[]): void {
   const kindParts: Record<DressKind, ModelPart[]> = {
     bush: extractParts(MODEL_URLS.bush[0]),
-    bushFlowers: extractParts(MODEL_URLS.bushFlowers[0]),
     fern: extractParts(MODEL_URLS.fern[0]),
     mushroom: extractParts(MODEL_URLS.mushroom[0]),
     grass: extractParts(MODEL_URLS.grass[0]),
