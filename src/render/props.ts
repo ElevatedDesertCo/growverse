@@ -870,12 +870,42 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     plinth.position.y = 0.1 - h / 2;
     g.add(plinth);
   };
+  // Stone entry stair on the door (+z) edge, so a plinth-seated house reads as
+  // reachable rather than sitting on an unclimbable cement block. `floorDrop` is
+  // how far the ground falls from the seated sill to just past the door edge; a
+  // flight of stacked stone treads spans it, each tread reaching down to grade so
+  // there are no gaps. Skipped when the door is near grade (floorDrop <= 0.5),
+  // e.g. the door faces uphill or the flat town plateau. (Added to the group in
+  // local space before it is rotated/translated, like addFoundation.)
+  const addSteps = (g: THREE.Group, w: number, d: number, floorDrop: number) => {
+    const n = Math.min(8, Math.max(1, Math.round(floorDrop / 0.42)));
+    const rise = floorDrop / n;
+    const tread = 0.5;
+    const stepW = Math.min(w * 0.5, 4.6);
+    const zFace = d / 2;
+    const bottomY = -floorDrop - 0.4; // skirt below grade so no tread floats
+    for (let k = 1; k <= n; k++) {
+      const topY = 0.1 - (k - 1) * rise; // top tread meets the sill; each is one rise lower
+      const z0 = zFace + (k - 1) * tread;
+      const h = topY - bottomY;
+      const step = new THREE.Mesh(new THREE.BoxGeometry(stepW, h, tread), foundationMat);
+      step.position.set(0, topY - h / 2, z0 + tread / 2);
+      g.add(step);
+    }
+  };
 
   for (const b of PROPS.buildings) {
     const key = b.x * 13.7 + b.z * 3.1;
     const { lo, hi } = footprintGround(b);
     const y = hi; // seat at the highest corner so no wall sinks into the hill
     const drop = hi - lo; // downhill gap the foundation plinth fills
+    // Ground fall from the seated sill to just past the door (+z) edge: how tall
+    // an entry stair the door side needs. Probe a little beyond the edge so the
+    // stair foot lands on grade, not on the buried footprint corner.
+    const dc = Math.cos(b.rot);
+    const ds = Math.sin(b.rot);
+    const doorProbe = b.d / 2 + 1.2;
+    const floorDrop = y - ground(b.x + doorProbe * ds, b.z + doorProbe * dc);
     // roof Y mirrors the camera collider height in colliders.ts
     const roofY = y + (b.kind === 'chapel' ? 10.8 : b.kind === 'inn' ? 7.8 : 8.0);
     if (b.kind === 'chapel') {
@@ -893,6 +923,7 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
         scale: [(b.w * 0.9) / hall.size.x, 2.5 / hall.size.y, 3.2 / hall.size.z],
       });
       if (drop > 0.12) addFoundation(g, b.w, b.d, drop);
+      if (floorDrop > 0.5) addSteps(g, b.w, b.d, floorDrop);
       g.position.set(b.x, y - 0.12, b.z);
       g.rotation.y = b.rot;
       group.add(shadowed(g));
@@ -905,6 +936,7 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     const g = new THREE.Group();
     addParts(g, asset, { scale: [b.w / a.size.x, houseHeight[asset] / a.size.y, b.d / a.size.z] });
     if (drop > 0.12) addFoundation(g, b.w, b.d, drop);
+    if (floorDrop > 0.5) addSteps(g, b.w, b.d, floorDrop);
     g.position.set(b.x, y - 0.12, b.z);
     g.rotation.y = b.rot;
     group.add(shadowed(g));
