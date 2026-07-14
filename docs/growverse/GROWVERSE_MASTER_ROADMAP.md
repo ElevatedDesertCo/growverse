@@ -139,6 +139,28 @@ fills), so build the UI where a browser and the localization batch are available
 
 ### Phase C (P2): Genetics/breeding + factions/commune reputation
 
+STATUS: SHIPPED (built as a strain-library model, not per-item genetics, so the id+count
+inventory is untouched). Delivered in five slices, all green:
+- C-1a (`src/sim/genetics.ts` + `strain_library.ts` + `content/genetics.ts`): the bounded
+  diploid engine (3 traits, alleles 0..3, dominant/recessive expression, Mendelian breeding
+  with an 8% per-allele mutation, a max-tier landrace), the per-player library on
+  PlayerMeta (discover-on-harvest, breed, release), and persistence. Deterministic via the
+  sim Rng.
+- C-1b: planting a library strain (vigor shortens grow time; yield/potency scale the
+  harvest, potency>=2 also drops Bloom Essence).
+- C-1c (`src/sim/reputation.ts` + `content/reputation.ts`): the Baked Beaver commune, five
+  standing tiers, gains from cultivating (+15) and breeding (+30, +150 landrace), and a
+  rep-gated recipe (Prime Strain Seed at Honored).
+- C-2: the IWorld seam (IWorldCultivation `strains` + plant/breed/release commands; a new
+  read-only IWorldReputation), both worlds + server dispatch/snapshot, all three seam gates.
+- C-3: the Breeding window UI (`breeding_view.ts` + `breeding_window.ts`), opened from the
+  Grow Station, with the commune-standing header.
+Not done (deferred, out of the original scope): a phenotype-preview before a cross;
+cosmetic rep rewards; a relational genetics/rep DB table (state rides the existing
+`characters.state` JSONB blob). The Breeding window still needs a running-client visual +
+mobile + a11y pass (headless cannot verify), and the five non-Latin UI + item-name fills
+want a native-speaker review.
+
 - **Objective:** Cross-breed strains for traits (bounded model: a few dominant/recessive
   traits, mutation chance, rare phenotypes); add Baked Beaver commune reputation that gates
   strains/recipes/cosmetics.
