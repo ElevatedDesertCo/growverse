@@ -829,6 +829,49 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     inn: 7.6,
   };
 
+  // A building is grounded at its footprint CENTER, so on a slope the downhill
+  // wall floats over the dropping terrain (the lakeside Bloomhaven house was the
+  // worst, ~2yd of air under its lake-facing sill). Fill that gap with a stone
+  // foundation plinth that runs from just under the walls down past the lowest
+  // footprint corner: flush stone on the downhill side, buried in the bank
+  // uphill. It only appears on genuinely sloped sites; flat-ground buildings get
+  // no plinth. `found` is added to the building group so it hides and shadows
+  // with the walls (camera-ghost + shadow pass).
+  const foundationMat = surfaceMat({ color: 0x6f665c, roughness: 0.97 });
+  function lowestFootprintCorner(b: { x: number; z: number; w: number; d: number; rot: number }) {
+    const hw = b.w / 2;
+    const hd = b.d / 2;
+    const c = Math.cos(b.rot);
+    const s = Math.sin(b.rot);
+    let minY = Number.POSITIVE_INFINITY;
+    for (const [lx, lz] of [
+      [-hw, -hd],
+      [hw, -hd],
+      [-hw, hd],
+      [hw, hd],
+    ]) {
+      minY = Math.min(minY, ground(b.x + lx * c + lz * s, b.z - lx * s + lz * c));
+    }
+    return minY;
+  }
+  function addFoundation(
+    g: THREE.Group,
+    b: { x: number; z: number; w: number; d: number; rot: number },
+    y: number,
+  ): void {
+    const minY = lowestFootprintCorner(b);
+    if (y - minY < 0.6) return; // flat enough: leave the building as-is
+    const gOriginY = y - 0.12; // the building group's world Y (see position.set below)
+    const top = y + 0.05; // tuck just under the wall base
+    const bottom = minY - 0.3; // clear the lowest corner, plus a little for mid-edge dips
+    const found = new THREE.Mesh(
+      new THREE.BoxGeometry(b.w * 0.98, top - bottom, b.d * 0.98),
+      foundationMat,
+    );
+    found.position.set(0, (top + bottom) / 2 - gOriginY, 0); // local to the (already rotated) group
+    g.add(found);
+  }
+
   for (const b of PROPS.buildings) {
     const key = b.x * 13.7 + b.z * 3.1;
     const y = ground(b.x, b.z);
@@ -850,6 +893,7 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
       });
       g.position.set(b.x, y - 0.12, b.z);
       g.rotation.y = b.rot;
+      addFoundation(g, b, y);
       group.add(shadowed(g));
       registerHideable(g, obbFootprint(b.x, b.z, b.w / 2, b.d / 2, b.rot, roofY));
       continue;
@@ -861,6 +905,7 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     addParts(g, asset, { scale: [b.w / a.size.x, houseHeight[asset] / a.size.y, b.d / a.size.z] });
     g.position.set(b.x, y - 0.12, b.z);
     g.rotation.y = b.rot;
+    addFoundation(g, b, y);
     group.add(shadowed(g));
     registerHideable(g, obbFootprint(b.x, b.z, b.w / 2, b.d / 2, b.rot, roofY));
   }
