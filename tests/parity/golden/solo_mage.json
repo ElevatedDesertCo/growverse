@@ -8,8 +8,8 @@
     "casting lifecycle (C4a)",
     "effect dispatch + spell damage (C4b/C1)"
   ],
-  "draws": 540,
-  "drawDigest": "6ad5f756",
+  "draws": 536,
+  "drawDigest": "fd8a2d21",
   "frames": [
     {
       "tick": 0,
@@ -155,22 +155,22 @@
       "tick": 120,
       "time": 6,
       "nextId": 496,
-      "state": "b446fe04",
-      "events": "f241fad0",
+      "state": "a3ae9951",
+      "events": "963bbd4b",
       "rng": {
-        "draws": 477,
-        "digest": "f65cdac8"
+        "draws": 474,
+        "digest": "1b1fabc8"
       }
     },
     {
       "tick": 128,
       "time": 6.4,
       "nextId": 496,
-      "state": "a5dcddfc",
+      "state": "489262be",
       "events": "741638a5",
       "rng": {
-        "draws": 540,
-        "digest": "6ad5f756"
+        "draws": 536,
+        "digest": "fd8a2d21"
       },
       "label": "final",
       "players": [
@@ -183,7 +183,7 @@
           "companionUpgrades": {},
           "counters": {
             "damageDealt": 91,
-            "damageTaken": 19
+            "damageTaken": 8
           },
           "delveClears": {},
           "delveDaily": {},
@@ -203,10 +203,10 @@
         {
           "aiState": "idle",
           "attackPower": 10,
-          "castRemaining": 1.7,
-          "castTotal": 2.5,
+          "castRemaining": 1.2,
+          "castTotal": 2,
           "castingAbility": "frostbolt",
-          "combatTimer": 0.4,
+          "combatTimer": 1.35,
           "critChance": 0.056,
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
@@ -214,7 +214,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 1.55,
           "gcdRemaining": 0.7,
-          "hp": 49981,
+          "hp": 49992,
           "id": 494,
           "inCombat": true,
           "kind": "player",
@@ -283,7 +283,7 @@
               "value": 0.6
             }
           ],
-          "combatTimer": 0.4,
+          "combatTimer": 1.35,
           "critChance": 0.05,
           "detonateTimer": "Infinity",
           "dodgeChance": 0.05,

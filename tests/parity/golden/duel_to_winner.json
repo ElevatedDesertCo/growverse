@@ -8,8 +8,8 @@
     "updateDuels countdown -> active + duelStart",
     "endDuel on a PvP finishing blow (winner/loser + this.duels cleared)"
   ],
-  "draws": 343,
-  "drawDigest": "b00528a7",
+  "draws": 342,
+  "drawDigest": "5b4acbda",
   "frames": [
     {
       "tick": 0,
@@ -391,8 +391,8 @@
       "state": "b0016568",
       "events": "741638a5",
       "rng": {
-        "draws": 343,
-        "digest": "b00528a7"
+        "draws": 342,
+        "digest": "5b4acbda"
       },
       "label": "final",
       "players": [

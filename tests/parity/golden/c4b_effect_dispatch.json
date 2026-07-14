@@ -14,8 +14,8 @@
     "summonDemon -> summonPet (warlock summon_imp) + selfBuff form switch (druid)",
     "weaponStrike awardCombo latch + finisher combo-spend reset"
   ],
-  "draws": 550,
-  "drawDigest": "095e08ff",
+  "draws": 547,
+  "drawDigest": "67f9e509",
   "frames": [
     {
       "tick": 0,
@@ -736,8 +736,8 @@
       "state": "d590ed70",
       "events": "741638a5",
       "rng": {
-        "draws": 358,
-        "digest": "0a3ac128"
+        "draws": 359,
+        "digest": "aaffcf4d"
       }
     },
     {
@@ -747,8 +747,8 @@
       "state": "a5dd0f5d",
       "events": "741638a5",
       "rng": {
-        "draws": 393,
-        "digest": "ead1edee"
+        "draws": 394,
+        "digest": "228b52b5"
       }
     },
     {
@@ -758,8 +758,8 @@
       "state": "d2584b68",
       "events": "741638a5",
       "rng": {
-        "draws": 425,
-        "digest": "2fa3e77b"
+        "draws": 426,
+        "digest": "2f527da8"
       }
     },
     {
@@ -780,8 +780,8 @@
       "state": "47c722f4",
       "events": "741638a5",
       "rng": {
-        "draws": 492,
-        "digest": "e017d10f"
+        "draws": 494,
+        "digest": "5b862526"
       }
     },
     {
@@ -791,8 +791,8 @@
       "state": "98fc6cd4",
       "events": "741638a5",
       "rng": {
-        "draws": 527,
-        "digest": "00344dbf"
+        "draws": 525,
+        "digest": "caf378ae"
       }
     },
     {
@@ -802,8 +802,8 @@
       "state": "f68b97bd",
       "events": "a2e1ec82",
       "rng": {
-        "draws": 541,
-        "digest": "92597155"
+        "draws": 538,
+        "digest": "7aa2b8b6"
       },
       "label": "warlock-summon",
       "players": [
@@ -1307,8 +1307,8 @@
       "state": "46486148",
       "events": "3aecb7bc",
       "rng": {
-        "draws": 542,
-        "digest": "1468a666"
+        "draws": 539,
+        "digest": "f6aa50cf"
       },
       "label": "warrior-sunder",
       "players": [
@@ -1877,11 +1877,11 @@
       "tick": 133,
       "time": 6.65,
       "nextId": 505,
-      "state": "fd3c5c3a",
-      "events": "32f8f8d7",
+      "state": "ee40c6c8",
+      "events": "036cbb61",
       "rng": {
-        "draws": 544,
-        "digest": "0fe9b196"
+        "draws": 541,
+        "digest": "92597155"
       },
       "label": "mage-arcane-explosion",
       "players": [
@@ -1912,7 +1912,7 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {
-            "damageDealt": 67
+            "damageDealt": 69
           },
           "delveClears": {},
           "delveDaily": {},
@@ -2455,7 +2455,7 @@
           "fallStartY": -3.243109,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 499968,
+          "hp": 499966,
           "id": 503,
           "inCombat": true,
           "kind": "mob",
@@ -2490,7 +2490,7 @@
           "threat": [
             [
               495,
-              33
+              35
             ]
           ],
           "weapon": {
@@ -2558,11 +2558,11 @@
       "tick": 133,
       "time": 6.65,
       "nextId": 506,
-      "state": "bfcfe6eb",
-      "events": "087f04d8",
+      "state": "00739a3a",
+      "events": "6dda9624",
       "rng": {
-        "draws": 549,
-        "digest": "30aa7def"
+        "draws": 546,
+        "digest": "25f960fb"
       },
       "label": "rogue-combo-finishers",
       "players": [
@@ -2593,7 +2593,7 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {
-            "damageDealt": 67
+            "damageDealt": 69
           },
           "delveClears": {},
           "delveDaily": {},
@@ -2615,7 +2615,7 @@
           "cls": "rogue",
           "companionUpgrades": {},
           "counters": {
-            "damageDealt": 113
+            "damageDealt": 114
           },
           "delveClears": {},
           "delveDaily": {},
@@ -3147,7 +3147,7 @@
           "fallStartY": -3.243109,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 499968,
+          "hp": 499966,
           "id": 503,
           "inCombat": true,
           "kind": "mob",
@@ -3182,7 +3182,7 @@
           "threat": [
             [
               495,
-              33
+              35
             ]
           ],
           "weapon": {
@@ -3264,7 +3264,7 @@
           "fallStartY": -2.414442,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 499887,
+          "hp": 499886,
           "id": 505,
           "inCombat": true,
           "kind": "mob",
@@ -3299,7 +3299,7 @@
           "threat": [
             [
               496,
-              114
+              115
             ]
           ],
           "weapon": {
@@ -3314,11 +3314,11 @@
       "tick": 133,
       "time": 6.65,
       "nextId": 507,
-      "state": "01195dfd",
-      "events": "8357abfc",
+      "state": "f7226b65",
+      "events": "003dfdee",
       "rng": {
-        "draws": 550,
-        "digest": "095e08ff"
+        "draws": 547,
+        "digest": "67f9e509"
       },
       "label": "paladin-judge-consecrate",
       "players": [
@@ -3349,7 +3349,7 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {
-            "damageDealt": 67
+            "damageDealt": 69
           },
           "delveClears": {},
           "delveDaily": {},
@@ -3371,7 +3371,7 @@
           "cls": "rogue",
           "companionUpgrades": {},
           "counters": {
-            "damageDealt": 113
+            "damageDealt": 114
           },
           "delveClears": {},
           "delveDaily": {},
@@ -3393,7 +3393,7 @@
           "cls": "paladin",
           "companionUpgrades": {},
           "counters": {
-            "damageDealt": 30
+            "damageDealt": 32
           },
           "delveClears": {},
           "delveDaily": {},
@@ -3930,7 +3930,7 @@
           "fallStartY": -3.243109,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 499968,
+          "hp": 499966,
           "id": 503,
           "inCombat": true,
           "kind": "mob",
@@ -3965,7 +3965,7 @@
           "threat": [
             [
               495,
-              33
+              35
             ]
           ],
           "weapon": {
@@ -4047,7 +4047,7 @@
           "fallStartY": -2.414442,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 499887,
+          "hp": 499886,
           "id": 505,
           "inCombat": true,
           "kind": "mob",
@@ -4082,7 +4082,7 @@
           "threat": [
             [
               496,
-              114
+              115
             ]
           ],
           "weapon": {
@@ -4100,7 +4100,7 @@
           "fallStartY": -0.723223,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 499970,
+          "hp": 499968,
           "id": 506,
           "inCombat": true,
           "kind": "mob",
@@ -4132,7 +4132,7 @@
           "threat": [
             [
               497,
-              31
+              33
             ]
           ],
           "weapon": {
@@ -4147,11 +4147,11 @@
       "tick": 133,
       "time": 6.65,
       "nextId": 508,
-      "state": "b1c48085",
+      "state": "1fbd9f15",
       "events": "c0ad672f",
       "rng": {
-        "draws": 550,
-        "digest": "095e08ff"
+        "draws": 547,
+        "digest": "67f9e509"
       },
       "label": "druid-moonfire-forms",
       "players": [
@@ -4182,7 +4182,7 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {
-            "damageDealt": 67
+            "damageDealt": 69
           },
           "delveClears": {},
           "delveDaily": {},
@@ -4204,7 +4204,7 @@
           "cls": "rogue",
           "companionUpgrades": {},
           "counters": {
-            "damageDealt": 113
+            "damageDealt": 114
           },
           "delveClears": {},
           "delveDaily": {},
@@ -4226,7 +4226,7 @@
           "cls": "paladin",
           "companionUpgrades": {},
           "counters": {
-            "damageDealt": 30
+            "damageDealt": 32
           },
           "delveClears": {},
           "delveDaily": {},
@@ -4776,7 +4776,7 @@
           "fallStartY": -3.243109,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 499968,
+          "hp": 499966,
           "id": 503,
           "inCombat": true,
           "kind": "mob",
@@ -4811,7 +4811,7 @@
           "threat": [
             [
               495,
-              33
+              35
             ]
           ],
           "weapon": {
@@ -4893,7 +4893,7 @@
           "fallStartY": -2.414442,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 499887,
+          "hp": 499886,
           "id": 505,
           "inCombat": true,
           "kind": "mob",
@@ -4928,7 +4928,7 @@
           "threat": [
             [
               496,
-              114
+              115
             ]
           ],
           "weapon": {
@@ -4946,7 +4946,7 @@
           "fallStartY": -0.723223,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 499970,
+          "hp": 499968,
           "id": 506,
           "inCombat": true,
           "kind": "mob",
@@ -4978,7 +4978,7 @@
           "threat": [
             [
               497,
-              31
+              33
             ]
           ],
           "weapon": {
@@ -5033,11 +5033,11 @@
       "tick": 133,
       "time": 6.65,
       "nextId": 508,
-      "state": "b1c48085",
+      "state": "1fbd9f15",
       "events": "741638a5",
       "rng": {
-        "draws": 550,
-        "digest": "095e08ff"
+        "draws": 547,
+        "digest": "67f9e509"
       },
       "label": "final",
       "players": [
@@ -5068,7 +5068,7 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {
-            "damageDealt": 67
+            "damageDealt": 69
           },
           "delveClears": {},
           "delveDaily": {},
@@ -5090,7 +5090,7 @@
           "cls": "rogue",
           "companionUpgrades": {},
           "counters": {
-            "damageDealt": 113
+            "damageDealt": 114
           },
           "delveClears": {},
           "delveDaily": {},
@@ -5112,7 +5112,7 @@
           "cls": "paladin",
           "companionUpgrades": {},
           "counters": {
-            "damageDealt": 30
+            "damageDealt": 32
           },
           "delveClears": {},
           "delveDaily": {},
@@ -5662,7 +5662,7 @@
           "fallStartY": -3.243109,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 499968,
+          "hp": 499966,
           "id": 503,
           "inCombat": true,
           "kind": "mob",
@@ -5697,7 +5697,7 @@
           "threat": [
             [
               495,
-              33
+              35
             ]
           ],
           "weapon": {
@@ -5779,7 +5779,7 @@
           "fallStartY": -2.414442,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 499887,
+          "hp": 499886,
           "id": 505,
           "inCombat": true,
           "kind": "mob",
@@ -5814,7 +5814,7 @@
           "threat": [
             [
               496,
-              114
+              115
             ]
           ],
           "weapon": {
@@ -5832,7 +5832,7 @@
           "fallStartY": -0.723223,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 499970,
+          "hp": 499968,
           "id": 506,
           "inCombat": true,
           "kind": "mob",
@@ -5864,7 +5864,7 @@
           "threat": [
             [
               497,
-              31
+              33
             ]
           ],
           "weapon": {

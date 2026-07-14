@@ -43,7 +43,7 @@ export const ZONE1_ZONE: ZoneDef = {
     { x: -88, z: 82, label: 'Mirror Lake' },
     { x: -60, z: 4, label: 'The Mitewood' },
     { x: -84, z: -64, label: 'The Old Dig' },
-    { x: 76, z: -76, label: 'Ashen Maw Camp' },
+    { x: 86, z: -84, label: 'Ashen Maw Camp' },
     { x: 80, z: 80, label: 'Withered Shrine' },
     { x: -5, z: -52, label: 'Reliquary Hill' },
     { x: 40, z: 140, label: 'Bloomwood Glade' },
@@ -1155,18 +1155,19 @@ export const ZONE1_CAMPS: CampDef[] = [
   { mobId: 'mudfin_murloc', center: { x: -75, z: 57 }, radius: 14, count: 8 },
   // Kobolds: mine southwest
   { mobId: 'tunnel_rat', center: { x: -82, z: -62 }, radius: 20, count: 9 },
-  // Ashen Maw: southeast warcamp, staged in tiers. Skirmishing dust_slingers hold
-  // the forward picket, vale_bandit knife-fighters muster at the camp's middle,
-  // rift-tainted reavers guard the mid-back, and a warlord's guard rings Sarn's
-  // heart, so the band reads as three distinct silhouettes over a marching column.
-  // (Counts are unchanged from the flat layout: the camp loop is the final RNG
-  // consumer at construction, so re-centering moves mobs without shifting any
-  // downstream spawn roll; changing a COUNT would.)
-  { mobId: 'vale_bandit', center: { x: 72, z: -70 }, radius: 18, count: 5 },
-  { mobId: 'dust_slinger', center: { x: 63, z: -61 }, radius: 13, count: 3 },
-  { mobId: 'dust_reaver', center: { x: 80, z: -77 }, radius: 15, count: 3 },
-  { mobId: 'vale_bandit', center: { x: 91, z: -90 }, radius: 13, count: 3 },
-  { mobId: 'gorrak', center: { x: 92, z: -92 }, radius: 2, count: 1 },
+  // Ashen Maw: southeast raider camp, re-clustered off the dirt path into a rounded
+  // encampment (was a long diagonal column that straddled the road terminus). The
+  // trail now stops at a clearing NW of the camp; a lookout picket (dust_slinger)
+  // holds the gate, the vale_bandit body musters around the central hearth, the
+  // reavers guard the east tents, and a back-guard rings Sarn's warlord tent in the
+  // SE corner. (Counts are unchanged: the camp loop is the final RNG consumer at
+  // construction, so re-centering + radius move mobs without shifting any downstream
+  // spawn roll; changing a COUNT would.)
+  { mobId: 'dust_slinger', center: { x: 78, z: -76 }, radius: 8, count: 3 },
+  { mobId: 'vale_bandit', center: { x: 86, z: -84 }, radius: 11, count: 5 },
+  { mobId: 'dust_reaver', center: { x: 92, z: -82 }, radius: 8, count: 3 },
+  { mobId: 'vale_bandit', center: { x: 88, z: -90 }, radius: 8, count: 3 },
+  { mobId: 'gorrak', center: { x: 89, z: -91 }, radius: 2, count: 1 },
   // Undead: the Skeleton Grotto, a hollow gouged into the foot of the western rim
   // mountain (SKELETON_GROTTO in world.ts). The husk pack musters across the flat
   // arena floor; the husk radius is tightened from 18 to 14 so the pack sits inside
@@ -1265,9 +1266,12 @@ export const ZONE1_ROADS: { x: number; z: number }[][] = [
   [
     { x: 7, z: -7 },
     { x: 30, z: -30 },
-    { x: 50, z: -50 },
-    { x: 65, z: -65 },
-  ], // southeast to bandits
+    { x: 50, z: -48 },
+    { x: 64, z: -62 },
+  ], // southeast to the raider camp: the trail bends and STOPS at a clearing NW of
+  // the camp (was driving straight into the picket at 65,-65). The camp now sits
+  // south-east of this trailhead, its gate facing back up the path, so the dirt
+  // road is an approach to the camp, not a lane plowing through its middle.
   [
     { x: -7, z: -7 },
     { x: -30, z: -28 },
@@ -1355,15 +1359,17 @@ export const ZONE1_PROPS: ZonePropsDef = {
     // ground between the lodge and the shore.
     [46, 57],
     [40, 56],
-    // Ashen Maw plunder stacks: stolen Bloomhaven crates piled by each tier's
-    // tents (the q_ringleader steal-back objective reads them off these stacks).
-    [59, -62],
-    [66, -66],
-    [74, -70],
-    [80, -75],
-    [89, -88],
-    [94, -91],
-    [90, -95],
+    // Ashen Maw plunder stacks: stolen Bloomhaven crates piled among the tents around
+    // the camp's central hearth (the q_supplies steal-back objective reads them off
+    // these stacks). Re-clustered with the camp so they dress a lived-in encampment
+    // rather than a strung-out column.
+    [75, -79],
+    [83, -81],
+    [89, -80],
+    [92, -87],
+    [85, -90],
+    [79, -87],
+    [96, -90],
   ],
   campfires: [
     [3, -4],
@@ -1372,27 +1378,27 @@ export const ZONE1_PROPS: ZonePropsDef = {
     [-77.5, 68], // Cobb the Dockside Cook's hearth, beside the Mirror Lake pier
     [42, 60], // The Sluice: the beaver crew's hearth between lodge and den
   ],
-  // Ashen Maw cookfires: one hearth at each tier of the warcamp (picket, muster,
-  // heart). A Growverse-original procedural log-pyre in a blackened stone ring
-  // (render/props.ts), NOT the shared CC0 bonfire the other zones burn, so the
-  // raider camp reads 1-of-1. Moved out of `campfires` above for that reason.
+  // Ashen Maw cookfires: a lookout fire by the gate, the main hearth at the camp's
+  // center, and the warlord's fire by Sarn's tent. A Growverse-original procedural
+  // log-pyre in a blackened stone ring (render/props.ts), NOT the shared CC0 bonfire
+  // the other zones burn, so the raider camp reads 1-of-1.
   raiderCookfires: [
-    [63, -61],
-    [77, -74],
-    [91, -91],
+    [78, -75], // lookout fire, just inside the NW gate
+    [86, -84], // main hearth, camp center
+    [90, -91], // warlord's fire, by Sarn's tent
   ],
-  // Ashen Maw raider tents: hide-and-pole lean-tos pitched in three tiers down the
-  // SE hollow (a forward picket on the NW approach, a mid-camp muster, and the
-  // warlord's heart at the deep corner), so the camp reads as a marching column,
-  // not a blob. A Growverse-original procedural shelter (render/props.ts), NOT the
-  // shared CC0 Kenney tent the other zones use, so the warcamp reads 1-of-1.
+  // Ashen Maw raider tents: hide-and-pole lean-tos clustered in a rough ring around
+  // the central hearth, doors turned inward so the site reads as a lived-in camp, not
+  // a marching column. A lookout tent sits by the NW gate, the warlord's larger tent
+  // anchors the SE back corner. A Growverse-original procedural shelter
+  // (render/props.ts), NOT the shared CC0 Kenney tent the other zones use.
   raiderTents: [
-    { x: 61, z: -59, rot: 0.5, scale: 1 }, // picket
-    { x: 67, z: -64, rot: 2.4, scale: 1 }, // picket
-    { x: 75, z: -72, rot: -1.0, scale: 1.05 }, // muster
-    { x: 80, z: -77, rot: 1.3, scale: 1 }, // muster
-    { x: 92, z: -89, rot: 1.1, scale: 1.35 }, // warlord's tent, over Sarn's heart
-    { x: 88, z: -94, rot: -0.5, scale: 1 }, // boss heart
+    { x: 77, z: -77, rot: 0.7, scale: 1 }, // lookout, by the gate
+    { x: 84, z: -76, rot: 2.6, scale: 1 }, // north of the hearth
+    { x: 95, z: -82, rot: -1.4, scale: 1 }, // east
+    { x: 81, z: -90, rot: 1.0, scale: 1 }, // south
+    { x: 93, z: -94, rot: 1.1, scale: 1.35 }, // warlord's tent, SE back corner
+    { x: 87, z: -88, rot: -0.6, scale: 1 }, // inner, by Sarn's heart
   ],
   mudHuts: [
     [-73, 59],
@@ -1427,46 +1433,43 @@ export const ZONE1_PROPS: ZonePropsDef = {
   // sight from a distance (no longer crowds the town square).
   obelisks: [{ x: 64, z: -22, y: 7 }],
   // Ashen Maw ward-totems (a Growverse-original procedural skull-stake, not a CC0
-  // model): a gauntlet flanking the NW approach into the warcamp, mid-camp
-  // markers, and a ring around Sarn the Hollowed's heart, so the clan's ground is
-  // claimed by bone standards no other WoCC settlement carries.
+  // model): two flank the open NW gate, the rest ring the camp's outer edge, so the
+  // clan's ground is claimed by bone standards no other WoCC settlement carries.
+  // (Thin brush-past colliders, so even the gate pair never wall the entrance.)
   wardStakes: [
-    { x: 56, z: -56 }, // approach gauntlet
-    { x: 62, z: -54 },
-    { x: 54, z: -63 },
-    { x: 71, z: -63 }, // mid-camp
-    { x: 69, z: -78 },
-    { x: 85, z: -84 }, // ring around the warlord's heart
-    { x: 97, z: -90 },
-    { x: 90, z: -99 },
+    { x: 72, z: -72 }, // gate flank (west of the entrance)
+    { x: 78, z: -70 }, // gate flank (east of the entrance)
+    { x: 86, z: -70 }, // outer ring, north
+    { x: 96, z: -76 }, // north-east
+    { x: 100, z: -86 }, // east
+    { x: 96, z: -96 }, // south-east
+    { x: 84, z: -98 }, // south
+    { x: 74, z: -90 }, // south-west
   ],
   // Ashen Maw spiked-stake barricades (a custom Meshy GLB, not a CC0 pack): lashed
-  // clusters of sharpened stakes dug in along the NW approach gauntlet and the
-  // camp's outer edge, so the warcamp reads as a fortified raider position rather
-  // than an open field. Offset from the ward-totem line so the two don't collide.
+  // clusters of sharpened stakes dug in around the camp's OUTER edge (N, E, S, SW, W),
+  // so the site reads as a fortified raider position. The whole NW arc is left OPEN as
+  // the gate that faces the incoming trail, so the barricades no longer straddle the
+  // dirt path, and the boss is never walled in.
   spikeBarricades: [
-    { x: 52, z: -58 }, // NW approach: staggered pair funnelling the entry
-    { x: 60, z: -50 },
-    { x: 58, z: -66 }, // camp outer edge
-    { x: 76, z: -70 },
-    { x: 80, z: -95 }, // flanks around the warlord's heart
-    { x: 95, z: -83 },
-    // Custom-stake palisade replacing the old CC0 Kenney fence: a dug-in barricade
-    // line walling the warlord's SE heart (east run + south back corner) plus a
-    // forward wing on the muster flank. Gapped so it reads fortified but still
-    // funnels players in toward Sarn, never walls the boss out.
-    { x: 100, z: -86, h: 1.8 }, // east wall
-    { x: 100, z: -95, h: 1.8 },
-    { x: 93, z: -100, h: 1.8 }, // south back corner
-    { x: 84, z: -99, h: 1.8 },
-    { x: 86, z: -68, h: 1.7 }, // forward barricade wing (muster flank)
+    { x: 84, z: -69 }, // north wall (east of the gate)
+    { x: 90, z: -71 },
+    { x: 94, z: -73 }, // forward wing, NE
+    { x: 99, z: -79 }, // east wall
+    { x: 101, z: -88, h: 1.8 },
+    { x: 98, z: -95, h: 1.8 }, // south-east corner
+    { x: 90, z: -99, h: 1.8 }, // south wall
+    { x: 82, z: -100, h: 1.8 },
+    { x: 74, z: -96 }, // south-west
+    { x: 70, z: -88 }, // west wall
+    { x: 69, z: -81 },
   ],
   // Ashen Maw war-standard (a Growverse-original procedural totem, not a CC0/Meshy
   // model): the clan's central effigy raised over Sarn the Hollowed's heart, a tall
   // skull-trophy post that reads as the camp's ceremonial center. Sits inside the
   // warlord's-heart ward-totem ring, facing the NW approach so raiders (and players)
   // muster before it. Replaces the earlier ill-fitting stone-guardian idol.
-  warStandards: [{ x: 86, z: -86, rot: 2.3 }],
+  warStandards: [{ x: 84, z: -86, rot: 2.3 }],
   // The Sluice pond has no separate dam anymore: the colony's dam is the straight
   // beaver-log dam thrown across the river at the crossing (SLUICE_BRIDGE, x=70), and
   // you walk its crest to cross (render/bridge.ts renders the dam over the walkable

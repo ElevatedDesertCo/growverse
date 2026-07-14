@@ -8,8 +8,8 @@
     "first kill does not end the match; team wipe (isArenaTeamWiped) does",
     "endArenaMatch ranked Elo on both teams (arena2v2 standings) + returnFromArena"
   ],
-  "draws": 1299,
-  "drawDigest": "82501bea",
+  "draws": 1320,
+  "drawDigest": "4316dabc",
   "frames": [
     {
       "tick": 0,
@@ -65,8 +65,8 @@
       "state": "951b2ee3",
       "events": "dec8cad1",
       "rng": {
-        "draws": 344,
-        "digest": "699ed5b4"
+        "draws": 345,
+        "digest": "cf4c8ad2"
       }
     },
     {
@@ -952,8 +952,8 @@
       "state": "6aa64275",
       "events": "741638a5",
       "rng": {
-        "draws": 500,
-        "digest": "938bd196"
+        "draws": 496,
+        "digest": "9fb1368e"
       }
     },
     {
@@ -963,8 +963,8 @@
       "state": "123133bf",
       "events": "741638a5",
       "rng": {
-        "draws": 670,
-        "digest": "f445ad1a"
+        "draws": 668,
+        "digest": "949beb57"
       }
     },
     {
@@ -974,8 +974,8 @@
       "state": "e6321269",
       "events": "741638a5",
       "rng": {
-        "draws": 871,
-        "digest": "1a70cd59"
+        "draws": 863,
+        "digest": "7bc48fec"
       }
     },
     {
@@ -985,8 +985,8 @@
       "state": "9bf253fb",
       "events": "741638a5",
       "rng": {
-        "draws": 1086,
-        "digest": "4462d27f"
+        "draws": 1077,
+        "digest": "e52385ac"
       }
     },
     {
@@ -996,8 +996,8 @@
       "state": "7b61a573",
       "events": "0c5dd881",
       "rng": {
-        "draws": 1220,
-        "digest": "78f85f16"
+        "draws": 1218,
+        "digest": "2a4cff6a"
       }
     },
     {
@@ -1007,8 +1007,8 @@
       "state": "87c4b8b3",
       "events": "741638a5",
       "rng": {
-        "draws": 1299,
-        "digest": "82501bea"
+        "draws": 1320,
+        "digest": "4316dabc"
       },
       "label": "returned",
       "players": [
@@ -1321,8 +1321,8 @@
       "state": "87c4b8b3",
       "events": "741638a5",
       "rng": {
-        "draws": 1299,
-        "digest": "82501bea"
+        "draws": 1320,
+        "digest": "4316dabc"
       },
       "label": "final",
       "players": [
