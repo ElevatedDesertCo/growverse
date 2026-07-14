@@ -171,21 +171,6 @@
       ]
     },
     {
-      "src": "/Users/reubenhorne/Documents/code/levy-street/world-of-claudecraft/tmp/asset_src/quaternius_nature/extracted/glTF/Bush_Common_Flowers.gltf",
-      "out": "models/foliage/bush_flowers.glb",
-      "type": "static",
-      "maxTex": 512,
-      "simplify": 0.55,
-      "recolor": [
-        {
-          "match": "Flowers",
-          "hue": -25,
-          "saturation": 0.55,
-          "brightness": 1.25
-        }
-      ]
-    },
-    {
       "src": "/Users/reubenhorne/Documents/code/levy-street/world-of-claudecraft/tmp/asset_src/quaternius_nature/extracted/glTF/Fern_1.gltf",
       "out": "models/foliage/fern.glb",
       "type": "static",
