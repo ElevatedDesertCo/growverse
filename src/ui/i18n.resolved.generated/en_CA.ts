@@ -1551,8 +1551,8 @@ export const en_CA: EnTranslations = {
       "valePlaceNotes": "Bloomhaven is your first home base. Coyote Wash and Javelina Flats are gentle hunting ground; Mirror Lake is quiet water to fish; the Mitewood and the Old Dig hide Bloom mites and Bloom-thieving gremlins; the Dry Camp and the Withered Bloom hold rougher work; Seedvault Hill drops into the Collapsed Reliquary, the realm's first delve; and Bloomwood Glade is a quiet, sunlit grove to the north.",
       "marshPlaceNotes": "Fenbridge guards the only dry road. The Prowler Reeds and Deepfen Shallows teem with marsh beasts and murlocs; the Widow Thicket is spun thick with web; the Drowned Chapel and the Troll Mounds keep older dangers; the Gravecaller Encampment is the cult dug in, and the Sunken Bastion is the marsh's instanced heart.",
       "peaksPlaceNotes": "Highwatch holds the wall. Stalker Ridge and the Deeprock Burrows belong to ridge cats and kobolds; the Ogre Foothills and Drogmar's War-Camp to brutes for hire; Stormcrag crackles with elementals and the Glimmermere glows below it; the Wyrmcult Tents and Revenant Fields ring the cult's high ground, with Gravewyrm Sanctum at its peak.",
-      "gladeTitle": "A quiet corner: Brightwood Glade",
-      "gladeBody": "Not every story in the Vale is about the dead. In the north, a sunlit grove called Brightwood Glade keeps its own gentler rhythm, all quiet paths and dappled light beneath the boughs. It is a soft counterpoint to the trail you are following, and worth seeing when the road gives you room to wander."
+      "gladeTitle": "A quiet corner: Bloomwood Glade",
+      "gladeBody": "Not every story in the Vale is about the dead. In the north, a sunlit grove called Bloomwood Glade keeps its own gentler rhythm, all quiet paths and dappled light beneath the boughs. It is a soft counterpoint to the trail you are following, and worth seeing when the road gives you room to wander."
     },
     "questsPage": {
       "heading": "Quests",
