@@ -5065,6 +5065,12 @@ export const da_DK: EnTranslations = {
       "elixir_of_the_bloom": {
         "name": "Blomstringens Eliksir"
       },
+      "purple_petal": {
+        "name": "Lilla Kronblad"
+      },
+      "golden_petal": {
+        "name": "Gyldent Kronblad"
+      },
       "bristleback_maul": {
         "name": "Børsterygs-Lemlæster"
       },

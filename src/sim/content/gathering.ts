@@ -27,6 +27,22 @@ export const HARVEST_NODES: Record<string, HarvestNodeDef> = {
       { itemId: 'common_seed', weight: 1 },
     ],
   },
+  // Purple flower patch: yields Purple Petals, the Alchemist's draught reagent.
+  purple_bloom: {
+    id: 'purple_bloom',
+    yields: [
+      { itemId: 'purple_petal', weight: 3 },
+      { itemId: 'common_seed', weight: 1 },
+    ],
+  },
+  // Golden flower patch: yields Golden Petals, pressed into a growth booster.
+  golden_bloom: {
+    id: 'golden_bloom',
+    yields: [
+      { itemId: 'golden_petal', weight: 3 },
+      { itemId: 'common_seed', weight: 1 },
+    ],
+  },
   ember_vent: {
     id: 'ember_vent',
     yields: [
@@ -83,6 +99,26 @@ export const HARVEST_NODE_SPAWNS: HarvestNodeSpawn[] = [
       { x: -40, z: 108 },
       { x: 56, z: 108 },
       { x: -92, z: 48 },
+    ],
+  },
+  {
+    nodeId: 'purple_bloom',
+    itemId: 'purple_petal',
+    name: 'Purple Flower Patch',
+    positions: [
+      { x: -60, z: 100 },
+      { x: 44, z: 92 },
+      { x: -46, z: 88 },
+    ],
+  },
+  {
+    nodeId: 'golden_bloom',
+    itemId: 'golden_petal',
+    name: 'Golden Flower Patch',
+    positions: [
+      { x: -24, z: 124 },
+      { x: 72, z: 96 },
+      { x: -114, z: 44 },
     ],
   },
   {

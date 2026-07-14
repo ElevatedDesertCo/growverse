@@ -5065,6 +5065,12 @@ export const vi_VN: EnTranslations = {
       "elixir_of_the_bloom": {
         "name": "Tiên Dược Hoa Nở"
       },
+      "purple_petal": {
+        "name": "Cánh Hoa Tím"
+      },
+      "golden_petal": {
+        "name": "Cánh Hoa Vàng"
+      },
       "bristleback_maul": {
         "name": "Vồ Lưng Gai"
       },

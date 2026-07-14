@@ -2345,6 +2345,8 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.items.swirling_healing_draught.name': '渦巻く癒しの水薬',
   'entities.items.swirling_mana_draught.name': '渦巻くマナの水薬',
   'entities.items.elixir_of_the_bloom.name': '花咲きのエリクサー',
+  'entities.items.purple_petal.name': '紫の花びら',
+  'entities.items.golden_petal.name': '金の花びら',
   'entities.npcs.alchemist_sable.name': 'セイブル',
   'entities.npcs.alchemist_sable.title': '錬金術師',
   'entities.npcs.alchemist_sable.greeting':

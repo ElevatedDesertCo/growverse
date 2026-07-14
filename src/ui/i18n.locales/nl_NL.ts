@@ -1149,6 +1149,8 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'entities.items.swirling_healing_draught.name': 'Kolkende Genezende Drank',
   'entities.items.swirling_mana_draught.name': 'Kolkende Manadrank',
   'entities.items.elixir_of_the_bloom.name': 'Elixer van de Bloesem',
+  'entities.items.purple_petal.name': 'Paars Bloemblad',
+  'entities.items.golden_petal.name': 'Gouden Bloemblad',
   'entities.items.raw_river_perch.name': 'Rauwe Rivierbaars',
   'entities.items.raw_stonescale_carp.name': 'Rauwe Steenschub-Karper',
   'entities.items.recruit_tunic.name': 'Tuniek van de Rekruut',

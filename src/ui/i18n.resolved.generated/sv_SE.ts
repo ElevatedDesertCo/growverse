@@ -5065,6 +5065,12 @@ export const sv_SE: EnTranslations = {
       "elixir_of_the_bloom": {
         "name": "Blomningens elixir"
       },
+      "purple_petal": {
+        "name": "Lila Kronblad"
+      },
+      "golden_petal": {
+        "name": "Gyllene Kronblad"
+      },
       "bristleback_maul": {
         "name": "Borstryggens klubba"
       },

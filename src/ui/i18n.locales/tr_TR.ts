@@ -1134,6 +1134,8 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'entities.items.swirling_healing_draught.name': 'Girdaplı Şifa İçkisi',
   'entities.items.swirling_mana_draught.name': 'Girdaplı Mana İçkisi',
   'entities.items.elixir_of_the_bloom.name': 'Çiçeklenme İksiri',
+  'entities.items.purple_petal.name': 'Mor Yaprak',
+  'entities.items.golden_petal.name': 'Altın Yaprak',
   'entities.items.raw_river_perch.name': 'Çiğ Nehir Levreği',
   'entities.items.raw_stonescale_carp.name': 'Çiğ Taşpul Sazanı',
   'entities.items.recruit_tunic.name': 'Acemi Erin Tuniği',

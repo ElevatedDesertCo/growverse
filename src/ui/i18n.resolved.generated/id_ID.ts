@@ -5065,6 +5065,12 @@ export const id_ID: EnTranslations = {
       "elixir_of_the_bloom": {
         "name": "Eliksir Bunga Mekar"
       },
+      "purple_petal": {
+        "name": "Kelopak Ungu"
+      },
+      "golden_petal": {
+        "name": "Kelopak Emas"
+      },
       "bristleback_maul": {
         "name": "Cabikan Punggung Berbulu"
       },

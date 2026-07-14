@@ -5065,6 +5065,12 @@ export const ko_KR: EnTranslations = {
       "elixir_of_the_bloom": {
         "name": "만개의 엘릭서"
       },
+      "purple_petal": {
+        "name": "보라색 꽃잎"
+      },
+      "golden_petal": {
+        "name": "금빛 꽃잎"
+      },
       "bristleback_maul": {
         "name": "뻣센등뼈 철퇴"
       },

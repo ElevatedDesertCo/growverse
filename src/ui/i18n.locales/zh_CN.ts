@@ -2238,6 +2238,8 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'entities.items.swirling_healing_draught.name': '漩涡治疗药水',
   'entities.items.swirling_mana_draught.name': '漩涡法力药水',
   'entities.items.elixir_of_the_bloom.name': '绽放灵药',
+  'entities.items.purple_petal.name': '紫色花瓣',
+  'entities.items.golden_petal.name': '金色花瓣',
   'entities.npcs.alchemist_sable.name': '塞布尔',
   'entities.npcs.alchemist_sable.title': '炼金术士',
   'entities.npcs.alchemist_sable.greeting':

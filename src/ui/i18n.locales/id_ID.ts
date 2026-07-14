@@ -1159,6 +1159,8 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'entities.items.swirling_healing_draught.name': 'Ramuan Penyembuh Berpusar',
   'entities.items.swirling_mana_draught.name': 'Ramuan Mana Berpusar',
   'entities.items.elixir_of_the_bloom.name': 'Eliksir Bunga Mekar',
+  'entities.items.purple_petal.name': 'Kelopak Ungu',
+  'entities.items.golden_petal.name': 'Kelopak Emas',
   'entities.items.raw_river_perch.name': 'Ikan Perch Sungai Mentah',
   'entities.items.raw_stonescale_carp.name': 'Ikan Mas Sisik Batu Mentah',
   'entities.items.recruit_tunic.name': 'Tunik Rekrut',

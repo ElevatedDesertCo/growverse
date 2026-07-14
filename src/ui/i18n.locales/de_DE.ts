@@ -2339,6 +2339,8 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'entities.items.swirling_healing_draught.name': 'Wirbelnder Heiltrank',
   'entities.items.swirling_mana_draught.name': 'Wirbelnder Manatrank',
   'entities.items.elixir_of_the_bloom.name': 'Elixier der Blüte',
+  'entities.items.purple_petal.name': 'Purpurblütenblatt',
+  'entities.items.golden_petal.name': 'Goldblütenblatt',
   'entities.items.sableweb_slippers.name': 'Sableweb-Pantoffeln',
   'entities.items.simple_fishing_pole.name': 'Einfache Angel',
   'entities.items.tangled_weed.name': 'Verheddertes Kraut',

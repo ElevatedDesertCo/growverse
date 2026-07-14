@@ -1128,6 +1128,8 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'entities.items.swirling_healing_draught.name': 'Virvlande läkedryck',
   'entities.items.swirling_mana_draught.name': 'Virvlande manadryck',
   'entities.items.elixir_of_the_bloom.name': 'Blomningens elixir',
+  'entities.items.purple_petal.name': 'Lila Kronblad',
+  'entities.items.golden_petal.name': 'Gyllene Kronblad',
   'entities.items.raw_river_perch.name': 'Rå flodabborre',
   'entities.items.raw_stonescale_carp.name': 'Rå stenfjällskarp',
   'entities.items.recruit_tunic.name': 'Rekrytens tunika',

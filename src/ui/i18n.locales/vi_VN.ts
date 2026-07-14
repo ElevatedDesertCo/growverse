@@ -1140,6 +1140,8 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'entities.items.swirling_healing_draught.name': 'Dược Tễ Hồi Phục Xoáy',
   'entities.items.swirling_mana_draught.name': 'Dược Tễ Mana Xoáy',
   'entities.items.elixir_of_the_bloom.name': 'Tiên Dược Hoa Nở',
+  'entities.items.purple_petal.name': 'Cánh Hoa Tím',
+  'entities.items.golden_petal.name': 'Cánh Hoa Vàng',
   'entities.items.raw_river_perch.name': 'Cá Rô Sông Sống',
   'entities.items.raw_stonescale_carp.name': 'Cá Chép Vảy Đá Sống',
   'entities.items.recruit_tunic.name': 'Áo Da của Tân Binh',

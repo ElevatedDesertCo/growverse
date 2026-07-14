@@ -2341,6 +2341,8 @@ export const es: Partial<Record<TranslationKey, string>> = {
   'entities.items.swirling_healing_draught.name': 'Brebaje curativo arremolinado',
   'entities.items.swirling_mana_draught.name': 'Brebaje de maná arremolinado',
   'entities.items.elixir_of_the_bloom.name': 'Elixir de la flor',
+  'entities.items.purple_petal.name': 'Pétalo Púrpura',
+  'entities.items.golden_petal.name': 'Pétalo Dorado',
   'entities.items.sableweb_slippers.name': 'Zapatillas Sableweb',
   'entities.items.simple_fishing_pole.name': 'Caña de pescar sencilla',
   'entities.items.tangled_weed.name': 'Hierba enredada',

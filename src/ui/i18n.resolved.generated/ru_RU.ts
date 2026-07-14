@@ -5065,6 +5065,12 @@ export const ru_RU: EnTranslations = {
       "elixir_of_the_bloom": {
         "name": "Эликсир цветения"
       },
+      "purple_petal": {
+        "name": "Пурпурный лепесток"
+      },
+      "golden_petal": {
+        "name": "Золотой лепесток"
+      },
       "bristleback_maul": {
         "name": "Кувалда Щетиноспина"
       },

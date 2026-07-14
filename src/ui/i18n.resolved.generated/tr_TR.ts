@@ -5065,6 +5065,12 @@ export const tr_TR: EnTranslations = {
       "elixir_of_the_bloom": {
         "name": "Çiçeklenme İksiri"
       },
+      "purple_petal": {
+        "name": "Mor Yaprak"
+      },
+      "golden_petal": {
+        "name": "Altın Yaprak"
+      },
       "bristleback_maul": {
         "name": "Dikensırt Balyozu"
       },

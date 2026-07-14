@@ -5065,6 +5065,12 @@ export const en_XA: EnTranslations = {
       "elixir_of_the_bloom": {
         "name": "[Éļíẋíŕ óƒ ţĥé Ɓļóóɱ]"
       },
+      "purple_petal": {
+        "name": "[Þúŕþļé Þéţáļ]"
+      },
+      "golden_petal": {
+        "name": "[Ĝóļðéñ Þéţáļ]"
+      },
       "bristleback_maul": {
         "name": "[Ɓŕíšţļéƀáçķ Ɱáúļ]"
       },

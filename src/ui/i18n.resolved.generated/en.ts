@@ -5065,6 +5065,12 @@ export const en: EnTranslations = {
       "elixir_of_the_bloom": {
         "name": "Elixir of the Bloom"
       },
+      "purple_petal": {
+        "name": "Purple Petal"
+      },
+      "golden_petal": {
+        "name": "Golden Petal"
+      },
       "bristleback_maul": {
         "name": "Bristleback Maul"
       },

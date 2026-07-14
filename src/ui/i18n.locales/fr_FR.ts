@@ -2354,6 +2354,8 @@ export const fr_FR: Partial<Record<TranslationKey, string>> = {
   'entities.items.swirling_healing_draught.name': 'Breuvage de soins tourbillonnant',
   'entities.items.swirling_mana_draught.name': 'Breuvage de mana tourbillonnant',
   'entities.items.elixir_of_the_bloom.name': 'Élixir de la floraison',
+  'entities.items.purple_petal.name': 'Pétale pourpre',
+  'entities.items.golden_petal.name': 'Pétale doré',
   'entities.items.sableweb_slippers.name': 'Mules Sableweb',
   'entities.items.simple_fishing_pole.name': 'Canne à pêche simple',
   'entities.items.tangled_weed.name': 'Herbe emmêlée',

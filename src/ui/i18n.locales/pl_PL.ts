@@ -1136,6 +1136,8 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'entities.items.swirling_healing_draught.name': 'Wirujący napój leczniczy',
   'entities.items.swirling_mana_draught.name': 'Wirujący napój many',
   'entities.items.elixir_of_the_bloom.name': 'Eliksir rozkwitu',
+  'entities.items.purple_petal.name': 'Purpurowy Płatek',
+  'entities.items.golden_petal.name': 'Złoty Płatek',
   'entities.items.raw_river_perch.name': 'Surowy okoń rzeczny',
   'entities.items.raw_stonescale_carp.name': 'Surowy karp kamiennołuski',
   'entities.items.recruit_tunic.name': 'Tunika rekruta',

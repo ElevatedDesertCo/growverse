@@ -5065,6 +5065,12 @@ export const zh_TW: EnTranslations = {
       "elixir_of_the_bloom": {
         "name": "綻放靈藥"
       },
+      "purple_petal": {
+        "name": "紫色花瓣"
+      },
+      "golden_petal": {
+        "name": "金色花瓣"
+      },
       "bristleback_maul": {
         "name": "硬鬃重槌"
       },

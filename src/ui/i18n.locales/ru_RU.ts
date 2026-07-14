@@ -2374,6 +2374,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.items.swirling_healing_draught.name': 'Вихревое лечебное зелье',
   'entities.items.swirling_mana_draught.name': 'Вихревое зелье маны',
   'entities.items.elixir_of_the_bloom.name': 'Эликсир цветения',
+  'entities.items.purple_petal.name': 'Пурпурный лепесток',
+  'entities.items.golden_petal.name': 'Золотой лепесток',
   'entities.npcs.alchemist_sable.name': 'Сейбл',
   'entities.npcs.alchemist_sable.title': 'Алхимик',
   'entities.npcs.alchemist_sable.greeting':

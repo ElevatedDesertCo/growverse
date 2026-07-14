@@ -1126,6 +1126,8 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'entities.items.swirling_healing_draught.name': 'Hvirvlende Helbredelsesdrik',
   'entities.items.swirling_mana_draught.name': 'Hvirvlende Manadrik',
   'entities.items.elixir_of_the_bloom.name': 'Blomstringens Eliksir',
+  'entities.items.purple_petal.name': 'Lilla Kronblad',
+  'entities.items.golden_petal.name': 'Gyldent Kronblad',
   'entities.items.raw_river_perch.name': 'Rå Flodaborre',
   'entities.items.raw_stonescale_carp.name': 'Rå Stenskæl-Karpe',
   'entities.items.recruit_tunic.name': 'Rekruttens Tunika',

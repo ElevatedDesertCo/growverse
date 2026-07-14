@@ -5065,6 +5065,12 @@ export const ja_JP: EnTranslations = {
       "elixir_of_the_bloom": {
         "name": "花咲きのエリクサー"
       },
+      "purple_petal": {
+        "name": "紫の花びら"
+      },
+      "golden_petal": {
+        "name": "金の花びら"
+      },
       "bristleback_maul": {
         "name": "ブリストルバックの大槌"
       },

@@ -2329,6 +2329,8 @@ export const pt_BR: Partial<Record<TranslationKey, string>> = {
   'entities.items.swirling_healing_draught.name': 'Poção curativa rodopiante',
   'entities.items.swirling_mana_draught.name': 'Poção de mana rodopiante',
   'entities.items.elixir_of_the_bloom.name': 'Elixir do florescimento',
+  'entities.items.purple_petal.name': 'Pétala Púrpura',
+  'entities.items.golden_petal.name': 'Pétala Dourada',
   'entities.items.sableweb_slippers.name': 'Pantufas Sableweb',
   'entities.items.simple_fishing_pole.name': 'Vara de pesca simples',
   'entities.items.tangled_weed.name': 'Erva emaranhada',

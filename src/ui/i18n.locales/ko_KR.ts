@@ -2338,6 +2338,8 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.items.swirling_healing_draught.name': '소용돌이 치유 물약',
   'entities.items.swirling_mana_draught.name': '소용돌이 마나 물약',
   'entities.items.elixir_of_the_bloom.name': '만개의 엘릭서',
+  'entities.items.purple_petal.name': '보라색 꽃잎',
+  'entities.items.golden_petal.name': '금빛 꽃잎',
   'entities.npcs.alchemist_sable.name': '세이블',
   'entities.npcs.alchemist_sable.title': '연금술사',
   'entities.npcs.alchemist_sable.greeting':

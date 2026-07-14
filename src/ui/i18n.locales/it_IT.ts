@@ -2329,6 +2329,8 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'entities.items.swirling_healing_draught.name': 'Pozione curativa turbinante',
   'entities.items.swirling_mana_draught.name': 'Pozione di mana turbinante',
   'entities.items.elixir_of_the_bloom.name': 'Elisir della fioritura',
+  'entities.items.purple_petal.name': 'Petalo Purpureo',
+  'entities.items.golden_petal.name': 'Petalo Dorato',
   'entities.items.sableweb_slippers.name': 'Pantofole Sableweb',
   'entities.items.simple_fishing_pole.name': 'Canna da pesca semplice',
   'entities.items.tangled_weed.name': 'Erbaccia aggrovigliata',

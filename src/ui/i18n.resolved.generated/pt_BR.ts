@@ -5065,6 +5065,12 @@ export const pt_BR: EnTranslations = {
       "elixir_of_the_bloom": {
         "name": "Elixir do florescimento"
       },
+      "purple_petal": {
+        "name": "Pétala Púrpura"
+      },
+      "golden_petal": {
+        "name": "Pétala Dourada"
+      },
       "bristleback_maul": {
         "name": "Malho Bristleback"
       },
