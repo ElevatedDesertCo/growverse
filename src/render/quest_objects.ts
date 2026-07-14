@@ -2,6 +2,7 @@
 
 import * as THREE from 'three';
 import type { GLTF } from 'three/addons/loaders/GLTFLoader.js';
+import { GARDEN_PLOT_GRID, type PlotView } from '../sim/types';
 import { loadGltf } from './assets/loader';
 import { registerPreload } from './assets/preload';
 import { GFX, surfaceMat } from './gfx';
@@ -30,6 +31,25 @@ const QUEST_OBJECT_URLS: Record<string, string> = {
   bloom_extract: '/models/foliage/flower.glb',
   purple_petal: '/models/foliage/flower.glb',
   golden_petal: '/models/foliage/flower.glb',
+};
+
+// The cannabis grow plant that sits on a garden bed, swapped as the plot matures. Three
+// optimized GLBs: a small sprout, a leafy mid plant, and a full flowering bloom. The
+// renderer reads the plot's live stage each frame and swaps the model on change.
+export type GardenPlantStage = 'sprout' | 'mid' | 'bloom';
+
+const GARDEN_PLANT_URLS: Record<GardenPlantStage, string> = {
+  sprout: '/models/foliage/canna_sprout.glb',
+  mid: '/models/foliage/canna_mid.glb',
+  bloom: '/models/foliage/canna_bloom.glb',
+};
+
+// Target plant height per stage (yards), so a bed visibly grows taller as it matures. The
+// bed frame is 1.9yd wide, so a ~1.2yd bloom reads clearly without overhanging neighbors.
+const GARDEN_PLANT_HEIGHTS: Record<GardenPlantStage, number> = {
+  sprout: 0.5,
+  mid: 0.85,
+  bloom: 1.2,
 };
 
 const QUEST_OBJECT_HEIGHTS: Record<string, number> = {
@@ -91,7 +111,9 @@ const preparedByItem = new Map<string, THREE.Group>();
 const proceduralByItem = new Map<string, THREE.Group>();
 
 if (typeof window !== 'undefined') {
-  const urls = [...new Set(Object.values(QUEST_OBJECT_URLS))];
+  const urls = [
+    ...new Set([...Object.values(QUEST_OBJECT_URLS), ...Object.values(GARDEN_PLANT_URLS)]),
+  ];
   for (const url of urls) {
     registerPreload(
       loadGltf(url)
@@ -319,11 +341,17 @@ function prepareItem(itemId: string): THREE.Group | null {
   return root;
 }
 
-// The interactable Garden plot (cultivation): a simple procedural raised grow-bed, a
-// framed box of soil with a few leafy sprouts. Distinct from the collectible ground
-// objects so a player recognizes where to tend their garden. Built once (not per frame),
-// so plain `new THREE.*` is fine here; deterministic (no Math.random).
-export function buildGardenPlot(entityId: number): { group: THREE.Group; height: number } {
+// The interactable Garden plot (cultivation): a procedural raised grow-bed (a framed box
+// of soil) plus an empty `plantSlot` group sitting on the soil surface. The renderer
+// populates the slot with the cannabis grow model that matches the plot's live stage (see
+// setGardenPlant / gardenVisualStage) and swaps it as the plant matures; an empty plot
+// shows bare soil. The bed itself is built once (not per frame), so plain `new THREE.*` is
+// fine here; deterministic (no Math.random).
+export function buildGardenPlot(entityId: number): {
+  group: THREE.Group;
+  height: number;
+  plantSlot: THREE.Group;
+} {
   const group = new THREE.Group();
   const frame = new THREE.Mesh(
     new THREE.BoxGeometry(1.9, 0.22, 1.9),
@@ -337,24 +365,75 @@ export function buildGardenPlot(entityId: number): { group: THREE.Group; height:
   );
   soil.position.y = 0.2;
   group.add(soil);
-  const leaf = surfaceMat({ color: 0x4e9a2f, roughness: 0.7 });
-  const spots: [number, number][] = [
-    [-0.45, -0.45],
-    [0.45, -0.45],
-    [-0.45, 0.45],
-    [0.45, 0.45],
-    [0, 0],
-  ];
-  for (const [x, z] of spots) {
-    const sprout = new THREE.Mesh(new THREE.ConeGeometry(0.22, 0.6, 6), leaf);
-    sprout.position.set(x, 0.62, z);
-    group.add(sprout);
-  }
-  // Axis-aligned on purpose: the beds tile into a clean 6x6 field, so (unlike the
-  // scattered quest props) they must NOT get the per-id yaw jitter or the squares
-  // would rotate into each other. entityId is unused here for that reason.
+  // The plant grows out of the soil surface (~y 0.37). Left empty at build; the renderer
+  // fills it from the plot's stage and clears it when the plot is empty or harvested.
+  const plantSlot = new THREE.Group();
+  plantSlot.position.y = 0.37;
+  group.add(plantSlot);
+  // Axis-aligned on purpose: the beds tile into a clean field, so (unlike the scattered
+  // quest props) they must NOT get the per-id yaw jitter or the squares would rotate into
+  // each other. entityId is unused here for that reason.
   void entityId;
-  return { group, height: 0.95 };
+  return { group, height: 0.95, plantSlot };
+}
+
+// A cached, normalized template for one grow stage, cloned per bed. Materials keep their
+// GLB look; geometry is marked a shared renderer resource so per-bed view teardown does
+// NOT dispose it (every bed's clone shares this one geometry).
+const preparedPlantByStage = new Map<GardenPlantStage, THREE.Group>();
+
+function preparePlant(stage: GardenPlantStage): THREE.Group | null {
+  const cached = preparedPlantByStage.get(stage);
+  if (cached) return cached;
+  const gltf = gltfByUrl.get(GARDEN_PLANT_URLS[stage]);
+  if (!gltf) return null;
+  const root = gltf.scene.clone(true);
+  root.traverse((o) => {
+    const mesh = o as THREE.Mesh;
+    if (!mesh.isMesh) return;
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    // Survive interest-churn view teardown: clones share this geometry.
+    mesh.geometry.userData.sharedRendererResource = true;
+  });
+  normalizeRoot(root, GARDEN_PLANT_HEIGHTS[stage]);
+  preparedPlantByStage.set(stage, root);
+  return root;
+}
+
+// Populate a bed's plant slot with the model for `stage` (or clear it for null / an
+// asset not yet loaded). Idempotent per call: it removes any previous plant first. Cheap
+// because the renderer only calls it when a plot's visual stage actually changes.
+export function setGardenPlant(slot: THREE.Group, stage: GardenPlantStage | null): void {
+  while (slot.children.length) slot.remove(slot.children[0]);
+  if (!stage) return;
+  const template = preparePlant(stage);
+  if (template) slot.add(template.clone(true));
+}
+
+// Map a plot's gameplay stage/progress to the visual grow model: empty shows nothing, a
+// growing plot shows the sprout for its first half and the leafy mid plant for its second,
+// and a ready plot shows the full bloom.
+export function gardenVisualStage(pv: PlotView | undefined): GardenPlantStage | null {
+  if (!pv || pv.stage === 'empty') return null;
+  if (pv.stage === 'ready') return 'bloom';
+  return pv.progress < 0.5 ? 'sprout' : 'mid';
+}
+
+// Resolve a garden bed's world position to its plot index (0..GARDEN_PLOT_COUNT-1). Beds
+// spawn in GARDEN_PLOT_GRID order at fixed grid positions, and a player's plots array is
+// in the same index order, so position is a stable key. Rounded to 0.1yd (beds are 2.6yd
+// apart, so no collision) to tolerate float formatting.
+const GARDEN_INDEX_BY_POS: Map<string, number> = (() => {
+  const m = new Map<string, number>();
+  GARDEN_PLOT_GRID.forEach((s, i) => {
+    m.set(`${s.x.toFixed(1)}|${s.z.toFixed(1)}`, i);
+  });
+  return m;
+})();
+
+export function gardenPlotIndexAt(x: number, z: number): number | undefined {
+  return GARDEN_INDEX_BY_POS.get(`${x.toFixed(1)}|${z.toFixed(1)}`);
 }
 
 export function buildGroundQuestObject(

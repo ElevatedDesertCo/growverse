@@ -27,7 +27,7 @@ import {
   ZONES,
 } from '../sim/data';
 import type { DelveModuleId } from '../sim/delve_layout';
-import type { BiomeId } from '../sim/types';
+import type { BiomeId, PlotView } from '../sim/types';
 import { ALL_CLASSES, type Entity, FISHING_CAST_ID, type SimEvent } from '../sim/types';
 import { groundHeight, WATER_LEVEL, zoneBiomeAt } from '../sim/world';
 import { attachAvatarFallback } from '../ui/avatar_fallback';
@@ -81,7 +81,14 @@ import {
 } from './nameplate_projection';
 import { buildComposer, type PostPipeline } from './post';
 import { buildPropMaterialPrewarmGroup, buildProps } from './props';
-import { buildGardenPlot, buildGroundQuestObject } from './quest_objects';
+import {
+  buildGardenPlot,
+  buildGroundQuestObject,
+  type GardenPlantStage,
+  gardenPlotIndexAt,
+  gardenVisualStage,
+  setGardenPlant,
+} from './quest_objects';
 import { isOwnedPetHostile } from './reaction';
 import { RenderBudgetGovernor, type RenderBudgetState } from './render_budget';
 import { downscaleDims } from './screenshot';
@@ -516,6 +523,9 @@ export interface EntityView {
   objectMesh?: THREE.Object3D;
   objectPoolKey: string | null;
   portal?: THREE.Mesh; // dungeon door swirl
+  gardenPlotIndex?: number; // this bed's index into the local player's garden plots
+  plantSlot?: THREE.Group; // the group the staged plant GLB is swapped into
+  plantStage?: GardenPlantStage | null; // last-applied visual stage, to diff cheaply
   objectCasters: THREE.Object3D[]; // object-view shadow meshes, distance-gated
   viewLights: THREE.PointLight[]; // point lights this view contributes to the budget
   shadowOn: boolean;
@@ -3120,6 +3130,8 @@ export class Renderer {
     const isQuestVision = e.kind === 'mob' && e.templateId.startsWith('vision_');
 
     let portal: THREE.Mesh | undefined;
+    let gardenPlotIndex: number | undefined;
+    let plantSlot: THREE.Group | undefined;
     if (
       e.kind === 'object' &&
       (e.templateId === 'dungeon_door' || e.templateId === 'dungeon_exit')
@@ -3165,6 +3177,10 @@ export class Renderer {
       body = built.group;
       height = built.height;
       objectMesh = body!;
+      plantSlot = built.plantSlot;
+      // Beds spawn in GARDEN_PLOT_GRID order and the local player's plots[] shares that
+      // index order, so the bed's world position maps to its plot index.
+      gardenPlotIndex = gardenPlotIndexAt(e.pos.x, e.pos.z);
     } else if (e.kind === 'object') {
       objectPoolKey = this.objectPoolKeyFor(e);
       const pooled = objectPoolKey ? this.takePooledObject(objectPoolKey) : null;
@@ -3379,6 +3395,9 @@ export class Renderer {
       objectMesh,
       objectPoolKey,
       portal,
+      gardenPlotIndex,
+      plantSlot,
+      plantStage: undefined,
       nameplateDisplay: 'none',
       nameplateTransform: '',
       nameplateSig: '',
@@ -3954,6 +3973,9 @@ export class Renderer {
     const lodRangeSq = ENTITY_LOD_RANGE_SQ * crowdScaleSq;
     const shadowRangeSq = ENTITY_SHADOW_RANGE_SQ * crowdScaleSq;
     let visibleRigCount = 0;
+    // Local player's garden plots, read at most once this frame and only if a bed view
+    // is actually in range (the getter rebuilds all 18 PlotViews, so avoid 18 calls).
+    let gardenSnap: PlotView[] | null = null;
 
     for (const [id, v] of this.views) {
       const e = sim.entities.get(id);
@@ -4090,6 +4112,16 @@ export class Renderer {
           v.portal.rotation.z = this.time * 1.4;
           (v.portal.material as THREE.MeshBasicMaterial).opacity =
             0.45 + Math.sin(this.time * 2.2 + e.id) * 0.15;
+        }
+        // Garden bed: swap the staged plant GLB to match the plot's grow stage. Only
+        // touches the scene when the stage actually changes (empty/sprout/mid/bloom).
+        if (v.plantSlot && v.gardenPlotIndex !== undefined && vis) {
+          if (!gardenSnap) gardenSnap = sim.garden;
+          const want = gardenVisualStage(gardenSnap[v.gardenPlotIndex]);
+          if (want !== v.plantStage) {
+            setGardenPlant(v.plantSlot, want);
+            v.plantStage = want;
+          }
         }
         continue;
       }
