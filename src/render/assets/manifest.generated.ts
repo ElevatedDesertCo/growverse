@@ -461,7 +461,6 @@ export const MEDIA_ASSETS: Record<string, string> =
   "models/dungeon/wooden_gate.glb": "/media/models/dungeon/wooden_gate.4bd6bd7b3cd0.glb",
   "models/dungeon/wooden_gate_halloween.glb": "/media/models/dungeon/wooden_gate_halloween.2275330cdfba.glb",
   "models/foliage/bush.glb": "/media/models/foliage/bush.614172ada35f.glb",
-  "models/foliage/bush_flowers.glb": "/media/models/foliage/bush_flowers.e03f73e8085a.glb",
   "models/foliage/dead_1.glb": "/media/models/foliage/dead_1.ebba93b79c76.glb",
   "models/foliage/dead_2.glb": "/media/models/foliage/dead_2.5ffda6818818.glb",
   "models/foliage/dead_3.glb": "/media/models/foliage/dead_3.cd13e1394e8c.glb",
