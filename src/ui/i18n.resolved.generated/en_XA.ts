@@ -4565,7 +4565,7 @@ export const en_XA: EnTranslations = {
         "name": "[Ĝŕáʋéŵáļķéŕ Šóƒţƀóóţš]"
       },
       "boar_hide": {
-        "name": "[Ɓŕíšţļý Ɓóáŕ Ĥíðé]"
+        "name": "[Ŕážóŕƀáçķ Ĵáʋéļíñá Ĥíðé]"
       },
       "gravecaller_sigil": {
         "name": "[Ĝŕáʋéçáļļéŕ'š Šíĝíļ]"
@@ -4592,7 +4592,7 @@ export const en_XA: EnTranslations = {
         "name": "[Ɱóŕţĥéñ'š Ĝŕíɱóíŕé]"
       },
       "wolf_fang": {
-        "name": "[Çŕáçķéð Ŵóļƒ Ƒáñĝ]"
+        "name": "[Çŕáçķéð Çóýóţé Ƒáñĝ]"
       },
       "bandit_bandana": {
         "name": "[Ŕéð Ɓáñðáñá]"
@@ -5957,7 +5957,7 @@ export const en_XA: EnTranslations = {
       "fisherman_brandt": {
         "name": "[Ñéţçášţéŕ Ɓŕáñðţ]",
         "title": "[Óļð Šáļţ]",
-        "greeting": "[Ĝŕļšíļţĝŕļ, šóŕŕý, ƀééñ ļíšţéñíñĝ ţó ţĥóšé šíļţ-çŕáŵļéŕš ţóó ļóñĝ.]"
+        "greeting": "[Ĝŕļšñáþĝŕļ, šóŕŕý, ƀééñ ļíšţéñíñĝ ţó ţĥóšé ŕéšéŕʋóíŕ šñáþþéŕš ţóó ļóñĝ.]"
       },
       "foreman_odell": {
         "name": "[Ƒóŕéɱáñ Óðéļļ]",

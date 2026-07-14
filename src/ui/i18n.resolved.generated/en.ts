@@ -4565,7 +4565,7 @@ export const en: EnTranslations = {
         "name": "Gravewalker Softboots"
       },
       "boar_hide": {
-        "name": "Bristly Boar Hide"
+        "name": "Razorback Javelina Hide"
       },
       "gravecaller_sigil": {
         "name": "Gravecaller's Sigil"
@@ -4592,7 +4592,7 @@ export const en: EnTranslations = {
         "name": "Morthen's Grimoire"
       },
       "wolf_fang": {
-        "name": "Cracked Wolf Fang"
+        "name": "Cracked Coyote Fang"
       },
       "bandit_bandana": {
         "name": "Red Bandana"
@@ -5957,7 +5957,7 @@ export const en: EnTranslations = {
       "fisherman_brandt": {
         "name": "Netcaster Brandt",
         "title": "Old Salt",
-        "greeting": "Grlsiltgrl, sorry, been listening to those silt-crawlers too long."
+        "greeting": "Grlsnapgrl, sorry, been listening to those reservoir snappers too long."
       },
       "foreman_odell": {
         "name": "Foreman Odell",

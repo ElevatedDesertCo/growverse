@@ -684,7 +684,7 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     color: 0x2471a3,
     questIds: ['q_murlocs'],
     vendorItems: ['simple_fishing_pole'],
-    greeting: 'Grlsiltgrl, sorry, been listening to those silt-crawlers too long.',
+    greeting: 'Grlsnapgrl, sorry, been listening to those reservoir snappers too long.',
   },
   foreman_odell: {
     id: 'foreman_odell',

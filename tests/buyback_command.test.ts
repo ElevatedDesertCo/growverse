@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { Sim } from '../src/sim/sim';
-import { SimEvent } from '../src/sim/types';
+import type { SimEvent } from '../src/sim/types';
 
 function makeWorld() {
   return new Sim({ seed: 42, playerClass: 'warrior', noPlayer: true });
@@ -36,7 +36,7 @@ describe('/buyback command', () => {
 
     sim.chat('/buyback', a);
     expect(errorText(sim.tick(), a)).toBe(
-      'Vendor buyback (2): Cracked Wolf Fang x3 (4c each), Worn Shortsword (10c each). Repurchase at any merchant.',
+      'Vendor buyback (2): Cracked Coyote Fang x3 (4c each), Worn Shortsword (10c each). Repurchase at any merchant.',
     );
   });
 
@@ -53,7 +53,7 @@ describe('/buyback command', () => {
 
     sim.chat('/buyback', a);
     expect(errorText(sim.tick(), a)).toBe(
-      'Vendor buyback (1): Cracked Wolf Fang (4c each). Repurchase at any merchant.',
+      'Vendor buyback (1): Cracked Coyote Fang (4c each). Repurchase at any merchant.',
     );
   });
 

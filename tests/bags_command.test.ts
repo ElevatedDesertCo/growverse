@@ -38,7 +38,7 @@ describe('/bags command', () => {
     sim.chat('/bags', pid);
     expect(lastReadout(sim, pid)).toBe(
       'Bags (4): Fen Reaver Glaive, Redbrook Militia Blade, ' +
-        'Minor Healing Potion x3, Cracked Wolf Fang x5. Purse: 12g 4s 5c.',
+        'Minor Healing Potion x3, Cracked Coyote Fang x5. Purse: 12g 4s 5c.',
     );
   });
 
