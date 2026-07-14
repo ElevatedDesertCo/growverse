@@ -15,7 +15,7 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 570,
+      "nextId": 552,
       "state": "5bc471b0",
       "events": "741638a5",
       "rng": {
@@ -29,9 +29,9 @@
     {
       "tick": 25,
       "time": 1.25,
-      "nextId": 574,
-      "state": "75ceda13",
-      "events": "da4aa1bf",
+      "nextId": 556,
+      "state": "975c99d3",
+      "events": "1fe3e52f",
       "rng": {
         "draws": 0,
         "digest": "811c9dc5"
@@ -40,9 +40,9 @@
     {
       "tick": 50,
       "time": 2.5,
-      "nextId": 574,
-      "state": "a2215211",
-      "events": "4926dfe1",
+      "nextId": 556,
+      "state": "61a1b251",
+      "events": "45e7cb29",
       "rng": {
         "draws": 36,
         "digest": "5f2ff261"
@@ -51,9 +51,9 @@
     {
       "tick": 75,
       "time": 3.75,
-      "nextId": 574,
-      "state": "f1c54c23",
-      "events": "749691c1",
+      "nextId": 556,
+      "state": "84ef8893",
+      "events": "dcc466b9",
       "rng": {
         "draws": 132,
         "digest": "26582072"
@@ -62,9 +62,9 @@
     {
       "tick": 100,
       "time": 5,
-      "nextId": 574,
-      "state": "a78fc841",
-      "events": "0e50d721",
+      "nextId": 556,
+      "state": "5a7bc541",
+      "events": "82541841",
       "rng": {
         "draws": 280,
         "digest": "40bf7bce"
@@ -73,9 +73,9 @@
     {
       "tick": 125,
       "time": 6.25,
-      "nextId": 574,
-      "state": "dfc2813c",
-      "events": "a432b038",
+      "nextId": 556,
+      "state": "0f535274",
+      "events": "9ee34158",
       "rng": {
         "draws": 452,
         "digest": "7c368899"
@@ -84,8 +84,8 @@
     {
       "tick": 150,
       "time": 7.5,
-      "nextId": 574,
-      "state": "61612cd8",
+      "nextId": 556,
+      "state": "1140eb18",
       "events": "741638a5",
       "rng": {
         "draws": 637,
@@ -95,9 +95,9 @@
     {
       "tick": 163,
       "time": 8.15,
-      "nextId": 574,
-      "state": "f74f0b2d",
-      "events": "f9df46a0",
+      "nextId": 556,
+      "state": "1788f645",
+      "events": "abdd2c60",
       "rng": {
         "draws": 722,
         "digest": "1f1e64ce"
@@ -116,7 +116,7 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 570,
+          "entityId": 552,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
@@ -129,24 +129,6 @@
             }
           },
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
             {},
             {},
             {},
@@ -188,7 +170,7 @@
           "counters": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 571,
+          "entityId": 553,
           "equipment": {
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
@@ -201,24 +183,6 @@
             }
           },
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
             {},
             {},
             {},
@@ -262,7 +226,7 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 572,
+          "entityId": 554,
           "equipment": {
             "chest": "footpad_jerkin",
             "mainhand": "rusty_dagger"
@@ -278,24 +242,6 @@
             }
           },
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
             {},
             {},
             {},
@@ -337,7 +283,7 @@
           "counters": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 573,
+          "entityId": 555,
           "equipment": {
             "chest": "footpad_jerkin",
             "mainhand": "rusty_hatchet"
@@ -350,24 +296,6 @@
             }
           },
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
             {},
             {},
             {},
@@ -411,7 +339,7 @@
           "dodgeChance": 0.0795,
           "fiveSecondRule": 107.15,
           "hp": 812,
-          "id": 570,
+          "id": 552,
           "kind": "player",
           "level": 20,
           "lootFfaTimer": "Infinity",
@@ -457,7 +385,7 @@
           "dodgeChance": 0.056,
           "fiveSecondRule": 107.15,
           "hp": 418,
-          "id": 571,
+          "id": 553,
           "kind": "player",
           "level": 20,
           "lootFfaTimer": "Infinity",
@@ -505,7 +433,7 @@
           "facing": 3.141593,
           "fiveSecondRule": 107.15,
           "hp": 510,
-          "id": 572,
+          "id": 554,
           "kind": "player",
           "level": 20,
           "lootFfaTimer": "Infinity",
@@ -554,7 +482,7 @@
           "facing": 3.141593,
           "fiveSecondRule": 107.15,
           "hp": 848,
-          "id": 573,
+          "id": 555,
           "kind": "player",
           "level": 20,
           "lootFfaTimer": "Infinity",

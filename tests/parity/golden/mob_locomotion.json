@@ -17,7 +17,7 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 570,
+      "nextId": 552,
       "state": "5bc471b0",
       "events": "741638a5",
       "rng": {
@@ -31,9 +31,9 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 572,
-      "state": "8493ffa7",
-      "events": "22882187",
+      "nextId": 554,
+      "state": "ba2f393b",
+      "events": "0314b383",
       "rng": {
         "draws": 2,
         "digest": "4c28137b"
@@ -51,30 +51,12 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 570,
+          "entityId": 552,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
             {},
             {},
             {},
@@ -111,7 +93,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 999985,
-          "id": 570,
+          "id": 552,
           "inCombat": true,
           "kind": "player",
           "level": 1,
@@ -152,7 +134,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -161,7 +143,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 1357,
-          "id": 571,
+          "id": 553,
           "inCombat": true,
           "kind": "mob",
           "level": 6,
@@ -200,9 +182,9 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 573,
-      "state": "2f4cb473",
-      "events": "1fbedbf2",
+      "nextId": 555,
+      "state": "43ed1c7f",
+      "events": "42a9f97e",
       "rng": {
         "draws": 6,
         "digest": "0a04c9cd"
@@ -220,30 +202,12 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 570,
+          "entityId": 552,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
             {},
             {},
             {},
@@ -282,7 +246,7 @@
               "name": "War Stomp",
               "remaining": 1.5,
               "school": "physical",
-              "sourceId": 572
+              "sourceId": 554
             }
           ],
           "critChance": 0.06,
@@ -291,7 +255,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 999867,
-          "id": 570,
+          "id": 552,
           "inCombat": true,
           "kind": "player",
           "level": 1,
@@ -332,7 +296,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -341,7 +305,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 1357,
-          "id": 571,
+          "id": 553,
           "inCombat": true,
           "kind": "mob",
           "level": 6,
@@ -376,7 +340,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -385,7 +349,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 2171,
-          "id": 572,
+          "id": 554,
           "inCombat": true,
           "kind": "mob",
           "level": 20,
@@ -423,9 +387,9 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 574,
-      "state": "5d4c0ad6",
-      "events": "c9fd5373",
+      "nextId": 556,
+      "state": "1d811e1e",
+      "events": "be71807b",
       "rng": {
         "draws": 11,
         "digest": "bbd31079"
@@ -443,30 +407,12 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 570,
+          "entityId": 552,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
             {},
             {},
             {},
@@ -505,7 +451,7 @@
               "name": "War Stomp",
               "remaining": 1.5,
               "school": "physical",
-              "sourceId": 572
+              "sourceId": 554
             },
             {
               "breaksOnDamage": true,
@@ -515,7 +461,7 @@
               "name": "Banshee's Wail",
               "remaining": 3,
               "school": "shadow",
-              "sourceId": 573,
+              "sourceId": 555,
               "value": -2.316127
             }
           ],
@@ -525,7 +471,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 999904,
-          "id": 570,
+          "id": 552,
           "inCombat": true,
           "kind": "player",
           "level": 1,
@@ -566,7 +512,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -575,7 +521,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 1357,
-          "id": 571,
+          "id": 553,
           "inCombat": true,
           "kind": "mob",
           "level": 6,
@@ -610,7 +556,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -619,7 +565,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 2171,
-          "id": 572,
+          "id": 554,
           "inCombat": true,
           "kind": "mob",
           "level": 20,
@@ -653,7 +599,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -662,7 +608,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 2277,
-          "id": 573,
+          "id": 555,
           "inCombat": true,
           "kind": "mob",
           "level": 12,
@@ -701,8 +647,8 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 575,
-      "state": "0e97a934",
+      "nextId": 557,
+      "state": "42dc3a34",
       "events": "741638a5",
       "rng": {
         "draws": 13,
@@ -721,30 +667,12 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 570,
+          "entityId": 552,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
             {},
             {},
             {},
@@ -783,7 +711,7 @@
               "name": "War Stomp",
               "remaining": 1.5,
               "school": "physical",
-              "sourceId": 572
+              "sourceId": 554
             },
             {
               "breaksOnDamage": true,
@@ -793,7 +721,7 @@
               "name": "Banshee's Wail",
               "remaining": 3,
               "school": "shadow",
-              "sourceId": 573,
+              "sourceId": 555,
               "value": -2.316127
             }
           ],
@@ -803,7 +731,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 999904,
-          "id": 570,
+          "id": 552,
           "inCombat": true,
           "kind": "player",
           "level": 1,
@@ -844,7 +772,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -853,7 +781,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 1357,
-          "id": 571,
+          "id": 553,
           "inCombat": true,
           "kind": "mob",
           "level": 6,
@@ -888,7 +816,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -897,7 +825,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 2171,
-          "id": 572,
+          "id": 554,
           "inCombat": true,
           "kind": "mob",
           "level": 20,
@@ -931,7 +859,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -940,7 +868,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 2277,
-          "id": 573,
+          "id": 555,
           "inCombat": true,
           "kind": "mob",
           "level": 12,
@@ -985,7 +913,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 574,
+          "id": 556,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
@@ -1026,8 +954,8 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 576,
-      "state": "6c0c29a8",
+      "nextId": 558,
+      "state": "e45a6738",
       "events": "741638a5",
       "rng": {
         "draws": 14,
@@ -1046,30 +974,12 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 570,
+          "entityId": 552,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
             {},
             {},
             {},
@@ -1108,7 +1018,7 @@
               "name": "War Stomp",
               "remaining": 1.5,
               "school": "physical",
-              "sourceId": 572
+              "sourceId": 554
             },
             {
               "breaksOnDamage": true,
@@ -1118,7 +1028,7 @@
               "name": "Banshee's Wail",
               "remaining": 3,
               "school": "shadow",
-              "sourceId": 573,
+              "sourceId": 555,
               "value": -2.316127
             }
           ],
@@ -1128,7 +1038,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 999904,
-          "id": 570,
+          "id": 552,
           "inCombat": true,
           "kind": "player",
           "level": 1,
@@ -1169,7 +1079,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -1178,7 +1088,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 1357,
-          "id": 571,
+          "id": 553,
           "inCombat": true,
           "kind": "mob",
           "level": 6,
@@ -1213,7 +1123,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -1222,7 +1132,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 2171,
-          "id": 572,
+          "id": 554,
           "inCombat": true,
           "kind": "mob",
           "level": 20,
@@ -1256,7 +1166,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -1265,7 +1175,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 2277,
-          "id": 573,
+          "id": 555,
           "inCombat": true,
           "kind": "mob",
           "level": 12,
@@ -1310,7 +1220,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 574,
+          "id": 556,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
@@ -1356,7 +1266,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 575,
+          "id": 557,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
@@ -1392,9 +1302,9 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 577,
-      "state": "6de21874",
-      "events": "72353d75",
+      "nextId": 559,
+      "state": "8b6642b0",
+      "events": "4c7f9fcd",
       "rng": {
         "draws": 14,
         "digest": "582fbb94"
@@ -1412,30 +1322,12 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 570,
+          "entityId": 552,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
             {},
             {},
             {},
@@ -1474,7 +1366,7 @@
               "name": "War Stomp",
               "remaining": 1.5,
               "school": "physical",
-              "sourceId": 572
+              "sourceId": 554
             },
             {
               "breaksOnDamage": true,
@@ -1484,7 +1376,7 @@
               "name": "Banshee's Wail",
               "remaining": 3,
               "school": "shadow",
-              "sourceId": 573,
+              "sourceId": 555,
               "value": -2.316127
             }
           ],
@@ -1494,7 +1386,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 1000000,
-          "id": 570,
+          "id": 552,
           "inCombat": true,
           "kind": "player",
           "level": 1,
@@ -1535,7 +1427,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -1544,7 +1436,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 1357,
-          "id": 571,
+          "id": 553,
           "inCombat": true,
           "kind": "mob",
           "level": 6,
@@ -1579,7 +1471,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -1588,7 +1480,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 2171,
-          "id": 572,
+          "id": 554,
           "inCombat": true,
           "kind": "mob",
           "level": 20,
@@ -1622,7 +1514,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -1631,7 +1523,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 2277,
-          "id": 573,
+          "id": 555,
           "inCombat": true,
           "kind": "mob",
           "level": 12,
@@ -1676,7 +1568,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 574,
+          "id": 556,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
@@ -1722,7 +1614,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 575,
+          "id": 557,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
@@ -1754,7 +1646,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "flee",
           "combatTimer": 99.05,
           "critChance": 0.05,
@@ -1766,7 +1658,7 @@
           "hasFled": true,
           "hostile": true,
           "hp": 20,
-          "id": 576,
+          "id": 558,
           "inCombat": true,
           "kind": "mob",
           "level": 6,
@@ -1802,8 +1694,8 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 577,
-      "state": "7021b601",
+      "nextId": 559,
+      "state": "e3d544e1",
       "events": "741638a5",
       "rng": {
         "draws": 14,
@@ -1822,30 +1714,12 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 570,
+          "entityId": 552,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
             {},
             {},
             {},
@@ -1884,7 +1758,7 @@
               "name": "War Stomp",
               "remaining": 1.5,
               "school": "physical",
-              "sourceId": 572
+              "sourceId": 554
             },
             {
               "breaksOnDamage": true,
@@ -1894,7 +1768,7 @@
               "name": "Banshee's Wail",
               "remaining": 3,
               "school": "shadow",
-              "sourceId": 573,
+              "sourceId": 555,
               "value": -2.316127
             }
           ],
@@ -1904,7 +1778,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 1000000,
-          "id": 570,
+          "id": 552,
           "inCombat": true,
           "kind": "player",
           "level": 1,
@@ -1945,7 +1819,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -1954,7 +1828,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 1357,
-          "id": 571,
+          "id": 553,
           "inCombat": true,
           "kind": "mob",
           "level": 6,
@@ -1989,7 +1863,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -1998,7 +1872,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 2171,
-          "id": 572,
+          "id": 554,
           "inCombat": true,
           "kind": "mob",
           "level": 20,
@@ -2032,7 +1906,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -2041,7 +1915,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 2277,
-          "id": 573,
+          "id": 555,
           "inCombat": true,
           "kind": "mob",
           "level": 12,
@@ -2086,7 +1960,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 574,
+          "id": 556,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
@@ -2132,7 +2006,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 575,
+          "id": 557,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
@@ -2164,7 +2038,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "flee",
           "combatTimer": 99.1,
           "critChance": 0.05,
@@ -2177,7 +2051,7 @@
           "hasFled": true,
           "hostile": true,
           "hp": 20,
-          "id": 576,
+          "id": 558,
           "inCombat": true,
           "kind": "mob",
           "level": 6,
@@ -2213,8 +2087,8 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 577,
-      "state": "7021b601",
+      "nextId": 559,
+      "state": "e3d544e1",
       "events": "741638a5",
       "rng": {
         "draws": 14,
@@ -2233,30 +2107,12 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 570,
+          "entityId": 552,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
             {},
             {},
             {},
@@ -2295,7 +2151,7 @@
               "name": "War Stomp",
               "remaining": 1.5,
               "school": "physical",
-              "sourceId": 572
+              "sourceId": 554
             },
             {
               "breaksOnDamage": true,
@@ -2305,7 +2161,7 @@
               "name": "Banshee's Wail",
               "remaining": 3,
               "school": "shadow",
-              "sourceId": 573,
+              "sourceId": 555,
               "value": -2.316127
             }
           ],
@@ -2315,7 +2171,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 1000000,
-          "id": 570,
+          "id": 552,
           "inCombat": true,
           "kind": "player",
           "level": 1,
@@ -2356,7 +2212,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -2365,7 +2221,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 1357,
-          "id": 571,
+          "id": 553,
           "inCombat": true,
           "kind": "mob",
           "level": 6,
@@ -2400,7 +2256,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -2409,7 +2265,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 2171,
-          "id": 572,
+          "id": 554,
           "inCombat": true,
           "kind": "mob",
           "level": 20,
@@ -2443,7 +2299,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -2452,7 +2308,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 2277,
-          "id": 573,
+          "id": 555,
           "inCombat": true,
           "kind": "mob",
           "level": 12,
@@ -2497,7 +2353,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 574,
+          "id": 556,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
@@ -2543,7 +2399,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 575,
+          "id": 557,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
@@ -2575,7 +2431,7 @@
           }
         },
         {
-          "aggroTargetId": 570,
+          "aggroTargetId": 552,
           "aiState": "flee",
           "combatTimer": 99.1,
           "critChance": 0.05,
@@ -2588,7 +2444,7 @@
           "hasFled": true,
           "hostile": true,
           "hp": 20,
-          "id": 576,
+          "id": 558,
           "inCombat": true,
           "kind": "mob",
           "level": 6,
