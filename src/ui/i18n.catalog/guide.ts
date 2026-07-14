@@ -621,7 +621,7 @@ export const guideStrings = {
     // Short, spoiler-safe one-liners for each zone's notable places (keyed by biome). One
     // sentence per place, in the same order as the POI list.
     valePlaceNotes:
-      "Bloomhaven is your first home base. Wolf Run and Boar Meadow are gentle hunting ground; Mirror Lake is quiet water to fish; the Webwood and the Copper Dig hide spiders and ore-greedy diggers; a Bandit Camp and the Fallen Chapel hold rougher work; Reliquary Hill drops into the Collapsed Reliquary, the realm's first delve; and Brightwood Glade is a quiet, sunlit grove to the north.",
+      "Bloomhaven is your first home base. Coyote Wash and Javelina Flats are gentle hunting ground; Mirror Lake is quiet water to fish; the Mitewood and the Old Dig hide Bloom mites and Bloom-thieving gremlins; a Bandit Camp and the Fallen Chapel hold rougher work; Reliquary Hill drops into the Collapsed Reliquary, the realm's first delve; and Brightwood Glade is a quiet, sunlit grove to the north.",
     marshPlaceNotes:
       "Fenbridge guards the only dry road. The Prowler Reeds and Deepfen Shallows teem with marsh beasts and murlocs; the Widow Thicket is spun thick with web; the Drowned Chapel and the Troll Mounds keep older dangers; the Gravecaller Encampment is the cult dug in, and the Sunken Bastion is the marsh's instanced heart.",
     peaksPlaceNotes:

@@ -6870,21 +6870,21 @@ export const de_DE: EnTranslations = {
       },
       "q_sluice_welcome": {
         "title": "Welcome to the Sluice",
-        "text": "First thing you learn on the shore, {playerName}: a beaver earns its spot by working, not gawking. The blight wolves come down off the north runs to worry our woodpiles and spook the kits. Thin six of them and come warm up by the lodge fire. Then you're one of us.",
-        "completion": "Six fewer wolves at the treeline, and you never once complained. That's the Sluice way, {playerName}. Fire's yours, free of charge. Stay Baked, AZ.",
+        "text": "First thing you learn on the shore, {playerName}: a beaver earns its spot by working, not gawking. The munchie coyotes come down off Coyote Wash to worry our woodpiles and spook the kits. Thin six of them and come warm up by the lodge fire. Then you're one of us.",
+        "completion": "Six fewer coyotes at the treeline, and you never once complained. That's the Sluice way, {playerName}. Fire's yours, free of charge. Stay Baked, AZ.",
         "objectives": {
           "0": {
-            "label": "Blight Wolf thinned"
+            "label": "Munchie Coyote thinned"
           }
         }
       },
       "q_sluice_pilings": {
         "title": "Trouble at the Pilings",
-        "text": "The dam's the whole reason there's a pond to build around, and the bristle-tusk boars off the west meadow keep rooting up its pilings for the sweet mud. A beaver takes that personally, {playerName}. Put down six of the diggers and the Sluice will owe you a proper keepsake, straight from The Dam itself.",
+        "text": "The dam's the whole reason there's a pond to build around, and the razorback javelinas off Javelina Flats keep rooting up its pilings for the sweet mud. A beaver takes that personally, {playerName}. Put down six of the diggers and the Sluice will owe you a proper keepsake, straight from The Dam itself.",
         "completion": "Pilings hold, pond stays put, and the kits sleep sound. Here, {playerName}, a Baked Beaver token, carved down at The Dam. Carry it and you're colony, wherever you wander. Stay Baked, AZ.",
         "objectives": {
           "0": {
-            "label": "Bristle Tusk cleared"
+            "label": "Razorback Javelina cleared"
           }
         }
       },

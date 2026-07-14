@@ -1548,7 +1548,7 @@ export const en: EnTranslations = {
       "marshGreeter": "Warden Fenwick, Fenbridge",
       "peaksGreeting": "Two hundred years this wall has held. It will not break on my watch, but it groans.",
       "peaksGreeter": "Captain Thessaly, Highwatch",
-      "valePlaceNotes": "Bloomhaven is your first home base. Wolf Run and Boar Meadow are gentle hunting ground; Mirror Lake is quiet water to fish; the Webwood and the Copper Dig hide spiders and ore-greedy diggers; a Bandit Camp and the Fallen Chapel hold rougher work; Reliquary Hill drops into the Collapsed Reliquary, the realm's first delve; and Brightwood Glade is a quiet, sunlit grove to the north.",
+      "valePlaceNotes": "Bloomhaven is your first home base. Coyote Wash and Javelina Flats are gentle hunting ground; Mirror Lake is quiet water to fish; the Mitewood and the Old Dig hide Bloom mites and Bloom-thieving gremlins; a Bandit Camp and the Fallen Chapel hold rougher work; Reliquary Hill drops into the Collapsed Reliquary, the realm's first delve; and Brightwood Glade is a quiet, sunlit grove to the north.",
       "marshPlaceNotes": "Fenbridge guards the only dry road. The Prowler Reeds and Deepfen Shallows teem with marsh beasts and murlocs; the Widow Thicket is spun thick with web; the Drowned Chapel and the Troll Mounds keep older dangers; the Gravecaller Encampment is the cult dug in, and the Sunken Bastion is the marsh's instanced heart.",
       "peaksPlaceNotes": "Highwatch holds the wall. Stalker Ridge and the Deeprock Burrows belong to ridge cats and kobolds; the Ogre Foothills and Drogmar's War-Camp to brutes for hire; Stormcrag crackles with elementals and the Glimmermere glows below it; the Wyrmcult Tents and Revenant Fields ring the cult's high ground, with Gravewyrm Sanctum at its peak.",
       "gladeTitle": "A quiet corner: Brightwood Glade",
@@ -5551,22 +5551,22 @@ export const en: EnTranslations = {
     },
     "mobs": {
       "forest_wolf": {
-        "name": "Blight Wolf"
+        "name": "Munchie Coyote"
       },
       "old_greyjaw": {
-        "name": "Old Ashfang"
+        "name": "Ol' Smoky"
       },
       "wild_boar": {
-        "name": "Bristle Tusk"
+        "name": "Razorback Javelina"
       },
       "webwood_spider": {
-        "name": "Sporeweaver"
+        "name": "Bloom Mite"
       },
       "mudfin_murloc": {
-        "name": "Siltling"
+        "name": "Reservoir Snapper"
       },
       "tunnel_rat": {
-        "name": "Burrow Grub"
+        "name": "Trimmer Gremlin"
       },
       "vale_bandit": {
         "name": "Dust Raider"
@@ -6117,65 +6117,65 @@ export const en: EnTranslations = {
     },
     "quests": {
       "q_wolves": {
-        "title": "Wolves at the Door",
-        "text": "The blight wolves grow bold, snapping at travelers on the north road. Thin their numbers, {playerName}. Slay 8 Blight Wolves and Bloomhaven will breathe easier.",
-        "completion": "Fine work. The road feels safer already.",
+        "title": "Munchie Coyotes",
+        "text": "The coyotes have gone bold, sniffing out the commune's snack stash and dragging off whole crates of munchies. Thin them out, {playerName}. Run off 8 Munchie Coyotes up in Coyote Wash and Bloomhaven can eat in peace.",
+        "completion": "Fine work. The snack shed can breathe easy again.",
         "objectives": {
           "0": {
-            "label": "Blight Wolf slain"
+            "label": "Munchie Coyote driven off"
           }
         }
       },
       "q_greyjaw": {
-        "title": "The Old Wolf",
-        "text": "There is one wolf no trap has held: Old Ashfang. He has taken three hounds and a stable boy's arm. He prowls the deep woods north of the wolf runs. Bring me his fang.",
-        "completion": "So the old devil is dead at last. The stable boy will sleep easier, and so will I.",
+        "title": "Ol' Smoky",
+        "text": "There is one coyote no trap has ever held: Ol' Smoky. He has made off with three good hounds and a whole season's worth of edibles. He prowls the deep brush north of Coyote Wash. Bring me his fang.",
+        "completion": "So the old ghost is finally down. The whole commune sleeps easier tonight, and so do I.",
         "objectives": {
           "0": {
-            "label": "Old Ashfang's Fang"
+            "label": "Ol' Smoky's Fang"
           }
         }
       },
       "q_boars": {
-        "title": "Bristleback Hides",
-        "text": "Boar hide makes the finest travel packs, and the meadows west of town are crawling with the beasts. Bring me 5 Bristle Tusk Hides and I will make it worth your time.",
-        "completion": "Ah, fine bristly hides! These will fetch a good price.",
+        "title": "Javelina Trouble",
+        "text": "The javelinas are tearing through the garden rows out on Javelina Flats again, and their hides make the toughest travel packs going. Bring me 5 Razorback Javelina Hides and I will make it worth your time.",
+        "completion": "Ah, good thick hides! These will cure up nicely.",
         "objectives": {
           "0": {
-            "label": "Bristle Tusk Hide"
+            "label": "Razorback Javelina Hide"
           }
         }
       },
       "q_spiders": {
-        "title": "Sporewood Menace",
-        "text": "The weavers in the eastern woods spin a silk I need for my poultices, and they have grown far too numerous besides. Cull 6 Sporeweavers and cut 4 silk glands from their bellies.",
+        "title": "Mites!",
+        "text": "Bloom Mites are breeding in the Mitewood, and if they reach the gardens they will strip a whole crop down to stems. Cull 6 of them and cut 4 webbing glands, I use the silk in my extractions.",
         "completion": "Ugh, still twitching. Perfect. Here, you've earned this.",
         "objectives": {
           "0": {
-            "label": "Sporeweaver slain"
+            "label": "Bloom Mite culled"
           },
           "1": {
-            "label": "Sporewood Silk Gland"
+            "label": "Mite Silk Gland"
           }
         }
       },
       "q_murlocs": {
-        "title": "Trouble at the Lake",
-        "text": "Twenty years I have fished Mirror Lake, and never lost a net until those gurgling silt-crawlers crawled out of the shallows. Drive the Siltlings back, slay 8 of them. And watch yourself: where there is one silt-crawler, there are five.",
+        "title": "Snappers in the Shallows",
+        "text": "Twenty years I have fished Mirror Lake and never lost a net, until those Reservoir Snappers started crawling out of the shallows and chewing clean through my lines. Drive 8 of them back. And watch yourself: where there is one snapper, there is a whole clatter of them.",
         "completion": "Hah! That will teach them to mind their own mudholes.",
         "objectives": {
           "0": {
-            "label": "Siltling slain"
+            "label": "Reservoir Snapper slain"
           }
         }
       },
       "q_mine": {
-        "title": "Rats in the Mine",
-        "text": "We struck a fine copper vein and then those kobold vermin came boiling out of the hillside. My crew will not set foot in the dig until it is cleared. Put down 10 Burrow Grubs.",
-        "completion": "Ha! Back to work, lads! You have my thanks, and my coin.",
+        "title": "Squatters in the Old Dig",
+        "text": "We reopened the Old Dig and a nest of Trimmer Gremlins had already holed up inside, making off with cured Bloom by the sackful. My crew will not set foot down there until it is cleared. Put down 10 Trimmer Gremlins.",
+        "completion": "Ha! Back to work, crew! You have my thanks, and my coin.",
         "objectives": {
           "0": {
-            "label": "Burrow Grub slain"
+            "label": "Trimmer Gremlin slain"
           }
         }
       },
@@ -6870,21 +6870,21 @@ export const en: EnTranslations = {
       },
       "q_sluice_welcome": {
         "title": "Welcome to the Sluice",
-        "text": "First thing you learn on the shore, {playerName}: a beaver earns its spot by working, not gawking. The blight wolves come down off the north runs to worry our woodpiles and spook the kits. Thin six of them and come warm up by the lodge fire. Then you're one of us.",
-        "completion": "Six fewer wolves at the treeline, and you never once complained. That's the Sluice way, {playerName}. Fire's yours, free of charge. Stay Baked, AZ.",
+        "text": "First thing you learn on the shore, {playerName}: a beaver earns its spot by working, not gawking. The munchie coyotes come down off Coyote Wash to worry our woodpiles and spook the kits. Thin six of them and come warm up by the lodge fire. Then you're one of us.",
+        "completion": "Six fewer coyotes at the treeline, and you never once complained. That's the Sluice way, {playerName}. Fire's yours, free of charge. Stay Baked, AZ.",
         "objectives": {
           "0": {
-            "label": "Blight Wolf thinned"
+            "label": "Munchie Coyote thinned"
           }
         }
       },
       "q_sluice_pilings": {
         "title": "Trouble at the Pilings",
-        "text": "The dam's the whole reason there's a pond to build around, and the bristle-tusk boars off the west meadow keep rooting up its pilings for the sweet mud. A beaver takes that personally, {playerName}. Put down six of the diggers and the Sluice will owe you a proper keepsake, straight from The Dam itself.",
+        "text": "The dam's the whole reason there's a pond to build around, and the razorback javelinas off Javelina Flats keep rooting up its pilings for the sweet mud. A beaver takes that personally, {playerName}. Put down six of the diggers and the Sluice will owe you a proper keepsake, straight from The Dam itself.",
         "completion": "Pilings hold, pond stays put, and the kits sleep sound. Here, {playerName}, a Baked Beaver token, carved down at The Dam. Carry it and you're colony, wherever you wander. Stay Baked, AZ.",
         "objectives": {
           "0": {
-            "label": "Bristle Tusk cleared"
+            "label": "Razorback Javelina cleared"
           }
         }
       },
@@ -7068,19 +7068,19 @@ export const en: EnTranslations = {
             "label": "Bloomhaven"
           },
           "1": {
-            "label": "Wolf Run"
+            "label": "Coyote Wash"
           },
           "2": {
-            "label": "Boar Meadow"
+            "label": "Javelina Flats"
           },
           "3": {
             "label": "Mirror Lake"
           },
           "4": {
-            "label": "Sporewood"
+            "label": "The Mitewood"
           },
           "5": {
-            "label": "Copper Dig"
+            "label": "The Old Dig"
           },
           "6": {
             "label": "Ashen Maw Camp"
