@@ -1685,7 +1685,12 @@ export type SimEvent = { pid?: number } & (
   // and the client can show the fish's icon + localized name in a catch popup; the
   // plain 'log' catch line still records the moment in chat.
   | { type: 'fishCatch'; itemId: string | null; rare: boolean }
-  | { type: 'loot'; text: string }
+  // `text` is the chat/loot-log line (localized client-side). When this loot event
+  // is a concrete item GAIN (the `addItem` choke point), it also carries the
+  // structured `itemId` + `count` so the client can pop an item-pickup toast with
+  // the icon and quality color. Loot events that are not an item gain (roll
+  // results, sold/bought-back money lines) omit both fields.
+  | { type: 'loot'; text: string; itemId?: string; count?: number }
   | {
       type: 'lootRoll';
       rollId: number;

@@ -1068,6 +1068,9 @@ export const id_ID: EnTranslations = {
       "introHint": "Face open water and press F to cast your line.",
       "caughtPopup": "You caught a {item}!",
       "nothing": "Nothing was caught."
+    },
+    "pickup": {
+      "count": "x{count}"
     }
   },
   "guide": {

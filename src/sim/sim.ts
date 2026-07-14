@@ -4343,6 +4343,10 @@ export class Sim {
       type: 'loot',
       // biome-ignore lint/style/useTemplate: keep this scanner-friendly shape for i18n extraction.
       text: `You receive: ${def?.name ?? itemId}${count > 1 ? ' x' + count : ''}.`,
+      // Structured item-gain signal so the client can pop an item-pickup toast with
+      // the icon + quality color. Text stays identical (still matched by the S3 guard).
+      itemId,
+      count,
       pid: meta.entityId,
     });
     this.ctx.onInventoryChangedForQuests(meta);

@@ -1068,6 +1068,9 @@ export const ja_JP: EnTranslations = {
       "introHint": "開けた水辺を向いて F キーで仕掛けを投げましょう。",
       "caughtPopup": "{item} を釣り上げた！",
       "nothing": "何も釣れなかった。"
+    },
+    "pickup": {
+      "count": "x{count}"
     }
   },
   "guide": {

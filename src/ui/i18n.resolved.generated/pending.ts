@@ -194,6 +194,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.pickup.count",
     "hudChrome.unitFrame.lvl"
   ],
   "es_ES": [
@@ -381,6 +382,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.pickup.count",
     "hudChrome.unitFrame.lvl"
   ],
   "fr_FR": [
@@ -568,6 +570,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.pickup.count",
     "hudChrome.unitFrame.lvl"
   ],
   "fr_CA": [
@@ -755,6 +758,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.pickup.count",
     "hudChrome.unitFrame.lvl"
   ],
   "en_CA": [],
@@ -943,6 +947,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.pickup.count",
     "hudChrome.unitFrame.lvl"
   ],
   "de_DE": [
@@ -1130,6 +1135,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.pickup.count",
     "hudChrome.unitFrame.lvl"
   ],
   "zh_CN": [
@@ -1138,6 +1144,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label",
+    "hudChrome.pickup.count",
     "hudChrome.unitFrame.lvl"
   ],
   "zh_TW": [
@@ -1146,6 +1153,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label",
+    "hudChrome.pickup.count",
     "hudChrome.unitFrame.lvl"
   ],
   "ko_KR": [
@@ -1154,6 +1162,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label",
+    "hudChrome.pickup.count",
     "hudChrome.unitFrame.lvl"
   ],
   "ja_JP": [
@@ -1162,6 +1171,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label",
+    "hudChrome.pickup.count",
     "hudChrome.unitFrame.lvl"
   ],
   "pt_BR": [
@@ -1349,6 +1359,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.pickup.count",
     "hudChrome.unitFrame.lvl"
   ],
   "ru_RU": [
@@ -1357,6 +1368,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
     "entities.zones.the_dam.pois.0.label",
+    "hudChrome.pickup.count",
     "hudChrome.unitFrame.lvl"
   ],
   "nl_NL": [
@@ -1544,6 +1556,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.pickup.count",
     "hudChrome.unitFrame.lvl"
   ],
   "pl_PL": [
@@ -1731,6 +1744,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.pickup.count",
     "hudChrome.unitFrame.lvl"
   ],
   "id_ID": [
@@ -1918,6 +1932,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.pickup.count",
     "hudChrome.unitFrame.lvl"
   ],
   "tr_TR": [
@@ -2105,6 +2120,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.pickup.count",
     "hudChrome.unitFrame.lvl"
   ],
   "sv_SE": [
@@ -2292,6 +2308,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.pickup.count",
     "hudChrome.unitFrame.lvl"
   ],
   "vi_VN": [
@@ -2479,6 +2496,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.pickup.count",
     "hudChrome.unitFrame.lvl"
   ],
   "da_DK": [
@@ -2666,6 +2684,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.fishing.introHint",
     "hudChrome.fishing.nothing",
     "hudChrome.options.showDailyRewardsChest",
+    "hudChrome.pickup.count",
     "hudChrome.unitFrame.lvl"
   ]
 };

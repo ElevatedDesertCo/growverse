@@ -3634,6 +3634,81 @@
     }
   }
 
+  /* ---------- item pickup popup ---------- */
+  /* A vertical stack of one-shot toasts the HUD pops on any item gain (loot,
+     harvest, chest, pickup, reward), built in src/ui/item_pickup_popup.ts. Each
+     row shows the item's icon, its quality-colored name (tinted from the
+     --pickup-quality custom property the module sets), and an "xN" badge when a
+     stack landed. Rows are hidden until JS adds .show, which fades + slides them
+     in; they auto-remove on a timer. Anchored center, above the action cluster. */
+  #item-pickups {
+    position: absolute;
+    left: 50%;
+    bottom: 26%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    pointer-events: none;
+    z-index: 6;
+  }
+  .item-pickup {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 14px 7px 10px;
+    max-width: 320px;
+    background: var(--panel-bg);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--pickup-quality, var(--gold));
+    border-radius: 8px;
+    box-shadow:
+      0 0 14px #00000088,
+      0 3px 10px #000000aa;
+    opacity: 0;
+    transform: translateY(8px);
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+  }
+  .item-pickup.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .item-pickup-icon {
+    width: 34px;
+    height: 34px;
+    flex: none;
+    image-rendering: auto;
+    filter: drop-shadow(0 1px 3px #000000cc);
+  }
+  .item-pickup-label {
+    color: var(--pickup-quality, #fff);
+    font-family: var(--title-font);
+    font-size: 15px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px #000;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .item-pickup-count {
+    color: var(--color-text-muted);
+    font-size: 13px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px #000;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .item-pickup {
+      transform: translateY(0);
+      transition: opacity 0.3s ease;
+    }
+    .item-pickup.show {
+      transform: translateY(0);
+    }
+  }
+
   /* ---------- low-health screen vignette ---------- */
   /* Pulsing red edge glow that fades in as the player nears death. Opacity and
      pulse cadence are driven from JS via the --lhv-* custom properties; the

@@ -1169,4 +1169,10 @@ export const hudChromeStrings = {
     caughtPopup: 'You caught a {item}!',
     nothing: 'Nothing was caught.',
   },
+  // The stack of one-shot toasts the HUD pops when the player gains an item
+  // (loot, harvest, chest, pickup, reward). `count` is the "xN" multiplier badge
+  // shown only when more than one landed.
+  pickup: {
+    count: 'x{count}',
+  },
 };

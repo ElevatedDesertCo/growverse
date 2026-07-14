@@ -221,6 +221,7 @@ import {
 import { iconDataUrl, QUALITY_COLOR, raidMarkerDataUrl } from './icons';
 import { itemArmorTypeLabelKey } from './item_armor_type';
 import { itemStatDeltas } from './item_compare';
+import { createItemPickupPopup, type ItemPickupPopup } from './item_pickup_popup';
 import { itemSetMemberCounts, itemSetTooltipModel } from './item_set_tooltip_view';
 import { LeaderboardWindow } from './leaderboard_window';
 import { ReannounceMarker } from './live_region_reannounce';
@@ -747,6 +748,10 @@ export class Hud {
   private subzoneEl = $('#subzone-banner');
   // One-shot fishing catch/miss card, composed over the HUD (its own module).
   private fishingCatchPopup: FishingCatchPopup = createFishingCatchPopup(
+    this.bannerEl.parentElement ?? document.body,
+  );
+  // Stacking item-pickup toasts popped on any item gain (its own module).
+  private itemPickupPopup: ItemPickupPopup = createItemPickupPopup(
     this.bannerEl.parentElement ?? document.body,
   );
   private tooltipEl = $('#tooltip');
@@ -6357,6 +6362,10 @@ export class Hud {
     // One spawn clock for the whole batch: FCT floaters spawned from this event burst
     // share a bornAt, and the pooled painter's step() evicts each once now - bornAt >= ttl.
     const now = performance.now();
+    // Item ids that already popped the dedicated fishing catch card this batch, so
+    // the generic item-pickup toast does not double up on the fish (`fishCatch` is
+    // emitted just before the fishing 'loot' line within the same tick).
+    const fishItemIds = new Set<string>();
     for (const ev of events) {
       // visual effects (swings, projectiles, glows) — for everyone nearby,
       // not just events involving this player
@@ -6562,11 +6571,32 @@ export class Hud {
               })
             : t('hudChrome.fishing.nothing');
           this.fishingCatchPopup.show({ title, itemId: ev.itemId, rare: ev.rare });
-          if (ev.itemId) audio.lootItem();
+          if (ev.itemId) {
+            fishItemIds.add(ev.itemId);
+            audio.lootItem();
+          }
           break;
         }
         case 'loot': {
           this.log(this.localizeLootText(ev.text), '#7fdc4f');
+          // Concrete item gains carry a structured id + count: pop an item-pickup
+          // toast (icon + quality-colored name). Skip fish already shown by the
+          // dedicated fishing catch card above.
+          if (ev.itemId && !fishItemIds.has(ev.itemId)) {
+            const item = ITEMS[ev.itemId];
+            const count = ev.count ?? 1;
+            this.itemPickupPopup.push({
+              itemId: ev.itemId,
+              name: tEntity({ kind: 'item', id: ev.itemId, field: 'name' }),
+              countLabel:
+                count > 1
+                  ? t('hudChrome.pickup.count', {
+                      count: formatNumber(count, { maximumFractionDigits: 0 }),
+                    })
+                  : '',
+              color: QUALITY_COLOR[item?.quality ?? 'common'] ?? QUALITY_COLOR.common,
+            });
+          }
           if (
             / wins .+ \(\d+\)$/.test(ev.text) ||
             /^Everyone passed on .+\.$/.test(ev.text) ||

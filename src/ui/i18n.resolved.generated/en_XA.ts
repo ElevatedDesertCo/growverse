@@ -1068,6 +1068,9 @@ export const en_XA: EnTranslations = {
       "introHint": "[Ƒáçé óþéñ ŵáţéŕ áñð þŕéšš Ƒ ţó çášţ ýóúŕ ļíñé.]",
       "caughtPopup": "[Ýóú çáúĝĥţ á {item}!]",
       "nothing": "[Ñóţĥíñĝ ŵáš çáúĝĥţ.]"
+    },
+    "pickup": {
+      "count": "[ẋ{count}]"
     }
   },
   "guide": {
