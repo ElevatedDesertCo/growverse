@@ -1212,8 +1212,10 @@ function buildDressing(parent: THREE.Group, seed: number, registry: BucketMesh[]
           q.setFromAxisAngle(up, hashAt(s.x, s.z, 46) * Math.PI * 2);
           m.compose(v.set(s.x, y - 0.04 * s.scale, s.z), q, sv.set(s.scale, s.scale, s.scale));
           im.setMatrixAt(i, m);
-          if (kind === 'mushroom') {
-            // mushrooms keep their painted cap colors — brightness jitter only
+          if (kind === 'mushroom' || kind === 'flower') {
+            // mushrooms and flowers keep their baked cap/petal colors: the desert
+            // biome tint would bleach the flower's green/yellow/purple to a pale
+            // smear, so apply per-instance brightness jitter only, never a hue tint
             im.setColorAt(i, c.setScalar(0.85 + hashAt(s.x, s.z, 47) * 0.3));
           } else {
             im.setColorAt(
