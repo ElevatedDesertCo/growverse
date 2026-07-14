@@ -6,7 +6,12 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { plotProgress, plotStage, restorePlots, serializePlots } from '../src/sim/cultivation';
 import { PLANTS } from '../src/sim/data';
 import { Sim } from '../src/sim/sim';
-import { GARDEN_PLOT_COUNT, type PlayerClass } from '../src/sim/types';
+import {
+  type Entity,
+  GARDEN_PLOT_COUNT,
+  GARDEN_PLOT_POS,
+  type PlayerClass,
+} from '../src/sim/types';
 
 const makeSim = (cls: PlayerClass = 'warrior', seed = 42) =>
   new Sim({ seed, playerClass: cls, autoEquip: true });
@@ -23,6 +28,16 @@ describe('cultivation', () => {
   it('a new character starts with an all-empty garden', () => {
     expect(sim.plots).toHaveLength(GARDEN_PLOT_COUNT);
     expect(sim.plots.every((p) => p.seedItemId === null)).toBe(true);
+  });
+
+  it('spawns a single interactable garden_plot object in the world at the fixed spot', () => {
+    const plots = [
+      ...(sim as unknown as { entities: Map<number, Entity> }).entities.values(),
+    ].filter((e) => e.kind === 'object' && e.templateId === 'garden_plot');
+    expect(plots).toHaveLength(1);
+    expect(plots[0].pos.x).toBeCloseTo(GARDEN_PLOT_POS.x, 5);
+    expect(plots[0].pos.z).toBeCloseTo(GARDEN_PLOT_POS.z, 5);
+    expect(plots[0].objectItemId).toBeNull(); // not a pickup/collectible
   });
 
   it('planting a seed consumes it and starts the plot growing', () => {

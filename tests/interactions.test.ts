@@ -228,6 +228,7 @@ describe('handlePickedEntity', () => {
       openLoot: () => {},
       openQuestDialog: () => {},
       openDelveBoard: () => {},
+      openGarden: () => {},
       showError: () => {},
       closeContextMenu: () => {},
     };
@@ -266,6 +267,7 @@ describe('handlePickedEntity', () => {
       openLoot: () => {},
       openQuestDialog: () => {},
       openDelveBoard: () => {},
+      openGarden: () => {},
       showError: () => {},
       closeContextMenu: () => {},
     };
@@ -274,6 +276,49 @@ describe('handlePickedEntity', () => {
 
     expect(targetId).toBe(2);
     expect(attacks).toBe(1);
+  });
+
+  it('opens the Garden window when interacting with a garden plot object (not a pickup)', () => {
+    const player = stubEntity({ id: 1, kind: 'player' });
+    const plot = stubEntity({
+      id: 5,
+      kind: 'object',
+      templateId: 'garden_plot',
+      pos: { x: 1, y: 0, z: 0 },
+    });
+    let opened = 0;
+    let pickedUp = 0;
+    const world: any = {
+      playerId: 1,
+      player,
+      entities: new Map<number, Entity>([
+        [1, player],
+        [5, plot],
+      ]),
+      duelInfo: null,
+      arenaInfo: null,
+      targetEntity: () => {},
+      enterDungeon: () => {},
+      leaveDungeon: () => {},
+      pickUpObject: () => {
+        pickedUp++;
+      },
+      startAutoAttack: () => {},
+    };
+    const hud = {
+      openLoot: () => {},
+      openQuestDialog: () => {},
+      openDelveBoard: () => {},
+      openGarden: () => {
+        opened++;
+      },
+      showError: () => {},
+      closeContextMenu: () => {},
+    };
+    handlePickedEntity(world, hud, 5, 0, 10, 20); // left-click in range
+    handlePickedEntity(world, hud, 5, 2, 10, 20); // right-click in range
+    expect(opened).toBe(2);
+    expect(pickedUp).toBe(0);
   });
 });
 

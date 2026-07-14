@@ -1240,6 +1240,10 @@ export interface PlotView {
 // it later. Kept here (a shared tuning constant) so entity init and persistence agree.
 export const GARDEN_PLOT_COUNT = 6;
 
+// World placement of the interactable Garden plot object (near Marlow the Cultivator's
+// Grow Station in the starter town), so a player can walk up and open their garden.
+export const GARDEN_PLOT_POS = { x: -24, z: -8 };
+
 // ---- Strain genetics (Phase C) ----------------------------------------------------
 // The signature breeding mechanic. A strain carries a bounded diploid genotype: a fixed
 // set of traits, each with two alleles (integer tiers 0..GENE_MAX). The expressed

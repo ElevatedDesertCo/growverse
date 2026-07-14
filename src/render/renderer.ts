@@ -81,7 +81,7 @@ import {
 } from './nameplate_projection';
 import { buildComposer, type PostPipeline } from './post';
 import { buildPropMaterialPrewarmGroup, buildProps } from './props';
-import { buildGroundQuestObject } from './quest_objects';
+import { buildGardenPlot, buildGroundQuestObject } from './quest_objects';
 import { isOwnedPetHostile } from './reaction';
 import { RenderBudgetGovernor, type RenderBudgetState } from './render_budget';
 import { downscaleDims } from './screenshot';
@@ -3158,6 +3158,13 @@ export class Renderer {
         sparkle.position.y = 1.35;
         group.add(sparkle);
       }
+    } else if (e.kind === 'object' && e.templateId === 'garden_plot') {
+      // The interactable Garden plot: a persistent grow-bed, not a pickup, so no sparkle.
+      objectPoolKey = null;
+      const built = buildGardenPlot(e.id);
+      body = built.group;
+      height = built.height;
+      objectMesh = body!;
     } else if (e.kind === 'object') {
       objectPoolKey = this.objectPoolKeyFor(e);
       const pooled = objectPoolKey ? this.takePooledObject(objectPoolKey) : null;

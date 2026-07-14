@@ -100,12 +100,16 @@ export function nameplatePlanInto(
     e.templateId === 'delve_reward_chest' ||
     e.templateId === 'delve_surface_exit';
   const delveInteractNear = isDelveInteract && d2 <= (INTERACT_RANGE + 1) * (INTERACT_RANGE + 1);
+  // The Garden plot labels like a delve interactable: shown only when the player is close
+  // enough to interact, so it reads as "walk up here to tend your garden".
+  const gardenNear =
+    e.templateId === 'garden_plot' && d2 <= (INTERACT_RANGE + 1) * (INTERACT_RANGE + 1);
 
   out.hidden =
     (isSelf && !hasOverheadEmote) ||
     d2 > NAMEPLATE_RANGE_SQ ||
     (e.dead && !e.lootable && e.kind === 'mob') ||
-    (e.kind === 'object' && !isDoor && !delveInteractNear) ||
+    (e.kind === 'object' && !isDoor && !delveInteractNear && !gardenNear) ||
     (isDoor && e.dungeonId === UNLABELED_DOOR_DUNGEON_ID) ||
     (!showNameplates && e.kind === 'mob' && !e.dead);
   out.anchorYOffset =
