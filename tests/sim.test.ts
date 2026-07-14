@@ -1135,6 +1135,7 @@ describe('food, drink, vendor', () => {
   it('rolls the fishing catch table only when the cast completes', () => {
     const sim = makeSim('warrior');
     const spot = mirrorLakeFishingSpot(sim.cfg.seed);
+    despawnMobs(sim); // isolate the cast: a wandering mob must not interrupt the channel
     teleportTo(sim, spot.x, spot.z);
     sim.player.facing = spot.facing;
     sim.addItem('simple_fishing_pole', 1);
