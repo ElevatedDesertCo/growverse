@@ -43,8 +43,8 @@ export const ZONE1_ZONE: ZoneDef = {
     { x: -88, z: 82, label: 'Mirror Lake' },
     { x: -60, z: 4, label: 'The Mitewood' },
     { x: -84, z: -64, label: 'The Old Dig' },
-    { x: 86, z: -84, label: 'Ashen Maw Camp' },
-    { x: 80, z: 80, label: 'Withered Shrine' },
+    { x: 86, z: -84, label: 'The Dry Camp' },
+    { x: 80, z: 80, label: 'The Withered Bloom' },
     { x: -5, z: -52, label: 'Reliquary Hill' },
     { x: 40, z: 140, label: 'Bloomwood Glade' },
     // The Baked Beaver mascot: a giant procedural beaver statue on the north shore
@@ -598,7 +598,7 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     color: 0xb7950b,
     questIds: ['q_wolves', 'q_greyjaw', 'q_bandits', 'q_ringleader', 'q_mogger'],
     greeting:
-      'Keep your blade close, $C. The Corruption is spreading, and it is turning men into worse things.',
+      'Keep your blade close, $C. The Dry is creeping in off the flats, and it is hollowing men into worse things.',
   },
   trader_wilkes: {
     id: 'trader_wilkes',
@@ -1017,7 +1017,7 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'The Ashen Maw',
     giverNpcId: 'marshal_redbrook',
     turnInNpcId: 'marshal_redbrook',
-    text: 'A raider clan calling itself the Ashen Maw has dug into the southeast flats. They were common bandits once, but the Corruption has gotten into them, the further from the rifts they range, the hungrier and crueler they turn. Break their raids, slay 10 Dust Raiders.',
+    text: 'A raider clan calling itself the Ashen Maw has dug into the southeast flats. They were common bandits once, but the Dry has gotten into them, the deeper they range into the parched country, the hungrier and crueler they turn. Break their raids, slay 10 Dust Raiders.',
     completionText:
       'Ten fewer ashen throats to feed. But cutting away the body does nothing while the head still calls the tune.',
     objectives: [
@@ -1033,9 +1033,9 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'The Hollowed Warlord',
     giverNpcId: 'marshal_redbrook',
     turnInNpcId: 'marshal_redbrook',
-    text: "The Ashen Maw answer to one man: Sarn the Hollowed. He drank so deep of the rifts that there is little left of the raider he was, just appetite in a warlord's hide. Cut off the head and the clan will scatter. He holds the heart of their camp. End him, $N.",
+    text: "The Ashen Maw answer to one man: Sarn the Hollowed. He drank so deep of the Dry that there is little left of the raider he was, just appetite in a warlord's hide. Cut off the head and the clan will scatter. He holds the heart of their camp. End him, $N.",
     completionText:
-      'Sarn is dead? Then the Maw has lost its warlord. You have done Bloomhaven a great service, though the rifts that hollowed him are still out there.',
+      'Sarn is dead? Then the Maw has lost its warlord. You have done Bloomhaven a great service, though the Dry that hollowed him still creeps in off the flats.',
     objectives: [
       { type: 'kill', targetMobId: 'gorrak', count: 1, label: 'Sarn the Hollowed slain' },
     ],
@@ -1049,7 +1049,7 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'The Rift-Gorged',
     giverNpcId: 'marshal_redbrook',
     turnInNpcId: 'marshal_redbrook',
-    text: 'One of the Ashen Maw gorged on raw Corruption until his own body could not hold it: Grulmaw, they call him now, and he has swollen into something that splits carts and flattens fences by the dozen. Do not face him alone. Take two strong companions into the eastern meadow and put the brute down for good.',
+    text: 'One of the Ashen Maw gorged on the raw Dry until his own body could not hold it: Grulmaw, they call him now, and he has swollen into something that splits carts and flattens fences by the dozen. Do not face him alone. Take two strong companions into the eastern meadow and put the brute down for good.',
     completionText:
       "Grulmaw dead at last. Bloomhaven's fields are safer, and you leave the Vale with one more tale worth retelling.",
     objectives: [{ type: 'kill', targetMobId: 'mogger', count: 1, label: 'Grulmaw slain' }],

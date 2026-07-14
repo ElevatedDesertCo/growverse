@@ -5932,7 +5932,7 @@ export const en: EnTranslations = {
       "marshal_redbrook": {
         "name": "Marshal Redbrook",
         "title": "Marshal of Bloomhaven",
-        "greeting": "Keep your blade close, {className}. The Corruption is spreading, and it is turning men into worse things."
+        "greeting": "Keep your blade close, {className}. The Dry is creeping in off the flats, and it is hollowing men into worse things."
       },
       "trader_wilkes": {
         "name": "Provisioner Wilkes",
@@ -6274,7 +6274,7 @@ export const en: EnTranslations = {
       },
       "q_bandits": {
         "title": "The Ashen Maw",
-        "text": "A raider clan calling itself the Ashen Maw has dug into the southeast flats. They were common bandits once, but the Corruption has gotten into them, the further from the rifts they range, the hungrier and crueler they turn. Break their raids, slay 10 Dust Raiders.",
+        "text": "A raider clan calling itself the Ashen Maw has dug into the southeast flats. They were common bandits once, but the Dry has gotten into them, the deeper they range into the parched country, the hungrier and crueler they turn. Break their raids, slay 10 Dust Raiders.",
         "completion": "Ten fewer ashen throats to feed. But cutting away the body does nothing while the head still calls the tune.",
         "objectives": {
           "0": {
@@ -6284,8 +6284,8 @@ export const en: EnTranslations = {
       },
       "q_ringleader": {
         "title": "The Hollowed Warlord",
-        "text": "The Ashen Maw answer to one man: Sarn the Hollowed. He drank so deep of the rifts that there is little left of the raider he was, just appetite in a warlord's hide. Cut off the head and the clan will scatter. He holds the heart of their camp. End him, {playerName}.",
-        "completion": "Sarn is dead? Then the Maw has lost its warlord. You have done Bloomhaven a great service, though the rifts that hollowed him are still out there.",
+        "text": "The Ashen Maw answer to one man: Sarn the Hollowed. He drank so deep of the Dry that there is little left of the raider he was, just appetite in a warlord's hide. Cut off the head and the clan will scatter. He holds the heart of their camp. End him, {playerName}.",
+        "completion": "Sarn is dead? Then the Maw has lost its warlord. You have done Bloomhaven a great service, though the Dry that hollowed him still creeps in off the flats.",
         "objectives": {
           "0": {
             "label": "Sarn the Hollowed slain"
@@ -7083,10 +7083,10 @@ export const en: EnTranslations = {
             "label": "The Old Dig"
           },
           "6": {
-            "label": "Ashen Maw Camp"
+            "label": "The Dry Camp"
           },
           "7": {
-            "label": "Withered Shrine"
+            "label": "The Withered Bloom"
           },
           "8": {
             "label": "Reliquary Hill"
