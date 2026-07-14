@@ -1548,7 +1548,7 @@ export const en_CA: EnTranslations = {
       "marshGreeter": "Warden Fenwick, Fenbridge",
       "peaksGreeting": "Two hundred years this wall has held. It will not break on my watch, but it groans.",
       "peaksGreeter": "Captain Thessaly, Highwatch",
-      "valePlaceNotes": "Bloomhaven is your first home base. Coyote Wash and Javelina Flats are gentle hunting ground; Mirror Lake is quiet water to fish; the Mitewood and the Old Dig hide Bloom mites and Bloom-thieving gremlins; a Bandit Camp and the Fallen Chapel hold rougher work; Reliquary Hill drops into the Collapsed Reliquary, the realm's first delve; and Brightwood Glade is a quiet, sunlit grove to the north.",
+      "valePlaceNotes": "Bloomhaven is your first home base. Coyote Wash and Javelina Flats are gentle hunting ground; Mirror Lake is quiet water to fish; the Mitewood and the Old Dig hide Bloom mites and Bloom-thieving gremlins; a Bandit Camp and the Fallen Chapel hold rougher work; Seedvault Hill drops into the Collapsed Reliquary, the realm's first delve; and Brightwood Glade is a quiet, sunlit grove to the north.",
       "marshPlaceNotes": "Fenbridge guards the only dry road. The Prowler Reeds and Deepfen Shallows teem with marsh beasts and murlocs; the Widow Thicket is spun thick with web; the Drowned Chapel and the Troll Mounds keep older dangers; the Gravecaller Encampment is the cult dug in, and the Sunken Bastion is the marsh's instanced heart.",
       "peaksPlaceNotes": "Highwatch holds the wall. Stalker Ridge and the Deeprock Burrows belong to ridge cats and kobolds; the Ogre Foothills and Drogmar's War-Camp to brutes for hire; Stormcrag crackles with elementals and the Glimmermere glows below it; the Wyrmcult Tents and Revenant Fields ring the cult's high ground, with Gravewyrm Sanctum at its peak.",
       "gladeTitle": "A quiet corner: Brightwood Glade",
@@ -1655,7 +1655,7 @@ export const en_CA: EnTranslations = {
       "marksHeading": "Delve Marks",
       "marksBody": "Clearing delves earns Delve Marks, a currency kept apart from your coin. Spend them at the keeper to strengthen your companion and pick up gear you will not find anywhere else.",
       "whereHeading": "Where to find one",
-      "whereBody": "The first delve, the Collapsed Reliquary, opens at Reliquary Hill in the starting valley of Bloomhaven Vale. Brother Halven keeps the board there, and he will send you down once you are ready."
+      "whereBody": "The first delve, the Collapsed Reliquary, opens at Seedvault Hill in the starting valley of Bloomhaven Vale. Brother Halven keeps the board there, and he will send you down once you are ready."
     },
     "talentsPage": {
       "heading": "Talents and specializations",
@@ -7089,7 +7089,7 @@ export const en_CA: EnTranslations = {
             "label": "The Withered Bloom"
           },
           "8": {
-            "label": "Reliquary Hill"
+            "label": "Seedvault Hill"
           },
           "9": {
             "label": "Bloomwood Glade"

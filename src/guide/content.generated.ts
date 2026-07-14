@@ -1264,7 +1264,7 @@ export const GUIDE_ZONES: GuideZoneInfo[] = [
       "The Old Dig",
       "The Dry Camp",
       "The Withered Bloom",
-      "Reliquary Hill",
+      "Seedvault Hill",
       "Bloomwood Glade",
       "Baked Beaver",
       "The Lodge"

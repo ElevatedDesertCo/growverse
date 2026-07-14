@@ -45,7 +45,7 @@ export const ZONE1_ZONE: ZoneDef = {
     { x: -84, z: -64, label: 'The Old Dig' },
     { x: 86, z: -84, label: 'The Dry Camp' },
     { x: 80, z: 80, label: 'The Withered Bloom' },
-    { x: -5, z: -52, label: 'Reliquary Hill' },
+    { x: -5, z: -52, label: 'Seedvault Hill' },
     { x: 40, z: 140, label: 'Bloomwood Glade' },
     // The Baked Beaver mascot: a giant procedural beaver statue on the north shore
     // of the Sluice millpond, watching over the outpost. `landmark` gives it a

@@ -90,7 +90,7 @@ const PROP_ASSET_DEFS: Record<string, PropAssetDef> = {
   anvil: { url: '/models/props/anvil.glb', kit: 'qprops' },
   weaponStand: { url: '/models/props/weapon_stand.glb', kit: 'qprops' },
   lanternWall: { url: '/models/props/lantern_wall.glb', kit: 'qprops' },
-  // Meshy-generated portal door used as the overworld Reliquary Hill marker;
+  // Meshy-generated portal door used as the overworld Seedvault Hill marker;
   // has its own backing slab so the animated shader plane sits on the front face.
   // yaw: Math.PI if the model loads backwards after inspecting in-game.
   delveEntrance2: { url: '/models/dungeon/delve_entrance_2.glb', kit: 'dungeon' },
@@ -2320,7 +2320,7 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
   }
 
   // ---- delve entrance: Meshy portal-door + animated void + carved name lintel -
-  // Town/hub is +z (north) of Reliquary Hill. The portal-door model sits just
+  // Town/hub is +z (north) of Seedvault Hill. The portal-door model sits just
   // south of Brother Halven facing +z; it has its own stone backing slab so the
   // animated shader plane (FrontSide) reads as a solid void from the approach and
   // is invisible from behind. The carved name slab rides the model's crown.
