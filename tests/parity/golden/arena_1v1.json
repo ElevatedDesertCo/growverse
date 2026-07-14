@@ -14,7 +14,7 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 534,
+      "nextId": 570,
       "state": "5bc471b0",
       "events": "741638a5",
       "rng": {
@@ -28,9 +28,9 @@
     {
       "tick": 25,
       "time": 1.25,
-      "nextId": 536,
-      "state": "f24743eb",
-      "events": "84e5bf77",
+      "nextId": 572,
+      "state": "479ff385",
+      "events": "6073ee9f",
       "rng": {
         "draws": 0,
         "digest": "811c9dc5"
@@ -39,9 +39,9 @@
     {
       "tick": 50,
       "time": 2.5,
-      "nextId": 536,
-      "state": "e0aa21b7",
-      "events": "6cecc27e",
+      "nextId": 572,
+      "state": "38fef949",
+      "events": "81e92f4e",
       "rng": {
         "draws": 44,
         "digest": "5b2173c7"
@@ -50,9 +50,9 @@
     {
       "tick": 75,
       "time": 3.75,
-      "nextId": 536,
-      "state": "1dbde95f",
-      "events": "c418c8fe",
+      "nextId": 572,
+      "state": "69e096c9",
+      "events": "601262ce",
       "rng": {
         "draws": 176,
         "digest": "7b91dd1c"
@@ -61,9 +61,9 @@
     {
       "tick": 100,
       "time": 5,
-      "nextId": 536,
-      "state": "8ca0502b",
-      "events": "73882fb2",
+      "nextId": 572,
+      "state": "ce58a335",
+      "events": "3cfead22",
       "rng": {
         "draws": 323,
         "digest": "ab2f3d39"
@@ -72,9 +72,9 @@
     {
       "tick": 125,
       "time": 6.25,
-      "nextId": 536,
-      "state": "bae7e6a6",
-      "events": "a4ca4e3d",
+      "nextId": 572,
+      "state": "d3411970",
+      "events": "89504305",
       "rng": {
         "draws": 467,
         "digest": "6c0de174"
@@ -83,8 +83,8 @@
     {
       "tick": 142,
       "time": 7.1,
-      "nextId": 536,
-      "state": "57b483ee",
+      "nextId": 572,
+      "state": "90aa2508",
       "events": "741638a5",
       "rng": {
         "draws": 598,
@@ -106,7 +106,7 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 534,
+          "entityId": 570,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
@@ -117,6 +117,45 @@
               "itemId": "corruption_shard"
             }
           ],
+          "plots": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+          ],
+          "reputation": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -134,11 +173,50 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 535,
+          "entityId": 571,
           "equipment": {
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
+          "plots": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+          ],
+          "reputation": {},
           "talents": {
             "choices": {},
             "ranks": {}
@@ -155,7 +233,7 @@
           "dodgeChance": 0.06,
           "fiveSecondRule": 106.1,
           "hp": 90,
-          "id": 534,
+          "id": 570,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -202,7 +280,7 @@
           "dodgeChance": 0.056,
           "facing": 3.141593,
           "fiveSecondRule": 106.1,
-          "id": 535,
+          "id": 571,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",

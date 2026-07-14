@@ -49,6 +49,7 @@ import type { IWorldChat } from './world_api/chat';
 import type { IWorldCombat } from './world_api/combat';
 import type { IWorldCosmetics } from './world_api/cosmetics';
 import type { IWorldCrafting } from './world_api/crafting';
+import type { IWorldCultivation } from './world_api/cultivation';
 import type { IWorldDailyRewards } from './world_api/daily_rewards';
 import type { IWorldDelves } from './world_api/delves';
 import type { IWorldDuelArena } from './world_api/duel_arena';
@@ -62,6 +63,7 @@ import type { IWorldParty } from './world_api/party';
 import type { IWorldPet } from './world_api/pet';
 import type { IWorldProgressionXp } from './world_api/progression_xp';
 import type { IWorldQuests } from './world_api/quests';
+import type { IWorldReputation } from './world_api/reputation';
 import type { IWorldSocialGraph } from './world_api/social_graph';
 import type { IWorldTalents } from './world_api/talents';
 import type { IWorldTargeting } from './world_api/targeting';
@@ -74,7 +76,15 @@ export type {
   GuildLeaderboardPage,
   LeaderboardPage,
 } from './sim/leaderboard_page';
-export type { ArenaCombatant, ArenaFormat, ArenaStanding, OverheadEmoteId } from './sim/types';
+export type {
+  ArenaCombatant,
+  ArenaFormat,
+  ArenaStanding,
+  OverheadEmoteId,
+  PlotView,
+  ReputationView,
+  StrainView,
+} from './sim/types';
 
 // --- facet aux-type + value re-exports (each travels with its facet file) ---
 export { isOverheadEmoteId, OVERHEAD_EMOTES } from './world_api/chat';
@@ -149,6 +159,8 @@ export interface IWorld
     IWorldDelves,
     IWorldDailyRewards,
     IWorldCrafting,
+    IWorldCultivation,
+    IWorldReputation,
     IWorldTelemetry {}
 
 // ---------------------------------------------------------------------------
@@ -285,6 +297,11 @@ export const COMMAND_NAMES = [
   'craft',
   'deposit_stash',
   'withdraw_stash',
+  'plant_seed',
+  'harvest_plot',
+  'plant_strain',
+  'breed_strains',
+  'release_strain',
   'telemetry',
 ] as const;
 
@@ -349,6 +366,8 @@ export type WorldFacet =
   | 'IWorldDelves'
   | 'IWorldDailyRewards'
   | 'IWorldCrafting'
+  | 'IWorldCultivation'
+  | 'IWorldReputation'
   | 'IWorldTelemetry';
 
 export const COMMAND_FACETS = {
@@ -481,4 +500,12 @@ export const COMMAND_FACETS = {
   // stash + inventory reads (inventory/stash/vendorBuyback) ride the self-snapshot.
   deposit_stash: 'IWorldInventory',
   withdraw_stash: 'IWorldInventory',
+  // IWorldCultivation: plant a seed/strain into, or harvest, a garden plot, and breed or
+  // release library strains. The `garden` + `strains` reads ride the self-snapshot; these
+  // are the server-authoritative mutations. (Reputation is read-only: no wire command.)
+  plant_seed: 'IWorldCultivation',
+  harvest_plot: 'IWorldCultivation',
+  plant_strain: 'IWorldCultivation',
+  breed_strains: 'IWorldCultivation',
+  release_strain: 'IWorldCultivation',
 } as const satisfies Partial<Record<ClientCommand, WorldFacet>>;

@@ -1862,6 +1862,8 @@ const ALL_DELTA_KEYS = [
   'drun',
   'duel',
   'equip',
+  'flags',
+  'garden',
   'inv',
   'lockouts',
   'lroll',
@@ -1871,8 +1873,10 @@ const ALL_DELTA_KEYS = [
   'party',
   'qdone',
   'qlog',
+  'rep',
   'stash',
   'stats',
+  'strains',
   'tal',
   'trade',
   'weapon',
@@ -1897,6 +1901,7 @@ const TERSE_TO_IWORLD: Record<string, string> = {
   drun: 'delveRun',
   duel: 'duelInfo',
   equip: 'equipment',
+  flags: 'worldFlags',
   inv: 'inventory',
   lockouts: 'selfLockouts',
   lroll: 'lootRollPrompts',
@@ -1909,6 +1914,7 @@ const TERSE_TO_IWORLD: Record<string, string> = {
   prk: 'prestigeRank',
   qdone: 'questsDone',
   qlog: 'questLog',
+  rep: 'reputation',
   res: 'resource',
   rtype: 'resourceType',
   rxp: 'restedXp',
@@ -1975,6 +1981,7 @@ function dirtyEveryDeltaField(): {
   meta.equipment = { ...meta.equipment, mainhand: 'zealotsbane_blade' };
   meta.questLog.set('q_widows', { questId: 'q_widows', counts: [10, 0], state: 'active' });
   meta.questsDone.add('q_wolves');
+  meta.worldFlags.add('flag_test');
   meta.raidLockouts.set('nythraxis_boss_arena', FAR_FUTURE_MS);
   meta.unlockedMilestones.add('milestone_test');
   meta.lifetimeXp = 555;
@@ -2072,6 +2079,7 @@ describe('full self-state snapshot delta fixture', () => {
       { questId: 'q_widows', counts: [10, 0], state: 'active' },
     ]); // qlog -> questLog (Map)
     expect(client.questsDone.has('q_wolves')).toBe(true); // qdone -> questsDone (Set)
+    expect(client.worldFlags.has('flag_test')).toBe(true); // flags -> worldFlags (Set)
     expect(client.unlockedMilestones).toEqual(['milestone_test']); // milestones -> unlockedMilestones
     // lockouts -> selfLockouts (private), via the raidLockouts() accessor
     expect(client.raidLockouts().map((l) => l.id)).toEqual(['nythraxis_boss_arena']);
@@ -2137,9 +2145,9 @@ describe('full self-state snapshot delta fixture', () => {
 });
 
 describe('delta-key contract pins (anti-drift)', () => {
-  it('ALL_DELTA_KEYS contains exactly 26 unique keys in sorted order', () => {
-    expect(ALL_DELTA_KEYS).toHaveLength(26);
-    expect(new Set(ALL_DELTA_KEYS).size).toBe(26);
+  it('ALL_DELTA_KEYS contains exactly 30 unique keys in sorted order', () => {
+    expect(ALL_DELTA_KEYS).toHaveLength(30);
+    expect(new Set(ALL_DELTA_KEYS).size).toBe(30);
     expect([...ALL_DELTA_KEYS]).toEqual([...ALL_DELTA_KEYS].sort());
   });
 
@@ -2151,7 +2159,7 @@ describe('delta-key contract pins (anti-drift)', () => {
     const scraped = new Set<string>();
     for (let m = re.exec(src); m !== null; m = re.exec(src)) scraped.add(m[1]);
     expect(scraped.has('lockouts')).toBe(true); // the multi-line call IS captured
-    expect(scraped.size).toBe(26);
+    expect(scraped.size).toBe(30);
     expect([...scraped].sort()).toEqual([...ALL_DELTA_KEYS].sort());
   });
 

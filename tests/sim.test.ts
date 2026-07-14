@@ -1134,6 +1134,10 @@ describe('food, drink, vendor', () => {
 
   it('rolls the fishing catch table only when the cast completes', () => {
     const sim = makeSim('warrior');
+    // The q_murlocs Siltlings infest the Mirror Lake shore by design, and the reseated
+    // fishing dock can put a computed cast spot inside their aggro. This test verifies the
+    // clean catch-on-completion path, so clear mobs first (as the sibling fishing tests do).
+    despawnMobs(sim);
     const spot = mirrorLakeFishingSpot(sim.cfg.seed);
     teleportTo(sim, spot.x, spot.z);
     sim.player.facing = spot.facing;

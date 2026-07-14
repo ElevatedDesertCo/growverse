@@ -102,7 +102,7 @@ describe('quest_commands: acceptQuest', () => {
     expect(ev.some((e) => e.type === 'questAccepted' && (e as any).questId === 'q_wolves')).toBe(
       true,
     );
-    expect(logsTo(ev, pid)).toContain('Quest accepted: Wolves at the Door');
+    expect(logsTo(ev, pid)).toContain('Quest accepted: Munchie Coyotes');
     expect(sim.players.get(pid)!.questLog.has('q_wolves')).toBe(true);
   });
 
@@ -144,7 +144,7 @@ describe('quest_commands: abandonQuest', () => {
 
     abandonQuest(sim.ctx, 'q_wolves', pid);
     const ev = sim.drainEvents();
-    expect(logsTo(ev, pid)).toContain('Quest abandoned: Wolves at the Door');
+    expect(logsTo(ev, pid)).toContain('Quest abandoned: Munchie Coyotes');
     expect(sim.players.get(pid)!.questLog.has('q_wolves')).toBe(false);
 
     // Abandoning a quest not in the log is a silent early return (no emit).
@@ -177,7 +177,7 @@ describe('quest_commands: turnInQuest', () => {
     turnInQuest(sim.ctx, 'q_wolves', pid);
     const ev = sim.drainEvents();
     expect(ev.some((e) => e.type === 'questDone' && (e as any).questId === 'q_wolves')).toBe(true);
-    expect(logsTo(ev, pid)).toContain('Quest completed: Wolves at the Door');
+    expect(logsTo(ev, pid)).toContain('Quest completed: Munchie Coyotes');
     expect(ev.some((e) => e.type === 'loot' && /^You receive /.test(String((e as any).text)))).toBe(
       true,
     );

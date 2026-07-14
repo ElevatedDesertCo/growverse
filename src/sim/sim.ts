@@ -76,6 +76,8 @@ import {
 } from './content/talents';
 import { applyCooldowns, type SavedCooldowns, serializeCooldowns } from './cooldown_persist';
 import * as crafting from './crafting';
+import * as cultivation from './cultivation';
+import { emptyPlots, restorePlots, serializePlots } from './cultivation';
 import type { DelveShopGate, DelveShopOffer } from './data';
 import {
   abilitiesKnownAt,
@@ -194,11 +196,28 @@ import {
 import { prestige as prestigeImpl, updateRested } from './progression/xp';
 import { advancePendingProjectiles, type PendingProjectile } from './projectile_travel';
 import { sanitizeRemovedZone1Content } from './removed_zone1_content';
+import {
+  emptyReputation,
+  reputationViews,
+  restoreReputation,
+  type SavedReputation,
+  serializeReputation,
+} from './reputation';
 import { Rng } from './rng';
 import { persistedResource } from './serialize_resource';
+import { tickPendingSession } from './sessions';
 import { createSimContext, type SimContext, type SimContextHost } from './sim_context';
 import * as chatMod from './social/chat';
 import * as tradeMod from './social/trade';
+import {
+  breedStrains,
+  emptyStrains,
+  releaseStrain,
+  restoreStrains,
+  type SavedStrain,
+  serializeStrains,
+  strainViews,
+} from './strain_library';
 
 // Re-export so server/db.ts's `import type { MarketSave } from '../src/sim/sim'`
 // stays valid now that the type lives in market.ts.
@@ -282,8 +301,10 @@ import {
   type EquipSlot,
   type ErrorReason,
   emptyMoveInput,
+  type FactionId,
   FISHING_CAST_ID,
   FISHING_CAST_TIME,
+  GARDEN_PLOT_GRID,
   GCD,
   type InvSlot,
   isConsuming,
@@ -302,13 +323,18 @@ import {
   type OverheadEmoteId,
   type PetMode,
   type PlayerClass,
+  type Plot,
+  type PlotView,
   type QuestProgress,
   type QuestState,
+  type ReputationView,
   RUN_SPEED,
   type SimConfig,
   type SimEvent,
   type SkinCatalog,
   type SkinRank,
+  type Strain,
+  type StrainView,
   swingMissChance,
   TURN_SPEED,
   type Vec3,
@@ -645,6 +671,19 @@ export interface PlayerMeta {
   // Account bank: items parked at a stash-keeper NPC. Server-authoritative,
   // persists in CharacterState, structurally identical to inventory/vendorBuyback.
   stash: InvSlot[];
+  // Cultivation: the player's personal garden plots (GARDEN_PLOT_COUNT). Each holds a
+  // planted seed maturing over sim-time, or is empty. Server-authoritative; persisted
+  // in CharacterState (elapsed grow time, rebased on load). See src/sim/cultivation.ts.
+  plots: Plot[];
+  // Genetics: the player's strain library (bred + discovered strains, capped at
+  // MAX_STRAINS) and the monotonic id counter for bred strains. Server-authoritative;
+  // persisted in CharacterState. See src/sim/strain_library.ts + src/sim/genetics.ts.
+  strains: Strain[];
+  strainSeq: number;
+  // Commune reputation: points-per-faction standing (Baked Beaver commune). Earned from
+  // cultivation/breeding, gates recipes/strains. Persisted in CharacterState. See
+  // src/sim/reputation.ts.
+  reputation: Record<FactionId, number>;
   copper: number;
   equipment: PlayerEquipment;
   xp: number;
@@ -661,6 +700,10 @@ export interface PlayerMeta {
   known: ResolvedAbility[];
   questLog: Map<string, QuestProgress>;
   questsDone: Set<string>;
+  // Persistent story/branch flags set by quest choices (Phase D). A quest can gate its
+  // availability on a flag and set one on accept/turn-in, so a player's choice endures.
+  // Server-authoritative; persisted in CharacterState. See src/sim/quests/quest_commands.ts.
+  worldFlags: Set<string>;
   counters: RewardCounters;
   autoEquip: boolean;
   // sim.time when this character entered the world; powers /played. Session-only
@@ -760,8 +803,29 @@ export interface CharacterState {
   vendorBuyback?: InvSlot[];
   // Account bank contents. Optional so pre-stash saves load cleanly (defaults to []).
   stash?: InvSlot[];
+  // Garden plots. Optional so pre-cultivation saves load cleanly (defaults to empty).
+  // Stores `grown` (elapsed sim-seconds) rather than an absolute plant time so growth
+  // resumes correctly after a restart (the sim clock resets); rebased to plantedAt on
+  // load. A null entry (or a short array) is an empty plot; missing entries pad empty.
+  // A strain plot also carries strainId + the vigor-resolved growSeconds (a plain seed
+  // plot omits both, staying byte-identical to the pre-genetics save shape).
+  plots?: ({
+    seedItemId: string;
+    grown: number;
+    strainId?: string;
+    growSeconds?: number;
+  } | null)[];
+  // Strain library + its id counter. Optional so pre-genetics saves load cleanly (default
+  // to an empty library / seq 0). Strains store name + genotype self-contained, so a load
+  // does not depend on the base-strain content table. See src/sim/strain_library.ts.
+  strains?: SavedStrain[];
+  strainSeq?: number;
+  // Commune reputation ledger. Optional so pre-reputation saves load cleanly (default 0).
+  reputation?: SavedReputation;
   questLog: { questId: string; counts: number[]; state: 'active' | 'ready' | 'done' }[];
   questsDone: string[];
+  // Persistent quest branch flags. Optional so pre-Phase-D saves load cleanly (default []).
+  worldFlags?: string[];
   // Legacy arenaRating/Wins/Losses are treated as 1v1 data. The explicit
   // 1v1 fields are written by new saves, while old saves fall back cleanly.
   arenaRating?: number;
@@ -1004,6 +1068,25 @@ export class Sim {
       }
     }
 
+    // Cultivation: the physical Garden, the early-game growing hub at the Baked Beaver
+    // colony's grounds (The Sluice outpost). One raised bed per plot laid out as a grid of
+    // squares on the shore clearing, so a player walks up to a bed and interacts to tend
+    // their garden. templateId 'garden_plot' routes to the Garden window client-side
+    // (interactions.ts); the server never mutates on interact, so these draw no rng and are
+    // fixed, deterministic placements.
+    for (const spot of GARDEN_PLOT_GRID) {
+      const bed = createGroundObject(
+        this.nextId++,
+        '',
+        'Garden Plot',
+        this.groundPos(spot.x, spot.z),
+      );
+      bed.templateId = 'garden_plot';
+      bed.objectItemId = null;
+      bed.lootable = true; // interactable affordance (hover/range), not a pickup
+      this.addEntity(bed);
+    }
+
     // Resource-gathering nodes: ground objects marked with a harvestNodeId, so
     // pickUpObject routes them to the harvest channel (harvest.ts). Placed at fixed
     // positions (no rng), yielding existing crafting reagents (see gathering.ts).
@@ -1203,6 +1286,10 @@ export class Sim {
       inventory: [],
       vendorBuyback: [],
       stash: [],
+      plots: emptyPlots(),
+      strains: emptyStrains(),
+      strainSeq: 0,
+      reputation: emptyReputation(),
       copper: 0,
       equipment: { mainhand: classDef.startWeapon, chest: classDef.startChest },
       xp: 0,
@@ -1213,6 +1300,7 @@ export class Sim {
       known: [],
       questLog: new Map(),
       questsDone: new Set(),
+      worldFlags: new Set(),
       counters: freshCounters(),
       autoEquip: opts?.autoEquip ?? false,
       joinedAt: this.time,
@@ -1265,6 +1353,10 @@ export class Sim {
       meta.inventory = s.inventory.map((i) => ({ ...i }));
       meta.vendorBuyback = (s.vendorBuyback ?? []).map((i) => ({ ...i }));
       meta.stash = (s.stash ?? []).map((i) => ({ ...i }));
+      meta.plots = restorePlots(s.plots, this.time);
+      meta.strains = restoreStrains(s.strains);
+      meta.strainSeq = s.strainSeq ?? 0;
+      meta.reputation = restoreReputation(s.reputation);
       for (const q of s.questLog) {
         if (q.state !== 'done')
           meta.questLog.set(q.questId, {
@@ -1274,6 +1366,7 @@ export class Sim {
           });
       }
       for (const q of s.questsDone) meta.questsDone.add(q);
+      if (s.worldFlags) for (const f of s.worldFlags) meta.worldFlags.add(f);
       if (s.talents)
         // Revalidate the persisted build against the current rules + level budget
         // before it is baked into the flat mods below. A stored allocation replays
@@ -1472,12 +1565,17 @@ export class Sim {
       inventory: meta.inventory.map((i) => ({ ...i })),
       vendorBuyback: meta.vendorBuyback.map((i) => ({ ...i })),
       stash: meta.stash.map((i) => ({ ...i })),
+      plots: serializePlots(meta.plots, this.time),
+      strains: serializeStrains(meta.strains),
+      strainSeq: meta.strainSeq,
+      reputation: serializeReputation(meta.reputation),
       questLog: [...meta.questLog.values()].map((q) => ({
         questId: q.questId,
         counts: [...q.counts],
         state: q.state,
       })),
       questsDone: [...meta.questsDone],
+      worldFlags: [...meta.worldFlags],
       arenaRating: meta.arenaRating,
       arenaWins: meta.arenaWins,
       arenaLosses: meta.arenaLosses,
@@ -1668,6 +1766,25 @@ export class Sim {
   }
   get stash(): InvSlot[] {
     return this.primary.stash;
+  }
+  get plots(): Plot[] {
+    return this.primary.plots;
+  }
+  // IWorldCultivation read: the client-facing garden view (one PlotView per plot),
+  // computed live from the plots + the sim clock. The online ClientWorld mirrors the
+  // same shape from the self-snapshot.
+  get garden(): PlotView[] {
+    return cultivation.gardenView(this.primary.plots, this.time);
+  }
+  // IWorldCultivation read: the client-facing strain library (expressed phenotype per
+  // strain, never the raw genotype). The online ClientWorld mirrors it from the snapshot.
+  get strains(): StrainView[] {
+    return strainViews(this.primary.strains);
+  }
+  // IWorld read: the player's commune standings (per faction). Mirrored by ClientWorld
+  // from the self-snapshot.
+  get reputation(): ReputationView[] {
+    return reputationViews(this.primary.reputation);
   }
   get equipment(): PlayerEquipment {
     return this.primary.equipment;
@@ -2486,6 +2603,7 @@ export class Sim {
         this.updateCasting(p, meta);
         this.updatePlayerAutoAttack(p, meta);
         updateRegen(this.ctx, p, meta);
+        tickPendingSession(this.ctx, p);
         updateRested(p, meta);
       }
       updateTimers(p);
@@ -4513,6 +4631,34 @@ export class Sim {
 
   withdrawFromStash(itemId: string, count = 1, pid?: number): void {
     stash.stashWithdraw(this.ctx, itemId, count, pid);
+  }
+
+  // Cultivation: plant a carried seed into an empty garden plot, or harvest a matured
+  // one. Server-authoritative (validation lives in cultivation.ts); the plots are
+  // per-player PlayerMeta state, persisted in the character save.
+  plantSeed(plotIndex: number, seedItemId: string, pid?: number): void {
+    cultivation.plantSeed(this.ctx, plotIndex, seedItemId, pid);
+  }
+
+  // Genetics: plant a library strain (rather than a raw seed) into an empty plot. Consumes
+  // the strain's lineage seed as the medium; the harvest then applies the strain's traits.
+  plantStrain(plotIndex: number, strainId: string, pid?: number): void {
+    cultivation.plantStrain(this.ctx, plotIndex, strainId, pid);
+  }
+
+  harvestPlot(plotIndex: number, pid?: number): void {
+    cultivation.harvestPlot(this.ctx, plotIndex, pid);
+  }
+
+  // Genetics: cross two owned strains into a new library strain, or release one to free a
+  // slot. Server-authoritative (validation + the rng-seeded cross live in
+  // strain_library.ts); the library is per-player PlayerMeta state, persisted in the save.
+  breedStrains(strainIdA: string, strainIdB: string, pid?: number): void {
+    breedStrains(this.ctx, strainIdA, strainIdB, pid);
+  }
+
+  releaseStrain(strainId: string, pid?: number): void {
+    releaseStrain(this.ctx, strainId, pid);
   }
 
   private maybeAutoEquip(itemId: string, meta: PlayerMeta): void {

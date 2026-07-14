@@ -25,6 +25,7 @@ import type {
 export type { FishingEntry } from './content/items';
 export { FISHING_RARE_ID, FISHING_TABLES };
 
+import { PLANTS } from './content/cultivation';
 import {
   BROTHER_HALVEN,
   COLLAPSED_RELIQUARY_DELVE,
@@ -33,6 +34,7 @@ import {
 } from './content/delves';
 import { DUNGEON_DEFS, DUNGEON_MOBS } from './content/dungeons';
 import { HARVEST_NODE_SPAWNS, HARVEST_NODES } from './content/gathering';
+import { BASE_STRAIN_BY_SEED, BASE_STRAINS } from './content/genetics';
 import { GROUND_PICKUP_LINES } from './content/ground_pickup_lines';
 import {
   HOLLOWMERE_CAMPS,
@@ -44,6 +46,7 @@ import {
   MAUSOLEUM_DUNGEON_DEFS,
   MAUSOLEUM_DUNGEON_MOBS,
 } from './content/hollowmere';
+import { FACTIONS } from './content/reputation';
 import {
   TEMPLE_CAMPS,
   TEMPLE_DUNGEON_DEFS,
@@ -249,7 +252,10 @@ export const GROUND_OBJECTS: GroundObjectDef[] = [
 
 // Resource-gathering nodes (harvest.ts): the node defs + their world placements.
 // Spawned as ground objects carrying `harvestNodeId` in the Sim world-init.
-export { HARVEST_NODE_SPAWNS, HARVEST_NODES };
+// Cultivation (cultivation.ts): what each plantable seed grows into.
+// Genetics (genetics.ts): the base strain genotypes discovered by harvesting each seed.
+// Reputation (reputation.ts): the commune factions standing is tracked against.
+export { BASE_STRAIN_BY_SEED, BASE_STRAINS, FACTIONS, HARVEST_NODE_SPAWNS, HARVEST_NODES, PLANTS };
 
 export const ROADS: { x: number; z: number }[][] = [
   ...ZONE1_ROADS,

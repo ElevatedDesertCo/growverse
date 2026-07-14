@@ -323,7 +323,21 @@ interface BaseItemDef {
   // elixirs: a temporary stat-buff aura granted on use (classic battle elixirs).
   // `aura` is a flavor name shown in the buff frame; `value` is the stat amount,
   // `duration` the buff length in seconds. Folds through the normal aura/stat path.
-  elixir?: { aura: string; kind: AuraKind; value: number; duration: number };
+  //
+  // Bloom "Sessions" (Growverse) reuse this field: a Bloom tonic is an elixir with
+  // optional `onset`/`couchLock`. `onset` > 0 makes it an edible (a slow-release
+  // draught whose buff takes hold after `onset` seconds via Entity.pendingSession);
+  // `onset` 0/omitted is a spark (instant). `couchLock` (0..1) is the restful
+  // (indica-style) tradeoff: a movement-speed multiplier applied for `duration`
+  // alongside the buff (0.85 = 15% slower). Both fold through the normal aura path.
+  elixir?: {
+    aura: string;
+    kind: AuraKind;
+    value: number;
+    duration: number;
+    onset?: number;
+    couchLock?: number;
+  };
   quality?: 'poor' | 'common' | 'uncommon' | 'rare' | 'epic' | 'legendary'; // gray/white/green/blue/purple/orange name colors
   requiredClass?: PlayerClass[];
   // Minimum character level needed to equip this piece. When omitted, the level
@@ -1144,6 +1158,9 @@ export interface CraftRecipe {
   copperCost: number;
   output: { itemId: string; count: number };
   requiredLevel?: number;
+  // Optional commune-reputation gate: the recipe is locked until the player reaches the
+  // given standing tier with the faction (Phase C). See src/sim/reputation.ts.
+  requiredRep?: { factionId: FactionId; tier: RepTier };
 }
 
 export interface NpcDef {
@@ -1179,6 +1196,181 @@ export interface CampDef {
   center: { x: number; z: number };
   radius: number;
   count: number;
+}
+
+// Cultivation (Growverse). A personal garden plot: empty when `seedItemId` is null,
+// otherwise a seed planted at sim-time `plantedAt` that matures over its PlantDef's
+// `growSeconds`. Per-player state (PlayerMeta.plots, a fixed GARDEN_PLOT_COUNT),
+// persisted in CharacterState with the elapsed grow time rebased on load so growth
+// resumes across a relog/restart (see src/sim/cultivation.ts).
+export interface Plot {
+  seedItemId: string | null;
+  plantedAt: number;
+  // Effective grow time (sim-seconds) for THIS planting, resolved at plant time. A plain
+  // seed uses its PlantDef.growSeconds; a planted strain shortens it by its vigor. Stored
+  // on the plot so stage/progress/view reads stay library-free (no genotype lookup). 0
+  // when the plot is empty.
+  growSeconds: number;
+  // The library strain growing here, or null for a plain base-seed plant. Drives the
+  // harvest trait bonuses (extra yield, the potency essence drop). Not exposed to the
+  // client view; the plot still shows its lineage seed.
+  strainId: string | null;
+}
+export interface PlantYield {
+  itemId: string;
+  count: number;
+}
+export interface PlantDef {
+  seedItemId: string;
+  name: string; // English source; the growing plant's display name
+  growSeconds: number;
+  yields: PlantYield[]; // granted on harvest
+}
+// The client-facing view of one garden plot: what IWorld exposes and what rides the
+// self-snapshot. Computed from a Plot + the sim clock (see cultivation.gardenView), so
+// both the offline Sim and the online ClientWorld present it identically. `progress`
+// (0..1) and `secondsRemaining` are quantized to keep the snapshot delta stable.
+export interface PlotView {
+  seedItemId: string | null;
+  stage: 'empty' | 'growing' | 'ready';
+  progress: number;
+  secondsRemaining: number;
+}
+// The garden's physical home: the Baked Beaver colony's growing grounds, on the solid
+// east-shore land above the Sluice millpond (a short walk northeast of the outpost
+// buildings, beside the road). This ONE const is the single source of truth for the
+// clearing: the terrain flatten (src/sim/world.ts carves a level terrace here), the
+// tree/rock cull (same file clears decorations off it), the plot grid below, and Marlow
+// the grower all key off it, so moving the whole garden is a one-line change here.
+//   - flatInner: terrain is fully level within this radius (holds the plot grid + margin)
+//   - flatOuter: the terrace blends back to natural ground by here
+//   - clearRadius: decorations (trees/rocks) are removed within this radius
+export const GARDEN_CLEARING = {
+  x: 60,
+  z: 68,
+  flatInner: 14,
+  flatOuter: 23,
+  clearRadius: 17,
+} as const;
+
+// The garden is a 6x6 grid of raised beds (36 plots) laid out as a tilled field on the
+// flattened clearing, with room around it to expand later. One interactable bed per plot.
+// GARDEN_ROWS/COLS drive both the physical layout and the plot count; a settlement/
+// reputation upgrade path can widen the grid (and the clearing) from here.
+const GARDEN_ROWS = 6;
+const GARDEN_COLS = 6;
+const GARDEN_SPACING = 2.6; // yards between bed centers (beds are ~1.9yd, so ~0.7yd paths)
+export const GARDEN_PLOT_GRID: readonly { x: number; z: number }[] = (() => {
+  const grid: { x: number; z: number }[] = [];
+  for (let row = 0; row < GARDEN_ROWS; row++) {
+    for (let col = 0; col < GARDEN_COLS; col++) {
+      grid.push({
+        x: GARDEN_CLEARING.x + (col - (GARDEN_COLS - 1) / 2) * GARDEN_SPACING,
+        z: GARDEN_CLEARING.z + (row - (GARDEN_ROWS - 1) / 2) * GARDEN_SPACING,
+      });
+    }
+  }
+  return grid;
+})();
+
+// A player's garden size: one Plot per physical bed. Kept in lockstep with the grid so
+// entity init, persistence (pads/truncates to this), and the world beds always agree.
+export const GARDEN_PLOT_COUNT = GARDEN_PLOT_GRID.length;
+
+// ---- Strain genetics (Phase C) ----------------------------------------------------
+// The signature breeding mechanic. A strain carries a bounded diploid genotype: a fixed
+// set of traits, each with two alleles (integer tiers 0..GENE_MAX). The expressed
+// phenotype of a trait is its DOMINANT (higher) allele, so a plant can carry a hidden
+// recessive that resurfaces in a later cross. Breeding two owned strains segregates one
+// allele from each parent per trait (Mendelian), with a small mutation chance and a rare
+// max-tier phenotype. The model is deliberately bounded (three traits, four tiers, a
+// capped library) to avoid a combinatorial explosion of useless records. All genetics
+// math is deterministic through the sim `Rng` (see src/sim/genetics.ts).
+export type StrainTraitId = 'potency' | 'vigor' | 'yield';
+// The fixed trait order; iteration order is stable so breeding draws are deterministic.
+export const STRAIN_TRAITS: readonly StrainTraitId[] = ['potency', 'vigor', 'yield'];
+// Allele tiers run 0..GENE_MAX inclusive (four tiers).
+export const GENE_MAX = 3;
+// A diploid genotype: exactly two alleles per trait.
+export type Genotype = Record<StrainTraitId, [number, number]>;
+
+// A strain instance in a player's library (PlayerMeta.strains). `id` is a per-player
+// unique, deterministic counter id; `baseId` is the lineage root it descends from (an
+// offspring inherits one parent's lineage) so names stay bounded instead of generated
+// per cross.
+export interface Strain {
+  id: string;
+  baseId: string;
+  name: string; // English source display name
+  genotype: Genotype;
+  landrace: boolean; // rare phenotype: every trait expresses at GENE_MAX
+}
+
+// Base-strain content: the starting genotypes a player discovers by harvesting the
+// crafted seeds. Merged by data.ts (see src/sim/content/genetics.ts).
+export interface StrainDef {
+  baseId: string;
+  name: string; // English source
+  seedItemId: string; // harvesting this crafted seed discovers the base strain
+  genotype: Genotype;
+}
+
+// Library cap: a player holds at most this many strains (breeding into a full library
+// errors until one is released). Bounds persistence growth and the breeding UI.
+export const MAX_STRAINS = 12;
+
+// Client-facing strain view (the IWorld read; rides the self-snapshot). Carries the
+// EXPRESSED phenotype per trait (the dominant allele), not the raw genotype, so the
+// hidden recessive stays server-side until a cross reveals it.
+export interface StrainView {
+  id: string;
+  baseId: string;
+  name: string;
+  landrace: boolean;
+  potency: number;
+  vigor: number;
+  yield: number;
+}
+
+// ---- Commune reputation (Phase C) -------------------------------------------------
+// Standing with the Baked Beaver commune: a single points total per faction that crosses
+// classic-style ascending tiers, gating strains/recipes/cosmetics. Points are earned from
+// commune activities (cultivating, breeding) and clamp at the exalted cap. Bounded (one
+// faction, five tiers) to keep persistence and the UI small; a settlement/faction pass can
+// add more factions later. See src/sim/reputation.ts.
+export type FactionId = 'baked_beaver';
+export const FACTION_IDS: readonly FactionId[] = ['baked_beaver'];
+
+export type RepTier = 'neutral' | 'friendly' | 'honored' | 'revered' | 'exalted';
+// Tiers in ascending order; index-aligned with REP_TIER_THRESHOLDS.
+export const REP_TIERS: readonly RepTier[] = [
+  'neutral',
+  'friendly',
+  'honored',
+  'revered',
+  'exalted',
+];
+// Cumulative points required to REACH each tier (index-aligned with REP_TIERS).
+export const REP_TIER_THRESHOLDS: readonly number[] = [0, 500, 1500, 3000, 6000];
+// The exalted cap; points clamp here.
+export const REP_MAX = 6000;
+
+export interface FactionDef {
+  id: FactionId;
+  name: string; // English source display name
+}
+
+// Client-facing reputation view (per faction; the IWorld read + self-snapshot).
+export interface ReputationView {
+  factionId: FactionId;
+  name: string;
+  points: number;
+  tier: RepTier;
+  tierIndex: number;
+  // Points into the current tier vs the span to the next (0..1); 1 at exalted.
+  progress: number;
+  // Absolute points needed to reach the next tier, or null at exalted.
+  nextThreshold: number | null;
 }
 
 // Ground interactables (sparkle objects)
@@ -1383,6 +1575,16 @@ export interface QuestDef {
   requiredItems?: string[]; // quest items obtained earlier (e.g. a prerequisite reward) that this
   // quest needs; re-granted on accept if the player no longer has them, to avoid a progression block
   minLevel?: number;
+  // Branching (Phase D): world-flag gates + consequences. A quest is available only when
+  // `requiresFlag` (if set) is present AND `forbidsFlag` (if set) is absent from the
+  // player's persistent worldFlags. Accepting sets `setsFlagOnAccept`; turning in sets
+  // `setsFlagOnTurnIn`. Two quests that each set a flag the other forbids form a mutually
+  // exclusive CHOICE (the player branches by which one they accept), and a later quest can
+  // gate on the chosen flag, making the choice a persistent consequence.
+  requiresFlag?: string;
+  forbidsFlag?: string;
+  setsFlagOnAccept?: string;
+  setsFlagOnTurnIn?: string;
   retired?: boolean; // remains finishable if already accepted, but cannot be newly accepted
   shareable?: boolean; // quest-link sharing allowed (default true; set false to opt out)
   suggestedPlayers?: number; // group quests ("Suggested players: 5")
@@ -1504,6 +1706,11 @@ export interface Entity {
   // gcdRemaining) so the action bar can paint a cooldown swipe without a client
   // clock. Derived from potionCooldownUntil; excluded from the parity trace.
   potionCdRemaining: number;
+  // Bloom "Session" edible: a slow-release tonic whose buff has not taken hold yet.
+  // Set on use when the elixir has an `onset`; the per-player session tick applies the
+  // buff once sim-time reaches `activateAt`, then clears this. Transient (not
+  // serialized); a spark session leaves this null and applies its buff immediately.
+  pendingSession: { itemId: string; activateAt: number } | null;
   // warrior charge: forced run toward the target along a pathfound route
   chargeTargetId: number | null;
   chargeTimeLeft: number; // seconds; failsafe so a blocked charge can't run forever

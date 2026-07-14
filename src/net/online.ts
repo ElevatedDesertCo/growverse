@@ -36,9 +36,12 @@ import {
   type MasterLootThreshold,
   type MoveInput,
   type PlayerClass,
+  type PlotView,
   type QuestProgress,
   type QuestState,
+  type ReputationView,
   type SimEvent,
+  type StrainView,
 } from '../sim/types';
 import {
   type AccountCosmetics,
@@ -758,6 +761,7 @@ function blankEntity(id: number): Entity {
     overpowerUntil: -1,
     potionCooldownUntil: -1,
     potionCdRemaining: 0,
+    pendingSession: null,
     savedMana: 0,
     chargeTargetId: null,
     chargeTimeLeft: 0,
@@ -834,6 +838,12 @@ export class ClientWorld implements IWorld {
   vendorBuyback: InvSlot[] = [];
   // --- IWorldInventory: the account bank (stash), mirrored from snapshot self. ---
   stash: InvSlot[] = [];
+  // --- IWorldCultivation: the garden view (one PlotView per plot) + the strain library
+  // (one StrainView per owned strain), both mirrored from self. ---
+  garden: PlotView[] = [];
+  strains: StrainView[] = [];
+  // --- IWorldReputation: commune standings (one ReputationView per faction). ---
+  reputation: ReputationView[] = [];
   equipment: Partial<Record<EquipSlot, string>> = {};
   copper = 0;
   // --- IWorldCosmetics: account cosmetics (completed-quest + mech-chroma ids),
@@ -857,6 +867,9 @@ export class ClientWorld implements IWorld {
   activeLoadout = -1;
   questLog = new Map<string, QuestProgress>();
   questsDone = new Set<string>();
+  // Persistent quest branch flags (Phase D), mirrored from the self-snapshot so the local
+  // computeQuestState display honors branch gates. Internal (not an IWorld member).
+  worldFlags = new Set<string>();
   // --- IWorldParty: party/raid roster, mirrored from the snapshot self (`party`).
   // The raid-target markers ride the `markers` map below; IWorldPet keeps no mirror
   // field (pet state lives on the owned-mob entity wire). ---
@@ -1510,6 +1523,11 @@ export class ClientWorld implements IWorld {
         this.stash = s.stash;
         this.invChanged = true;
       }
+      // IWorldCultivation garden + strain library: delta-guarded; a missing field keeps
+      // the prior mirror. IWorldReputation standings ride the same self-frame (terse `rep`).
+      if (s.garden !== undefined) this.garden = s.garden;
+      if (s.strains !== undefined) this.strains = s.strains;
+      if (s.rep !== undefined) this.reputation = s.rep;
       if (s.equip !== undefined) this.equipment = s.equip;
       // IWorldCosmetics facet (W7) self-decode: cosmetics is delta-guarded (a
       // missing field keeps the prior mirror); normalizeAccountCosmetics rebuilds it.
@@ -1520,6 +1538,7 @@ export class ClientWorld implements IWorld {
       if (s.qlog !== undefined)
         this.questLog = new Map((s.qlog as QuestProgress[]).map((q) => [q.questId, q]));
       if (s.qdone !== undefined) this.questsDone = new Set(s.qdone);
+      if (s.flags !== undefined) this.worldFlags = new Set(s.flags);
       if (s.lockouts !== undefined) this.selfLockouts = s.lockouts as Record<string, number>;
       if (s.qlog !== undefined || s.qdone !== undefined) this.pendingQuestCommands?.clear();
       // IWorldTalents facet (W7) self-decode: tal is delta-guarded (omitted keeps
@@ -1614,7 +1633,13 @@ export class ClientWorld implements IWorld {
   // -----------------------------------------------------------------------
 
   questState(questId: string): QuestState {
-    const state = computeQuestState(questId, this.questLog, this.questsDone, this.player.level);
+    const state = computeQuestState(
+      questId,
+      this.questLog,
+      this.questsDone,
+      this.player.level,
+      this.worldFlags,
+    );
     const pending = this.pendingQuestCommands?.get(questId);
     if (
       (pending === 'accept' && state === 'available') ||
@@ -1782,6 +1807,26 @@ export class ClientWorld implements IWorld {
   }
   withdrawFromStash(itemId: string, count?: number): void {
     this.cmd({ cmd: 'withdraw_stash', item: itemId, count });
+  }
+  // --- IWorldCultivation: plant into / harvest a garden plot. Server re-validates the
+  // seed, the plot, and inventory; the garden read reconciles from the self-snapshot.
+  plantSeed(plotIndex: number, seedItemId: string): void {
+    this.cmd({ cmd: 'plant_seed', plot: plotIndex, item: seedItemId });
+  }
+  harvestPlot(plotIndex: number): void {
+    this.cmd({ cmd: 'harvest_plot', plot: plotIndex });
+  }
+  // Plant a library strain (consumes its lineage seed); breed or release library strains.
+  // Server re-validates ownership, plot, medium, library cap, and cost; the `strains` +
+  // `garden` reads reconcile from the self-snapshot.
+  plantStrain(plotIndex: number, strainId: string): void {
+    this.cmd({ cmd: 'plant_strain', plot: plotIndex, strain: strainId });
+  }
+  breedStrains(strainIdA: string, strainIdB: string): void {
+    this.cmd({ cmd: 'breed_strains', a: strainIdA, b: strainIdB });
+  }
+  releaseStrain(strainId: string): void {
+    this.cmd({ cmd: 'release_strain', strain: strainId });
   }
   // --- IWorldCrafting: submit a recipe at the nearby station. Server re-validates
   // proximity, copper, and reagents; result flows back as an events frame.

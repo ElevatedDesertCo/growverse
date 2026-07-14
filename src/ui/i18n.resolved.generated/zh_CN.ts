@@ -1063,6 +1063,42 @@ export const zh_CN: EnTranslations = {
         "missingMaterials": "你缺少制作所需的材料。"
       }
     },
+    "garden": {
+      "title": "花园",
+      "hint": "在地块中种下种子，收获绽放。",
+      "seedLabel": "要种植的种子",
+      "noSeeds": "没有可种植的种子。在培育站制作。",
+      "empty": "空地块",
+      "plant": "种植",
+      "harvest": "收获",
+      "ready": "可收获",
+      "open": "打理花园"
+    },
+    "breeding": {
+      "title": "品系遗传学",
+      "hint": "杂交两个品系以组合它们的特性，或在花园种植一个。",
+      "open": "培育品系",
+      "empty": "还没有品系。收获绽放以发现你的第一个品系。",
+      "landrace": "原生种",
+      "potency": "效力",
+      "vigor": "活力",
+      "yield": "产量",
+      "parentA": "亲本A",
+      "parentB": "亲本B",
+      "plant": "种植",
+      "release": "释放",
+      "breed": "杂交",
+      "full": "你的品系库已满。释放一个品系以腾出空间。"
+    },
+    "reputation": {
+      "tier": {
+        "neutral": "中立",
+        "friendly": "友善",
+        "honored": "尊敬",
+        "revered": "崇敬",
+        "exalted": "崇拜"
+      }
+    },
     "fishing": {
       "caught": "你钓到了 {item}！",
       "introHint": "面向开阔水面并按 F 抛出鱼线。",
@@ -5067,6 +5103,18 @@ export const zh_CN: EnTranslations = {
       },
       "elixir_of_the_bloom": {
         "name": "绽放灵药"
+      },
+      "restful_bloom_tonic": {
+        "name": "安神绽放药剂"
+      },
+      "lively_bloom_tonic": {
+        "name": "活力绽放药剂"
+      },
+      "balanced_bloom_tonic": {
+        "name": "均衡绽放药剂"
+      },
+      "slow_bloom_lozenge": {
+        "name": "缓释绽放含片"
       },
       "purple_petal": {
         "name": "紫色花瓣"

@@ -1063,6 +1063,42 @@ export const ja_JP: EnTranslations = {
         "missingMaterials": "作成に必要な材料が足りない。"
       }
     },
+    "garden": {
+      "title": "菜園",
+      "hint": "区画に種をまき、ブルームを収穫しましょう。",
+      "seedLabel": "植える種",
+      "noSeeds": "植えられる種がありません。栽培所で作りましょう。",
+      "empty": "空き区画",
+      "plant": "植える",
+      "harvest": "収穫",
+      "ready": "収穫可能",
+      "open": "菜園の手入れ"
+    },
+    "breeding": {
+      "title": "品種遺伝学",
+      "hint": "2つの品種を交配して特性を組み合わせるか、菜園に植えましょう。",
+      "open": "品種を交配",
+      "empty": "まだ品種がありません。花蕾を収穫して最初の品種を発見しましょう。",
+      "landrace": "在来種",
+      "potency": "効力",
+      "vigor": "活力",
+      "yield": "収量",
+      "parentA": "親A",
+      "parentB": "親B",
+      "plant": "植える",
+      "release": "手放す",
+      "breed": "交配",
+      "full": "品種ライブラリが満杯です。品種を手放して空きを作りましょう。"
+    },
+    "reputation": {
+      "tier": {
+        "neutral": "中立",
+        "friendly": "友好",
+        "honored": "尊敬",
+        "revered": "崇敬",
+        "exalted": "崇拝"
+      }
+    },
     "fishing": {
       "caught": "{item} を釣り上げた！",
       "introHint": "開けた水辺を向いて F キーで仕掛けを投げましょう。",
@@ -5067,6 +5103,18 @@ export const ja_JP: EnTranslations = {
       },
       "elixir_of_the_bloom": {
         "name": "花咲きのエリクサー"
+      },
+      "restful_bloom_tonic": {
+        "name": "安息の花蕾強壮剤"
+      },
+      "lively_bloom_tonic": {
+        "name": "活気の花蕾強壮剤"
+      },
+      "balanced_bloom_tonic": {
+        "name": "均衡の花蕾強壮剤"
+      },
+      "slow_bloom_lozenge": {
+        "name": "遅咲きのトローチ"
       },
       "purple_petal": {
         "name": "紫の花びら"

@@ -344,6 +344,7 @@ describe('client interaction classification', () => {
         opened = id;
       },
       openDelveBoard: () => {},
+      openGarden: () => {},
       showError: () => {},
       closeContextMenu: () => {},
     };

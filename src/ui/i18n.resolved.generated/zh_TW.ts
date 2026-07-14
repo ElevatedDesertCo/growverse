@@ -1063,6 +1063,42 @@ export const zh_TW: EnTranslations = {
         "missingMaterials": "你缺少製作所需的材料。"
       }
     },
+    "garden": {
+      "title": "花園",
+      "hint": "在地塊中種下種子，收穫綻放。",
+      "seedLabel": "要種植的種子",
+      "noSeeds": "沒有可種植的種子。在培育站製作。",
+      "empty": "空地塊",
+      "plant": "種植",
+      "harvest": "收穫",
+      "ready": "可收穫",
+      "open": "打理花園"
+    },
+    "breeding": {
+      "title": "品系遺傳學",
+      "hint": "雜交兩個品系以組合它們的特性，或在花園種植一個。",
+      "open": "培育品系",
+      "empty": "還沒有品系。收穫綻放以發現你的第一個品系。",
+      "landrace": "原生種",
+      "potency": "效力",
+      "vigor": "活力",
+      "yield": "產量",
+      "parentA": "親本A",
+      "parentB": "親本B",
+      "plant": "種植",
+      "release": "釋放",
+      "breed": "雜交",
+      "full": "你的品系庫已滿。釋放一個品系以騰出空間。"
+    },
+    "reputation": {
+      "tier": {
+        "neutral": "中立",
+        "friendly": "友善",
+        "honored": "尊敬",
+        "revered": "崇敬",
+        "exalted": "崇拜"
+      }
+    },
     "fishing": {
       "caught": "你釣到了 {item}！",
       "introHint": "面向開闊水面並按 F 拋出釣線。",
@@ -5067,6 +5103,18 @@ export const zh_TW: EnTranslations = {
       },
       "elixir_of_the_bloom": {
         "name": "綻放靈藥"
+      },
+      "restful_bloom_tonic": {
+        "name": "安神綻放藥劑"
+      },
+      "lively_bloom_tonic": {
+        "name": "活力綻放藥劑"
+      },
+      "balanced_bloom_tonic": {
+        "name": "均衡綻放藥劑"
+      },
+      "slow_bloom_lozenge": {
+        "name": "緩釋綻放含片"
       },
       "purple_petal": {
         "name": "紫色花瓣"

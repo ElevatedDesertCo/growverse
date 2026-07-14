@@ -50,6 +50,7 @@ import {
   isDelvePos,
   MOBS,
   NPCS,
+  PLANTS,
   QUESTS,
   questRewardItem,
   WORLD_MAX_X,
@@ -119,6 +120,8 @@ import { AurasPainter, type AurasPainterDeps } from './auras_painter';
 import { type AurasDeps, createAurasView } from './auras_view';
 import { attachAvatarFallback } from './avatar_fallback';
 import { BagsWindow } from './bags_window';
+import { buildBreedingView } from './breeding_view';
+import { renderBreedingWindow } from './breeding_window';
 import { CastBarPainter } from './cast_bar_painter';
 import { buildPaperdollView, type PaperdollSlot } from './char_view';
 import { CharWindow } from './char_window';
@@ -177,6 +180,8 @@ import { fctSpawnShape } from './fct_event';
 import { FctPainter } from './fct_painter';
 import { createFishingCatchPopup, type FishingCatchPopup } from './fishing_catch_popup';
 import { FocusManager, type FocusTrapHandle } from './focus_manager';
+import { buildGardenView, type GardenSeedOption } from './garden_view';
+import { renderGardenWindow } from './garden_window';
 import {
   type AimPoint,
   abilityAoeRadius,
@@ -902,6 +907,19 @@ export class Hud {
   private openVendorNpcId: number | null = null;
   private openCraftingNpcId: number | null = null;
   private openStashNpcId: number | null = null;
+  // Cultivation Garden window: a personal (non-NPC-gated) window. `gardenSelectedSeed`
+  // is the strain the Plant buttons sow; `gardenSig` is the last-rendered signature for
+  // change-detected refresh (the garden has no dedicated SimEvent, so it re-renders
+  // while open only when its view actually changes).
+  private gardenWindowOpen = false;
+  private gardenSelectedSeed: string | null = null;
+  private gardenSig = '';
+  // Breeding window (strain genetics + commune reputation): the two pending parent picks
+  // and the change-detect signature, mirroring the garden window.
+  private breedingWindowOpen = false;
+  private breedingSelectedA: string | null = null;
+  private breedingSelectedB: string | null = null;
+  private breedingSig = '';
   private openDelveBoardNpcId: number | null = null;
   private lastDelveTrackerSig = '';
   private selectedDelveTier: 'normal' | 'heroic' = 'normal';
@@ -1703,6 +1721,12 @@ export class Hud {
         break;
       case 'stash-window':
         this.closeStash();
+        break;
+      case 'garden-window':
+        this.closeGarden();
+        break;
+      case 'breeding-window':
+        this.closeBreeding();
         break;
       case 'loot-window':
         this.closeLoot();
@@ -4722,6 +4746,10 @@ export class Hud {
     }
     const mediumHud = now - this.lastHudMediumAt >= 250;
     if (mediumHud) this.lastHudMediumAt = now;
+    // Refresh the open Garden window (~4 Hz) when its view changed: advances growth
+    // bars and reconciles an online plant/harvest from the snapshot. No-op when closed.
+    if (mediumHud) this.maybeRefreshGarden();
+    if (mediumHud) this.maybeRefreshBreeding();
     const slowHud = now - this.lastHudSlowAt >= 500;
     if (slowHud) this.lastHudSlowAt = now;
     if (slowHud) this.maybeIntroduceFishingPole();
@@ -8191,6 +8219,14 @@ export class Hud {
       const craftLabel = t(`hudChrome.crafting.${def.crafting}Title` as Parameters<typeof t>[0]);
       html += `<button type="button" class="qd-list-item" data-craft="1" aria-label="${esc(craftLabel)}"><span class="gold">${svgIcon('anvil')}</span> ${esc(craftLabel)}</button>`;
     }
+    // The Grow Station cultivator also tends the player's Garden (personal plots) and the
+    // strain library where crosses are bred.
+    if (def?.crafting === 'grow') {
+      const gardenLabel = t('hudChrome.garden.open');
+      html += `<button type="button" class="qd-list-item" data-garden="1" aria-label="${esc(gardenLabel)}"><span class="gold">${svgIcon('interact')}</span> ${esc(gardenLabel)}</button>`;
+      const breedingLabel = t('hudChrome.breeding.open');
+      html += `<button type="button" class="qd-list-item" data-breeding="1" aria-label="${esc(breedingLabel)}"><span class="gold">${svgIcon('interact')}</span> ${esc(breedingLabel)}</button>`;
+    }
     if (def?.stash) {
       html += `<button type="button" class="qd-list-item" data-bank="1" aria-label="${esc(t('hudChrome.bank.open'))}"><span class="gold">${svgIcon('chest')}</span> ${esc(t('hudChrome.bank.open'))}</button>`;
     }
@@ -8221,6 +8257,14 @@ export class Hud {
     el.querySelector('[data-craft]')?.addEventListener('click', () => {
       this.closeQuestDialog(false);
       this.openCrafting(npc.id);
+    });
+    el.querySelector('[data-garden]')?.addEventListener('click', () => {
+      this.closeQuestDialog(false);
+      this.openGarden();
+    });
+    el.querySelector('[data-breeding]')?.addEventListener('click', () => {
+      this.closeQuestDialog(false);
+      this.openBreeding();
     });
     el.querySelector('[data-bank]')?.addEventListener('click', () => {
       this.closeQuestDialog(false);
@@ -8940,6 +8984,204 @@ export class Hud {
 
   get stashOpen(): boolean {
     return this.openStashNpcId !== null;
+  }
+
+  // -------------------------------------------------------------------------
+  // The Garden (cultivation). A personal window opened from the Grow Station:
+  // it shows the player's plots (world.garden) and plants/harvests through the
+  // IWorld cultivation seam. garden_view decides the rows and garden_window
+  // paints #garden-window (created lazily beside #vendor-window, no index.html
+  // edit). Re-renders on user action and, while open, on a change-detected tick.
+  // -------------------------------------------------------------------------
+  private gardenWindowElRef(): HTMLElement {
+    let el = document.getElementById('garden-window');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'garden-window';
+      el.className = 'window panel';
+      const sibling = document.getElementById('vendor-window');
+      (sibling?.parentElement ?? document.getElementById('ui') ?? document.body).appendChild(el);
+    }
+    return el;
+  }
+
+  private plantableSeeds(): GardenSeedOption[] {
+    const counts = new Map<string, number>();
+    for (const slot of this.sim.inventory)
+      counts.set(slot.itemId, (counts.get(slot.itemId) ?? 0) + slot.count);
+    const seeds: GardenSeedOption[] = [];
+    for (const [itemId, count] of counts) {
+      const item = ITEMS[itemId];
+      if (PLANTS[itemId] && item) seeds.push({ itemId, item, count });
+    }
+    return seeds;
+  }
+
+  private gardenSignature(seeds: GardenSeedOption[]): string {
+    const garden = this.sim.garden
+      .map((p) => `${p.seedItemId ?? ''}:${p.stage}:${p.progress}`)
+      .join('|');
+    const seedSig = seeds.map((s) => `${s.itemId}x${s.count}`).join(',');
+    return `${garden};${seedSig};${this.gardenSelectedSeed ?? ''}`;
+  }
+
+  openGarden(): void {
+    this.closeOtherWindows('#garden-window');
+    this.gardenWindowOpen = true;
+    this.renderGarden();
+  }
+
+  private renderGarden(): void {
+    if (!this.gardenWindowOpen) return;
+    const seeds = this.plantableSeeds();
+    // Keep the selected seed valid: default to the first held seed, clear if none.
+    if (!this.gardenSelectedSeed || !seeds.some((s) => s.itemId === this.gardenSelectedSeed)) {
+      this.gardenSelectedSeed = seeds[0]?.itemId ?? null;
+    }
+    this.gardenSig = this.gardenSignature(seeds);
+    const view = buildGardenView(this.sim.garden, ITEMS, seeds, this.gardenSelectedSeed);
+    const refreshBags = () => {
+      if ($('#bags').style.display !== 'none') this.renderBags();
+    };
+    renderGardenWindow(this.gardenWindowElRef(), view, {
+      ...this.presentationBag,
+      hideTooltip: () => this.hideTooltip(),
+      onSelectSeed: (seedItemId) => {
+        this.gardenSelectedSeed = seedItemId;
+        this.renderGarden();
+      },
+      onPlant: (plotIndex) => {
+        if (this.gardenSelectedSeed) this.sim.plantSeed(plotIndex, this.gardenSelectedSeed);
+        this.renderGarden();
+        refreshBags();
+      },
+      onHarvest: (plotIndex) => {
+        this.sim.harvestPlot(plotIndex);
+        this.renderGarden();
+        refreshBags();
+      },
+      onClose: () => this.closeGarden(),
+    });
+  }
+
+  // Called each frame while the garden is open: re-render only when its view changed
+  // (a growing plant's quantized progress, an online plant/harvest reconciling from the
+  // snapshot, or an inventory change), so an idle garden does not churn the DOM.
+  private maybeRefreshGarden(): void {
+    if (!this.gardenWindowOpen) return;
+    if (this.gardenSignature(this.plantableSeeds()) !== this.gardenSig) this.renderGarden();
+  }
+
+  closeGarden(): void {
+    const el = document.getElementById('garden-window');
+    if (el) el.style.display = 'none';
+    this.gardenWindowOpen = false;
+    this.hideTooltip();
+  }
+
+  get gardenOpen(): boolean {
+    return this.gardenWindowOpen;
+  }
+
+  // --- Breeding window (strain genetics + commune reputation) ----------------
+  private breedingWindowElRef(): HTMLElement {
+    let el = document.getElementById('breeding-window');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'breeding-window';
+      el.className = 'window panel';
+      const sibling = document.getElementById('vendor-window');
+      (sibling?.parentElement ?? document.getElementById('ui') ?? document.body).appendChild(el);
+    }
+    return el;
+  }
+
+  private breedingSignature(): string {
+    const strains = this.sim.strains
+      .map((s) => `${s.id}:${s.potency}${s.vigor}${s.yield}${s.landrace ? 'L' : ''}`)
+      .join('|');
+    const rep = this.sim.reputation.map((r) => `${r.factionId}:${r.points}`).join(',');
+    const garden = this.sim.garden.map((p) => p.stage).join('');
+    return `${strains};${rep};${garden};${this.breedingSelectedA ?? ''};${this.breedingSelectedB ?? ''}`;
+  }
+
+  openBreeding(): void {
+    this.closeOtherWindows('#breeding-window');
+    this.breedingWindowOpen = true;
+    this.renderBreeding();
+  }
+
+  private renderBreeding(): void {
+    if (!this.breedingWindowOpen) return;
+    // Drop a parent pick that no longer names an owned strain (released/relogged).
+    const owns = (id: string | null) => id !== null && this.sim.strains.some((s) => s.id === id);
+    if (!owns(this.breedingSelectedA)) this.breedingSelectedA = null;
+    if (!owns(this.breedingSelectedB)) this.breedingSelectedB = null;
+    this.breedingSig = this.breedingSignature();
+    const view = buildBreedingView(
+      this.sim.strains,
+      this.sim.reputation,
+      this.sim.garden,
+      this.breedingSelectedA,
+      this.breedingSelectedB,
+    );
+    const refreshBags = () => {
+      if ($('#bags').style.display !== 'none') this.renderBags();
+    };
+    renderBreedingWindow(this.breedingWindowElRef(), view, {
+      ...this.presentationBag,
+      hideTooltip: () => this.hideTooltip(),
+      onPickParent: (strainId, slot) => {
+        // Toggle off if re-picking the same strain in the same slot; clear the other slot
+        // if this strain already fills it (a strain can occupy only one parent slot).
+        if (slot === 'a') {
+          this.breedingSelectedA = this.breedingSelectedA === strainId ? null : strainId;
+          if (this.breedingSelectedB === strainId) this.breedingSelectedB = null;
+        } else {
+          this.breedingSelectedB = this.breedingSelectedB === strainId ? null : strainId;
+          if (this.breedingSelectedA === strainId) this.breedingSelectedA = null;
+        }
+        this.renderBreeding();
+      },
+      onBreed: () => {
+        if (this.breedingSelectedA && this.breedingSelectedB) {
+          this.sim.breedStrains(this.breedingSelectedA, this.breedingSelectedB);
+          this.breedingSelectedA = null;
+          this.breedingSelectedB = null;
+        }
+        this.renderBreeding();
+        refreshBags();
+      },
+      onPlant: (strainId) => {
+        const plot = this.sim.garden.findIndex((p) => p.stage === 'empty');
+        if (plot >= 0) this.sim.plantStrain(plot, strainId);
+        this.renderBreeding();
+        refreshBags();
+      },
+      onRelease: (strainId) => {
+        this.sim.releaseStrain(strainId);
+        this.renderBreeding();
+      },
+      onClose: () => this.closeBreeding(),
+    });
+  }
+
+  // Re-render only when the library, standings, garden, or the pending picks changed, so
+  // an idle breeding window does not churn the DOM.
+  private maybeRefreshBreeding(): void {
+    if (!this.breedingWindowOpen) return;
+    if (this.breedingSignature() !== this.breedingSig) this.renderBreeding();
+  }
+
+  closeBreeding(): void {
+    const el = document.getElementById('breeding-window');
+    if (el) el.style.display = 'none';
+    this.breedingWindowOpen = false;
+    this.hideTooltip();
+  }
+
+  get breedingOpen(): boolean {
+    return this.breedingWindowOpen;
   }
 
   // -------------------------------------------------------------------------

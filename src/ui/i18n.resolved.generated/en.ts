@@ -1063,6 +1063,42 @@ export const en: EnTranslations = {
         "missingMaterials": "You lack the materials to craft that."
       }
     },
+    "garden": {
+      "title": "Garden",
+      "hint": "Plant seeds in your plots and harvest Bloom.",
+      "seedLabel": "Seed to plant",
+      "noSeeds": "No plantable seeds. Craft some at the Grow Station.",
+      "empty": "Empty plot",
+      "plant": "Plant",
+      "harvest": "Harvest",
+      "ready": "Ready",
+      "open": "Tend Garden"
+    },
+    "breeding": {
+      "title": "Strain Genetics",
+      "hint": "Cross two strains to combine their traits, or plant one in your garden.",
+      "open": "Breed Strains",
+      "empty": "No strains yet. Harvest a Bloom to discover your first strain.",
+      "landrace": "Landrace",
+      "potency": "Potency",
+      "vigor": "Vigor",
+      "yield": "Yield",
+      "parentA": "Parent A",
+      "parentB": "Parent B",
+      "plant": "Plant",
+      "release": "Release",
+      "breed": "Cross",
+      "full": "Your strain library is full. Release a strain to make room."
+    },
+    "reputation": {
+      "tier": {
+        "neutral": "Neutral",
+        "friendly": "Friendly",
+        "honored": "Honored",
+        "revered": "Revered",
+        "exalted": "Exalted"
+      }
+    },
     "fishing": {
       "caught": "You caught a {item}!",
       "introHint": "Face open water and press F to cast your line.",
@@ -5067,6 +5103,18 @@ export const en: EnTranslations = {
       },
       "elixir_of_the_bloom": {
         "name": "Elixir of the Bloom"
+      },
+      "restful_bloom_tonic": {
+        "name": "Restful Bloom Tonic"
+      },
+      "lively_bloom_tonic": {
+        "name": "Lively Bloom Tonic"
+      },
+      "balanced_bloom_tonic": {
+        "name": "Balanced Bloom Tonic"
+      },
+      "slow_bloom_lozenge": {
+        "name": "Slow-Bloom Lozenge"
       },
       "purple_petal": {
         "name": "Purple Petal"

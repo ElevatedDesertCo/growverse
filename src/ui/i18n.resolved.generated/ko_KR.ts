@@ -1063,6 +1063,42 @@ export const ko_KR: EnTranslations = {
         "missingMaterials": "제작에 필요한 재료가 부족합니다."
       }
     },
+    "garden": {
+      "title": "정원",
+      "hint": "밭에 씨앗을 심고 블룸을 수확하세요.",
+      "seedLabel": "심을 씨앗",
+      "noSeeds": "심을 수 있는 씨앗이 없습니다. 재배소에서 만드세요.",
+      "empty": "빈 밭",
+      "plant": "심기",
+      "harvest": "수확",
+      "ready": "수확 가능",
+      "open": "정원 가꾸기"
+    },
+    "breeding": {
+      "title": "품종 유전학",
+      "hint": "두 품종을 교배해 특성을 결합하거나 정원에 심으세요.",
+      "open": "품종 교배",
+      "empty": "아직 품종이 없습니다. 블룸을 수확해 첫 품종을 발견하세요.",
+      "landrace": "재래종",
+      "potency": "효능",
+      "vigor": "활력",
+      "yield": "수확량",
+      "parentA": "부모 A",
+      "parentB": "부모 B",
+      "plant": "심기",
+      "release": "방출",
+      "breed": "교배",
+      "full": "품종 보관함이 가득 찼습니다. 품종을 방출해 공간을 만드세요."
+    },
+    "reputation": {
+      "tier": {
+        "neutral": "중립",
+        "friendly": "우호적",
+        "honored": "존경",
+        "revered": "숭배",
+        "exalted": "추앙"
+      }
+    },
     "fishing": {
       "caught": "{item}을(를) 낚았습니다!",
       "introHint": "트인 물을 향한 뒤 F 키를 눌러 낚싯줄을 던지세요.",
@@ -5067,6 +5103,18 @@ export const ko_KR: EnTranslations = {
       },
       "elixir_of_the_bloom": {
         "name": "만개의 엘릭서"
+      },
+      "restful_bloom_tonic": {
+        "name": "안식의 개화 강장제"
+      },
+      "lively_bloom_tonic": {
+        "name": "활력의 개화 강장제"
+      },
+      "balanced_bloom_tonic": {
+        "name": "균형의 개화 강장제"
+      },
+      "slow_bloom_lozenge": {
+        "name": "느린 개화 로젠지"
       },
       "purple_petal": {
         "name": "보라색 꽃잎"

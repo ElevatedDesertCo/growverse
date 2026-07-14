@@ -319,6 +319,44 @@ function prepareItem(itemId: string): THREE.Group | null {
   return root;
 }
 
+// The interactable Garden plot (cultivation): a simple procedural raised grow-bed, a
+// framed box of soil with a few leafy sprouts. Distinct from the collectible ground
+// objects so a player recognizes where to tend their garden. Built once (not per frame),
+// so plain `new THREE.*` is fine here; deterministic (no Math.random).
+export function buildGardenPlot(entityId: number): { group: THREE.Group; height: number } {
+  const group = new THREE.Group();
+  const frame = new THREE.Mesh(
+    new THREE.BoxGeometry(1.9, 0.22, 1.9),
+    surfaceMat({ color: 0x6b4a24, roughness: 0.9 }),
+  );
+  frame.position.y = 0.11;
+  group.add(frame);
+  const soil = new THREE.Mesh(
+    new THREE.BoxGeometry(1.6, 0.34, 1.6),
+    surfaceMat({ color: 0x3a2a18, roughness: 1 }),
+  );
+  soil.position.y = 0.2;
+  group.add(soil);
+  const leaf = surfaceMat({ color: 0x4e9a2f, roughness: 0.7 });
+  const spots: [number, number][] = [
+    [-0.45, -0.45],
+    [0.45, -0.45],
+    [-0.45, 0.45],
+    [0.45, 0.45],
+    [0, 0],
+  ];
+  for (const [x, z] of spots) {
+    const sprout = new THREE.Mesh(new THREE.ConeGeometry(0.22, 0.6, 6), leaf);
+    sprout.position.set(x, 0.62, z);
+    group.add(sprout);
+  }
+  // Axis-aligned on purpose: the beds tile into a clean 6x6 field, so (unlike the
+  // scattered quest props) they must NOT get the per-id yaw jitter or the squares
+  // would rotate into each other. entityId is unused here for that reason.
+  void entityId;
+  return { group, height: 0.95 };
+}
+
 export function buildGroundQuestObject(
   itemId: string,
   entityId: number,

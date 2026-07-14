@@ -12,6 +12,7 @@ import {
 } from './data';
 import { fbm2, hash2 } from './rng';
 import type { BiomeId } from './types';
+import { GARDEN_CLEARING } from './types';
 
 // Terrain is a pure function of (x, z, seed): both the sim (ground clamping)
 // and the renderer (mesh) sample the same heightfield, so they always agree.
@@ -442,6 +443,21 @@ export function terrainHeightNatural(x: number, z: number, seed: number): number
     }
   }
 
+  // Carve the Baked Beaver garden clearing into a level terrace: fully flat within
+  // flatInner (so the 6x6 bed grid sits on even ground) and blending back to natural
+  // terrain by flatOuter. Same flatten pattern as the camps; because the renderer samples
+  // this exact function, the terrace you see is the terrace you walk and plant on.
+  {
+    const dx = x - GARDEN_CLEARING.x,
+      dz = z - GARDEN_CLEARING.z;
+    const d = Math.sqrt(dx * dx + dz * dz);
+    if (d < GARDEN_CLEARING.flatOuter) {
+      const gh = baseHeight(GARDEN_CLEARING.x, GARDEN_CLEARING.z, seed);
+      const blend = smoothstep(GARDEN_CLEARING.flatInner, GARDEN_CLEARING.flatOuter, d);
+      h = h * blend + gh * (1 - blend);
+    }
+  }
+
   // Mountain ridge walls between zones, pierced by the road pass
   for (const ridge of ZONE_RIDGES) {
     const dz = Math.abs(z - ridge.z);
@@ -593,6 +609,11 @@ export function generateDecorations(seed: number): Decoration[] {
         }
       }
       if (inCamp) continue;
+      // Keep the Baked Beaver garden clearing clear of trees and rocks so the tilled
+      // beds read as an open, tended field (matches the flattened terrace in terrainHeight).
+      if (Math.hypot(x - GARDEN_CLEARING.x, z - GARDEN_CLEARING.z) < GARDEN_CLEARING.clearRadius) {
+        continue;
+      }
       out.push({
         kind,
         x,
