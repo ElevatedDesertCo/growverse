@@ -4122,6 +4122,11 @@ export class Renderer {
             setGardenPlant(v.plantSlot, want);
             v.plantStage = want;
           }
+          // A fully bloomed, harvest-ready plant shimmers with golden pollen sparkles so
+          // the player can spot a ready crop at a glance (nearby beds only).
+          if (v.plantStage === 'bloom' && d2 < SPARKLE_DRAW_RANGE_SQ) {
+            this.vfx.castSparkle(e.id, 'holy', dt * 1.6);
+          }
         }
         continue;
       }

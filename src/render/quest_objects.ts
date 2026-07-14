@@ -47,9 +47,9 @@ const GARDEN_PLANT_URLS: Record<GardenPlantStage, string> = {
 // Target plant height per stage (yards), so a bed visibly grows taller as it matures. The
 // bed frame is 1.9yd wide, so a ~1.2yd bloom reads clearly without overhanging neighbors.
 const GARDEN_PLANT_HEIGHTS: Record<GardenPlantStage, number> = {
-  sprout: 0.5,
-  mid: 0.85,
-  bloom: 1.2,
+  sprout: 0.65,
+  mid: 1.05,
+  bloom: 1.5,
 };
 
 const QUEST_OBJECT_HEIGHTS: Record<string, number> = {
