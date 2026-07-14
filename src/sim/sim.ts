@@ -76,6 +76,8 @@ import {
 } from './content/talents';
 import { applyCooldowns, type SavedCooldowns, serializeCooldowns } from './cooldown_persist';
 import * as crafting from './crafting';
+import * as cultivation from './cultivation';
+import { emptyPlots, restorePlots, serializePlots } from './cultivation';
 import type { DelveShopGate, DelveShopOffer } from './data';
 import {
   abilitiesKnownAt,
@@ -303,6 +305,7 @@ import {
   type OverheadEmoteId,
   type PetMode,
   type PlayerClass,
+  type Plot,
   type QuestProgress,
   type QuestState,
   RUN_SPEED,
@@ -646,6 +649,10 @@ export interface PlayerMeta {
   // Account bank: items parked at a stash-keeper NPC. Server-authoritative,
   // persists in CharacterState, structurally identical to inventory/vendorBuyback.
   stash: InvSlot[];
+  // Cultivation: the player's personal garden plots (GARDEN_PLOT_COUNT). Each holds a
+  // planted seed maturing over sim-time, or is empty. Server-authoritative; persisted
+  // in CharacterState (elapsed grow time, rebased on load). See src/sim/cultivation.ts.
+  plots: Plot[];
   copper: number;
   equipment: PlayerEquipment;
   xp: number;
@@ -761,6 +768,11 @@ export interface CharacterState {
   vendorBuyback?: InvSlot[];
   // Account bank contents. Optional so pre-stash saves load cleanly (defaults to []).
   stash?: InvSlot[];
+  // Garden plots. Optional so pre-cultivation saves load cleanly (defaults to empty).
+  // Stores `grown` (elapsed sim-seconds) rather than an absolute plant time so growth
+  // resumes correctly after a restart (the sim clock resets); rebased to plantedAt on
+  // load. A null entry (or a short array) is an empty plot; missing entries pad empty.
+  plots?: ({ seedItemId: string; grown: number } | null)[];
   questLog: { questId: string; counts: number[]; state: 'active' | 'ready' | 'done' }[];
   questsDone: string[];
   // Legacy arenaRating/Wins/Losses are treated as 1v1 data. The explicit
@@ -1204,6 +1216,7 @@ export class Sim {
       inventory: [],
       vendorBuyback: [],
       stash: [],
+      plots: emptyPlots(),
       copper: 0,
       equipment: { mainhand: classDef.startWeapon, chest: classDef.startChest },
       xp: 0,
@@ -1266,6 +1279,7 @@ export class Sim {
       meta.inventory = s.inventory.map((i) => ({ ...i }));
       meta.vendorBuyback = (s.vendorBuyback ?? []).map((i) => ({ ...i }));
       meta.stash = (s.stash ?? []).map((i) => ({ ...i }));
+      meta.plots = restorePlots(s.plots, this.time);
       for (const q of s.questLog) {
         if (q.state !== 'done')
           meta.questLog.set(q.questId, {
@@ -1473,6 +1487,7 @@ export class Sim {
       inventory: meta.inventory.map((i) => ({ ...i })),
       vendorBuyback: meta.vendorBuyback.map((i) => ({ ...i })),
       stash: meta.stash.map((i) => ({ ...i })),
+      plots: serializePlots(meta.plots, this.time),
       questLog: [...meta.questLog.values()].map((q) => ({
         questId: q.questId,
         counts: [...q.counts],
@@ -1669,6 +1684,9 @@ export class Sim {
   }
   get stash(): InvSlot[] {
     return this.primary.stash;
+  }
+  get plots(): Plot[] {
+    return this.primary.plots;
   }
   get equipment(): PlayerEquipment {
     return this.primary.equipment;
@@ -4515,6 +4533,17 @@ export class Sim {
 
   withdrawFromStash(itemId: string, count = 1, pid?: number): void {
     stash.stashWithdraw(this.ctx, itemId, count, pid);
+  }
+
+  // Cultivation: plant a carried seed into an empty garden plot, or harvest a matured
+  // one. Server-authoritative (validation lives in cultivation.ts); the plots are
+  // per-player PlayerMeta state, persisted in the character save.
+  plantSeed(plotIndex: number, seedItemId: string, pid?: number): void {
+    cultivation.plantSeed(this.ctx, plotIndex, seedItemId, pid);
+  }
+
+  harvestPlot(plotIndex: number, pid?: number): void {
+    cultivation.harvestPlot(this.ctx, plotIndex, pid);
   }
 
   private maybeAutoEquip(itemId: string, meta: PlayerMeta): void {

@@ -53,6 +53,8 @@ P3 (nice-to-have). "Effort" is a rough order of magnitude. Companion to
 | TD21 | P3 | Character customization is skin-only (no gender/hair/face/clothing) | `src/ui/character_appearance.ts` (46 lines) |
 | TD24 | P3 | Bloom Session buff names ship as English backstops (not localized) | `Restful/Lively/Balanced Bloom`, `Couch-Lock`, `Slow-Bloom` in `content/crafting.ts`; consistent with existing `Blessing of the Bloom`/`Riftforged Edge`. Register `aura.*` keys + fills at localization pass |
 | TD25 | P3 | A pending edible Session is transient (lost on relog) | `Entity.pendingSession` is not serialized; onset is ~12s so impact is minimal. Persist if edibles get long onsets |
+| TD26 | P3 | Cultivation player strings ship as English backstops | "You plant/harvest {name}." + plot error toasts + plant names in `content/cultivation.ts`, emitted from the module (not scanned by S3). Register in `sim_i18n.ts` at the localization pass |
+| TD27 | P3 | Plants do not grow while the owner is offline | `cultivation.ts` rebases growth onto the live sim clock (deterministic, no wall-clock), so a logged-out player's plants pause and resume on load. Add server-side wall-clock offline progress if desired |
 
 ## Security / supply chain (monitor)
 

@@ -19,6 +19,7 @@ import {
   ITEMS,
   MOBS,
   NPCS,
+  PLANTS,
   QUEST_ORDER,
   QUESTS,
 } from '../src/sim/data';
@@ -183,6 +184,20 @@ describe('content id-integrity', () => {
       }
       if (!hasItem(recipe.output.itemId)) {
         bad.push({ where: `CRAFT_RECIPES.${recipe.id}.output`, id: recipe.output.itemId });
+      }
+    }
+    expect(bad).toEqual([]);
+  });
+
+  it('every plantable seed and its harvest yields are real items', () => {
+    const bad: Violation[] = [];
+    for (const [seedId, plant] of Object.entries(PLANTS)) {
+      if (!hasItem(seedId)) bad.push({ where: 'PLANTS (seed id)', id: seedId });
+      if (plant.seedItemId !== seedId) {
+        bad.push({ where: `PLANTS.${seedId}.seedItemId mismatch`, id: plant.seedItemId });
+      }
+      for (const y of plant.yields) {
+        if (!hasItem(y.itemId)) bad.push({ where: `PLANTS.${seedId}.yields`, id: y.itemId });
       }
     }
     expect(bad).toEqual([]);

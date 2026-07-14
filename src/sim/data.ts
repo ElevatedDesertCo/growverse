@@ -25,6 +25,7 @@ import type {
 export type { FishingEntry } from './content/items';
 export { FISHING_RARE_ID, FISHING_TABLES };
 
+import { PLANTS } from './content/cultivation';
 import {
   BROTHER_HALVEN,
   COLLAPSED_RELIQUARY_DELVE,
@@ -249,7 +250,8 @@ export const GROUND_OBJECTS: GroundObjectDef[] = [
 
 // Resource-gathering nodes (harvest.ts): the node defs + their world placements.
 // Spawned as ground objects carrying `harvestNodeId` in the Sim world-init.
-export { HARVEST_NODE_SPAWNS, HARVEST_NODES };
+// Cultivation (cultivation.ts): what each plantable seed grows into.
+export { HARVEST_NODE_SPAWNS, HARVEST_NODES, PLANTS };
 
 export const ROADS: { x: number; z: number }[][] = [
   ...ZONE1_ROADS,

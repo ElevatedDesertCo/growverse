@@ -35,7 +35,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 495,
-      "state": "3b99a65e",
+      "state": "4ad9860e",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -58,103 +58,13 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
-          "talents": {
-            "choices": {},
-            "ranks": {}
-          }
-        }
-      ],
-      "entities": [
-        {
-          "aiState": "idle",
-          "attackPower": 46,
-          "combatTimer": 99,
-          "critChance": 0.06,
-          "detonateTimer": "Infinity",
-          "dodgeChance": 0.06,
-          "fallStartY": 1.5,
-          "fiveSecondRule": 99,
-          "hp": 90,
-          "id": 494,
-          "kind": "player",
-          "level": 1,
-          "lootFfaTimer": "Infinity",
-          "maxHp": 90,
-          "maxResource": 100,
-          "moveSpeed": 7,
-          "onGround": true,
-          "overpowerUntil": -1,
-          "petMode": "defensive",
-          "pos": {
-            "x": -5.162525,
-            "y": 1.5,
-            "z": -1.959986
-          },
-          "potionCooldownUntil": -1,
-          "resourceType": "rage",
-          "spawnPos": {
-            "x": 2,
-            "y": 1.5,
-            "z": -2
-          },
-          "spellPower": 5,
-          "stats": {
-            "agi": 20,
-            "armor": 110,
-            "int": 10,
-            "spi": 11,
-            "sta": 22,
-            "str": 23
-          },
-          "templateId": "warrior",
-          "weapon": {
-            "max": 5,
-            "min": 2,
-            "speed": 2
-          }
-        }
-      ]
-    },
-    {
-      "tick": 0,
-      "time": 0,
-      "nextId": 495,
-      "state": "5208dcde",
-      "events": "df717554",
-      "rng": {
-        "draws": 0,
-        "digest": "811c9dc5"
-      },
-      "label": "bought",
-      "players": [
-        {
-          "activeLoadout": -1,
-          "arena2v2Rating": 1500,
-          "arenaRating": 1500,
-          "cls": "warrior",
-          "companionUpgrades": {},
-          "copper": 710,
-          "counters": {},
-          "delveClears": {},
-          "delveDaily": {},
-          "entityId": 494,
-          "equipment": {
-            "chest": "recruit_tunic",
-            "mainhand": "worn_sword"
-          },
-          "inventory": [
-            {
-              "count": 5,
-              "itemId": "baked_bread"
-            },
-            {
-              "count": 5,
-              "itemId": "spring_water"
-            },
-            {
-              "count": 1,
-              "itemId": "minor_healing_potion"
-            }
+          "plots": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
           ],
           "talents": {
             "choices": {},
@@ -217,7 +127,113 @@
       "tick": 0,
       "time": 0,
       "nextId": 495,
-      "state": "5c911af8",
+      "state": "15f3948e",
+      "events": "df717554",
+      "rng": {
+        "draws": 0,
+        "digest": "811c9dc5"
+      },
+      "label": "bought",
+      "players": [
+        {
+          "activeLoadout": -1,
+          "arena2v2Rating": 1500,
+          "arenaRating": 1500,
+          "cls": "warrior",
+          "companionUpgrades": {},
+          "copper": 710,
+          "counters": {},
+          "delveClears": {},
+          "delveDaily": {},
+          "entityId": 494,
+          "equipment": {
+            "chest": "recruit_tunic",
+            "mainhand": "worn_sword"
+          },
+          "inventory": [
+            {
+              "count": 5,
+              "itemId": "baked_bread"
+            },
+            {
+              "count": 5,
+              "itemId": "spring_water"
+            },
+            {
+              "count": 1,
+              "itemId": "minor_healing_potion"
+            }
+          ],
+          "plots": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+          ],
+          "talents": {
+            "choices": {},
+            "ranks": {}
+          }
+        }
+      ],
+      "entities": [
+        {
+          "aiState": "idle",
+          "attackPower": 46,
+          "combatTimer": 99,
+          "critChance": 0.06,
+          "detonateTimer": "Infinity",
+          "dodgeChance": 0.06,
+          "fallStartY": 1.5,
+          "fiveSecondRule": 99,
+          "hp": 90,
+          "id": 494,
+          "kind": "player",
+          "level": 1,
+          "lootFfaTimer": "Infinity",
+          "maxHp": 90,
+          "maxResource": 100,
+          "moveSpeed": 7,
+          "onGround": true,
+          "overpowerUntil": -1,
+          "petMode": "defensive",
+          "pos": {
+            "x": -5.162525,
+            "y": 1.5,
+            "z": -1.959986
+          },
+          "potionCooldownUntil": -1,
+          "resourceType": "rage",
+          "spawnPos": {
+            "x": 2,
+            "y": 1.5,
+            "z": -2
+          },
+          "spellPower": 5,
+          "stats": {
+            "agi": 20,
+            "armor": 110,
+            "int": 10,
+            "spi": 11,
+            "sta": 22,
+            "str": 23
+          },
+          "templateId": "warrior",
+          "weapon": {
+            "max": 5,
+            "min": 2,
+            "speed": 2
+          }
+        }
+      ]
+    },
+    {
+      "tick": 0,
+      "time": 0,
+      "nextId": 495,
+      "state": "cbdd14a0",
       "events": "f05d7034",
       "rng": {
         "draws": 0,
@@ -258,6 +274,14 @@
               "count": 1,
               "itemId": "roadwardens_helm"
             }
+          ],
+          "plots": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
           ],
           "talents": {
             "choices": {},
@@ -320,7 +344,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 495,
-      "state": "d897064c",
+      "state": "b53e7f84",
       "events": "51517c0a",
       "rng": {
         "draws": 0,
@@ -361,6 +385,14 @@
               "count": 1,
               "itemId": "cryptbone_helm"
             }
+          ],
+          "plots": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
           ],
           "talents": {
             "choices": {},
@@ -423,7 +455,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 495,
-      "state": "bdb2dddc",
+      "state": "902f5914",
       "events": "a3d21217",
       "rng": {
         "draws": 0,
@@ -468,6 +500,14 @@
               "itemId": "roadwardens_helm"
             }
           ],
+          "plots": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+          ],
           "talents": {
             "choices": {},
             "ranks": {}
@@ -529,7 +569,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 495,
-      "state": "c98a8a53",
+      "state": "cd0e5ec3",
       "events": "14e19551",
       "rng": {
         "draws": 0,
@@ -574,6 +614,14 @@
               "itemId": "roadwardens_helm"
             }
           ],
+          "plots": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+          ],
           "talents": {
             "choices": {},
             "ranks": {}
@@ -648,7 +696,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 495,
-      "state": "f8c99cac",
+      "state": "4d1344e4",
       "events": "c3c59ee2",
       "rng": {
         "draws": 0,
@@ -688,6 +736,14 @@
               "count": 1,
               "itemId": "roadwardens_helm"
             }
+          ],
+          "plots": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
           ],
           "talents": {
             "choices": {},
@@ -763,7 +819,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 495,
-      "state": "5a1fe2e4",
+      "state": "5ed60d2c",
       "events": "37f013dd",
       "rng": {
         "draws": 0,
@@ -803,6 +859,14 @@
               "count": 1,
               "itemId": "roadwardens_helm"
             }
+          ],
+          "plots": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
           ],
           "talents": {
             "choices": {},
@@ -890,7 +954,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 495,
-      "state": "81b1f812",
+      "state": "fe5a1e52",
       "events": "eff1d84a",
       "rng": {
         "draws": 0,
@@ -935,6 +999,14 @@
               "itemId": "wolf_fang"
             }
           ],
+          "plots": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
+          ],
           "talents": {
             "choices": {},
             "ranks": {}
@@ -1021,7 +1093,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 495,
-      "state": "95dd4b7d",
+      "state": "cb7d131d",
       "events": "82d04d70",
       "rng": {
         "draws": 0,
@@ -1065,6 +1137,14 @@
               "count": 1,
               "itemId": "wolf_fang"
             }
+          ],
+          "plots": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
           ],
           "talents": {
             "choices": {},
@@ -1158,7 +1238,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 495,
-      "state": "79028370",
+      "state": "1f682290",
       "events": "4544de0c",
       "rng": {
         "draws": 0,
@@ -1198,6 +1278,14 @@
               "count": 1,
               "itemId": "roadwardens_helm"
             }
+          ],
+          "plots": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
           ],
           "talents": {
             "choices": {},
@@ -1295,7 +1383,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 495,
-      "state": "cd472f76",
+      "state": "4602a1a6",
       "events": "5cd768d5",
       "rng": {
         "draws": 0,
@@ -1339,6 +1427,14 @@
               "count": 1,
               "itemId": "wolf_fang"
             }
+          ],
+          "plots": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
           ],
           "talents": {
             "choices": {},
@@ -1436,7 +1532,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 495,
-      "state": "cd472f76",
+      "state": "4602a1a6",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -1480,6 +1576,14 @@
               "count": 1,
               "itemId": "wolf_fang"
             }
+          ],
+          "plots": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {}
           ],
           "talents": {
             "choices": {},

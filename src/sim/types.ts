@@ -1195,6 +1195,29 @@ export interface CampDef {
   count: number;
 }
 
+// Cultivation (Growverse). A personal garden plot: empty when `seedItemId` is null,
+// otherwise a seed planted at sim-time `plantedAt` that matures over its PlantDef's
+// `growSeconds`. Per-player state (PlayerMeta.plots, a fixed GARDEN_PLOT_COUNT),
+// persisted in CharacterState with the elapsed grow time rebased on load so growth
+// resumes across a relog/restart (see src/sim/cultivation.ts).
+export interface Plot {
+  seedItemId: string | null;
+  plantedAt: number;
+}
+export interface PlantYield {
+  itemId: string;
+  count: number;
+}
+export interface PlantDef {
+  seedItemId: string;
+  name: string; // English source; the growing plant's display name
+  growSeconds: number;
+  yields: PlantYield[]; // granted on harvest
+}
+// A player's garden size. A small fixed set for v1; a settlement/upgrade path can grow
+// it later. Kept here (a shared tuning constant) so entity init and persistence agree.
+export const GARDEN_PLOT_COUNT = 6;
+
 // Ground interactables (sparkle objects)
 export interface GroundObjectDef {
   itemId: string;
