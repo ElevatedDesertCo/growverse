@@ -37,7 +37,25 @@ These are high-value, mostly data-only or self-contained, and safe to do first.
 | QW1 | Fix the Mirror Lake fishing-cast regression (DONE) | `npm test` was RED and blocked CI; a by-design `q_murlocs` Siltling reached the reseated dock's computed fishing spot. Fixed test-first (clear mobs, matching sibling fishing tests) | `tests/sim.test.ts` | Low |
 | QW2 | Add content id-integrity test/CI gate | No check that `loot.itemId`/`requiresQuest`/spawn ids exist; a typo ships silently and this is a landmine at content scale | new `tests/content_integrity.test.ts`, `src/sim/data.ts` | Low |
 | QW3 | Wire Sessions (strain buffs) onto existing items (DONE) | Turns the "grow" theme into real power via Bloom tonics (elixir extension): spark (instant) vs edible (delayed onset), Restful/Lively/Balanced profiles, restful couch-lock tradeoff. Brewed at the Alchemy Lab from Bloom Extract. Reuses the auras + "You quaff" path; no seam changes | `sim/sessions.ts` (new), `types.ts`, `entity.ts`, `items.ts`, `sim.ts`, `net/online.ts`, `content/crafting.ts`, `tests/sessions.test.ts` | Low-Med |
-| QW4 | Execute the starter-zone divergence (data-only) | Breaks the WoW "kill wolves/boars/spiders" fingerprint in the first hour; ids/text/mob-names/POIs per `starter-zone-redesign.md` | `content/zone1.ts`, `src/ui/world_entity_i18n.ts` | Low-Med |
+| QW4 | Execute the starter-zone divergence (data-only) | Breaks the WoW "kill wolves/boars/spiders" fingerprint in the first hour; ids/text/mob-names/POIs per `starter-zone-redesign.md` | `content/zone1.ts`, `src/ui/world_entity_i18n.ts` | GATED (see below) |
+
+**QW4 is gated (not a clean autonomous change):**
+1. **Owner canon.** The names are exactly what `docs/design/starter-zone-redesign.md`
+   section 7 lists as open: real Baked Beaver NPC names, the antagonist ("the Dry" vs the
+   comedic "Narcs"), and per-quest tone. Authoring names without canon risks rework and
+   violates the "use real IP, do not invent" rule.
+2. **Localization scale.** Renaming any mob/NPC/quest/POI or rewriting a quest narrative
+   creates a new wordy English value in the resolved catalog (`entities.*`), and
+   `tests/i18n_completeness.test.ts` (M16) reds at PR tier on any such value left
+   byte-identical in the five non-Latin locales (zh_CN/zh_TW/ja_JP/ko_KR/ru_RU). A full
+   starter rewrite is ~15 to 20 names + narratives x 5 locales, a maintainer-coordinated
+   i18n pass, not a solo English-only edit. (This same gate applies to Phase D's
+   zone-by-zone divergence.) Proper-noun brand terms (e.g. "Baked Beaver", "The Sluice")
+   can go on the M16 `BRAND_ALLOW` list; common names and prose cannot.
+
+Recommended handling: land the divergence in small batches where the five non-Latin fills
+are supplied in the same change (owner/maintainer), starting once the canon in
+`starter-zone-redesign.md` section 7 is decided.
 | QW5 | Extract fishing channel out of `sim.ts` into `fishing.ts` | Removes a documented duplication (mirrors `harvest.ts`), shrinks the monolith, adds testability | `src/sim/sim.ts` -> new `src/sim/fishing.ts` | Low |
 | QW6 | Branding convergence sweep (domain/token/package audit doc) | The rebrand is half-done (old brand in 220 files: canonical URL, mobile package ids, $WOC token); catalog what must change and stage it | `index.html`, `sitemap`, android/ios ids, `woc_balance.ts` | Med (identity-level; do as a tracked sweep, not ad hoc) |
 
