@@ -1538,6 +1538,16 @@ export interface QuestDef {
   requiredItems?: string[]; // quest items obtained earlier (e.g. a prerequisite reward) that this
   // quest needs; re-granted on accept if the player no longer has them, to avoid a progression block
   minLevel?: number;
+  // Branching (Phase D): world-flag gates + consequences. A quest is available only when
+  // `requiresFlag` (if set) is present AND `forbidsFlag` (if set) is absent from the
+  // player's persistent worldFlags. Accepting sets `setsFlagOnAccept`; turning in sets
+  // `setsFlagOnTurnIn`. Two quests that each set a flag the other forbids form a mutually
+  // exclusive CHOICE (the player branches by which one they accept), and a later quest can
+  // gate on the chosen flag, making the choice a persistent consequence.
+  requiresFlag?: string;
+  forbidsFlag?: string;
+  setsFlagOnAccept?: string;
+  setsFlagOnTurnIn?: string;
   retired?: boolean; // remains finishable if already accepted, but cannot be newly accepted
   shareable?: boolean; // quest-link sharing allowed (default true; set false to opt out)
   suggestedPlayers?: number; // group quests ("Suggested players: 5")

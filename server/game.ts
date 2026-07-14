@@ -3209,6 +3209,7 @@ export class GameServer {
       maybe('cosmetics', anchorSession.accountCosmetics);
       maybe('qlog', [...meta.questLog.values()]);
       maybe('qdone', [...meta.questsDone]);
+      maybe('flags', [...meta.worldFlags]);
       maybe('milestones', [...meta.unlockedMilestones]);
       // talents/spec/loadouts: the client recomputes its known abilities from this.
       maybe('tal', {

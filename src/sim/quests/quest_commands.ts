@@ -41,11 +41,16 @@ import {
 // Pure quest-state computation, shared by the sim and the network client. Relocated
 // from sim.ts (W4) and re-exported from sim.ts so the ClientWorld import
 // (`import { computeQuestState } from '../sim/sim'`) stays byte-identical.
+// Empty default so any caller that predates the worldFlags param (Phase D) still compiles;
+// the two real callers (questState here, ClientWorld's local display) pass the live set.
+const NO_FLAGS: ReadonlySet<string> = new Set();
+
 export function computeQuestState(
   questId: string,
   questLog: Map<string, QuestProgress>,
   questsDone: Set<string>,
   playerLevel: number,
+  worldFlags: ReadonlySet<string> = NO_FLAGS,
 ): QuestState {
   if (questsDone.has(questId)) return 'done';
   const qp = questLog.get(questId);
@@ -55,13 +60,22 @@ export function computeQuestState(
   if (quest.requiresQuest && !questsDone.has(quest.requiresQuest)) return 'unavailable';
   if (quest.minLevel && playerLevel < quest.minLevel) return 'unavailable';
   if (quest.retired) return 'unavailable';
+  // Branch gates (Phase D): a required flag must be present, a forbidding flag absent.
+  if (quest.requiresFlag && !worldFlags.has(quest.requiresFlag)) return 'unavailable';
+  if (quest.forbidsFlag && worldFlags.has(quest.forbidsFlag)) return 'unavailable';
   return 'available';
 }
 
 export function questState(ctx: SimContext, questId: string, pid?: number): QuestState {
   const r = ctx.resolve(pid);
   if (!r) return 'unavailable';
-  return computeQuestState(questId, r.meta.questLog, r.meta.questsDone, r.e.level);
+  return computeQuestState(
+    questId,
+    r.meta.questLog,
+    r.meta.questsDone,
+    r.e.level,
+    r.meta.worldFlags,
+  );
 }
 
 function questNpcFor(
@@ -94,6 +108,7 @@ export function finalizeQuestAccept(
   meta: PlayerMeta,
 ): void {
   meta.questLog.set(questId, { questId, counts: quest.objectives.map(() => 0), state: 'active' });
+  if (quest.setsFlagOnAccept) meta.worldFlags.add(quest.setsFlagOnAccept);
   for (const itemId of questFallbackGrants(quest, (id) => ctx.countItem(id, meta.entityId) > 0)) {
     ctx.addItem(itemId, 1, meta.entityId);
   }
@@ -219,6 +234,7 @@ export function turnInQuestCore(
   qp.state = 'done';
   meta.questLog.delete(questId);
   meta.questsDone.add(questId);
+  if (quest.setsFlagOnTurnIn) meta.worldFlags.add(quest.setsFlagOnTurnIn);
   meta.counters.questsCompleted++;
   if (quest.copperReward > 0) {
     meta.copper += quest.copperReward;

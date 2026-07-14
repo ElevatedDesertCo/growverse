@@ -699,6 +699,10 @@ export interface PlayerMeta {
   known: ResolvedAbility[];
   questLog: Map<string, QuestProgress>;
   questsDone: Set<string>;
+  // Persistent story/branch flags set by quest choices (Phase D). A quest can gate its
+  // availability on a flag and set one on accept/turn-in, so a player's choice endures.
+  // Server-authoritative; persisted in CharacterState. See src/sim/quests/quest_commands.ts.
+  worldFlags: Set<string>;
   counters: RewardCounters;
   autoEquip: boolean;
   // sim.time when this character entered the world; powers /played. Session-only
@@ -819,6 +823,8 @@ export interface CharacterState {
   reputation?: SavedReputation;
   questLog: { questId: string; counts: number[]; state: 'active' | 'ready' | 'done' }[];
   questsDone: string[];
+  // Persistent quest branch flags. Optional so pre-Phase-D saves load cleanly (default []).
+  worldFlags?: string[];
   // Legacy arenaRating/Wins/Losses are treated as 1v1 data. The explicit
   // 1v1 fields are written by new saves, while old saves fall back cleanly.
   arenaRating?: number;
@@ -1274,6 +1280,7 @@ export class Sim {
       known: [],
       questLog: new Map(),
       questsDone: new Set(),
+      worldFlags: new Set(),
       counters: freshCounters(),
       autoEquip: opts?.autoEquip ?? false,
       joinedAt: this.time,
@@ -1339,6 +1346,7 @@ export class Sim {
           });
       }
       for (const q of s.questsDone) meta.questsDone.add(q);
+      if (s.worldFlags) for (const f of s.worldFlags) meta.worldFlags.add(f);
       if (s.talents)
         // Revalidate the persisted build against the current rules + level budget
         // before it is baked into the flat mods below. A stored allocation replays
@@ -1547,6 +1555,7 @@ export class Sim {
         state: q.state,
       })),
       questsDone: [...meta.questsDone],
+      worldFlags: [...meta.worldFlags],
       arenaRating: meta.arenaRating,
       arenaWins: meta.arenaWins,
       arenaLosses: meta.arenaLosses,
