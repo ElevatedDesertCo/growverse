@@ -1110,7 +1110,7 @@ const DRESS_SCALE: Record<DressKind, [number, number]> = {
   mushroom: [0.9, 0.8],
   grass: [0.7, 0.9],
   grassTall: [0.85, 1.0],
-  flower: [0.9, 0.6], // bush-sized clumps: a visible desert-bloom accent
+  flower: [1.8, 0.9], // waist-high bloom clumps: a bold, clearly visible accent
 };
 
 function tooSteep(x: number, z: number, seed: number): boolean {
