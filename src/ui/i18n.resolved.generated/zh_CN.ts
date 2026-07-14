@@ -1104,6 +1104,9 @@ export const zh_CN: EnTranslations = {
       "introHint": "面向开阔水面并按 F 抛出鱼线。",
       "caughtPopup": "你钓到了 {item}！",
       "nothing": "什么都没钓到。"
+    },
+    "harvest": {
+      "gatheredPopup": "采集到 {item}"
     }
   },
   "guide": {
@@ -5113,6 +5116,12 @@ export const zh_CN: EnTranslations = {
       "slow_bloom_lozenge": {
         "name": "缓释绽放含片"
       },
+      "purple_petal": {
+        "name": "紫色花瓣"
+      },
+      "golden_petal": {
+        "name": "金色花瓣"
+      },
       "bristleback_maul": {
         "name": "硬鬃重槌"
       },
@@ -7146,7 +7155,7 @@ export const zh_CN: EnTranslations = {
             "label": "Baked Beaver"
           },
           "11": {
-            "label": "The Sluice"
+            "label": "The Lodge"
           }
         }
       },

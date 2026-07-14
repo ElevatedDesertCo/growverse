@@ -1144,6 +1144,8 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'entities.items.lively_bloom_tonic.name': 'Thuốc Bổ Hoa Sống Động',
   'entities.items.balanced_bloom_tonic.name': 'Thuốc Bổ Hoa Cân Bằng',
   'entities.items.slow_bloom_lozenge.name': 'Viên Ngậm Nở Chậm',
+  'entities.items.purple_petal.name': 'Cánh Hoa Tím',
+  'entities.items.golden_petal.name': 'Cánh Hoa Vàng',
   'entities.items.raw_river_perch.name': 'Cá Rô Sông Sống',
   'entities.items.raw_stonescale_carp.name': 'Cá Chép Vảy Đá Sống',
   'entities.items.recruit_tunic.name': 'Áo Da của Tân Binh',

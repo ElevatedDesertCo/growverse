@@ -192,6 +192,7 @@ import {
   enterGroundAim,
   type GroundAimState,
 } from './ground_aim';
+import { createHarvestGatherPopup, type HarvestGatherPopup } from './harvest_gather_popup';
 import {
   holderTierBadgeDataUrl,
   holderTierByIndex,
@@ -752,6 +753,10 @@ export class Hud {
   private subzoneEl = $('#subzone-banner');
   // One-shot fishing catch/miss card, composed over the HUD (its own module).
   private fishingCatchPopup: FishingCatchPopup = createFishingCatchPopup(
+    this.bannerEl.parentElement ?? document.body,
+  );
+  // One-shot harvest gather card, composed over the HUD (its own module).
+  private harvestGatherPopup: HarvestGatherPopup = createHarvestGatherPopup(
     this.bannerEl.parentElement ?? document.body,
   );
   private tooltipEl = $('#tooltip');
@@ -6591,6 +6596,18 @@ export class Hud {
             : t('hudChrome.fishing.nothing');
           this.fishingCatchPopup.show({ title, itemId: ev.itemId, rare: ev.rare });
           if (ev.itemId) audio.lootItem();
+          break;
+        }
+        case 'harvestGather': {
+          // The sim only sends the gathered reagent's id; localize the name + copy
+          // here and show its icon. The plain 'loot' "You receive" line the sim also
+          // emitted (via addItem) still records it in chat and plays the pickup sound.
+          this.harvestGatherPopup.show({
+            title: t('hudChrome.harvest.gatheredPopup', {
+              item: tEntity({ kind: 'item', id: ev.itemId, field: 'name' }),
+            }),
+            itemId: ev.itemId,
+          });
           break;
         }
         case 'loot': {

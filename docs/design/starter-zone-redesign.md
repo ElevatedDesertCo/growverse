@@ -1,14 +1,25 @@
 # Starter Zone Redesign: the cannabis / stoner / fantasy MMORPG
 
-Status: PROPOSAL for review. This fills the "New (yours)" column of `docs/content-audit.md`
-for the starter zone (`eastbrook_vale`, currently "Bloomhaven Vale") and sets the world
-pillars everything else inherits from. Nothing here is committed to code yet.
+Status: CANON LOCKED (2026-07-13), starter-zone build in progress. This fills the "New
+(yours)" column of `docs/content-audit.md` for the starter zone (`eastbrook_vale`, currently
+"Bloomhaven Vale") and sets the world pillars everything else inherits from.
 
-Anything below framed as lore (the Baked Beavers, the Bloom, the antagonist) is a PROPOSED
-direction built on what already lives in the repo: the "Baked Beaver" landmark, the Bloom /
-Bloomhaven vocabulary, the desert-and-water theming of The Dam / The Tanque / The Reservoir,
-and the fishing and cannabis-growing systems already added. Correct any of it with the real
-Baked Beaver canon and I rework from there.
+Locked decisions (owner sign-off):
+1. **Elder of the Baked Beaver commune = Chief Beaver.** (Replaces the "Elder Dampaw"
+   placeholder everywhere.) Further Baked Beaver character names come from owner canon as
+   needed.
+2. **The sacred cannabis = the Bloom.** Confirmed as the world term.
+3. **Antagonists: both.** The Dry (drought anti-Bloom force, husks people into the Dried) is
+   the sincere threat; the Narcs (prohibition constructs/golems, played for comedy) are the
+   recurring comic villains. Both ship.
+4. **NFT Baked Beaver = all three:** companion pet AND mount AND commune-membership badge.
+5. **Tone: a mix.** A sincere fantasy world that genuinely runs on the Bloom, with room for
+   stoner comedy in the villains, flavor text, and side beats. Sincere stakes, funny texture.
+
+Lore below (the Baked Beavers, the Bloom, the antagonists) builds on what already lives in the
+repo: the "Baked Beaver" landmark, the Bloom / Bloomhaven vocabulary, the desert-and-water
+theming of The Dam / The Tanque / The Reservoir, and the fishing and cannabis-growing systems
+already added.
 
 ---
 
@@ -81,7 +92,7 @@ around the first and greatest Bloom garden, watered by the beavers' dams.
 | Withered Shrine | The Withered Bloom | a first patch of Bloom killed by the Dry |
 | Reliquary Hill | Seedvault Hill | where the beavers keep heirloom genetics |
 | Bloomwood Glade | Bloomwood Glade (keep) | already yours |
-| The Sluice (landmark) | The Sluice (keep) | already yours |
+| The Sluice (landmark) | The Lodge | beaver forward camp; the pond outpost, renamed off "Sluice" |
 
 ## 4. New starter quest chain (breaks the fingerprint, teaches the pillars)
 Objectives (kill N, collect N, talk to X) are mechanics and stay; names, givers, story, and

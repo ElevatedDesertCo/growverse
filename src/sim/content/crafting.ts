@@ -239,6 +239,23 @@ export const CRAFT_ITEMS: Record<string, ItemDef> = {
     quality: 'common',
     sellValue: 3,
   },
+  // Colored petals harvested from the vale's tinted flower patches. Purple petals
+  // are the Alchemist's potion reagent; golden petals are pressed into a growth
+  // booster at the Grow Station. Each color is its own harvest node (gathering.ts).
+  purple_petal: {
+    id: 'purple_petal',
+    name: 'Purple Petal',
+    kind: 'junk',
+    quality: 'common',
+    sellValue: 3,
+  },
+  golden_petal: {
+    id: 'golden_petal',
+    name: 'Golden Petal',
+    kind: 'junk',
+    quality: 'common',
+    sellValue: 3,
+  },
   swirling_healing_draught: {
     id: 'swirling_healing_draught',
     name: 'Swirling Healing Draught',
@@ -431,6 +448,16 @@ export const CRAFT_RECIPES: CraftRecipe[] = [
     inputs: [{ itemId: 'flow_essence', count: 2 }],
     copperCost: 15,
     output: { itemId: 'flow_nutrient', count: 1 },
+  },
+  // Golden petals (harvested from the vale's golden flower patch) press into a
+  // potent growth booster.
+  {
+    id: 'craft_golden_booster',
+    station: 'grow',
+    category: 'nutrient',
+    inputs: [{ itemId: 'golden_petal', count: 2 }],
+    copperCost: 15,
+    output: { itemId: 'bloom_nutrient', count: 1 },
   },
   // --- Grow Station: seed strains --------------------------------------------
   {
@@ -635,6 +662,24 @@ export const CRAFT_RECIPES: CraftRecipe[] = [
     copperCost: 40,
     requiredLevel: 8,
     output: { itemId: 'slow_bloom_lozenge', count: 1 },
+  },
+  // Purple petals (harvested from the vale's purple flower patch) brew straight
+  // into restorative draughts, the Alchemist's potion line.
+  {
+    id: 'alchemy_purple_healing',
+    station: 'alchemy',
+    category: 'consumable',
+    inputs: [{ itemId: 'purple_petal', count: 2 }],
+    copperCost: 10,
+    output: { itemId: 'swirling_healing_draught', count: 1 },
+  },
+  {
+    id: 'alchemy_purple_mana',
+    station: 'alchemy',
+    category: 'consumable',
+    inputs: [{ itemId: 'purple_petal', count: 2 }],
+    copperCost: 10,
+    output: { itemId: 'swirling_mana_draught', count: 1 },
   },
 ];
 

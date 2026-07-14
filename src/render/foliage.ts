@@ -78,7 +78,6 @@ const FOLIAGE_MODEL_URLS_HIGH = {
   dead: [1, 2, 3].map((i) => `${MODEL_DIR}dead_${i}.glb`),
   rock: [1, 2, 3].map((i) => `${MODEL_DIR}rock_${i}.glb`),
   bush: [`${MODEL_DIR}bush.glb`],
-  bushFlowers: [`${MODEL_DIR}bush_flowers.glb`],
   fern: [`${MODEL_DIR}fern.glb`],
   mushroom: [`${MODEL_DIR}mushroom.glb`],
   grass: [`${MODEL_DIR}grass.glb`],
@@ -92,7 +91,6 @@ const FOLIAGE_MODEL_URLS_LOW = {
   dead: [1].map((i) => `${MODEL_DIR}dead_${i}.glb`),
   rock: [1].map((i) => `${MODEL_DIR}rock_${i}.glb`),
   bush: [`${MODEL_DIR}bush.glb`],
-  bushFlowers: [`${MODEL_DIR}bush_flowers.glb`],
   fern: [`${MODEL_DIR}fern.glb`],
   mushroom: [`${MODEL_DIR}mushroom.glb`],
   grass: [`${MODEL_DIR}grass.glb`],
@@ -599,7 +597,6 @@ export function buildFoliageMaterialPrewarmGroup(): THREE.Group {
     ...MODEL_URLS.dead,
     ...MODEL_URLS.rock,
     MODEL_URLS.bush[0],
-    MODEL_URLS.bushFlowers[0],
     MODEL_URLS.fern[0],
     MODEL_URLS.mushroom[0],
     MODEL_URLS.grass[0],
@@ -1059,7 +1056,7 @@ function buildTrees(
 // Ground dressing: bushes, ferns, mushrooms on a deterministic hash grid
 // ---------------------------------------------------------------------------
 
-type DressKind = 'bush' | 'bushFlowers' | 'fern' | 'mushroom' | 'grass' | 'grassTall' | 'flower';
+type DressKind = 'bush' | 'fern' | 'mushroom' | 'grass' | 'grassTall' | 'flower';
 
 interface DressingSpot {
   x: number;
@@ -1082,12 +1079,12 @@ function dressStep(): number {
 function dressKindFor(biome: BiomeId, r: number): DressKind {
   if (biome === 'vale') {
     // desert scrub: dry brush dominant, mixed low and tall tufts of sun-bleached
-    // grass, sparse flowering succulents, no fungi
-    if (r < 0.42) return 'bush';
-    if (r < 0.52) return 'grass';
-    if (r < 0.58) return 'grassTall';
-    if (r < 0.68) return 'bushFlowers';
-    if (r < 0.78) return 'flower'; // geometric desert blooms, a visible accent
+    // grass, no fungi. No decorative flowers: every flower in the vale is a
+    // harvestable Flower Patch node (see sim/content/gathering.ts), so the only
+    // blooms you see are ones you can work, never dressing you cannot pick.
+    if (r < 0.5) return 'bush';
+    if (r < 0.66) return 'grass';
+    if (r < 0.8) return 'grassTall';
     return 'fern';
   }
   if (biome === 'marsh') {
@@ -1105,12 +1102,11 @@ function dressKindFor(biome: BiomeId, r: number): DressKind {
 
 const DRESS_SCALE: Record<DressKind, [number, number]> = {
   bush: [0.9, 0.7],
-  bushFlowers: [0.9, 0.7],
   fern: [0.85, 0.6],
   mushroom: [0.9, 0.8],
   grass: [0.7, 0.9],
   grassTall: [0.85, 1.0],
-  flower: [0.9, 0.6], // bush-sized clumps: a visible desert-bloom accent
+  flower: [1.8, 0.9], // waist-high bloom clumps: a bold, clearly visible accent
 };
 
 function tooSteep(x: number, z: number, seed: number): boolean {
@@ -1163,7 +1159,6 @@ function generateDressing(seed: number): DressingSpot[] {
 function buildDressing(parent: THREE.Group, seed: number, registry: BucketMesh[]): void {
   const kindParts: Record<DressKind, ModelPart[]> = {
     bush: extractParts(MODEL_URLS.bush[0]),
-    bushFlowers: extractParts(MODEL_URLS.bushFlowers[0]),
     fern: extractParts(MODEL_URLS.fern[0]),
     mushroom: extractParts(MODEL_URLS.mushroom[0]),
     grass: extractParts(MODEL_URLS.grass[0]),
@@ -1212,8 +1207,10 @@ function buildDressing(parent: THREE.Group, seed: number, registry: BucketMesh[]
           q.setFromAxisAngle(up, hashAt(s.x, s.z, 46) * Math.PI * 2);
           m.compose(v.set(s.x, y - 0.04 * s.scale, s.z), q, sv.set(s.scale, s.scale, s.scale));
           im.setMatrixAt(i, m);
-          if (kind === 'mushroom') {
-            // mushrooms keep their painted cap colors — brightness jitter only
+          if (kind === 'mushroom' || kind === 'flower') {
+            // mushrooms and flowers keep their baked cap/petal colors: the desert
+            // biome tint would bleach the flower's green/yellow/purple to a pale
+            // smear, so apply per-instance brightness jitter only, never a hue tint
             im.setColorAt(i, c.setScalar(0.85 + hashAt(s.x, s.z, 47) * 0.3));
           } else {
             im.setColorAt(

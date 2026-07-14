@@ -2343,6 +2343,8 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'entities.items.lively_bloom_tonic.name': 'Belebendes Blütentonikum',
   'entities.items.balanced_bloom_tonic.name': 'Ausgewogenes Blütentonikum',
   'entities.items.slow_bloom_lozenge.name': 'Pastille der langsamen Blüte',
+  'entities.items.purple_petal.name': 'Purpurblütenblatt',
+  'entities.items.golden_petal.name': 'Goldblütenblatt',
   'entities.items.sableweb_slippers.name': 'Sableweb-Pantoffeln',
   'entities.items.simple_fishing_pole.name': 'Einfache Angel',
   'entities.items.tangled_weed.name': 'Verheddertes Kraut',

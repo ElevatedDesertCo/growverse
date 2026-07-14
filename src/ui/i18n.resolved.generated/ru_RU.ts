@@ -1104,6 +1104,9 @@ export const ru_RU: EnTranslations = {
       "introHint": "Повернитесь к открытой воде и нажмите F, чтобы забросить леску.",
       "caughtPopup": "Вы поймали: {item}!",
       "nothing": "Ничего не поймано."
+    },
+    "harvest": {
+      "gatheredPopup": "Собрано: {item}"
     }
   },
   "guide": {
@@ -5113,6 +5116,12 @@ export const ru_RU: EnTranslations = {
       "slow_bloom_lozenge": {
         "name": "Пастилка медленного цветения"
       },
+      "purple_petal": {
+        "name": "Пурпурный лепесток"
+      },
+      "golden_petal": {
+        "name": "Золотой лепесток"
+      },
       "bristleback_maul": {
         "name": "Кувалда Щетиноспина"
       },
@@ -7146,7 +7155,7 @@ export const ru_RU: EnTranslations = {
             "label": "Baked Beaver"
           },
           "11": {
-            "label": "The Sluice"
+            "label": "The Lodge"
           }
         }
       },

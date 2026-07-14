@@ -1138,6 +1138,8 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'entities.items.lively_bloom_tonic.name': 'Canlı Çiçek Toniği',
   'entities.items.balanced_bloom_tonic.name': 'Dengeli Çiçek Toniği',
   'entities.items.slow_bloom_lozenge.name': 'Yavaş Çiçeklenme Pastili',
+  'entities.items.purple_petal.name': 'Mor Yaprak',
+  'entities.items.golden_petal.name': 'Altın Yaprak',
   'entities.items.raw_river_perch.name': 'Çiğ Nehir Levreği',
   'entities.items.raw_stonescale_carp.name': 'Çiğ Taşpul Sazanı',
   'entities.items.recruit_tunic.name': 'Acemi Erin Tuniği',

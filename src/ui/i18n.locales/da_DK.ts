@@ -1130,6 +1130,8 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'entities.items.lively_bloom_tonic.name': 'Livlig Blomstertonic',
   'entities.items.balanced_bloom_tonic.name': 'Balanceret Blomstertonic',
   'entities.items.slow_bloom_lozenge.name': 'Pastil med Langsom Blomstring',
+  'entities.items.purple_petal.name': 'Lilla Kronblad',
+  'entities.items.golden_petal.name': 'Gyldent Kronblad',
   'entities.items.raw_river_perch.name': 'Rå Flodaborre',
   'entities.items.raw_stonescale_carp.name': 'Rå Stenskæl-Karpe',
   'entities.items.recruit_tunic.name': 'Rekruttens Tunika',

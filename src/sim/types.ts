@@ -1892,6 +1892,11 @@ export type SimEvent = { pid?: number } & (
   // and the client can show the fish's icon + localized name in a catch popup; the
   // plain 'log' catch line still records the moment in chat.
   | { type: 'fishCatch'; itemId: string | null; rare: boolean }
+  // A resource-node harvest completed: itemId names the reagent gathered. Structured
+  // (no text) so the sim stays language-agnostic and the client can show the item's
+  // icon + localized name in a gather popup; the plain 'loot' "You receive" line still
+  // records it in chat (harvest.ts emits both).
+  | { type: 'harvestGather'; itemId: string }
   | { type: 'loot'; text: string }
   | {
       type: 'lootRoll';

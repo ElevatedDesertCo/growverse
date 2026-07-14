@@ -2358,6 +2358,8 @@ export const fr_FR: Partial<Record<TranslationKey, string>> = {
   'entities.items.lively_bloom_tonic.name': 'Tonique Floral Vif',
   'entities.items.balanced_bloom_tonic.name': 'Tonique Floral Équilibré',
   'entities.items.slow_bloom_lozenge.name': 'Pastille de Floraison Lente',
+  'entities.items.purple_petal.name': 'Pétale pourpre',
+  'entities.items.golden_petal.name': 'Pétale doré',
   'entities.items.sableweb_slippers.name': 'Mules Sableweb',
   'entities.items.simple_fishing_pole.name': 'Canne à pêche simple',
   'entities.items.tangled_weed.name': 'Herbe emmêlée',

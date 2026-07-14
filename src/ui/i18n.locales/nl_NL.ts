@@ -1153,6 +1153,8 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'entities.items.lively_bloom_tonic.name': 'Levendig Bloesemtonicum',
   'entities.items.balanced_bloom_tonic.name': 'Gebalanceerd Bloesemtonicum',
   'entities.items.slow_bloom_lozenge.name': 'Pastille van Trage Bloei',
+  'entities.items.purple_petal.name': 'Paars Bloemblad',
+  'entities.items.golden_petal.name': 'Gouden Bloemblad',
   'entities.items.raw_river_perch.name': 'Rauwe Rivierbaars',
   'entities.items.raw_stonescale_carp.name': 'Rauwe Steenschub-Karper',
   'entities.items.recruit_tunic.name': 'Tuniek van de Rekruut',

@@ -1163,6 +1163,8 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'entities.items.lively_bloom_tonic.name': 'Tonik Bunga Bersemangat',
   'entities.items.balanced_bloom_tonic.name': 'Tonik Bunga Seimbang',
   'entities.items.slow_bloom_lozenge.name': 'Permen Isap Mekar Lambat',
+  'entities.items.purple_petal.name': 'Kelopak Ungu',
+  'entities.items.golden_petal.name': 'Kelopak Emas',
   'entities.items.raw_river_perch.name': 'Ikan Perch Sungai Mentah',
   'entities.items.raw_stonescale_carp.name': 'Ikan Mas Sisik Batu Mentah',
   'entities.items.recruit_tunic.name': 'Tunik Rekrut',

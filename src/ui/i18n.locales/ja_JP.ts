@@ -19,6 +19,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.fishing.caught': '{item} を釣り上げた！',
   'hudChrome.fishing.introHint': '開けた水辺を向いて F キーで仕掛けを投げましょう。',
   'hudChrome.fishing.caughtPopup': '{item} を釣り上げた！',
+  'hudChrome.harvest.gatheredPopup': '{item} を採取した',
   'hudChrome.fishing.nothing': '何も釣れなかった。',
   'hudChrome.dailyRewards.close': 'デイリー報酬を閉じる',
   'hudChrome.dailyRewards.loading': 'デイリー報酬を読み込み中...',
@@ -2349,6 +2350,8 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.items.lively_bloom_tonic.name': '活気の花蕾強壮剤',
   'entities.items.balanced_bloom_tonic.name': '均衡の花蕾強壮剤',
   'entities.items.slow_bloom_lozenge.name': '遅咲きのトローチ',
+  'entities.items.purple_petal.name': '紫の花びら',
+  'entities.items.golden_petal.name': '金の花びら',
   'entities.npcs.alchemist_sable.name': 'セイブル',
   'entities.npcs.alchemist_sable.title': '錬金術師',
   'entities.npcs.alchemist_sable.greeting':

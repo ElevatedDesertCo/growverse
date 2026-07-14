@@ -19,6 +19,7 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'hudChrome.fishing.caught': '你釣到了 {item}！',
   'hudChrome.fishing.introHint': '面向開闊水面並按 F 拋出釣線。',
   'hudChrome.fishing.caughtPopup': '你釣到了 {item}！',
+  'hudChrome.harvest.gatheredPopup': '採集到 {item}',
   'hudChrome.fishing.nothing': '什麼都沒釣到。',
   'hudChrome.dailyRewards.close': '關閉每日獎勵',
   'hudChrome.dailyRewards.loading': '正在載入每日獎勵...',
@@ -2244,6 +2245,8 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.items.lively_bloom_tonic.name': '活力綻放藥劑',
   'entities.items.balanced_bloom_tonic.name': '均衡綻放藥劑',
   'entities.items.slow_bloom_lozenge.name': '緩釋綻放含片',
+  'entities.items.purple_petal.name': '紫色花瓣',
+  'entities.items.golden_petal.name': '金色花瓣',
   'entities.npcs.alchemist_sable.name': '塞布爾',
   'entities.npcs.alchemist_sable.title': '煉金術士',
   'entities.npcs.alchemist_sable.greeting':

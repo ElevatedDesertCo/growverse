@@ -19,6 +19,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.fishing.caught': 'Вы поймали: {item}!',
   'hudChrome.fishing.introHint': 'Повернитесь к открытой воде и нажмите F, чтобы забросить леску.',
   'hudChrome.fishing.caughtPopup': 'Вы поймали: {item}!',
+  'hudChrome.harvest.gatheredPopup': 'Собрано: {item}',
   'hudChrome.fishing.nothing': 'Ничего не поймано.',
   'hudChrome.dailyRewards.close': 'Закрыть ежедневные награды',
   'hudChrome.dailyRewards.loading': 'Загрузка ежедневных наград...',
@@ -2378,6 +2379,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.items.lively_bloom_tonic.name': 'Бодрящий цветочный тоник',
   'entities.items.balanced_bloom_tonic.name': 'Сбалансированный цветочный тоник',
   'entities.items.slow_bloom_lozenge.name': 'Пастилка медленного цветения',
+  'entities.items.purple_petal.name': 'Пурпурный лепесток',
+  'entities.items.golden_petal.name': 'Золотой лепесток',
   'entities.npcs.alchemist_sable.name': 'Сейбл',
   'entities.npcs.alchemist_sable.title': 'Алхимик',
   'entities.npcs.alchemist_sable.greeting':

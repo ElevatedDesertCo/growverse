@@ -77,6 +77,20 @@ describe('harvest nodes', () => {
     expect(node.respawnTimer).toBeGreaterThan(0);
   });
 
+  it('emits a structured harvestGather event naming the gathered reagent', () => {
+    const sim = makeSim();
+    const node = spawnNodeByPlayer(sim);
+    sim.pickUpObject(node.id);
+    let gather: any;
+    for (let i = 0; i < 20 * 5 && sim.player.castingAbility; i++) {
+      for (const ev of sim.tick()) if (ev.type === 'harvestGather') gather = ev;
+    }
+    expect(gather).toBeTruthy();
+    // structured: an item id, no player-facing text (client localizes)
+    expect(YIELD_IDS).toContain(gather.itemId);
+    expect(gather.pid).toBe(sim.player.id);
+  });
+
   it('a depleted node respawns after its timer', () => {
     const sim = makeSim();
     const node = spawnNodeByPlayer(sim);

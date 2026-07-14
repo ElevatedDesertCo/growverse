@@ -1257,17 +1257,17 @@ export const GUIDE_ZONES: GuideZoneInfo[] = [
     "hub": "Bloomhaven",
     "pois": [
       "Bloomhaven",
-      "Wolf Run",
-      "Boar Meadow",
+      "Coyote Wash",
+      "Javelina Flats",
       "Mirror Lake",
-      "Sporewood",
-      "Copper Dig",
-      "Ashen Maw Camp",
-      "Withered Shrine",
-      "Reliquary Hill",
+      "The Mitewood",
+      "The Old Dig",
+      "The Dry Camp",
+      "The Withered Bloom",
+      "Seedvault Hill",
       "Bloomwood Glade",
       "Baked Beaver",
-      "The Sluice"
+      "The Lodge"
     ],
     "welcome": "Find Marshal Redbrook in town, he has work for you."
   },
@@ -1436,7 +1436,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
     "family": "beast",
     "creatures": [
       {
-        "name": "Blight Wolf",
+        "name": "Munchie Coyote",
         "min": 1,
         "max": 2,
         "rare": false,
@@ -1446,7 +1446,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "still": "/guide-stills/mob_wolf__7f8c8d.webp"
       },
       {
-        "name": "Bristle Tusk",
+        "name": "Razorback Javelina",
         "min": 2,
         "max": 3,
         "rare": false,
@@ -1456,7 +1456,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "still": "/guide-stills/mob_boar__935116.webp"
       },
       {
-        "name": "Old Ashfang",
+        "name": "Ol' Smoky",
         "min": 4,
         "max": 4,
         "rare": true,
@@ -1501,7 +1501,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
     "family": "spider",
     "creatures": [
       {
-        "name": "Sporeweaver",
+        "name": "Bloom Mite",
         "min": 2,
         "max": 4,
         "rare": false,
@@ -1526,7 +1526,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
     "family": "murloc",
     "creatures": [
       {
-        "name": "Siltling",
+        "name": "Reservoir Snapper",
         "min": 3,
         "max": 5,
         "rare": false,
@@ -1561,7 +1561,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
     "family": "kobold",
     "creatures": [
       {
-        "name": "Burrow Grub",
+        "name": "Trimmer Gremlin",
         "min": 4,
         "max": 6,
         "rare": false,

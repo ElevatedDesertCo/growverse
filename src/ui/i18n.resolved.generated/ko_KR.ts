@@ -1104,6 +1104,9 @@ export const ko_KR: EnTranslations = {
       "introHint": "트인 물을 향한 뒤 F 키를 눌러 낚싯줄을 던지세요.",
       "caughtPopup": "{item}을(를) 낚았습니다!",
       "nothing": "아무것도 잡히지 않았습니다."
+    },
+    "harvest": {
+      "gatheredPopup": "{item}을(를) 채집했습니다"
     }
   },
   "guide": {
@@ -5113,6 +5116,12 @@ export const ko_KR: EnTranslations = {
       "slow_bloom_lozenge": {
         "name": "느린 개화 로젠지"
       },
+      "purple_petal": {
+        "name": "보라색 꽃잎"
+      },
+      "golden_petal": {
+        "name": "금빛 꽃잎"
+      },
       "bristleback_maul": {
         "name": "뻣센등뼈 철퇴"
       },
@@ -7146,7 +7155,7 @@ export const ko_KR: EnTranslations = {
             "label": "Baked Beaver"
           },
           "11": {
-            "label": "The Sluice"
+            "label": "The Lodge"
           }
         }
       },

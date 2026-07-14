@@ -904,7 +904,7 @@ export const BASE_ITEMS: Record<string, ItemDef> = {
   // --- quest items ---
   boar_hide: {
     id: 'boar_hide',
-    name: 'Bristly Boar Hide',
+    name: 'Razorback Javelina Hide',
     kind: 'quest',
     sellValue: 0,
     questId: 'q_boars',
@@ -1021,7 +1021,7 @@ export const BASE_ITEMS: Record<string, ItemDef> = {
   // --- junk (gray) ---
   wolf_fang: {
     id: 'wolf_fang',
-    name: 'Cracked Wolf Fang',
+    name: 'Cracked Coyote Fang',
     kind: 'junk',
     quality: 'poor',
     sellValue: 4,

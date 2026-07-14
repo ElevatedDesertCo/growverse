@@ -1132,6 +1132,8 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'entities.items.lively_bloom_tonic.name': 'Livlig blomstertonic',
   'entities.items.balanced_bloom_tonic.name': 'Balanserad blomstertonic',
   'entities.items.slow_bloom_lozenge.name': 'Pastill av långsam blomning',
+  'entities.items.purple_petal.name': 'Lila Kronblad',
+  'entities.items.golden_petal.name': 'Gyllene Kronblad',
   'entities.items.raw_river_perch.name': 'Rå flodabborre',
   'entities.items.raw_stonescale_carp.name': 'Rå stenfjällskarp',
   'entities.items.recruit_tunic.name': 'Rekrytens tunika',

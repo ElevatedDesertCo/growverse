@@ -90,7 +90,7 @@ const PROP_ASSET_DEFS: Record<string, PropAssetDef> = {
   anvil: { url: '/models/props/anvil.glb', kit: 'qprops' },
   weaponStand: { url: '/models/props/weapon_stand.glb', kit: 'qprops' },
   lanternWall: { url: '/models/props/lantern_wall.glb', kit: 'qprops' },
-  // Meshy-generated portal door used as the overworld Reliquary Hill marker;
+  // Meshy-generated portal door used as the overworld Seedvault Hill marker;
   // has its own backing slab so the animated shader plane sits on the front face.
   // yaw: Math.PI if the model loads backwards after inspecting in-game.
   delveEntrance2: { url: '/models/dungeon/delve_entrance_2.glb', kit: 'dungeon' },
@@ -829,9 +829,83 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     inn: 7.6,
   };
 
+  // Sample the four rotated footprint corners of a building. The house
+  // foundations are flat, so on the sloped hub-blend ring the terrain rises and
+  // falls across the footprint: seating at the CENTER floats the downhill side,
+  // seating at the LOWEST corner sinks the uphill walls into the hill. Instead
+  // seat at the HIGHEST corner (so no wall is ever buried) and fill the downhill
+  // gap with a stone foundation plinth down past the lowest corner, so the house
+  // reads as built level on a foundation rather than floating or sunken. On the
+  // flat town plateau all four corners match, so seat == center and no plinth is
+  // added. (Local->world uses the three.js rotation.y convention, mirroring
+  // pointInsideFootprint / colliders.rotY.)
+  const footprintGround = (b: (typeof PROPS.buildings)[number]): { lo: number; hi: number } => {
+    const c = Math.cos(b.rot);
+    const s = Math.sin(b.rot);
+    const hw = b.w / 2;
+    const hd = b.d / 2;
+    let lo = Infinity;
+    let hi = -Infinity;
+    for (const lx of [-hw, hw]) {
+      for (const lz of [-hd, hd]) {
+        const wx = b.x + lx * c + lz * s;
+        const wz = b.z - lx * s + lz * c;
+        const gy = ground(wx, wz);
+        lo = Math.min(lo, gy);
+        hi = Math.max(hi, gy);
+      }
+    }
+    return { lo, hi };
+  };
+  // Stone foundation plinth: fills the wedge between the house base (seated at
+  // the high corner) and the lowest ground under the footprint, so a house on a
+  // slope sits on a level stone base instead of floating over the downhill gap.
+  const foundationMat = surfaceMat({ color: 0x7c736a, roughness: 0.96 });
+  const addFoundation = (g: THREE.Group, w: number, d: number, drop: number) => {
+    // top tucks 0.1 up under the house sill (hides the seam), bottom skirts 0.6
+    // below the lowest corner so it never floats even on noisy terrain. (No
+    // per-mesh shadow flags here: the enclosing shadowed(g) traverses it.)
+    const h = drop + 0.7;
+    const plinth = new THREE.Mesh(new THREE.BoxGeometry(w * 0.99, h, d * 0.99), foundationMat);
+    plinth.position.y = 0.1 - h / 2;
+    g.add(plinth);
+  };
+  // Stone entry stair on the door (+z) edge, so a plinth-seated house reads as
+  // reachable rather than sitting on an unclimbable cement block. `floorDrop` is
+  // how far the ground falls from the seated sill to just past the door edge; a
+  // flight of stacked stone treads spans it, each tread reaching down to grade so
+  // there are no gaps. Skipped when the door is near grade (floorDrop <= 0.5),
+  // e.g. the door faces uphill or the flat town plateau. (Added to the group in
+  // local space before it is rotated/translated, like addFoundation.)
+  const addSteps = (g: THREE.Group, w: number, d: number, floorDrop: number) => {
+    const n = Math.min(8, Math.max(1, Math.round(floorDrop / 0.42)));
+    const rise = floorDrop / n;
+    const tread = 0.5;
+    const stepW = Math.min(w * 0.5, 4.6);
+    const zFace = d / 2;
+    const bottomY = -floorDrop - 0.4; // skirt below grade so no tread floats
+    for (let k = 1; k <= n; k++) {
+      const topY = 0.1 - (k - 1) * rise; // top tread meets the sill; each is one rise lower
+      const z0 = zFace + (k - 1) * tread;
+      const h = topY - bottomY;
+      const step = new THREE.Mesh(new THREE.BoxGeometry(stepW, h, tread), foundationMat);
+      step.position.set(0, topY - h / 2, z0 + tread / 2);
+      g.add(step);
+    }
+  };
+
   for (const b of PROPS.buildings) {
     const key = b.x * 13.7 + b.z * 3.1;
-    const y = ground(b.x, b.z);
+    const { lo, hi } = footprintGround(b);
+    const y = hi; // seat at the highest corner so no wall sinks into the hill
+    const drop = hi - lo; // downhill gap the foundation plinth fills
+    // Ground fall from the seated sill to just past the door (+z) edge: how tall
+    // an entry stair the door side needs. Probe a little beyond the edge so the
+    // stair foot lands on grade, not on the buried footprint corner.
+    const dc = Math.cos(b.rot);
+    const ds = Math.sin(b.rot);
+    const doorProbe = b.d / 2 + 1.2;
+    const floorDrop = y - ground(b.x + doorProbe * ds, b.z + doorProbe * dc);
     // roof Y mirrors the camera collider height in colliders.ts
     const roofY = y + (b.kind === 'chapel' ? 10.8 : b.kind === 'inn' ? 7.8 : 8.0);
     if (b.kind === 'chapel') {
@@ -848,6 +922,8 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
         z: b.d / 2 - 1.62,
         scale: [(b.w * 0.9) / hall.size.x, 2.5 / hall.size.y, 3.2 / hall.size.z],
       });
+      if (drop > 0.12) addFoundation(g, b.w, b.d, drop);
+      if (floorDrop > 0.5) addSteps(g, b.w, b.d, floorDrop);
       g.position.set(b.x, y - 0.12, b.z);
       g.rotation.y = b.rot;
       group.add(shadowed(g));
@@ -859,6 +935,8 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     const a = propAsset(asset);
     const g = new THREE.Group();
     addParts(g, asset, { scale: [b.w / a.size.x, houseHeight[asset] / a.size.y, b.d / a.size.z] });
+    if (drop > 0.12) addFoundation(g, b.w, b.d, drop);
+    if (floorDrop > 0.5) addSteps(g, b.w, b.d, floorDrop);
     g.position.set(b.x, y - 0.12, b.z);
     g.rotation.y = b.rot;
     group.add(shadowed(g));
@@ -2274,7 +2352,7 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
   }
 
   // ---- delve entrance: Meshy portal-door + animated void + carved name lintel -
-  // Town/hub is +z (north) of Reliquary Hill. The portal-door model sits just
+  // Town/hub is +z (north) of Seedvault Hill. The portal-door model sits just
   // south of Brother Halven facing +z; it has its own stone backing slab so the
   // animated shader plane (FrontSide) reads as a solid void from the approach and
   // is invisible from behind. The carved name slab rides the model's crown.

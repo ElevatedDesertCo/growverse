@@ -26,8 +26,10 @@ const QUEST_OBJECT_URLS: Record<string, string> = {
   grave_sir_aldren: '/models/dungeon/gravestone.glb',
   grave_high_priest_malric: '/models/dungeon/gravestone.glb',
   grave_captain_voss: '/models/dungeon/gravestone.glb',
-  // Flower Patch harvest node (yields Bloom Extract): the vale flower model.
+  // Flower Patch harvest nodes: the vale flower model, tinted per color below.
   bloom_extract: '/models/foliage/flower.glb',
+  purple_petal: '/models/foliage/flower.glb',
+  golden_petal: '/models/foliage/flower.glb',
 };
 
 const QUEST_OBJECT_HEIGHTS: Record<string, number> = {
@@ -79,6 +81,9 @@ const ITEM_MAT_OVERRIDES: Record<
   soulshard_pillar: { color: 0x6f1b2c, emissive: 0x8f1232, emissiveIntensity: 0.42 },
   sanctum_key_shard: { emissive: 0x1a4060, emissiveIntensity: 0.5 },
   morthen_grimoire: { emissive: 0x3a1850, emissiveIntensity: 0.12 },
+  // Colored vale flower patches: tint the shared flower model per harvest variant.
+  purple_petal: { color: 0x9a63c8, emissive: 0x3a1858, emissiveIntensity: 0.18 },
+  golden_petal: { color: 0xd8b420, emissive: 0x5a4408, emissiveIntensity: 0.18 },
 };
 
 const gltfByUrl = new Map<string, GLTF>();

@@ -2345,6 +2345,8 @@ export const es: Partial<Record<TranslationKey, string>> = {
   'entities.items.lively_bloom_tonic.name': 'Tónico Floral Vivaz',
   'entities.items.balanced_bloom_tonic.name': 'Tónico Floral Equilibrado',
   'entities.items.slow_bloom_lozenge.name': 'Pastilla de Floración Lenta',
+  'entities.items.purple_petal.name': 'Pétalo Púrpura',
+  'entities.items.golden_petal.name': 'Pétalo Dorado',
   'entities.items.sableweb_slippers.name': 'Zapatillas Sableweb',
   'entities.items.simple_fishing_pole.name': 'Caña de pescar sencilla',
   'entities.items.tangled_weed.name': 'Hierba enredada',

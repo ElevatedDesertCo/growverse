@@ -38,26 +38,26 @@ export const ZONE1_ZONE: ZoneDef = {
   lakes: [LAKE, SLUICE_POND],
   pois: [
     { x: 0, z: -3, label: 'Bloomhaven' },
-    { x: -2, z: 88, label: 'Wolf Run' },
-    { x: 96, z: -12, label: 'Boar Meadow' },
+    { x: -2, z: 88, label: 'Coyote Wash' },
+    { x: 96, z: -12, label: 'Javelina Flats' },
     { x: -88, z: 82, label: 'Mirror Lake' },
-    { x: -60, z: 4, label: 'Sporewood' },
-    { x: -84, z: -64, label: 'Copper Dig' },
-    { x: 76, z: -76, label: 'Ashen Maw Camp' },
-    { x: 80, z: 80, label: 'Withered Shrine' },
-    { x: -5, z: -52, label: 'Reliquary Hill' },
+    { x: -60, z: 4, label: 'The Mitewood' },
+    { x: -84, z: -64, label: 'The Old Dig' },
+    { x: 86, z: -84, label: 'The Dry Camp' },
+    { x: 80, z: 80, label: 'The Withered Bloom' },
+    { x: -5, z: -52, label: 'Seedvault Hill' },
     { x: 40, z: 140, label: 'Bloomwood Glade' },
     // The Baked Beaver mascot: a giant procedural beaver statue on the north shore
     // of the Sluice millpond, watching over the outpost. `landmark` gives it a
     // minimap pin + world-map glyph on top of the subzone banner. (Index 10 is
     // brand-allowlisted in the i18n completeness test; keep it at this index.)
     { x: 42, z: 54, label: 'Baked Beaver', landmark: true },
-    // The Sluice: a forward work-camp of the Baked Beaver colony. A broad millpond
+    // The Lodge: a forward work-camp of the Baked Beaver colony. A broad millpond
     // held by a log dam on the townward side, fed by a river from the western
     // mountain, with a beaver lodge and two Beaver folk giving newcomers their first
     // trails. `landmark` pins it on the map so a wandering starter finds the
     // community, not just a lone statue.
-    { x: 40, z: 50, label: 'The Sluice', landmark: true },
+    { x: 40, z: 50, label: 'The Lodge', landmark: true },
   ],
   welcome: 'Find Marshal Redbrook in town, he has work for you.',
   welcomeQuestId: 'q_wolves',
@@ -109,7 +109,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
   },
   forest_wolf: {
     id: 'forest_wolf',
-    name: 'Blight Wolf',
+    name: 'Munchie Coyote',
     minLevel: 1,
     maxLevel: 2,
     family: 'beast',
@@ -134,7 +134,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
   },
   old_greyjaw: {
     id: 'old_greyjaw',
-    name: 'Old Ashfang',
+    name: "Ol' Smoky",
     minLevel: 4,
     maxLevel: 4,
     family: 'beast',
@@ -160,7 +160,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
   },
   wild_boar: {
     id: 'wild_boar',
-    name: 'Bristle Tusk',
+    name: 'Razorback Javelina',
     minLevel: 2,
     maxLevel: 3,
     family: 'beast',
@@ -185,7 +185,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
   },
   webwood_spider: {
     id: 'webwood_spider',
-    name: 'Sporeweaver',
+    name: 'Bloom Mite',
     minLevel: 2,
     maxLevel: 4,
     family: 'spider',
@@ -275,7 +275,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
   },
   mudfin_murloc: {
     id: 'mudfin_murloc',
-    name: 'Siltling',
+    name: 'Reservoir Snapper',
     minLevel: 3,
     maxLevel: 5,
     family: 'murloc',
@@ -302,7 +302,7 @@ export const ZONE1_MOBS: Record<string, MobTemplate> = {
   },
   tunnel_rat: {
     id: 'tunnel_rat',
-    name: 'Burrow Grub',
+    name: 'Trimmer Gremlin',
     minLevel: 4,
     maxLevel: 6,
     family: 'kobold',
@@ -598,7 +598,7 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     color: 0xb7950b,
     questIds: ['q_wolves', 'q_greyjaw', 'q_bandits', 'q_ringleader', 'q_mogger'],
     greeting:
-      'Keep your blade close, $C. The Corruption is spreading, and it is turning men into worse things.',
+      'Keep your blade close, $C. The Dry is creeping in off the flats, and it is hollowing men into worse things.',
   },
   trader_wilkes: {
     id: 'trader_wilkes',
@@ -684,7 +684,7 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     color: 0x2471a3,
     questIds: ['q_murlocs'],
     vendorItems: ['simple_fishing_pole'],
-    greeting: 'Grlsiltgrl, sorry, been listening to those silt-crawlers too long.',
+    greeting: 'Grlsnapgrl, sorry, been listening to those reservoir snappers too long.',
   },
   foreman_odell: {
     id: 'foreman_odell',
@@ -698,7 +698,7 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     questIds: ['q_mine'],
     greeting: "Whole dig's crawling with those candle-headed vermin!",
   },
-  // The Sluice outpost, on the north shore of the beaver millpond, clear of town
+  // The Lodge outpost, on the north shore of the beaver millpond, clear of town
   // and the river. Two galaxy-blue Baked Beaver folk, a forward crew of the colony
   // that holds The Dam far to the south. They give a wandering newcomer their first
   // trails and the outpost's keepsake. Same blues as the zone4 Beavers, same
@@ -706,14 +706,14 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
   rowan_sawtooth: {
     id: 'rowan_sawtooth',
     name: 'Rowan Sawtooth',
-    title: 'Sluice Warden',
+    title: 'Lodge Warden',
     // by the lodge hearth on the north shore, facing south across the pond
     pos: { x: 30, z: 54 },
     facing: 3.1,
     color: 0x4a7ebb,
     questIds: ['q_sluice_welcome', 'q_sluice_pilings'],
     greeting:
-      "New face on the shore, $C. Welcome to the Sluice, the colony's forward camp. The Dam proper is a long haul south, but the work starts right here. Stay Baked, and mind the water.",
+      "New face on the shore, $C. Welcome to the Lodge, the colony's forward camp. The Dam proper is a long haul south, but the work starts right here. Stay Baked, and mind the water.",
   },
   hazel_timbers: {
     id: 'hazel_timbers',
@@ -759,13 +759,13 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
 export const ZONE1_QUESTS: Record<string, QuestDef> = {
   q_wolves: {
     id: 'q_wolves',
-    name: 'Wolves at the Door',
+    name: 'Munchie Coyotes',
     giverNpcId: 'marshal_redbrook',
     turnInNpcId: 'marshal_redbrook',
-    text: 'The blight wolves grow bold, snapping at travelers on the north road. Thin their numbers, $N. Slay 8 Blight Wolves and Bloomhaven will breathe easier.',
-    completionText: 'Fine work. The road feels safer already.',
+    text: "The coyotes have gone bold, sniffing out the commune's snack stash and dragging off whole crates of munchies. Thin them out, $N. Run off 8 Munchie Coyotes up in Coyote Wash and Bloomhaven can eat in peace.",
+    completionText: 'Fine work. The snack shed can breathe easy again.',
     objectives: [
-      { type: 'kill', targetMobId: 'forest_wolf', count: 8, label: 'Blight Wolf slain' },
+      { type: 'kill', targetMobId: 'forest_wolf', count: 8, label: 'Munchie Coyote driven off' },
     ],
     xpReward: 250,
     copperReward: 75,
@@ -773,15 +773,13 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
   },
   q_greyjaw: {
     id: 'q_greyjaw',
-    name: 'The Old Wolf',
+    name: "Ol' Smoky",
     giverNpcId: 'marshal_redbrook',
     turnInNpcId: 'marshal_redbrook',
-    text: "There is one wolf no trap has held: Old Ashfang. He has taken three hounds and a stable boy's arm. He prowls the deep woods north of the wolf runs. Bring me his fang.",
+    text: "There is one coyote no trap has ever held: Ol' Smoky. He has made off with three good hounds and a whole season's worth of edibles. He prowls the deep brush north of Coyote Wash. Bring me his fang.",
     completionText:
-      'So the old devil is dead at last. The stable boy will sleep easier, and so will I.',
-    objectives: [
-      { type: 'collect', itemId: 'greyjaw_fang', count: 1, label: "Old Ashfang's Fang" },
-    ],
+      'So the old ghost is finally down. The whole commune sleeps easier tonight, and so do I.',
+    objectives: [{ type: 'collect', itemId: 'greyjaw_fang', count: 1, label: "Ol' Smoky's Fang" }],
     xpReward: 450,
     copperReward: 150,
     itemRewards: {
@@ -793,26 +791,28 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
   },
   q_boars: {
     id: 'q_boars',
-    name: 'Bristleback Hides',
+    name: 'Javelina Trouble',
     giverNpcId: 'trader_wilkes',
     turnInNpcId: 'trader_wilkes',
-    text: 'Boar hide makes the finest travel packs, and the meadows west of town are crawling with the beasts. Bring me 5 Bristle Tusk Hides and I will make it worth your time.',
-    completionText: 'Ah, fine bristly hides! These will fetch a good price.',
-    objectives: [{ type: 'collect', itemId: 'boar_hide', count: 5, label: 'Bristle Tusk Hide' }],
+    text: 'The javelinas are tearing through the garden rows out on Javelina Flats again, and their hides make the toughest travel packs going. Bring me 5 Razorback Javelina Hides and I will make it worth your time.',
+    completionText: 'Ah, good thick hides! These will cure up nicely.',
+    objectives: [
+      { type: 'collect', itemId: 'boar_hide', count: 5, label: 'Razorback Javelina Hide' },
+    ],
     xpReward: 350,
     copperReward: 120,
     itemRewards: {},
   },
   q_spiders: {
     id: 'q_spiders',
-    name: 'Sporewood Menace',
+    name: 'Mites!',
     giverNpcId: 'apothecary_lin',
     turnInNpcId: 'apothecary_lin',
-    text: 'The weavers in the eastern woods spin a silk I need for my poultices, and they have grown far too numerous besides. Cull 6 Sporeweavers and cut 4 silk glands from their bellies.',
+    text: 'Bloom Mites are breeding in the Mitewood, and if they reach the gardens they will strip a whole crop down to stems. Cull 6 of them and cut 4 webbing glands, I use the silk in my extractions.',
     completionText: "Ugh, still twitching. Perfect. Here, you've earned this.",
     objectives: [
-      { type: 'kill', targetMobId: 'webwood_spider', count: 6, label: 'Sporeweaver slain' },
-      { type: 'collect', itemId: 'webwood_silk', count: 4, label: 'Sporewood Silk Gland' },
+      { type: 'kill', targetMobId: 'webwood_spider', count: 6, label: 'Bloom Mite culled' },
+      { type: 'collect', itemId: 'webwood_silk', count: 4, label: 'Mite Silk Gland' },
     ],
     xpReward: 420,
     copperReward: 140,
@@ -821,12 +821,14 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
   },
   q_murlocs: {
     id: 'q_murlocs',
-    name: 'Trouble at the Lake',
+    name: 'Snappers in the Shallows',
     giverNpcId: 'fisherman_brandt',
     turnInNpcId: 'fisherman_brandt',
-    text: 'Twenty years I have fished Mirror Lake, and never lost a net until those gurgling silt-crawlers crawled out of the shallows. Drive the Siltlings back, slay 8 of them. And watch yourself: where there is one silt-crawler, there are five.',
+    text: 'Twenty years I have fished Mirror Lake and never lost a net, until those Reservoir Snappers started crawling out of the shallows and chewing clean through my lines. Drive 8 of them back. And watch yourself: where there is one snapper, there is a whole clatter of them.',
     completionText: 'Hah! That will teach them to mind their own mudholes.',
-    objectives: [{ type: 'kill', targetMobId: 'mudfin_murloc', count: 8, label: 'Siltling slain' }],
+    objectives: [
+      { type: 'kill', targetMobId: 'mudfin_murloc', count: 8, label: 'Reservoir Snapper slain' },
+    ],
     xpReward: 520,
     copperReward: 180,
     itemRewards: {},
@@ -834,13 +836,13 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
   },
   q_mine: {
     id: 'q_mine',
-    name: 'Rats in the Mine',
+    name: 'Squatters in the Old Dig',
     giverNpcId: 'foreman_odell',
     turnInNpcId: 'foreman_odell',
-    text: 'We struck a fine copper vein and then those kobold vermin came boiling out of the hillside. My crew will not set foot in the dig until it is cleared. Put down 10 Burrow Grubs.',
-    completionText: 'Ha! Back to work, lads! You have my thanks, and my coin.',
+    text: 'We reopened the Old Dig and a nest of Trimmer Gremlins had already holed up inside, making off with cured Bloom by the sackful. My crew will not set foot down there until it is cleared. Put down 10 Trimmer Gremlins.',
+    completionText: 'Ha! Back to work, crew! You have my thanks, and my coin.',
     objectives: [
-      { type: 'kill', targetMobId: 'tunnel_rat', count: 10, label: 'Burrow Grub slain' },
+      { type: 'kill', targetMobId: 'tunnel_rat', count: 10, label: 'Trimmer Gremlin slain' },
     ],
     xpReward: 620,
     copperReward: 220,
@@ -1015,7 +1017,7 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'The Ashen Maw',
     giverNpcId: 'marshal_redbrook',
     turnInNpcId: 'marshal_redbrook',
-    text: 'A raider clan calling itself the Ashen Maw has dug into the southeast flats. They were common bandits once, but the Corruption has gotten into them, the further from the rifts they range, the hungrier and crueler they turn. Break their raids, slay 10 Dust Raiders.',
+    text: 'A raider clan calling itself the Ashen Maw has dug into the southeast flats. They were common bandits once, but the Dry has gotten into them, the deeper they range into the parched country, the hungrier and crueler they turn. Break their raids, slay 10 Dust Raiders.',
     completionText:
       'Ten fewer ashen throats to feed. But cutting away the body does nothing while the head still calls the tune.',
     objectives: [
@@ -1031,9 +1033,9 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'The Hollowed Warlord',
     giverNpcId: 'marshal_redbrook',
     turnInNpcId: 'marshal_redbrook',
-    text: "The Ashen Maw answer to one man: Sarn the Hollowed. He drank so deep of the rifts that there is little left of the raider he was, just appetite in a warlord's hide. Cut off the head and the clan will scatter. He holds the heart of their camp. End him, $N.",
+    text: "The Ashen Maw answer to one man: Sarn the Hollowed. He drank so deep of the Dry that there is little left of the raider he was, just appetite in a warlord's hide. Cut off the head and the clan will scatter. He holds the heart of their camp. End him, $N.",
     completionText:
-      'Sarn is dead? Then the Maw has lost its warlord. You have done Bloomhaven a great service, though the rifts that hollowed him are still out there.',
+      'Sarn is dead? Then the Maw has lost its warlord. You have done Bloomhaven a great service, though the Dry that hollowed him still creeps in off the flats.',
     objectives: [
       { type: 'kill', targetMobId: 'gorrak', count: 1, label: 'Sarn the Hollowed slain' },
     ],
@@ -1047,7 +1049,7 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'The Rift-Gorged',
     giverNpcId: 'marshal_redbrook',
     turnInNpcId: 'marshal_redbrook',
-    text: 'One of the Ashen Maw gorged on raw Corruption until his own body could not hold it: Grulmaw, they call him now, and he has swollen into something that splits carts and flattens fences by the dozen. Do not face him alone. Take two strong companions into the eastern meadow and put the brute down for good.',
+    text: 'One of the Ashen Maw gorged on the raw Dry until his own body could not hold it: Grulmaw, they call him now, and he has swollen into something that splits carts and flattens fences by the dozen. Do not face him alone. Take two strong companions into the eastern meadow and put the brute down for good.',
     completionText:
       "Grulmaw dead at last. Bloomhaven's fields are safer, and you leave the Vale with one more tale worth retelling.",
     objectives: [{ type: 'kill', targetMobId: 'mogger', count: 1, label: 'Grulmaw slain' }],
@@ -1062,20 +1064,22 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     minLevel: 6,
     suggestedPlayers: 3,
   },
-  // The Sluice outpost chain: two low-level trails from the Baked Beaver crew, given
+  // The Lodge outpost chain: two low-level trails from the Baked Beaver crew, given
   // right where a starter first wanders out of Bloomhaven. Both are kill objectives
   // on existing vale mobs (no new mob or drop, so the deterministic spawn/loot rolls
-  // are untouched); the second hands over the outpost's keepsake artifact.
+  // are untouched); the second hands over the outpost's keepsake artifact. Neither
+  // reuses the Bloomhaven opener mobs (coyotes/javelinas): the beaver work is water
+  // and dam work, so these point at the pond snappers and the piling-gnawing gremlins.
   q_sluice_welcome: {
     id: 'q_sluice_welcome',
-    name: 'Welcome to the Sluice',
+    name: 'Welcome to the Lodge',
     giverNpcId: 'rowan_sawtooth',
     turnInNpcId: 'rowan_sawtooth',
-    text: "First thing you learn on the shore, $N: a beaver earns its spot by working, not gawking. The blight wolves come down off the north runs to worry our woodpiles and spook the kits. Thin six of them and come warm up by the lodge fire. Then you're one of us.",
+    text: "First thing you learn on the shore, $N: a beaver earns its spot by working, not gawking. The pond is the whole of this camp, and reservoir snappers have crowded the shallows, biting at the kits and fouling the water we drink. Clear six of them out of the water and come warm up by the lodge fire. Then you're one of us.",
     completionText:
-      "Six fewer wolves at the treeline, and you never once complained. That's the Sluice way, $N. Fire's yours, free of charge. Stay Baked, AZ.",
+      "Shallows are clear and the water runs clean again, and you never once complained. That's the Lodge way, $N. Fire's yours, free of charge. Stay Baked, AZ.",
     objectives: [
-      { type: 'kill', targetMobId: 'forest_wolf', count: 6, label: 'Blight Wolf thinned' },
+      { type: 'kill', targetMobId: 'mudfin_murloc', count: 6, label: 'Reservoir Snapper cleared' },
     ],
     xpReward: 240,
     copperReward: 80,
@@ -1083,14 +1087,14 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
   },
   q_sluice_pilings: {
     id: 'q_sluice_pilings',
-    name: 'Trouble at the Pilings',
+    name: 'Gnaw at the Pilings',
     giverNpcId: 'rowan_sawtooth',
     turnInNpcId: 'rowan_sawtooth',
-    text: "The dam's the whole reason there's a pond to build around, and the bristle-tusk boars off the west meadow keep rooting up its pilings for the sweet mud. A beaver takes that personally, $N. Put down six of the diggers and the Sluice will owe you a proper keepsake, straight from The Dam itself.",
+    text: "The dam is the whole reason there's a pond to build around, and trimmer gremlins have crept up from their diggings to gnaw the pilings hollow for the sweet greenwood. A beaver takes that personally, $N. Put down six of the little thieves and the Lodge will owe you a proper keepsake, straight from The Dam itself.",
     completionText:
       "Pilings hold, pond stays put, and the kits sleep sound. Here, $N, a Baked Beaver token, carved down at The Dam. Carry it and you're colony, wherever you wander. Stay Baked, AZ.",
     objectives: [
-      { type: 'kill', targetMobId: 'wild_boar', count: 6, label: 'Bristle Tusk cleared' },
+      { type: 'kill', targetMobId: 'tunnel_rat', count: 6, label: 'Trimmer Gremlin put down' },
     ],
     xpReward: 320,
     copperReward: 120,
@@ -1151,18 +1155,19 @@ export const ZONE1_CAMPS: CampDef[] = [
   { mobId: 'mudfin_murloc', center: { x: -75, z: 57 }, radius: 14, count: 8 },
   // Kobolds: mine southwest
   { mobId: 'tunnel_rat', center: { x: -82, z: -62 }, radius: 20, count: 9 },
-  // Ashen Maw: southeast warcamp, staged in tiers. Skirmishing dust_slingers hold
-  // the forward picket, vale_bandit knife-fighters muster at the camp's middle,
-  // rift-tainted reavers guard the mid-back, and a warlord's guard rings Sarn's
-  // heart, so the band reads as three distinct silhouettes over a marching column.
-  // (Counts are unchanged from the flat layout: the camp loop is the final RNG
-  // consumer at construction, so re-centering moves mobs without shifting any
-  // downstream spawn roll; changing a COUNT would.)
-  { mobId: 'vale_bandit', center: { x: 72, z: -70 }, radius: 18, count: 5 },
-  { mobId: 'dust_slinger', center: { x: 63, z: -61 }, radius: 13, count: 3 },
-  { mobId: 'dust_reaver', center: { x: 80, z: -77 }, radius: 15, count: 3 },
-  { mobId: 'vale_bandit', center: { x: 91, z: -90 }, radius: 13, count: 3 },
-  { mobId: 'gorrak', center: { x: 92, z: -92 }, radius: 2, count: 1 },
+  // Ashen Maw: southeast raider camp, re-clustered off the dirt path into a rounded
+  // encampment (was a long diagonal column that straddled the road terminus). The
+  // trail now stops at a clearing NW of the camp; a lookout picket (dust_slinger)
+  // holds the gate, the vale_bandit body musters around the central hearth, the
+  // reavers guard the east tents, and a back-guard rings Sarn's warlord tent in the
+  // SE corner. (Counts are unchanged: the camp loop is the final RNG consumer at
+  // construction, so re-centering + radius move mobs without shifting any downstream
+  // spawn roll; changing a COUNT would.)
+  { mobId: 'dust_slinger', center: { x: 78, z: -76 }, radius: 8, count: 3 },
+  { mobId: 'vale_bandit', center: { x: 86, z: -84 }, radius: 11, count: 5 },
+  { mobId: 'dust_reaver', center: { x: 92, z: -82 }, radius: 8, count: 3 },
+  { mobId: 'vale_bandit', center: { x: 88, z: -90 }, radius: 8, count: 3 },
+  { mobId: 'gorrak', center: { x: 89, z: -91 }, radius: 2, count: 1 },
   // Undead: the Skeleton Grotto, a hollow gouged into the foot of the western rim
   // mountain (SKELETON_GROTTO in world.ts). The husk pack musters across the flat
   // arena floor; the husk radius is tightened from 18 to 14 so the pack sits inside
@@ -1261,9 +1266,12 @@ export const ZONE1_ROADS: { x: number; z: number }[][] = [
   [
     { x: 7, z: -7 },
     { x: 30, z: -30 },
-    { x: 50, z: -50 },
-    { x: 65, z: -65 },
-  ], // southeast to bandits
+    { x: 50, z: -48 },
+    { x: 64, z: -62 },
+  ], // southeast to the raider camp: the trail bends and STOPS at a clearing NW of
+  // the camp (was driving straight into the picket at 65,-65). The camp now sits
+  // south-east of this trailhead, its gate facing back up the path, so the dirt
+  // road is an approach to the camp, not a lane plowing through its middle.
   [
     { x: -7, z: -7 },
     { x: -30, z: -28 },
@@ -1351,15 +1359,17 @@ export const ZONE1_PROPS: ZonePropsDef = {
     // ground between the lodge and the shore.
     [46, 57],
     [40, 56],
-    // Ashen Maw plunder stacks: stolen Bloomhaven crates piled by each tier's
-    // tents (the q_ringleader steal-back objective reads them off these stacks).
-    [59, -62],
-    [66, -66],
-    [74, -70],
-    [80, -75],
-    [89, -88],
-    [94, -91],
-    [90, -95],
+    // Ashen Maw plunder stacks: stolen Bloomhaven crates piled among the tents around
+    // the camp's central hearth (the q_supplies steal-back objective reads them off
+    // these stacks). Re-clustered with the camp so they dress a lived-in encampment
+    // rather than a strung-out column.
+    [75, -79],
+    [83, -81],
+    [89, -80],
+    [92, -87],
+    [85, -90],
+    [79, -87],
+    [96, -90],
   ],
   campfires: [
     [3, -4],
@@ -1368,27 +1378,27 @@ export const ZONE1_PROPS: ZonePropsDef = {
     [-77.5, 68], // Cobb the Dockside Cook's hearth, beside the Mirror Lake pier
     [42, 60], // The Sluice: the beaver crew's hearth between lodge and den
   ],
-  // Ashen Maw cookfires: one hearth at each tier of the warcamp (picket, muster,
-  // heart). A Growverse-original procedural log-pyre in a blackened stone ring
-  // (render/props.ts), NOT the shared CC0 bonfire the other zones burn, so the
-  // raider camp reads 1-of-1. Moved out of `campfires` above for that reason.
+  // Ashen Maw cookfires: a lookout fire by the gate, the main hearth at the camp's
+  // center, and the warlord's fire by Sarn's tent. A Growverse-original procedural
+  // log-pyre in a blackened stone ring (render/props.ts), NOT the shared CC0 bonfire
+  // the other zones burn, so the raider camp reads 1-of-1.
   raiderCookfires: [
-    [63, -61],
-    [77, -74],
-    [91, -91],
+    [78, -75], // lookout fire, just inside the NW gate
+    [86, -84], // main hearth, camp center
+    [90, -91], // warlord's fire, by Sarn's tent
   ],
-  // Ashen Maw raider tents: hide-and-pole lean-tos pitched in three tiers down the
-  // SE hollow (a forward picket on the NW approach, a mid-camp muster, and the
-  // warlord's heart at the deep corner), so the camp reads as a marching column,
-  // not a blob. A Growverse-original procedural shelter (render/props.ts), NOT the
-  // shared CC0 Kenney tent the other zones use, so the warcamp reads 1-of-1.
+  // Ashen Maw raider tents: hide-and-pole lean-tos clustered in a rough ring around
+  // the central hearth, doors turned inward so the site reads as a lived-in camp, not
+  // a marching column. A lookout tent sits by the NW gate, the warlord's larger tent
+  // anchors the SE back corner. A Growverse-original procedural shelter
+  // (render/props.ts), NOT the shared CC0 Kenney tent the other zones use.
   raiderTents: [
-    { x: 61, z: -59, rot: 0.5, scale: 1 }, // picket
-    { x: 67, z: -64, rot: 2.4, scale: 1 }, // picket
-    { x: 75, z: -72, rot: -1.0, scale: 1.05 }, // muster
-    { x: 80, z: -77, rot: 1.3, scale: 1 }, // muster
-    { x: 92, z: -89, rot: 1.1, scale: 1.35 }, // warlord's tent, over Sarn's heart
-    { x: 88, z: -94, rot: -0.5, scale: 1 }, // boss heart
+    { x: 77, z: -77, rot: 0.7, scale: 1 }, // lookout, by the gate
+    { x: 84, z: -76, rot: 2.6, scale: 1 }, // north of the hearth
+    { x: 95, z: -82, rot: -1.4, scale: 1 }, // east
+    { x: 81, z: -90, rot: 1.0, scale: 1 }, // south
+    { x: 93, z: -94, rot: 1.1, scale: 1.35 }, // warlord's tent, SE back corner
+    { x: 87, z: -88, rot: -0.6, scale: 1 }, // inner, by Sarn's heart
   ],
   mudHuts: [
     [-73, 59],
@@ -1423,46 +1433,43 @@ export const ZONE1_PROPS: ZonePropsDef = {
   // sight from a distance (no longer crowds the town square).
   obelisks: [{ x: 64, z: -22, y: 7 }],
   // Ashen Maw ward-totems (a Growverse-original procedural skull-stake, not a CC0
-  // model): a gauntlet flanking the NW approach into the warcamp, mid-camp
-  // markers, and a ring around Sarn the Hollowed's heart, so the clan's ground is
-  // claimed by bone standards no other WoCC settlement carries.
+  // model): two flank the open NW gate, the rest ring the camp's outer edge, so the
+  // clan's ground is claimed by bone standards no other WoCC settlement carries.
+  // (Thin brush-past colliders, so even the gate pair never wall the entrance.)
   wardStakes: [
-    { x: 56, z: -56 }, // approach gauntlet
-    { x: 62, z: -54 },
-    { x: 54, z: -63 },
-    { x: 71, z: -63 }, // mid-camp
-    { x: 69, z: -78 },
-    { x: 85, z: -84 }, // ring around the warlord's heart
-    { x: 97, z: -90 },
-    { x: 90, z: -99 },
+    { x: 72, z: -72 }, // gate flank (west of the entrance)
+    { x: 78, z: -70 }, // gate flank (east of the entrance)
+    { x: 86, z: -70 }, // outer ring, north
+    { x: 96, z: -76 }, // north-east
+    { x: 100, z: -86 }, // east
+    { x: 96, z: -96 }, // south-east
+    { x: 84, z: -98 }, // south
+    { x: 74, z: -90 }, // south-west
   ],
   // Ashen Maw spiked-stake barricades (a custom Meshy GLB, not a CC0 pack): lashed
-  // clusters of sharpened stakes dug in along the NW approach gauntlet and the
-  // camp's outer edge, so the warcamp reads as a fortified raider position rather
-  // than an open field. Offset from the ward-totem line so the two don't collide.
+  // clusters of sharpened stakes dug in around the camp's OUTER edge (N, E, S, SW, W),
+  // so the site reads as a fortified raider position. The whole NW arc is left OPEN as
+  // the gate that faces the incoming trail, so the barricades no longer straddle the
+  // dirt path, and the boss is never walled in.
   spikeBarricades: [
-    { x: 52, z: -58 }, // NW approach: staggered pair funnelling the entry
-    { x: 60, z: -50 },
-    { x: 58, z: -66 }, // camp outer edge
-    { x: 76, z: -70 },
-    { x: 80, z: -95 }, // flanks around the warlord's heart
-    { x: 95, z: -83 },
-    // Custom-stake palisade replacing the old CC0 Kenney fence: a dug-in barricade
-    // line walling the warlord's SE heart (east run + south back corner) plus a
-    // forward wing on the muster flank. Gapped so it reads fortified but still
-    // funnels players in toward Sarn, never walls the boss out.
-    { x: 100, z: -86, h: 1.8 }, // east wall
-    { x: 100, z: -95, h: 1.8 },
-    { x: 93, z: -100, h: 1.8 }, // south back corner
-    { x: 84, z: -99, h: 1.8 },
-    { x: 86, z: -68, h: 1.7 }, // forward barricade wing (muster flank)
+    { x: 84, z: -69 }, // north wall (east of the gate)
+    { x: 90, z: -71 },
+    { x: 94, z: -73 }, // forward wing, NE
+    { x: 99, z: -79 }, // east wall
+    { x: 101, z: -88, h: 1.8 },
+    { x: 98, z: -95, h: 1.8 }, // south-east corner
+    { x: 90, z: -99, h: 1.8 }, // south wall
+    { x: 82, z: -100, h: 1.8 },
+    { x: 74, z: -96 }, // south-west
+    { x: 70, z: -88 }, // west wall
+    { x: 69, z: -81 },
   ],
   // Ashen Maw war-standard (a Growverse-original procedural totem, not a CC0/Meshy
   // model): the clan's central effigy raised over Sarn the Hollowed's heart, a tall
   // skull-trophy post that reads as the camp's ceremonial center. Sits inside the
   // warlord's-heart ward-totem ring, facing the NW approach so raiders (and players)
   // muster before it. Replaces the earlier ill-fitting stone-guardian idol.
-  warStandards: [{ x: 86, z: -86, rot: 2.3 }],
+  warStandards: [{ x: 84, z: -86, rot: 2.3 }],
   // The Sluice pond has no separate dam anymore: the colony's dam is the straight
   // beaver-log dam thrown across the river at the crossing (SLUICE_BRIDGE, x=70), and
   // you walk its crest to cross (render/bridge.ts renders the dam over the walkable

@@ -621,16 +621,16 @@ export const guideStrings = {
     // Short, spoiler-safe one-liners for each zone's notable places (keyed by biome). One
     // sentence per place, in the same order as the POI list.
     valePlaceNotes:
-      "Bloomhaven is your first home base. Wolf Run and Boar Meadow are gentle hunting ground; Mirror Lake is quiet water to fish; the Webwood and the Copper Dig hide spiders and ore-greedy diggers; a Bandit Camp and the Fallen Chapel hold rougher work; Reliquary Hill drops into the Collapsed Reliquary, the realm's first delve; and Brightwood Glade is a quiet, sunlit grove to the north.",
+      "Bloomhaven is your first home base. Coyote Wash and Javelina Flats are gentle hunting ground; Mirror Lake is quiet water to fish; the Mitewood and the Old Dig hide Bloom mites and Bloom-thieving gremlins; the Dry Camp and the Withered Bloom hold rougher work; Seedvault Hill drops into the Collapsed Reliquary, the realm's first delve; and Bloomwood Glade is a quiet, sunlit grove to the north.",
     marshPlaceNotes:
       "Fenbridge guards the only dry road. The Prowler Reeds and Deepfen Shallows teem with marsh beasts and murlocs; the Widow Thicket is spun thick with web; the Drowned Chapel and the Troll Mounds keep older dangers; the Gravecaller Encampment is the cult dug in, and the Sunken Bastion is the marsh's instanced heart.",
     peaksPlaceNotes:
       "Highwatch holds the wall. Stalker Ridge and the Deeprock Burrows belong to ridge cats and kobolds; the Ogre Foothills and Drogmar's War-Camp to brutes for hire; Stormcrag crackles with elementals and the Glimmermere glows below it; the Wyrmcult Tents and Revenant Fields ring the cult's high ground, with Gravewyrm Sanctum at its peak.",
 
-    // Brightwood Glade vignette, distilled spoiler-safe.
-    gladeTitle: 'A quiet corner: Brightwood Glade',
+    // Bloomwood Glade vignette, distilled spoiler-safe.
+    gladeTitle: 'A quiet corner: Bloomwood Glade',
     gladeBody:
-      'Not every story in the Vale is about the dead. In the north, a sunlit grove called Brightwood Glade keeps its own gentler rhythm, all quiet paths and dappled light beneath the boughs. It is a soft counterpoint to the trail you are following, and worth seeing when the road gives you room to wander.',
+      'Not every story in the Vale is about the dead. In the north, a sunlit grove called Bloomwood Glade keeps its own gentler rhythm, all quiet paths and dappled light beneath the boughs. It is a soft counterpoint to the trail you are following, and worth seeing when the road gives you room to wander.',
   },
 
   // Quests.
@@ -797,7 +797,7 @@ export const guideStrings = {
       'Clearing delves earns Delve Marks, a currency kept apart from your coin. Spend them at the keeper to strengthen your companion and pick up gear you will not find anywhere else.',
     whereHeading: 'Where to find one',
     whereBody:
-      'The first delve, the Collapsed Reliquary, opens at Reliquary Hill in the starting valley of Bloomhaven Vale. Brother Halven keeps the board there, and he will send you down once you are ready.',
+      'The first delve, the Collapsed Reliquary, opens at Seedvault Hill in the starting valley of Bloomhaven Vale. Brother Halven keeps the board there, and he will send you down once you are ready.',
   },
 
   // Talents and Specializations reference.

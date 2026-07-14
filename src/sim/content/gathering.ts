@@ -27,6 +27,22 @@ export const HARVEST_NODES: Record<string, HarvestNodeDef> = {
       { itemId: 'common_seed', weight: 1 },
     ],
   },
+  // Purple flower patch: yields Purple Petals, the Alchemist's draught reagent.
+  purple_bloom: {
+    id: 'purple_bloom',
+    yields: [
+      { itemId: 'purple_petal', weight: 3 },
+      { itemId: 'common_seed', weight: 1 },
+    ],
+  },
+  // Golden flower patch: yields Golden Petals, pressed into a growth booster.
+  golden_bloom: {
+    id: 'golden_bloom',
+    yields: [
+      { itemId: 'golden_petal', weight: 3 },
+      { itemId: 'common_seed', weight: 1 },
+    ],
+  },
   ember_vent: {
     id: 'ember_vent',
     yields: [
@@ -79,10 +95,68 @@ export const HARVEST_NODE_SPAWNS: HarvestNodeSpawn[] = [
     nodeId: 'flower_patch',
     itemId: 'bloom_extract',
     name: 'Flower Patch',
+    // Every bloom in the vale is a workable Flower Patch (there is no decorative
+    // flower dressing, see render/foliage.ts): a wide seeded scatter across the
+    // whole zone, each spot validated dry, gentle-sloped, and road/town/lake/camp/
+    // building-clear at the world seed.
     positions: [
       { x: -40, z: 108 },
       { x: 56, z: 108 },
       { x: -92, z: 48 },
+      { x: 67, z: -140 },
+      { x: -83, z: -3 },
+      { x: 63, z: 99 },
+      { x: 27, z: 85 },
+      { x: 58, z: 14 },
+      { x: 13, z: 126 },
+      { x: 101, z: 49 },
+      { x: 68, z: 36 },
+      { x: 94, z: 103 },
+      { x: 31, z: 123 },
+      { x: -62, z: -11 },
+      { x: -80, z: -99 },
+      { x: 93, z: 13 },
+      { x: 48, z: -9 },
+      { x: -22, z: -47 },
+      { x: 74, z: 70 },
+      { x: 7, z: -55 },
+      { x: 18, z: -134 },
+      { x: -94, z: -36 },
+      { x: -93, z: -57 },
+      { x: -29, z: 35 },
+      { x: -94, z: -138 },
+      { x: -41, z: -60 },
+      { x: -78, z: -48 },
+      { x: -44, z: -3 },
+      { x: -5, z: -159 },
+      { x: 29, z: -79 },
+      { x: -7, z: -72 },
+      { x: -101, z: -107 },
+      { x: -38, z: 69 },
+      { x: -12, z: 110 },
+      { x: -15, z: -140 },
+      { x: 80, z: -71 },
+      { x: 34, z: 101 },
+    ],
+  },
+  {
+    nodeId: 'purple_bloom',
+    itemId: 'purple_petal',
+    name: 'Purple Flower Patch',
+    positions: [
+      { x: -60, z: 100 },
+      { x: 44, z: 92 },
+      { x: -46, z: 88 },
+    ],
+  },
+  {
+    nodeId: 'golden_bloom',
+    itemId: 'golden_petal',
+    name: 'Golden Flower Patch',
+    positions: [
+      { x: -24, z: 124 },
+      { x: 72, z: 96 },
+      { x: -114, z: 44 },
     ],
   },
   {

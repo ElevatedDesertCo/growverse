@@ -1104,6 +1104,9 @@ export const ja_JP: EnTranslations = {
       "introHint": "開けた水辺を向いて F キーで仕掛けを投げましょう。",
       "caughtPopup": "{item} を釣り上げた！",
       "nothing": "何も釣れなかった。"
+    },
+    "harvest": {
+      "gatheredPopup": "{item} を採取した"
     }
   },
   "guide": {
@@ -5113,6 +5116,12 @@ export const ja_JP: EnTranslations = {
       "slow_bloom_lozenge": {
         "name": "遅咲きのトローチ"
       },
+      "purple_petal": {
+        "name": "紫の花びら"
+      },
+      "golden_petal": {
+        "name": "金の花びら"
+      },
       "bristleback_maul": {
         "name": "ブリストルバックの大槌"
       },
@@ -7146,7 +7155,7 @@ export const ja_JP: EnTranslations = {
             "label": "Baked Beaver"
           },
           "11": {
-            "label": "The Sluice"
+            "label": "The Lodge"
           }
         }
       },
