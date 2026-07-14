@@ -9,7 +9,7 @@
 // IWORLD_MEMBERS below is the hand-maintained member list, the W0c analog of the
 // append-only CALLBACK_KEYS in tests/sim_context.test.ts. It is APPEND-ONLY WITH THE
 // INTERFACE: whenever a future slice adds (or removes/renames) a member on `IWorld`,
-// it lands the matching edit here in the SAME commit. The count pins (155 / 38 / 117)
+// it lands the matching edit here in the SAME commit. The count pins (160 / 40 / 120)
 // plus the sorted-name `toEqual` snapshots (modeled on the anti-loosening exclude-set
 // pin in tests/parity/harness.test.ts:131-162) are what force that: a dropped or
 // renamed member reddens deliberately, never silently.
@@ -57,6 +57,7 @@ import type { IWorldParty } from '../src/world_api/party';
 import type { IWorldPet } from '../src/world_api/pet';
 import type { IWorldProgressionXp } from '../src/world_api/progression_xp';
 import type { IWorldQuests } from '../src/world_api/quests';
+import type { IWorldReputation } from '../src/world_api/reputation';
 import type { IWorldSocialGraph } from '../src/world_api/social_graph';
 import type { IWorldTalents } from '../src/world_api/talents';
 import type { IWorldTargeting } from '../src/world_api/targeting';
@@ -70,8 +71,8 @@ interface IWorldMember {
   readonly kind: IWorldMemberKind;
 }
 
-// The 155 members of `interface IWorld`, in interface order (world_api.ts:342-509).
-// Partition: 38 `data` + 117 `method` (read-returning + command-void + 3 async).
+// The 160 members of `interface IWorld`, in interface order (world_api.ts:342-509).
+// Partition: 40 `data` + 120 `method` (read-returning + command-void + 3 async).
 // biome-ignore lint/suspicious/noExportsInTest: IWORLD_MEMBERS is the W0c pinned structural-parity contract (the authoritative IWorld member list)
 export const IWORLD_MEMBERS = [
   // --- core world / player roster + economy reads (data) ---
@@ -126,10 +127,17 @@ export const IWORLD_MEMBERS = [
   { name: 'buyBackItem', kind: 'method' },
   { name: 'depositToStash', kind: 'method' },
   { name: 'withdrawFromStash', kind: 'method' },
-  // IWorldCultivation: the garden read + plant/harvest commands.
+  // IWorldCultivation: the garden + strain-library reads + plant/harvest/breed/release
+  // commands.
   { name: 'garden', kind: 'data' },
+  { name: 'strains', kind: 'data' },
   { name: 'plantSeed', kind: 'method' },
+  { name: 'plantStrain', kind: 'method' },
   { name: 'harvestPlot', kind: 'method' },
+  { name: 'breedStrains', kind: 'method' },
+  { name: 'releaseStrain', kind: 'method' },
+  // IWorldReputation: the commune-standing read (no commands; earned server-side).
+  { name: 'reputation', kind: 'data' },
   { name: 'changeSkin', kind: 'method' },
   { name: 'claimEventSkin', kind: 'method' },
   { name: 'unequipMechChroma', kind: 'method' },
@@ -339,9 +347,9 @@ beforeAll(() => {
 
 describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => {
   it('pins total / data / method counts', () => {
-    expect(IWORLD_MEMBERS.length).toBe(155);
-    expect(DATA_MEMBERS.length).toBe(38);
-    expect(METHOD_MEMBERS.length).toBe(117);
+    expect(IWORLD_MEMBERS.length).toBe(160);
+    expect(DATA_MEMBERS.length).toBe(40);
+    expect(METHOD_MEMBERS.length).toBe(120);
   });
 
   it('has no duplicate member names', () => {
@@ -351,7 +359,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
 
   // Sorted-name `toEqual` snapshots: a dropped, renamed, or kind-flipped member reddens
   // these deliberately, forcing a reviewed edit. NOT length-only.
-  it('the full sorted member set is exactly the pinned 152', () => {
+  it('the full sorted member set is exactly the pinned 160', () => {
     expect(IWORLD_MEMBERS.map((m) => m.name).sort()).toEqual([
       'abandonPet',
       'abandonQuest',
@@ -368,6 +376,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'assignMasterLoot',
       'blockAdd',
       'blockRemove',
+      'breedStrains',
       'buyBackItem',
       'buyItem',
       'cancelAura',
@@ -456,6 +465,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'petTaunt',
       'pickUpObject',
       'plantSeed',
+      'plantStrain',
       'playEmote',
       'player',
       'playerId',
@@ -467,8 +477,10 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'raidLockouts',
       'realm',
       'releaseSpirit',
+      'releaseStrain',
       'renamePet',
       'reportTelemetry',
+      'reputation',
       'respec',
       'restedXp',
       'revivePet',
@@ -485,6 +497,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'startAutoAttack',
       'stash',
       'stopAutoAttack',
+      'strains',
       'submitLootRoll',
       'switchLoadout',
       'tabTarget',
@@ -511,7 +524,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
     ]);
   });
 
-  it('the sorted data-kind set is exactly the pinned 37', () => {
+  it('the sorted data-kind set is exactly the pinned 39', () => {
     expect(DATA_MEMBERS.map((m) => m.name).sort()).toEqual([
       'accountCosmetics',
       'activeLoadout',
@@ -541,9 +554,11 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'questLog',
       'questsDone',
       'realm',
+      'reputation',
       'restedXp',
       'socialInfo',
       'stash',
+      'strains',
       'talentRole',
       'talentSpec',
       'talents',
@@ -554,7 +569,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
     ]);
   });
 
-  it('the sorted method-kind set is exactly the pinned 115', () => {
+  it('the sorted method-kind set is exactly the pinned 118', () => {
     expect(METHOD_MEMBERS.map((m) => m.name).sort()).toEqual([
       'abandonPet',
       'abandonQuest',
@@ -568,6 +583,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'assignMasterLoot',
       'blockAdd',
       'blockRemove',
+      'breedStrains',
       'buyBackItem',
       'buyItem',
       'cancelAura',
@@ -637,11 +653,13 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'petTaunt',
       'pickUpObject',
       'plantSeed',
+      'plantStrain',
       'playEmote',
       'prestige',
       'questState',
       'raidLockouts',
       'releaseSpirit',
+      'releaseStrain',
       'renamePet',
       'reportTelemetry',
       'respec',
@@ -971,11 +989,20 @@ type _ExhaustDelves = AssertNever<Exclude<keyof IWorldDelves, (typeof FACET_DELV
 
 const FACET_CULTIVATION = [
   'garden',
+  'strains',
   'plantSeed',
+  'plantStrain',
   'harvestPlot',
+  'breedStrains',
+  'releaseStrain',
 ] as const satisfies readonly (keyof IWorldCultivation)[];
 type _ExhaustCultivation = AssertNever<
   Exclude<keyof IWorldCultivation, (typeof FACET_CULTIVATION)[number]>
+>;
+
+const FACET_REPUTATION = ['reputation'] as const satisfies readonly (keyof IWorldReputation)[];
+type _ExhaustReputation = AssertNever<
+  Exclude<keyof IWorldReputation, (typeof FACET_REPUTATION)[number]>
 >;
 
 const FACET_TELEMETRY = ['reportTelemetry'] as const satisfies readonly (keyof IWorldTelemetry)[];
@@ -983,7 +1010,7 @@ type _ExhaustTelemetry = AssertNever<
   Exclude<keyof IWorldTelemetry, (typeof FACET_TELEMETRY)[number]>
 >;
 
-// The 20-facet partition, keyed by facet for legible failure messages.
+// The 22-facet partition, keyed by facet for legible failure messages.
 const FACET_MEMBER_ARRAYS: Readonly<Record<string, readonly string[]>> = {
   entityRoster: FACET_ENTITY_ROSTER,
   combat: FACET_COMBAT,
@@ -1005,12 +1032,13 @@ const FACET_MEMBER_ARRAYS: Readonly<Record<string, readonly string[]>> = {
   dungeons: FACET_DUNGEONS,
   delves: FACET_DELVES,
   cultivation: FACET_CULTIVATION,
+  reputation: FACET_REPUTATION,
   telemetry: FACET_TELEMETRY,
 };
 
-describe('W1: aggregate IWorld member set equals the disjoint union of the 21 facets', () => {
-  it('pins the facet count at 21', () => {
-    expect(Object.keys(FACET_MEMBER_ARRAYS).length).toBe(21);
+describe('W1: aggregate IWorld member set equals the disjoint union of the 22 facets', () => {
+  it('pins the facet count at 22', () => {
+    expect(Object.keys(FACET_MEMBER_ARRAYS).length).toBe(22);
   });
 
   it('each facet array is non-empty and internally duplicate-free', () => {
@@ -1036,10 +1064,10 @@ describe('W1: aggregate IWorld member set equals the disjoint union of the 21 fa
     expect(overlaps, `members filed in more than one facet:\n${overlaps.join('\n')}`).toEqual([]);
   });
 
-  it('the union of the 21 facets equals the pinned 155-member IWORLD_MEMBERS set', () => {
+  it('the union of the 22 facets equals the pinned 160-member IWORLD_MEMBERS set', () => {
     const union = Object.values(FACET_MEMBER_ARRAYS).flatMap((arr) => [...arr]);
-    expect(union.length, 'union size before dedup (catches a duplicated member)').toBe(155);
-    expect(new Set(union).size, 'union size after dedup (catches a duplicated member)').toBe(155);
+    expect(union.length, 'union size before dedup (catches a duplicated member)').toBe(160);
+    expect(new Set(union).size, 'union size after dedup (catches a duplicated member)').toBe(160);
     const sortedUnion = [...union].sort();
     const pinned = IWORLD_MEMBERS.map((m) => m.name).sort();
     expect(sortedUnion).toEqual(pinned);

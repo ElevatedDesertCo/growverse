@@ -18,8 +18,10 @@ import { parseRelayCommand } from '../src/sim/discord_relay';
 import type { PickAction } from '../src/sim/lockpick';
 import { sanitizeMarketQuery } from '../src/sim/market_query';
 import { parseMoveInputFrame } from '../src/sim/move_input';
+import { reputationViews } from '../src/sim/reputation';
 import type { PetState, PlayerMeta } from '../src/sim/sim';
 import { MAX_CHAT_MESSAGE_LEN, Sim } from '../src/sim/sim';
+import { strainViews } from '../src/sim/strain_library';
 import { stealthDetectionRadius, threatEntries } from '../src/sim/threat';
 import {
   DT,
@@ -149,11 +151,13 @@ const ARENA_WIRE_HZ = 0.1;
 const ARENA_WIRE_INTERVAL_TICKS = Math.max(1, Math.round(1 / (DT * ARENA_WIRE_HZ)));
 
 type ClientMessage = Record<string, unknown> & {
+  a?: string;
   ability?: string;
   action?: string;
   alloc?: unknown;
   ante?: number;
   augment?: string;
+  b?: string;
   bar?: unknown;
   catalog?: string;
   choice?: 'need' | 'greed' | 'pass';
@@ -193,6 +197,7 @@ type ClientMessage = Record<string, unknown> & {
   skin?: number;
   slot?: number | string;
   spec?: string;
+  strain?: string;
   t?: string;
   text?: string;
   tierId?: string;
@@ -2370,6 +2375,19 @@ export class GameServer {
       case 'harvest_plot':
         if (typeof msg.plot === 'number') sim.harvestPlot(msg.plot, pid);
         break;
+      case 'plant_strain':
+        if (typeof msg.plot === 'number' && typeof msg.strain === 'string') {
+          sim.plantStrain(msg.plot, msg.strain, pid);
+        }
+        break;
+      case 'breed_strains':
+        if (typeof msg.a === 'string' && typeof msg.b === 'string') {
+          sim.breedStrains(msg.a, msg.b, pid);
+        }
+        break;
+      case 'release_strain':
+        if (typeof msg.strain === 'string') sim.releaseStrain(msg.strain, pid);
+        break;
       case 'change_skin':
         if (typeof msg.skin === 'number') {
           if (msg.catalog === 'mech') {
@@ -3185,6 +3203,8 @@ export class GameServer {
       maybe('buyback', meta.vendorBuyback);
       maybe('stash', meta.stash);
       maybe('garden', gardenView(meta.plots, this.sim.time));
+      maybe('strains', strainViews(meta.strains));
+      maybe('rep', reputationViews(meta.reputation));
       maybe('equip', meta.equipment);
       maybe('cosmetics', anchorSession.accountCosmetics);
       maybe('qlog', [...meta.questLog.values()]);

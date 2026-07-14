@@ -39,7 +39,9 @@ import {
   type PlotView,
   type QuestProgress,
   type QuestState,
+  type ReputationView,
   type SimEvent,
+  type StrainView,
 } from '../sim/types';
 import {
   type AccountCosmetics,
@@ -836,8 +838,12 @@ export class ClientWorld implements IWorld {
   vendorBuyback: InvSlot[] = [];
   // --- IWorldInventory: the account bank (stash), mirrored from snapshot self. ---
   stash: InvSlot[] = [];
-  // --- IWorldCultivation: the garden view (one PlotView per plot), mirrored from self. ---
+  // --- IWorldCultivation: the garden view (one PlotView per plot) + the strain library
+  // (one StrainView per owned strain), both mirrored from self. ---
   garden: PlotView[] = [];
+  strains: StrainView[] = [];
+  // --- IWorldReputation: commune standings (one ReputationView per faction). ---
+  reputation: ReputationView[] = [];
   equipment: Partial<Record<EquipSlot, string>> = {};
   copper = 0;
   // --- IWorldCosmetics: account cosmetics (completed-quest + mech-chroma ids),
@@ -1514,8 +1520,11 @@ export class ClientWorld implements IWorld {
         this.stash = s.stash;
         this.invChanged = true;
       }
-      // IWorldCultivation garden: delta-guarded; a missing field keeps the prior mirror.
+      // IWorldCultivation garden + strain library: delta-guarded; a missing field keeps
+      // the prior mirror. IWorldReputation standings ride the same self-frame (terse `rep`).
       if (s.garden !== undefined) this.garden = s.garden;
+      if (s.strains !== undefined) this.strains = s.strains;
+      if (s.rep !== undefined) this.reputation = s.rep;
       if (s.equip !== undefined) this.equipment = s.equip;
       // IWorldCosmetics facet (W7) self-decode: cosmetics is delta-guarded (a
       // missing field keeps the prior mirror); normalizeAccountCosmetics rebuilds it.
@@ -1796,6 +1805,18 @@ export class ClientWorld implements IWorld {
   }
   harvestPlot(plotIndex: number): void {
     this.cmd({ cmd: 'harvest_plot', plot: plotIndex });
+  }
+  // Plant a library strain (consumes its lineage seed); breed or release library strains.
+  // Server re-validates ownership, plot, medium, library cap, and cost; the `strains` +
+  // `garden` reads reconcile from the self-snapshot.
+  plantStrain(plotIndex: number, strainId: string): void {
+    this.cmd({ cmd: 'plant_strain', plot: plotIndex, strain: strainId });
+  }
+  breedStrains(strainIdA: string, strainIdB: string): void {
+    this.cmd({ cmd: 'breed_strains', a: strainIdA, b: strainIdB });
+  }
+  releaseStrain(strainId: string): void {
+    this.cmd({ cmd: 'release_strain', strain: strainId });
   }
   // --- IWorldCrafting: submit a recipe at the nearby station. Server re-validates
   // proximity, copper, and reagents; result flows back as an events frame.
