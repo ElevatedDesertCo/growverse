@@ -1074,6 +1074,31 @@ export const ko_KR: EnTranslations = {
       "ready": "수확 가능",
       "open": "정원 가꾸기"
     },
+    "breeding": {
+      "title": "품종 유전학",
+      "hint": "두 품종을 교배해 특성을 결합하거나 정원에 심으세요.",
+      "open": "품종 교배",
+      "empty": "아직 품종이 없습니다. 블룸을 수확해 첫 품종을 발견하세요.",
+      "landrace": "재래종",
+      "potency": "효능",
+      "vigor": "활력",
+      "yield": "수확량",
+      "parentA": "부모 A",
+      "parentB": "부모 B",
+      "plant": "심기",
+      "release": "방출",
+      "breed": "교배",
+      "full": "품종 보관함이 가득 찼습니다. 품종을 방출해 공간을 만드세요."
+    },
+    "reputation": {
+      "tier": {
+        "neutral": "중립",
+        "friendly": "우호적",
+        "honored": "존경",
+        "revered": "숭배",
+        "exalted": "추앙"
+      }
+    },
     "fishing": {
       "caught": "{item}을(를) 낚았습니다!",
       "introHint": "트인 물을 향한 뒤 F 키를 눌러 낚싯줄을 던지세요.",

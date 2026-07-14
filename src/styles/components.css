@@ -2975,6 +2975,147 @@
     cursor: default;
   }
 
+  /* breeding window (strain genetics + commune reputation) */
+  #breeding-window {
+    width: 440px;
+    max-height: 72vh;
+    overflow-y: auto;
+  }
+  .breeding-hint {
+    font-size: 11px;
+    color: #c8b888;
+    margin-bottom: 6px;
+  }
+  .breeding-rep {
+    padding: 6px 5px;
+    border-bottom: 1px solid #463a1c;
+  }
+  .breeding-rep-row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: 2px 8px;
+  }
+  .breeding-rep-name {
+    color: #efe4c2;
+    font-size: 12px;
+  }
+  .breeding-rep-tier {
+    color: #d8c88a;
+    font-size: 11px;
+    text-align: right;
+  }
+  .breeding-rep-bar {
+    grid-column: 1 / -1;
+    height: 7px;
+    border-radius: 4px;
+    background: #120e06;
+    overflow: hidden;
+  }
+  .breeding-rep-fill {
+    height: 100%;
+    background: linear-gradient(#c8a24a, #8a6a26);
+  }
+  .breeding-rep-pts {
+    grid-column: 1 / -1;
+    color: #a89c78;
+    font-size: 10px;
+    text-align: right;
+  }
+  .breeding-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px 5px;
+  }
+  .breeding-empty {
+    color: #887c5c;
+    font-size: 11px;
+    padding: 8px 2px;
+  }
+  .breeding-strain {
+    padding: 8px;
+    border: 1px solid #2c2413;
+    border-radius: 5px;
+    background: #201a0d;
+  }
+  .breeding-strain-a {
+    border-color: #6a8a3a;
+  }
+  .breeding-strain-b {
+    border-color: #3a6a8a;
+  }
+  .breeding-strain-head {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .breeding-strain-name {
+    font-size: 12px;
+    color: #efe4c2;
+  }
+  .breeding-landrace {
+    font-size: 10px;
+    color: #1a1408;
+    background: linear-gradient(#e6c65a, #c8a24a);
+    padding: 1px 6px;
+    border-radius: 8px;
+  }
+  .breeding-traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+    margin: 4px 0 6px;
+  }
+  .breeding-trait {
+    font-size: 11px;
+    color: #c8b888;
+  }
+  .breeding-strain-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .breeding-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 8px 5px;
+    border-top: 1px solid #463a1c;
+  }
+  .breeding-note {
+    font-size: 11px;
+    color: #d8a86a;
+  }
+  .breeding-action {
+    min-height: 40px;
+    padding: 6px 14px;
+    border: 1px solid #6a5320;
+    border-radius: 4px;
+    cursor: var(--cursor-point);
+    background: linear-gradient(#8a6a26, #5a4413 55%, #473409);
+    color: #ffe6a8;
+    font-family: var(--title-font);
+    font-size: 12px;
+  }
+  .breeding-pick {
+    background: linear-gradient(#3a3320, #2a2415);
+    color: #cfc4a0;
+  }
+  .breeding-pick-on {
+    border-color: var(--gold);
+    color: #efe4c2;
+  }
+  .breeding-action:hover:not(:disabled) {
+    filter: brightness(1.12);
+  }
+  .breeding-action:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
   /* ---------- bags ---------- */
   /* bags, centred in the bottom gap between the action cluster and micro-menu */
   #bags {

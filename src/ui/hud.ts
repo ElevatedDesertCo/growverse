@@ -120,6 +120,8 @@ import { AurasPainter, type AurasPainterDeps } from './auras_painter';
 import { type AurasDeps, createAurasView } from './auras_view';
 import { attachAvatarFallback } from './avatar_fallback';
 import { BagsWindow } from './bags_window';
+import { buildBreedingView } from './breeding_view';
+import { renderBreedingWindow } from './breeding_window';
 import { CastBarPainter } from './cast_bar_painter';
 import { buildPaperdollView, type PaperdollSlot } from './char_view';
 import { CharWindow } from './char_window';
@@ -907,6 +909,12 @@ export class Hud {
   private gardenWindowOpen = false;
   private gardenSelectedSeed: string | null = null;
   private gardenSig = '';
+  // Breeding window (strain genetics + commune reputation): the two pending parent picks
+  // and the change-detect signature, mirroring the garden window.
+  private breedingWindowOpen = false;
+  private breedingSelectedA: string | null = null;
+  private breedingSelectedB: string | null = null;
+  private breedingSig = '';
   private openDelveBoardNpcId: number | null = null;
   private lastDelveTrackerSig = '';
   private selectedDelveTier: 'normal' | 'heroic' = 'normal';
@@ -1711,6 +1719,9 @@ export class Hud {
         break;
       case 'garden-window':
         this.closeGarden();
+        break;
+      case 'breeding-window':
+        this.closeBreeding();
         break;
       case 'loot-window':
         this.closeLoot();
@@ -4733,6 +4744,7 @@ export class Hud {
     // Refresh the open Garden window (~4 Hz) when its view changed: advances growth
     // bars and reconciles an online plant/harvest from the snapshot. No-op when closed.
     if (mediumHud) this.maybeRefreshGarden();
+    if (mediumHud) this.maybeRefreshBreeding();
     const slowHud = now - this.lastHudSlowAt >= 500;
     if (slowHud) this.lastHudSlowAt = now;
     if (slowHud) this.maybeIntroduceFishingPole();
@@ -8190,10 +8202,13 @@ export class Hud {
       const craftLabel = t(`hudChrome.crafting.${def.crafting}Title` as Parameters<typeof t>[0]);
       html += `<button type="button" class="qd-list-item" data-craft="1" aria-label="${esc(craftLabel)}"><span class="gold">${svgIcon('anvil')}</span> ${esc(craftLabel)}</button>`;
     }
-    // The Grow Station cultivator also tends the player's Garden (personal plots).
+    // The Grow Station cultivator also tends the player's Garden (personal plots) and the
+    // strain library where crosses are bred.
     if (def?.crafting === 'grow') {
       const gardenLabel = t('hudChrome.garden.open');
       html += `<button type="button" class="qd-list-item" data-garden="1" aria-label="${esc(gardenLabel)}"><span class="gold">${svgIcon('interact')}</span> ${esc(gardenLabel)}</button>`;
+      const breedingLabel = t('hudChrome.breeding.open');
+      html += `<button type="button" class="qd-list-item" data-breeding="1" aria-label="${esc(breedingLabel)}"><span class="gold">${svgIcon('interact')}</span> ${esc(breedingLabel)}</button>`;
     }
     if (def?.stash) {
       html += `<button type="button" class="qd-list-item" data-bank="1" aria-label="${esc(t('hudChrome.bank.open'))}"><span class="gold">${svgIcon('chest')}</span> ${esc(t('hudChrome.bank.open'))}</button>`;
@@ -8229,6 +8244,10 @@ export class Hud {
     el.querySelector('[data-garden]')?.addEventListener('click', () => {
       this.closeQuestDialog(false);
       this.openGarden();
+    });
+    el.querySelector('[data-breeding]')?.addEventListener('click', () => {
+      this.closeQuestDialog(false);
+      this.openBreeding();
     });
     el.querySelector('[data-bank]')?.addEventListener('click', () => {
       this.closeQuestDialog(false);
@@ -9045,6 +9064,107 @@ export class Hud {
 
   get gardenOpen(): boolean {
     return this.gardenWindowOpen;
+  }
+
+  // --- Breeding window (strain genetics + commune reputation) ----------------
+  private breedingWindowElRef(): HTMLElement {
+    let el = document.getElementById('breeding-window');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'breeding-window';
+      el.className = 'window panel';
+      const sibling = document.getElementById('vendor-window');
+      (sibling?.parentElement ?? document.getElementById('ui') ?? document.body).appendChild(el);
+    }
+    return el;
+  }
+
+  private breedingSignature(): string {
+    const strains = this.sim.strains
+      .map((s) => `${s.id}:${s.potency}${s.vigor}${s.yield}${s.landrace ? 'L' : ''}`)
+      .join('|');
+    const rep = this.sim.reputation.map((r) => `${r.factionId}:${r.points}`).join(',');
+    const garden = this.sim.garden.map((p) => p.stage).join('');
+    return `${strains};${rep};${garden};${this.breedingSelectedA ?? ''};${this.breedingSelectedB ?? ''}`;
+  }
+
+  openBreeding(): void {
+    this.closeOtherWindows('#breeding-window');
+    this.breedingWindowOpen = true;
+    this.renderBreeding();
+  }
+
+  private renderBreeding(): void {
+    if (!this.breedingWindowOpen) return;
+    // Drop a parent pick that no longer names an owned strain (released/relogged).
+    const owns = (id: string | null) => id !== null && this.sim.strains.some((s) => s.id === id);
+    if (!owns(this.breedingSelectedA)) this.breedingSelectedA = null;
+    if (!owns(this.breedingSelectedB)) this.breedingSelectedB = null;
+    this.breedingSig = this.breedingSignature();
+    const view = buildBreedingView(
+      this.sim.strains,
+      this.sim.reputation,
+      this.sim.garden,
+      this.breedingSelectedA,
+      this.breedingSelectedB,
+    );
+    const refreshBags = () => {
+      if ($('#bags').style.display !== 'none') this.renderBags();
+    };
+    renderBreedingWindow(this.breedingWindowElRef(), view, {
+      ...this.presentationBag,
+      hideTooltip: () => this.hideTooltip(),
+      onPickParent: (strainId, slot) => {
+        // Toggle off if re-picking the same strain in the same slot; clear the other slot
+        // if this strain already fills it (a strain can occupy only one parent slot).
+        if (slot === 'a') {
+          this.breedingSelectedA = this.breedingSelectedA === strainId ? null : strainId;
+          if (this.breedingSelectedB === strainId) this.breedingSelectedB = null;
+        } else {
+          this.breedingSelectedB = this.breedingSelectedB === strainId ? null : strainId;
+          if (this.breedingSelectedA === strainId) this.breedingSelectedA = null;
+        }
+        this.renderBreeding();
+      },
+      onBreed: () => {
+        if (this.breedingSelectedA && this.breedingSelectedB) {
+          this.sim.breedStrains(this.breedingSelectedA, this.breedingSelectedB);
+          this.breedingSelectedA = null;
+          this.breedingSelectedB = null;
+        }
+        this.renderBreeding();
+        refreshBags();
+      },
+      onPlant: (strainId) => {
+        const plot = this.sim.garden.findIndex((p) => p.stage === 'empty');
+        if (plot >= 0) this.sim.plantStrain(plot, strainId);
+        this.renderBreeding();
+        refreshBags();
+      },
+      onRelease: (strainId) => {
+        this.sim.releaseStrain(strainId);
+        this.renderBreeding();
+      },
+      onClose: () => this.closeBreeding(),
+    });
+  }
+
+  // Re-render only when the library, standings, garden, or the pending picks changed, so
+  // an idle breeding window does not churn the DOM.
+  private maybeRefreshBreeding(): void {
+    if (!this.breedingWindowOpen) return;
+    if (this.breedingSignature() !== this.breedingSig) this.renderBreeding();
+  }
+
+  closeBreeding(): void {
+    const el = document.getElementById('breeding-window');
+    if (el) el.style.display = 'none';
+    this.breedingWindowOpen = false;
+    this.hideTooltip();
+  }
+
+  get breedingOpen(): boolean {
+    return this.breedingWindowOpen;
   }
 
   // -------------------------------------------------------------------------

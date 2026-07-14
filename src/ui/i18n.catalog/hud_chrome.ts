@@ -1171,6 +1171,34 @@ export const hudChromeStrings = {
     ready: 'Ready',
     open: 'Tend Garden',
   },
+  // Strain genetics: the Breeding window (cross two strains to combine their traits,
+  // plant a strain, release one) plus the commune-standing header.
+  breeding: {
+    title: 'Strain Genetics',
+    hint: 'Cross two strains to combine their traits, or plant one in your garden.',
+    open: 'Breed Strains',
+    empty: 'No strains yet. Harvest a Bloom to discover your first strain.',
+    landrace: 'Landrace',
+    potency: 'Potency',
+    vigor: 'Vigor',
+    yield: 'Yield',
+    parentA: 'Parent A',
+    parentB: 'Parent B',
+    plant: 'Plant',
+    release: 'Release',
+    breed: 'Cross',
+    full: 'Your strain library is full. Release a strain to make room.',
+  },
+  // Commune reputation: the standing tier names shown on the breeding header.
+  reputation: {
+    tier: {
+      neutral: 'Neutral',
+      friendly: 'Friendly',
+      honored: 'Honored',
+      revered: 'Revered',
+      exalted: 'Exalted',
+    },
+  },
   // Fishing: the celebratory catch line the sim emits as English ("You caught a
   // {name}!"), re-localized client-side by the fishing RULE in sim_i18n.ts; plus
   // the one-time discoverability hint the HUD logs when you first get a pole.

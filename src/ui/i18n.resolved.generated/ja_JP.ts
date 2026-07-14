@@ -1074,6 +1074,31 @@ export const ja_JP: EnTranslations = {
       "ready": "収穫可能",
       "open": "菜園の手入れ"
     },
+    "breeding": {
+      "title": "品種遺伝学",
+      "hint": "2つの品種を交配して特性を組み合わせるか、菜園に植えましょう。",
+      "open": "品種を交配",
+      "empty": "まだ品種がありません。花蕾を収穫して最初の品種を発見しましょう。",
+      "landrace": "在来種",
+      "potency": "効力",
+      "vigor": "活力",
+      "yield": "収量",
+      "parentA": "親A",
+      "parentB": "親B",
+      "plant": "植える",
+      "release": "手放す",
+      "breed": "交配",
+      "full": "品種ライブラリが満杯です。品種を手放して空きを作りましょう。"
+    },
+    "reputation": {
+      "tier": {
+        "neutral": "中立",
+        "friendly": "友好",
+        "honored": "尊敬",
+        "revered": "崇敬",
+        "exalted": "崇拝"
+      }
+    },
     "fishing": {
       "caught": "{item} を釣り上げた！",
       "introHint": "開けた水辺を向いて F キーで仕掛けを投げましょう。",

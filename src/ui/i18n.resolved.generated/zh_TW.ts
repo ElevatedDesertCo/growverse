@@ -1074,6 +1074,31 @@ export const zh_TW: EnTranslations = {
       "ready": "可收穫",
       "open": "打理花園"
     },
+    "breeding": {
+      "title": "品系遺傳學",
+      "hint": "雜交兩個品系以組合它們的特性，或在花園種植一個。",
+      "open": "培育品系",
+      "empty": "還沒有品系。收穫綻放以發現你的第一個品系。",
+      "landrace": "原生種",
+      "potency": "效力",
+      "vigor": "活力",
+      "yield": "產量",
+      "parentA": "親本A",
+      "parentB": "親本B",
+      "plant": "種植",
+      "release": "釋放",
+      "breed": "雜交",
+      "full": "你的品系庫已滿。釋放一個品系以騰出空間。"
+    },
+    "reputation": {
+      "tier": {
+        "neutral": "中立",
+        "friendly": "友善",
+        "honored": "尊敬",
+        "revered": "崇敬",
+        "exalted": "崇拜"
+      }
+    },
     "fishing": {
       "caught": "你釣到了 {item}！",
       "introHint": "面向開闊水面並按 F 拋出釣線。",

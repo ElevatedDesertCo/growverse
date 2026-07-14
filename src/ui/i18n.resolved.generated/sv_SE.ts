@@ -1074,6 +1074,31 @@ export const sv_SE: EnTranslations = {
       "ready": "Ready",
       "open": "Tend Garden"
     },
+    "breeding": {
+      "title": "Strain Genetics",
+      "hint": "Cross two strains to combine their traits, or plant one in your garden.",
+      "open": "Breed Strains",
+      "empty": "No strains yet. Harvest a Bloom to discover your first strain.",
+      "landrace": "Landrace",
+      "potency": "Potency",
+      "vigor": "Vigor",
+      "yield": "Yield",
+      "parentA": "Parent A",
+      "parentB": "Parent B",
+      "plant": "Plant",
+      "release": "Release",
+      "breed": "Cross",
+      "full": "Your strain library is full. Release a strain to make room."
+    },
+    "reputation": {
+      "tier": {
+        "neutral": "Neutral",
+        "friendly": "Friendly",
+        "honored": "Honored",
+        "revered": "Revered",
+        "exalted": "Exalted"
+      }
+    },
     "fishing": {
       "caught": "You caught a {item}!",
       "introHint": "Face open water and press F to cast your line.",
