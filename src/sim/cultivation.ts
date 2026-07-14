@@ -17,6 +17,7 @@
 
 import { BASE_STRAINS, PLANTS } from './data';
 import { dropsEssence, expressTrait, growTimeFactor, yieldBonus } from './genetics';
+import { awardReputation, REP_PER_HARVEST } from './reputation';
 import type { SimContext } from './sim_context';
 import { registerBaseStrain } from './strain_library';
 import { GARDEN_PLOT_COUNT, type Plot, type PlotView } from './types';
@@ -214,6 +215,8 @@ export function harvestPlot(ctx: SimContext, plotIndex: number, pid?: number): v
   // Genetics: harvesting a base seed discovers its strain in the library (once per
   // lineage), seeding the breeding loop from ordinary cultivation output.
   registerBaseStrain(ctx, seedItemId, pid);
+  // Reputation: cultivating for the commune builds standing with the Baked Beaver.
+  awardReputation(ctx, 'baked_beaver', REP_PER_HARVEST, pid);
 }
 
 // Persistence: store elapsed grow time (not an absolute clock stamp) so growth resumes

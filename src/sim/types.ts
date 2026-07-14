@@ -1158,6 +1158,9 @@ export interface CraftRecipe {
   copperCost: number;
   output: { itemId: string; count: number };
   requiredLevel?: number;
+  // Optional commune-reputation gate: the recipe is locked until the player reaches the
+  // given standing tier with the faction (Phase C). See src/sim/reputation.ts.
+  requiredRep?: { factionId: FactionId; tier: RepTier };
 }
 
 export interface NpcDef {
@@ -1290,6 +1293,47 @@ export interface StrainView {
   potency: number;
   vigor: number;
   yield: number;
+}
+
+// ---- Commune reputation (Phase C) -------------------------------------------------
+// Standing with the Baked Beaver commune: a single points total per faction that crosses
+// classic-style ascending tiers, gating strains/recipes/cosmetics. Points are earned from
+// commune activities (cultivating, breeding) and clamp at the exalted cap. Bounded (one
+// faction, five tiers) to keep persistence and the UI small; a settlement/faction pass can
+// add more factions later. See src/sim/reputation.ts.
+export type FactionId = 'baked_beaver';
+export const FACTION_IDS: readonly FactionId[] = ['baked_beaver'];
+
+export type RepTier = 'neutral' | 'friendly' | 'honored' | 'revered' | 'exalted';
+// Tiers in ascending order; index-aligned with REP_TIER_THRESHOLDS.
+export const REP_TIERS: readonly RepTier[] = [
+  'neutral',
+  'friendly',
+  'honored',
+  'revered',
+  'exalted',
+];
+// Cumulative points required to REACH each tier (index-aligned with REP_TIERS).
+export const REP_TIER_THRESHOLDS: readonly number[] = [0, 500, 1500, 3000, 6000];
+// The exalted cap; points clamp here.
+export const REP_MAX = 6000;
+
+export interface FactionDef {
+  id: FactionId;
+  name: string; // English source display name
+}
+
+// Client-facing reputation view (per faction; the IWorld read + self-snapshot).
+export interface ReputationView {
+  factionId: FactionId;
+  name: string;
+  points: number;
+  tier: RepTier;
+  tierIndex: number;
+  // Points into the current tier vs the span to the next (0..1); 1 at exalted.
+  progress: number;
+  // Absolute points needed to reach the next tier, or null at exalted.
+  nextThreshold: number | null;
 }
 
 // Ground interactables (sparkle objects)

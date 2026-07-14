@@ -450,6 +450,9 @@ export const CRAFT_RECIPES: CraftRecipe[] = [
     ],
     copperCost: 100,
     output: { itemId: 'prime_strain_seed', count: 1 },
+    // The finest base stock is a commune-trust reward: locked until Honored with the
+    // Baked Beaver commune, which cultivating and breeding earn (Phase C).
+    requiredRep: { factionId: 'baked_beaver', tier: 'honored' },
   },
   // --- Grow Station: accessories ---------------------------------------------
   {

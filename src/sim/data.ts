@@ -46,6 +46,7 @@ import {
   MAUSOLEUM_DUNGEON_DEFS,
   MAUSOLEUM_DUNGEON_MOBS,
 } from './content/hollowmere';
+import { FACTIONS } from './content/reputation';
 import {
   TEMPLE_CAMPS,
   TEMPLE_DUNGEON_DEFS,
@@ -253,7 +254,8 @@ export const GROUND_OBJECTS: GroundObjectDef[] = [
 // Spawned as ground objects carrying `harvestNodeId` in the Sim world-init.
 // Cultivation (cultivation.ts): what each plantable seed grows into.
 // Genetics (genetics.ts): the base strain genotypes discovered by harvesting each seed.
-export { BASE_STRAIN_BY_SEED, BASE_STRAINS, HARVEST_NODE_SPAWNS, HARVEST_NODES, PLANTS };
+// Reputation (reputation.ts): the commune factions standing is tracked against.
+export { BASE_STRAIN_BY_SEED, BASE_STRAINS, FACTIONS, HARVEST_NODE_SPAWNS, HARVEST_NODES, PLANTS };
 
 export const ROADS: { x: number; z: number }[][] = [
   ...ZONE1_ROADS,

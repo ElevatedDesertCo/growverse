@@ -196,6 +196,13 @@ import {
 import { prestige as prestigeImpl, updateRested } from './progression/xp';
 import { advancePendingProjectiles, type PendingProjectile } from './projectile_travel';
 import { sanitizeRemovedZone1Content } from './removed_zone1_content';
+import {
+  emptyReputation,
+  reputationViews,
+  restoreReputation,
+  type SavedReputation,
+  serializeReputation,
+} from './reputation';
 import { Rng } from './rng';
 import { persistedResource } from './serialize_resource';
 import { tickPendingSession } from './sessions';
@@ -294,6 +301,7 @@ import {
   type EquipSlot,
   type ErrorReason,
   emptyMoveInput,
+  type FactionId,
   FISHING_CAST_ID,
   FISHING_CAST_TIME,
   GCD,
@@ -318,6 +326,7 @@ import {
   type PlotView,
   type QuestProgress,
   type QuestState,
+  type ReputationView,
   RUN_SPEED,
   type SimConfig,
   type SimEvent,
@@ -670,6 +679,10 @@ export interface PlayerMeta {
   // persisted in CharacterState. See src/sim/strain_library.ts + src/sim/genetics.ts.
   strains: Strain[];
   strainSeq: number;
+  // Commune reputation: points-per-faction standing (Baked Beaver commune). Earned from
+  // cultivation/breeding, gates recipes/strains. Persisted in CharacterState. See
+  // src/sim/reputation.ts.
+  reputation: Record<FactionId, number>;
   copper: number;
   equipment: PlayerEquipment;
   xp: number;
@@ -802,6 +815,8 @@ export interface CharacterState {
   // does not depend on the base-strain content table. See src/sim/strain_library.ts.
   strains?: SavedStrain[];
   strainSeq?: number;
+  // Commune reputation ledger. Optional so pre-reputation saves load cleanly (default 0).
+  reputation?: SavedReputation;
   questLog: { questId: string; counts: number[]; state: 'active' | 'ready' | 'done' }[];
   questsDone: string[];
   // Legacy arenaRating/Wins/Losses are treated as 1v1 data. The explicit
@@ -1248,6 +1263,7 @@ export class Sim {
       plots: emptyPlots(),
       strains: emptyStrains(),
       strainSeq: 0,
+      reputation: emptyReputation(),
       copper: 0,
       equipment: { mainhand: classDef.startWeapon, chest: classDef.startChest },
       xp: 0,
@@ -1313,6 +1329,7 @@ export class Sim {
       meta.plots = restorePlots(s.plots, this.time);
       meta.strains = restoreStrains(s.strains);
       meta.strainSeq = s.strainSeq ?? 0;
+      meta.reputation = restoreReputation(s.reputation);
       for (const q of s.questLog) {
         if (q.state !== 'done')
           meta.questLog.set(q.questId, {
@@ -1523,6 +1540,7 @@ export class Sim {
       plots: serializePlots(meta.plots, this.time),
       strains: serializeStrains(meta.strains),
       strainSeq: meta.strainSeq,
+      reputation: serializeReputation(meta.reputation),
       questLog: [...meta.questLog.values()].map((q) => ({
         questId: q.questId,
         counts: [...q.counts],
@@ -1733,6 +1751,11 @@ export class Sim {
   // strain, never the raw genotype). The online ClientWorld mirrors it from the snapshot.
   get strains(): StrainView[] {
     return strainViews(this.primary.strains);
+  }
+  // IWorld read: the player's commune standings (per faction). Mirrored by ClientWorld
+  // from the self-snapshot.
+  get reputation(): ReputationView[] {
+    return reputationViews(this.primary.reputation);
   }
   get equipment(): PlayerEquipment {
     return this.primary.equipment;

@@ -9,6 +9,7 @@
 // no Math.random/Date.now (enforced by tests/architecture.test.ts). Draws NO rng.
 
 import { CRAFT_RECIPES_BY_ID, NPCS } from './data';
+import { meetsTier } from './reputation';
 import type { SimContext } from './sim_context';
 import { type CraftStation, dist2d, type Entity, INTERACT_RANGE } from './types';
 
@@ -43,6 +44,13 @@ export function craft(ctx: SimContext, recipeId: string, pid?: number): void {
   }
   if (recipe.requiredLevel && p.level < recipe.requiredLevel) {
     ctx.error(meta.entityId, 'You are not skilled enough to craft that yet.');
+    return;
+  }
+  if (
+    recipe.requiredRep &&
+    !meetsTier(meta.reputation, recipe.requiredRep.factionId, recipe.requiredRep.tier)
+  ) {
+    ctx.error(meta.entityId, 'The commune does not trust you enough for that yet.');
     return;
   }
   if (meta.copper < recipe.copperCost) {

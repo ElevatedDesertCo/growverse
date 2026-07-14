@@ -14,6 +14,7 @@
 
 import { BASE_STRAIN_BY_SEED } from './data';
 import { baseStrain, breed, strainView } from './genetics';
+import { awardReputation, REP_PER_BREED, REP_PER_LANDRACE } from './reputation';
 import type { SimContext } from './sim_context';
 import { type Genotype, MAX_STRAINS, type Strain, type StrainView } from './types';
 
@@ -82,6 +83,9 @@ export function breedStrains(ctx: SimContext, idA: string, idB: string, pid?: nu
   const child = breed(ctx.rng, a, b, `s${meta.strainSeq++}`);
   meta.strains.push(child);
   ctx.notice(meta.entityId, `You cross ${a.name} and ${b.name} into a new ${child.name} strain.`);
+  // Reputation: breeding advances the commune's craft; a rare landrace is a windfall.
+  awardReputation(ctx, 'baked_beaver', REP_PER_BREED, pid);
+  if (child.landrace) awardReputation(ctx, 'baked_beaver', REP_PER_LANDRACE, pid);
 }
 
 // Release a strain from the library (frees a slot). A base strain re-discovers on the next
