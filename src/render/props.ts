@@ -829,33 +829,53 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     inn: 7.6,
   };
 
-  // Seat a building on the LOWEST corner of its footprint, not just its center.
-  // The house foundations are flat, so a center-seated house floats on its
-  // downhill side over sloped ground (the waterfront outposts). Sampling the
-  // four rotated footprint corners and dropping to the minimum keeps the
-  // downhill edge flush with the terrain (the uphill edge tucks into the slope)
-  // so nothing floats. On the flat town plateau all four corners match, so this
-  // is a no-op there. (Local->world uses the three.js rotation.y convention,
-  // mirroring pointInsideFootprint / colliders.rotY.)
-  const seatGround = (b: (typeof PROPS.buildings)[number]) => {
+  // Sample the four rotated footprint corners of a building. The house
+  // foundations are flat, so on the sloped hub-blend ring the terrain rises and
+  // falls across the footprint: seating at the CENTER floats the downhill side,
+  // seating at the LOWEST corner sinks the uphill walls into the hill. Instead
+  // seat at the HIGHEST corner (so no wall is ever buried) and fill the downhill
+  // gap with a stone foundation plinth down past the lowest corner, so the house
+  // reads as built level on a foundation rather than floating or sunken. On the
+  // flat town plateau all four corners match, so seat == center and no plinth is
+  // added. (Local->world uses the three.js rotation.y convention, mirroring
+  // pointInsideFootprint / colliders.rotY.)
+  const footprintGround = (b: (typeof PROPS.buildings)[number]): { lo: number; hi: number } => {
     const c = Math.cos(b.rot);
     const s = Math.sin(b.rot);
     const hw = b.w / 2;
     const hd = b.d / 2;
     let lo = Infinity;
+    let hi = -Infinity;
     for (const lx of [-hw, hw]) {
       for (const lz of [-hd, hd]) {
         const wx = b.x + lx * c + lz * s;
         const wz = b.z - lx * s + lz * c;
-        lo = Math.min(lo, ground(wx, wz));
+        const gy = ground(wx, wz);
+        lo = Math.min(lo, gy);
+        hi = Math.max(hi, gy);
       }
     }
-    return lo;
+    return { lo, hi };
+  };
+  // Stone foundation plinth: fills the wedge between the house base (seated at
+  // the high corner) and the lowest ground under the footprint, so a house on a
+  // slope sits on a level stone base instead of floating over the downhill gap.
+  const foundationMat = surfaceMat({ color: 0x7c736a, roughness: 0.96 });
+  const addFoundation = (g: THREE.Group, w: number, d: number, drop: number) => {
+    // top tucks 0.1 up under the house sill (hides the seam), bottom skirts 0.6
+    // below the lowest corner so it never floats even on noisy terrain. (No
+    // per-mesh shadow flags here: the enclosing shadowed(g) traverses it.)
+    const h = drop + 0.7;
+    const plinth = new THREE.Mesh(new THREE.BoxGeometry(w * 0.99, h, d * 0.99), foundationMat);
+    plinth.position.y = 0.1 - h / 2;
+    g.add(plinth);
   };
 
   for (const b of PROPS.buildings) {
     const key = b.x * 13.7 + b.z * 3.1;
-    const y = seatGround(b);
+    const { lo, hi } = footprintGround(b);
+    const y = hi; // seat at the highest corner so no wall sinks into the hill
+    const drop = hi - lo; // downhill gap the foundation plinth fills
     // roof Y mirrors the camera collider height in colliders.ts
     const roofY = y + (b.kind === 'chapel' ? 10.8 : b.kind === 'inn' ? 7.8 : 8.0);
     if (b.kind === 'chapel') {
@@ -872,6 +892,7 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
         z: b.d / 2 - 1.62,
         scale: [(b.w * 0.9) / hall.size.x, 2.5 / hall.size.y, 3.2 / hall.size.z],
       });
+      if (drop > 0.12) addFoundation(g, b.w, b.d, drop);
       g.position.set(b.x, y - 0.12, b.z);
       g.rotation.y = b.rot;
       group.add(shadowed(g));
@@ -883,6 +904,7 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     const a = propAsset(asset);
     const g = new THREE.Group();
     addParts(g, asset, { scale: [b.w / a.size.x, houseHeight[asset] / a.size.y, b.d / a.size.z] });
+    if (drop > 0.12) addFoundation(g, b.w, b.d, drop);
     g.position.set(b.x, y - 0.12, b.z);
     g.rotation.y = b.rot;
     group.add(shadowed(g));
