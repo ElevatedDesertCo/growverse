@@ -1253,20 +1253,24 @@ export const GARDEN_CLEARING = {
   clearRadius: 17,
 } as const;
 
-// The garden is a 6x6 grid of raised beds (36 plots) laid out as a tilled field on the
-// flattened clearing, with room around it to expand later. One interactable bed per plot.
-// GARDEN_ROWS/COLS drive both the physical layout and the plot count; a settlement/
-// reputation upgrade path can widen the grid (and the clearing) from here.
-const GARDEN_ROWS = 6;
+// The garden is a field of raised beds laid out on the flattened clearing, 6 columns
+// wide. It began as a centered 6x6 grid, but the grotto road cuts diagonally across the
+// clearing and ran through the back three rows, so the field now stops at the path: only
+// the front (south) three rows remain, a clean 6x3 of 18 beds wholly on the near side of
+// the road. GARDEN_ROW_ANCHOR keeps those front rows in their original spots (it is the
+// old 6-row center offset), so trimming the back rows did not shift the beds that stayed.
+// The flat clearing keeps open room to the south to expand the field away from the path.
+const GARDEN_ROWS = 3;
 const GARDEN_COLS = 6;
 const GARDEN_SPACING = 2.6; // yards between bed centers (beds are ~1.9yd, so ~0.7yd paths)
+const GARDEN_ROW_ANCHOR = 2.5; // south-edge anchor (unchanged from the original 6-row centering)
 export const GARDEN_PLOT_GRID: readonly { x: number; z: number }[] = (() => {
   const grid: { x: number; z: number }[] = [];
   for (let row = 0; row < GARDEN_ROWS; row++) {
     for (let col = 0; col < GARDEN_COLS; col++) {
       grid.push({
         x: GARDEN_CLEARING.x + (col - (GARDEN_COLS - 1) / 2) * GARDEN_SPACING,
-        z: GARDEN_CLEARING.z + (row - (GARDEN_ROWS - 1) / 2) * GARDEN_SPACING,
+        z: GARDEN_CLEARING.z + (row - GARDEN_ROW_ANCHOR) * GARDEN_SPACING,
       });
     }
   }
