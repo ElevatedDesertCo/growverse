@@ -829,9 +829,33 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     inn: 7.6,
   };
 
+  // Seat a building on the LOWEST corner of its footprint, not just its center.
+  // The house foundations are flat, so a center-seated house floats on its
+  // downhill side over sloped ground (the waterfront outposts). Sampling the
+  // four rotated footprint corners and dropping to the minimum keeps the
+  // downhill edge flush with the terrain (the uphill edge tucks into the slope)
+  // so nothing floats. On the flat town plateau all four corners match, so this
+  // is a no-op there. (Local->world uses the three.js rotation.y convention,
+  // mirroring pointInsideFootprint / colliders.rotY.)
+  const seatGround = (b: (typeof PROPS.buildings)[number]) => {
+    const c = Math.cos(b.rot);
+    const s = Math.sin(b.rot);
+    const hw = b.w / 2;
+    const hd = b.d / 2;
+    let lo = Infinity;
+    for (const lx of [-hw, hw]) {
+      for (const lz of [-hd, hd]) {
+        const wx = b.x + lx * c + lz * s;
+        const wz = b.z - lx * s + lz * c;
+        lo = Math.min(lo, ground(wx, wz));
+      }
+    }
+    return lo;
+  };
+
   for (const b of PROPS.buildings) {
     const key = b.x * 13.7 + b.z * 3.1;
-    const y = ground(b.x, b.z);
+    const y = seatGround(b);
     // roof Y mirrors the camera collider height in colliders.ts
     const roofY = y + (b.kind === 'chapel' ? 10.8 : b.kind === 'inn' ? 7.8 : 8.0);
     if (b.kind === 'chapel') {
