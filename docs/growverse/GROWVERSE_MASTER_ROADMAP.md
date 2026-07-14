@@ -106,6 +106,15 @@ Each phase follows the master directive's required template.
 
 ### Phase B (P1/P2): Cultivation as a real system
 
+STATUS: B-1 (sim core + persistence) and B-2 (IWorld seam: `world.garden` +
+plantSeed/harvestPlot in both worlds + server dispatch + snapshot, all three seam gates
+green) are DONE and shipped. B-3 (the Garden UI window) is handed off: the IWorld
+surface is ready to consume, but the repo's UI contract requires visual + mobile
+portrait/landscape + a11y verification in a running client, which a headless env cannot
+do. UI-label i18n also hits the M16 gate (wordy `hudChrome.*` labels need five non-Latin
+fills), so build the UI where a browser and the localization batch are available.
+
+
 - **Objective:** Turn "growing" from theming into the signature mechanic: plant a seed at a
   plot, it grows over time, harvest yields strain material that feeds Sessions/crafting.
 - **Why it matters:** It is the vision's headline pillar and the thing that makes Growverse
