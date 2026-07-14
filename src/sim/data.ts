@@ -34,6 +34,7 @@ import {
 } from './content/delves';
 import { DUNGEON_DEFS, DUNGEON_MOBS } from './content/dungeons';
 import { HARVEST_NODE_SPAWNS, HARVEST_NODES } from './content/gathering';
+import { BASE_STRAIN_BY_SEED, BASE_STRAINS } from './content/genetics';
 import { GROUND_PICKUP_LINES } from './content/ground_pickup_lines';
 import {
   HOLLOWMERE_CAMPS,
@@ -251,7 +252,8 @@ export const GROUND_OBJECTS: GroundObjectDef[] = [
 // Resource-gathering nodes (harvest.ts): the node defs + their world placements.
 // Spawned as ground objects carrying `harvestNodeId` in the Sim world-init.
 // Cultivation (cultivation.ts): what each plantable seed grows into.
-export { HARVEST_NODE_SPAWNS, HARVEST_NODES, PLANTS };
+// Genetics (genetics.ts): the base strain genotypes discovered by harvesting each seed.
+export { BASE_STRAIN_BY_SEED, BASE_STRAINS, HARVEST_NODE_SPAWNS, HARVEST_NODES, PLANTS };
 
 export const ROADS: { x: number; z: number }[][] = [
   ...ZONE1_ROADS,

@@ -1228,6 +1228,61 @@ export interface PlotView {
 // it later. Kept here (a shared tuning constant) so entity init and persistence agree.
 export const GARDEN_PLOT_COUNT = 6;
 
+// ---- Strain genetics (Phase C) ----------------------------------------------------
+// The signature breeding mechanic. A strain carries a bounded diploid genotype: a fixed
+// set of traits, each with two alleles (integer tiers 0..GENE_MAX). The expressed
+// phenotype of a trait is its DOMINANT (higher) allele, so a plant can carry a hidden
+// recessive that resurfaces in a later cross. Breeding two owned strains segregates one
+// allele from each parent per trait (Mendelian), with a small mutation chance and a rare
+// max-tier phenotype. The model is deliberately bounded (three traits, four tiers, a
+// capped library) to avoid a combinatorial explosion of useless records. All genetics
+// math is deterministic through the sim `Rng` (see src/sim/genetics.ts).
+export type StrainTraitId = 'potency' | 'vigor' | 'yield';
+// The fixed trait order; iteration order is stable so breeding draws are deterministic.
+export const STRAIN_TRAITS: readonly StrainTraitId[] = ['potency', 'vigor', 'yield'];
+// Allele tiers run 0..GENE_MAX inclusive (four tiers).
+export const GENE_MAX = 3;
+// A diploid genotype: exactly two alleles per trait.
+export type Genotype = Record<StrainTraitId, [number, number]>;
+
+// A strain instance in a player's library (PlayerMeta.strains). `id` is a per-player
+// unique, deterministic counter id; `baseId` is the lineage root it descends from (an
+// offspring inherits one parent's lineage) so names stay bounded instead of generated
+// per cross.
+export interface Strain {
+  id: string;
+  baseId: string;
+  name: string; // English source display name
+  genotype: Genotype;
+  landrace: boolean; // rare phenotype: every trait expresses at GENE_MAX
+}
+
+// Base-strain content: the starting genotypes a player discovers by harvesting the
+// crafted seeds. Merged by data.ts (see src/sim/content/genetics.ts).
+export interface StrainDef {
+  baseId: string;
+  name: string; // English source
+  seedItemId: string; // harvesting this crafted seed discovers the base strain
+  genotype: Genotype;
+}
+
+// Library cap: a player holds at most this many strains (breeding into a full library
+// errors until one is released). Bounds persistence growth and the breeding UI.
+export const MAX_STRAINS = 12;
+
+// Client-facing strain view (the IWorld read; rides the self-snapshot). Carries the
+// EXPRESSED phenotype per trait (the dominant allele), not the raw genotype, so the
+// hidden recessive stays server-side until a cross reveals it.
+export interface StrainView {
+  id: string;
+  baseId: string;
+  name: string;
+  landrace: boolean;
+  potency: number;
+  vigor: number;
+  yield: number;
+}
+
 // Ground interactables (sparkle objects)
 export interface GroundObjectDef {
   itemId: string;

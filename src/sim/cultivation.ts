@@ -17,6 +17,7 @@
 
 import { PLANTS } from './data';
 import type { SimContext } from './sim_context';
+import { registerBaseStrain } from './strain_library';
 import { GARDEN_PLOT_COUNT, type Plot, type PlotView } from './types';
 
 export type PlotStage = 'empty' | 'growing' | 'ready';
@@ -134,6 +135,9 @@ export function harvestPlot(ctx: SimContext, plotIndex: number, pid?: number): v
   plot.seedItemId = null;
   plot.plantedAt = 0;
   ctx.notice(meta.entityId, `You harvest ${name}.`);
+  // Genetics: harvesting a base seed discovers its strain in the library (once per
+  // lineage), seeding the breeding loop from ordinary cultivation output.
+  registerBaseStrain(ctx, def.seedItemId, pid);
 }
 
 // Persistence: store elapsed grow time (not an absolute clock stamp) so growth resumes

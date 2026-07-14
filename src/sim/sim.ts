@@ -202,6 +202,15 @@ import { tickPendingSession } from './sessions';
 import { createSimContext, type SimContext, type SimContextHost } from './sim_context';
 import * as chatMod from './social/chat';
 import * as tradeMod from './social/trade';
+import {
+  breedStrains,
+  emptyStrains,
+  releaseStrain,
+  restoreStrains,
+  type SavedStrain,
+  serializeStrains,
+  strainViews,
+} from './strain_library';
 
 // Re-export so server/db.ts's `import type { MarketSave } from '../src/sim/sim'`
 // stays valid now that the type lives in market.ts.
@@ -314,6 +323,8 @@ import {
   type SimEvent,
   type SkinCatalog,
   type SkinRank,
+  type Strain,
+  type StrainView,
   swingMissChance,
   TURN_SPEED,
   type Vec3,
@@ -654,6 +665,11 @@ export interface PlayerMeta {
   // planted seed maturing over sim-time, or is empty. Server-authoritative; persisted
   // in CharacterState (elapsed grow time, rebased on load). See src/sim/cultivation.ts.
   plots: Plot[];
+  // Genetics: the player's strain library (bred + discovered strains, capped at
+  // MAX_STRAINS) and the monotonic id counter for bred strains. Server-authoritative;
+  // persisted in CharacterState. See src/sim/strain_library.ts + src/sim/genetics.ts.
+  strains: Strain[];
+  strainSeq: number;
   copper: number;
   equipment: PlayerEquipment;
   xp: number;
@@ -774,6 +790,11 @@ export interface CharacterState {
   // resumes correctly after a restart (the sim clock resets); rebased to plantedAt on
   // load. A null entry (or a short array) is an empty plot; missing entries pad empty.
   plots?: ({ seedItemId: string; grown: number } | null)[];
+  // Strain library + its id counter. Optional so pre-genetics saves load cleanly (default
+  // to an empty library / seq 0). Strains store name + genotype self-contained, so a load
+  // does not depend on the base-strain content table. See src/sim/strain_library.ts.
+  strains?: SavedStrain[];
+  strainSeq?: number;
   questLog: { questId: string; counts: number[]; state: 'active' | 'ready' | 'done' }[];
   questsDone: string[];
   // Legacy arenaRating/Wins/Losses are treated as 1v1 data. The explicit
@@ -1218,6 +1239,8 @@ export class Sim {
       vendorBuyback: [],
       stash: [],
       plots: emptyPlots(),
+      strains: emptyStrains(),
+      strainSeq: 0,
       copper: 0,
       equipment: { mainhand: classDef.startWeapon, chest: classDef.startChest },
       xp: 0,
@@ -1281,6 +1304,8 @@ export class Sim {
       meta.vendorBuyback = (s.vendorBuyback ?? []).map((i) => ({ ...i }));
       meta.stash = (s.stash ?? []).map((i) => ({ ...i }));
       meta.plots = restorePlots(s.plots, this.time);
+      meta.strains = restoreStrains(s.strains);
+      meta.strainSeq = s.strainSeq ?? 0;
       for (const q of s.questLog) {
         if (q.state !== 'done')
           meta.questLog.set(q.questId, {
@@ -1489,6 +1514,8 @@ export class Sim {
       vendorBuyback: meta.vendorBuyback.map((i) => ({ ...i })),
       stash: meta.stash.map((i) => ({ ...i })),
       plots: serializePlots(meta.plots, this.time),
+      strains: serializeStrains(meta.strains),
+      strainSeq: meta.strainSeq,
       questLog: [...meta.questLog.values()].map((q) => ({
         questId: q.questId,
         counts: [...q.counts],
@@ -1694,6 +1721,11 @@ export class Sim {
   // same shape from the self-snapshot.
   get garden(): PlotView[] {
     return cultivation.gardenView(this.primary.plots, this.time);
+  }
+  // IWorldCultivation read: the client-facing strain library (expressed phenotype per
+  // strain, never the raw genotype). The online ClientWorld mirrors it from the snapshot.
+  get strains(): StrainView[] {
+    return strainViews(this.primary.strains);
   }
   get equipment(): PlayerEquipment {
     return this.primary.equipment;
@@ -4551,6 +4583,17 @@ export class Sim {
 
   harvestPlot(plotIndex: number, pid?: number): void {
     cultivation.harvestPlot(this.ctx, plotIndex, pid);
+  }
+
+  // Genetics: cross two owned strains into a new library strain, or release one to free a
+  // slot. Server-authoritative (validation + the rng-seeded cross live in
+  // strain_library.ts); the library is per-player PlayerMeta state, persisted in the save.
+  breedStrains(strainIdA: string, strainIdB: string, pid?: number): void {
+    breedStrains(this.ctx, strainIdA, strainIdB, pid);
+  }
+
+  releaseStrain(strainId: string, pid?: number): void {
+    releaseStrain(this.ctx, strainId, pid);
   }
 
   private maybeAutoEquip(itemId: string, meta: PlayerMeta): void {
