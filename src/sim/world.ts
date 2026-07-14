@@ -308,6 +308,65 @@ function isOnDock(x: number, z: number): boolean {
   return false;
 }
 
+// House entry ramps: a plinth-seated house sits on a stone foundation with a flight of
+// stone steps down its door (+z) edge (props.ts addSteps). Those treads are COSMETIC; the
+// player's feet ride terrainHeight, so without a matching ground ramp the seated sill reads
+// as an unclimbable wall (the > MAX_CLIMB_SLOPE move gate treats the sudden rise as a cliff).
+// Raise a walkable ramp under the steps, from the seated sill at the door edge down to
+// natural grade at the stair foot, so the treads sit on solid ground you can actually climb.
+// Like the dock apron it ONLY raises (max against natural), stays OUTSIDE the footprint
+// (local z > d/2, clear of the wall OBB collider), and tapers at the side edges. The run is
+// held to at least floorDrop / HOUSE_RAMP_MAX_SLOPE so the grade stays under MAX_CLIMB_SLOPE.
+// Samples terrainHeightNatural (NEVER terrainHeight) at the corners/foot so it never recurses.
+const HOUSE_STEP_TREAD = 0.5; // matches props.ts addSteps tread depth
+const HOUSE_STEP_RISE = 0.42; // matches props.ts addSteps target rise (n = round(floorDrop / rise))
+const HOUSE_RAMP_MAX_SLOPE = 1.3; // hold the ramp comfortably under the 1.5 MAX_CLIMB_SLOPE gate
+const HOUSE_RAMP_EDGE = 0.6; // side taper width (local x) so the ramp edge is not a lateral cliff
+
+function houseStepsOffset(x: number, z: number, h: number, seed: number): number {
+  for (const b of PROPS.buildings) {
+    const dx = x - b.x;
+    const dz = z - b.z;
+    // cheap cull: the ramp reaches at most ~d/2 + a few yards past the door edge
+    const reach = b.d / 2 + 8;
+    if (dx * dx + dz * dz > reach * reach) continue;
+    // world->local (inverse of props.ts local->world; local +z faces the door)
+    const c = Math.cos(b.rot);
+    const s = Math.sin(b.rot);
+    const lx = c * dx - s * dz;
+    const lz = s * dx + c * dz;
+    const zFace = b.d / 2;
+    if (lz <= zFace) continue; // inside/behind the footprint: never disturb the walls
+    const stepHalfW = Math.min(b.w * 0.5, 4.6) / 2 + 0.3; // props stepW half + a little margin
+    if (Math.abs(lx) >= stepHalfW) continue;
+    const along = lz - zFace; // 0 at the door edge, grows toward the stair foot
+    // Seat the sill at the highest footprint corner (mirrors props.ts footprintGround),
+    // sampled from the NATURAL surface so this offset never recurses through terrainHeight.
+    const hw = b.w / 2;
+    const hd = b.d / 2;
+    let hi = -Infinity;
+    for (const cx of [-hw, hw]) {
+      for (const cz of [-hd, hd]) {
+        const wx = b.x + cx * c + cz * s;
+        const wz = b.z - cx * s + cz * c;
+        hi = Math.max(hi, terrainHeightNatural(wx, wz, seed));
+      }
+    }
+    // Natural grade a little past the door edge = the stair foot (props.ts doorProbe).
+    const footGrade = terrainHeightNatural(b.x + (zFace + 1.2) * s, b.z + (zFace + 1.2) * c, seed);
+    const floorDrop = hi - footGrade;
+    if (floorDrop <= 0.5) continue; // door near grade: no steps rendered, no ramp needed
+    const n = Math.min(8, Math.max(1, Math.round(floorDrop / HOUSE_STEP_RISE)));
+    const rampLen = Math.max(n * HOUSE_STEP_TREAD, floorDrop / HOUSE_RAMP_MAX_SLOPE);
+    if (along >= rampLen) continue; // past the stair foot: already at natural grade
+    const rampY = hi + (footGrade - hi) * (along / rampLen); // linear ramp, sill -> foot
+    if (rampY <= h) continue; // only ever RAISE, never dig below the natural surface
+    const wBlend = smoothstep(stepHalfW, stepHalfW - HOUSE_RAMP_EDGE, Math.abs(lx));
+    return h + (rampY - h) * wBlend;
+  }
+  return h;
+}
+
 // Blended biome shape at a given z. Zone interiors keep their exact shape;
 // blends happen across ±~35yd windows at the band boundaries.
 function shapeAt(z: number): { hill: number; base: number } {
@@ -364,7 +423,11 @@ export function groundHeight(x: number, z: number, seed: number): number {
   return terrainHeight(x, z, seed);
 }
 
-export function terrainHeight(x: number, z: number, seed: number): number {
+// The open-world surface WITHOUT the house entry ramps. The render's step-building math
+// (props.ts footprintGround / floorDrop) samples THIS so it still sees the full sill-to-grade
+// drop and lays a real flight of stone treads; terrainHeight then overlays the walkable ramp.
+// houseStepsOffset also samples this (never terrainHeight) so the ramp math never recurses.
+export function terrainHeightNatural(x: number, z: number, seed: number): number {
   let h = baseHeight(x, z, seed);
 
   // Flatten each camp a little so mobs don't stand on cliffs
@@ -403,6 +466,12 @@ export function terrainHeight(x: number, z: number, seed: number): number {
   h = sluiceBridgeOffset(x, z, h, seed);
   h = dockDeckOffset(x, z, h);
   return h;
+}
+
+// The walkable open-world surface: natural terrain plus the house entry ramps that make the
+// plinth steps climbable. This is what the sim moves on and what the terrain mesh renders.
+export function terrainHeight(x: number, z: number, seed: number): number {
+  return houseStepsOffset(x, z, terrainHeightNatural(x, z, seed), seed);
 }
 
 // Distance from (x,z) to the nearest road polyline segment.
