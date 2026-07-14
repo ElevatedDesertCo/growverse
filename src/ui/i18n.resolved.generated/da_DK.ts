@@ -1063,6 +1063,17 @@ export const da_DK: EnTranslations = {
         "missingMaterials": "You lack the materials to craft that."
       }
     },
+    "garden": {
+      "title": "Garden",
+      "hint": "Plant seeds in your plots and harvest Bloom.",
+      "seedLabel": "Seed to plant",
+      "noSeeds": "No plantable seeds. Craft some at the Grow Station.",
+      "empty": "Empty plot",
+      "plant": "Plant",
+      "harvest": "Harvest",
+      "ready": "Ready",
+      "open": "Tend Garden"
+    },
     "fishing": {
       "caught": "You caught a {item}!",
       "introHint": "Face open water and press F to cast your line.",
@@ -5064,6 +5075,18 @@ export const da_DK: EnTranslations = {
       },
       "elixir_of_the_bloom": {
         "name": "Blomstringens Eliksir"
+      },
+      "restful_bloom_tonic": {
+        "name": "Hvilende Blomstertonic"
+      },
+      "lively_bloom_tonic": {
+        "name": "Livlig Blomstertonic"
+      },
+      "balanced_bloom_tonic": {
+        "name": "Balanceret Blomstertonic"
+      },
+      "slow_bloom_lozenge": {
+        "name": "Pastil med Langsom Blomstring"
       },
       "bristleback_maul": {
         "name": "Børsterygs-Lemlæster"

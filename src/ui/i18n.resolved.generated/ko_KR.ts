@@ -1063,6 +1063,17 @@ export const ko_KR: EnTranslations = {
         "missingMaterials": "제작에 필요한 재료가 부족합니다."
       }
     },
+    "garden": {
+      "title": "정원",
+      "hint": "밭에 씨앗을 심고 블룸을 수확하세요.",
+      "seedLabel": "심을 씨앗",
+      "noSeeds": "심을 수 있는 씨앗이 없습니다. 재배소에서 만드세요.",
+      "empty": "빈 밭",
+      "plant": "심기",
+      "harvest": "수확",
+      "ready": "수확 가능",
+      "open": "정원 가꾸기"
+    },
     "fishing": {
       "caught": "{item}을(를) 낚았습니다!",
       "introHint": "트인 물을 향한 뒤 F 키를 눌러 낚싯줄을 던지세요.",
@@ -5064,6 +5075,18 @@ export const ko_KR: EnTranslations = {
       },
       "elixir_of_the_bloom": {
         "name": "만개의 엘릭서"
+      },
+      "restful_bloom_tonic": {
+        "name": "안식의 개화 강장제"
+      },
+      "lively_bloom_tonic": {
+        "name": "활력의 개화 강장제"
+      },
+      "balanced_bloom_tonic": {
+        "name": "균형의 개화 강장제"
+      },
+      "slow_bloom_lozenge": {
+        "name": "느린 개화 로젠지"
       },
       "bristleback_maul": {
         "name": "뻣센등뼈 철퇴"

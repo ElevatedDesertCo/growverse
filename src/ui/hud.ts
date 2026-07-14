@@ -50,6 +50,7 @@ import {
   isDelvePos,
   MOBS,
   NPCS,
+  PLANTS,
   QUESTS,
   questRewardItem,
   WORLD_MAX_X,
@@ -177,6 +178,8 @@ import { fctSpawnShape } from './fct_event';
 import { FctPainter } from './fct_painter';
 import { createFishingCatchPopup, type FishingCatchPopup } from './fishing_catch_popup';
 import { FocusManager, type FocusTrapHandle } from './focus_manager';
+import { buildGardenView, type GardenSeedOption } from './garden_view';
+import { renderGardenWindow } from './garden_window';
 import {
   type AimPoint,
   abilityAoeRadius,
@@ -897,6 +900,13 @@ export class Hud {
   private openVendorNpcId: number | null = null;
   private openCraftingNpcId: number | null = null;
   private openStashNpcId: number | null = null;
+  // Cultivation Garden window: a personal (non-NPC-gated) window. `gardenSelectedSeed`
+  // is the strain the Plant buttons sow; `gardenSig` is the last-rendered signature for
+  // change-detected refresh (the garden has no dedicated SimEvent, so it re-renders
+  // while open only when its view actually changes).
+  private gardenWindowOpen = false;
+  private gardenSelectedSeed: string | null = null;
+  private gardenSig = '';
   private openDelveBoardNpcId: number | null = null;
   private lastDelveTrackerSig = '';
   private selectedDelveTier: 'normal' | 'heroic' = 'normal';
@@ -1698,6 +1708,9 @@ export class Hud {
         break;
       case 'stash-window':
         this.closeStash();
+        break;
+      case 'garden-window':
+        this.closeGarden();
         break;
       case 'loot-window':
         this.closeLoot();
@@ -4717,6 +4730,9 @@ export class Hud {
     }
     const mediumHud = now - this.lastHudMediumAt >= 250;
     if (mediumHud) this.lastHudMediumAt = now;
+    // Refresh the open Garden window (~4 Hz) when its view changed: advances growth
+    // bars and reconciles an online plant/harvest from the snapshot. No-op when closed.
+    if (mediumHud) this.maybeRefreshGarden();
     const slowHud = now - this.lastHudSlowAt >= 500;
     if (slowHud) this.lastHudSlowAt = now;
     if (slowHud) this.maybeIntroduceFishingPole();
@@ -8174,6 +8190,11 @@ export class Hud {
       const craftLabel = t(`hudChrome.crafting.${def.crafting}Title` as Parameters<typeof t>[0]);
       html += `<button type="button" class="qd-list-item" data-craft="1" aria-label="${esc(craftLabel)}"><span class="gold">${svgIcon('anvil')}</span> ${esc(craftLabel)}</button>`;
     }
+    // The Grow Station cultivator also tends the player's Garden (personal plots).
+    if (def?.crafting === 'grow') {
+      const gardenLabel = t('hudChrome.garden.open');
+      html += `<button type="button" class="qd-list-item" data-garden="1" aria-label="${esc(gardenLabel)}"><span class="gold">${svgIcon('interact')}</span> ${esc(gardenLabel)}</button>`;
+    }
     if (def?.stash) {
       html += `<button type="button" class="qd-list-item" data-bank="1" aria-label="${esc(t('hudChrome.bank.open'))}"><span class="gold">${svgIcon('chest')}</span> ${esc(t('hudChrome.bank.open'))}</button>`;
     }
@@ -8204,6 +8225,10 @@ export class Hud {
     el.querySelector('[data-craft]')?.addEventListener('click', () => {
       this.closeQuestDialog(false);
       this.openCrafting(npc.id);
+    });
+    el.querySelector('[data-garden]')?.addEventListener('click', () => {
+      this.closeQuestDialog(false);
+      this.openGarden();
     });
     el.querySelector('[data-bank]')?.addEventListener('click', () => {
       this.closeQuestDialog(false);
@@ -8923,6 +8948,103 @@ export class Hud {
 
   get stashOpen(): boolean {
     return this.openStashNpcId !== null;
+  }
+
+  // -------------------------------------------------------------------------
+  // The Garden (cultivation). A personal window opened from the Grow Station:
+  // it shows the player's plots (world.garden) and plants/harvests through the
+  // IWorld cultivation seam. garden_view decides the rows and garden_window
+  // paints #garden-window (created lazily beside #vendor-window, no index.html
+  // edit). Re-renders on user action and, while open, on a change-detected tick.
+  // -------------------------------------------------------------------------
+  private gardenWindowElRef(): HTMLElement {
+    let el = document.getElementById('garden-window');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'garden-window';
+      el.className = 'window panel';
+      const sibling = document.getElementById('vendor-window');
+      (sibling?.parentElement ?? document.getElementById('ui') ?? document.body).appendChild(el);
+    }
+    return el;
+  }
+
+  private plantableSeeds(): GardenSeedOption[] {
+    const counts = new Map<string, number>();
+    for (const slot of this.sim.inventory)
+      counts.set(slot.itemId, (counts.get(slot.itemId) ?? 0) + slot.count);
+    const seeds: GardenSeedOption[] = [];
+    for (const [itemId, count] of counts) {
+      const item = ITEMS[itemId];
+      if (PLANTS[itemId] && item) seeds.push({ itemId, item, count });
+    }
+    return seeds;
+  }
+
+  private gardenSignature(seeds: GardenSeedOption[]): string {
+    const garden = this.sim.garden
+      .map((p) => `${p.seedItemId ?? ''}:${p.stage}:${p.progress}`)
+      .join('|');
+    const seedSig = seeds.map((s) => `${s.itemId}x${s.count}`).join(',');
+    return `${garden};${seedSig};${this.gardenSelectedSeed ?? ''}`;
+  }
+
+  openGarden(): void {
+    this.closeOtherWindows('#garden-window');
+    this.gardenWindowOpen = true;
+    this.renderGarden();
+  }
+
+  private renderGarden(): void {
+    if (!this.gardenWindowOpen) return;
+    const seeds = this.plantableSeeds();
+    // Keep the selected seed valid: default to the first held seed, clear if none.
+    if (!this.gardenSelectedSeed || !seeds.some((s) => s.itemId === this.gardenSelectedSeed)) {
+      this.gardenSelectedSeed = seeds[0]?.itemId ?? null;
+    }
+    this.gardenSig = this.gardenSignature(seeds);
+    const view = buildGardenView(this.sim.garden, ITEMS, seeds, this.gardenSelectedSeed);
+    const refreshBags = () => {
+      if ($('#bags').style.display !== 'none') this.renderBags();
+    };
+    renderGardenWindow(this.gardenWindowElRef(), view, {
+      ...this.presentationBag,
+      hideTooltip: () => this.hideTooltip(),
+      onSelectSeed: (seedItemId) => {
+        this.gardenSelectedSeed = seedItemId;
+        this.renderGarden();
+      },
+      onPlant: (plotIndex) => {
+        if (this.gardenSelectedSeed) this.sim.plantSeed(plotIndex, this.gardenSelectedSeed);
+        this.renderGarden();
+        refreshBags();
+      },
+      onHarvest: (plotIndex) => {
+        this.sim.harvestPlot(plotIndex);
+        this.renderGarden();
+        refreshBags();
+      },
+      onClose: () => this.closeGarden(),
+    });
+  }
+
+  // Called each frame while the garden is open: re-render only when its view changed
+  // (a growing plant's quantized progress, an online plant/harvest reconciling from the
+  // snapshot, or an inventory change), so an idle garden does not churn the DOM.
+  private maybeRefreshGarden(): void {
+    if (!this.gardenWindowOpen) return;
+    if (this.gardenSignature(this.plantableSeeds()) !== this.gardenSig) this.renderGarden();
+  }
+
+  closeGarden(): void {
+    const el = document.getElementById('garden-window');
+    if (el) el.style.display = 'none';
+    this.gardenWindowOpen = false;
+    this.hideTooltip();
+  }
+
+  get gardenOpen(): boolean {
+    return this.gardenWindowOpen;
   }
 
   // -------------------------------------------------------------------------

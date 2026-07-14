@@ -1063,6 +1063,17 @@ export const en_XA: EnTranslations = {
         "missingMaterials": "[Ýóú ļáçķ ţĥé ɱáţéŕíáļš ţó çŕáƒţ ţĥáţ.]"
       }
     },
+    "garden": {
+      "title": "[Ĝáŕðéñ]",
+      "hint": "[Þļáñţ šééðš íñ ýóúŕ þļóţš áñð ĥáŕʋéšţ Ɓļóóɱ.]",
+      "seedLabel": "[Šééð ţó þļáñţ]",
+      "noSeeds": "[Ñó þļáñţáƀļé šééðš. Çŕáƒţ šóɱé áţ ţĥé Ĝŕóŵ Šţáţíóñ.]",
+      "empty": "[Éɱþţý þļóţ]",
+      "plant": "[Þļáñţ]",
+      "harvest": "[Ĥáŕʋéšţ]",
+      "ready": "[Ŕéáðý]",
+      "open": "[Ţéñð Ĝáŕðéñ]"
+    },
     "fishing": {
       "caught": "[Ýóú çáúĝĥţ á {item}!]",
       "introHint": "[Ƒáçé óþéñ ŵáţéŕ áñð þŕéšš Ƒ ţó çášţ ýóúŕ ļíñé.]",
@@ -5064,6 +5075,18 @@ export const en_XA: EnTranslations = {
       },
       "elixir_of_the_bloom": {
         "name": "[Éļíẋíŕ óƒ ţĥé Ɓļóóɱ]"
+      },
+      "restful_bloom_tonic": {
+        "name": "[Ŕéšţƒúļ Ɓļóóɱ Ţóñíç]"
+      },
+      "lively_bloom_tonic": {
+        "name": "[Ļíʋéļý Ɓļóóɱ Ţóñíç]"
+      },
+      "balanced_bloom_tonic": {
+        "name": "[Ɓáļáñçéð Ɓļóóɱ Ţóñíç]"
+      },
+      "slow_bloom_lozenge": {
+        "name": "[Šļóŵ-Ɓļóóɱ Ļóžéñĝé]"
       },
       "bristleback_maul": {
         "name": "[Ɓŕíšţļéƀáçķ Ɱáúļ]"

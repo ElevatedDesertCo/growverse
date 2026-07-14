@@ -1063,6 +1063,17 @@ export const tr_TR: EnTranslations = {
         "missingMaterials": "You lack the materials to craft that."
       }
     },
+    "garden": {
+      "title": "Garden",
+      "hint": "Plant seeds in your plots and harvest Bloom.",
+      "seedLabel": "Seed to plant",
+      "noSeeds": "No plantable seeds. Craft some at the Grow Station.",
+      "empty": "Empty plot",
+      "plant": "Plant",
+      "harvest": "Harvest",
+      "ready": "Ready",
+      "open": "Tend Garden"
+    },
     "fishing": {
       "caught": "You caught a {item}!",
       "introHint": "Face open water and press F to cast your line.",
@@ -5064,6 +5075,18 @@ export const tr_TR: EnTranslations = {
       },
       "elixir_of_the_bloom": {
         "name": "Çiçeklenme İksiri"
+      },
+      "restful_bloom_tonic": {
+        "name": "Dinlendirici Çiçek Toniği"
+      },
+      "lively_bloom_tonic": {
+        "name": "Canlı Çiçek Toniği"
+      },
+      "balanced_bloom_tonic": {
+        "name": "Dengeli Çiçek Toniği"
+      },
+      "slow_bloom_lozenge": {
+        "name": "Yavaş Çiçeklenme Pastili"
       },
       "bristleback_maul": {
         "name": "Dikensırt Balyozu"

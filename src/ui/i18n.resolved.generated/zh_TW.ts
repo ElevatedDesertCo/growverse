@@ -1063,6 +1063,17 @@ export const zh_TW: EnTranslations = {
         "missingMaterials": "你缺少製作所需的材料。"
       }
     },
+    "garden": {
+      "title": "花園",
+      "hint": "在地塊中種下種子，收穫綻放。",
+      "seedLabel": "要種植的種子",
+      "noSeeds": "沒有可種植的種子。在培育站製作。",
+      "empty": "空地塊",
+      "plant": "種植",
+      "harvest": "收穫",
+      "ready": "可收穫",
+      "open": "打理花園"
+    },
     "fishing": {
       "caught": "你釣到了 {item}！",
       "introHint": "面向開闊水面並按 F 拋出釣線。",
@@ -5064,6 +5075,18 @@ export const zh_TW: EnTranslations = {
       },
       "elixir_of_the_bloom": {
         "name": "綻放靈藥"
+      },
+      "restful_bloom_tonic": {
+        "name": "安神綻放藥劑"
+      },
+      "lively_bloom_tonic": {
+        "name": "活力綻放藥劑"
+      },
+      "balanced_bloom_tonic": {
+        "name": "均衡綻放藥劑"
+      },
+      "slow_bloom_lozenge": {
+        "name": "緩釋綻放含片"
       },
       "bristleback_maul": {
         "name": "硬鬃重槌"

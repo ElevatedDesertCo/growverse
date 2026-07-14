@@ -1063,6 +1063,17 @@ export const nl_NL: EnTranslations = {
         "missingMaterials": "You lack the materials to craft that."
       }
     },
+    "garden": {
+      "title": "Garden",
+      "hint": "Plant seeds in your plots and harvest Bloom.",
+      "seedLabel": "Seed to plant",
+      "noSeeds": "No plantable seeds. Craft some at the Grow Station.",
+      "empty": "Empty plot",
+      "plant": "Plant",
+      "harvest": "Harvest",
+      "ready": "Ready",
+      "open": "Tend Garden"
+    },
     "fishing": {
       "caught": "You caught a {item}!",
       "introHint": "Face open water and press F to cast your line.",
@@ -5064,6 +5075,18 @@ export const nl_NL: EnTranslations = {
       },
       "elixir_of_the_bloom": {
         "name": "Elixer van de Bloesem"
+      },
+      "restful_bloom_tonic": {
+        "name": "Rustgevend Bloesemtonicum"
+      },
+      "lively_bloom_tonic": {
+        "name": "Levendig Bloesemtonicum"
+      },
+      "balanced_bloom_tonic": {
+        "name": "Gebalanceerd Bloesemtonicum"
+      },
+      "slow_bloom_lozenge": {
+        "name": "Pastille van Trage Bloei"
       },
       "bristleback_maul": {
         "name": "Borstelrug-Strijdhamer"

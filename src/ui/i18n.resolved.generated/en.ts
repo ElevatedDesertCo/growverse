@@ -1063,6 +1063,17 @@ export const en: EnTranslations = {
         "missingMaterials": "You lack the materials to craft that."
       }
     },
+    "garden": {
+      "title": "Garden",
+      "hint": "Plant seeds in your plots and harvest Bloom.",
+      "seedLabel": "Seed to plant",
+      "noSeeds": "No plantable seeds. Craft some at the Grow Station.",
+      "empty": "Empty plot",
+      "plant": "Plant",
+      "harvest": "Harvest",
+      "ready": "Ready",
+      "open": "Tend Garden"
+    },
     "fishing": {
       "caught": "You caught a {item}!",
       "introHint": "Face open water and press F to cast your line.",
@@ -5064,6 +5075,18 @@ export const en: EnTranslations = {
       },
       "elixir_of_the_bloom": {
         "name": "Elixir of the Bloom"
+      },
+      "restful_bloom_tonic": {
+        "name": "Restful Bloom Tonic"
+      },
+      "lively_bloom_tonic": {
+        "name": "Lively Bloom Tonic"
+      },
+      "balanced_bloom_tonic": {
+        "name": "Balanced Bloom Tonic"
+      },
+      "slow_bloom_lozenge": {
+        "name": "Slow-Bloom Lozenge"
       },
       "bristleback_maul": {
         "name": "Bristleback Maul"

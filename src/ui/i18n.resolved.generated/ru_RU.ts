@@ -1063,6 +1063,17 @@ export const ru_RU: EnTranslations = {
         "missingMaterials": "У вас недостаточно материалов для создания этого."
       }
     },
+    "garden": {
+      "title": "Сад",
+      "hint": "Сажайте семена на грядках и собирайте Цветение.",
+      "seedLabel": "Семя для посадки",
+      "noSeeds": "Нет семян для посадки. Создайте их на Грядке.",
+      "empty": "Пустая грядка",
+      "plant": "Посадить",
+      "harvest": "Собрать",
+      "ready": "Готово",
+      "open": "Ухаживать за садом"
+    },
     "fishing": {
       "caught": "Вы поймали: {item}!",
       "introHint": "Повернитесь к открытой воде и нажмите F, чтобы забросить леску.",
@@ -5064,6 +5075,18 @@ export const ru_RU: EnTranslations = {
       },
       "elixir_of_the_bloom": {
         "name": "Эликсир цветения"
+      },
+      "restful_bloom_tonic": {
+        "name": "Успокаивающий цветочный тоник"
+      },
+      "lively_bloom_tonic": {
+        "name": "Бодрящий цветочный тоник"
+      },
+      "balanced_bloom_tonic": {
+        "name": "Сбалансированный цветочный тоник"
+      },
+      "slow_bloom_lozenge": {
+        "name": "Пастилка медленного цветения"
       },
       "bristleback_maul": {
         "name": "Кувалда Щетиноспина"

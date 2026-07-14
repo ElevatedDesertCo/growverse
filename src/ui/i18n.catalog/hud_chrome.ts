@@ -1159,6 +1159,18 @@ export const hudChromeStrings = {
       missingMaterials: 'You lack the materials to craft that.',
     },
   },
+  // Cultivation: the Garden window (personal plots). Opened from the Grow Station.
+  garden: {
+    title: 'Garden',
+    hint: 'Plant seeds in your plots and harvest Bloom.',
+    seedLabel: 'Seed to plant',
+    noSeeds: 'No plantable seeds. Craft some at the Grow Station.',
+    empty: 'Empty plot',
+    plant: 'Plant',
+    harvest: 'Harvest',
+    ready: 'Ready',
+    open: 'Tend Garden',
+  },
   // Fishing: the celebratory catch line the sim emits as English ("You caught a
   // {name}!"), re-localized client-side by the fishing RULE in sim_i18n.ts; plus
   // the one-time discoverability hint the HUD logs when you first get a pole.

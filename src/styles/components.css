@@ -2851,6 +2851,130 @@
     cursor: default;
   }
 
+  /* garden (cultivation): the personal-plot window, opened from the Grow Station.
+     Grouped under the crafting banner (no new ten-dash section). */
+  #garden-window {
+    width: 420px;
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+  .garden-hint {
+    font-size: 11px;
+    color: #c8b888;
+    margin-bottom: 6px;
+  }
+  .garden-seedbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px 10px;
+    padding: 6px 5px;
+    border-bottom: 1px solid #463a1c;
+  }
+  .garden-seedlabel {
+    color: #a89c78;
+    font-size: 11px;
+  }
+  .garden-noseeds {
+    color: #887c5c;
+    font-size: 11px;
+  }
+  .garden-seedopts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .garden-seedopt {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    min-height: 40px;
+    padding: 4px 10px;
+    border: 1px solid #463a1c;
+    border-radius: 4px;
+    background: #241d0f;
+    color: #cfc4a0;
+    cursor: var(--cursor-point);
+    font-size: 11px;
+  }
+  .garden-seedopt-on {
+    border-color: var(--gold);
+    color: #efe4c2;
+  }
+  .garden-seedopt-count {
+    color: #a89c78;
+  }
+  .garden-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    padding: 8px 5px;
+  }
+  .garden-plot {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 8px;
+    border: 1px solid #2c2413;
+    border-radius: 5px;
+    background: #201a0d;
+    min-height: 88px;
+  }
+  .garden-plot-ready {
+    border-color: #6a8a3a;
+  }
+  .garden-plot-label {
+    flex: 1;
+    color: #887c5c;
+    font-size: 11px;
+  }
+  .garden-plot-crop {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .garden-plot-name {
+    font-size: 12px;
+    color: #efe4c2;
+  }
+  .garden-progress {
+    height: 7px;
+    border-radius: 4px;
+    background: #120e06;
+    overflow: hidden;
+  }
+  .garden-progress-fill {
+    height: 100%;
+    background: linear-gradient(#8fbf5a, #5a8a2c);
+  }
+  .garden-plot-status {
+    font-size: 11px;
+    color: #c8b888;
+  }
+  .garden-ready {
+    color: #a9d86a;
+  }
+  .garden-action {
+    align-self: flex-start;
+    margin-top: 2px;
+    min-height: 40px;
+    padding: 6px 16px;
+    border: 1px solid #6a5320;
+    border-radius: 4px;
+    cursor: var(--cursor-point);
+    background: linear-gradient(#8a6a26, #5a4413 55%, #473409);
+    color: #ffe6a8;
+    font-family: var(--title-font);
+    font-size: 12px;
+  }
+  .garden-action:hover:not(:disabled) {
+    filter: brightness(1.12);
+  }
+  .garden-action:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
   /* ---------- bags ---------- */
   /* bags, centred in the bottom gap between the action cluster and micro-menu */
   #bags {

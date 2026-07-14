@@ -1063,6 +1063,17 @@ export const pl_PL: EnTranslations = {
         "missingMaterials": "You lack the materials to craft that."
       }
     },
+    "garden": {
+      "title": "Garden",
+      "hint": "Plant seeds in your plots and harvest Bloom.",
+      "seedLabel": "Seed to plant",
+      "noSeeds": "No plantable seeds. Craft some at the Grow Station.",
+      "empty": "Empty plot",
+      "plant": "Plant",
+      "harvest": "Harvest",
+      "ready": "Ready",
+      "open": "Tend Garden"
+    },
     "fishing": {
       "caught": "You caught a {item}!",
       "introHint": "Face open water and press F to cast your line.",
@@ -5064,6 +5075,18 @@ export const pl_PL: EnTranslations = {
       },
       "elixir_of_the_bloom": {
         "name": "Eliksir rozkwitu"
+      },
+      "restful_bloom_tonic": {
+        "name": "Kojący tonik kwiecia"
+      },
+      "lively_bloom_tonic": {
+        "name": "Ożywczy tonik kwiecia"
+      },
+      "balanced_bloom_tonic": {
+        "name": "Zrównoważony tonik kwiecia"
+      },
+      "slow_bloom_lozenge": {
+        "name": "Pastylka powolnego rozkwitu"
       },
       "bristleback_maul": {
         "name": "Tłuk szczeciniastych"
