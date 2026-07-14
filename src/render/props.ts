@@ -3,7 +3,7 @@ import type { GLTF } from 'three/addons/loaders/GLTFLoader.js';
 import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js';
 import { PROPS, WORLD_MIN_Z } from '../sim/data';
 import { hash2 } from '../sim/rng';
-import { terrainHeight, WATER_LEVEL } from '../sim/world';
+import { terrainHeight, terrainHeightNatural, WATER_LEVEL } from '../sim/world';
 import { loadGltf } from './assets/loader';
 import { registerPreload } from './assets/preload';
 import { GFX, sharedUniforms, surfaceMat } from './gfx';
@@ -712,6 +712,12 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
   const fireLights: THREE.PointLight[] = [];
 
   const ground = (x: number, z: number) => terrainHeight(x, z, seed);
+  // Seat + step math for plinth-seated houses sample the NATURAL surface (before the walkable
+  // entry ramp terrainHeight adds under those steps): the house must seat where it always did,
+  // and floorDrop must see the full sill-to-grade drop so a real flight of treads is still laid
+  // over the ramp. Sampling terrainHeight here would let the ramp shrink floorDrop and erase the
+  // very steps it exists to make climbable. (See houseStepsOffset in sim/world.ts.)
+  const groundNatural = (x: number, z: number) => terrainHeightNatural(x, z, seed);
 
   // Camera-ghost props (see colliders.ts `camGhost`) stay individual and
   // un-merged so they can be hidden while the camera ray passes through their
@@ -850,7 +856,7 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
       for (const lz of [-hd, hd]) {
         const wx = b.x + lx * c + lz * s;
         const wz = b.z - lx * s + lz * c;
-        const gy = ground(wx, wz);
+        const gy = groundNatural(wx, wz);
         lo = Math.min(lo, gy);
         hi = Math.max(hi, gy);
       }
@@ -905,7 +911,7 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     const dc = Math.cos(b.rot);
     const ds = Math.sin(b.rot);
     const doorProbe = b.d / 2 + 1.2;
-    const floorDrop = y - ground(b.x + doorProbe * ds, b.z + doorProbe * dc);
+    const floorDrop = y - groundNatural(b.x + doorProbe * ds, b.z + doorProbe * dc);
     // roof Y mirrors the camera collider height in colliders.ts
     const roofY = y + (b.kind === 'chapel' ? 10.8 : b.kind === 'inn' ? 7.8 : 8.0);
     if (b.kind === 'chapel') {
