@@ -16,7 +16,7 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 500,
+      "nextId": 530,
       "state": "5bc471b0",
       "events": "741638a5",
       "rng": {
@@ -30,9 +30,9 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 505,
-      "state": "0ea98607",
-      "events": "0d572223",
+      "nextId": 535,
+      "state": "07b224f9",
+      "events": "a2335178",
       "rng": {
         "draws": 5,
         "digest": "c8cea705"
@@ -52,13 +52,43 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 500,
+          "entityId": 530,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
           "lifetimeXp": 84,
           "plots": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
             {},
             {},
             {},
@@ -84,7 +114,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 90,
-          "id": 500,
+          "id": 530,
           "inCombat": true,
           "kind": "player",
           "level": 1,
@@ -133,7 +163,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hostile": true,
-          "id": 501,
+          "id": 531,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -147,7 +177,7 @@
           },
           "lootFfaTimer": 60,
           "lootRecipientIds": [
-            500
+            530
           ],
           "lootable": true,
           "maxHp": 84,
@@ -170,7 +200,7 @@
           "stats": {
             "armor": 40
           },
-          "tappedById": 500,
+          "tappedById": 530,
           "templateId": "forest_wolf",
           "weapon": {
             "max": 12,
@@ -179,7 +209,7 @@
           }
         },
         {
-          "aggroTargetId": 500,
+          "aggroTargetId": 530,
           "aiState": "chase",
           "auras": [
             {
@@ -189,7 +219,7 @@
               "name": "Pack Frenzy",
               "remaining": 8,
               "school": "physical",
-              "sourceId": 502,
+              "sourceId": 532,
               "value": 1.3
             }
           ],
@@ -201,7 +231,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 502,
+          "id": 532,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -233,7 +263,7 @@
           "templateId": "forest_wolf",
           "threat": [
             [
-              500,
+              530,
               1
             ]
           ],
@@ -244,7 +274,7 @@
           }
         },
         {
-          "aggroTargetId": 500,
+          "aggroTargetId": 530,
           "aiState": "chase",
           "auras": [
             {
@@ -254,7 +284,7 @@
               "name": "Pack Frenzy",
               "remaining": 8,
               "school": "physical",
-              "sourceId": 503,
+              "sourceId": 533,
               "value": 1.3
             }
           ],
@@ -266,7 +296,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 503,
+          "id": 533,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -298,7 +328,7 @@
           "templateId": "forest_wolf",
           "threat": [
             [
-              500,
+              530,
               1
             ]
           ],
@@ -318,7 +348,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 98,
-          "id": 504,
+          "id": 534,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
@@ -353,9 +383,9 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 506,
-      "state": "1ac9e2e0",
-      "events": "5ee63134",
+      "nextId": 536,
+      "state": "fb232fe3",
+      "events": "fd46fbee",
       "rng": {
         "draws": 8,
         "digest": "b42c8c5a"
@@ -375,13 +405,43 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 500,
+          "entityId": 530,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
           "lifetimeXp": 198,
           "plots": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
             {},
             {},
             {},
@@ -407,7 +467,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 90,
-          "id": 500,
+          "id": 530,
           "inCombat": true,
           "kind": "player",
           "level": 1,
@@ -456,7 +516,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hostile": true,
-          "id": 501,
+          "id": 531,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -470,7 +530,7 @@
           },
           "lootFfaTimer": 60,
           "lootRecipientIds": [
-            500
+            530
           ],
           "lootable": true,
           "maxHp": 84,
@@ -493,7 +553,7 @@
           "stats": {
             "armor": 40
           },
-          "tappedById": 500,
+          "tappedById": 530,
           "templateId": "forest_wolf",
           "weapon": {
             "max": 12,
@@ -502,7 +562,7 @@
           }
         },
         {
-          "aggroTargetId": 500,
+          "aggroTargetId": 530,
           "aiState": "chase",
           "auras": [
             {
@@ -512,7 +572,7 @@
               "name": "Pack Frenzy",
               "remaining": 8,
               "school": "physical",
-              "sourceId": 502,
+              "sourceId": 532,
               "value": 1.3
             }
           ],
@@ -524,7 +584,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 502,
+          "id": 532,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -556,7 +616,7 @@
           "templateId": "forest_wolf",
           "threat": [
             [
-              500,
+              530,
               1
             ]
           ],
@@ -567,7 +627,7 @@
           }
         },
         {
-          "aggroTargetId": 500,
+          "aggroTargetId": 530,
           "aiState": "chase",
           "auras": [
             {
@@ -577,7 +637,7 @@
               "name": "Pack Frenzy",
               "remaining": 8,
               "school": "physical",
-              "sourceId": 503,
+              "sourceId": 533,
               "value": 1.3
             }
           ],
@@ -589,7 +649,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 503,
+          "id": 533,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -621,7 +681,7 @@
           "templateId": "forest_wolf",
           "threat": [
             [
-              500,
+              530,
               1
             ]
           ],
@@ -641,7 +701,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 98,
-          "id": 504,
+          "id": 534,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
@@ -681,7 +741,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hostile": true,
-          "id": 505,
+          "id": 535,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -694,7 +754,7 @@
           },
           "lootFfaTimer": 60,
           "lootRecipientIds": [
-            500
+            530
           ],
           "lootable": true,
           "maxHp": 197,
@@ -715,7 +775,7 @@
           "stats": {
             "armor": 81
           },
-          "tappedById": 500,
+          "tappedById": 530,
           "templateId": "bog_bloat",
           "weapon": {
             "max": 31,
@@ -728,9 +788,9 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 506,
-      "state": "06ac84cd",
-      "events": "4a0606d8",
+      "nextId": 536,
+      "state": "accc3420",
+      "events": "7ede9a7f",
       "rng": {
         "draws": 9,
         "digest": "e93fdf6e"
@@ -751,13 +811,43 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 500,
+          "entityId": 530,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
           "lifetimeXp": 198,
           "plots": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
             {},
             {},
             {},
@@ -783,7 +873,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 999980,
-          "id": 500,
+          "id": 530,
           "inCombat": true,
           "kind": "player",
           "level": 1,
@@ -833,7 +923,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hostile": true,
-          "id": 501,
+          "id": 531,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -847,7 +937,7 @@
           },
           "lootFfaTimer": 60,
           "lootRecipientIds": [
-            500
+            530
           ],
           "lootable": true,
           "maxHp": 84,
@@ -870,7 +960,7 @@
           "stats": {
             "armor": 40
           },
-          "tappedById": 500,
+          "tappedById": 530,
           "templateId": "forest_wolf",
           "weapon": {
             "max": 12,
@@ -879,7 +969,7 @@
           }
         },
         {
-          "aggroTargetId": 500,
+          "aggroTargetId": 530,
           "aiState": "chase",
           "auras": [
             {
@@ -889,7 +979,7 @@
               "name": "Pack Frenzy",
               "remaining": 8,
               "school": "physical",
-              "sourceId": 502,
+              "sourceId": 532,
               "value": 1.3
             }
           ],
@@ -901,7 +991,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 502,
+          "id": 532,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -933,7 +1023,7 @@
           "templateId": "forest_wolf",
           "threat": [
             [
-              500,
+              530,
               1
             ]
           ],
@@ -944,7 +1034,7 @@
           }
         },
         {
-          "aggroTargetId": 500,
+          "aggroTargetId": 530,
           "aiState": "chase",
           "auras": [
             {
@@ -954,7 +1044,7 @@
               "name": "Pack Frenzy",
               "remaining": 8,
               "school": "physical",
-              "sourceId": 503,
+              "sourceId": 533,
               "value": 1.3
             }
           ],
@@ -966,7 +1056,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 503,
+          "id": 533,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -998,7 +1088,7 @@
           "templateId": "forest_wolf",
           "threat": [
             [
-              500,
+              530,
               1
             ]
           ],
@@ -1018,7 +1108,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 98,
-          "id": 504,
+          "id": 534,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
@@ -1058,7 +1148,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hostile": true,
-          "id": 505,
+          "id": 535,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -1071,7 +1161,7 @@
           },
           "lootFfaTimer": 58.45,
           "lootRecipientIds": [
-            500
+            530
           ],
           "lootable": true,
           "maxHp": 197,
@@ -1092,7 +1182,7 @@
           "stats": {
             "armor": 81
           },
-          "tappedById": 500,
+          "tappedById": 530,
           "templateId": "bog_bloat",
           "weapon": {
             "max": 31,
@@ -1105,9 +1195,9 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 508,
-      "state": "2948f61f",
-      "events": "b4aa792b",
+      "nextId": 538,
+      "state": "488f9dc7",
+      "events": "0158fb34",
       "rng": {
         "draws": 15,
         "digest": "85a86755"
@@ -1128,13 +1218,43 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 500,
+          "entityId": 530,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
           "lifetimeXp": 282,
           "plots": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
             {},
             {},
             {},
@@ -1160,7 +1280,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 999980,
-          "id": 500,
+          "id": 530,
           "inCombat": true,
           "kind": "player",
           "level": 1,
@@ -1210,7 +1330,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hostile": true,
-          "id": 501,
+          "id": 531,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -1224,7 +1344,7 @@
           },
           "lootFfaTimer": 60,
           "lootRecipientIds": [
-            500
+            530
           ],
           "lootable": true,
           "maxHp": 84,
@@ -1247,7 +1367,7 @@
           "stats": {
             "armor": 40
           },
-          "tappedById": 500,
+          "tappedById": 530,
           "templateId": "forest_wolf",
           "weapon": {
             "max": 12,
@@ -1256,7 +1376,7 @@
           }
         },
         {
-          "aggroTargetId": 500,
+          "aggroTargetId": 530,
           "aiState": "chase",
           "auras": [
             {
@@ -1266,7 +1386,7 @@
               "name": "Pack Frenzy",
               "remaining": 8,
               "school": "physical",
-              "sourceId": 502,
+              "sourceId": 532,
               "value": 1.3
             }
           ],
@@ -1278,7 +1398,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 502,
+          "id": 532,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -1310,7 +1430,7 @@
           "templateId": "forest_wolf",
           "threat": [
             [
-              500,
+              530,
               1
             ]
           ],
@@ -1321,7 +1441,7 @@
           }
         },
         {
-          "aggroTargetId": 500,
+          "aggroTargetId": 530,
           "aiState": "chase",
           "auras": [
             {
@@ -1331,7 +1451,7 @@
               "name": "Pack Frenzy",
               "remaining": 8,
               "school": "physical",
-              "sourceId": 503,
+              "sourceId": 533,
               "value": 1.3
             }
           ],
@@ -1343,7 +1463,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 503,
+          "id": 533,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -1375,7 +1495,7 @@
           "templateId": "forest_wolf",
           "threat": [
             [
-              500,
+              530,
               1
             ]
           ],
@@ -1395,7 +1515,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 98,
-          "id": 504,
+          "id": 534,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
@@ -1435,7 +1555,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hostile": true,
-          "id": 505,
+          "id": 535,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -1448,7 +1568,7 @@
           },
           "lootFfaTimer": 58.45,
           "lootRecipientIds": [
-            500
+            530
           ],
           "lootable": true,
           "maxHp": 197,
@@ -1469,7 +1589,7 @@
           "stats": {
             "armor": 81
           },
-          "tappedById": 500,
+          "tappedById": 530,
           "templateId": "bog_bloat",
           "weapon": {
             "max": 31,
@@ -1487,7 +1607,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 506,
+          "id": 536,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": 59.95,
@@ -1524,9 +1644,9 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 509,
-      "state": "5b2b5ecb",
-      "events": "20151abf",
+      "nextId": 539,
+      "state": "7b05005a",
+      "events": "cd28b9e4",
       "rng": {
         "draws": 20,
         "digest": "84fb8591"
@@ -1547,13 +1667,43 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 500,
+          "entityId": 530,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
           "lifetimeXp": 366,
           "plots": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
             {},
             {},
             {},
@@ -1579,7 +1729,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 999980,
-          "id": 500,
+          "id": 530,
           "inCombat": true,
           "kind": "player",
           "level": 1,
@@ -1629,7 +1779,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hostile": true,
-          "id": 501,
+          "id": 531,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -1643,7 +1793,7 @@
           },
           "lootFfaTimer": 60,
           "lootRecipientIds": [
-            500
+            530
           ],
           "lootable": true,
           "maxHp": 84,
@@ -1666,7 +1816,7 @@
           "stats": {
             "armor": 40
           },
-          "tappedById": 500,
+          "tappedById": 530,
           "templateId": "forest_wolf",
           "weapon": {
             "max": 12,
@@ -1675,7 +1825,7 @@
           }
         },
         {
-          "aggroTargetId": 500,
+          "aggroTargetId": 530,
           "aiState": "chase",
           "auras": [
             {
@@ -1685,7 +1835,7 @@
               "name": "Pack Frenzy",
               "remaining": 8,
               "school": "physical",
-              "sourceId": 502,
+              "sourceId": 532,
               "value": 1.3
             }
           ],
@@ -1697,7 +1847,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 502,
+          "id": 532,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -1729,7 +1879,7 @@
           "templateId": "forest_wolf",
           "threat": [
             [
-              500,
+              530,
               1
             ]
           ],
@@ -1740,7 +1890,7 @@
           }
         },
         {
-          "aggroTargetId": 500,
+          "aggroTargetId": 530,
           "aiState": "chase",
           "auras": [
             {
@@ -1750,7 +1900,7 @@
               "name": "Pack Frenzy",
               "remaining": 8,
               "school": "physical",
-              "sourceId": 503,
+              "sourceId": 533,
               "value": 1.3
             }
           ],
@@ -1762,7 +1912,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 503,
+          "id": 533,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -1794,7 +1944,7 @@
           "templateId": "forest_wolf",
           "threat": [
             [
-              500,
+              530,
               1
             ]
           ],
@@ -1814,7 +1964,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 98,
-          "id": 504,
+          "id": 534,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
@@ -1854,7 +2004,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hostile": true,
-          "id": 505,
+          "id": 535,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -1867,7 +2017,7 @@
           },
           "lootFfaTimer": 58.45,
           "lootRecipientIds": [
-            500
+            530
           ],
           "lootable": true,
           "maxHp": 197,
@@ -1888,7 +2038,7 @@
           "stats": {
             "armor": 81
           },
-          "tappedById": 500,
+          "tappedById": 530,
           "templateId": "bog_bloat",
           "weapon": {
             "max": 31,
@@ -1906,7 +2056,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 506,
+          "id": 536,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": 59.95,
@@ -1948,7 +2098,7 @@
           "fallStartY": 41.399945,
           "fiveSecondRule": 99,
           "hostile": true,
-          "id": 508,
+          "id": 538,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -1972,7 +2122,7 @@
           },
           "lootFfaTimer": 59.95,
           "lootRecipientIds": [
-            500
+            530
           ],
           "maxHp": 84,
           "moveSpeed": 8,
@@ -1994,7 +2144,7 @@
           "stats": {
             "armor": 40
           },
-          "tappedById": 500,
+          "tappedById": 530,
           "templateId": "forest_wolf",
           "weapon": {
             "max": 12,
@@ -2007,8 +2157,8 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 509,
-      "state": "5b2b5ecb",
+      "nextId": 539,
+      "state": "7b05005a",
       "events": "741638a5",
       "rng": {
         "draws": 20,
@@ -2030,13 +2180,43 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 500,
+          "entityId": 530,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
           "lifetimeXp": 366,
           "plots": [
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
+            {},
             {},
             {},
             {},
@@ -2062,7 +2242,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 999980,
-          "id": 500,
+          "id": 530,
           "inCombat": true,
           "kind": "player",
           "level": 1,
@@ -2112,7 +2292,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hostile": true,
-          "id": 501,
+          "id": 531,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -2126,7 +2306,7 @@
           },
           "lootFfaTimer": 60,
           "lootRecipientIds": [
-            500
+            530
           ],
           "lootable": true,
           "maxHp": 84,
@@ -2149,7 +2329,7 @@
           "stats": {
             "armor": 40
           },
-          "tappedById": 500,
+          "tappedById": 530,
           "templateId": "forest_wolf",
           "weapon": {
             "max": 12,
@@ -2158,7 +2338,7 @@
           }
         },
         {
-          "aggroTargetId": 500,
+          "aggroTargetId": 530,
           "aiState": "chase",
           "auras": [
             {
@@ -2168,7 +2348,7 @@
               "name": "Pack Frenzy",
               "remaining": 8,
               "school": "physical",
-              "sourceId": 502,
+              "sourceId": 532,
               "value": 1.3
             }
           ],
@@ -2180,7 +2360,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 502,
+          "id": 532,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -2212,7 +2392,7 @@
           "templateId": "forest_wolf",
           "threat": [
             [
-              500,
+              530,
               1
             ]
           ],
@@ -2223,7 +2403,7 @@
           }
         },
         {
-          "aggroTargetId": 500,
+          "aggroTargetId": 530,
           "aiState": "chase",
           "auras": [
             {
@@ -2233,7 +2413,7 @@
               "name": "Pack Frenzy",
               "remaining": 8,
               "school": "physical",
-              "sourceId": 503,
+              "sourceId": 533,
               "value": 1.3
             }
           ],
@@ -2245,7 +2425,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 503,
+          "id": 533,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -2277,7 +2457,7 @@
           "templateId": "forest_wolf",
           "threat": [
             [
-              500,
+              530,
               1
             ]
           ],
@@ -2297,7 +2477,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 98,
-          "id": 504,
+          "id": 534,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": "Infinity",
@@ -2337,7 +2517,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hostile": true,
-          "id": 505,
+          "id": 535,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -2350,7 +2530,7 @@
           },
           "lootFfaTimer": 58.45,
           "lootRecipientIds": [
-            500
+            530
           ],
           "lootable": true,
           "maxHp": 197,
@@ -2371,7 +2551,7 @@
           "stats": {
             "armor": 81
           },
-          "tappedById": 500,
+          "tappedById": 530,
           "templateId": "bog_bloat",
           "weapon": {
             "max": 31,
@@ -2389,7 +2569,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 84,
-          "id": 506,
+          "id": 536,
           "kind": "mob",
           "level": 5,
           "lootFfaTimer": 59.95,
@@ -2431,7 +2611,7 @@
           "fallStartY": 41.399945,
           "fiveSecondRule": 99,
           "hostile": true,
-          "id": 508,
+          "id": 538,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -2455,7 +2635,7 @@
           },
           "lootFfaTimer": 59.95,
           "lootRecipientIds": [
-            500
+            530
           ],
           "maxHp": 84,
           "moveSpeed": 8,
@@ -2477,7 +2657,7 @@
           "stats": {
             "armor": 40
           },
-          "tappedById": 500,
+          "tappedById": 530,
           "templateId": "forest_wolf",
           "weapon": {
             "max": 12,

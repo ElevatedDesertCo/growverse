@@ -35,6 +35,12 @@ export const NAMEPLATE_RANGE_SQ = NAMEPLATE_RANGE * NAMEPLATE_RANGE;
 export const NAMEPLATE_URGENT_RANGE = 14;
 const NAMEPLATE_URGENT_RANGE_SQ = NAMEPLATE_URGENT_RANGE * NAMEPLATE_URGENT_RANGE;
 
+// A garden bed labels itself when the player stands right on top of it (a soft walk-up
+// hint), in addition to when it is the current target. Kept tight so a dense field of beds
+// never floats more than a plate or two at once. Squared once at module load.
+const GARDEN_LABEL_HINT_RANGE = 2.2;
+const GARDEN_LABEL_HINT_SQ = GARDEN_LABEL_HINT_RANGE * GARDEN_LABEL_HINT_RANGE;
+
 // Vertical lift (world units) of the nameplate anchor above the rig top before
 // projection: the normal label sits a touch higher than the self overhead-emote
 // bubble, which hugs the head.
@@ -100,10 +106,12 @@ export function nameplatePlanInto(
     e.templateId === 'delve_reward_chest' ||
     e.templateId === 'delve_surface_exit';
   const delveInteractNear = isDelveInteract && d2 <= (INTERACT_RANGE + 1) * (INTERACT_RANGE + 1);
-  // The Garden plot labels like a delve interactable: shown only when the player is close
-  // enough to interact, so it reads as "walk up here to tend your garden".
+  // Garden plots come in a dense 6x6 field, so labeling every bed within interact range
+  // would stack a dozen identical "Garden Plot" nameplates at once. Show the label only for
+  // the bed the player has targeted, plus a tight walk-up hint for the one directly underfoot,
+  // so at most a plate or two float at a time.
   const gardenNear =
-    e.templateId === 'garden_plot' && d2 <= (INTERACT_RANGE + 1) * (INTERACT_RANGE + 1);
+    e.templateId === 'garden_plot' && (e.id === player.targetId || d2 <= GARDEN_LABEL_HINT_SQ);
 
   out.hidden =
     (isSelf && !hasOverheadEmote) ||

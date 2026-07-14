@@ -1236,23 +1236,46 @@ export interface PlotView {
   progress: number;
   secondsRemaining: number;
 }
-// A player's garden size. A small fixed set for v1; a settlement/upgrade path can grow
-// it later. Kept here (a shared tuning constant) so entity init and persistence agree.
-export const GARDEN_PLOT_COUNT = 6;
+// The garden's physical home: the Baked Beaver colony's growing grounds, on the solid
+// east-shore land above the Sluice millpond (a short walk northeast of the outpost
+// buildings, beside the road). This ONE const is the single source of truth for the
+// clearing: the terrain flatten (src/sim/world.ts carves a level terrace here), the
+// tree/rock cull (same file clears decorations off it), the plot grid below, and Marlow
+// the grower all key off it, so moving the whole garden is a one-line change here.
+//   - flatInner: terrain is fully level within this radius (holds the plot grid + margin)
+//   - flatOuter: the terrace blends back to natural ground by here
+//   - clearRadius: decorations (trees/rocks) are removed within this radius
+export const GARDEN_CLEARING = {
+  x: 60,
+  z: 68,
+  flatInner: 14,
+  flatOuter: 23,
+  clearRadius: 17,
+} as const;
 
-// The garden's physical home: the Baked Beaver colony's grounds at The Sluice outpost
-// (the north shore of the beaver millpond), the early-game growing hub. One raised bed per
-// plot, laid out as a 3x2 grid of squares on the shore clearing, all on solid land clear of
-// the pond. GARDEN_PLOT_GRID has exactly GARDEN_PLOT_COUNT entries; a settlement/reputation
-// expansion can grow the set later.
-export const GARDEN_PLOT_GRID: readonly { x: number; z: number }[] = [
-  { x: 44.5, z: 44.2 },
-  { x: 47, z: 44.2 },
-  { x: 49.5, z: 44.2 },
-  { x: 44.5, z: 46.8 },
-  { x: 47, z: 46.8 },
-  { x: 49.5, z: 46.8 },
-];
+// The garden is a 6x6 grid of raised beds (36 plots) laid out as a tilled field on the
+// flattened clearing, with room around it to expand later. One interactable bed per plot.
+// GARDEN_ROWS/COLS drive both the physical layout and the plot count; a settlement/
+// reputation upgrade path can widen the grid (and the clearing) from here.
+const GARDEN_ROWS = 6;
+const GARDEN_COLS = 6;
+const GARDEN_SPACING = 2.6; // yards between bed centers (beds are ~1.9yd, so ~0.7yd paths)
+export const GARDEN_PLOT_GRID: readonly { x: number; z: number }[] = (() => {
+  const grid: { x: number; z: number }[] = [];
+  for (let row = 0; row < GARDEN_ROWS; row++) {
+    for (let col = 0; col < GARDEN_COLS; col++) {
+      grid.push({
+        x: GARDEN_CLEARING.x + (col - (GARDEN_COLS - 1) / 2) * GARDEN_SPACING,
+        z: GARDEN_CLEARING.z + (row - (GARDEN_ROWS - 1) / 2) * GARDEN_SPACING,
+      });
+    }
+  }
+  return grid;
+})();
+
+// A player's garden size: one Plot per physical bed. Kept in lockstep with the grid so
+// entity init, persistence (pads/truncates to this), and the world beds always agree.
+export const GARDEN_PLOT_COUNT = GARDEN_PLOT_GRID.length;
 
 // ---- Strain genetics (Phase C) ----------------------------------------------------
 // The signature breeding mechanic. A strain carries a bounded diploid genotype: a fixed

@@ -345,7 +345,10 @@ export function buildGardenPlot(entityId: number): { group: THREE.Group; height:
     sprout.position.set(x, 0.62, z);
     group.add(sprout);
   }
-  group.rotation.y = (entityId % 7) * 0.45;
+  // Axis-aligned on purpose: the beds tile into a clean 6x6 field, so (unlike the
+  // scattered quest props) they must NOT get the per-id yaw jitter or the squares
+  // would rotate into each other. entityId is unused here for that reason.
+  void entityId;
   return { group, height: 0.95 };
 }
 
