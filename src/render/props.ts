@@ -666,9 +666,10 @@ export function buildArcher(): THREE.Group {
 // (no CC0 GLB): a SOLID plank-walled tower on four corner posts carrying an open, railed
 // lookout deck with headroom under a peaked shingle roof, an exterior rung ladder on the
 // FRONT (local +z), and an archer sentry standing watch on the deck. Returned centred at
-// local origin with its feet at y=0 and its front (ladder + the archer's gaze) toward
-// local +z; the caller positions/rotates/scales it, so `rot` is the yaw the front points
-// at (0 = the ladder faces north). Static on every tier.
+// local origin with its feet at y=0 and its ladder toward local +z; the archer stands at
+// the opposite (-z) rail and gazes out over the -z side. The caller positions/rotates/
+// scales it, so `rot` is the yaw the ladder-front points at (0 = the ladder faces north,
+// so the archer faces south). Static on every tier.
 export function buildWatchTower(): THREE.Group {
   const postMat = surfaceMat({ color: 0x4f3721, roughness: 0.95 });
   const wallMat = surfaceMat({ color: 0x6b4c30, roughness: 0.96 });
@@ -821,10 +822,13 @@ export function buildWatchTower(): THREE.Group {
     g.add(rung);
   }
 
-  // The archer sentry: standing on the deck, set back from the front rail, watching out
-  // over the +z (ladder/front) side.
+  // The archer sentry: standing on the deck at the BACK (-z) rail, turned 180deg to watch
+  // out over the -z side, away from the ladder. With the tower's rot = 0 that is world
+  // south, so the sentry keeps eyes on the open approaches while the ladder stays on the
+  // homestead-facing (+z) side.
   const archer = buildArcher();
-  archer.position.set(0, DECK_TOP, DECK_HALF - 0.7);
+  archer.position.set(0, DECK_TOP, -(DECK_HALF - 0.7));
+  archer.rotation.y = Math.PI;
   g.add(archer);
 
   return g;
