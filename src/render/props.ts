@@ -6,6 +6,7 @@ import { hash2 } from '../sim/rng';
 import { terrainHeight, terrainHeightNatural, WATER_LEVEL } from '../sim/world';
 import { loadGltf } from './assets/loader';
 import { registerPreload } from './assets/preload';
+import { prepareVisual } from './characters/assets';
 import { GFX, sharedUniforms, surfaceMat } from './gfx';
 
 // Static world props: buildings, tents, campfires, mines, ruins, docks,
@@ -637,52 +638,27 @@ function buildDelveEmbers(
   return pts;
 }
 
-// A blocky low-poly ARCHER sentry built from static primitives (no rig/GLB), to stand
-// watch on the tower deck. Returned centred at local origin with its feet at y=0 and its
-// face + drawn bow toward local +z; the caller positions/rotates it. Style matches the
-// game's chunky look and the procedural beaver mascot.
+// The ARCHER sentry standing watch on the tower deck: the KayKit hooded/masked
+// outlaw body (rogue_hooded.glb) carrying a two-hand crossbow, kept at its stock
+// KayKit FOREST-GREEN hood + mask (the `prop_watchtower_archer` VISUALS key is
+// untinted on purpose). Built as a STATIC baked-idle prop from the character
+// pipeline's prepareVisual() (one merged, idle-posed, textured mesh with feet at
+// y=0 and the face toward local +z), never a live sim-driven CharacterVisual, so it
+// costs one draw and no per-frame mixer. Returned centred at local origin; the
+// caller positions/rotates it. On low gfx the body GLB aliases to the un-hooded
+// rogue.glb (a cosmetic tier degrade), which is harmless here.
 export function buildArcher(): THREE.Group {
-  const tunicMat = surfaceMat({ color: 0x3f6b3a, roughness: 0.95 }); // ranger green
-  const leatherMat = surfaceMat({ color: 0x5b4127, roughness: 0.95 });
-  const skinMat = surfaceMat({ color: 0xc8956b, roughness: 0.85 });
-  const hoodMat = surfaceMat({ color: 0x2f5230, roughness: 0.95 });
-  const bowMat = surfaceMat({ color: 0x6b4a2a, roughness: 0.85 });
-  const stringMat = surfaceMat({ color: 0xdadada, roughness: 0.6 });
-
   const a = new THREE.Group();
-  const add = (geo: THREE.BufferGeometry, mat: THREE.Material, x: number, y: number, z: number) => {
-    const m = new THREE.Mesh(geo, mat);
-    m.position.set(x, y, z);
-    a.add(m);
-    return m;
-  };
-  // legs (boots) + belt + torso
-  add(new THREE.BoxGeometry(0.16, 0.78, 0.2), leatherMat, -0.13, 0.39, 0);
-  add(new THREE.BoxGeometry(0.16, 0.78, 0.2), leatherMat, 0.13, 0.39, 0);
-  add(new THREE.BoxGeometry(0.46, 0.62, 0.3), tunicMat, 0, 1.08, 0); // torso
-  add(new THREE.BoxGeometry(0.48, 0.1, 0.32), leatherMat, 0, 0.78, 0); // belt
-  // head + hood
-  add(new THREE.BoxGeometry(0.26, 0.26, 0.26), skinMat, 0, 1.56, 0.02);
-  add(new THREE.BoxGeometry(0.32, 0.3, 0.3), hoodMat, 0, 1.62, -0.03);
-  // arms: left arm extended forward to hold the bow, right arm bent back drawing the string
-  const bowArm = add(new THREE.BoxGeometry(0.13, 0.13, 0.5), tunicMat, -0.3, 1.24, 0.22);
-  bowArm.rotation.x = -0.1;
-  add(new THREE.BoxGeometry(0.13, 0.13, 0.34), tunicMat, 0.26, 1.22, -0.05); // draw arm
-  // quiver of arrows slung on the back
-  add(new THREE.CylinderGeometry(0.07, 0.08, 0.5, 6), leatherMat, 0.16, 1.2, -0.2);
-  for (const qx of [0.12, 0.18]) {
-    add(new THREE.BoxGeometry(0.02, 0.28, 0.02), stringMat, qx, 1.52, -0.22);
+  const prep = prepareVisual('prop_watchtower_archer');
+  if (prep.idleGeo && prep.idleSrcMats.length) {
+    const mesh = new THREE.Mesh(prep.idleGeo, prep.idleSrcMats);
+    mesh.castShadow = true;
+    mesh.receiveShadow = false;
+    a.add(mesh);
+    // The humanoid bakes to HUMANOID_H (2.6u); scale down so the standing lookout
+    // clears the deck's roof headroom (DECK_TOP -> ROOF_BASE spans 2.35u).
+    a.scale.setScalar(2.0 / 2.6);
   }
-  // The bow: a vertical arc held out at the bow hand, with a straight string on the
-  // archer side. Limbs point up/down (stand the flat torus upright); the whole bow faces
-  // +z, the watch direction.
-  const bow = new THREE.Mesh(new THREE.TorusGeometry(0.42, 0.035, 6, 16, Math.PI * 1.15), bowMat);
-  bow.rotation.z = Math.PI / 2 - Math.PI * 0.075; // stand the arc upright, centre the limbs
-  bow.position.set(-0.36, 1.24, 0.4);
-  a.add(bow);
-  const string = new THREE.Mesh(new THREE.BoxGeometry(0.015, 0.8, 0.015), stringMat);
-  string.position.set(-0.3, 1.24, 0.4);
-  a.add(string);
   return a;
 }
 
@@ -848,7 +824,7 @@ export function buildWatchTower(): THREE.Group {
   // The archer sentry: standing on the deck, set back from the front rail, watching out
   // over the +z (ladder/front) side.
   const archer = buildArcher();
-  archer.position.set(0.15, DECK_TOP, DECK_HALF - 0.55);
+  archer.position.set(0, DECK_TOP, DECK_HALF - 0.7);
   g.add(archer);
 
   return g;

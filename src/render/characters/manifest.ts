@@ -815,6 +815,18 @@ export const VISUALS: Record<string, VisualDef> = {
     tint: 'entity',
     tintStrength: 0.85,
   },
+  // Watch-tower lookout: a STATIC prop (not a sim entity), baked idle-posed by
+  // props.ts via prepareVisual(). The same hooded-outlaw body + two-hand crossbow
+  // as mob_slinger, but with NO tint so the stock KayKit forest-GREEN hood and mask
+  // read as authored (the request: a green-hood, green-mask masked archer). Hood is
+  // an inherent skinned mesh; the mask is kept via the show allowlist.
+  prop_watchtower_archer: {
+    url: `${PLAYERS}/rogue_hooded.glb`,
+    height: HUMANOID_H,
+    clips: kaykit(['2H_Ranged_Shoot']),
+    show: ['RogueHooded_Mask'],
+    attach: [{ url: `${WEAPONS}/crossbow_2handed.glb`, bone: 'handslot.r' }],
+  },
 
   // -- Hollowmere expansion enemies (auto-rigged KayKit seasonal bodies) ------
   // Grinning Jack: a pumpkin-headed sentinel. Textures baked in; no tint.
