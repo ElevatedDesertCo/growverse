@@ -1258,6 +1258,12 @@ export class Hud {
       ev.preventDefault();
       this.openSelfContextMenu((ev as MouseEvent).clientX, (ev as MouseEvent).clientY);
     });
+    // Left-click the player PORTRAIT (not the bars) to open the character sheet; right-click
+    // still opens the self context menu. Delegated off the stable frame so it survives
+    // portrait repaints. Matches the classic "click your character to inspect your gear".
+    $('#player-frame').addEventListener('click', (ev) => {
+      if ((ev.target as HTMLElement).closest('.portrait')) this.toggleChar();
+    });
     $('#mm-char').addEventListener('click', () => this.toggleChar());
     $('#mm-spell').addEventListener('click', () => this.toggleSpellbook());
     $('#mm-talents')?.addEventListener('click', () => this.toggleTalents());

@@ -726,6 +726,7 @@
   /* Portrait: a carved aged-bronze ring with a soft inner shadow (not bulky). */
   #player-frame .portrait {
     border: 3px solid var(--border);
+    cursor: var(--cursor-point); /* the portrait opens the character sheet on click */
     box-shadow:
       0 0 0 1px #17110a,
       0 2px 8px #000c,
