@@ -20,7 +20,13 @@ import { dropsEssence, expressTrait, growTimeFactor, yieldBonus } from './geneti
 import { awardReputation, REP_PER_HARVEST } from './reputation';
 import type { SimContext } from './sim_context';
 import { registerBaseStrain } from './strain_library';
-import { GARDEN_PLOT_COUNT, type Plot, type PlotView } from './types';
+import {
+  GARDEN_PLOT_COUNT,
+  gardenPlotUnlockLevel,
+  type Plot,
+  type PlotView,
+  unlockedGardenPlots,
+} from './types';
 
 export type PlotStage = 'empty' | 'growing' | 'ready';
 
@@ -57,11 +63,14 @@ export function plotProgress(plot: Plot, now: number): number {
 // the sim clock. Used by the IWorld `garden` read (both worlds) and the self-snapshot
 // encoder. Quantized (progress to 2 decimals, secondsRemaining to whole seconds) so a
 // growing plant only nudges the snapshot delta about once a second, not every tick.
-export function gardenView(plots: Plot[], now: number): PlotView[] {
-  return plots.map((plot) => {
+export function gardenView(plots: Plot[], now: number, level: number): PlotView[] {
+  const unlocked = unlockedGardenPlots(level);
+  return plots.map((plot, index) => {
+    const locked = index >= unlocked;
+    const unlockLevel = gardenPlotUnlockLevel(index);
     const stage = plotStage(plot, now);
     if (stage === 'empty') {
-      return { seedItemId: null, stage, progress: 0, secondsRemaining: 0 };
+      return { seedItemId: null, stage, progress: 0, secondsRemaining: 0, locked, unlockLevel };
     }
     const remaining = Math.max(0, Math.ceil(plot.growSeconds - (now - plot.plantedAt)));
     return {
@@ -69,6 +78,8 @@ export function gardenView(plots: Plot[], now: number): PlotView[] {
       stage,
       progress: Math.round(plotProgress(plot, now) * 100) / 100,
       secondsRemaining: stage === 'ready' ? 0 : remaining,
+      locked,
+      unlockLevel,
     };
   });
 }
@@ -94,6 +105,10 @@ export function plantSeed(
     ctx.error(meta.entityId, 'There is no such garden plot.');
     return;
   }
+  // Garden expansion gate: a plot in a not-yet-unlocked row cannot be planted. The Garden
+  // window hides the Plant button on locked plots and shows their unlock level, so this is
+  // the authoritative backstop against a stale/hostile client; reject quietly.
+  if (plotIndex >= unlockedGardenPlots(p.level)) return;
   if (plot.seedItemId) {
     ctx.error(meta.entityId, 'That plot already has something growing.');
     return;
@@ -138,6 +153,8 @@ export function plantStrain(
     ctx.error(meta.entityId, 'There is no such garden plot.');
     return;
   }
+  // Garden expansion gate (see plantSeed): a locked-row plot cannot be planted.
+  if (plotIndex >= unlockedGardenPlots(p.level)) return;
   if (plot.seedItemId) {
     ctx.error(meta.entityId, 'That plot already has something growing.');
     return;
@@ -211,6 +228,11 @@ export function harvestPlot(ctx: SimContext, plotIndex: number, pid?: number): v
   plot.plantedAt = 0;
   plot.growSeconds = 0;
   plot.strainId = null;
+  // Structured gather popup (item icon + localized name), alongside addItem's "You
+  // receive" loot lines and the harvest log line, so a harvest reads as a real gather
+  // with a floating popup and icon, exactly like the flower-patch nodes (harvest.ts).
+  const gatherId = def.yields[0]?.itemId;
+  if (gatherId) ctx.emit({ type: 'harvestGather', itemId: gatherId, pid: meta.entityId });
   ctx.notice(meta.entityId, `You harvest ${name}.`);
   // Genetics: harvesting a base seed discovers its strain in the library (once per
   // lineage), seeding the breeding loop from ordinary cultivation output.

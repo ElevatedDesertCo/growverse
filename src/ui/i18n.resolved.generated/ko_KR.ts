@@ -1072,7 +1072,9 @@ export const ko_KR: EnTranslations = {
       "plant": "심기",
       "harvest": "수확",
       "ready": "수확 가능",
-      "open": "정원 가꾸기"
+      "open": "정원 가꾸기",
+      "locked": "잠김",
+      "unlockLevel": "레벨 {level}에 해금"
     },
     "breeding": {
       "title": "품종 유전학",

@@ -1170,6 +1170,8 @@ export const hudChromeStrings = {
     harvest: 'Harvest',
     ready: 'Ready',
     open: 'Tend Garden',
+    locked: 'Locked',
+    unlockLevel: 'Unlocks at level {level}',
   },
   // Strain genetics: the Breeding window (cross two strains to combine their traits,
   // plant a strain, release one) plus the commune-standing header.

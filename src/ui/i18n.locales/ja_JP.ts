@@ -5201,6 +5201,8 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.garden.plant': '植える',
   'hudChrome.garden.harvest': '収穫',
   'hudChrome.garden.ready': '収穫可能',
+  'hudChrome.garden.locked': 'ロック中',
+  'hudChrome.garden.unlockLevel': 'レベル{level}で解放',
   'hudChrome.garden.open': '菜園の手入れ',
   'hudChrome.breeding.title': '品種遺伝学',
   'hudChrome.breeding.hint': '2つの品種を交配して特性を組み合わせるか、菜園に植えましょう。',

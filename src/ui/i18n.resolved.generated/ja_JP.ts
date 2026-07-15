@@ -1072,7 +1072,9 @@ export const ja_JP: EnTranslations = {
       "plant": "植える",
       "harvest": "収穫",
       "ready": "収穫可能",
-      "open": "菜園の手入れ"
+      "open": "菜園の手入れ",
+      "locked": "ロック中",
+      "unlockLevel": "レベル{level}で解放"
     },
     "breeding": {
       "title": "品種遺伝学",

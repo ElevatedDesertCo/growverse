@@ -5208,6 +5208,8 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.garden.plant': '심기',
   'hudChrome.garden.harvest': '수확',
   'hudChrome.garden.ready': '수확 가능',
+  'hudChrome.garden.locked': '잠김',
+  'hudChrome.garden.unlockLevel': '레벨 {level}에 해금',
   'hudChrome.garden.open': '정원 가꾸기',
   'hudChrome.breeding.title': '품종 유전학',
   'hudChrome.breeding.hint': '두 품종을 교배해 특성을 결합하거나 정원에 심으세요.',

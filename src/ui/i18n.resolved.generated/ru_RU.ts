@@ -1072,7 +1072,9 @@ export const ru_RU: EnTranslations = {
       "plant": "Посадить",
       "harvest": "Собрать",
       "ready": "Готово",
-      "open": "Ухаживать за садом"
+      "open": "Ухаживать за садом",
+      "locked": "Заблокировано",
+      "unlockLevel": "Открывается на уровне {level}"
     },
     "breeding": {
       "title": "Генетика штаммов",

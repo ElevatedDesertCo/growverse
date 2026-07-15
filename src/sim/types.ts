@@ -1235,6 +1235,12 @@ export interface PlotView {
   stage: 'empty' | 'growing' | 'ready';
   progress: number;
   secondsRemaining: number;
+  // Garden expansion: a plot the player has not yet unlocked (its row opens at a higher
+  // level). Locked plots cannot be planted; the window shows the unlock level instead.
+  locked: boolean;
+  // The character level at which this plot unlocks (1 for the base rows). Only meaningful
+  // when `locked`, but always present so the snapshot delta stays a fixed shape.
+  unlockLevel: number;
 }
 // The garden's physical home: the Baked Beaver colony's growing grounds, on the solid
 // land south of the grotto road (a short walk northeast of the outpost buildings). This
@@ -1244,24 +1250,22 @@ export interface PlotView {
 // of the grotto road that the garden sits on and expands into), not by this anchor.
 export const GARDEN_CLEARING = { x: 60, z: 68 } as const;
 
-// The garden is a field of raised beds laid out on the flattened clearing, 6 columns
-// wide. It began as a centered 6x6 grid, but the grotto road cuts diagonally across the
-// clearing and ran through the back three rows, so the field now stops at the path: only
-// the front (south) three rows remain, a clean 6x3 of 18 beds wholly on the near side of
-// the road. GARDEN_ROW_ANCHOR keeps those front rows in their original spots (it is the
-// old 6-row center offset), so trimming the back rows did not shift the beds that stayed.
-// The flat clearing keeps open room to the south to expand the field away from the path.
-const GARDEN_ROWS = 3;
+// The garden is a 6-column field of raised beds on the cleared farm, its rows marching
+// SOUTH from a fixed north edge (kept a safe ~5yd south of the grotto road). All bed
+// positions are fixed; the player unlocks more rows as they level (see below), so the
+// field grows into the flat cleared land to the south over the course of the game. Row 0
+// is the northmost (nearest the road); rows fill in index order, which is the unlock order.
 const GARDEN_COLS = 6;
+const GARDEN_ROWS = 6; // full field once fully unlocked (36 beds)
 const GARDEN_SPACING = 2.6; // yards between bed centers (beds are ~1.9yd, so ~0.7yd paths)
-const GARDEN_ROW_ANCHOR = 2.5; // south-edge anchor (unchanged from the original 6-row centering)
+const GARDEN_NORTH_Z = 66.7; // z of the northmost row (a safe ~5yd south of the grotto road)
 export const GARDEN_PLOT_GRID: readonly { x: number; z: number }[] = (() => {
   const grid: { x: number; z: number }[] = [];
   for (let row = 0; row < GARDEN_ROWS; row++) {
     for (let col = 0; col < GARDEN_COLS; col++) {
       grid.push({
         x: GARDEN_CLEARING.x + (col - (GARDEN_COLS - 1) / 2) * GARDEN_SPACING,
-        z: GARDEN_CLEARING.z + (row - GARDEN_ROW_ANCHOR) * GARDEN_SPACING,
+        z: GARDEN_NORTH_Z - row * GARDEN_SPACING, // rows march south into the cleared field
       });
     }
   }
@@ -1271,6 +1275,32 @@ export const GARDEN_PLOT_GRID: readonly { x: number; z: number }[] = (() => {
 // A player's garden size: one Plot per physical bed. Kept in lockstep with the grid so
 // entity init, persistence (pads/truncates to this), and the world beds always agree.
 export const GARDEN_PLOT_COUNT = GARDEN_PLOT_GRID.length;
+
+// Garden expansion by level. The field starts with GARDEN_START_ROWS rows unlocked and
+// opens one more row every GARDEN_LEVELS_PER_ROW levels, up to all GARDEN_ROWS. Plots fill
+// in index order (north to south), so leveling opens new rows into the cleared field. With
+// the defaults: L1 = 2 rows (12 plots), then +1 row (6 plots) at L5/L10/L15/L20 to the full
+// 36. These are the ONLY knobs for the pacing; the grid and the gate both read them.
+export const GARDEN_START_ROWS = 2;
+export const GARDEN_LEVELS_PER_ROW = 5;
+
+/** How many garden rows a character of `level` has unlocked (clamped to the field). */
+export function unlockedGardenRows(level: number): number {
+  const rows = GARDEN_START_ROWS + Math.floor(Math.max(1, level) / GARDEN_LEVELS_PER_ROW);
+  return Math.max(GARDEN_START_ROWS, Math.min(GARDEN_ROWS, rows));
+}
+
+/** How many garden plots (beds) a character of `level` may plant in. */
+export function unlockedGardenPlots(level: number): number {
+  return unlockedGardenRows(level) * GARDEN_COLS;
+}
+
+/** The character level at which plot `index` unlocks (1 for the base rows). */
+export function gardenPlotUnlockLevel(index: number): number {
+  const row = Math.floor(index / GARDEN_COLS);
+  if (row < GARDEN_START_ROWS) return 1;
+  return (row - GARDEN_START_ROWS + 1) * GARDEN_LEVELS_PER_ROW;
+}
 
 // ---- Strain genetics (Phase C) ----------------------------------------------------
 // The signature breeding mechanic. A strain carries a bounded diploid genotype: a fixed

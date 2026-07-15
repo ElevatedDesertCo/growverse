@@ -1072,7 +1072,9 @@ export const zh_TW: EnTranslations = {
       "plant": "種植",
       "harvest": "收穫",
       "ready": "可收穫",
-      "open": "打理花園"
+      "open": "打理花園",
+      "locked": "已鎖定",
+      "unlockLevel": "等級 {level} 解鎖"
     },
     "breeding": {
       "title": "品系遺傳學",

@@ -2923,6 +2923,18 @@
   .garden-plot-ready {
     border-color: #6a8a3a;
   }
+  .garden-plot-locked {
+    opacity: 0.55;
+    border-style: dashed;
+    border-color: #3a3320;
+    background: #191408;
+  }
+  .garden-locked-label {
+    color: #8a7c58;
+    font-size: 11px;
+    text-align: center;
+    align-self: center;
+  }
   .garden-plot-label {
     flex: 1;
     color: #887c5c;

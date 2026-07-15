@@ -1774,7 +1774,7 @@ export class Sim {
   // computed live from the plots + the sim clock. The online ClientWorld mirrors the
   // same shape from the self-snapshot.
   get garden(): PlotView[] {
-    return cultivation.gardenView(this.primary.plots, this.time);
+    return cultivation.gardenView(this.primary.plots, this.time, this.player.level);
   }
   // IWorldCultivation read: the client-facing strain library (expressed phenotype per
   // strain, never the raw genotype). The online ClientWorld mirrors it from the snapshot.
