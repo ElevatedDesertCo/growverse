@@ -94,6 +94,22 @@ export const SLUICE_PEAK = {
   sigma: 13,
 } as const;
 
+// Grulmaw's Roost (zone1): a lone dramatic peak rising from the vale's far southern
+// reaches (SE corner), where Grulmaw the Rift-Gorged dragged himself to brood after
+// gorging on the raw Dry. Unlike SLUICE_PEAK (a steep, unclimbable gaussian wall that
+// only backs scenery), this is a WALKABLE summit: a smoothstep dome whose max slope
+// (1.5 * height / radius = ~0.88) stays under PLAYER_MAX_CLIMB_SLOPE (1.5) on every
+// approach, so a party can trek up its north face to fight the boss at the top and
+// finish q_mogger. Its southern flank runs into the world's south rim, so it reads as
+// a spur off the distant southern range. Added in baseHeight (like sluicePeakOffset)
+// so the camp-flatten levels a small plateau at the apex for the encounter.
+export const GRULMAW_PEAK = {
+  x: -64,
+  z: -142,
+  height: 40,
+  radius: 68,
+} as const;
+
 // A stone crossing over the Sluice river, mid-corridor, so a player on the south
 // (boar-meadow) bank can reach the north shore without swimming. It is a pure
 // terrain primitive (a raised, gently-arched causeway), NOT a walkable-platform
@@ -253,6 +269,18 @@ function sluicePeakOffset(x: number, z: number): number {
   const reach = SLUICE_PEAK.sigma * 3;
   if (d2 >= reach * reach) return 0;
   return SLUICE_PEAK.height * Math.exp(-d2 / (2 * SLUICE_PEAK.sigma * SLUICE_PEAK.sigma));
+}
+
+// Grulmaw's Roost: a walkable dome peak (see GRULMAW_PEAK). smoothstep(radius, 0, d)
+// is 1 at the apex and eases to 0 at the foot; its steepest point (d = radius/2) has
+// slope 1.5 * height / radius, kept below PLAYER_MAX_CLIMB_SLOPE so the summit is
+// reachable from any side (unlike the sheer sluicePeakOffset gaussian).
+function grulmawPeakOffset(x: number, z: number): number {
+  const dx = x - GRULMAW_PEAK.x;
+  const dz = z - GRULMAW_PEAK.z;
+  const d = Math.sqrt(dx * dx + dz * dz);
+  if (d >= GRULMAW_PEAK.radius) return 0;
+  return GRULMAW_PEAK.height * smoothstep(GRULMAW_PEAK.radius, 0, d);
 }
 
 // Capsule-shaped river carve: distance to the channel centerline segment, blended
@@ -524,6 +552,8 @@ function baseHeight(x: number, z: number, seed: number): number {
   // so the channel and plunge pool read as water even at the mountain's foot).
   h += sluicePeakOffset(x, z);
   h = sluiceRiverCarve(x, z, h);
+  // Grulmaw's Roost: a lone walkable peak in the far south (see GRULMAW_PEAK).
+  h += grulmawPeakOffset(x, z);
   return h;
 }
 

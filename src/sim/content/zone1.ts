@@ -1049,7 +1049,7 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     name: 'The Rift-Gorged',
     giverNpcId: 'marshal_redbrook',
     turnInNpcId: 'marshal_redbrook',
-    text: 'One of the Ashen Maw gorged on the raw Dry until his own body could not hold it: Grulmaw, they call him now, and he has swollen into something that splits carts and flattens fences by the dozen. Do not face him alone. Take two strong companions into the eastern meadow and put the brute down for good.',
+    text: "One of the Ashen Maw gorged on the raw Dry until his own body could not hold it: Grulmaw, they call him now, and he has swollen into something that splits carts and flattens fences by the dozen. He has dragged himself off to brood atop Grulmaw's Roost, the lone peak in the far south, past Seedvault Hill. Do not face him alone. Take two strong companions up the mountain and put the brute down for good.",
     completionText:
       "Grulmaw dead at last. Bloomhaven's fields are safer, and you leave the Vale with one more tale worth retelling.",
     objectives: [{ type: 'kill', targetMobId: 'mogger', count: 1, label: 'Grulmaw slain' }],
@@ -1145,10 +1145,17 @@ export const ZONE1_CAMPS: CampDef[] = [
   { mobId: 'forest_wolf', center: { x: -20, z: 82 }, radius: 20, count: 7 },
   { mobId: 'forest_wolf', center: { x: 6, z: 94 }, radius: 18, count: 6 },
   { mobId: 'old_greyjaw', center: { x: -6, z: 100 }, radius: 8, count: 1 },
-  // Boars: west meadow, well clear of the Sluice pond and the river corridor
-  { mobId: 'wild_boar', center: { x: 90, z: -8 }, radius: 18, count: 6 },
-  { mobId: 'wild_boar', center: { x: 112, z: -22 }, radius: 18, count: 5 },
-  { mobId: 'mogger', center: { x: 118, z: -26 }, radius: 5, count: 1 },
+  // Javelinas: the deep-south meadow, SE of the Dry Camp and well behind Seedvault Hill,
+  // clear of the Sluice pond and the river corridor. (Re-centering only moves the packs:
+  // the camp loop is the final RNG consumer at construction, so no downstream spawn roll
+  // shifts and parity holds; changing a COUNT would.)
+  { mobId: 'wild_boar', center: { x: 60, z: -112 }, radius: 18, count: 6 },
+  { mobId: 'wild_boar', center: { x: 78, z: -124 }, radius: 18, count: 5 },
+  // Grulmaw the Rift-Gorged broods alone atop Grulmaw's Roost, the lone peak in the vale's
+  // far southeast (GRULMAW_PEAK in world.ts). Its summit is a walkable dome, so a party
+  // climbs the north face to finish q_mogger; the camp-flatten levels a small apex plateau
+  // for the fight. (Re-centering moves the elite without shifting any downstream spawn roll.)
+  { mobId: 'mogger', center: { x: -64, z: -142 }, radius: 5, count: 1 },
   // Spiders: western woods
   { mobId: 'webwood_spider', center: { x: -60, z: 5 }, radius: 22, count: 7 },
   // Murlocs: lake shore northwest — camp straddles the waterline
