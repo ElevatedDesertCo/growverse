@@ -1166,6 +1166,44 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     registerHideable(g, obbFootprint(b.x, b.z, b.w / 2, b.d / 2, b.rot, roofY));
   }
 
+  // ---- walkable stone staircases (PROPS.stairs) ----------------------------
+  // Flat stone treads draped over the world.ts stairsOffset ramp so a steep hillside
+  // reads as a climbable flight. The ramp (NOT these treads) is the surface the player's
+  // feet ride; each flat tread top tracks the natural ramp height at the tread's centre,
+  // so the stone reads as discrete steps while the walk grade stays smooth (same idea as
+  // the house entry steps). Ends sample groundNatural (the pre-ramp surface, matching what
+  // world.ts uses to build the ramp). All the treads for one stair merge into a single
+  // geometry (one draw call), seated in local space before the group is rotated onto the
+  // stair's bearing (local +z runs foot -> top).
+  for (const st of PROPS.stairs ?? []) {
+    const ax = st.x2 - st.x1;
+    const az = st.z2 - st.z1;
+    const runLen = Math.hypot(ax, az);
+    if (runLen < 1e-3) continue;
+    const footY = groundNatural(st.x1, st.z1);
+    const topY = groundNatural(st.x2, st.z2);
+    const rise = topY - footY;
+    const n = Math.max(2, Math.round(Math.abs(rise) / 0.42)); // ~0.42 yd target rise per step
+    const td = runLen / n; // tread depth along the run
+    const halfW = st.halfWidth ?? 2;
+    const stepH = Math.abs(rise) / n + 0.5; // one rise + skirt so treads never float or gap
+    const treadGeos: THREE.BufferGeometry[] = [];
+    for (let k = 0; k < n; k++) {
+      const cAlong = (k + 0.5) * td; // tread centre distance from the foot
+      const topAtCentre = footY + rise * ((k + 0.5) / n);
+      const box = new THREE.BoxGeometry(halfW * 2, stepH, td);
+      box.translate(0, topAtCentre - stepH / 2, cAlong);
+      treadGeos.push(box);
+    }
+    const treads = new THREE.Mesh(mergeGeometries(treadGeos, false), foundationMat);
+    for (const box of treadGeos) box.dispose();
+    const grp = new THREE.Group();
+    grp.add(treads);
+    grp.position.set(st.x1, 0, st.z1);
+    grp.rotation.y = Math.atan2(ax, az); // local +z -> world (ax, az)
+    group.add(shadowed(grp));
+  }
+
   // ---- market stalls: a Growverse-ORIGINAL procedural vendor booth ---------
   // Not a CC0 pack model: Bloomhaven's market booth is built from primitives so
   // the town square carries 1-of-1 geometry rather than a reskinned Quaternius

@@ -1531,6 +1531,14 @@ export interface ZonePropsDef {
   // points at (Math.PI faces the ladder south); `scale` defaults to 1. A cylinder
   // collider around the legs keeps players from walking through it (colliders.ts).
   watchTowers?: { x: number; z: number; rot?: number; scale?: number }[];
+  // Growverse-original walkable stone staircase carved up a steep hillside. Each entry
+  // runs from the FOOT (x1,z1) at the bottom to the TOP landing (x2,z2). The sim
+  // (world.ts stairsOffset) eases the walk surface toward a straight ramp between the
+  // two ends so the grade stays under the climb-slope gate, and render/props.ts drapes
+  // stone treads over that ramp. `halfWidth` is the walkable half-width in yards
+  // (default 2). Like the house entry ramps, the treads are cosmetic; the ramp is what
+  // makes the climb real.
+  stairs?: { x1: number; z1: number; x2: number; z2: number; halfWidth?: number }[];
 }
 
 export function emptyZoneProps(): ZonePropsDef {

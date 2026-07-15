@@ -310,6 +310,10 @@ function mergeProps(sets: ZonePropsDef[]): ZonePropsDef {
     // Watch towers: same optional-field trap as above. Omitting the merge strands the
     // procedural lookout tower before props.ts / colliders.ts ever see it.
     watchTowers: sets.flatMap((s) => s.watchTowers ?? []),
+    // Walkable stone staircases: same optional-field trap. Omitting the merge strands the
+    // staircase before world.ts stairsOffset (the walkable ramp) and props.ts (the treads)
+    // ever see it.
+    stairs: sets.flatMap((s) => s.stairs ?? []),
   };
 }
 

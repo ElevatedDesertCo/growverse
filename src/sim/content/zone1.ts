@@ -1485,4 +1485,8 @@ export const ZONE1_PROPS: ZonePropsDef = {
   // garden land, its ladder/front (and the archer's gaze) facing NORTH (rot = 0; world
   // north is +z), so the climb faces in toward the homestead.
   watchTowers: [{ x: 62, z: 39, rot: 0 }],
+  // Stone stairway up the steep east wall of the channel below the garden terrace: from
+  // the low channel floor (~-3.1) at the foot up ~5 yards to the grass plateau (~+2.1).
+  // The straight ramp holds the climb well under the slope gate; treads draped over it.
+  stairs: [{ x1: 36, z1: 65, x2: 46, z2: 65, halfWidth: 2 }],
 };

@@ -135,8 +135,8 @@ function lerp(a: number, b: number, t: number): number {
 // cull (render/foliage) all key off inGardenFarm, so this ONE region drives the field.
 export const GARDEN_FARM = {
   xMin: 52, // west edge, east of the outpost den (keeps the terrace bank off the buildings)
-  xMax: 118, // east edge at the mountain foot (terrain climbs toward the grotto past here)
-  zSouth: 42, // southern limit of the flat field
+  xMax: 140, // east edge at the Sluice mountain foot (the peak/grotto rim climbs steeply past here)
+  zSouth: 34, // southern limit of the flat field: level right down to the Sluice river bank
   anchorX: 72, // sample point whose natural height sets the flat level (~2yd, gentle vale)
   anchorZ: 52,
   roadVerge: 1, // north edge sits this far south of the grotto road centerline
@@ -433,6 +433,50 @@ function houseStepsOffset(x: number, z: number, h: number, seed: number): number
   return h;
 }
 
+// Walkable stone staircases (PROPS.stairs): carve a straight, uniform-grade ramp up a
+// steep hillside from the FOOT (x1,z1) to the TOP landing (x2,z2), so the render treads
+// (props.ts, which sample this same terrainHeight) sit on a clean incline you can actually
+// climb. Unlike the dock/house ramps this both RAISES and CUTS toward the target ramp
+// plane inside the footprint (a real staircase channel gouged into the hill), tapering to
+// natural grade at the side edges (STAIR_EDGE) and feathering the along-ends (STAIR_END) so
+// there is no lateral or end cliff. The two end heights are sampled from terrainHeightNatural
+// (NEVER terrainHeight) so this offset never recurses, and so each end meets its real grade
+// flush. The along-grade is (topY - footY) / runLen; authored runs hold that under the
+// MAX_CLIMB_SLOPE move gate.
+const STAIR_EDGE = 0.9; // side taper (yards) beyond the walkable half-width: no lateral cliff
+const STAIR_END = 1.2; // along-end feather (yards) so the channel does not pop as an end wall
+
+function stairsOffset(x: number, z: number, h: number, seed: number): number {
+  const stairs = PROPS.stairs;
+  if (!stairs) return h;
+  for (const s of stairs) {
+    const ax = s.x2 - s.x1;
+    const az = s.z2 - s.z1;
+    const runLen = Math.hypot(ax, az);
+    if (runLen < 1e-3) continue;
+    const ux = ax / runLen; // unit vector foot -> top (along)
+    const uz = az / runLen;
+    const dx = x - s.x1;
+    const dz = z - s.z1;
+    const along = dx * ux + dz * uz; // 0 at foot, runLen at top
+    const perp = dx * -uz + dz * ux; // signed lateral offset from the centre line
+    const halfW = s.halfWidth ?? 2;
+    if (along < -STAIR_END || along > runLen + STAIR_END) continue;
+    if (Math.abs(perp) > halfW + STAIR_EDGE) continue;
+    const footY = terrainHeightNatural(s.x1, s.z1, seed);
+    const topY = terrainHeightNatural(s.x2, s.z2, seed);
+    const t = Math.max(0, Math.min(1, along / runLen));
+    const rampY = footY + (topY - footY) * t;
+    const wBlend = smoothstep(halfW + STAIR_EDGE, halfW, Math.abs(perp)); // 1 on the path, 0 past the edge
+    // Feather both ends so the perp channel eases in/out instead of ending in a wall.
+    const lowBlend = smoothstep(-STAIR_END, 0.5, along);
+    const highBlend = smoothstep(runLen + STAIR_END, runLen - 0.5, along);
+    const blend = wBlend * lowBlend * highBlend;
+    return h + (rampY - h) * blend;
+  }
+  return h;
+}
+
 // Blended biome shape at a given z. Zone interiors keep their exact shape;
 // blends happen across ±~35yd windows at the band boundaries.
 function shapeAt(z: number): { hill: number; base: number } {
@@ -548,7 +592,8 @@ export function terrainHeightNatural(x: number, z: number, seed: number): number
 // The walkable open-world surface: natural terrain plus the house entry ramps that make the
 // plinth steps climbable. This is what the sim moves on and what the terrain mesh renders.
 export function terrainHeight(x: number, z: number, seed: number): number {
-  return houseStepsOffset(x, z, terrainHeightNatural(x, z, seed), seed);
+  const h = houseStepsOffset(x, z, terrainHeightNatural(x, z, seed), seed);
+  return stairsOffset(x, z, h, seed);
 }
 
 // Distance from (x,z) to the nearest road polyline segment.
@@ -613,6 +658,29 @@ function isOnSluiceBridge(x: number, z: number): boolean {
   return Math.abs(x - b.x) < b.halfWidth + 2 && Math.abs(z - b.z) < b.halfSpan + 2;
 }
 
+// Keep the tree/rock field off a staircase (plus a small margin) so no trunk sprouts
+// through the treads. Mirrors isOnDock/isOnSluiceBridge; uses the same along/perp span
+// as stairsOffset with a margin.
+function isOnStairs(x: number, z: number): boolean {
+  const stairs = PROPS.stairs;
+  if (!stairs) return false;
+  for (const s of stairs) {
+    const ax = s.x2 - s.x1;
+    const az = s.z2 - s.z1;
+    const runLen = Math.hypot(ax, az);
+    if (runLen < 1e-3) continue;
+    const ux = ax / runLen;
+    const uz = az / runLen;
+    const dx = x - s.x1;
+    const dz = z - s.z1;
+    const along = dx * ux + dz * uz;
+    const perp = dx * -uz + dz * ux;
+    const halfW = s.halfWidth ?? 2;
+    if (along >= -2 && along <= runLen + 2 && Math.abs(perp) <= halfW + 2) return true;
+  }
+  return false;
+}
+
 export function zoneBiomeAt(z: number): BiomeId {
   for (const zone of ZONES) {
     if (z < zone.zMax) return zone.biome;
@@ -647,6 +715,7 @@ export function generateDecorations(seed: number): Decoration[] {
       if (isExcludedDecoration(x, z)) continue;
       if (isOnSluiceBridge(x, z)) continue;
       if (isOnDock(x, z)) continue;
+      if (isOnStairs(x, z)) continue;
       if (isOnGrottoFloor(x, z)) continue;
       let inHub = false;
       for (const zone of ZONES) {
