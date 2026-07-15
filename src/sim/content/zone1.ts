@@ -1481,7 +1481,8 @@ export const ZONE1_PROPS: ZonePropsDef = {
   // `Baked Beaver` landmark POI above. A decoration-exclusion point in world.ts
   // keeps a stray tree from clipping the statue.
   beaverMascots: [{ x: 42, z: 54, rot: 3.1, scale: 1.05 }],
-  // Homestead-corner lookout: a wooden watch tower on the south corner of the garden
-  // land, its ladder/front facing south (rot = Math.PI; world north is +z).
-  watchTowers: [{ x: 62, z: 39, rot: Math.PI }],
+  // Homestead-corner lookout: a solid wooden watch tower on the south corner of the
+  // garden land, its ladder/front (and the archer's gaze) facing NORTH (rot = 0; world
+  // north is +z), so the climb faces in toward the homestead.
+  watchTowers: [{ x: 62, z: 39, rot: 0 }],
 };

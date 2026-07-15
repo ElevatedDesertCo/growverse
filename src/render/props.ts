@@ -637,27 +637,76 @@ function buildDelveEmbers(
   return pts;
 }
 
+// A blocky low-poly ARCHER sentry built from static primitives (no rig/GLB), to stand
+// watch on the tower deck. Returned centred at local origin with its feet at y=0 and its
+// face + drawn bow toward local +z; the caller positions/rotates it. Style matches the
+// game's chunky look and the procedural beaver mascot.
+export function buildArcher(): THREE.Group {
+  const tunicMat = surfaceMat({ color: 0x3f6b3a, roughness: 0.95 }); // ranger green
+  const leatherMat = surfaceMat({ color: 0x5b4127, roughness: 0.95 });
+  const skinMat = surfaceMat({ color: 0xc8956b, roughness: 0.85 });
+  const hoodMat = surfaceMat({ color: 0x2f5230, roughness: 0.95 });
+  const bowMat = surfaceMat({ color: 0x6b4a2a, roughness: 0.85 });
+  const stringMat = surfaceMat({ color: 0xdadada, roughness: 0.6 });
+
+  const a = new THREE.Group();
+  const add = (geo: THREE.BufferGeometry, mat: THREE.Material, x: number, y: number, z: number) => {
+    const m = new THREE.Mesh(geo, mat);
+    m.position.set(x, y, z);
+    a.add(m);
+    return m;
+  };
+  // legs (boots) + belt + torso
+  add(new THREE.BoxGeometry(0.16, 0.78, 0.2), leatherMat, -0.13, 0.39, 0);
+  add(new THREE.BoxGeometry(0.16, 0.78, 0.2), leatherMat, 0.13, 0.39, 0);
+  add(new THREE.BoxGeometry(0.46, 0.62, 0.3), tunicMat, 0, 1.08, 0); // torso
+  add(new THREE.BoxGeometry(0.48, 0.1, 0.32), leatherMat, 0, 0.78, 0); // belt
+  // head + hood
+  add(new THREE.BoxGeometry(0.26, 0.26, 0.26), skinMat, 0, 1.56, 0.02);
+  add(new THREE.BoxGeometry(0.32, 0.3, 0.3), hoodMat, 0, 1.62, -0.03);
+  // arms: left arm extended forward to hold the bow, right arm bent back drawing the string
+  const bowArm = add(new THREE.BoxGeometry(0.13, 0.13, 0.5), tunicMat, -0.3, 1.24, 0.22);
+  bowArm.rotation.x = -0.1;
+  add(new THREE.BoxGeometry(0.13, 0.13, 0.34), tunicMat, 0.26, 1.22, -0.05); // draw arm
+  // quiver of arrows slung on the back
+  add(new THREE.CylinderGeometry(0.07, 0.08, 0.5, 6), leatherMat, 0.16, 1.2, -0.2);
+  for (const qx of [0.12, 0.18]) {
+    add(new THREE.BoxGeometry(0.02, 0.28, 0.02), stringMat, qx, 1.52, -0.22);
+  }
+  // The bow: a vertical arc held out at the bow hand, with a straight string on the
+  // archer side. Limbs point up/down (stand the flat torus upright); the whole bow faces
+  // +z, the watch direction.
+  const bow = new THREE.Mesh(new THREE.TorusGeometry(0.42, 0.035, 6, 16, Math.PI * 1.15), bowMat);
+  bow.rotation.z = Math.PI / 2 - Math.PI * 0.075; // stand the arc upright, centre the limbs
+  bow.position.set(-0.36, 1.24, 0.4);
+  a.add(bow);
+  const string = new THREE.Mesh(new THREE.BoxGeometry(0.015, 0.8, 0.015), stringMat);
+  string.position.set(-0.3, 1.24, 0.4);
+  a.add(string);
+  return a;
+}
+
 // A Growverse-ORIGINAL procedural wooden watch tower, built from static primitives
-// (no CC0 GLB). Four splayed corner posts braced with girts and diagonals carry a
-// railed lookout deck under a peaked shingle roof, with a rung ladder climbing the
-// FRONT (local +z) up to a railing gap. Returned centred at local origin with its
-// feet at y=0 and its front (ladder/opening) toward local +z; the caller
-// positions/rotates/scales it, so `rot` is the yaw the front points at (Math.PI = the
-// ladder faces south). Cheap enough to build one static instance on every tier.
+// (no CC0 GLB): a SOLID plank-walled tower on four corner posts carrying an open, railed
+// lookout deck with headroom under a peaked shingle roof, an exterior rung ladder on the
+// FRONT (local +z), and an archer sentry standing watch on the deck. Returned centred at
+// local origin with its feet at y=0 and its front (ladder + the archer's gaze) toward
+// local +z; the caller positions/rotates/scales it, so `rot` is the yaw the front points
+// at (0 = the ladder faces north). Static on every tier.
 export function buildWatchTower(): THREE.Group {
-  const postMat = surfaceMat({ color: 0x5a3f28, roughness: 0.95 });
+  const postMat = surfaceMat({ color: 0x4f3721, roughness: 0.95 });
+  const wallMat = surfaceMat({ color: 0x6b4c30, roughness: 0.96 });
   const deckMat = surfaceMat({ color: 0x775438, roughness: 0.92 });
   const roofMat = surfaceMat({ color: 0x40342a, roughness: 0.9 });
   const railMat = surfaceMat({ color: 0x66492f, roughness: 0.94 });
 
   const g = new THREE.Group();
-  const DECK_Y = 4.6; // deck height above the ground
-  const BASE_HALF = 1.55; // post spread at the ground
-  const TOP_HALF = 1.15; // post spread at the deck (legs splay outward toward the base)
-  const POST = 0.17; // square post thickness
+  const DECK_Y = 4.9; // deck height above the ground
+  const HALF = 1.35; // footprint half-width (straight, solid tower)
+  const POST = 0.2; // square corner-post thickness
 
-  // A box beam from a->b with a given square cross-section, oriented along the segment.
   const up = new THREE.Vector3(0, 1, 0);
+  // A box beam from a->b with a given square cross-section, oriented along the segment.
   const beam = (
     ax: number,
     ay: number,
@@ -668,12 +717,12 @@ export function buildWatchTower(): THREE.Group {
     thick: number,
     mat: THREE.Material,
   ): THREE.Mesh => {
-    const a = new THREE.Vector3(ax, ay, az);
-    const b = new THREE.Vector3(bx, by, bz);
-    const dir = new THREE.Vector3().subVectors(b, a);
+    const p0 = new THREE.Vector3(ax, ay, az);
+    const p1 = new THREE.Vector3(bx, by, bz);
+    const dir = new THREE.Vector3().subVectors(p1, p0);
     const len = dir.length();
     const m = new THREE.Mesh(new THREE.BoxGeometry(thick, len, thick), mat);
-    m.position.copy(a).addScaledVector(dir, 0.5);
+    m.position.copy(p0).addScaledVector(dir, 0.5);
     m.quaternion.setFromUnitVectors(up, dir.normalize());
     g.add(m);
     return m;
@@ -685,51 +734,54 @@ export function buildWatchTower(): THREE.Group {
     [1, 1],
     [-1, 1],
   ];
-  // Four splayed corner legs, base corner up to deck corner.
+  // Four straight corner posts, ground to deck.
   for (const [sx, sz] of corners) {
-    beam(sx * BASE_HALF, 0, sz * BASE_HALF, sx * TOP_HALF, DECK_Y, sz * TOP_HALF, POST, postMat);
+    beam(sx * HALF, 0, sz * HALF, sx * HALF, DECK_Y, sz * HALF, POST, postMat);
   }
-  // Horizontal girts ringing the legs at two heights (skirt + just under the deck) so
-  // the frame reads as a braced tower, not four loose stilts.
-  for (const gy of [1.7, DECK_Y - 0.25]) {
-    const frac = (gy - 0) / DECK_Y;
-    const half = BASE_HALF + (TOP_HALF - BASE_HALF) * frac;
-    for (let i = 0; i < 4; i++) {
-      const [ax, az] = corners[i];
-      const [bx, bz] = corners[(i + 1) % 4];
-      beam(ax * half, gy, az * half, bx * half, gy, bz * half, POST * 0.72, postMat);
+  // Solid plank siding on all four sides so the tower reads as a closed structure. Each
+  // side is a slab inset just behind the posts, framed by a bottom + top trim rail.
+  const WALL_TOP = DECK_Y - 0.1;
+  const WALL_H = WALL_TOP - 0.05;
+  const sides: { horiz: boolean; sign: number }[] = [
+    { horiz: true, sign: -1 }, // -z wall (spans x)
+    { horiz: true, sign: 1 }, // +z wall
+    { horiz: false, sign: -1 }, // -x wall (spans z)
+    { horiz: false, sign: 1 }, // +x wall
+  ];
+  for (const s of sides) {
+    const wall = new THREE.Mesh(
+      s.horiz
+        ? new THREE.BoxGeometry(HALF * 2, WALL_H, 0.12)
+        : new THREE.BoxGeometry(0.12, WALL_H, HALF * 2),
+      wallMat,
+    );
+    const off = (HALF - 0.09) * s.sign;
+    wall.position.set(s.horiz ? 0 : off, 0.05 + WALL_H / 2, s.horiz ? off : 0);
+    g.add(wall);
+    // top + bottom trim rails hugging the wall for a framed-plank look
+    for (const ty of [0.35, WALL_TOP - 0.2]) {
+      if (s.horiz) beam(-HALF, ty, off, HALF, ty, off, 0.12, postMat);
+      else beam(off, ty, -HALF, off, ty, HALF, 0.12, postMat);
     }
   }
-  // One diagonal cross-brace per side, spanning skirt girt to the deck girt.
-  const braceHalfAt = (y: number) => BASE_HALF + (TOP_HALF - BASE_HALF) * (y / DECK_Y);
-  for (let i = 0; i < 4; i++) {
-    const [ax, az] = corners[i];
-    const [bx, bz] = corners[(i + 1) % 4];
-    const loH = braceHalfAt(1.7);
-    const hiH = braceHalfAt(DECK_Y - 0.25);
-    beam(ax * loH, 1.7, az * loH, bx * hiH, DECK_Y - 0.25, bz * hiH, POST * 0.6, postMat);
-  }
 
-  // Lookout deck: a square plank slab at the top of the legs.
-  const deck = new THREE.Mesh(
-    new THREE.BoxGeometry(TOP_HALF * 2 + 0.5, 0.16, TOP_HALF * 2 + 0.5),
-    deckMat,
-  );
+  // Lookout deck: a square plank slab overhanging the walls slightly.
+  const DECK_HALF = HALF + 0.22;
+  const deck = new THREE.Mesh(new THREE.BoxGeometry(DECK_HALF * 2, 0.18, DECK_HALF * 2), deckMat);
   deck.position.y = DECK_Y;
   g.add(deck);
+  const DECK_TOP = DECK_Y + 0.09;
 
-  // Railing: waist-high posts + a top rail on all four sides, with a GAP on the front
-  // (+z) where the ladder arrives.
-  const DECK_HALF = TOP_HALF + 0.25;
-  const RAIL_Y = DECK_Y + 0.55;
+  // Railing: corner uprights + a top rail on all four sides, waist-high and OPEN so the
+  // archer is visible, with a GAP on the front (+z) where the ladder arrives.
+  const RAIL_Y = DECK_TOP + 0.62;
   for (let i = 0; i < 4; i++) {
     const [ax, az] = corners[i];
     const [bx, bz] = corners[(i + 1) % 4];
     const isFront = az > 0 && bz > 0; // the +z edge (ladder side): leave it open
-    // corner uprights
     beam(
       ax * DECK_HALF,
-      DECK_Y,
+      DECK_TOP,
       az * DECK_HALF,
       ax * DECK_HALF,
       RAIL_Y,
@@ -748,31 +800,43 @@ export function buildWatchTower(): THREE.Group {
       POST * 0.6,
       railMat,
     );
+    // a mid rail for a sturdier balcony
+    beam(
+      ax * DECK_HALF,
+      DECK_TOP + 0.3,
+      az * DECK_HALF,
+      bx * DECK_HALF,
+      DECK_TOP + 0.3,
+      bz * DECK_HALF,
+      POST * 0.45,
+      railMat,
+    );
   }
 
-  // Roof: four short corner posts carry a peaked four-sided shingle roof over the deck.
-  const ROOF_BASE = DECK_Y + 1.0;
+  // Roof: four TALL corner posts give a person headroom on the deck, carrying a peaked
+  // four-sided shingle roof.
+  const ROOF_BASE = DECK_TOP + 2.35;
   for (const [sx, sz] of corners) {
     beam(
       sx * DECK_HALF,
-      DECK_Y,
+      DECK_TOP,
       sz * DECK_HALF,
-      sx * (DECK_HALF - 0.2),
+      sx * (DECK_HALF - 0.15),
       ROOF_BASE,
-      sz * (DECK_HALF - 0.2),
+      sz * (DECK_HALF - 0.15),
       POST * 0.7,
       postMat,
     );
   }
-  const roof = new THREE.Mesh(new THREE.ConeGeometry(DECK_HALF * 1.55, 1.5, 4), roofMat);
+  const roof = new THREE.Mesh(new THREE.ConeGeometry(DECK_HALF * 1.6, 1.7, 4), roofMat);
   roof.rotation.y = Math.PI / 4; // square the pyramid to the deck
-  roof.position.y = ROOF_BASE + 0.75;
+  roof.position.y = ROOF_BASE + 0.85;
   g.add(roof);
 
-  // Front ladder: two side rails + rungs from the ground to the deck opening.
-  const LADDER_Z = DECK_HALF + 0.06;
+  // Front exterior ladder: two side rails + rungs from the ground to the deck opening.
+  const LADDER_Z = DECK_HALF + 0.08;
   for (const sx of [-0.42, 0.42]) {
-    beam(sx, 0, LADDER_Z, sx, DECK_Y, LADDER_Z, 0.07, railMat);
+    beam(sx, 0, LADDER_Z, sx, DECK_TOP, LADDER_Z, 0.07, railMat);
   }
   const rungGeo = new THREE.BoxGeometry(0.98, 0.06, 0.06);
   for (let ry = 0.5; ry < DECK_Y; ry += 0.5) {
@@ -780,6 +844,12 @@ export function buildWatchTower(): THREE.Group {
     rung.position.set(0, ry, LADDER_Z);
     g.add(rung);
   }
+
+  // The archer sentry: standing on the deck, set back from the front rail, watching out
+  // over the +z (ladder/front) side.
+  const archer = buildArcher();
+  archer.position.set(0.15, DECK_TOP, DECK_HALF - 0.55);
+  g.add(archer);
 
   return g;
 }
@@ -1655,7 +1725,7 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
   // ---- watch towers: a Growverse-ORIGINAL procedural wooden lookout tower -----
   // A railed lookout deck on four braced legs under a peaked roof, planted on a
   // corner of the homestead. `rot` is the yaw its front (ladder + railing gap)
-  // points at (Math.PI faces the ladder south). Static on every tier.
+  // points at (0 faces the ladder north). Static on every tier.
   for (const t of PROPS.watchTowers ?? []) {
     const gy = ground(t.x, t.z);
     const s = t.scale ?? 1;
@@ -1664,7 +1734,9 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     tower.position.set(t.x, gy - 0.06, t.z);
     tower.rotation.y = t.rot ?? 0;
     group.add(shadowed(tower));
-    registerHideable(tower, circleFootprint(t.x, t.z, 2.0 * s, gy + 7.2 * s, 2.4 * s));
+    // Taller now (roof apex ~9.1yd): raise the camera-ghost top so the whole tower
+    // fades when it would occlude the player behind it.
+    registerHideable(tower, circleFootprint(t.x, t.z, 2.0 * s, gy + 9.4 * s, 2.4 * s));
   }
 
   // ---- graveyards: Growverse-ORIGINAL procedural weathered headstones --------

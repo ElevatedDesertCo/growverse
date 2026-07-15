@@ -307,32 +307,20 @@ function staticWorldColliders(seed: number): Collider[] {
     });
   }
 
-  // Watch towers: four small solid circles at the splayed leg feet so a player can
-  // still walk UNDER the deck between the legs but bumps the posts. Legs sit at the
-  // base half-spread (~1.55 * scale) rotated by the tower yaw. Camera ghosts through.
+  // Watch towers: one solid circle covering the whole enclosed footprint. The tower is
+  // now a solid plank-walled structure (HALF ~1.35 * scale walls under an overhanging
+  // deck), so the base is blocked wall-to-wall, not walk-through. The ladder is exterior
+  // cosmetic. Camera ghosts through so it never occludes the player behind it.
   for (const t of PROPS.watchTowers ?? []) {
     const s = t.scale ?? 1;
-    const rot = t.rot ?? 0;
-    const half = 1.55 * s;
-    const cos = Math.cos(rot);
-    const sin = Math.sin(rot);
-    for (const [lx, lz] of [
-      [-half, -half],
-      [half, -half],
-      [half, half],
-      [-half, half],
-    ] as const) {
-      const wx = t.x + lx * cos + lz * sin;
-      const wz = t.z - lx * sin + lz * cos;
-      out.push({
-        type: 'circle',
-        x: wx,
-        z: wz,
-        r: 0.32 * s,
-        cameraTopY: topY(seed, wx, wz, 5 * s),
-        camGhost: true,
-      });
-    }
+    out.push({
+      type: 'circle',
+      x: t.x,
+      z: t.z,
+      r: 1.5 * s,
+      cameraTopY: topY(seed, t.x, t.z, 9 * s),
+      camGhost: true,
+    });
   }
 
   // The Sluice bridge parapets: two solid stone rails running the length of the
