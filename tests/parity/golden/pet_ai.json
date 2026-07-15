@@ -10,8 +10,8 @@
     "updatePet melee arm: close + auto-taunt + mobSwing (PET_COMBAT_LINGER owner inCombat)",
     "petFollow heel transition (pets return to a moved owner)"
   ],
-  "draws": 956,
-  "drawDigest": "73432e43",
+  "draws": 944,
+  "drawDigest": "3fd9d3b6",
   "frames": [
     {
       "tick": 0,
@@ -186,8 +186,8 @@
       "tick": 100,
       "time": 5,
       "nextId": 575,
-      "state": "2e406286",
-      "events": "7e5043ca",
+      "state": "85b800d1",
+      "events": "ff4f92f9",
       "rng": {
         "draws": 379,
         "digest": "2c66da11"
@@ -197,22 +197,22 @@
       "tick": 120,
       "time": 6,
       "nextId": 575,
-      "state": "ca49c7c1",
+      "state": "ea20f562",
       "events": "9f476962",
       "rng": {
-        "draws": 507,
-        "digest": "5c82039e"
+        "draws": 506,
+        "digest": "238de3c8"
       }
     },
     {
       "tick": 120,
       "time": 6,
       "nextId": 575,
-      "state": "86256c9c",
+      "state": "49cc7ebb",
       "events": "741638a5",
       "rng": {
-        "draws": 507,
-        "digest": "5c82039e"
+        "draws": 506,
+        "digest": "238de3c8"
       },
       "label": "heel",
       "players": [
@@ -387,7 +387,7 @@
           "fallStartY": 37.026485,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 49928,
+          "hp": 49925,
           "id": 572,
           "inCombat": true,
           "kind": "mob",
@@ -423,7 +423,7 @@
           "threat": [
             [
               571,
-              73
+              76
             ]
           ],
           "wanderTarget": {
@@ -447,7 +447,7 @@
           "facing": -1.570796,
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
-          "hp": 346,
+          "hp": 348,
           "id": 573,
           "inCombat": true,
           "kind": "mob",
@@ -494,7 +494,7 @@
           "fiveSecondRule": 99,
           "forcedTargetTimer": -0.05,
           "hostile": true,
-          "hp": 49950,
+          "hp": 49952,
           "id": 574,
           "inCombat": true,
           "kind": "mob",
@@ -535,7 +535,7 @@
             ],
             [
               573,
-              51
+              49
             ]
           ],
           "weapon": {
@@ -550,44 +550,44 @@
       "tick": 140,
       "time": 7,
       "nextId": 575,
-      "state": "4b041ca3",
+      "state": "9d6b98f8",
       "events": "741638a5",
       "rng": {
-        "draws": 637,
-        "digest": "8bb519e5"
+        "draws": 629,
+        "digest": "afaa342d"
       }
     },
     {
       "tick": 160,
       "time": 8,
       "nextId": 575,
-      "state": "89a7dfe3",
+      "state": "a790fd04",
       "events": "741638a5",
       "rng": {
-        "draws": 786,
-        "digest": "e9386af3"
+        "draws": 781,
+        "digest": "ac634f6a"
       }
     },
     {
       "tick": 180,
       "time": 9,
       "nextId": 575,
-      "state": "79981b2f",
+      "state": "62d9cba2",
       "events": "741638a5",
       "rng": {
-        "draws": 956,
-        "digest": "73432e43"
+        "draws": 944,
+        "digest": "3fd9d3b6"
       }
     },
     {
       "tick": 180,
       "time": 9,
       "nextId": 575,
-      "state": "79981b2f",
+      "state": "62d9cba2",
       "events": "741638a5",
       "rng": {
-        "draws": 956,
-        "digest": "73432e43"
+        "draws": 944,
+        "digest": "3fd9d3b6"
       },
       "label": "final",
       "players": [
@@ -758,7 +758,7 @@
           "fallStartY": 37.026485,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 49928,
+          "hp": 49925,
           "id": 572,
           "inCombat": true,
           "kind": "mob",
@@ -807,7 +807,7 @@
           "facing": 1.552617,
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
-          "hp": 354,
+          "hp": 356,
           "id": 573,
           "kind": "mob",
           "level": 12,
@@ -860,7 +860,7 @@
           "fallStartY": 40.632402,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 49950,
+          "hp": 49952,
           "id": 574,
           "inCombat": true,
           "kind": "mob",

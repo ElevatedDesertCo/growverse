@@ -59,6 +59,7 @@ import {
   type FoliagePerfStats,
   type FoliageView,
 } from './foliage';
+import { buildFort } from './fort';
 import {
   GFX,
   type GfxBucketBands,
@@ -1252,6 +1253,15 @@ export class Renderer {
     setRenderCategory(bridge.group, 'props');
     this.scene.add(bridge.group);
     freezeStaticMatrices(bridge.group);
+
+    // The Skeleton Grotto fort: a huge ruined stone stronghold raised on the flat
+    // grotto floor (SKELETON_FORT in sim/world.ts), where the Wither Husk host
+    // musters. Static geometry, merged per material, no per-frame work; the walls
+    // are movement colliders derived from the same const in colliders.ts.
+    const fort = buildFort(this.sim.cfg.seed);
+    setRenderCategory(fort.group, 'props');
+    this.scene.add(fort.group);
+    freezeStaticMatrices(fort.group);
 
     // selection ring — a classic target reticle: a base ring plus four
     // inward-pointing ticks. The base ring is draped over the terrain each

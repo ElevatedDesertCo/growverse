@@ -71,6 +71,32 @@ export const SKELETON_GROTTO = {
   wallHeight: 16, // how far the enclosing rock wall rises above the floor on the walled arcs
 } as const;
 
+// A huge ruined stone fort planted on the Skeleton Grotto floor: the Wither Husk host
+// musters inside it. It is a 1-of-1 landmark (like SLUICE_BRIDGE): this ONE const is the
+// single source of truth that both the render mesh (render/fort.ts) and the movement
+// colliders (colliders.ts) derive from, so the walls you see are exactly the walls you
+// bump. It sits ENTIRELY on the flat grotto floor (every corner is within bowlRadius, so
+// terrainHeight is a dead-flat floorY across the whole footprint) and needs NO terrain
+// edit. A square curtain wall with a corner tower at each angle, a central keep, a FRONT
+// gatehouse on the low-x (grotto mouth) side facing the player's approach, and a REAR
+// sally-port on the high-x side lined up with the hollow_crypt cave-mouth (DUNGEONS.
+// hollow_crypt.doorPos = 168,84) so the dungeon door stays reachable through the courtyard.
+export const SKELETON_FORT = {
+  x: 150, // centered on the grotto (SKELETON_GROTTO.x/z)
+  z: 84,
+  floorY: 8, // the flat grotto floor (SKELETON_GROTTO.floorY); the whole fort sits on it
+  half: 14, // curtain-wall half-extent: a 28yd square, corners at d~19.8 (inside bowlRadius 22)
+  wallH: 6, // curtain-wall height above the floor
+  wallHalfThick: 0.7, // half thickness of the curtain walls (and gate/keep faces)
+  merlonH: 1.0, // crenellation (merlon) rise above the wall walk
+  gateHalf: 3.5, // FRONT gate opening half-width, in the low-x wall (the grotto mouth side)
+  sallyHalf: 2.5, // REAR sally-port half-width, in the high-x wall (toward the crypt door)
+  towerR: 2.4, // corner-tower radius
+  towerH: 10, // corner-tower body height above the floor (a conical roof rises above)
+  keepHalf: 4.5, // central keep half-extent (a 9yd square)
+  keepH: 14, // central keep body height above the floor (a peaked roof + banner rises above)
+} as const;
+
 // The Sluice waterway (zone1): a millpond (carved as a lake in content) fed by a
 // river that runs west, roughly level, all the way to a mountain at the world's
 // edge where a waterfall spills into it. These are pure carve/raise primitives

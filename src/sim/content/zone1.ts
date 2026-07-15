@@ -1413,7 +1413,9 @@ export const ZONE1_PROPS: ZonePropsDef = {
     [-69, 55],
   ],
   ruinRings: [
-    { x: 154, z: 84, ringR: 7, columns: 7 }, // toppled chapel columns on the Skeleton Grotto floor
+    // (The toppled-column ring that used to sit at the Skeleton Grotto center was
+    // removed when the SKELETON_FORT keep was raised there, so the columns no longer
+    // clip through the keep; the grotto's ruin now reads as the fort itself.)
     { x: -5, z: -60, ringR: 8, columns: 6 },
   ],
   // A low L-shaped churchyard rail southwest of the chapel + graves (well clear

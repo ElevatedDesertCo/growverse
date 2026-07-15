@@ -20,7 +20,7 @@ import {
   SANCTUM_LAYOUT,
   TEMPLE_LAYOUT,
 } from './dungeon_layout';
-import { generateDecorations, groundHeight, SLUICE_BRIDGE } from './world';
+import { generateDecorations, groundHeight, SKELETON_FORT, SLUICE_BRIDGE } from './world';
 
 // Static world collision. Prop placement comes from the per-zone content
 // modules (merged into PROPS by sim/data.ts): the renderer builds its meshes
@@ -319,6 +319,63 @@ function staticWorldColliders(seed: number): Collider[] {
       z: t.z,
       r: 1.5 * s,
       cameraTopY: topY(seed, t.x, t.z, 9 * s),
+      camGhost: true,
+    });
+  }
+
+  // The Skeleton Grotto fort: movement colliders derived from the SAME SKELETON_FORT
+  // const the render mesh (render/fort.ts) is built from, so the walls you see are the
+  // walls you bump. The whole fort sits on the flat grotto floor, so cameraTopY samples
+  // groundHeight (= floorY) at each piece. Everything is camGhost: the walls block
+  // movement but the chase cam ghosts through them (the renderer hides whatever crosses
+  // the eye-to-camera segment) so a tall curtain never yanks the camera in. The FRONT
+  // gate (low-x wall) and REAR sally-port (high-x wall) are left as gaps so the courtyard
+  // and the crypt cave-mouth behind it stay reachable.
+  {
+    const f = SKELETON_FORT;
+    const xW = f.x - f.half; // front (gate) wall
+    const xE = f.x + f.half; // rear (sally) wall
+    const zS = f.z - f.half; // south wall
+    const zN = f.z + f.half; // north wall
+    const th = f.wallHalfThick; // half thickness
+    const gateLo = f.z - f.gateHalf;
+    const gateHi = f.z + f.gateHalf;
+    const sallyLo = f.z - f.sallyHalf;
+    const sallyHi = f.z + f.sallyHalf;
+    const wallTop = topY(seed, f.x, f.z, f.wallH + f.merlonH);
+    const pushObb = (x: number, z: number, hw: number, hd: number, top: number) =>
+      out.push({ type: 'obb', x, z, hw, hd, rot: 0, cameraTopY: top, camGhost: true });
+    // South and north walls (run along x, full length).
+    pushObb(f.x, zS, f.half + th, th, wallTop);
+    pushObb(f.x, zN, f.half + th, th, wallTop);
+    // Front (low-x) wall: two z-segments flanking the gate gap.
+    pushObb(xW, (zS + gateLo) / 2, th, (gateLo - zS) / 2, wallTop);
+    pushObb(xW, (zN + gateHi) / 2, th, (zN - gateHi) / 2, wallTop);
+    // Rear (high-x) wall: two z-segments flanking the sally-port.
+    pushObb(xE, (zS + sallyLo) / 2, th, (sallyLo - zS) / 2, wallTop);
+    pushObb(xE, (zN + sallyHi) / 2, th, (zN - sallyHi) / 2, wallTop);
+    // Four round corner towers.
+    const towerTop = topY(seed, f.x, f.z, f.towerH + 3.2);
+    for (const [cx, cz] of [
+      [xW, zS],
+      [xE, zS],
+      [xW, zN],
+      [xE, zN],
+    ] as const)
+      out.push({ type: 'circle', x: cx, z: cz, r: f.towerR, cameraTopY: towerTop, camGhost: true });
+    // Two square gatehouse towers framing the front gate.
+    const gateTowerTop = topY(seed, f.x, f.z, f.wallH + 2.5 + f.merlonH);
+    for (const gz of [gateLo, gateHi])
+      out.push({ type: 'circle', x: xW, z: gz, r: 1.3, cameraTopY: gateTowerTop, camGhost: true });
+    // Central keep.
+    out.push({
+      type: 'obb',
+      x: f.x,
+      z: f.z,
+      hw: f.keepHalf,
+      hd: f.keepHalf,
+      rot: 0,
+      cameraTopY: topY(seed, f.x, f.z, f.keepH + f.merlonH + 5.5),
       camGhost: true,
     });
   }

@@ -10,8 +10,8 @@
     "updateDoorTriggers exit portal -> leaveDungeon (~14620)",
     "updateInstances empty-reset -> freeInstance despawn + partyKey null (~14841/14816)"
   ],
-  "draws": 50,
-  "drawDigest": "9314661a",
+  "draws": 46,
+  "drawDigest": "8dd3dc69",
   "frames": [
     {
       "tick": 0,
@@ -867,11 +867,11 @@
       "tick": 4,
       "time": 0.2,
       "nextId": 586,
-      "state": "77c00f94",
-      "events": "2e462d54",
+      "state": "5850fb75",
+      "events": "32c161b7",
       "rng": {
-        "draws": 49,
-        "digest": "4392d475"
+        "draws": 45,
+        "digest": "9154fa7f"
       },
       "label": "left",
       "players": [
@@ -882,7 +882,7 @@
           "cls": "warrior",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 138,
+            "damageTaken": 67823,
             "deaths": 1
           },
           "delveClears": {},
@@ -998,8 +998,8 @@
       "entities": [
         {
           "aiState": "idle",
-          "attackPower": 26,
-          "combatTimer": 0.05,
+          "attackPower": 46,
+          "combatTimer": 99.2,
           "critChance": 0.06,
           "dead": true,
           "detonateTimer": "Infinity",
@@ -1007,11 +1007,10 @@
           "fallStartY": 8,
           "fiveSecondRule": 99.2,
           "id": 570,
-          "inCombat": true,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
-          "maxHp": 90,
+          "maxHp": 50000,
           "maxResource": 100,
           "moveSpeed": 7,
           "onGround": true,
@@ -1023,7 +1022,6 @@
             "z": 80
           },
           "potionCooldownUntil": -1,
-          "resource": 1.777778,
           "resourceType": "rage",
           "spawnPos": {
             "x": 2,
@@ -1126,7 +1124,7 @@
             "armor": 108
           },
           "templateId": "crypt_shambler",
-          "wanderTimer": 6.201796,
+          "wanderTimer": 2.754428,
           "weapon": {
             "max": 38,
             "min": 24,
@@ -1165,7 +1163,7 @@
             "armor": 108
           },
           "templateId": "crypt_shambler",
-          "wanderTimer": 2.42483,
+          "wanderTimer": 2.962457,
           "weapon": {
             "max": 38,
             "min": 24,
@@ -1687,55 +1685,55 @@
       "tick": 5,
       "time": 0.25,
       "nextId": 586,
-      "state": "302a5acd",
+      "state": "8f0fc87d",
       "events": "db4a2bf1",
       "rng": {
-        "draws": 49,
-        "digest": "4392d475"
+        "draws": 45,
+        "digest": "9154fa7f"
       }
     },
     {
       "tick": 10,
       "time": 0.5,
       "nextId": 586,
-      "state": "36c5625a",
+      "state": "003f7376",
       "events": "741638a5",
       "rng": {
-        "draws": 49,
-        "digest": "4392d475"
+        "draws": 45,
+        "digest": "9154fa7f"
       }
     },
     {
       "tick": 15,
       "time": 0.75,
       "nextId": 586,
-      "state": "16fc4a75",
+      "state": "13c94799",
       "events": "741638a5",
       "rng": {
-        "draws": 49,
-        "digest": "4392d475"
+        "draws": 45,
+        "digest": "9154fa7f"
       }
     },
     {
       "tick": 20,
       "time": 1,
       "nextId": 586,
-      "state": "c1eed307",
+      "state": "41126904",
       "events": "741638a5",
       "rng": {
-        "draws": 50,
-        "digest": "9314661a"
+        "draws": 46,
+        "digest": "8dd3dc69"
       }
     },
     {
       "tick": 24,
       "time": 1.2,
       "nextId": 586,
-      "state": "11544352",
+      "state": "a84ad754",
       "events": "741638a5",
       "rng": {
-        "draws": 50,
-        "digest": "9314661a"
+        "draws": 46,
+        "digest": "8dd3dc69"
       },
       "label": "reset",
       "players": [
@@ -1746,7 +1744,7 @@
           "cls": "warrior",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 138,
+            "damageTaken": 67823,
             "deaths": 1
           },
           "delveClears": {},
@@ -1865,8 +1863,8 @@
       "entities": [
         {
           "aiState": "idle",
-          "attackPower": 26,
-          "combatTimer": 1.05,
+          "attackPower": 46,
+          "combatTimer": 100.2,
           "critChance": 0.06,
           "dead": true,
           "detonateTimer": "Infinity",
@@ -1874,11 +1872,10 @@
           "fallStartY": 8,
           "fiveSecondRule": 100.2,
           "id": 570,
-          "inCombat": true,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
-          "maxHp": 90,
+          "maxHp": 50000,
           "maxResource": 100,
           "moveSpeed": 7,
           "onGround": true,
@@ -1890,7 +1887,6 @@
             "z": 80
           },
           "potionCooldownUntil": -1,
-          "resource": 1.777778,
           "resourceType": "rage",
           "spawnPos": {
             "x": 2,
@@ -1968,11 +1964,11 @@
       "tick": 24,
       "time": 1.2,
       "nextId": 586,
-      "state": "11544352",
+      "state": "a84ad754",
       "events": "741638a5",
       "rng": {
-        "draws": 50,
-        "digest": "9314661a"
+        "draws": 46,
+        "digest": "8dd3dc69"
       },
       "label": "final",
       "players": [
@@ -1983,7 +1979,7 @@
           "cls": "warrior",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 138,
+            "damageTaken": 67823,
             "deaths": 1
           },
           "delveClears": {},
@@ -2102,8 +2098,8 @@
       "entities": [
         {
           "aiState": "idle",
-          "attackPower": 26,
-          "combatTimer": 1.05,
+          "attackPower": 46,
+          "combatTimer": 100.2,
           "critChance": 0.06,
           "dead": true,
           "detonateTimer": "Infinity",
@@ -2111,11 +2107,10 @@
           "fallStartY": 8,
           "fiveSecondRule": 100.2,
           "id": 570,
-          "inCombat": true,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
-          "maxHp": 90,
+          "maxHp": 50000,
           "maxResource": 100,
           "moveSpeed": 7,
           "onGround": true,
@@ -2127,7 +2122,6 @@
             "z": 80
           },
           "potionCooldownUntil": -1,
-          "resource": 1.777778,
           "resourceType": "rage",
           "spawnPos": {
             "x": 2,
