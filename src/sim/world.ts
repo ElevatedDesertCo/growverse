@@ -12,7 +12,6 @@ import {
 } from './data';
 import { fbm2, hash2 } from './rng';
 import type { BiomeId } from './types';
-import { GARDEN_CLEARING } from './types';
 
 // Terrain is a pure function of (x, z, seed): both the sim (ground clamping)
 // and the renderer (mesh) sample the same heightfield, so they always agree.
@@ -124,6 +123,72 @@ function smoothstep(edge0: number, edge1: number, x: number): number {
 
 function lerp(a: number, b: number, t: number): number {
   return a + (b - a) * t;
+}
+
+// The Baked Beaver farm: the large, fully flat, fully cleared field the colony works
+// south of the grotto road, from just east of the outpost to the foot of the western
+// mountain (it stops before the land climbs toward the Skeleton Grotto/crypt, so the
+// grotto's dramatic rise stays intact). A road-parallel band: its north edge hugs the
+// grotto road (a thin natural verge), it is leveled to one height, and it is stripped of
+// all trees, rocks, and grass so the whole expanse is plantable farmland the garden can
+// grow into. Terrain flatten (below) + decoration cull (generateDecorations) + the grass
+// cull (render/foliage) all key off inGardenFarm, so this ONE region drives the field.
+export const GARDEN_FARM = {
+  xMin: 52, // west edge, east of the outpost den (keeps the terrace bank off the buildings)
+  xMax: 118, // east edge at the mountain foot (terrain climbs toward the grotto past here)
+  zSouth: 42, // southern limit of the flat field
+  anchorX: 72, // sample point whose natural height sets the flat level (~2yd, gentle vale)
+  anchorZ: 52,
+  roadVerge: 1, // north edge sits this far south of the grotto road centerline
+  blend: 3, // edge feather width (yards) blending the terrace back to natural ground
+} as const;
+
+// The grotto road polyline across the farm's x-span (mirrors the second ZONE1_ROADS
+// spoke). The field's north edge follows it so the whole south side of the path is field.
+const FARM_ROAD_PTS: readonly { x: number; z: number }[] = [
+  { x: 42, z: 70 },
+  { x: 62, z: 72 },
+  { x: 82, z: 78 },
+  { x: 104, z: 82 },
+  { x: 126, z: 84 },
+];
+
+// Grotto-road centerline z at a given x (clamped to the polyline ends).
+function farmRoadZ(x: number): number {
+  const pts = FARM_ROAD_PTS;
+  if (x <= pts[0].x) return pts[0].z;
+  for (let i = 0; i + 1 < pts.length; i++) {
+    const a = pts[i];
+    const b = pts[i + 1];
+    if (x <= b.x) return a.z + ((b.z - a.z) * (x - a.x)) / (b.x - a.x);
+  }
+  return pts[pts.length - 1].z;
+}
+
+// North edge of the flat field at x: a thin verge south of the road centerline.
+function farmNorthEdge(x: number): number {
+  return farmRoadZ(x) - GARDEN_FARM.roadVerge;
+}
+
+// Blend weight (0..1) of the farm terrace at (x,z): 1 = fully inside the level field,
+// 0 = outside/natural, feathering over `blend` yards at every edge.
+function farmBlend(x: number, z: number): number {
+  const f = GARDEN_FARM;
+  const north = farmNorthEdge(x);
+  if (x < f.xMin - f.blend || x > f.xMax + f.blend) return 0;
+  if (z < f.zSouth - f.blend || z > north) return 0;
+  const bN = smoothstep(north, north - f.blend, z); // 0 at the road verge -> 1 to the south
+  const bS = smoothstep(f.zSouth - f.blend, f.zSouth, z); // 0 south of the field -> 1 inside
+  const bW = smoothstep(f.xMin - f.blend, f.xMin, x); // 0 west of the field -> 1 inside
+  const bE = smoothstep(f.xMax + f.blend, f.xMax, x); // 0 east (mountain) -> 1 inside
+  return bN * bS * bW * bE;
+}
+
+// Is (x,z) inside the cleared field (used to strip every tree/rock/grass tuft off it)?
+// The core, not the feather, so a thin ring of natural dressing frames the field edge.
+export function inGardenFarm(x: number, z: number): boolean {
+  const f = GARDEN_FARM;
+  return x > f.xMin && x < f.xMax && z > f.zSouth && z < farmNorthEdge(x);
 }
 
 export function mirefenImpactCraterOffset(x: number, z: number): number {
@@ -443,18 +508,14 @@ export function terrainHeightNatural(x: number, z: number, seed: number): number
     }
   }
 
-  // Carve the Baked Beaver garden clearing into a level terrace: fully flat within
-  // flatInner (so the 6x6 bed grid sits on even ground) and blending back to natural
-  // terrain by flatOuter. Same flatten pattern as the camps; because the renderer samples
-  // this exact function, the terrace you see is the terrace you walk and plant on.
+  // Level the Baked Beaver farm into one flat field (the road-parallel band south of the
+  // grotto road, stopping at the mountain foot). The renderer samples this exact function,
+  // so the flat you see is the flat you walk and plant on; the garden beds sit on it.
   {
-    const dx = x - GARDEN_CLEARING.x,
-      dz = z - GARDEN_CLEARING.z;
-    const d = Math.sqrt(dx * dx + dz * dz);
-    if (d < GARDEN_CLEARING.flatOuter) {
-      const gh = baseHeight(GARDEN_CLEARING.x, GARDEN_CLEARING.z, seed);
-      const blend = smoothstep(GARDEN_CLEARING.flatInner, GARDEN_CLEARING.flatOuter, d);
-      h = h * blend + gh * (1 - blend);
+    const b = farmBlend(x, z);
+    if (b > 0) {
+      const fy = baseHeight(GARDEN_FARM.anchorX, GARDEN_FARM.anchorZ, seed);
+      h = h * (1 - b) + fy * b;
     }
   }
 
@@ -609,11 +670,10 @@ export function generateDecorations(seed: number): Decoration[] {
         }
       }
       if (inCamp) continue;
-      // Keep the Baked Beaver garden clearing clear of trees and rocks so the tilled
-      // beds read as an open, tended field (matches the flattened terrace in terrainHeight).
-      if (Math.hypot(x - GARDEN_CLEARING.x, z - GARDEN_CLEARING.z) < GARDEN_CLEARING.clearRadius) {
-        continue;
-      }
+      // Strip every tree and rock off the Baked Beaver farm so the whole field reads as
+      // open, cleared farmland (matches the flattened terrace in terrainHeight; grass is
+      // culled the same way in render/foliage).
+      if (inGardenFarm(x, z)) continue;
       out.push({
         kind,
         x,

@@ -1237,21 +1237,12 @@ export interface PlotView {
   secondsRemaining: number;
 }
 // The garden's physical home: the Baked Beaver colony's growing grounds, on the solid
-// east-shore land above the Sluice millpond (a short walk northeast of the outpost
-// buildings, beside the road). This ONE const is the single source of truth for the
-// clearing: the terrain flatten (src/sim/world.ts carves a level terrace here), the
-// tree/rock cull (same file clears decorations off it), the plot grid below, and Marlow
-// the grower all key off it, so moving the whole garden is a one-line change here.
-//   - flatInner: terrain is fully level within this radius (holds the plot grid + margin)
-//   - flatOuter: the terrace blends back to natural ground by here
-//   - clearRadius: decorations (trees/rocks) are removed within this radius
-export const GARDEN_CLEARING = {
-  x: 60,
-  z: 68,
-  flatInner: 14,
-  flatOuter: 23,
-  clearRadius: 17,
-} as const;
+// land south of the grotto road (a short walk northeast of the outpost buildings). This
+// anchor positions the bed grid below and Marlow the grower, so moving the garden's beds
+// is a one-line change here. The FLATTENING and the tree/rock/grass CLEARING of the ground
+// are handled by the larger GARDEN_FARM region in src/sim/world.ts (a big flat field south
+// of the grotto road that the garden sits on and expands into), not by this anchor.
+export const GARDEN_CLEARING = { x: 60, z: 68 } as const;
 
 // The garden is a field of raised beds laid out on the flattened clearing, 6 columns
 // wide. It began as a centered 6x6 grid, but the grotto road cuts diagonally across the

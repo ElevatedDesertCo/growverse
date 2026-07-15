@@ -13,6 +13,7 @@ import type { BiomeId } from '../sim/types';
 import type { Decoration } from '../sim/world';
 import {
   generateDecorations,
+  inGardenFarm,
   roadDistance,
   terrainHeight,
   WATER_LEVEL,
@@ -1148,6 +1149,7 @@ function generateDressing(seed: number): DressingSpot[] {
       if (roadDistance(x, z) < 4) continue;
       if (terrainHeight(x, z, seed) < WATER_LEVEL + 1.2) continue;
       if (tooSteep(x, z, seed)) continue;
+      if (inGardenFarm(x, z)) continue; // keep ground dressing off the cleared farm field
       const kind = dressKindFor(biome, hashAt(gx, gz, 44));
       const [sMin, sRange] = DRESS_SCALE[kind];
       out.push({ x, z, kind, scale: (sMin + hashAt(gx, gz, 45) * sRange) * scaleBoost });
@@ -1486,6 +1488,7 @@ function buildGrassRing(parent: THREE.Group, seed: number): GrassRing {
         }
         if (nearHub) continue;
         if (roadDistance(x, z) < 3.2) continue;
+        if (inGardenFarm(x, z)) continue; // the cleared farm field grows crops, not wild grass
         const s = (lush ? 0.55 : 0.45) + r * (lush ? 1.1 : 1);
         q.setFromAxisAngle(up, r * 12.4);
         m.compose(v.set(x, h, z), q, sv.set(s, s, s));
