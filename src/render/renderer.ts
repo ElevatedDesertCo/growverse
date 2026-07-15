@@ -87,6 +87,7 @@ import {
   type GardenPlantStage,
   gardenPlotIndexAt,
   gardenVisualStage,
+  setGardenBedLocked,
   setGardenPlant,
 } from './quest_objects';
 import { isOwnedPetHostile } from './reaction';
@@ -526,6 +527,9 @@ export interface EntityView {
   gardenPlotIndex?: number; // this bed's index into the local player's garden plots
   plantSlot?: THREE.Group; // the group the staged plant GLB is swapped into
   plantStage?: GardenPlantStage | null; // last-applied visual stage, to diff cheaply
+  gardenBuilt?: THREE.Group; // the raised-bed look (shown when the plot is unlocked)
+  gardenBare?: THREE.Group; // the bare cleared-plot look (shown when the plot is locked)
+  bedLocked?: boolean; // last-applied locked state, to diff cheaply
   objectCasters: THREE.Object3D[]; // object-view shadow meshes, distance-gated
   viewLights: THREE.PointLight[]; // point lights this view contributes to the budget
   shadowOn: boolean;
@@ -3132,6 +3136,8 @@ export class Renderer {
     let portal: THREE.Mesh | undefined;
     let gardenPlotIndex: number | undefined;
     let plantSlot: THREE.Group | undefined;
+    let gardenBuilt: THREE.Group | undefined;
+    let gardenBare: THREE.Group | undefined;
     if (
       e.kind === 'object' &&
       (e.templateId === 'dungeon_door' || e.templateId === 'dungeon_exit')
@@ -3178,6 +3184,8 @@ export class Renderer {
       height = built.height;
       objectMesh = body!;
       plantSlot = built.plantSlot;
+      gardenBuilt = built.builtGroup;
+      gardenBare = built.bareGroup;
       // Beds spawn in GARDEN_PLOT_GRID order and the local player's plots[] shares that
       // index order, so the bed's world position maps to its plot index.
       gardenPlotIndex = gardenPlotIndexAt(e.pos.x, e.pos.z);
@@ -3398,6 +3406,9 @@ export class Renderer {
       gardenPlotIndex,
       plantSlot,
       plantStage: undefined,
+      gardenBuilt,
+      gardenBare,
+      bedLocked: undefined,
       nameplateDisplay: 'none',
       nameplateTransform: '',
       nameplateSig: '',
@@ -4117,15 +4128,27 @@ export class Renderer {
         // touches the scene when the stage actually changes (empty/sprout/mid/bloom).
         if (v.plantSlot && v.gardenPlotIndex !== undefined && vis) {
           if (!gardenSnap) gardenSnap = sim.garden;
-          const want = gardenVisualStage(gardenSnap[v.gardenPlotIndex]);
-          if (want !== v.plantStage) {
-            setGardenPlant(v.plantSlot, want);
-            v.plantStage = want;
+          const pv = gardenSnap[v.gardenPlotIndex];
+          const locked = !!pv?.locked;
+          // A not-yet-unlocked (higher-level) plot shows a bare, cleared patch; an unlocked
+          // plot shows the raised bed. Toggle only when the locked state actually changes
+          // (e.g. the player levels up and a new row opens).
+          if (locked !== v.bedLocked && v.gardenBuilt && v.gardenBare) {
+            setGardenBedLocked(v.gardenBuilt, v.gardenBare, v.plantSlot, locked);
+            v.bedLocked = locked;
+            if (locked) v.plantStage = null;
           }
-          // A fully bloomed, harvest-ready plant shimmers with golden pollen sparkles so
-          // the player can spot a ready crop at a glance (nearby beds only).
-          if (v.plantStage === 'bloom' && d2 < SPARKLE_DRAW_RANGE_SQ) {
-            this.vfx.castSparkle(e.id, 'holy', dt * 1.6);
+          if (!locked) {
+            const want = gardenVisualStage(pv);
+            if (want !== v.plantStage) {
+              setGardenPlant(v.plantSlot, want);
+              v.plantStage = want;
+            }
+            // A fully bloomed, harvest-ready plant shimmers with golden pollen sparkles so
+            // the player can spot a ready crop at a glance (nearby beds only).
+            if (v.plantStage === 'bloom' && d2 < SPARKLE_DRAW_RANGE_SQ) {
+              this.vfx.castSparkle(e.id, 'holy', dt * 1.6);
+            }
           }
         }
         continue;

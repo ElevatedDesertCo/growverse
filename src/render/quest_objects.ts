@@ -351,22 +351,47 @@ export function buildGardenPlot(entityId: number): {
   group: THREE.Group;
   height: number;
   plantSlot: THREE.Group;
+  builtGroup: THREE.Group;
+  bareGroup: THREE.Group;
 } {
   const group = new THREE.Group();
+  // The BUILT bed, shown once the plot is unlocked: a raised wooden frame + tilled soil.
+  const builtGroup = new THREE.Group();
   const frame = new THREE.Mesh(
     new THREE.BoxGeometry(1.9, 0.22, 1.9),
     surfaceMat({ color: 0x6b4a24, roughness: 0.9 }),
   );
   frame.position.y = 0.11;
-  group.add(frame);
+  builtGroup.add(frame);
   const soil = new THREE.Mesh(
     new THREE.BoxGeometry(1.6, 0.34, 1.6),
     surfaceMat({ color: 0x3a2a18, roughness: 1 }),
   );
   soil.position.y = 0.2;
-  group.add(soil);
+  builtGroup.add(soil);
+  group.add(builtGroup);
+  // The BARE plot, shown while the plot is still locked (a higher-level expansion row): a
+  // low, flat patch of turned earth with a faint marked-out border, so a not-yet-unlocked
+  // plot reads as "cleared ground staked out for a future bed" rather than a finished one.
+  // Hidden at build; the renderer flips it on for a locked plot and off when it unlocks.
+  const bareGroup = new THREE.Group();
+  const dirt = new THREE.Mesh(
+    new THREE.BoxGeometry(1.7, 0.1, 1.7),
+    surfaceMat({ color: 0x2c2114, roughness: 1 }),
+  );
+  dirt.position.y = 0.05;
+  bareGroup.add(dirt);
+  const border = new THREE.Mesh(
+    new THREE.BoxGeometry(1.9, 0.06, 1.9),
+    surfaceMat({ color: 0x554427, roughness: 1 }),
+  );
+  border.position.y = 0.03;
+  bareGroup.add(border);
+  bareGroup.visible = false;
+  group.add(bareGroup);
   // The plant grows out of the soil surface (~y 0.37). Left empty at build; the renderer
-  // fills it from the plot's stage and clears it when the plot is empty or harvested.
+  // fills it from the plot's stage and clears it when the plot is empty, harvested, or
+  // locked.
   const plantSlot = new THREE.Group();
   plantSlot.position.y = 0.37;
   group.add(plantSlot);
@@ -374,7 +399,21 @@ export function buildGardenPlot(entityId: number): {
   // quest props) they must NOT get the per-id yaw jitter or the squares would rotate into
   // each other. entityId is unused here for that reason.
   void entityId;
-  return { group, height: 0.95, plantSlot };
+  return { group, height: 0.95, plantSlot, builtGroup, bareGroup };
+}
+
+// Toggle a bed between its BUILT (unlocked) and BARE (locked) look. Locking also clears
+// the plant slot (a locked plot can never be growing). Cheap: the renderer calls it only
+// when a plot's locked state actually changes.
+export function setGardenBedLocked(
+  builtGroup: THREE.Group,
+  bareGroup: THREE.Group,
+  plantSlot: THREE.Group,
+  locked: boolean,
+): void {
+  builtGroup.visible = !locked;
+  bareGroup.visible = locked;
+  if (locked) setGardenPlant(plantSlot, null);
 }
 
 // A cached, normalized template for one grow stage, cloned per bed. Materials keep their
