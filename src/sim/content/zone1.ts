@@ -1422,6 +1422,15 @@ export const ZONE1_PROPS: ZonePropsDef = {
     // (The Sluice split-rail pen that used to stand behind the beaver lodge has been
     // removed: the outpost is now an open, fence-free camp so nothing reads as walling
     // the dirt-path spur that runs along its south side.)
+    // Homestead river line: a wooden rail strung along the SOUTH (river-side) edge of the
+    // garden field at z = 36, tower to tower (the SW lookout at x=54 to the SE lookout at
+    // x=138). z=36 is the tower line, 2yd in from the bank top (zSouth 34) so the rail rests
+    // on flat field, never on the terrace blend or over the river drop. Both runs stop just
+    // clear of each tower's posts (footprint HALF ~1.35), and a GAP is left over the dam
+    // crossing (SLUICE_BRIDGE x=70, halfWidth 2.8, deck reaches z=35) so the fence never
+    // walls the bridge access from the homestead. Fences are jump-over colliders anyway.
+    { x1: 55.5, z1: 36, x2: 65.5, z2: 36 }, // SW tower -> west of the dam crossing
+    { x1: 74.5, z1: 36, x2: 136.5, z2: 36 }, // east of the dam crossing -> SE tower
   ],
   graveyards: [
     { x: -14, z: -25.5 }, // churchyard graves in the solemn south (grid grows +x/+z, seated clear of the chapel wall and inside the rail)
