@@ -1481,10 +1481,13 @@ export const ZONE1_PROPS: ZonePropsDef = {
   // `Baked Beaver` landmark POI above. A decoration-exclusion point in world.ts
   // keeps a stray tree from clipping the statue.
   beaverMascots: [{ x: 42, z: 54, rot: 3.1, scale: 1.05 }],
-  // Homestead-corner lookout: a solid wooden watch tower on the south corner of the
-  // garden land, its ladder/front (and the archer's gaze) facing NORTH (rot = 0; world
+  // Homestead-corner lookout: a solid wooden watch tower planted snug in the SOUTHWEST
+  // corner of the leveled garden field (GARDEN_FARM xMin 52 / zSouth 34, world.ts), the
+  // corner nearest the Sluice outpost and river. Seated ~2yd in from each edge so all four
+  // posts (footprint HALF ~1.35) rest on the flat field, never on the terrace blend or over
+  // the river bank. Its ladder/front (and the archer's gaze) faces NORTH (rot = 0; world
   // north is +z), so the climb faces in toward the homestead.
-  watchTowers: [{ x: 62, z: 39, rot: 0 }],
+  watchTowers: [{ x: 54, z: 36, rot: 0 }],
   // Stone stairway up the steep east wall of the channel below the garden terrace: from
   // the low channel floor (~-3.1) at the foot up ~5 yards to the grass plateau (~+2.1).
   // The straight ramp holds the climb well under the slope gate; treads draped over it.
