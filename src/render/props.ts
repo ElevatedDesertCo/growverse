@@ -925,19 +925,27 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
    */
   function registerHideable(g: THREE.Group, fp: Footprint): void {
     const matMap = new Map<THREE.Material, ToggleMat>();
-    g.traverse((o) => {
-      const mesh = o as THREE.Mesh;
-      if (!mesh.isMesh) return;
-      keepFromMerge.add(mesh);
-      if (lowProps) return;
-      const src = mesh.material as THREE.Material;
+    // Clone one source material into a per-hideable toggle copy (deduped by source),
+    // so fading toggles colorWrite/depthWrite without touching shared originals.
+    const toggleOf = (src: THREE.Material): THREE.Material => {
       let tm = matMap.get(src);
       if (!tm) {
         const mat = src.clone();
         tm = { mat, depthWrite: mat.depthWrite };
         matMap.set(src, tm);
       }
-      mesh.material = tm.mat;
+      return tm.mat;
+    };
+    g.traverse((o) => {
+      const mesh = o as THREE.Mesh;
+      if (!mesh.isMesh) return;
+      keepFromMerge.add(mesh);
+      if (lowProps) return;
+      // Baked character props (e.g. the watch-tower archer) carry a MATERIAL ARRAY,
+      // one entry per geometry group; clone each so the whole prop fades together.
+      mesh.material = Array.isArray(mesh.material)
+        ? mesh.material.map(toggleOf)
+        : toggleOf(mesh.material as THREE.Material);
     });
     hideables.push({ group: g, mats: [...matMap.values()], hidden: false, ...fp });
   }

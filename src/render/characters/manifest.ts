@@ -816,10 +816,13 @@ export const VISUALS: Record<string, VisualDef> = {
     tintStrength: 0.85,
   },
   // Watch-tower lookout: a STATIC prop (not a sim entity), baked idle-posed by
-  // props.ts via prepareVisual(). The same hooded-outlaw body + two-hand crossbow
-  // as mob_slinger, but with NO tint so the stock KayKit forest-GREEN hood and mask
-  // read as authored (the request: a green-hood, green-mask masked archer). Hood is
-  // an inherent skinned mesh; the mask is kept via the show allowlist.
+  // props.ts via prepareVisual(). The same hooded-outlaw body + two-hand crossbow as
+  // mob_slinger, but with NO tint so the stock KayKit forest-GREEN hood + face mask
+  // read as authored (the request: a green-hood, green-mask masked archer). Every
+  // rogue_hooded node (hood/mask/cape included) is a skinned mesh sharing one atlas,
+  // so the mask always renders (the `show` list is inert here, matching mob_bandit/
+  // player_warlock convention: it only documents the kept mask + hides nothing). On
+  // low gfx the body GLB aliases to the un-hooded rogue.glb, a cosmetic tier degrade.
   prop_watchtower_archer: {
     url: `${PLAYERS}/rogue_hooded.glb`,
     height: HUMANOID_H,
