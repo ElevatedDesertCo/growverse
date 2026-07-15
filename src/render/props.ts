@@ -637,6 +637,153 @@ function buildDelveEmbers(
   return pts;
 }
 
+// A Growverse-ORIGINAL procedural wooden watch tower, built from static primitives
+// (no CC0 GLB). Four splayed corner posts braced with girts and diagonals carry a
+// railed lookout deck under a peaked shingle roof, with a rung ladder climbing the
+// FRONT (local +z) up to a railing gap. Returned centred at local origin with its
+// feet at y=0 and its front (ladder/opening) toward local +z; the caller
+// positions/rotates/scales it, so `rot` is the yaw the front points at (Math.PI = the
+// ladder faces south). Cheap enough to build one static instance on every tier.
+export function buildWatchTower(): THREE.Group {
+  const postMat = surfaceMat({ color: 0x5a3f28, roughness: 0.95 });
+  const deckMat = surfaceMat({ color: 0x775438, roughness: 0.92 });
+  const roofMat = surfaceMat({ color: 0x40342a, roughness: 0.9 });
+  const railMat = surfaceMat({ color: 0x66492f, roughness: 0.94 });
+
+  const g = new THREE.Group();
+  const DECK_Y = 4.6; // deck height above the ground
+  const BASE_HALF = 1.55; // post spread at the ground
+  const TOP_HALF = 1.15; // post spread at the deck (legs splay outward toward the base)
+  const POST = 0.17; // square post thickness
+
+  // A box beam from a->b with a given square cross-section, oriented along the segment.
+  const up = new THREE.Vector3(0, 1, 0);
+  const beam = (
+    ax: number,
+    ay: number,
+    az: number,
+    bx: number,
+    by: number,
+    bz: number,
+    thick: number,
+    mat: THREE.Material,
+  ): THREE.Mesh => {
+    const a = new THREE.Vector3(ax, ay, az);
+    const b = new THREE.Vector3(bx, by, bz);
+    const dir = new THREE.Vector3().subVectors(b, a);
+    const len = dir.length();
+    const m = new THREE.Mesh(new THREE.BoxGeometry(thick, len, thick), mat);
+    m.position.copy(a).addScaledVector(dir, 0.5);
+    m.quaternion.setFromUnitVectors(up, dir.normalize());
+    g.add(m);
+    return m;
+  };
+
+  const corners: [number, number][] = [
+    [-1, -1],
+    [1, -1],
+    [1, 1],
+    [-1, 1],
+  ];
+  // Four splayed corner legs, base corner up to deck corner.
+  for (const [sx, sz] of corners) {
+    beam(sx * BASE_HALF, 0, sz * BASE_HALF, sx * TOP_HALF, DECK_Y, sz * TOP_HALF, POST, postMat);
+  }
+  // Horizontal girts ringing the legs at two heights (skirt + just under the deck) so
+  // the frame reads as a braced tower, not four loose stilts.
+  for (const gy of [1.7, DECK_Y - 0.25]) {
+    const frac = (gy - 0) / DECK_Y;
+    const half = BASE_HALF + (TOP_HALF - BASE_HALF) * frac;
+    for (let i = 0; i < 4; i++) {
+      const [ax, az] = corners[i];
+      const [bx, bz] = corners[(i + 1) % 4];
+      beam(ax * half, gy, az * half, bx * half, gy, bz * half, POST * 0.72, postMat);
+    }
+  }
+  // One diagonal cross-brace per side, spanning skirt girt to the deck girt.
+  const braceHalfAt = (y: number) => BASE_HALF + (TOP_HALF - BASE_HALF) * (y / DECK_Y);
+  for (let i = 0; i < 4; i++) {
+    const [ax, az] = corners[i];
+    const [bx, bz] = corners[(i + 1) % 4];
+    const loH = braceHalfAt(1.7);
+    const hiH = braceHalfAt(DECK_Y - 0.25);
+    beam(ax * loH, 1.7, az * loH, bx * hiH, DECK_Y - 0.25, bz * hiH, POST * 0.6, postMat);
+  }
+
+  // Lookout deck: a square plank slab at the top of the legs.
+  const deck = new THREE.Mesh(
+    new THREE.BoxGeometry(TOP_HALF * 2 + 0.5, 0.16, TOP_HALF * 2 + 0.5),
+    deckMat,
+  );
+  deck.position.y = DECK_Y;
+  g.add(deck);
+
+  // Railing: waist-high posts + a top rail on all four sides, with a GAP on the front
+  // (+z) where the ladder arrives.
+  const DECK_HALF = TOP_HALF + 0.25;
+  const RAIL_Y = DECK_Y + 0.55;
+  for (let i = 0; i < 4; i++) {
+    const [ax, az] = corners[i];
+    const [bx, bz] = corners[(i + 1) % 4];
+    const isFront = az > 0 && bz > 0; // the +z edge (ladder side): leave it open
+    // corner uprights
+    beam(
+      ax * DECK_HALF,
+      DECK_Y,
+      az * DECK_HALF,
+      ax * DECK_HALF,
+      RAIL_Y,
+      az * DECK_HALF,
+      POST * 0.7,
+      railMat,
+    );
+    if (isFront) continue;
+    beam(
+      ax * DECK_HALF,
+      RAIL_Y,
+      az * DECK_HALF,
+      bx * DECK_HALF,
+      RAIL_Y,
+      bz * DECK_HALF,
+      POST * 0.6,
+      railMat,
+    );
+  }
+
+  // Roof: four short corner posts carry a peaked four-sided shingle roof over the deck.
+  const ROOF_BASE = DECK_Y + 1.0;
+  for (const [sx, sz] of corners) {
+    beam(
+      sx * DECK_HALF,
+      DECK_Y,
+      sz * DECK_HALF,
+      sx * (DECK_HALF - 0.2),
+      ROOF_BASE,
+      sz * (DECK_HALF - 0.2),
+      POST * 0.7,
+      postMat,
+    );
+  }
+  const roof = new THREE.Mesh(new THREE.ConeGeometry(DECK_HALF * 1.55, 1.5, 4), roofMat);
+  roof.rotation.y = Math.PI / 4; // square the pyramid to the deck
+  roof.position.y = ROOF_BASE + 0.75;
+  g.add(roof);
+
+  // Front ladder: two side rails + rungs from the ground to the deck opening.
+  const LADDER_Z = DECK_HALF + 0.06;
+  for (const sx of [-0.42, 0.42]) {
+    beam(sx, 0, LADDER_Z, sx, DECK_Y, LADDER_Z, 0.07, railMat);
+  }
+  const rungGeo = new THREE.BoxGeometry(0.98, 0.06, 0.06);
+  for (let ry = 0.5; ry < DECK_Y; ry += 0.5) {
+    const rung = new THREE.Mesh(rungGeo, railMat);
+    rung.position.set(0, ry, LADDER_Z);
+    g.add(rung);
+  }
+
+  return g;
+}
+
 // The Baked Beaver mascot: an absurdly huge beaver built from static primitives.
 // Buck teeth, paddle tail, and galaxy-blue glowing eyes that match the Baked Beaver
 // signature (0x5b6ee1, passed in as `glowMat` so the caller controls tier intensity).
@@ -1503,6 +1650,21 @@ export function buildProps(seed: number, delveLabel?: (delveId: string) => strin
     bv.rotation.y = m.rot ?? 0;
     group.add(shadowed(bv));
     registerHideable(bv, obbFootprint(m.x, m.z, 1.7 * s, 1.7 * s, m.rot ?? 0, gy + 5 * s));
+  }
+
+  // ---- watch towers: a Growverse-ORIGINAL procedural wooden lookout tower -----
+  // A railed lookout deck on four braced legs under a peaked roof, planted on a
+  // corner of the homestead. `rot` is the yaw its front (ladder + railing gap)
+  // points at (Math.PI faces the ladder south). Static on every tier.
+  for (const t of PROPS.watchTowers ?? []) {
+    const gy = ground(t.x, t.z);
+    const s = t.scale ?? 1;
+    const tower = buildWatchTower();
+    tower.scale.setScalar(s);
+    tower.position.set(t.x, gy - 0.06, t.z);
+    tower.rotation.y = t.rot ?? 0;
+    group.add(shadowed(tower));
+    registerHideable(tower, circleFootprint(t.x, t.z, 2.0 * s, gy + 7.2 * s, 2.4 * s));
   }
 
   // ---- graveyards: Growverse-ORIGINAL procedural weathered headstones --------

@@ -307,6 +307,34 @@ function staticWorldColliders(seed: number): Collider[] {
     });
   }
 
+  // Watch towers: four small solid circles at the splayed leg feet so a player can
+  // still walk UNDER the deck between the legs but bumps the posts. Legs sit at the
+  // base half-spread (~1.55 * scale) rotated by the tower yaw. Camera ghosts through.
+  for (const t of PROPS.watchTowers ?? []) {
+    const s = t.scale ?? 1;
+    const rot = t.rot ?? 0;
+    const half = 1.55 * s;
+    const cos = Math.cos(rot);
+    const sin = Math.sin(rot);
+    for (const [lx, lz] of [
+      [-half, -half],
+      [half, -half],
+      [half, half],
+      [-half, half],
+    ] as const) {
+      const wx = t.x + lx * cos + lz * sin;
+      const wz = t.z - lx * sin + lz * cos;
+      out.push({
+        type: 'circle',
+        x: wx,
+        z: wz,
+        r: 0.32 * s,
+        cameraTopY: topY(seed, wx, wz, 5 * s),
+        camGhost: true,
+      });
+    }
+  }
+
   // The Sluice bridge parapets: two solid stone rails running the length of the
   // causeway (along z) so a player crossing can't step off the deck into the
   // river. The deck itself is the raised terrain (terrainHeight), so these only

@@ -1534,6 +1534,12 @@ export interface ZonePropsDef {
   // defaults to 1 (~5m tall); `rot` is the Y facing. A small cylinder collider keeps
   // players from walking through it (colliders.ts).
   beaverMascots?: { x: number; z: number; rot?: number; scale?: number }[];
+  // Growverse-original procedural wooden watch towers (railed lookout deck on braced
+  // legs under a peaked roof, built from primitives in render/props.ts, NOT a CC0 GLB):
+  // a homestead-corner landmark. `rot` is the yaw the front (ladder + railing gap)
+  // points at (Math.PI faces the ladder south); `scale` defaults to 1. A cylinder
+  // collider around the legs keeps players from walking through it (colliders.ts).
+  watchTowers?: { x: number; z: number; rot?: number; scale?: number }[];
 }
 
 export function emptyZoneProps(): ZonePropsDef {

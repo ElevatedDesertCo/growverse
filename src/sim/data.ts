@@ -307,6 +307,9 @@ function mergeProps(sets: ZonePropsDef[]): ZonePropsDef {
     // Standalone Baked Beaver mascots (same optional-field trap): omitting the merge
     // strands them before props.ts / colliders.ts ever see them.
     beaverMascots: sets.flatMap((s) => s.beaverMascots ?? []),
+    // Watch towers: same optional-field trap as above. Omitting the merge strands the
+    // procedural lookout tower before props.ts / colliders.ts ever see it.
+    watchTowers: sets.flatMap((s) => s.watchTowers ?? []),
   };
 }
 
