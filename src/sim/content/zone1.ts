@@ -1175,14 +1175,15 @@ export const ZONE1_CAMPS: CampDef[] = [
   { mobId: 'dust_reaver', center: { x: 92, z: -82 }, radius: 8, count: 3 },
   { mobId: 'vale_bandit', center: { x: 88, z: -90 }, radius: 8, count: 3 },
   { mobId: 'gorrak', center: { x: 89, z: -91 }, radius: 2, count: 1 },
-  // Undead: the Skeleton Grotto, a hollow gouged into the foot of the western rim
-  // mountain (SKELETON_GROTTO in world.ts). The husk pack musters across the flat
-  // arena floor; the husk radius is tightened from 18 to 14 so the pack sits inside
-  // the bowl instead of spilling onto the walls (radius only scales each spawn's
-  // drawn offset, so this shifts NO rng draw order). Verlan holds the back, near the
-  // crypt cave-mouth. (Re-centering + radius are the camp loop's own final draws, so
-  // moving these moves mobs without shifting any downstream spawn roll.)
-  { mobId: 'restless_bones', center: { x: 146, z: 84 }, radius: 14, count: 8 },
+  // Undead: the Skeleton Grotto, now walled by the SKELETON_FORT (world.ts). The husk
+  // pack garrisons the fort COURTYARD, ringed around the central keep: the center is
+  // pulled back onto the fort center (150,84) and the radius tightened to 10 so the
+  // pack rings the keep and clears both the front gate opening (x=136) and the curtain
+  // walls, instead of the old (146,84) r14 spread that spilled the pack out through the
+  // gateway. (Radius only scales each spawn's drawn offset and the camp loop is the
+  // final RNG consumer at construction, so re-centering moves the mobs without shifting
+  // any other content's spawn roll.) Verlan holds the rear, near the crypt cave-mouth.
+  { mobId: 'restless_bones', center: { x: 150, z: 84 }, radius: 10, count: 8 },
   { mobId: 'captain_verlan', center: { x: 160, z: 84 }, radius: 4, count: 1 },
 ];
 
