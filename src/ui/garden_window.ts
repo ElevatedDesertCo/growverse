@@ -67,9 +67,15 @@ export function renderGardenWindow(
   grid.className = 'garden-grid';
   for (const plot of view.plots) {
     const cell = document.createElement('div');
-    cell.className = `garden-plot garden-plot-${plot.stage}`;
+    cell.className = `garden-plot garden-plot-${plot.stage}${plot.locked ? ' garden-plot-locked' : ''}`;
 
-    if (plot.stage === 'empty') {
+    if (plot.locked) {
+      // A not-yet-unlocked plot: no Plant/Harvest, just the level it opens at.
+      const level = formatNumber(plot.unlockLevel, { maximumFractionDigits: 0 });
+      cell.innerHTML =
+        `<div class="garden-plot-label garden-locked-label">${esc(t('hudChrome.garden.locked'))}</div>` +
+        `<div class="garden-plot-status">${esc(t('hudChrome.garden.unlockLevel', { level }))}</div>`;
+    } else if (plot.stage === 'empty') {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'garden-action garden-plant';

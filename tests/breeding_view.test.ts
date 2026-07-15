@@ -34,12 +34,16 @@ const emptyPlot = (): PlotView => ({
   stage: 'empty',
   progress: 0,
   secondsRemaining: 0,
+  locked: false,
+  unlockLevel: 1,
 });
 const growingPlot = (): PlotView => ({
   seedItemId: 'common_seed',
   stage: 'growing',
   progress: 0.5,
   secondsRemaining: 90,
+  locked: false,
+  unlockLevel: 1,
 });
 
 describe('buildBreedingView', () => {

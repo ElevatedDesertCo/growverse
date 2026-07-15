@@ -1072,7 +1072,9 @@ export const es_ES: EnTranslations = {
       "plant": "Plant",
       "harvest": "Harvest",
       "ready": "Ready",
-      "open": "Tend Garden"
+      "open": "Tend Garden",
+      "locked": "Locked",
+      "unlockLevel": "Unlocks at level {level}"
     },
     "breeding": {
       "title": "Strain Genetics",

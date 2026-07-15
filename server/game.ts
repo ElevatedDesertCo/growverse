@@ -3202,7 +3202,7 @@ export class GameServer {
       maybe('inv', meta.inventory);
       maybe('buyback', meta.vendorBuyback);
       maybe('stash', meta.stash);
-      maybe('garden', gardenView(meta.plots, this.sim.time));
+      maybe('garden', gardenView(meta.plots, this.sim.time, p.level));
       maybe('strains', strainViews(meta.strains));
       maybe('rep', reputationViews(meta.reputation));
       maybe('equip', meta.equipment);

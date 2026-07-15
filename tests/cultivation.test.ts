@@ -11,6 +11,7 @@ import {
   GARDEN_PLOT_COUNT,
   GARDEN_PLOT_GRID,
   type PlayerClass,
+  unlockedGardenPlots,
 } from '../src/sim/types';
 
 const makeSim = (cls: PlayerClass = 'warrior', seed = 42) =>
@@ -114,6 +115,28 @@ describe('cultivation', () => {
     // ~200s should remain (300 grow - 100 elapsed), give or take a tick.
     expect(remaining).toBeGreaterThan(195);
     expect(remaining).toBeLessThan(205);
+  });
+
+  it('gates plots by level: locked rows cannot be planted and open as you level', () => {
+    sim.setPlayerLevel(1);
+    const unlockedL1 = unlockedGardenPlots(1);
+    expect(unlockedL1).toBeLessThan(GARDEN_PLOT_COUNT); // some rows start locked
+    // The garden view flags the locked plots and carries their unlock level.
+    expect(sim.garden[unlockedL1 - 1].locked).toBe(false);
+    const firstLocked = sim.garden[unlockedL1];
+    expect(firstLocked.locked).toBe(true);
+    expect(firstLocked.unlockLevel).toBeGreaterThan(1);
+    // Planting into a locked plot is rejected (the seed is not consumed).
+    sim.addItem('common_seed', 1);
+    sim.plantSeed(unlockedL1, 'common_seed');
+    expect(sim.plots[unlockedL1].seedItemId).toBeNull();
+    expect(sim.countItem('common_seed')).toBe(1);
+    // Leveling to that plot's unlock level opens it, and planting now works.
+    sim.setPlayerLevel(firstLocked.unlockLevel);
+    expect(sim.garden[unlockedL1].locked).toBe(false);
+    sim.plantSeed(unlockedL1, 'common_seed');
+    expect(sim.plots[unlockedL1].seedItemId).toBe('common_seed');
+    expect(sim.countItem('common_seed')).toBe(0);
   });
 
   it('is deterministic: two identical plant/grow/harvest runs match', () => {

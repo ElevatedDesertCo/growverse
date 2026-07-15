@@ -5311,6 +5311,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.garden.plant': 'Посадить',
   'hudChrome.garden.harvest': 'Собрать',
   'hudChrome.garden.ready': 'Готово',
+  'hudChrome.garden.locked': 'Заблокировано',
+  'hudChrome.garden.unlockLevel': 'Открывается на уровне {level}',
   'hudChrome.garden.open': 'Ухаживать за садом',
   'hudChrome.breeding.title': 'Генетика штаммов',
   'hudChrome.breeding.hint': 'Скрестите два штамма, чтобы объединить их черты, или посадите один в саду.',

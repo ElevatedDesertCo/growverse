@@ -4941,6 +4941,8 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'hudChrome.garden.plant': '种植',
   'hudChrome.garden.harvest': '收获',
   'hudChrome.garden.ready': '可收获',
+  'hudChrome.garden.locked': '已锁定',
+  'hudChrome.garden.unlockLevel': '等级 {level} 解锁',
   'hudChrome.garden.open': '打理花园',
   'hudChrome.breeding.title': '品系遗传学',
   'hudChrome.breeding.hint': '杂交两个品系以组合它们的特性，或在花园种植一个。',

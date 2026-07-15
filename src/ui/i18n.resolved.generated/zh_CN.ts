@@ -1072,7 +1072,9 @@ export const zh_CN: EnTranslations = {
       "plant": "种植",
       "harvest": "收获",
       "ready": "可收获",
-      "open": "打理花园"
+      "open": "打理花园",
+      "locked": "已锁定",
+      "unlockLevel": "等级 {level} 解锁"
     },
     "breeding": {
       "title": "品系遗传学",

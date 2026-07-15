@@ -32,6 +32,11 @@ export interface GardenPlotRow {
   canPlant: boolean;
   /** Matured plot: the Harvest button is enabled. */
   canHarvest: boolean;
+  /** A not-yet-unlocked plot (its row opens at a higher level): shows the unlock level
+   *  instead of Plant/Harvest, and cannot be acted on. */
+  locked: boolean;
+  /** The character level at which this plot unlocks (only shown when `locked`). */
+  unlockLevel: number;
 }
 
 export interface GardenView {
@@ -65,15 +70,17 @@ export function buildGardenView(
   const canPlantAny = selectedSeedId !== null;
   let readyCount = 0;
   const plots: GardenPlotRow[] = garden.map((plot, index) => {
-    if (plot.stage === 'ready') readyCount++;
+    if (plot.stage === 'ready' && !plot.locked) readyCount++;
     return {
       index,
       stage: plot.stage,
       seedItem: plot.seedItemId ? (items[plot.seedItemId] ?? null) : null,
       progress: plot.progress,
       secondsRemaining: plot.secondsRemaining,
-      canPlant: plot.stage === 'empty' && canPlantAny,
-      canHarvest: plot.stage === 'ready',
+      canPlant: !plot.locked && plot.stage === 'empty' && canPlantAny,
+      canHarvest: !plot.locked && plot.stage === 'ready',
+      locked: plot.locked,
+      unlockLevel: plot.unlockLevel,
     };
   });
   return { plots, seeds: [...seeds], selectedSeedId, readyCount };
