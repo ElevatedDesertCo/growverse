@@ -184,6 +184,12 @@ import {
 import * as petAi from './pet/pet_ai';
 import * as petCommands from './pet/pet_commands';
 import {
+  emptyProfessions,
+  professionsView,
+  restoreProfessions,
+  serializeProfessions,
+} from './professions';
+import {
   applyTalentAllocation,
   deleteTalentLoadout,
   respecTalents,
@@ -325,6 +331,8 @@ import {
   type PlayerClass,
   type Plot,
   type PlotView,
+  type ProfessionSkills,
+  type ProfessionView,
   type QuestProgress,
   type QuestState,
   type ReputationView,
@@ -684,6 +692,9 @@ export interface PlayerMeta {
   // cultivation/breeding, gates recipes/strains. Persisted in CharacterState. See
   // src/sim/reputation.ts.
   reputation: Record<FactionId, number>;
+  // Gathering-profession skills (Mining / Herbalism / Logging), 0..PROFESSION_MAX. Raised
+  // by working world nodes; persisted in CharacterState. See src/sim/professions.ts.
+  professions: ProfessionSkills;
   copper: number;
   equipment: PlayerEquipment;
   xp: number;
@@ -822,6 +833,8 @@ export interface CharacterState {
   strainSeq?: number;
   // Commune reputation ledger. Optional so pre-reputation saves load cleanly (default 0).
   reputation?: SavedReputation;
+  // Gathering-profession skills. Optional so pre-professions saves load cleanly (default 0).
+  professions?: ProfessionSkills;
   questLog: { questId: string; counts: number[]; state: 'active' | 'ready' | 'done' }[];
   questsDone: string[];
   // Persistent quest branch flags. Optional so pre-Phase-D saves load cleanly (default []).
@@ -1290,6 +1303,7 @@ export class Sim {
       strains: emptyStrains(),
       strainSeq: 0,
       reputation: emptyReputation(),
+      professions: emptyProfessions(),
       copper: 0,
       equipment: { mainhand: classDef.startWeapon, chest: classDef.startChest },
       xp: 0,
@@ -1357,6 +1371,7 @@ export class Sim {
       meta.strains = restoreStrains(s.strains);
       meta.strainSeq = s.strainSeq ?? 0;
       meta.reputation = restoreReputation(s.reputation);
+      meta.professions = restoreProfessions(s.professions);
       for (const q of s.questLog) {
         if (q.state !== 'done')
           meta.questLog.set(q.questId, {
@@ -1569,6 +1584,7 @@ export class Sim {
       strains: serializeStrains(meta.strains),
       strainSeq: meta.strainSeq,
       reputation: serializeReputation(meta.reputation),
+      professions: serializeProfessions(meta.professions),
       questLog: [...meta.questLog.values()].map((q) => ({
         questId: q.questId,
         counts: [...q.counts],
@@ -1785,6 +1801,11 @@ export class Sim {
   // from the self-snapshot.
   get reputation(): ReputationView[] {
     return reputationViews(this.primary.reputation);
+  }
+  // IWorld read: the player's gathering-profession skills. Mirrored by ClientWorld from
+  // the self-snapshot.
+  get professions(): ProfessionView[] {
+    return professionsView(this.primary.professions);
   }
   get equipment(): PlayerEquipment {
     return this.primary.equipment;

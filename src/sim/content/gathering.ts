@@ -14,6 +14,7 @@ import type { HarvestNodeDef, HarvestNodeSpawn } from '../types';
 export const HARVEST_NODES: Record<string, HarvestNodeDef> = {
   bloom_thicket: {
     id: 'bloom_thicket',
+    profession: 'herbalism',
     yields: [
       { itemId: 'bloom_essence', weight: 3 },
       { itemId: 'common_seed', weight: 1 },
@@ -22,6 +23,7 @@ export const HARVEST_NODES: Record<string, HarvestNodeDef> = {
   // Vale flower patches: pressed for Bloom Extract, the Alchemist's potion reagent.
   flower_patch: {
     id: 'flower_patch',
+    profession: 'herbalism',
     yields: [
       { itemId: 'bloom_extract', weight: 3 },
       { itemId: 'common_seed', weight: 1 },
@@ -30,6 +32,7 @@ export const HARVEST_NODES: Record<string, HarvestNodeDef> = {
   // Purple flower patch: yields Purple Petals, the Alchemist's draught reagent.
   purple_bloom: {
     id: 'purple_bloom',
+    profession: 'herbalism',
     yields: [
       { itemId: 'purple_petal', weight: 3 },
       { itemId: 'common_seed', weight: 1 },
@@ -38,6 +41,7 @@ export const HARVEST_NODES: Record<string, HarvestNodeDef> = {
   // Golden flower patch: yields Golden Petals, pressed into a growth booster.
   golden_bloom: {
     id: 'golden_bloom',
+    profession: 'herbalism',
     yields: [
       { itemId: 'golden_petal', weight: 3 },
       { itemId: 'common_seed', weight: 1 },
@@ -45,6 +49,7 @@ export const HARVEST_NODES: Record<string, HarvestNodeDef> = {
   },
   ember_vent: {
     id: 'ember_vent',
+    profession: 'mining',
     yields: [
       { itemId: 'ember_essence', weight: 3 },
       { itemId: 'common_seed', weight: 1 },
@@ -52,6 +57,7 @@ export const HARVEST_NODES: Record<string, HarvestNodeDef> = {
   },
   tidepool_spring: {
     id: 'tidepool_spring',
+    profession: 'herbalism',
     yields: [
       { itemId: 'flow_essence', weight: 3 },
       { itemId: 'common_seed', weight: 1 },
@@ -59,6 +65,7 @@ export const HARVEST_NODES: Record<string, HarvestNodeDef> = {
   },
   sporebloom: {
     id: 'sporebloom',
+    profession: 'herbalism',
     yields: [
       { itemId: 'spore_essence', weight: 3 },
       { itemId: 'common_seed', weight: 1 },
@@ -68,6 +75,7 @@ export const HARVEST_NODES: Record<string, HarvestNodeDef> = {
   // Upgrade Bench reagent with an occasional stray essence.
   corrupt_seam: {
     id: 'corrupt_seam',
+    profession: 'mining',
     castTime: 4,
     respawn: 120,
     yields: [

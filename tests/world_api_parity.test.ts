@@ -136,8 +136,10 @@ export const IWORLD_MEMBERS = [
   { name: 'harvestPlot', kind: 'method' },
   { name: 'breedStrains', kind: 'method' },
   { name: 'releaseStrain', kind: 'method' },
-  // IWorldReputation: the commune-standing read (no commands; earned server-side).
+  // IWorldReputation: the commune-standing + gathering-profession reads (no commands;
+  // both earned server-side).
   { name: 'reputation', kind: 'data' },
+  { name: 'professions', kind: 'data' },
   { name: 'changeSkin', kind: 'method' },
   { name: 'claimEventSkin', kind: 'method' },
   { name: 'unequipMechChroma', kind: 'method' },
@@ -347,8 +349,8 @@ beforeAll(() => {
 
 describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => {
   it('pins total / data / method counts', () => {
-    expect(IWORLD_MEMBERS.length).toBe(160);
-    expect(DATA_MEMBERS.length).toBe(40);
+    expect(IWORLD_MEMBERS.length).toBe(161);
+    expect(DATA_MEMBERS.length).toBe(41);
     expect(METHOD_MEMBERS.length).toBe(120);
   });
 
@@ -471,6 +473,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'playerId',
       'prestige',
       'prestigeRank',
+      'professions',
       'questLog',
       'questState',
       'questsDone',
@@ -551,6 +554,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'player',
       'playerId',
       'prestigeRank',
+      'professions',
       'questLog',
       'questsDone',
       'realm',
@@ -1000,7 +1004,10 @@ type _ExhaustCultivation = AssertNever<
   Exclude<keyof IWorldCultivation, (typeof FACET_CULTIVATION)[number]>
 >;
 
-const FACET_REPUTATION = ['reputation'] as const satisfies readonly (keyof IWorldReputation)[];
+const FACET_REPUTATION = [
+  'reputation',
+  'professions',
+] as const satisfies readonly (keyof IWorldReputation)[];
 type _ExhaustReputation = AssertNever<
   Exclude<keyof IWorldReputation, (typeof FACET_REPUTATION)[number]>
 >;
@@ -1066,8 +1073,8 @@ describe('W1: aggregate IWorld member set equals the disjoint union of the 22 fa
 
   it('the union of the 22 facets equals the pinned 160-member IWORLD_MEMBERS set', () => {
     const union = Object.values(FACET_MEMBER_ARRAYS).flatMap((arr) => [...arr]);
-    expect(union.length, 'union size before dedup (catches a duplicated member)').toBe(160);
-    expect(new Set(union).size, 'union size after dedup (catches a duplicated member)').toBe(160);
+    expect(union.length, 'union size before dedup (catches a duplicated member)').toBe(161);
+    expect(new Set(union).size, 'union size after dedup (catches a duplicated member)').toBe(161);
     const sortedUnion = [...union].sort();
     const pinned = IWORLD_MEMBERS.map((m) => m.name).sort();
     expect(sortedUnion).toEqual(pinned);

@@ -37,6 +37,7 @@ import {
   type MoveInput,
   type PlayerClass,
   type PlotView,
+  type ProfessionView,
   type QuestProgress,
   type QuestState,
   type ReputationView,
@@ -842,8 +843,9 @@ export class ClientWorld implements IWorld {
   // (one StrainView per owned strain), both mirrored from self. ---
   garden: PlotView[] = [];
   strains: StrainView[] = [];
-  // --- IWorldReputation: commune standings (one ReputationView per faction). ---
+  // --- IWorldReputation: commune standings + gathering-profession skills. ---
   reputation: ReputationView[] = [];
+  professions: ProfessionView[] = [];
   equipment: Partial<Record<EquipSlot, string>> = {};
   copper = 0;
   // --- IWorldCosmetics: account cosmetics (completed-quest + mech-chroma ids),
@@ -1528,6 +1530,7 @@ export class ClientWorld implements IWorld {
       if (s.garden !== undefined) this.garden = s.garden;
       if (s.strains !== undefined) this.strains = s.strains;
       if (s.rep !== undefined) this.reputation = s.rep;
+      if (s.prof !== undefined) this.professions = s.prof;
       if (s.equip !== undefined) this.equipment = s.equip;
       // IWorldCosmetics facet (W7) self-decode: cosmetics is delta-guarded (a
       // missing field keeps the prior mirror); normalizeAccountCosmetics rebuilds it.
