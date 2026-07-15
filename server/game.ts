@@ -18,6 +18,7 @@ import { parseRelayCommand } from '../src/sim/discord_relay';
 import type { PickAction } from '../src/sim/lockpick';
 import { sanitizeMarketQuery } from '../src/sim/market_query';
 import { parseMoveInputFrame } from '../src/sim/move_input';
+import { professionsView } from '../src/sim/professions';
 import { reputationViews } from '../src/sim/reputation';
 import type { PetState, PlayerMeta } from '../src/sim/sim';
 import { MAX_CHAT_MESSAGE_LEN, Sim } from '../src/sim/sim';
@@ -3205,6 +3206,7 @@ export class GameServer {
       maybe('garden', gardenView(meta.plots, this.sim.time, p.level));
       maybe('strains', strainViews(meta.strains));
       maybe('rep', reputationViews(meta.reputation));
+      maybe('prof', professionsView(meta.professions));
       maybe('equip', meta.equipment);
       maybe('cosmetics', anchorSession.accountCosmetics);
       maybe('qlog', [...meta.questLog.values()]);

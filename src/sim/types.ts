@@ -1418,7 +1418,31 @@ export interface HarvestNodeDef {
   castTime?: number; // seconds to work the node (default HARVEST_CAST_TIME)
   respawn?: number; // seconds depleted before it returns (default HARVEST_RESPAWN)
   tool?: string; // item id required to work it (optional; unused until a tool item ships)
+  // Which gathering profession working this node trains (raises that skill on a gather).
+  // Omitted for a node that trains nothing.
+  profession?: ProfessionId;
   yields: HarvestYield[];
+}
+
+// ---- Gathering professions ---------------------------------------------------------
+// The three gathering skills a player levels by working world nodes: Herbalism (flower/
+// spore blooms), Mining (vents/seams/ore), Logging (timber). A skill is a single 0..
+// PROFESSION_MAX points total per profession (PlayerMeta.professions), raised
+// deterministically when a node of that profession is worked (see src/sim/professions.ts).
+export type ProfessionId = 'mining' | 'herbalism' | 'logging';
+export const PROFESSION_IDS: readonly ProfessionId[] = ['mining', 'herbalism', 'logging'];
+export const PROFESSION_MAX = 100; // skill ceiling for every profession
+export const PROFESSION_SKILL_PER_GATHER = 1; // points a single successful gather trains
+
+// Per-profession skill points (PlayerMeta.professions), one entry per PROFESSION_IDS.
+export type ProfessionSkills = Record<ProfessionId, number>;
+
+// The client-facing read of one profession: its id, current skill, and the ceiling (so the
+// character sheet can draw a bar without knowing the constant).
+export interface ProfessionView {
+  id: ProfessionId;
+  skill: number;
+  max: number;
 }
 // A world placement of a harvest node: `nodeId` -> HARVEST_NODES; `itemId` is the
 // EXISTING reagent whose name labels the node (the nameplate resolves through the
