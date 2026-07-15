@@ -1634,7 +1634,7 @@
       "tick": 5,
       "time": 0.25,
       "nextId": 579,
-      "state": "f4140402",
+      "state": "1d025548",
       "events": "eb008575",
       "rng": {
         "draws": 10,
@@ -1645,7 +1645,7 @@
       "tick": 8,
       "time": 0.4,
       "nextId": 579,
-      "state": "3539e140",
+      "state": "b5c29453",
       "events": "eb008575",
       "rng": {
         "draws": 10,
@@ -2233,7 +2233,6 @@
           "critChance": 0.05,
           "detonateTimer": "Infinity",
           "dodgeChance": 0.05,
-          "facing": -2.714965,
           "fallStartY": -0.470479,
           "fiveSecondRule": 99,
           "hp": 84,
@@ -2247,17 +2246,11 @@
           "overpowerUntil": -1,
           "ownerId": 574,
           "petMode": "defensive",
-          "petPath": [
-            {
-              "x": 30,
-              "z": -30
-            }
-          ],
           "petPathCooldown": 0.15,
           "pos": {
-            "x": 78.675831,
-            "y": -1.184229,
-            "z": 77.086827
+            "x": 30,
+            "y": -0.470479,
+            "z": -30
           },
           "potionCooldownUntil": -1,
           "spawnPos": {
