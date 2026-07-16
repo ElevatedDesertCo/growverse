@@ -14,6 +14,12 @@ export const es_ES: Partial<Record<TranslationKey, string>> = {
   'entities.items.ember_ward_shard.name': 'Esquirla del guardián solar',
   'entities.items.sunflare_bulb_raw.name': 'Bulbo de destello solar sin tratar',
   'entities.items.sunflare_bulb.name': 'Bulbo de destello solar',
+  'entities.items.glassscale_mail.name': 'Loriga de escamas vítreas',
+  'entities.items.sunbleached_leathers.name': 'Cueros descoloridos por el sol',
+  'entities.items.sunspun_robes.name': 'Túnica tejida con luz solar',
+  'entities.items.sunforged_blade.name': 'Espada forjada en el sol',
+  'entities.items.sunforged_dagger.name': 'Puñal forjado en el sol',
+  'entities.items.sunforged_scepter.name': 'Cetro forjado en el sol',
   // Stat tooltips inherit the es base: none of these keys needs a genuine Iberian
   // divergence (es already uses "hechizos" and neutral wording), so per the
   // divergence-only policy es_ES carries no hudChrome.statInfo.* overrides.

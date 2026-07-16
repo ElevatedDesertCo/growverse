@@ -5615,6 +5615,24 @@ export const nl_NL: EnTranslations = {
       },
       "sunflare_bulb": {
         "name": "Zonnevlambol"
+      },
+      "glassscale_mail": {
+        "name": "Glasschub-maliënkolder"
+      },
+      "sunbleached_leathers": {
+        "name": "Zonverbleekt leer"
+      },
+      "sunspun_robes": {
+        "name": "Zongesponnen gewaad"
+      },
+      "sunforged_blade": {
+        "name": "Zongesmede kling"
+      },
+      "sunforged_dagger": {
+        "name": "Zongesmede dolk"
+      },
+      "sunforged_scepter": {
+        "name": "Zongesmede scepter"
       }
     },
     "mobs": {

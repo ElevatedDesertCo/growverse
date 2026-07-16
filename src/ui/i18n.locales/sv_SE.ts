@@ -5,6 +5,12 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'entities.items.ember_ward_shard.name': 'Solvärnsskärva',
   'entities.items.sunflare_bulb_raw.name': 'Rå solflammelök',
   'entities.items.sunflare_bulb.name': 'Solflammelök',
+  'entities.items.glassscale_mail.name': 'Glasfjällsbrynja',
+  'entities.items.sunbleached_leathers.name': 'Solblekt läder',
+  'entities.items.sunspun_robes.name': 'Solspunnen klädnad',
+  'entities.items.sunforged_blade.name': 'Solsmidd klinga',
+  'entities.items.sunforged_dagger.name': 'Solsmidd dolk',
+  'entities.items.sunforged_scepter.name': 'Solsmidd spira',
   'entities.npcs.auctioneer_voss.greeting':
     'Growverse-marknaden är öppen även här, {className}. Köp från varje äventyrare i riket, eller lägg ut dina egna varor.',
   'entities.npcs.auctioneer_voss.name': 'Auktionsförrättare Voss',

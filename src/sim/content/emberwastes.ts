@@ -21,10 +21,17 @@ import type {
   ItemDef,
   MobTemplate,
   NpcDef,
+  PlayerClass,
   QuestDef,
   RealmDef,
   ZoneDef,
 } from '../types';
+
+// Archetype groups for class-locked rewards (mirrors the zone modules): the
+// Sunforged gear locks to a whole archetype, never a single class.
+const WAR: PlayerClass[] = ['warrior', 'paladin', 'shaman'];
+const MAG: PlayerClass[] = ['mage', 'priest', 'warlock', 'druid'];
+const ROG: PlayerClass[] = ['rogue', 'hunter'];
 
 // The realm's zone strip runs south (the Caravanserai oasis) to north (the ash
 // scorchland), partitioned by zMax. Every sub-zone reuses the `vale` biome, which
@@ -489,6 +496,77 @@ export const EMBERWASTES_ITEMS: Record<string, ItemDef> = {
     quality: 'rare',
     sellValue: 90,
   },
+
+  // --- The Sunforged gear: the realm's signature armor + weapons, archetype-locked
+  // and handed out across the sun-ward arc (armor from q_ember_ward3, the weapon
+  // from the finale). Obsidian-edged blades, glass-scale mail, sun-bleached leathers.
+  glassscale_mail: {
+    id: 'glassscale_mail',
+    name: 'Glassscale Hauberk',
+    kind: 'armor',
+    armorType: 'mail',
+    slot: 'chest',
+    quality: 'uncommon',
+    stats: { armor: 150, str: 5, sta: 6 },
+    sellValue: 900,
+    requiredClass: WAR,
+  },
+  sunbleached_leathers: {
+    id: 'sunbleached_leathers',
+    name: 'Sunbleached Leathers',
+    kind: 'armor',
+    armorType: 'leather',
+    slot: 'chest',
+    quality: 'uncommon',
+    stats: { armor: 95, agi: 7 },
+    sellValue: 900,
+    requiredClass: ROG,
+  },
+  sunspun_robes: {
+    id: 'sunspun_robes',
+    name: 'Sunspun Robes',
+    kind: 'armor',
+    armorType: 'cloth',
+    slot: 'chest',
+    quality: 'uncommon',
+    stats: { armor: 58, int: 7, spi: 3 },
+    sellValue: 900,
+    requiredClass: MAG,
+  },
+  sunforged_blade: {
+    id: 'sunforged_blade',
+    name: 'Sunforged Blade',
+    kind: 'weapon',
+    slot: 'mainhand',
+    quality: 'rare',
+    weapon: { min: 17, max: 27, speed: 2.5 },
+    stats: { str: 7, sta: 3 },
+    sellValue: 2200,
+    requiredClass: WAR,
+  },
+  sunforged_dagger: {
+    id: 'sunforged_dagger',
+    name: 'Sunforged Dagger',
+    kind: 'weapon',
+    slot: 'mainhand',
+    quality: 'rare',
+    weapon: { min: 13, max: 21, speed: 1.7, dagger: true },
+    stats: { agi: 7 },
+    sellValue: 2200,
+    requiredClass: ROG,
+  },
+  sunforged_scepter: {
+    id: 'sunforged_scepter',
+    name: 'Sunforged Scepter',
+    kind: 'weapon',
+    slot: 'mainhand',
+    quality: 'rare',
+    weapon: { min: 16, max: 25, speed: 2.8 },
+    stats: { int: 7, spi: 2 },
+    spellPower: 14,
+    sellValue: 2200,
+    requiredClass: MAG,
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -550,7 +628,11 @@ export const EMBERWASTES_QUESTS: Record<string, QuestDef> = {
     ],
     xpReward: 4200,
     copperReward: 1700,
-    itemRewards: {},
+    itemRewards: {
+      warrior: 'glassscale_mail',
+      rogue: 'sunbleached_leathers',
+      mage: 'sunspun_robes',
+    },
     requiresQuest: 'q_ember_ward2',
     minLevel: 14,
   },
@@ -572,7 +654,11 @@ export const EMBERWASTES_QUESTS: Record<string, QuestDef> = {
     ],
     xpReward: 5600,
     copperReward: 3200,
-    itemRewards: {},
+    itemRewards: {
+      warrior: 'sunforged_blade',
+      rogue: 'sunforged_dagger',
+      mage: 'sunforged_scepter',
+    },
     requiresQuest: 'q_ember_ward3',
     minLevel: 16,
     suggestedPlayers: 3,

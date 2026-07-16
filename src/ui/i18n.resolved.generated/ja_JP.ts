@@ -5615,6 +5615,24 @@ export const ja_JP: EnTranslations = {
       },
       "sunflare_bulb": {
         "name": "陽炎球根"
+      },
+      "glassscale_mail": {
+        "name": "ガラス鱗の鎖帷子"
+      },
+      "sunbleached_leathers": {
+        "name": "陽に晒された革鎧"
+      },
+      "sunspun_robes": {
+        "name": "陽紡ぎのローブ"
+      },
+      "sunforged_blade": {
+        "name": "陽鍛えの刃"
+      },
+      "sunforged_dagger": {
+        "name": "陽鍛えの短剣"
+      },
+      "sunforged_scepter": {
+        "name": "陽鍛えの笏"
       }
     },
     "mobs": {

@@ -14,6 +14,12 @@ export const fr_CA: Partial<Record<TranslationKey, string>> = {
   'entities.items.ember_ward_shard.name': 'Éclat de garde-soleil',
   'entities.items.sunflare_bulb_raw.name': 'Bulbe de flamboiement solaire brut',
   'entities.items.sunflare_bulb.name': 'Bulbe de flamboiement solaire',
+  'entities.items.glassscale_mail.name': 'Haubert à écailles de verre',
+  'entities.items.sunbleached_leathers.name': 'Cuirs blanchis par le soleil',
+  'entities.items.sunspun_robes.name': 'Robe filée au soleil',
+  'entities.items.sunforged_blade.name': 'Lame forgée au soleil',
+  'entities.items.sunforged_dagger.name': 'Dague forgée au soleil',
+  'entities.items.sunforged_scepter.name': 'Sceptre forgé au soleil',
   // Stat tooltips inherit the fr_FR base: none of these strings has a genuine
   // Quebec-specific form, so per the divergence-only policy fr_CA carries no
   // hudChrome.statInfo.* overrides.

@@ -5615,6 +5615,24 @@ export const tr_TR: EnTranslations = {
       },
       "sunflare_bulb": {
         "name": "Güneş Parıltısı Yumrusu"
+      },
+      "glassscale_mail": {
+        "name": "Cam Pullu Zırh Gömleği"
+      },
+      "sunbleached_leathers": {
+        "name": "Güneşte Ağarmış Deriler"
+      },
+      "sunspun_robes": {
+        "name": "Güneş Örgüsü Cübbe"
+      },
+      "sunforged_blade": {
+        "name": "Güneşte Dövülmüş Kılıç"
+      },
+      "sunforged_dagger": {
+        "name": "Güneşte Dövülmüş Hançer"
+      },
+      "sunforged_scepter": {
+        "name": "Güneşte Dövülmüş Asa"
       }
     },
     "mobs": {

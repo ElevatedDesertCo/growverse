@@ -5615,6 +5615,24 @@ export const ru_RU: EnTranslations = {
       },
       "sunflare_bulb": {
         "name": "Луковица солнечной вспышки"
+      },
+      "glassscale_mail": {
+        "name": "Кольчуга из стеклянной чешуи"
+      },
+      "sunbleached_leathers": {
+        "name": "Выцветшие на солнце кожаные доспехи"
+      },
+      "sunspun_robes": {
+        "name": "Одеяние, сотканное из солнца"
+      },
+      "sunforged_blade": {
+        "name": "Клинок, выкованный солнцем"
+      },
+      "sunforged_dagger": {
+        "name": "Кинжал, выкованный солнцем"
+      },
+      "sunforged_scepter": {
+        "name": "Скипетр, выкованный солнцем"
       }
     },
     "mobs": {

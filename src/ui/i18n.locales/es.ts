@@ -17,6 +17,12 @@ export const es: Partial<Record<TranslationKey, string>> = {
   'entities.items.ember_ward_shard.name': 'Fragmento del guardián solar',
   'entities.items.sunflare_bulb_raw.name': 'Bulbo de fulgor solar crudo',
   'entities.items.sunflare_bulb.name': 'Bulbo de fulgor solar',
+  'entities.items.glassscale_mail.name': 'Cota de escamas de vidrio',
+  'entities.items.sunbleached_leathers.name': 'Cueros blanqueados por el sol',
+  'entities.items.sunspun_robes.name': 'Túnica hilada al sol',
+  'entities.items.sunforged_blade.name': 'Hoja forjada al sol',
+  'entities.items.sunforged_dagger.name': 'Daga forjada al sol',
+  'entities.items.sunforged_scepter.name': 'Cetro forjado al sol',
   'entities.npcs.auctioneer_voss.greeting':
     'El Mercado Mundial también está abierto aquí, {className}. Compra a cualquier aventurero del reino o pon a la venta tus propias mercancías.',
   'entities.npcs.auctioneer_voss.name': 'Subastador Voss',

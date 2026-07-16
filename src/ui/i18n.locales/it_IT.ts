@@ -17,6 +17,12 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'entities.items.ember_ward_shard.name': 'Scheggia del guardiano solare',
   'entities.items.sunflare_bulb_raw.name': 'Bulbo di vampata solare grezzo',
   'entities.items.sunflare_bulb.name': 'Bulbo di vampata solare',
+  'entities.items.glassscale_mail.name': 'Usbergo a scaglie di vetro',
+  'entities.items.sunbleached_leathers.name': 'Cuoi sbiancati dal sole',
+  'entities.items.sunspun_robes.name': 'Veste filata al sole',
+  'entities.items.sunforged_blade.name': 'Lama forgiata dal sole',
+  'entities.items.sunforged_dagger.name': 'Pugnale forgiato dal sole',
+  'entities.items.sunforged_scepter.name': 'Scettro forgiato dal sole',
   'entities.npcs.auctioneer_voss.greeting':
     'Il World Market e aperto anche qui, {className}. Compra da ogni avventuriero del reame, o metti in vendita le tue merci.',
   'entities.npcs.auctioneer_voss.name': 'Banditore Voss',

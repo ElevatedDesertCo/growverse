@@ -5,6 +5,12 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'entities.items.ember_ward_shard.name': 'Zonnewachtscherf',
   'entities.items.sunflare_bulb_raw.name': 'Rauwe zonnevlambol',
   'entities.items.sunflare_bulb.name': 'Zonnevlambol',
+  'entities.items.glassscale_mail.name': 'Glasschub-maliënkolder',
+  'entities.items.sunbleached_leathers.name': 'Zonverbleekt leer',
+  'entities.items.sunspun_robes.name': 'Zongesponnen gewaad',
+  'entities.items.sunforged_blade.name': 'Zongesmede kling',
+  'entities.items.sunforged_dagger.name': 'Zongesmede dolk',
+  'entities.items.sunforged_scepter.name': 'Zongesmede scepter',
   'entities.npcs.auctioneer_voss.greeting':
     'De Wereldmarkt is hier ook geopend, {className}. Koop van elke avonturier in het rijk, of stal je eigen waren uit.',
   'entities.npcs.auctioneer_voss.name': 'Veilingmeester Voss',

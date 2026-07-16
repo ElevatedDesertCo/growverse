@@ -5615,6 +5615,24 @@ export const id_ID: EnTranslations = {
       },
       "sunflare_bulb": {
         "name": "Umbi Suar Surya"
+      },
+      "glassscale_mail": {
+        "name": "Baju Zirah Sisik Kaca"
+      },
+      "sunbleached_leathers": {
+        "name": "Kulit Pudar Surya"
+      },
+      "sunspun_robes": {
+        "name": "Jubah Pintalan Surya"
+      },
+      "sunforged_blade": {
+        "name": "Bilah Tempaan Surya"
+      },
+      "sunforged_dagger": {
+        "name": "Belati Tempaan Surya"
+      },
+      "sunforged_scepter": {
+        "name": "Tongkat Tempaan Surya"
       }
     },
     "mobs": {

@@ -5615,6 +5615,24 @@ export const da_DK: EnTranslations = {
       },
       "sunflare_bulb": {
         "name": "Solglødløg"
+      },
+      "glassscale_mail": {
+        "name": "Glasskæl-brynje"
+      },
+      "sunbleached_leathers": {
+        "name": "Solbleget læder"
+      },
+      "sunspun_robes": {
+        "name": "Solspundne kåber"
+      },
+      "sunforged_blade": {
+        "name": "Solsmedet klinge"
+      },
+      "sunforged_dagger": {
+        "name": "Solsmedet dolk"
+      },
+      "sunforged_scepter": {
+        "name": "Solsmedet scepter"
       }
     },
     "mobs": {

@@ -5,6 +5,12 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'entities.items.ember_ward_shard.name': 'Odłamek słonecznej straży',
   'entities.items.sunflare_bulb_raw.name': 'Surowa bulwa słonecznego rozbłysku',
   'entities.items.sunflare_bulb.name': 'Bulwa słonecznego rozbłysku',
+  'entities.items.glassscale_mail.name': 'Kolczuga ze szklanej łuski',
+  'entities.items.sunbleached_leathers.name': 'Wyblakłe od słońca skórznie',
+  'entities.items.sunspun_robes.name': 'Szata utkana ze słońca',
+  'entities.items.sunforged_blade.name': 'Ostrze wykute w słońcu',
+  'entities.items.sunforged_dagger.name': 'Sztylet wykuty w słońcu',
+  'entities.items.sunforged_scepter.name': 'Berło wykute w słońcu',
   'entities.npcs.auctioneer_voss.greeting':
     'Rynek Świata jest otwarty także tutaj, {className}. Kupuj od każdego poszukiwacza przygód w królestwie albo wystaw własne towary.',
   'entities.npcs.auctioneer_voss.name': 'Aukcjoner Voss',

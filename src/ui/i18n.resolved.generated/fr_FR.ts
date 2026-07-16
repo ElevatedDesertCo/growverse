@@ -5615,6 +5615,24 @@ export const fr_FR: EnTranslations = {
       },
       "sunflare_bulb": {
         "name": "Bulbe de flamboiement solaire"
+      },
+      "glassscale_mail": {
+        "name": "Haubert en écailles de verre"
+      },
+      "sunbleached_leathers": {
+        "name": "Cuirs délavés par le soleil"
+      },
+      "sunspun_robes": {
+        "name": "Robe tissée de soleil"
+      },
+      "sunforged_blade": {
+        "name": "Lame forgée par le soleil"
+      },
+      "sunforged_dagger": {
+        "name": "Dague forgée par le soleil"
+      },
+      "sunforged_scepter": {
+        "name": "Sceptre forgé par le soleil"
       }
     },
     "mobs": {

@@ -5615,6 +5615,24 @@ export const pl_PL: EnTranslations = {
       },
       "sunflare_bulb": {
         "name": "Bulwa słonecznego rozbłysku"
+      },
+      "glassscale_mail": {
+        "name": "Kolczuga ze szklanej łuski"
+      },
+      "sunbleached_leathers": {
+        "name": "Wyblakłe od słońca skórznie"
+      },
+      "sunspun_robes": {
+        "name": "Szata utkana ze słońca"
+      },
+      "sunforged_blade": {
+        "name": "Ostrze wykute w słońcu"
+      },
+      "sunforged_dagger": {
+        "name": "Sztylet wykuty w słońcu"
+      },
+      "sunforged_scepter": {
+        "name": "Berło wykute w słońcu"
       }
     },
     "mobs": {

@@ -17,6 +17,12 @@ export const fr_FR: Partial<Record<TranslationKey, string>> = {
   'entities.items.ember_ward_shard.name': 'Éclat du gardien solaire',
   'entities.items.sunflare_bulb_raw.name': 'Bulbe de flamboiement solaire cru',
   'entities.items.sunflare_bulb.name': 'Bulbe de flamboiement solaire',
+  'entities.items.glassscale_mail.name': 'Haubert en écailles de verre',
+  'entities.items.sunbleached_leathers.name': 'Cuirs délavés par le soleil',
+  'entities.items.sunspun_robes.name': 'Robe tissée de soleil',
+  'entities.items.sunforged_blade.name': 'Lame forgée par le soleil',
+  'entities.items.sunforged_dagger.name': 'Dague forgée par le soleil',
+  'entities.items.sunforged_scepter.name': 'Sceptre forgé par le soleil',
   'entities.npcs.auctioneer_voss.greeting':
     'Le Marché du monde est ouvert ici aussi, {className}. Achetez auprès de chaque aventurier du royaume, ou proposez vos propres marchandises.',
   'entities.npcs.auctioneer_voss.name': 'Commissaire-priseur Voss',

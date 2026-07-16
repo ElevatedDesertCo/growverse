@@ -5615,6 +5615,24 @@ export const vi_VN: EnTranslations = {
       },
       "sunflare_bulb": {
         "name": "Củ Lóa Nắng"
+      },
+      "glassscale_mail": {
+        "name": "Áo Giáp Vảy Thủy Tinh"
+      },
+      "sunbleached_leathers": {
+        "name": "Giáp Da Bạc Nắng"
+      },
+      "sunspun_robes": {
+        "name": "Áo Choàng Dệt Nắng"
+      },
+      "sunforged_blade": {
+        "name": "Lưỡi Kiếm Rèn Bằng Nắng"
+      },
+      "sunforged_dagger": {
+        "name": "Chủy Thủ Rèn Bằng Nắng"
+      },
+      "sunforged_scepter": {
+        "name": "Vương Trượng Rèn Bằng Nắng"
       }
     },
     "mobs": {

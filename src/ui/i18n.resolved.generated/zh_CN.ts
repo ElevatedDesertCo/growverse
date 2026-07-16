@@ -5615,6 +5615,24 @@ export const zh_CN: EnTranslations = {
       },
       "sunflare_bulb": {
         "name": "日耀球茎"
+      },
+      "glassscale_mail": {
+        "name": "玻鳞锁甲"
+      },
+      "sunbleached_leathers": {
+        "name": "烈日褪色皮甲"
+      },
+      "sunspun_robes": {
+        "name": "日纺长袍"
+      },
+      "sunforged_blade": {
+        "name": "日铸之刃"
+      },
+      "sunforged_dagger": {
+        "name": "日铸匕首"
+      },
+      "sunforged_scepter": {
+        "name": "日铸权杖"
       }
     },
     "mobs": {

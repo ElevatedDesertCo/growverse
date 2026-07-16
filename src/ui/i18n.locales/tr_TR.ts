@@ -5,6 +5,12 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'entities.items.ember_ward_shard.name': 'Güneş Koruyucu Parçası',
   'entities.items.sunflare_bulb_raw.name': 'Ham Güneş Parıltısı Yumrusu',
   'entities.items.sunflare_bulb.name': 'Güneş Parıltısı Yumrusu',
+  'entities.items.glassscale_mail.name': 'Cam Pullu Zırh Gömleği',
+  'entities.items.sunbleached_leathers.name': 'Güneşte Ağarmış Deriler',
+  'entities.items.sunspun_robes.name': 'Güneş Örgüsü Cübbe',
+  'entities.items.sunforged_blade.name': 'Güneşte Dövülmüş Kılıç',
+  'entities.items.sunforged_dagger.name': 'Güneşte Dövülmüş Hançer',
+  'entities.items.sunforged_scepter.name': 'Güneşte Dövülmüş Asa',
   'entities.npcs.auctioneer_voss.greeting':
     'World Market burada da açık, {className}. Diyardaki her maceracıdan alışveriş yap ya da kendi mallarını sergile.',
   'entities.npcs.auctioneer_voss.name': 'Mezatçı Voss',

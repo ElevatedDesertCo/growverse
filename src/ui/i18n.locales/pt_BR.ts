@@ -17,6 +17,12 @@ export const pt_BR: Partial<Record<TranslationKey, string>> = {
   'entities.items.ember_ward_shard.name': 'Fragmento do guardião solar',
   'entities.items.sunflare_bulb_raw.name': 'Bulbo de clarão solar bruto',
   'entities.items.sunflare_bulb.name': 'Bulbo de clarão solar',
+  'entities.items.glassscale_mail.name': 'Cota de escamas de vidro',
+  'entities.items.sunbleached_leathers.name': 'Couros desbotados pelo sol',
+  'entities.items.sunspun_robes.name': 'Túnica fiada ao sol',
+  'entities.items.sunforged_blade.name': 'Lâmina forjada ao sol',
+  'entities.items.sunforged_dagger.name': 'Adaga forjada ao sol',
+  'entities.items.sunforged_scepter.name': 'Cetro forjado ao sol',
   'entities.npcs.auctioneer_voss.greeting':
     'O Mercado Global também está aberto aqui, {className}. Compre de todos os aventureiros do reino ou exponha suas próprias mercadorias.',
   'entities.npcs.auctioneer_voss.name': 'Leiloeiro Voss',

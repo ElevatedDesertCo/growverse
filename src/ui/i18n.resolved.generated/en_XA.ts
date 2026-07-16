@@ -5615,6 +5615,24 @@ export const en_XA: EnTranslations = {
       },
       "sunflare_bulb": {
         "name": "[Šúñƒļáŕé Ɓúļƀ]"
+      },
+      "glassscale_mail": {
+        "name": "[Ĝļášššçáļé Ĥáúƀéŕķ]"
+      },
+      "sunbleached_leathers": {
+        "name": "[Šúñƀļéáçĥéð Ļéáţĥéŕš]"
+      },
+      "sunspun_robes": {
+        "name": "[Šúñšþúñ Ŕóƀéš]"
+      },
+      "sunforged_blade": {
+        "name": "[Šúñƒóŕĝéð Ɓļáðé]"
+      },
+      "sunforged_dagger": {
+        "name": "[Šúñƒóŕĝéð Ðáĝĝéŕ]"
+      },
+      "sunforged_scepter": {
+        "name": "[Šúñƒóŕĝéð Šçéþţéŕ]"
       }
     },
     "mobs": {

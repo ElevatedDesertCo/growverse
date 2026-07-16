@@ -5615,6 +5615,24 @@ export const en_CA: EnTranslations = {
       },
       "sunflare_bulb": {
         "name": "Sunflare Bulb"
+      },
+      "glassscale_mail": {
+        "name": "Glassscale Hauberk"
+      },
+      "sunbleached_leathers": {
+        "name": "Sunbleached Leathers"
+      },
+      "sunspun_robes": {
+        "name": "Sunspun Robes"
+      },
+      "sunforged_blade": {
+        "name": "Sunforged Blade"
+      },
+      "sunforged_dagger": {
+        "name": "Sunforged Dagger"
+      },
+      "sunforged_scepter": {
+        "name": "Sunforged Scepter"
       }
     },
     "mobs": {

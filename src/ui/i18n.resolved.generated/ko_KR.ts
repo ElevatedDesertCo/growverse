@@ -5615,6 +5615,24 @@ export const ko_KR: EnTranslations = {
       },
       "sunflare_bulb": {
         "name": "태양섬광 구근"
+      },
+      "glassscale_mail": {
+        "name": "유리비늘 사슬갑옷"
+      },
+      "sunbleached_leathers": {
+        "name": "햇볕에 바랜 가죽갑옷"
+      },
+      "sunspun_robes": {
+        "name": "햇살로 자은 로브"
+      },
+      "sunforged_blade": {
+        "name": "태양으로 벼린 검"
+      },
+      "sunforged_dagger": {
+        "name": "태양으로 벼린 단검"
+      },
+      "sunforged_scepter": {
+        "name": "태양으로 벼린 셉터"
       }
     },
     "mobs": {

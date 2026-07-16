@@ -905,6 +905,13 @@ export const en = {
       ember_ward_shard: { name: 'Sun-Ward Shard' },
       sunflare_bulb_raw: { name: 'Raw Sunflare Bulb' },
       sunflare_bulb: { name: 'Sunflare Bulb' },
+      // Emberwastes realm 1: the Sunforged gear (arc + finale rewards).
+      glassscale_mail: { name: 'Glassscale Hauberk' },
+      sunbleached_leathers: { name: 'Sunbleached Leathers' },
+      sunspun_robes: { name: 'Sunspun Robes' },
+      sunforged_blade: { name: 'Sunforged Blade' },
+      sunforged_dagger: { name: 'Sunforged Dagger' },
+      sunforged_scepter: { name: 'Sunforged Scepter' },
     },
     itemSets: itemSetEntityText,
     mobs: { ...worldNames.en.entities.mobs, ...mergeEntities.en.mobs, ...mergeExtra.en.mobs },

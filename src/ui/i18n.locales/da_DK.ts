@@ -5,6 +5,12 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'entities.items.ember_ward_shard.name': 'Solværnsskår',
   'entities.items.sunflare_bulb_raw.name': 'Rå solglødløg',
   'entities.items.sunflare_bulb.name': 'Solglødløg',
+  'entities.items.glassscale_mail.name': 'Glasskæl-brynje',
+  'entities.items.sunbleached_leathers.name': 'Solbleget læder',
+  'entities.items.sunspun_robes.name': 'Solspundne kåber',
+  'entities.items.sunforged_blade.name': 'Solsmedet klinge',
+  'entities.items.sunforged_dagger.name': 'Solsmedet dolk',
+  'entities.items.sunforged_scepter.name': 'Solsmedet scepter',
   'entities.npcs.auctioneer_voss.greeting':
     'Verdensmarkedet er også åbent her, {className}. Køb fra alle eventyrere i riget, eller læg dine egne varer frem.',
   'entities.npcs.auctioneer_voss.name': 'Auktionarius Voss',

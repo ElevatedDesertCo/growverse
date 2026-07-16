@@ -5615,6 +5615,24 @@ export const de_DE: EnTranslations = {
       },
       "sunflare_bulb": {
         "name": "Sonnenglut-Knolle"
+      },
+      "glassscale_mail": {
+        "name": "Glasschuppen-Panzerhemd"
+      },
+      "sunbleached_leathers": {
+        "name": "Sonnengebleichtes Leder"
+      },
+      "sunspun_robes": {
+        "name": "Sonnengesponnene Robe"
+      },
+      "sunforged_blade": {
+        "name": "Sonnengeschmiedete Klinge"
+      },
+      "sunforged_dagger": {
+        "name": "Sonnengeschmiedeter Dolch"
+      },
+      "sunforged_scepter": {
+        "name": "Sonnengeschmiedetes Zepter"
       }
     },
     "mobs": {

@@ -5,6 +5,12 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'entities.items.ember_ward_shard.name': 'Serpihan Penjaga Surya',
   'entities.items.sunflare_bulb_raw.name': 'Umbi Suar Surya Mentah',
   'entities.items.sunflare_bulb.name': 'Umbi Suar Surya',
+  'entities.items.glassscale_mail.name': 'Baju Zirah Sisik Kaca',
+  'entities.items.sunbleached_leathers.name': 'Kulit Pudar Surya',
+  'entities.items.sunspun_robes.name': 'Jubah Pintalan Surya',
+  'entities.items.sunforged_blade.name': 'Bilah Tempaan Surya',
+  'entities.items.sunforged_dagger.name': 'Belati Tempaan Surya',
+  'entities.items.sunforged_scepter.name': 'Tongkat Tempaan Surya',
   'entities.npcs.auctioneer_voss.greeting':
     'World Market juga buka di sini, {className}. Belilah dari setiap petualang di alam ini, atau gelarlah daganganmu sendiri.',
   'entities.npcs.auctioneer_voss.name': 'Pelelang Voss',
