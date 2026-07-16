@@ -3159,6 +3159,20 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
     '광신도 열이 쓰러지고 그 골렘들도 슬래그로 돌아갔건만, 태양은 여전히 저기 걸려 있네, {playerName}. 그러니 사실이었어. 이곳의 수호탑은 부서진 것이 아니라, 억지로 붙들려 있는 것이지. 그리고 그 닻은 지표에 있지도 않네. 그것은 아래로, 사구 밑 오래된 무덤 도시로 뻗어 있다네. 이 모든 것이 끝나는 곳은 바로 거기일세.',
   'entities.quests.q_ember_ward3.objectives.0.label': '베어 넘긴 잿빛 광신도',
   'entities.quests.q_ember_ward3.objectives.1.label': '부순 잉걸 골렘',
+  'entities.mobs.mummified_guard.name': '미라 경비병',
+  'entities.mobs.tombscarab_cluster.name': '무덤 풍뎅이 무리',
+  'entities.mobs.scarab_broodmother.name': '풍뎅이 산란모',
+  'entities.quests.q_ember_finale.title': '태양이 지는 곳',
+  'entities.quests.q_ember_finale.text':
+    '그 닻은 파묻힌 왕조로 뻗어 내려간다네, {playerName}. 사구 밑에 가라앉은 무덤 도시지. 그 중심에서 풍뎅이 산란모가 태양을 높이 떠받치는 의식을 휘감고 있네. 이것은 칼 한 자루로 될 심부름이 아닐세. 동료를 모아 교단의 원형 극장을 지나 내려가, 산란모와 그 새끼들을 부수게. 저 지지 않는 태양을 꺼뜨리게.',
+  'entities.quests.q_ember_finale.completion':
+    '해냈군, {playerName}. 산란모는 미동도 없고, 의식의 불은 사그라들며, 사구 위로는 태양이 오랜 세월 닿지 못했던 지평선을 향해 미끄러져 내려가네. 오늘 밤 대상 숙소는 처음으로 진정한 황혼을, 그리고 처음으로 서늘한 새벽을 맞이할 걸세. 자네가 엠버웨이스트에 밤을 되돌려 주었네.',
+  'entities.quests.q_ember_finale.objectives.0.label': '처치한 풍뎅이 산란모',
+  'entities.dungeons.the_buried_dynasty.name': '파묻힌 왕조',
+  'entities.dungeons.the_buried_dynasty.enterText':
+    '사그라드는 의식의 불을 지나, 자네는 차가운 사암 속으로, 수천 마리 풍뎅이의 메마른 사각거림 속으로 내려가네. 옛 왕조가 그 죽은 태양과 함께 묻힌 그 깊은 곳으로.',
+  'entities.dungeons.the_buried_dynasty.leaveText':
+    '원형 극장을 지나 자네는 지지 않는 빛 속으로 다시 올라가네.',
   'entities.realms.emberwastes.name': '엠버웨이스트',
   'worldContent.delveLockedChestInteract': 'F를 눌러 자물쇠 따기',
   'worldContent.delveRewardChestInteract': 'F를 눌러 전리품 받기',

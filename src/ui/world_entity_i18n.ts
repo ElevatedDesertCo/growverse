@@ -123,6 +123,10 @@ const MOB_IDS = [
   'emberling',
   'cinder_golem',
   'ashen_zealot',
+  // Emberwastes realm 1 (The Buried Dynasty dungeon)
+  'mummified_guard',
+  'tombscarab_cluster',
+  'scarab_broodmother',
 ] as const;
 
 const NPC_IDS = [
@@ -264,6 +268,7 @@ const QUEST_IDS = [
   'q_ember_ward1',
   'q_ember_ward2',
   'q_ember_ward3',
+  'q_ember_finale',
 ] as const;
 
 const ZONE_IDS = ['eastbrook_vale', 'mirefen_marsh', 'thornpeak_heights', 'the_dam'] as const;
@@ -276,6 +281,7 @@ const DUNGEON_IDS = [
   'nythraxis_crypt',
   'nythraxis_boss_arena',
   'sunken_mausoleum',
+  'the_buried_dynasty',
 ] as const;
 const DELVE_IDS = ['collapsed_reliquary'] as const;
 const REALM_IDS = ['emberwastes'] as const;

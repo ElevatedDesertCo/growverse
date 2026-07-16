@@ -3194,6 +3194,20 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
     'Десять фанатиков пали, их големы обращены в шлак, а солнце всё так же висит там, {playerName}. Значит, это правда: оберег здесь не сломан, его УДЕРЖИВАЮТ, и якорь вовсе не на поверхности. Он уходит вниз, в древний город-усыпальницу под дюнами. Именно там всему этому придёт конец.',
   'entities.quests.q_ember_ward3.objectives.0.label': 'Срублено пепельных фанатиков',
   'entities.quests.q_ember_ward3.objectives.1.label': 'Разбито шлаковых големов',
+  'entities.mobs.mummified_guard.name': 'Мумифицированный страж',
+  'entities.mobs.tombscarab_cluster.name': 'Рой гробничных скарабеев',
+  'entities.mobs.scarab_broodmother.name': 'Матка скарабеев',
+  'entities.quests.q_ember_finale.title': 'Там, где заходит солнце',
+  'entities.quests.q_ember_finale.text':
+    'Якорь уходит вниз, в Погребённую династию, {playerName}, город-усыпальницу, затонувший под дюнами, и в самом его сердце Матка скарабеев обвивает ритуал, что держит солнце в вышине. Это дело не для одного клинка: собери спутников, спустись через амфитеатр культа и сокруши Матку и её выводок. Погаси стоящее солнце.',
+  'entities.quests.q_ember_finale.completion':
+    'Свершилось, {playerName}. Матка недвижима, ритуальный огонь угасает, а над дюнами солнце скользит вниз, к горизонту, которого не касалось целую эпоху. Нынче ночью караван-сарай увидит свой первый настоящий закат и свой первый прохладный рассвет. Ты вернул Угольным пустошам их ночь.',
+  'entities.quests.q_ember_finale.objectives.0.label': 'Матка скарабеев повержена',
+  'entities.dungeons.the_buried_dynasty.name': 'Погребённая династия',
+  'entities.dungeons.the_buried_dynasty.enterText':
+    'Минуя угасающий ритуальный огонь, ты спускаешься в холодный песчаник и сухой шорох тысячи скарабеев, туда, где древнюю династию погребли вместе с её мёртвым солнцем.',
+  'entities.dungeons.the_buried_dynasty.leaveText':
+    'Ты поднимаешься обратно через амфитеатр к стоящему свету.',
   'entities.realms.emberwastes.name': 'Пепельные Пустоши',
   'worldContent.delveLockedChestInteract': 'Нажмите F, чтобы вскрыть замок',
   'worldContent.delveRewardChestInteract': 'Нажмите F, чтобы забрать добычу',

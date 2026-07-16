@@ -5909,6 +5909,15 @@ export const pt_BR: EnTranslations = {
       "ashen_zealot": {
         "name": "Ashen Zealot"
       },
+      "mummified_guard": {
+        "name": "Mummified Guard"
+      },
+      "tombscarab_cluster": {
+        "name": "Tombscarab Cluster"
+      },
+      "scarab_broodmother": {
+        "name": "The Scarab Broodmother"
+      },
       "ironvein_foreman": {
         "name": "Capataz Veio de Ferro"
       },
@@ -7122,6 +7131,16 @@ export const pt_BR: EnTranslations = {
           }
         }
       },
+      "q_ember_finale": {
+        "title": "Where the Sun Goes Down",
+        "text": "The anchor runs down into The Buried Dynasty, {playerName}, the tomb-city drowned under the dunes, and at its heart the Scarab Broodmother coils around the ritual that holds the sun aloft. This is no errand for one blade: gather companions, go down through the cult amphitheater, and break the Broodmother and her brood. Put out the standing sun.",
+        "completion": "It is done, {playerName}. The Broodmother lies still, the ritual-fire gutters, and above the dunes the sun slides down toward a horizon it has not touched in an age. The Caravanserai will see its first true dusk tonight, and its first cool dawn. You gave the Emberwastes back its night.",
+        "objectives": {
+          "0": {
+            "label": "The Scarab Broodmother slain"
+          }
+        }
+      },
       "q_drowned_choir": {
         "title": "O Coro Afogado",
         "text": "Os vadeadores não agem sozinhos. Entre eles caminham os Devotos Afogados — o culto que afundou com o templo, ainda em suas vestes apodrecidas, ainda cantando a prece desde as rochas da costa. Silencie oito deles e traga-me seis das oferendas que carregam. Eu gostaria de saber o que pretendem dar à sua deusa.",
@@ -7363,6 +7382,11 @@ export const pt_BR: EnTranslations = {
         "name": "The Sunken Mausoleum",
         "enterText": "You descend through the grave-gate into wet stone and the reek of tallow, and somewhere below, something is grinning in the dark.",
         "leaveText": "You climb the grave-gate stair back into the lantern-lit fen."
+      },
+      "the_buried_dynasty": {
+        "name": "The Buried Dynasty",
+        "enterText": "You descend past the guttering ritual-fire into cold sandstone and the dry rasp of a thousand scarabs, down where the old dynasty was buried with its dead sun.",
+        "leaveText": "You climb back up through the amphitheater into the standing light."
       },
       "drowned_temple": {
         "name": "O Templo Afogado",

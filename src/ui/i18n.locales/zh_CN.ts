@@ -3024,6 +3024,20 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
     '十名狂信徒已倒下，他们的魔像也化作了熔渣，可太阳依旧悬在那里，{playerName}。看来是真的：这里的日护塔并未损坏，而是被人硬生生地维系着，而其锚点根本不在地表。它一直向下延伸，通向沙丘之下那座古老的陵墓之城。这一切将在那里终结。',
   'entities.quests.q_ember_ward3.objectives.0.label': '已击杀的灰烬狂信徒',
   'entities.quests.q_ember_ward3.objectives.1.label': '已击碎的煤渣魔像',
+  'entities.mobs.mummified_guard.name': '木乃伊卫兵',
+  'entities.mobs.tombscarab_cluster.name': '墓穴圣甲虫群',
+  'entities.mobs.scarab_broodmother.name': '圣甲虫育母',
+  'entities.quests.q_ember_finale.title': '日落之处',
+  'entities.quests.q_ember_finale.text':
+    '锚点一直向下延伸至湮没王朝，{playerName}，那座沉没于沙丘之下的陵墓之城，而在它的中心，圣甲虫育母正盘绕着那维系太阳高悬的仪式。这不是一柄剑能办成的差事：召集同伴，穿过教团的圆形剧场深入其中，击溃育母及其虫群。熄灭那不落之日。',
+  'entities.quests.q_ember_finale.completion':
+    '大功告成，{playerName}。育母已然不动，仪式之火摇曳将熄，沙丘之上，太阳正滑向那久远以来从未触及的地平线。今夜，商队驿站将迎来它第一个真正的黄昏，以及第一个清凉的黎明。你把黑夜还给了余烬荒野。',
+  'entities.quests.q_ember_finale.objectives.0.label': '已击杀圣甲虫育母',
+  'entities.dungeons.the_buried_dynasty.name': '湮没王朝',
+  'entities.dungeons.the_buried_dynasty.enterText':
+    '你越过摇曳将熄的仪式之火，向下潜入冰冷的砂岩，进入千万只圣甲虫干涩的窸窣声中，来到那与死去的太阳一同长埋着古老王朝的地方。',
+  'entities.dungeons.the_buried_dynasty.leaveText':
+    '你穿过圆形剧场重新向上攀爬，回到那凝立不落的日光之中。',
   'entities.realms.emberwastes.name': '余烬荒野',
   'worldContent.delveLockedChestInteract': '按 F 撬锁',
   'worldContent.delveRewardChestInteract': '按 F 领取战利品',

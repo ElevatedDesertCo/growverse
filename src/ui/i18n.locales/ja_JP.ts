@@ -3163,6 +3163,20 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
     '狂信者を十人倒し、ゴーレムも鉱滓に還した。それでもなお太陽はあそこに懸かったままだ、{playerName}。やはり本当だった。ここの日守りは壊れているのではない、無理やり保たれているのだ。そして要石は地表にすらない。地の底へ、砂丘の下の古い墓所の都へと続いている。すべてが終わるのはそこだ。',
   'entities.quests.q_ember_ward3.objectives.0.label': '斬り伏せた灰の狂信者',
   'entities.quests.q_ember_ward3.objectives.1.label': '砕いた燃え殻のゴーレム',
+  'entities.mobs.mummified_guard.name': 'ミイラの衛兵',
+  'entities.mobs.tombscarab_cluster.name': '墓スカラベの群れ',
+  'entities.mobs.scarab_broodmother.name': 'スカラベの母巣',
+  'entities.quests.q_ember_finale.title': '陽の沈む場所',
+  'entities.quests.q_ember_finale.text':
+    '要石は埋もれし王朝へと下っている、{playerName}。砂丘の下に沈んだ墓所の都だ。その中心で、スカラベの母巣が、太陽を高く掲げ続ける儀式にとぐろを巻いている。これは剣一本で済む使いではない。仲間を集め、教団の円形劇場を抜けて降り、母巣とその眷属を打ち砕け。あの沈まぬ太陽を消せ。',
+  'entities.quests.q_ember_finale.completion':
+    '成し遂げたな、{playerName}。母巣は動かなくなり、儀式の火は消えかけ、砂丘の上では、太陽が幾時代も触れなかった地平線へと滑り落ちていく。今宵、隊商宿はまことの黄昏を、そしてはじめての涼やかな夜明けを迎えるだろう。お前はエンバーウェイストに夜を取り戻してやったのだ。',
+  'entities.quests.q_ember_finale.objectives.0.label': '討伐したスカラベの母巣',
+  'entities.dungeons.the_buried_dynasty.name': '埋もれし王朝',
+  'entities.dungeons.the_buried_dynasty.enterText':
+    '揺らめき消えかける儀式の火を過ぎて、お前は冷たい砂岩の中へ、幾千のスカラベの乾いた擦れ音の中へと降りていく。古き王朝がその死せる太陽とともに葬られた、その底へと。',
+  'entities.dungeons.the_buried_dynasty.leaveText':
+    '円形劇場を抜けて、お前は沈まぬ光の中へと登り戻る。',
   'entities.realms.emberwastes.name': 'エンバーウェイスト',
   'worldContent.delveLockedChestInteract': 'Fで錠を開ける',
   'worldContent.delveRewardChestInteract': 'Fで戦利品を受け取る',

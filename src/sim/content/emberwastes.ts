@@ -14,7 +14,17 @@
 // content/crafting.ts (each system's canonical home); this module owns the items
 // those reference (sunflare_bulb_raw, sunflare_bulb).
 
-import type { CampDef, ItemDef, MobTemplate, NpcDef, QuestDef, RealmDef, ZoneDef } from '../types';
+import type {
+  CampDef,
+  DungeonDef,
+  DungeonSpawn,
+  ItemDef,
+  MobTemplate,
+  NpcDef,
+  QuestDef,
+  RealmDef,
+  ZoneDef,
+} from '../types';
 
 // The realm's zone strip runs south (the Caravanserai oasis) to north (the ash
 // scorchland), partitioned by zMax. Every sub-zone reuses the `vale` biome, which
@@ -301,6 +311,84 @@ export const EMBERWASTES_MOBS: Record<string, MobTemplate> = {
 };
 
 // ---------------------------------------------------------------------------
+// Mobs, instanced (The Buried Dynasty, ~16 to 18 group dungeon under the dunes)
+// ---------------------------------------------------------------------------
+
+export const BURIED_DYNASTY_MOBS: Record<string, MobTemplate> = {
+  mummified_guard: {
+    id: 'mummified_guard',
+    name: 'Mummified Guard',
+    minLevel: 16,
+    maxLevel: 17,
+    family: 'undead',
+    elite: true,
+    hpBase: 72,
+    hpPerLevel: 22,
+    dmgBase: 14,
+    dmgPerLevel: 2.8,
+    attackSpeed: 2.4,
+    armorPerLevel: 20,
+    moveSpeed: 6,
+    aggroRadius: 12,
+    loot: [
+      { copper: 240, chance: 1 },
+      { itemId: 'ember_essence', chance: 0.4 },
+    ],
+    scale: 1.1,
+    color: 0xcdbb86,
+  },
+  tombscarab_cluster: {
+    id: 'tombscarab_cluster',
+    name: 'Tombscarab Cluster',
+    minLevel: 16,
+    maxLevel: 16,
+    family: 'beast',
+    elite: true,
+    hpBase: 60,
+    hpPerLevel: 20,
+    dmgBase: 12,
+    dmgPerLevel: 2.6,
+    attackSpeed: 1.6,
+    armorPerLevel: 16,
+    moveSpeed: 7.5,
+    aggroRadius: 12,
+    loot: [
+      { copper: 210, chance: 1 },
+      { itemId: 'corruption_shard', chance: 0.4 },
+    ],
+    scale: 0.85,
+    color: 0x9c7a3e,
+  },
+  scarab_broodmother: {
+    id: 'scarab_broodmother',
+    name: 'The Scarab Broodmother',
+    minLevel: 18,
+    maxLevel: 18,
+    family: 'beast',
+    elite: true,
+    boss: true,
+    hpBase: 300,
+    hpPerLevel: 36,
+    dmgBase: 16,
+    dmgPerLevel: 3.0,
+    attackSpeed: 2.5,
+    armorPerLevel: 24,
+    moveSpeed: 6,
+    aggroRadius: 18,
+    aoePulse: { min: 22, max: 34, radius: 12, every: 9, name: 'Skittering Swarm' },
+    summonAdds: { mobId: 'tombscarab_cluster', count: 2, atHpPct: [0.6, 0.3] },
+    enrage: { belowHpPct: 0.3, dmgMult: 1.35, hasteMult: 1.25 },
+    loot: [
+      { copper: 4600, chance: 1 },
+      { itemId: 'corruption_shard', chance: 0.6 },
+      { itemId: 'ember_essence', chance: 0.8 },
+    ],
+    scale: 1.7,
+    color: 0xc0863a,
+  },
+};
+
+// ---------------------------------------------------------------------------
 // NPCs, the Caravanserai (the oasis town at the portal arrival)
 // ---------------------------------------------------------------------------
 
@@ -359,7 +447,7 @@ export const EMBERWASTES_NPCS: Record<string, NpcDef> = {
     pos: { x: 12000, z: 340 },
     facing: 3.0,
     color: 0x7fae8a,
-    questIds: ['q_ember_ward2', 'q_ember_ward3'],
+    questIds: ['q_ember_ward2', 'q_ember_ward3', 'q_ember_finale'],
     vendorItems: ['spring_water', 'roasted_boar', 'lesser_healing_potion', 'lesser_mana_potion'],
     greeting:
       'Careful on the canyon floor, $N: the Glassback Basilisks blend into the obsidian until they are on you. I stay for the veins, the finest glass-sand in any world, but the second sun-ward lies buried in the slot canyon north of here, and something wearing a heat-haze guards it.',
@@ -466,9 +554,37 @@ export const EMBERWASTES_QUESTS: Record<string, QuestDef> = {
     requiresQuest: 'q_ember_ward2',
     minLevel: 14,
   },
+  q_ember_finale: {
+    id: 'q_ember_finale',
+    name: 'Where the Sun Goes Down',
+    giverNpcId: 'ember_glassmaker',
+    turnInNpcId: 'ember_glassmaker',
+    text: 'The anchor runs down into The Buried Dynasty, $N, the tomb-city drowned under the dunes, and at its heart the Scarab Broodmother coils around the ritual that holds the sun aloft. This is no errand for one blade: gather companions, go down through the cult amphitheater, and break the Broodmother and her brood. Put out the standing sun.',
+    completionText:
+      'It is done, $N. The Broodmother lies still, the ritual-fire gutters, and above the dunes the sun slides down toward a horizon it has not touched in an age. The Caravanserai will see its first true dusk tonight, and its first cool dawn. You gave the Emberwastes back its night.',
+    objectives: [
+      {
+        type: 'kill',
+        targetMobId: 'scarab_broodmother',
+        count: 1,
+        label: 'The Scarab Broodmother slain',
+      },
+    ],
+    xpReward: 5600,
+    copperReward: 3200,
+    itemRewards: {},
+    requiresQuest: 'q_ember_ward3',
+    minLevel: 16,
+    suggestedPlayers: 3,
+  },
 };
 
-export const EMBERWASTES_QUEST_ORDER = ['q_ember_ward1', 'q_ember_ward2', 'q_ember_ward3'];
+export const EMBERWASTES_QUEST_ORDER = [
+  'q_ember_ward1',
+  'q_ember_ward2',
+  'q_ember_ward3',
+  'q_ember_finale',
+];
 
 // ---------------------------------------------------------------------------
 // World layout, the Sunmourn Dunes camps (append LAST in data.ts for world-gen
@@ -497,3 +613,47 @@ export const EMBERWASTES_CAMPS: CampDef[] = [
   { mobId: 'ashen_zealot', center: { x: 11945, z: 665 }, radius: 13, count: 5 },
   { mobId: 'cinder_golem', center: { x: 12055, z: 710 }, radius: 14, count: 3 },
 ];
+
+// ---------------------------------------------------------------------------
+// The Buried Dynasty instance (reuses the shared 'crypt' interior, zero render
+// work, like the Sunken Mausoleum): paired Mummified Guards and Tombscarab
+// Clusters down the tomb-nave, then the Scarab Broodmother on the ritual dais.
+// The door stands at the cult amphitheater in Cinderreach; the instance origin
+// sits in its own far x-band (index 9), clear of every other band and the realm.
+// ---------------------------------------------------------------------------
+
+const BURIED_DYNASTY_SPAWNS: DungeonSpawn[] = [
+  // the tomb-nave
+  { mobId: 'mummified_guard', x: -3, z: 14 },
+  { mobId: 'tombscarab_cluster', x: 3, z: 15 },
+  { mobId: 'mummified_guard', x: -6, z: 30 },
+  { mobId: 'tombscarab_cluster', x: 5, z: 31 },
+  { mobId: 'mummified_guard', x: -5, z: 44 },
+  { mobId: 'tombscarab_cluster', x: 4, z: 45 },
+  // the inner vaults (past the waist arch)
+  { mobId: 'mummified_guard', x: -4, z: 60 },
+  { mobId: 'tombscarab_cluster', x: 2, z: 61 },
+  { mobId: 'mummified_guard', x: 7, z: 74 },
+  { mobId: 'tombscarab_cluster', x: -7, z: 75 },
+  // the ritual dais
+  { mobId: 'scarab_broodmother', x: 0, z: 88 },
+  { mobId: 'mummified_guard', x: -4, z: 86 },
+  { mobId: 'mummified_guard', x: 4, z: 86 },
+];
+
+export const BURIED_DYNASTY_DUNGEON_DEFS: Record<string, DungeonDef> = {
+  the_buried_dynasty: {
+    id: 'the_buried_dynasty',
+    name: 'The Buried Dynasty',
+    index: 9, // instance origin x = 900 + 9*600 (its own far band, clear of the realm)
+    doorPos: { x: 12000, z: 720 }, // the cult amphitheater in Cinderreach
+    entry: { x: 0, z: 4 },
+    exitOffset: { x: 0, z: -6 },
+    spawns: BURIED_DYNASTY_SPAWNS,
+    interior: 'crypt',
+    suggestedPlayers: 3,
+    enterText:
+      'You descend past the guttering ritual-fire into cold sandstone and the dry rasp of a thousand scarabs, down where the old dynasty was buried with its dead sun.',
+    leaveText: 'You climb back up through the amphitheater into the standing light.',
+  },
+};

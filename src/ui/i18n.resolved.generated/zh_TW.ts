@@ -5909,6 +5909,15 @@ export const zh_TW: EnTranslations = {
       "ashen_zealot": {
         "name": "灰燼狂信徒"
       },
+      "mummified_guard": {
+        "name": "木乃伊衛兵"
+      },
+      "tombscarab_cluster": {
+        "name": "墓穴聖甲蟲群"
+      },
+      "scarab_broodmother": {
+        "name": "聖甲蟲育母"
+      },
       "ironvein_foreman": {
         "name": "鐵脈工頭"
       },
@@ -7122,6 +7131,16 @@ export const zh_TW: EnTranslations = {
           }
         }
       },
+      "q_ember_finale": {
+        "title": "日落之處",
+        "text": "錨點一直向下延伸至湮沒王朝，{playerName}，那座沉沒於沙丘之下的陵墓之城，而在它的中心，聖甲蟲育母正盤繞著那維繫太陽高懸的儀式。這不是一柄劍能辦成的差事：召集同伴，穿過教團的圓形劇場深入其中，擊潰育母及其蟲群。熄滅那不落之日。",
+        "completion": "大功告成，{playerName}。育母已然不動，儀式之火搖曳將熄，沙丘之上，太陽正滑向那久遠以來從未觸及的地平線。今夜，商隊驛站將迎來它第一個真正的黃昏，以及第一個清涼的黎明。你把黑夜還給了餘燼荒野。",
+        "objectives": {
+          "0": {
+            "label": "已擊殺聖甲蟲育母"
+          }
+        }
+      },
       "q_drowned_choir": {
         "title": "溺亡唱詩班",
         "text": "那些涉者並非單獨行動。在牠們之間行走的，是溺亡信徒——隨神殿一同沉沒的邪教徒，仍披著腐朽的法衣，仍從岸岩之間唱著那篇禱文。讓其中八人歸於沉寂，並為我帶回他們所攜的六件供品。我想知道他們要獻給女神的究竟是什麼。",
@@ -7363,6 +7382,11 @@ export const zh_TW: EnTranslations = {
         "name": "沉沒陵墓",
         "enterText": "你穿過墓門而下，步入濕冷的石道與獸脂的腥臭之中，而在下方某處，有某種東西正在黑暗裡咧嘴而笑。",
         "leaveText": "你拾級登上墓門石階，重回燈火映照的沼澤。"
+      },
+      "the_buried_dynasty": {
+        "name": "湮沒王朝",
+        "enterText": "你越過搖曳將熄的儀式之火，向下潛入冰冷的砂岩，進入千萬隻聖甲蟲乾澀的窸窣聲中，來到那與死去的太陽一同長埋著古老王朝的地方。",
+        "leaveText": "你穿過圓形劇場重新向上攀爬，回到那凝立不落的日光之中。"
       },
       "drowned_temple": {
         "name": "溺亡神殿",

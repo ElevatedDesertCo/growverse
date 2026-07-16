@@ -5909,6 +5909,15 @@ export const vi_VN: EnTranslations = {
       "ashen_zealot": {
         "name": "Ashen Zealot"
       },
+      "mummified_guard": {
+        "name": "Mummified Guard"
+      },
+      "tombscarab_cluster": {
+        "name": "Tombscarab Cluster"
+      },
+      "scarab_broodmother": {
+        "name": "The Scarab Broodmother"
+      },
       "ironvein_foreman": {
         "name": "Quản Đốc Mạch Sắt"
       },
@@ -7122,6 +7131,16 @@ export const vi_VN: EnTranslations = {
           }
         }
       },
+      "q_ember_finale": {
+        "title": "Where the Sun Goes Down",
+        "text": "The anchor runs down into The Buried Dynasty, {playerName}, the tomb-city drowned under the dunes, and at its heart the Scarab Broodmother coils around the ritual that holds the sun aloft. This is no errand for one blade: gather companions, go down through the cult amphitheater, and break the Broodmother and her brood. Put out the standing sun.",
+        "completion": "It is done, {playerName}. The Broodmother lies still, the ritual-fire gutters, and above the dunes the sun slides down toward a horizon it has not touched in an age. The Caravanserai will see its first true dusk tonight, and its first cool dawn. You gave the Emberwastes back its night.",
+        "objectives": {
+          "0": {
+            "label": "The Scarab Broodmother slain"
+          }
+        }
+      },
       "q_drowned_choir": {
         "title": "Dàn Đồng Ca Chết Chìm",
         "text": "Lũ lội nước không hành động một mình. Giữa chúng có những Tín Đồ Chết Chìm bước đi — giáo phái đã chìm cùng ngôi đền, vẫn khoác lễ phục mục nát, vẫn hát lời cầu nguyện từ những tảng đá ven bờ. Hãy làm câm tám tên trong số chúng, và mang cho ta sáu vật tế mà chúng mang theo. Ta muốn biết chúng định dâng gì cho nữ thần của chúng.",
@@ -7363,6 +7382,11 @@ export const vi_VN: EnTranslations = {
         "name": "The Sunken Mausoleum",
         "enterText": "You descend through the grave-gate into wet stone and the reek of tallow, and somewhere below, something is grinning in the dark.",
         "leaveText": "You climb the grave-gate stair back into the lantern-lit fen."
+      },
+      "the_buried_dynasty": {
+        "name": "The Buried Dynasty",
+        "enterText": "You descend past the guttering ritual-fire into cold sandstone and the dry rasp of a thousand scarabs, down where the old dynasty was buried with its dead sun.",
+        "leaveText": "You climb back up through the amphitheater into the standing light."
       },
       "drowned_temple": {
         "name": "Ngôi Đền Chết Chìm",

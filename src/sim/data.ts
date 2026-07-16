@@ -35,6 +35,8 @@ import {
 } from './content/delves';
 import { DUNGEON_DEFS, DUNGEON_MOBS } from './content/dungeons';
 import {
+  BURIED_DYNASTY_DUNGEON_DEFS,
+  BURIED_DYNASTY_MOBS,
   EMBERWASTES_CAMPS,
   EMBERWASTES_ITEMS,
   EMBERWASTES_MOBS,
@@ -200,6 +202,7 @@ export const MOBS: Record<string, MobTemplate> = {
   ...HOLLOWMERE_MOBS,
   ...MAUSOLEUM_DUNGEON_MOBS,
   ...EMBERWASTES_MOBS,
+  ...BURIED_DYNASTY_MOBS,
   ...DELVE_MOBS,
 };
 
@@ -457,6 +460,7 @@ export const DUNGEONS: Record<string, DungeonDef> = {
   ...DUNGEON_DEFS,
   ...TEMPLE_DUNGEON_DEFS,
   ...MAUSOLEUM_DUNGEON_DEFS,
+  ...BURIED_DYNASTY_DUNGEON_DEFS,
 };
 
 export const DUNGEON_LIST: DungeonDef[] = Object.values(DUNGEONS).sort((a, b) => a.index - b.index);
