@@ -845,6 +845,9 @@ export class Hud {
   private lastMusicDungeonId: string | null = null;
   private minimapCtx: CanvasRenderingContext2D;
   private minimapBg: HTMLCanvasElement;
+  // Per-realm minimap terrain background, built lazily on first frame inside a realm
+  // (the overworld minimapBg only covers the overworld box).
+  private realmMinimapBg = new Map<string, HTMLCanvasElement>();
   private clockEl: HTMLElement | null = null;
   private raidLockoutEl: HTMLElement | null = null;
   private raidLockoutLocked = false;
@@ -6083,13 +6086,34 @@ export class Hud {
     }
     // The overworld minimap: a pure marker core (minimap_markers) + the thin canvas
     // painter. It owns the cached terrain blit + the marker draws and writes
-    // '#zone-label' through the write-elision facet.
+    // '#zone-label' through the write-elision facet. Inside a realm, swap in that
+    // realm's terrain background (built once, cached) and its band bounds so the blit
+    // samples the realm terrain, not the overworld box.
+    const p = this.sim.player;
+    const realm = realmAt(p.pos.x, p.pos.z);
+    let bg = this.minimapBg;
+    let bgBounds = { minX: WORLD_MIN_X, maxX: WORLD_MAX_X, maxZ: WORLD_MAX_Z };
+    if (realm) {
+      let rbg = this.realmMinimapBg.get(realm.id);
+      if (!rbg) {
+        rbg = this.renderTerrainCanvas(140, {
+          minX: realm.band.xMin,
+          maxX: realm.band.xMax,
+          minZ: realm.band.zMin,
+          maxZ: realm.band.zMax,
+        });
+        this.realmMinimapBg.set(realm.id, rbg);
+      }
+      bg = rbg;
+      bgBounds = { minX: realm.band.xMin, maxX: realm.band.xMax, maxZ: realm.band.zMax };
+    }
     this.minimapPainter.paintOverworld(
       ctx,
       this.sim,
       $('#zone-label'),
-      this.minimapBg,
+      bg,
       this.minimapZoom,
+      bgBounds,
     );
   }
 

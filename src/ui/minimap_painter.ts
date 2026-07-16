@@ -142,6 +142,14 @@ export class MinimapPainter {
     zoneLabelEl: HTMLElement,
     bg: HTMLCanvasElement,
     zoom: number,
+    // The world-space extent the `bg` canvas covers. Defaults to the overworld box;
+    // inside a portal-reached realm, Hud passes the realm band so the blit samples the
+    // realm's own terrain texture under the (far-off) player position.
+    bgBounds: { minX: number; maxX: number; maxZ: number } = {
+      minX: WORLD_MIN_X,
+      maxX: WORLD_MAX_X,
+      maxZ: WORLD_MAX_Z,
+    },
   ): void {
     const S = MINIMAP_SIZE;
     const pxPerYard = MINIMAP_BASE_SCALE * zoom;
@@ -159,10 +167,10 @@ export class MinimapPainter {
     ctx.imageSmoothingEnabled = false;
 
     // Blit the matching sub-rect of the cached terrain background (Hud-owned, +X-left).
-    const bgPxPerYard = bg.width / (WORLD_MAX_X - WORLD_MIN_X);
+    const bgPxPerYard = bg.width / (bgBounds.maxX - bgBounds.minX);
     const sw = S / (pxPerYard / bgPxPerYard);
-    const sx = (WORLD_MAX_X - p.pos.x) * bgPxPerYard - sw / 2;
-    const sy = (WORLD_MAX_Z - p.pos.z) * bgPxPerYard - sw / 2;
+    const sx = (bgBounds.maxX - p.pos.x) * bgPxPerYard - sw / 2;
+    const sy = (bgBounds.maxZ - p.pos.z) * bgPxPerYard - sw / 2;
     ctx.drawImage(bg, sx, sy, sw, sw, 0, 0, S, S);
 
     this.drawMarkers(ctx, model.markers, colors);
