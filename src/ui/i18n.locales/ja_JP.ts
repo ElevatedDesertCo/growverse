@@ -3179,6 +3179,19 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
     '成し遂げたな、{playerName}。母巣は動かなくなり、儀式の火は消えかけ、砂丘の上では、太陽が幾時代も触れなかった地平線へと滑り落ちていく。今宵、隊商宿はまことの黄昏を、そしてはじめての涼やかな夜明けを迎えるだろう。お前はエンバーウェイストに夜を取り戻してやったのだ。',
   'entities.quests.q_ember_finale.objectives.0.label': '討伐したスカラベの母巣',
   'entities.dungeons.the_buried_dynasty.name': '埋もれし王朝',
+  'entities.npcs.zaida_sunstranded.name': 'ザイダ',
+  'entities.npcs.zaida_sunstranded.title': '陽に阻まれし者',
+  'entities.npcs.zaida_sunstranded.greeting':
+    'あんたも感じるんだね、あの門から漏れ出す熱を。私はあれをくぐって来た、{playerName}、そして戻れなくなった。向こうには陽の沈まぬ領域が広がっている。エンバーウェイストだ。あそこは備えのない者を容赦しない。熱に追われてこの道に出てきた狼どもを斬り伏せ、あんたの鋼を示しておくれ。そうすれば道を開いてやる。',
+  'entities.quests.q_ember_intro.title': '陽炎揺らめく門',
+  'entities.quests.q_ember_intro.text':
+    '門の熱が南街道の狼どもを半狂乱にしてしまってね、{playerName}。あれを片づけない限り、誰も安心してここで野営できない、この私ですら。四匹を討ち取れば、あんたの鋼が陽炎の向こうで待つものに耐えられると分かる。',
+  'entities.quests.q_ember_intro.completion':
+    '揺るがぬ手、鮮やかな仕留めだ。よし。荒野はどんな狼よりも厳しくあんたを試すだろう、{playerName}、だが渡る資格は勝ち取った。覚悟ができたら陽炎をくぐるがいい。向こう側には隊商宿があり、そこの道導きが、あんたのような者を必要としている。',
+  'entities.quests.q_ember_intro.objectives.0.label': '討伐した南街道の狼',
+  'entities.itemSets.sunforged.name': '陽鍛えの装具一式',
+  'entities.itemSets.sunforged.bonus2': 'スタミナが12上昇する。',
+  'entities.itemSets.sunforged.bonus3': 'スタミナが20上昇する。',
   'entities.dungeons.the_buried_dynasty.enterText':
     '揺らめき消えかける儀式の火を過ぎて、お前は冷たい砂岩の中へ、幾千のスカラベの乾いた擦れ音の中へと降りていく。古き王朝がその死せる太陽とともに葬られた、その底へと。',
   'entities.dungeons.the_buried_dynasty.leaveText':

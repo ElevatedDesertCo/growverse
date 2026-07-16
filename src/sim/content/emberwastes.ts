@@ -92,7 +92,9 @@ export const EMBERWASTES_REALM: RealmDef = {
   hubPos: { x: 12000, z: 20 }, // the Caravanserai (portal arrival)
   returnPortalPos: { x: 12000, z: 14 }, // the return gate, just south of the hub
   entryPortalPos: { x: 0, z: -30 }, // the overworld-side gate (Bloomhaven south)
-  unlock: { minLevel: 8 },
+  // The gate opens once the player is level 8 AND has finished the Bloomhaven intro
+  // quest (Zaida, below). Enforced in realms_transition.enterRealm.
+  unlock: { minLevel: 8, requiresQuest: 'q_ember_intro' },
 };
 
 // ---------------------------------------------------------------------------
@@ -400,6 +402,20 @@ export const BURIED_DYNASTY_MOBS: Record<string, MobTemplate> = {
 // ---------------------------------------------------------------------------
 
 export const EMBERWASTES_NPCS: Record<string, NpcDef> = {
+  // The overworld intro-giver: a sun-stranded stranger camped at the heat-shimmer
+  // gate on Bloomhaven's south edge (next to the entry portal at ~(0,-30)). Owns the
+  // intro quest that, with a level-8 gate, unlocks the portal.
+  zaida_sunstranded: {
+    id: 'zaida_sunstranded',
+    name: 'Zaida',
+    title: 'the Sun-Stranded',
+    pos: { x: 4, z: -28 },
+    facing: 3.4,
+    color: 0xd9a441,
+    questIds: ['q_ember_intro'],
+    greeting:
+      'You feel it too, then, the heat leaking off that gate? I came through it, $N, and I could not go back. A realm where the sun never sets lies beyond, the Emberwastes, and it does not suffer the unready. Cut down the wolves the heat has driven to this road, prove your steel, and I will open the way for you.',
+  },
   ember_trademaster: {
     id: 'ember_trademaster',
     name: 'Kessa',
@@ -502,6 +518,7 @@ export const EMBERWASTES_ITEMS: Record<string, ItemDef> = {
   // from the finale). Obsidian-edged blades, glass-scale mail, sun-bleached leathers.
   glassscale_mail: {
     id: 'glassscale_mail',
+    set: 'sunforged',
     name: 'Glassscale Hauberk',
     kind: 'armor',
     armorType: 'mail',
@@ -513,6 +530,7 @@ export const EMBERWASTES_ITEMS: Record<string, ItemDef> = {
   },
   sunbleached_leathers: {
     id: 'sunbleached_leathers',
+    set: 'sunforged',
     name: 'Sunbleached Leathers',
     kind: 'armor',
     armorType: 'leather',
@@ -524,6 +542,7 @@ export const EMBERWASTES_ITEMS: Record<string, ItemDef> = {
   },
   sunspun_robes: {
     id: 'sunspun_robes',
+    set: 'sunforged',
     name: 'Sunspun Robes',
     kind: 'armor',
     armorType: 'cloth',
@@ -535,6 +554,7 @@ export const EMBERWASTES_ITEMS: Record<string, ItemDef> = {
   },
   sunforged_blade: {
     id: 'sunforged_blade',
+    set: 'sunforged',
     name: 'Sunforged Blade',
     kind: 'weapon',
     slot: 'mainhand',
@@ -546,6 +566,7 @@ export const EMBERWASTES_ITEMS: Record<string, ItemDef> = {
   },
   sunforged_dagger: {
     id: 'sunforged_dagger',
+    set: 'sunforged',
     name: 'Sunforged Dagger',
     kind: 'weapon',
     slot: 'mainhand',
@@ -557,6 +578,7 @@ export const EMBERWASTES_ITEMS: Record<string, ItemDef> = {
   },
   sunforged_scepter: {
     id: 'sunforged_scepter',
+    set: 'sunforged',
     name: 'Sunforged Scepter',
     kind: 'weapon',
     slot: 'mainhand',
@@ -574,6 +596,24 @@ export const EMBERWASTES_ITEMS: Record<string, ItemDef> = {
 // ---------------------------------------------------------------------------
 
 export const EMBERWASTES_QUESTS: Record<string, QuestDef> = {
+  // The Bloomhaven intro: proves the player is ready and, once done (plus level 8),
+  // unlocks the heat-shimmer gate (EMBERWASTES_REALM.unlock.requiresQuest).
+  q_ember_intro: {
+    id: 'q_ember_intro',
+    name: 'The Heat-Shimmer Gate',
+    giverNpcId: 'zaida_sunstranded',
+    turnInNpcId: 'zaida_sunstranded',
+    text: "The gate's heat has driven the south-road wolves half-mad, $N, and until they are dealt with no one can camp here in peace, least of all me. Cull four of them and I will know your steel is ready for what waits beyond the shimmer.",
+    completionText:
+      'Steady hands and a clean kill. Good. The wastes will test you harder than any wolf, $N, but you have earned the crossing. Step through the shimmer when you are ready: the Caravanserai lies on the other side, and the Wayfinder there has need of someone like you.',
+    objectives: [
+      { type: 'kill', targetMobId: 'forest_wolf', count: 4, label: 'South-road wolves culled' },
+    ],
+    xpReward: 1500,
+    copperReward: 600,
+    itemRewards: {},
+    minLevel: 8,
+  },
   q_ember_ward1: {
     id: 'q_ember_ward1',
     name: 'Relight the Sun-Ward',
@@ -666,6 +706,7 @@ export const EMBERWASTES_QUESTS: Record<string, QuestDef> = {
 };
 
 export const EMBERWASTES_QUEST_ORDER = [
+  'q_ember_intro',
   'q_ember_ward1',
   'q_ember_ward2',
   'q_ember_ward3',

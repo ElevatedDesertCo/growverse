@@ -3040,6 +3040,19 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
     '大功告成，{playerName}。育母已然不动，仪式之火摇曳将熄，沙丘之上，太阳正滑向那久远以来从未触及的地平线。今夜，商队驿站将迎来它第一个真正的黄昏，以及第一个清凉的黎明。你把黑夜还给了余烬荒野。',
   'entities.quests.q_ember_finale.objectives.0.label': '已击杀圣甲虫育母',
   'entities.dungeons.the_buried_dynasty.name': '湮没王朝',
+  'entities.npcs.zaida_sunstranded.name': '扎伊达',
+  'entities.npcs.zaida_sunstranded.title': '困于烈日者',
+  'entities.npcs.zaida_sunstranded.greeting':
+    '这么说，你也感觉到了，那道门里渗出的热浪？我从那边过来的，{playerName}，却再也回不去了。门后是一片太阳永不落下的领域，余烬荒野，它不会容忍毫无准备的人。击杀那些被热浪逼到这条路上的野狼，证明你的钢铁，我便为你打开通路。',
+  'entities.quests.q_ember_intro.title': '热浪蒸腾之门',
+  'entities.quests.q_ember_intro.text':
+    '这道门的热浪已把南路的野狼逼得半疯，{playerName}，在处理掉它们之前，没人能在这里安心扎营，我更不能。清除其中四只，我便知道你的钢铁已足以应对蒸腾热浪之后所等待的一切。',
+  'entities.quests.q_ember_intro.completion':
+    '手不抖，杀得利落。很好。荒野对你的考验将远胜任何野狼，{playerName}，但你已赢得了穿越的资格。准备好了就踏过那片蒸腾热浪：商队驿站就在另一边，那里的寻路者正需要你这样的人。',
+  'entities.quests.q_ember_intro.objectives.0.label': '已清除的南路野狼',
+  'entities.itemSets.sunforged.name': '日铸全装',
+  'entities.itemSets.sunforged.bonus2': '耐力提高12点。',
+  'entities.itemSets.sunforged.bonus3': '耐力提高20点。',
   'entities.dungeons.the_buried_dynasty.enterText':
     '你越过摇曳将熄的仪式之火，向下潜入冰冷的砂岩，进入千万只圣甲虫干涩的窸窣声中，来到那与死去的太阳一同长埋着古老王朝的地方。',
   'entities.dungeons.the_buried_dynasty.leaveText':

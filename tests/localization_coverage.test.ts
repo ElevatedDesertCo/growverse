@@ -877,7 +877,7 @@ describe('i18n Localization Key Coverage', () => {
 
   it('should track item-set names and bonus text in the entity catalog', async () => {
     const itemSetEntries = entityTranslationManifest().filter((entry) => entry.group === 'itemSet');
-    expect(itemSetEntries).toHaveLength(7 * 3);
+    expect(itemSetEntries).toHaveLength(8 * 3); // 7 dungeon/raid families + the Sunforged set
     expect(missingEntityTranslationsForGroups(['itemSet'])).toHaveLength(0);
 
     for (const lang of ['zh_CN', 'zh_TW', 'ja_JP', 'ko_KR', 'ru_RU'] as const) {

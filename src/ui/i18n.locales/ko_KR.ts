@@ -3175,6 +3175,19 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
     '해냈군, {playerName}. 산란모는 미동도 없고, 의식의 불은 사그라들며, 사구 위로는 태양이 오랜 세월 닿지 못했던 지평선을 향해 미끄러져 내려가네. 오늘 밤 대상 숙소는 처음으로 진정한 황혼을, 그리고 처음으로 서늘한 새벽을 맞이할 걸세. 자네가 엠버웨이스트에 밤을 되돌려 주었네.',
   'entities.quests.q_ember_finale.objectives.0.label': '처치한 풍뎅이 산란모',
   'entities.dungeons.the_buried_dynasty.name': '파묻힌 왕조',
+  'entities.npcs.zaida_sunstranded.name': '자이다',
+  'entities.npcs.zaida_sunstranded.title': '태양에 발이 묶인 자',
+  'entities.npcs.zaida_sunstranded.greeting':
+    '그럼 자네도 느끼는군, 저 관문에서 새어 나오는 열기를? 나는 저것을 지나 이곳에 왔다네, {playerName}, 그리고 다시는 돌아갈 수 없었지. 저 너머에는 태양이 결코 지지 않는 영역이 있네, 엠버웨이스트라고 하지. 그곳은 준비되지 않은 자를 봐주지 않아. 열기에 쫓겨 이 길로 나온 늑대들을 베어 넘겨 자네의 강철을 증명하게. 그러면 내가 자네에게 길을 열어 주겠네.',
+  'entities.quests.q_ember_intro.title': '아지랑이 이는 관문',
+  'entities.quests.q_ember_intro.text':
+    '저 관문의 열기가 남쪽 길의 늑대들을 반쯤 미치게 만들었다네, {playerName}. 그것들을 처리하기 전까지는 아무도 여기서 편히 야영할 수 없지, 나조차도 말일세. 그중 넷을 처치하면 자네의 강철이 아지랑이 너머에서 기다리는 것에 맞설 준비가 되었음을 알 수 있을 걸세.',
+  'entities.quests.q_ember_intro.completion':
+    '흔들림 없는 손, 깔끔한 처치로군. 좋아. 황무지는 그 어떤 늑대보다도 혹독하게 자네를 시험할 걸세, {playerName}, 하지만 자네는 건너갈 자격을 얻었네. 준비가 되거든 아지랑이를 지나게. 그 건너편에 대상 숙소가 있고, 그곳의 길잡이가 자네 같은 사람을 필요로 한다네.',
+  'entities.quests.q_ember_intro.objectives.0.label': '처치한 남쪽 길 늑대',
+  'entities.itemSets.sunforged.name': '태양으로 벼린 갑주 일습',
+  'entities.itemSets.sunforged.bonus2': '체력이 12 증가합니다.',
+  'entities.itemSets.sunforged.bonus3': '체력이 20 증가합니다.',
   'entities.dungeons.the_buried_dynasty.enterText':
     '사그라드는 의식의 불을 지나, 자네는 차가운 사암 속으로, 수천 마리 풍뎅이의 메마른 사각거림 속으로 내려가네. 옛 왕조가 그 죽은 태양과 함께 묻힌 그 깊은 곳으로.',
   'entities.dungeons.the_buried_dynasty.leaveText':

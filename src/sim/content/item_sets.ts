@@ -23,6 +23,7 @@ export const SET_CROWNFORGED = 'crownforged'; // t2 plate, Strength
 export const SET_NIGHTTALON = 'nighttalon'; // t2 leather, Agility
 export const SET_SOULFLAME = 'soulflame'; // t2 cloth, caster
 export const SET_STORMCALLERS = 'stormcallers'; // t2 cloth (shaman), caster
+export const SET_SUNFORGED = 'sunforged'; // Emberwastes leveling set, cross-archetype
 
 // Archetype bonus tiers. Tiers stack (a 3-piece set grants both the 2- and
 // 3-piece bonuses); cast pushback reduction max-combines (see the resolver).
@@ -51,6 +52,14 @@ const CASTER_BONUSES: SetBonusTier[] = [
     text: 'You cannot be pushed back while casting (immune to cast pushback from damage).',
   },
 ];
+// The Sunforged set spans archetypes (its members are the archetype weapon + chest),
+// so its bonus is a universal stamina boon, endurance under the endless sun. Two
+// pieces are equippable today (weapon + chest); the 3-piece tier is aspirational,
+// like the tier-2 families, and lights up if more Sunforged pieces ever ship.
+const SUNFORGED_BONUSES: SetBonusTier[] = [
+  { pieces: 2, effect: { sta: 12 }, text: 'Increases Stamina by 12.' },
+  { pieces: 3, effect: { sta: 20 }, text: 'Increases Stamina by 20.' },
+];
 
 export const ITEM_SETS: Record<string, ItemSet> = {
   [SET_DEATHLORD]: { id: SET_DEATHLORD, name: 'Deathlord Battlegear', bonuses: STRENGTH_BONUSES },
@@ -72,6 +81,7 @@ export const ITEM_SETS: Record<string, ItemSet> = {
     name: "Stormcaller's Vestments",
     bonuses: CASTER_BONUSES,
   },
+  [SET_SUNFORGED]: { id: SET_SUNFORGED, name: 'Sunforged Panoply', bonuses: SUNFORGED_BONUSES },
 };
 
 // Fully-resolved set effect: every field defaulted so callers never branch on

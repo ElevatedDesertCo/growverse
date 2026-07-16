@@ -3042,6 +3042,19 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
     '大功告成，{playerName}。育母已然不動，儀式之火搖曳將熄，沙丘之上，太陽正滑向那久遠以來從未觸及的地平線。今夜，商隊驛站將迎來它第一個真正的黃昏，以及第一個清涼的黎明。你把黑夜還給了餘燼荒野。',
   'entities.quests.q_ember_finale.objectives.0.label': '已擊殺聖甲蟲育母',
   'entities.dungeons.the_buried_dynasty.name': '湮沒王朝',
+  'entities.npcs.zaida_sunstranded.name': '扎伊達',
+  'entities.npcs.zaida_sunstranded.title': '困於烈日者',
+  'entities.npcs.zaida_sunstranded.greeting':
+    '這麼說，你也感覺到了，那道門裡滲出的熱浪？我從那邊過來的，{playerName}，卻再也回不去了。門後是一片太陽永不落下的領域，餘燼荒野，它不會容忍毫無準備的人。擊殺那些被熱浪逼到這條路上的野狼，證明你的鋼鐵，我便為你打開通路。',
+  'entities.quests.q_ember_intro.title': '熱浪蒸騰之門',
+  'entities.quests.q_ember_intro.text':
+    '這道門的熱浪已把南路的野狼逼得半瘋，{playerName}，在處理掉牠們之前，沒人能在這裡安心紮營，我更不能。清除其中四隻，我便知道你的鋼鐵已足以應對蒸騰熱浪之後所等待的一切。',
+  'entities.quests.q_ember_intro.completion':
+    '手不抖，殺得俐落。很好。荒野對你的考驗將遠勝任何野狼，{playerName}，但你已贏得了穿越的資格。準備好了就踏過那片蒸騰熱浪：商隊驛站就在另一邊，那裡的尋路者正需要你這樣的人。',
+  'entities.quests.q_ember_intro.objectives.0.label': '已清除的南路野狼',
+  'entities.itemSets.sunforged.name': '日鑄全裝',
+  'entities.itemSets.sunforged.bonus2': '耐力提高12點。',
+  'entities.itemSets.sunforged.bonus3': '耐力提高20點。',
   'entities.dungeons.the_buried_dynasty.enterText':
     '你越過搖曳將熄的儀式之火，向下潛入冰冷的砂岩，進入千萬隻聖甲蟲乾澀的窸窣聲中，來到那與死去的太陽一同長埋著古老王朝的地方。',
   'entities.dungeons.the_buried_dynasty.leaveText':

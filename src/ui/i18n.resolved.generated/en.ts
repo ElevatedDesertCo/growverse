@@ -6231,6 +6231,11 @@ export const en: EnTranslations = {
         "title": "the Gravewarden",
         "greeting": "I buried most of these people myself, {playerName}, and now I put them back in the ground a second time. The grave-gate at the north end has not been sealed in a lifetime. Something below it is doing the raising."
       },
+      "zaida_sunstranded": {
+        "name": "Zaida",
+        "title": "the Sun-Stranded",
+        "greeting": "You feel it too, then, the heat leaking off that gate? I came through it, {playerName}, and I could not go back. A realm where the sun never sets lies beyond, the Emberwastes, and it does not suffer the unready. Cut down the wolves the heat has driven to this road, prove your steel, and I will open the way for you."
+      },
       "ember_trademaster": {
         "name": "Kessa",
         "title": "the Trade-Master",
@@ -7110,6 +7115,16 @@ export const en: EnTranslations = {
           }
         }
       },
+      "q_ember_intro": {
+        "title": "The Heat-Shimmer Gate",
+        "text": "The gate's heat has driven the south-road wolves half-mad, {playerName}, and until they are dealt with no one can camp here in peace, least of all me. Cull four of them and I will know your steel is ready for what waits beyond the shimmer.",
+        "completion": "Steady hands and a clean kill. Good. The wastes will test you harder than any wolf, {playerName}, but you have earned the crossing. Step through the shimmer when you are ready: the Caravanserai lies on the other side, and the Wayfinder there has need of someone like you.",
+        "objectives": {
+          "0": {
+            "label": "South-road wolves culled"
+          }
+        }
+      },
       "q_ember_ward1": {
         "title": "Relight the Sun-Ward",
         "text": "The first sun-ward stands broken on the dune road north of the Caravanserai, {playerName}, and Sand Stalkers have made a nest of its fallen stones. Cull six of them and gather three ward-shards from the wreck, and I can rebind the ward and give the dead one length of road they cannot walk.",
@@ -7454,6 +7469,11 @@ export const en: EnTranslations = {
         "name": "Stormcaller's Vestments",
         "bonus2": "Reduces cast pushback from damage by 50%.",
         "bonus3": "You cannot be pushed back while casting (immune to cast pushback from damage)."
+      },
+      "sunforged": {
+        "name": "Sunforged Panoply",
+        "bonus2": "Increases Stamina by 12.",
+        "bonus3": "Increases Stamina by 20."
       },
       "wyrmshadow": {
         "name": "Wyrmshadow Vestments",

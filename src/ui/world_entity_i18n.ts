@@ -171,6 +171,8 @@ const NPC_IDS = [
   // Hollowmere (Phase 1 region): the Wispford survivors
   'morvenna_hedgewitch',
   'gravewarden_holt',
+  // Emberwastes realm 1 (the Bloomhaven intro-giver)
+  'zaida_sunstranded',
   // Emberwastes realm 1 (the Caravanserai)
   'ember_trademaster',
   'ember_wayfinder',
@@ -264,7 +266,8 @@ const QUEST_IDS = [
   'q_hollowmere_crones',
   'q_hollowmere_sentinel',
   'q_hollowmere_pumpkin_king',
-  // Emberwastes realm 1 (the sun-ward chain)
+  // Emberwastes realm 1 (the Bloomhaven intro + sun-ward chain)
+  'q_ember_intro',
   'q_ember_ward1',
   'q_ember_ward2',
   'q_ember_ward3',

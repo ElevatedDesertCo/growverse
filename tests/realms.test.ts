@@ -85,10 +85,21 @@ describe('realms: realm-scoped terrain (M1.2)', () => {
   });
 });
 
+// Satisfy the Emberwastes unlock gate (level 8 + the intro quest done) so a test can
+// step through the portal. Mirrors what completing q_ember_intro at level 8 leaves.
+const qualifyForEmberwastes = (sim: Sim): void => {
+  sim.setPlayerLevel(8);
+  const meta = (
+    sim as unknown as { ctx: { resolve(): { meta: { questLog: Map<string, unknown> } } } }
+  ).ctx.resolve().meta;
+  meta.questLog.set('q_ember_intro', { questId: 'q_ember_intro', counts: [4], state: 'done' });
+};
+
 describe('realms: portal transition (M1.3)', () => {
   it('enterRealm teleports to the hub and leaveRealm returns to the overworld gate', () => {
     const sim = new Sim({ seed: 42, playerClass: 'warrior' });
     expect(sim.currentRealmId()).toBe('overworld');
+    qualifyForEmberwastes(sim);
 
     sim.enterRealm('emberwastes');
     const hub = sim.player.pos;
@@ -107,5 +118,30 @@ describe('realms: portal transition (M1.3)', () => {
     sim.enterRealm('nowhere');
     expect(sim.player.pos.x).toBe(before.x);
     expect(sim.player.pos.z).toBe(before.z);
+  });
+});
+
+describe('realms: unlock gate (M2 polish)', () => {
+  it('blocks a player who is under level or has not finished the intro quest', () => {
+    const sim = new Sim({ seed: 42, playerClass: 'warrior' });
+    const before = { ...sim.player.pos };
+    sim.enterRealm('emberwastes'); // level 1, no intro quest
+    expect(sim.currentRealmId()).toBe('overworld');
+    expect(sim.player.pos.x).toBe(before.x);
+    expect(sim.player.pos.z).toBe(before.z);
+  });
+
+  it('blocks a level-8 player who still lacks the intro quest', () => {
+    const sim = new Sim({ seed: 42, playerClass: 'warrior' });
+    sim.setPlayerLevel(8);
+    sim.enterRealm('emberwastes');
+    expect(sim.currentRealmId()).toBe('overworld');
+  });
+
+  it('admits a level-8 player who has finished the intro quest', () => {
+    const sim = new Sim({ seed: 42, playerClass: 'warrior' });
+    qualifyForEmberwastes(sim);
+    sim.enterRealm('emberwastes');
+    expect(sim.currentRealmId()).toBe('emberwastes');
   });
 });
