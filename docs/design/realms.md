@@ -174,10 +174,11 @@ Realm implications (fold into every realm):
   arc (q_ember_ward1 -> ward2 -> ward3 -> finale), the rare-seed loop (M1), and the
   Sunforged gear set (archetype-locked, distributed as arc + finale rewards).
   Shipped M2.1 (Glass Canyons), M2.2 (Cinderreach), M2.3 (The Buried Dynasty),
-  M2.4 (Sunforged set + reward retrofit). Remaining Emberwastes polish, tracked as
-  a follow-up: the Bloomhaven intro quest + portal unlock gating (minLevel 8 +
-  requiresQuest), a formal ITEM_SET bonus for the Sunforged pieces, and the
-  distinct desert biome art pass.
+  M2.4 (Sunforged set + reward retrofit), M2.5 (the Bloomhaven intro quest +
+  portal unlock gating, and the Sunforged Panoply set bonus). The only remaining
+  Emberwastes item is the distinct desert-biome art pass (all sub-zones currently
+  reuse the desert-styled vale biome); it is a visual-only lift with no gameplay
+  effect, deferred until the biome-table work is scheduled.
 - M3 - Generalize + Nexus: promote the hardcoding to a `RealmDef` registry, build
   the Bloomhaven Portal Nexus (a ring of realm portals), realm-scoped minimap,
   and the cross-realm rare-seed meta. Then stamp realm 2.
