@@ -115,6 +115,10 @@ const MOB_IDS = [
   'dust_scarab',
   'sand_stalker',
   'sunbleached_husk',
+  // Emberwastes realm 1 (The Glass Canyons)
+  'glassback_basilisk',
+  'canyon_shrike',
+  'mirage_djinn',
 ] as const;
 
 const NPC_IDS = [
@@ -163,6 +167,8 @@ const NPC_IDS = [
   'ember_trademaster',
   'ember_wayfinder',
   'ember_cultivator',
+  // Emberwastes realm 1 (the Glassmaker's Reach)
+  'ember_glassmaker',
 ] as const;
 
 const QUEST_IDS = [
@@ -252,6 +258,7 @@ const QUEST_IDS = [
   'q_hollowmere_pumpkin_king',
   // Emberwastes realm 1 (the sun-ward chain)
   'q_ember_ward1',
+  'q_ember_ward2',
 ] as const;
 
 const ZONE_IDS = ['eastbrook_vale', 'mirefen_marsh', 'thornpeak_heights', 'the_dam'] as const;

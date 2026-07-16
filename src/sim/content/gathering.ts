@@ -93,6 +93,16 @@ export const HARVEST_NODES: Record<string, HarvestNodeDef> = {
       { itemId: 'common_seed', weight: 1 },
     ],
   },
+  // The Glass Canyons obsidian veins (Mining): the realm's own mineral seam, worked
+  // for ember essence with a chance at the upgrade-bench shard.
+  obsidian_vein: {
+    id: 'obsidian_vein',
+    profession: 'mining',
+    yields: [
+      { itemId: 'ember_essence', weight: 3 },
+      { itemId: 'corruption_shard', weight: 1 },
+    ],
+  },
 };
 
 // Node placements, seeded by biome: Bloomhaven Vale grows bloom/ember essence
@@ -227,6 +237,18 @@ export const HARVEST_NODE_SPAWNS: HarvestNodeSpawn[] = [
       { x: 12022, z: 38 },
       { x: 11982, z: 42 },
       { x: 12012, z: 52 },
+    ],
+  },
+  // The Glass Canyons obsidian veins (realm band, around the Glassmaker's Reach at
+  // z=340). Appended last to preserve every prior node's spawn-order entity ids.
+  {
+    nodeId: 'obsidian_vein',
+    itemId: 'ember_essence',
+    name: 'Obsidian Vein',
+    positions: [
+      { x: 12036, z: 356 },
+      { x: 11968, z: 372 },
+      { x: 12024, z: 316 },
     ],
   },
 ];

@@ -3000,6 +3000,20 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
     '护塔之石吞入碎片，燃起光芒，久远以来第一次，沙丘之路的一段投下了阴影。这只是一小片黑暗，{playerName}，但这是个开端。亡者不会跨过它。',
   'entities.quests.q_ember_ward1.objectives.0.label': '已清除的潜沙猎手',
   'entities.quests.q_ember_ward1.objectives.1.label': '已收集的日护碎片',
+  'entities.mobs.glassback_basilisk.name': '玻背蜥怪',
+  'entities.mobs.canyon_shrike.name': '峡谷伯劳',
+  'entities.mobs.mirage_djinn.name': '幻景镇尼',
+  'entities.npcs.ember_glassmaker.name': '瓦什提',
+  'entities.npcs.ember_glassmaker.title': '制玻者',
+  'entities.npcs.ember_glassmaker.greeting':
+    '在峡谷谷底要小心，{playerName}：玻背蜥怪会融入黑曜石中，直到扑到你身上才现身。我留在这里是为了矿脉，那是任何世界中最上乘的玻璃砂，但第二座日护塔就埋在此地以北的狭缝峡谷里，还有个披着热浪幻影的东西守着它。',
+  'entities.quests.q_ember_ward2.title': '被埋的日护塔',
+  'entities.quests.q_ember_ward2.text':
+    '第二座日护塔半埋在延伸地以北那座坍塌的狭缝峡谷中，{playerName}，玻背蜥怪已在它上方的碎石间筑巢。削减它们的数量，五只应该就够，再击杀八只峡谷伯劳，它们会尖叫着把任何挖掘者赶下山脊。为我清出一条路，我便能自己爬下去到日护塔那里。',
+  'entities.quests.q_ember_ward2.completion':
+    '山脊安静了，巢穴也毁了，{playerName}。我爬到了日护塔那里，清掉了它聚焦石上的积沙：三座中的第二座，和第一座一样黑暗。两座已重燃，还剩一座，而最后那座就在异教徒守着圣火的地方。',
+  'entities.quests.q_ember_ward2.objectives.0.label': '已清除的玻背蜥怪',
+  'entities.quests.q_ember_ward2.objectives.1.label': '已击杀的峡谷伯劳',
   'entities.realms.emberwastes.name': '余烬荒野',
   'worldContent.delveLockedChestInteract': '按 F 撬锁',
   'worldContent.delveRewardChestInteract': '按 F 领取战利品',

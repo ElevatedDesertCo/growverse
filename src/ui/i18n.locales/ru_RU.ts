@@ -3170,6 +3170,20 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
     'Камень оберега впитывает осколки и загорается, и впервые за долгий век один отрезок дюнной дороги отбрасывает тень. Это малая тьма, {playerName}, но это начало. Мёртвые не переступят её.',
   'entities.quests.q_ember_ward1.objectives.0.label': 'Истреблено песчаных охотников',
   'entities.quests.q_ember_ward1.objectives.1.label': 'Собрано осколков солнечного оберега',
+  'entities.mobs.glassback_basilisk.name': 'Стеклоспинный василиск',
+  'entities.mobs.canyon_shrike.name': 'Каньонный сорокопут',
+  'entities.mobs.mirage_djinn.name': 'Миражный джинн',
+  'entities.npcs.ember_glassmaker.name': 'Вашти',
+  'entities.npcs.ember_glassmaker.title': 'Стеклодел',
+  'entities.npcs.ember_glassmaker.greeting':
+    'Осторожнее на дне каньона, {playerName}: стеклоспинные василиски сливаются с обсидианом, пока не окажутся прямо на тебе. Я остаюсь ради жил, тончайшего стеклянного песка во всех мирах, но второй солнечный оберег погребён в щелевом каньоне к северу отсюда, и нечто, укутанное знойным маревом, стережёт его.',
+  'entities.quests.q_ember_ward2.title': 'Погребённый солнечный оберег',
+  'entities.quests.q_ember_ward2.text':
+    'Второй солнечный оберег наполовину погребён в обвалившемся щелевом каньоне к северу от Предела, {playerName}, и стеклоспинные василиски устроили логово в завале над ним. Проредить их, пятерых довольно, и срази восьмерых каньонных сорокопутов, что визгом гонят любого копателя с гребня. Расчисти мне путь, и я сам спущусь к оберегу.',
+  'entities.quests.q_ember_ward2.completion':
+    'Гребень тих, логово разбито, {playerName}. Я спустился к оберегу и очистил от песка его камень-средоточие: второй из трёх, тёмный, как был первый. Два зажжены, остался один, и последний там, где культ хранит свой огонь.',
+  'entities.quests.q_ember_ward2.objectives.0.label': 'Истреблено стеклоспинных василисков',
+  'entities.quests.q_ember_ward2.objectives.1.label': 'Повержено каньонных сорокопутов',
   'entities.realms.emberwastes.name': 'Пепельные Пустоши',
   'worldContent.delveLockedChestInteract': 'Нажмите F, чтобы вскрыть замок',
   'worldContent.delveRewardChestInteract': 'Нажмите F, чтобы забрать добычу',

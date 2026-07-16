@@ -3139,6 +3139,20 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
     '守りの石が破片を飲み込んで光を宿し、久しく絶えて以来はじめて、砂丘街道の一区間が影を落とした。ささやかな闇だ、{playerName}、だが始まりだ。死者はそれを越えられぬ。',
   'entities.quests.q_ember_ward1.objectives.0.label': '討伐した砂潜みの狩人',
   'entities.quests.q_ember_ward1.objectives.1.label': '集めた日守りの破片',
+  'entities.mobs.glassback_basilisk.name': 'ガラス背のバジリスク',
+  'entities.mobs.canyon_shrike.name': '峡谷のモズ',
+  'entities.mobs.mirage_djinn.name': '蜃気楼のジン',
+  'entities.npcs.ember_glassmaker.name': 'ヴァシュティ',
+  'entities.npcs.ember_glassmaker.title': 'ガラス作り',
+  'entities.npcs.ember_glassmaker.greeting':
+    '峡谷の底では気をつけろ、{playerName}。ガラス背のバジリスクは黒曜石に溶け込み、飛びかかるまで見えぬ。俺がここに留まるのは鉱脈のため、どの世界でも最上のガラス砂だからだ。だが二つ目の日守りはここより北のスロット峡谷に埋もれ、陽炎をまとった何かがそれを守っている。',
+  'entities.quests.q_ember_ward2.title': '埋もれた日守り',
+  'entities.quests.q_ember_ward2.text':
+    '二つ目の日守りは、リーチの北にある崩れたスロット峡谷に半ば埋もれている、{playerName}。ガラス背のバジリスクがその上の瓦礫に巣を作ってしまった。数を減らせ、五体でよかろう。そして峡谷のモズを八羽討ち取れ。あれは掘り手を金切り声で尾根から追い払う。道を切り開いてくれれば、俺自身が日守りまで降りていける。',
+  'entities.quests.q_ember_ward2.completion':
+    '尾根は静まり、巣は打ち砕かれた、{playerName}。俺は日守りまで降り、その焦点石から砂を払った。三つのうちの二つ目、最初と同じく暗かった。二つが灯り、残るは一つ。最後の一つは、教団が炎を守る場所にある。',
+  'entities.quests.q_ember_ward2.objectives.0.label': '討伐したガラス背のバジリスク',
+  'entities.quests.q_ember_ward2.objectives.1.label': '討ち取った峡谷のモズ',
   'entities.realms.emberwastes.name': 'エンバーウェイスト',
   'worldContent.delveLockedChestInteract': 'Fで錠を開ける',
   'worldContent.delveRewardChestInteract': 'Fで戦利品を受け取る',

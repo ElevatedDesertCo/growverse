@@ -5891,6 +5891,15 @@ export const zh_CN: EnTranslations = {
       "sunbleached_husk": {
         "name": "烈日枯壳"
       },
+      "glassback_basilisk": {
+        "name": "玻背蜥怪"
+      },
+      "canyon_shrike": {
+        "name": "峡谷伯劳"
+      },
+      "mirage_djinn": {
+        "name": "幻景镇尼"
+      },
       "ironvein_foreman": {
         "name": "铁脉工头"
       },
@@ -6200,6 +6209,11 @@ export const zh_CN: EnTranslations = {
         "name": "萨布拉",
         "title": "日栽者",
         "greeting": "{className}，这片绿洲能开出荒野别处无法孕育的花朵：日耀球茎。给我带来未处理的球茎和一点余烬精华，培育站便能从中育出一枚真正的稀有种子。"
+      },
+      "ember_glassmaker": {
+        "name": "瓦什提",
+        "title": "制玻者",
+        "greeting": "在峡谷谷底要小心，{playerName}：玻背蜥怪会融入黑曜石中，直到扑到你身上才现身。我留在这里是为了矿脉，那是任何世界中最上乘的玻璃砂，但第二座日护塔就埋在此地以北的狭缝峡谷里，还有个披着热浪幻影的东西守着它。"
       },
       "tidewatcher_ondrel": {
         "name": "翁德雷尔·凡恩",
@@ -7070,6 +7084,19 @@ export const zh_CN: EnTranslations = {
           },
           "1": {
             "label": "已收集的日护碎片"
+          }
+        }
+      },
+      "q_ember_ward2": {
+        "title": "被埋的日护塔",
+        "text": "第二座日护塔半埋在延伸地以北那座坍塌的狭缝峡谷中，{playerName}，玻背蜥怪已在它上方的碎石间筑巢。削减它们的数量，五只应该就够，再击杀八只峡谷伯劳，它们会尖叫着把任何挖掘者赶下山脊。为我清出一条路，我便能自己爬下去到日护塔那里。",
+        "completion": "山脊安静了，巢穴也毁了，{playerName}。我爬到了日护塔那里，清掉了它聚焦石上的积沙：三座中的第二座，和第一座一样黑暗。两座已重燃，还剩一座，而最后那座就在异教徒守着圣火的地方。",
+        "objectives": {
+          "0": {
+            "label": "已清除的玻背蜥怪"
+          },
+          "1": {
+            "label": "已击杀的峡谷伯劳"
           }
         }
       },

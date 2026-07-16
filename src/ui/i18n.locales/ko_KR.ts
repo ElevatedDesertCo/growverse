@@ -3135,6 +3135,20 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
     '수호석이 조각을 삼키고 빛을 머금으니, 오랜 세월 만에 처음으로 사구 길 한 구간이 그림자를 드리웠다네. 작은 어둠이지만, {playerName}, 이것이 시작일세. 죽은 자들은 그것을 넘지 못하네.',
   'entities.quests.q_ember_ward1.objectives.0.label': '처치한 모래 추적자',
   'entities.quests.q_ember_ward1.objectives.1.label': '모은 태양 수호석 조각',
+  'entities.mobs.glassback_basilisk.name': '유리등 바실리스크',
+  'entities.mobs.canyon_shrike.name': '협곡 때까치',
+  'entities.mobs.mirage_djinn.name': '신기루 진',
+  'entities.npcs.ember_glassmaker.name': '바슈티',
+  'entities.npcs.ember_glassmaker.title': '유리 세공사',
+  'entities.npcs.ember_glassmaker.greeting':
+    '협곡 바닥에서는 조심하게, {playerName}. 유리등 바실리스크는 흑요석에 녹아들어 덮칠 때까지 보이지 않는다네. 내가 여기 머무는 것은 광맥 때문이지, 어느 세계에서도 가장 고운 유리모래니까. 하지만 두 번째 태양 수호탑은 여기서 북쪽 슬롯 협곡에 묻혀 있고, 아지랑이를 두른 무언가가 그것을 지키고 있네.',
+  'entities.quests.q_ember_ward2.title': '파묻힌 태양 수호탑',
+  'entities.quests.q_ember_ward2.text':
+    '두 번째 태양 수호탑은 리치 북쪽의 무너진 슬롯 협곡에 반쯤 파묻혀 있다네, {playerName}. 유리등 바실리스크가 그 위 잔해에 굴을 틀었지. 그 수를 줄이게, 다섯이면 충분할 걸세. 그리고 능선에서 파는 자를 비명으로 쫓아내는 협곡 때까치 여덟 마리를 베어 넘기게. 길을 열어 주면 내가 직접 수호탑으로 내려갈 수 있네.',
+  'entities.quests.q_ember_ward2.completion':
+    '능선은 잠잠해지고 굴은 부서졌네, {playerName}. 나는 수호탑까지 내려가 그 초점석에서 모래를 걷어냈다네. 셋 중 둘째, 첫째만큼이나 어두웠지. 둘은 다시 밝혔고, 하나가 남았네. 마지막 하나는 교단이 불을 지키는 곳에 있지.',
+  'entities.quests.q_ember_ward2.objectives.0.label': '처치한 유리등 바실리스크',
+  'entities.quests.q_ember_ward2.objectives.1.label': '쓰러뜨린 협곡 때까치',
   'entities.realms.emberwastes.name': '엠버웨이스트',
   'worldContent.delveLockedChestInteract': 'F를 눌러 자물쇠 따기',
   'worldContent.delveRewardChestInteract': 'F를 눌러 전리품 받기',

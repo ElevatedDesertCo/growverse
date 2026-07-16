@@ -5891,6 +5891,15 @@ export const de_DE: EnTranslations = {
       "sunbleached_husk": {
         "name": "Sunbleached Husk"
       },
+      "glassback_basilisk": {
+        "name": "Glassback Basilisk"
+      },
+      "canyon_shrike": {
+        "name": "Canyon Shrike"
+      },
+      "mirage_djinn": {
+        "name": "Mirage Djinn"
+      },
       "ironvein_foreman": {
         "name": "Eisenader-Vorarbeiter"
       },
@@ -6200,6 +6209,11 @@ export const de_DE: EnTranslations = {
         "name": "Sabra",
         "title": "the Sun-Cultivator",
         "greeting": "The oasis blooms one flower the rest of the wastes cannot, {className}: the Sunflare Bulb. Bring me raw bulbs and a little ember essence, and the Grow Station will coax a true rare seed from them."
+      },
+      "ember_glassmaker": {
+        "name": "Vashti",
+        "title": "the Glassmaker",
+        "greeting": "Careful on the canyon floor, {playerName}: the Glassback Basilisks blend into the obsidian until they are on you. I stay for the veins, the finest glass-sand in any world, but the second sun-ward lies buried in the slot canyon north of here, and something wearing a heat-haze guards it."
       },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
@@ -7070,6 +7084,19 @@ export const de_DE: EnTranslations = {
           },
           "1": {
             "label": "Sun-Ward Shards gathered"
+          }
+        }
+      },
+      "q_ember_ward2": {
+        "title": "The Buried Sun-Ward",
+        "text": "The second sun-ward lies half-buried in the collapsed slot canyon north of the Reach, {playerName}, and the Glassback Basilisks have denned in the rubble atop it. Thin their number, five should do, and cut down eight of the Canyon Shrikes that scream any digger off the ridgeline. Clear me a path and I can climb down to the ward myself.",
+        "completion": "The ridge is quiet and the den is broken, {playerName}. I got down to the ward and cleared the sand from its focus-stone: the second of three, dark as the first was. Two relit, one to go, and the last is where the cult keeps its fire.",
+        "objectives": {
+          "0": {
+            "label": "Glassback Basilisks culled"
+          },
+          "1": {
+            "label": "Canyon Shrikes downed"
           }
         }
       },
