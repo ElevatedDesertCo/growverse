@@ -1,12 +1,20 @@
 // The Emberwastes: realm 1, a portal-reached desert dimension (see
-// docs/design/realms.md). This is the M1-prototype STUB: just the RealmDef so the
-// portal transition + realm-scoped terrain have a real target. It occupies a far
-// coordinate band with its own zone strip and terrain seed, and (for now) reuses
-// the `vale` biome, which already renders as a sun-baked desert. M1.4 fills it in
-// (more sub-zones, the Caravanserai town, mobs, the Sunflare-Bulb seed loop, the
-// quest arc, the dungeon) and places the actual portal objects.
+// docs/design/realms.md). This is the M1 SLICE: the Sunmourn Dunes sub-zone end to
+// end, so the realm is a real place to visit, fight through, and work a gathering
+// loop in, not just empty terrain. It occupies a far coordinate band with its own
+// zone strip and terrain seed, and (for now) reuses the `vale` biome, which already
+// renders as a sun-baked desert. Later milestones add the rest of the sub-zones
+// (Glass Canyons, Cinderreach, the Buried Dynasty dungeon), the full Sunforged gear
+// set, and the wider quest arc.
+//
+// Merged into the flat engine tables by sim/data.ts the same way temple.ts and
+// hollowmere.ts are: mobs, npcs, quests, items, and camps each wire in at their
+// merge point, with camps APPENDED LAST for world-gen determinism. The bloomspring
+// harvest node lives in content/gathering.ts and the grow_sunflare_bulb recipe in
+// content/crafting.ts (each system's canonical home); this module owns the items
+// those reference (sunflare_bulb_raw, sunflare_bulb).
 
-import type { RealmDef, ZoneDef } from '../types';
+import type { CampDef, ItemDef, MobTemplate, NpcDef, QuestDef, RealmDef, ZoneDef } from '../types';
 
 const SUNMOURN_DUNES: ZoneDef = {
   id: 'sunmourn_dunes',
@@ -34,3 +42,201 @@ export const EMBERWASTES_REALM: RealmDef = {
   entryPortalPos: { x: 0, z: -30 }, // the overworld-side gate (Bloomhaven south)
   unlock: { minLevel: 8 },
 };
+
+// ---------------------------------------------------------------------------
+// Mobs, the Sunmourn Dunes (level 8 to 11, the dune wildlife and the sun-dead)
+// ---------------------------------------------------------------------------
+
+export const EMBERWASTES_MOBS: Record<string, MobTemplate> = {
+  dust_scarab: {
+    id: 'dust_scarab',
+    name: 'Dust Scarab',
+    minLevel: 8,
+    maxLevel: 9,
+    family: 'beast',
+    hpBase: 40,
+    hpPerLevel: 15,
+    dmgBase: 7,
+    dmgPerLevel: 2.0,
+    attackSpeed: 1.9,
+    armorPerLevel: 10,
+    moveSpeed: 7.5,
+    aggroRadius: 10,
+    loot: [{ copper: 45, chance: 1 }],
+    scale: 0.8,
+    color: 0xc9a24b,
+  },
+  sand_stalker: {
+    id: 'sand_stalker',
+    name: 'Sand Stalker',
+    minLevel: 9,
+    maxLevel: 11,
+    family: 'beast',
+    hpBase: 52,
+    hpPerLevel: 18,
+    dmgBase: 9,
+    dmgPerLevel: 2.3,
+    attackSpeed: 2.0,
+    armorPerLevel: 12,
+    moveSpeed: 8,
+    aggroRadius: 12,
+    loot: [
+      { copper: 70, chance: 1 },
+      // The ward-shard is the q_ember_ward1 collectible; it only drops while the
+      // quest is active (matched by questId in quest_credit).
+      { itemId: 'ember_ward_shard', chance: 0.5, questId: 'q_ember_ward1' },
+    ],
+    scale: 1.05,
+    color: 0xb07a3c,
+  },
+  sunbleached_husk: {
+    id: 'sunbleached_husk',
+    name: 'Sunbleached Husk',
+    minLevel: 8,
+    maxLevel: 10,
+    family: 'undead',
+    hpBase: 60,
+    hpPerLevel: 20,
+    dmgBase: 9,
+    dmgPerLevel: 2.4,
+    attackSpeed: 2.5,
+    armorPerLevel: 14,
+    moveSpeed: 5.5,
+    aggroRadius: 11,
+    loot: [
+      { copper: 65, chance: 1 },
+      { itemId: 'ember_essence', chance: 0.25 },
+    ],
+    scale: 1.12,
+    color: 0xd8cba0,
+  },
+};
+
+// ---------------------------------------------------------------------------
+// NPCs, the Caravanserai (the oasis town at the portal arrival)
+// ---------------------------------------------------------------------------
+
+export const EMBERWASTES_NPCS: Record<string, NpcDef> = {
+  ember_trademaster: {
+    id: 'ember_trademaster',
+    name: 'Kessa',
+    title: 'the Trade-Master',
+    pos: { x: 11992, z: 22 },
+    facing: 1.2,
+    color: 0xc9a24b,
+    questIds: [],
+    vendorItems: [
+      'baked_bread',
+      'spring_water',
+      'roasted_boar',
+      'minor_healing_potion',
+      'minor_mana_potion',
+      'lesser_healing_potion',
+      'lesser_mana_potion',
+    ],
+    greeting:
+      'Water, salt, and steel, traveller, that is all the Caravanserai sells and all the dunes respect. Buy what you need before you walk out under that sun.',
+  },
+  ember_wayfinder: {
+    id: 'ember_wayfinder',
+    name: 'Oren',
+    title: 'the Wayfinder',
+    pos: { x: 12008, z: 22 },
+    facing: 2.0,
+    color: 0xb07a3c,
+    questIds: ['q_ember_ward1'],
+    greeting:
+      'You came through the gate, so you have already seen it, $N: the sun that will not set. The old sun-wards along the dune road are dark, and until they burn again the dead never rest. Help me relight the first of them.',
+  },
+  ember_cultivator: {
+    id: 'ember_cultivator',
+    name: 'Sabra',
+    title: 'the Sun-Cultivator',
+    pos: { x: 12000, z: 31 },
+    facing: 0,
+    color: 0x4e9a2f,
+    questIds: [],
+    // The Grow Station attendant here, so the whole seed loop closes at the hub:
+    // she also stocks the raw bulbs and ember essence a grower needs.
+    vendorItems: ['common_seed', 'ember_essence', 'sunflare_bulb_raw'],
+    crafting: 'grow',
+    greeting:
+      'The oasis blooms one flower the rest of the wastes cannot, $C: the Sunflare Bulb. Bring me raw bulbs and a little ember essence, and the Grow Station will coax a true rare seed from them.',
+  },
+};
+
+// ---------------------------------------------------------------------------
+// Items: the ward-shard collectible and the Sunflare-Bulb seed loop
+// ---------------------------------------------------------------------------
+
+export const EMBERWASTES_ITEMS: Record<string, ItemDef> = {
+  // q_ember_ward1 collectible: a shard of a shattered sun-ward, carried by the
+  // Sand Stalkers that nest in the broken wardstones.
+  ember_ward_shard: {
+    id: 'ember_ward_shard',
+    name: 'Sun-Ward Shard',
+    kind: 'quest',
+    quality: 'common',
+    sellValue: 0,
+    noVendorSell: true,
+    noMarketList: true,
+    questId: 'q_ember_ward1',
+  },
+  // Raw reagent gathered at the bloomspring oasis node (Herbalism), pressed with
+  // ember essence at the Grow Station into the rare Sunflare Bulb.
+  sunflare_bulb_raw: {
+    id: 'sunflare_bulb_raw',
+    name: 'Raw Sunflare Bulb',
+    kind: 'junk',
+    quality: 'common',
+    sellValue: 4,
+    buyValue: 20,
+  },
+  // The realm's signature rare seed, the payoff of the Emberwastes gathering loop.
+  sunflare_bulb: {
+    id: 'sunflare_bulb',
+    name: 'Sunflare Bulb',
+    kind: 'junk',
+    quality: 'rare',
+    sellValue: 90,
+  },
+};
+
+// ---------------------------------------------------------------------------
+// Quests, the sun-ward chain (M1 opens it; later milestones extend it)
+// ---------------------------------------------------------------------------
+
+export const EMBERWASTES_QUESTS: Record<string, QuestDef> = {
+  q_ember_ward1: {
+    id: 'q_ember_ward1',
+    name: 'Relight the Sun-Ward',
+    giverNpcId: 'ember_wayfinder',
+    turnInNpcId: 'ember_wayfinder',
+    text: 'The first sun-ward stands broken on the dune road north of the Caravanserai, $N, and Sand Stalkers have made a nest of its fallen stones. Cull six of them and gather three ward-shards from the wreck, and I can rebind the ward and give the dead one length of road they cannot walk.',
+    completionText:
+      'The ward-stone drinks the shards and catches light, and for the first time in a long age one stretch of the dune road throws a shadow. It is a small dark, $N, but it is a start. The dead will not cross it.',
+    objectives: [
+      { type: 'kill', targetMobId: 'sand_stalker', count: 6, label: 'Sand Stalkers culled' },
+      { type: 'collect', itemId: 'ember_ward_shard', count: 3, label: 'Sun-Ward Shards gathered' },
+    ],
+    xpReward: 2400,
+    copperReward: 950,
+    itemRewards: {},
+    minLevel: 8,
+  },
+};
+
+export const EMBERWASTES_QUEST_ORDER = ['q_ember_ward1'];
+
+// ---------------------------------------------------------------------------
+// World layout, the Sunmourn Dunes camps (append LAST in data.ts for world-gen
+// determinism; every position sits in the realm band around the Caravanserai).
+// ---------------------------------------------------------------------------
+
+export const EMBERWASTES_CAMPS: CampDef[] = [
+  { mobId: 'dust_scarab', center: { x: 12040, z: 70 }, radius: 14, count: 6 },
+  { mobId: 'dust_scarab', center: { x: 11955, z: -30 }, radius: 13, count: 5 },
+  { mobId: 'sand_stalker', center: { x: 12085, z: 130 }, radius: 12, count: 4 },
+  { mobId: 'sand_stalker', center: { x: 11915, z: 95 }, radius: 12, count: 4 },
+  { mobId: 'sunbleached_husk', center: { x: 12055, z: -95 }, radius: 12, count: 4 },
+];

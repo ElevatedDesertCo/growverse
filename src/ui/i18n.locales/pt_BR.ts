@@ -14,6 +14,9 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const pt_BR: Partial<Record<TranslationKey, string>> = {
+  'entities.items.ember_ward_shard.name': 'Fragmento do guardião solar',
+  'entities.items.sunflare_bulb_raw.name': 'Bulbo de clarão solar bruto',
+  'entities.items.sunflare_bulb.name': 'Bulbo de clarão solar',
   'entities.npcs.auctioneer_voss.greeting':
     'O Mercado Global também está aberto aqui, {className}. Compre de todos os aventureiros do reino ou exponha suas próprias mercadorias.',
   'entities.npcs.auctioneer_voss.name': 'Leiloeiro Voss',

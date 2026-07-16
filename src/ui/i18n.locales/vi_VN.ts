@@ -2,6 +2,9 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const vi_VN: Partial<Record<TranslationKey, string>> = {
+  'entities.items.ember_ward_shard.name': 'Mảnh Hộ Nhật',
+  'entities.items.sunflare_bulb_raw.name': 'Củ Lóa Nắng Thô',
+  'entities.items.sunflare_bulb.name': 'Củ Lóa Nắng',
   'entities.npcs.auctioneer_voss.greeting':
     'World Market cũng mở cửa ở đây, {className}. Hãy mua từ mọi nhà thám hiểm trong vương quốc, hoặc bày bán hàng hóa của riêng ngươi.',
   'entities.npcs.auctioneer_voss.name': 'Người Đấu Giá Voss',

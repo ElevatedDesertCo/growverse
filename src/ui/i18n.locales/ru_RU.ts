@@ -3146,6 +3146,30 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'worldContent.corpseName': '{name} (труп)',
   'worldContent.dungeonExitName': 'Выход из {name}',
   'worldContent.realmPortalReturn': 'Вернуться в основной мир',
+  'entities.items.ember_ward_shard.name': 'Осколок солнечного оберега',
+  'entities.items.sunflare_bulb_raw.name': 'Необработанная луковица солнечной вспышки',
+  'entities.items.sunflare_bulb.name': 'Луковица солнечной вспышки',
+  'entities.mobs.dust_scarab.name': 'Пыльный скарабей',
+  'entities.mobs.sand_stalker.name': 'Песчаный охотник',
+  'entities.mobs.sunbleached_husk.name': 'Выбеленная солнцем оболочка',
+  'entities.npcs.ember_trademaster.name': 'Кесса',
+  'entities.npcs.ember_trademaster.title': 'Торговый распорядитель',
+  'entities.npcs.ember_trademaster.greeting':
+    'Вода, соль и сталь, путник, вот всё, что продаёт караван-сарай, и всё, что уважают барханы. Купи что нужно, прежде чем выйдешь под то солнце.',
+  'entities.npcs.ember_wayfinder.title': 'Следопыт',
+  'entities.npcs.ember_wayfinder.greeting':
+    'Ты прошёл через врата, а значит, уже видел это, {playerName}: солнце, которое не заходит. Древние солнечные обереги вдоль дюнной дороги погасли, и пока они не загорятся вновь, мёртвые не найдут покоя. Помоги мне зажечь первый из них.',
+  'entities.npcs.ember_cultivator.name': 'Сабра',
+  'entities.npcs.ember_cultivator.title': 'Солнечный садовод',
+  'entities.npcs.ember_cultivator.greeting':
+    '{className}, оазис растит цветок, какого не вырастить остальным пустошам: луковицу солнечной вспышки. Принеси мне необработанные луковицы и немного эссенции угольков, и Станция взращивания выманит из них настоящее редкое семя.',
+  'entities.quests.q_ember_ward1.title': 'Зажги солнечный оберег',
+  'entities.quests.q_ember_ward1.text':
+    'Первый солнечный оберег стоит разбитым на дюнной дороге к северу от караван-сарая, {playerName}, и песчаные охотники устроили гнездо среди его павших камней. Истреби шестерых из них и собери три осколка оберега из обломков, и я смогу связать оберег заново и дать мёртвым один отрезок дороги, по которому им не пройти.',
+  'entities.quests.q_ember_ward1.completion':
+    'Камень оберега впитывает осколки и загорается, и впервые за долгий век один отрезок дюнной дороги отбрасывает тень. Это малая тьма, {playerName}, но это начало. Мёртвые не переступят её.',
+  'entities.quests.q_ember_ward1.objectives.0.label': 'Истреблено песчаных охотников',
+  'entities.quests.q_ember_ward1.objectives.1.label': 'Собрано осколков солнечного оберега',
   'entities.realms.emberwastes.name': 'Пепельные Пустоши',
   'worldContent.delveLockedChestInteract': 'Нажмите F, чтобы вскрыть замок',
   'worldContent.delveRewardChestInteract': 'Нажмите F, чтобы забрать добычу',
@@ -5317,7 +5341,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.garden.unlockLevel': 'Открывается на уровне {level}',
   'hudChrome.garden.open': 'Ухаживать за садом',
   'hudChrome.breeding.title': 'Генетика штаммов',
-  'hudChrome.breeding.hint': 'Скрестите два штамма, чтобы объединить их черты, или посадите один в саду.',
+  'hudChrome.breeding.hint':
+    'Скрестите два штамма, чтобы объединить их черты, или посадите один в саду.',
   'hudChrome.breeding.open': 'Вывести штаммы',
   'hudChrome.breeding.empty': 'Штаммов пока нет. Соберите Цветение, чтобы открыть первый штамм.',
   'hudChrome.breeding.landrace': 'Ландрас',
@@ -5329,7 +5354,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.breeding.plant': 'Посадить',
   'hudChrome.breeding.release': 'Отпустить',
   'hudChrome.breeding.breed': 'Скрестить',
-  'hudChrome.breeding.full': 'Библиотека штаммов заполнена. Отпустите штамм, чтобы освободить место.',
+  'hudChrome.breeding.full':
+    'Библиотека штаммов заполнена. Отпустите штамм, чтобы освободить место.',
   'hudChrome.reputation.tier.neutral': 'Нейтралитет',
   'hudChrome.reputation.tier.friendly': 'Дружелюбие',
   'hudChrome.reputation.tier.honored': 'Уважение',

@@ -2,6 +2,9 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const tr_TR: Partial<Record<TranslationKey, string>> = {
+  'entities.items.ember_ward_shard.name': 'Güneş Koruyucu Parçası',
+  'entities.items.sunflare_bulb_raw.name': 'Ham Güneş Parıltısı Yumrusu',
+  'entities.items.sunflare_bulb.name': 'Güneş Parıltısı Yumrusu',
   'entities.npcs.auctioneer_voss.greeting':
     'World Market burada da açık, {className}. Diyardaki her maceracıdan alışveriş yap ya da kendi mallarını sergile.',
   'entities.npcs.auctioneer_voss.name': 'Mezatçı Voss',

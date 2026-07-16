@@ -11,6 +11,9 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const es_ES: Partial<Record<TranslationKey, string>> = {
+  'entities.items.ember_ward_shard.name': 'Esquirla del guardián solar',
+  'entities.items.sunflare_bulb_raw.name': 'Bulbo de destello solar sin tratar',
+  'entities.items.sunflare_bulb.name': 'Bulbo de destello solar',
   // Stat tooltips inherit the es base: none of these keys needs a genuine Iberian
   // divergence (es already uses "hechizos" and neutral wording), so per the
   // divergence-only policy es_ES carries no hudChrome.statInfo.* overrides.

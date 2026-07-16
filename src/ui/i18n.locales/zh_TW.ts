@@ -2978,6 +2978,30 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'worldContent.corpseName': '{name}（屍體）',
   'worldContent.dungeonExitName': '{name}出口',
   'worldContent.realmPortalReturn': '返回主世界',
+  'entities.items.ember_ward_shard.name': '日護碎片',
+  'entities.items.sunflare_bulb_raw.name': '未處理日耀球莖',
+  'entities.items.sunflare_bulb.name': '日耀球莖',
+  'entities.mobs.dust_scarab.name': '塵土聖甲蟲',
+  'entities.mobs.sand_stalker.name': '潛沙獵手',
+  'entities.mobs.sunbleached_husk.name': '烈日枯殼',
+  'entities.npcs.ember_trademaster.name': '凱薩',
+  'entities.npcs.ember_trademaster.title': '貿易主管',
+  'entities.npcs.ember_trademaster.greeting':
+    '旅人，水、鹽與鋼鐵，商隊驛站只賣這些，也只有這些能得到沙丘的敬重。趁你還沒走到那烈日之下，先買好你需要的東西吧。',
+  'entities.npcs.ember_wayfinder.title': '尋路者',
+  'entities.npcs.ember_wayfinder.greeting':
+    '你既然穿過了傳送門，就已經見到了它，{playerName}：那永不落下的太陽。沙丘之路沿途的古老日護塔都已熄滅，只要它們不再燃起，亡者便永不安息。幫我重新點燃第一座吧。',
+  'entities.npcs.ember_cultivator.name': '薩布拉',
+  'entities.npcs.ember_cultivator.title': '日栽者',
+  'entities.npcs.ember_cultivator.greeting':
+    '{className}，這片綠洲能開出荒野別處無法孕育的花朵：日耀球莖。給我帶來未處理的球莖和一點餘燼精華，培育站便能從中育出一枚真正的稀有種子。',
+  'entities.quests.q_ember_ward1.title': '重燃日護塔',
+  'entities.quests.q_ember_ward1.text':
+    '{playerName}，第一座日護塔破損佇立在商隊驛站以北的沙丘之路上，潛沙獵手在它倒塌的石塊間築起了巢穴。清除其中六隻，並從殘骸中收集三塊日護碎片，我便能重新綁定這座日護塔，為亡者劃出一段它們無法踏足的道路。',
+  'entities.quests.q_ember_ward1.completion':
+    '護塔之石吞入碎片，燃起光芒，久遠以來第一次，沙丘之路的一段投下了陰影。這只是一小片黑暗，{playerName}，但這是個開端。亡者不會跨過它。',
+  'entities.quests.q_ember_ward1.objectives.0.label': '已清除的潛沙獵手',
+  'entities.quests.q_ember_ward1.objectives.1.label': '已收集的日護碎片',
   'entities.realms.emberwastes.name': '餘燼荒野',
   'worldContent.delveLockedChestInteract': '按 F 撬鎖',
   'worldContent.delveRewardChestInteract': '按 F 領取戰利品',

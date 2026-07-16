@@ -2,6 +2,9 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const da_DK: Partial<Record<TranslationKey, string>> = {
+  'entities.items.ember_ward_shard.name': 'Solværnsskår',
+  'entities.items.sunflare_bulb_raw.name': 'Rå solglødløg',
+  'entities.items.sunflare_bulb.name': 'Solglødløg',
   'entities.npcs.auctioneer_voss.greeting':
     'Verdensmarkedet er også åbent her, {className}. Køb fra alle eventyrere i riget, eller læg dine egne varer frem.',
   'entities.npcs.auctioneer_voss.name': 'Auktionarius Voss',

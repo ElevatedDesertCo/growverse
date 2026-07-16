@@ -485,6 +485,21 @@ export const CRAFT_RECIPES: CraftRecipe[] = [
     // Baked Beaver commune, which cultivating and breeding earn (Phase C).
     requiredRep: { factionId: 'baked_beaver', tier: 'honored' },
   },
+  // The Emberwastes rare seed: raw oasis bulbs pressed with ember essence at the
+  // Sun-Cultivator's Grow Station (see content/emberwastes.ts). Items defined in
+  // EMBERWASTES_ITEMS; the raw bulb is gathered from the bloomspring node.
+  {
+    id: 'grow_sunflare_bulb',
+    station: 'grow',
+    category: 'seed',
+    inputs: [
+      { itemId: 'sunflare_bulb_raw', count: 2 },
+      { itemId: 'ember_essence', count: 1 },
+    ],
+    copperCost: 60,
+    output: { itemId: 'sunflare_bulb', count: 1 },
+    requiredLevel: 10,
+  },
   // --- Grow Station: accessories ---------------------------------------------
   {
     id: 'craft_bloom_lamp',

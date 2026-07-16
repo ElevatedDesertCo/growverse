@@ -111,6 +111,10 @@ const MOB_IDS = [
   'bonepile_horror',
   'pumpkin_spriteling',
   'grinning_king',
+  // Emberwastes realm 1 (Sunmourn Dunes)
+  'dust_scarab',
+  'sand_stalker',
+  'sunbleached_husk',
 ] as const;
 
 const NPC_IDS = [
@@ -155,6 +159,10 @@ const NPC_IDS = [
   // Hollowmere (Phase 1 region): the Wispford survivors
   'morvenna_hedgewitch',
   'gravewarden_holt',
+  // Emberwastes realm 1 (the Caravanserai)
+  'ember_trademaster',
+  'ember_wayfinder',
+  'ember_cultivator',
 ] as const;
 
 const QUEST_IDS = [
@@ -242,6 +250,8 @@ const QUEST_IDS = [
   'q_hollowmere_crones',
   'q_hollowmere_sentinel',
   'q_hollowmere_pumpkin_king',
+  // Emberwastes realm 1 (the sun-ward chain)
+  'q_ember_ward1',
 ] as const;
 
 const ZONE_IDS = ['eastbrook_vale', 'mirefen_marsh', 'thornpeak_heights', 'the_dam'] as const;

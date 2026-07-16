@@ -14,6 +14,9 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const es: Partial<Record<TranslationKey, string>> = {
+  'entities.items.ember_ward_shard.name': 'Fragmento del guardián solar',
+  'entities.items.sunflare_bulb_raw.name': 'Bulbo de fulgor solar crudo',
+  'entities.items.sunflare_bulb.name': 'Bulbo de fulgor solar',
   'entities.npcs.auctioneer_voss.greeting':
     'El Mercado Mundial también está abierto aquí, {className}. Compra a cualquier aventurero del reino o pon a la venta tus propias mercancías.',
   'entities.npcs.auctioneer_voss.name': 'Subastador Voss',

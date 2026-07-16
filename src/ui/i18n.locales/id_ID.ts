@@ -2,6 +2,9 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const id_ID: Partial<Record<TranslationKey, string>> = {
+  'entities.items.ember_ward_shard.name': 'Serpihan Penjaga Surya',
+  'entities.items.sunflare_bulb_raw.name': 'Umbi Suar Surya Mentah',
+  'entities.items.sunflare_bulb.name': 'Umbi Suar Surya',
   'entities.npcs.auctioneer_voss.greeting':
     'World Market juga buka di sini, {className}. Belilah dari setiap petualang di alam ini, atau gelarlah daganganmu sendiri.',
   'entities.npcs.auctioneer_voss.name': 'Pelelang Voss',

@@ -5606,6 +5606,15 @@ export const ja_JP: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "ヴァンガードクローム"
+      },
+      "ember_ward_shard": {
+        "name": "日守りの破片"
+      },
+      "sunflare_bulb_raw": {
+        "name": "未加工の陽炎球根"
+      },
+      "sunflare_bulb": {
+        "name": "陽炎球根"
       }
     },
     "mobs": {
@@ -5872,6 +5881,15 @@ export const ja_JP: EnTranslations = {
       },
       "grinning_king": {
         "name": "パンプキン・キング"
+      },
+      "dust_scarab": {
+        "name": "砂塵のスカラベ"
+      },
+      "sand_stalker": {
+        "name": "砂潜みの狩人"
+      },
+      "sunbleached_husk": {
+        "name": "陽に晒された亡骸"
       },
       "ironvein_foreman": {
         "name": "鉄脈の現場監督"
@@ -6167,6 +6185,21 @@ export const ja_JP: EnTranslations = {
         "name": "Holt",
         "title": "墓守",
         "greeting": "ここに眠る者らのほとんどは、この俺自身が埋めたのだ、{playerName}。それを今、二度目にまた土へ還している。北の外れの墓門は、一生かかっても封じられておらぬ。その下の何かが、死者を呼び起こしておるのだ。"
+      },
+      "ember_trademaster": {
+        "name": "ケッサ",
+        "title": "交易長",
+        "greeting": "旅の者よ、水と塩と鋼、隊商宿が売るのはそれだけ、砂丘が敬うのもそれだけだ。あの陽の下へ歩み出す前に、必要なものを買っておくがいい。"
+      },
+      "ember_wayfinder": {
+        "name": "Oren",
+        "title": "道導き",
+        "greeting": "門を抜けてきたのなら、もう見たはずだ、{playerName}。沈むことのない太陽をな。砂丘街道沿いの古い日守りはどれも消え、それらが再び燃えぬ限り、死者は決して眠らぬ。まずは最初の一つに火を灯すのを手伝ってくれ。"
+      },
+      "ember_cultivator": {
+        "name": "サブラ",
+        "title": "陽の栽培者",
+        "greeting": "{className}よ、このオアシスは荒野の他のどこにも咲かせられぬ花を咲かせる。陽炎球根だ。未加工の球根と少しの残り火の精髄を持ってきておくれ。育成場がそこから本物の稀少な種を引き出してくれる。"
       },
       "tidewatcher_ondrel": {
         "name": "オンドレル・ヴェイン",
@@ -7024,6 +7057,19 @@ export const ja_JP: EnTranslations = {
         "objectives": {
           "0": {
             "label": "討ち倒したパンプキン・キング"
+          }
+        }
+      },
+      "q_ember_ward1": {
+        "title": "日守りに火を灯せ",
+        "text": "{playerName}、最初の日守りは隊商宿の北、砂丘街道に壊れて立っている。砂潜みの狩人が崩れた石の間に巣を作ってしまった。そのうち六体を討ち、瓦礫から日守りの破片を三つ集めてくれ。そうすれば守りを結び直し、死者が歩めぬ一区間の道を与えられる。",
+        "completion": "守りの石が破片を飲み込んで光を宿し、久しく絶えて以来はじめて、砂丘街道の一区間が影を落とした。ささやかな闇だ、{playerName}、だが始まりだ。死者はそれを越えられぬ。",
+        "objectives": {
+          "0": {
+            "label": "討伐した砂潜みの狩人"
+          },
+          "1": {
+            "label": "集めた日守りの破片"
           }
         }
       },

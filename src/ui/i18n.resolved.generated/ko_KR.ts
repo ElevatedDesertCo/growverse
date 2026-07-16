@@ -5606,6 +5606,15 @@ export const ko_KR: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "선봉대 크롬"
+      },
+      "ember_ward_shard": {
+        "name": "태양 수호석 조각"
+      },
+      "sunflare_bulb_raw": {
+        "name": "가공하지 않은 태양섬광 구근"
+      },
+      "sunflare_bulb": {
+        "name": "태양섬광 구근"
       }
     },
     "mobs": {
@@ -5872,6 +5881,15 @@ export const ko_KR: EnTranslations = {
       },
       "grinning_king": {
         "name": "호박 왕"
+      },
+      "dust_scarab": {
+        "name": "모래먼지 풍뎅이"
+      },
+      "sand_stalker": {
+        "name": "모래 추적자"
+      },
+      "sunbleached_husk": {
+        "name": "햇볕에 바랜 잔해"
       },
       "ironvein_foreman": {
         "name": "철맥 감독관"
@@ -6167,6 +6185,21 @@ export const ko_KR: EnTranslations = {
         "name": "Holt",
         "title": "무덤지기",
         "greeting": "이 사람들 대부분을 내 손으로 묻었소, {playerName}. 그런데 이제 그들을 두 번째로 땅에 묻고 있구려. 북쪽 끝의 무덤문은 한평생 봉인된 적이 없소. 그 아래 무언가가 죽은 자들을 일으키고 있소."
+      },
+      "ember_trademaster": {
+        "name": "케사",
+        "title": "교역장",
+        "greeting": "나그네여, 물과 소금과 강철, 대상 숙소가 파는 것은 그것뿐이며 사구가 존중하는 것도 그것뿐이라네. 저 태양 아래로 나서기 전에 필요한 것을 사 두게."
+      },
+      "ember_wayfinder": {
+        "name": "Oren",
+        "title": "길잡이",
+        "greeting": "문을 지나왔으니 이미 보았겠지, {playerName}. 지지 않는 태양을 말일세. 사구 길을 따라 늘어선 오래된 태양 수호탑은 모두 꺼졌고, 그것들이 다시 타오르기 전까지 죽은 자들은 결코 잠들지 못하네. 그 첫 번째 탑에 다시 불을 밝히도록 도와주게."
+      },
+      "ember_cultivator": {
+        "name": "사브라",
+        "title": "태양 재배자",
+        "greeting": "{className}이여, 이 오아시스는 다른 황무지에서는 피울 수 없는 꽃 하나를 피운다네. 바로 태양섬광 구근이지. 가공하지 않은 구근과 약간의 잔불 정수를 가져다주면, 재배소가 그것에서 진정한 희귀 씨앗을 이끌어낼 걸세."
       },
       "tidewatcher_ondrel": {
         "name": "온드렐 베인",
@@ -7024,6 +7057,19 @@ export const ko_KR: EnTranslations = {
         "objectives": {
           "0": {
             "label": "처치한 호박 왕"
+          }
+        }
+      },
+      "q_ember_ward1": {
+        "title": "태양 수호탑에 다시 불을 밝혀라",
+        "text": "{playerName}, 첫 번째 태양 수호탑은 대상 숙소 북쪽 사구 길에 부서진 채 서 있고, 모래 추적자들이 무너진 돌 사이에 둥지를 틀었다네. 그중 여섯을 처치하고 잔해에서 태양 수호석 조각 세 개를 모아 오게. 그러면 내가 수호탑을 다시 묶어, 죽은 자들이 걸을 수 없는 한 구간의 길을 그들에게 내어줄 수 있네.",
+        "completion": "수호석이 조각을 삼키고 빛을 머금으니, 오랜 세월 만에 처음으로 사구 길 한 구간이 그림자를 드리웠다네. 작은 어둠이지만, {playerName}, 이것이 시작일세. 죽은 자들은 그것을 넘지 못하네.",
+        "objectives": {
+          "0": {
+            "label": "처치한 모래 추적자"
+          },
+          "1": {
+            "label": "모은 태양 수호석 조각"
           }
         }
       },

@@ -3115,6 +3115,30 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'worldContent.corpseName': '{name}（死体）',
   'worldContent.dungeonExitName': '{name}の出口',
   'worldContent.realmPortalReturn': '地上世界へ戻る',
+  'entities.items.ember_ward_shard.name': '日守りの破片',
+  'entities.items.sunflare_bulb_raw.name': '未加工の陽炎球根',
+  'entities.items.sunflare_bulb.name': '陽炎球根',
+  'entities.mobs.dust_scarab.name': '砂塵のスカラベ',
+  'entities.mobs.sand_stalker.name': '砂潜みの狩人',
+  'entities.mobs.sunbleached_husk.name': '陽に晒された亡骸',
+  'entities.npcs.ember_trademaster.name': 'ケッサ',
+  'entities.npcs.ember_trademaster.title': '交易長',
+  'entities.npcs.ember_trademaster.greeting':
+    '旅の者よ、水と塩と鋼、隊商宿が売るのはそれだけ、砂丘が敬うのもそれだけだ。あの陽の下へ歩み出す前に、必要なものを買っておくがいい。',
+  'entities.npcs.ember_wayfinder.title': '道導き',
+  'entities.npcs.ember_wayfinder.greeting':
+    '門を抜けてきたのなら、もう見たはずだ、{playerName}。沈むことのない太陽をな。砂丘街道沿いの古い日守りはどれも消え、それらが再び燃えぬ限り、死者は決して眠らぬ。まずは最初の一つに火を灯すのを手伝ってくれ。',
+  'entities.npcs.ember_cultivator.name': 'サブラ',
+  'entities.npcs.ember_cultivator.title': '陽の栽培者',
+  'entities.npcs.ember_cultivator.greeting':
+    '{className}よ、このオアシスは荒野の他のどこにも咲かせられぬ花を咲かせる。陽炎球根だ。未加工の球根と少しの残り火の精髄を持ってきておくれ。育成場がそこから本物の稀少な種を引き出してくれる。',
+  'entities.quests.q_ember_ward1.title': '日守りに火を灯せ',
+  'entities.quests.q_ember_ward1.text':
+    '{playerName}、最初の日守りは隊商宿の北、砂丘街道に壊れて立っている。砂潜みの狩人が崩れた石の間に巣を作ってしまった。そのうち六体を討ち、瓦礫から日守りの破片を三つ集めてくれ。そうすれば守りを結び直し、死者が歩めぬ一区間の道を与えられる。',
+  'entities.quests.q_ember_ward1.completion':
+    '守りの石が破片を飲み込んで光を宿し、久しく絶えて以来はじめて、砂丘街道の一区間が影を落とした。ささやかな闇だ、{playerName}、だが始まりだ。死者はそれを越えられぬ。',
+  'entities.quests.q_ember_ward1.objectives.0.label': '討伐した砂潜みの狩人',
+  'entities.quests.q_ember_ward1.objectives.1.label': '集めた日守りの破片',
   'entities.realms.emberwastes.name': 'エンバーウェイスト',
   'worldContent.delveLockedChestInteract': 'Fで錠を開ける',
   'worldContent.delveRewardChestInteract': 'Fで戦利品を受け取る',

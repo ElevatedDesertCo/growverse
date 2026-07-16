@@ -2,6 +2,9 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const pl_PL: Partial<Record<TranslationKey, string>> = {
+  'entities.items.ember_ward_shard.name': 'Odłamek słonecznej straży',
+  'entities.items.sunflare_bulb_raw.name': 'Surowa bulwa słonecznego rozbłysku',
+  'entities.items.sunflare_bulb.name': 'Bulwa słonecznego rozbłysku',
   'entities.npcs.auctioneer_voss.greeting':
     'Rynek Świata jest otwarty także tutaj, {className}. Kupuj od każdego poszukiwacza przygód w królestwie albo wystaw własne towary.',
   'entities.npcs.auctioneer_voss.name': 'Aukcjoner Voss',

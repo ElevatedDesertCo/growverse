@@ -5606,6 +5606,15 @@ export const fr_CA: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "Avant-garde chrome"
+      },
+      "ember_ward_shard": {
+        "name": "Éclat de garde-soleil"
+      },
+      "sunflare_bulb_raw": {
+        "name": "Bulbe de flamboiement solaire brut"
+      },
+      "sunflare_bulb": {
+        "name": "Bulbe de flamboiement solaire"
       }
     },
     "mobs": {
@@ -5872,6 +5881,15 @@ export const fr_CA: EnTranslations = {
       },
       "grinning_king": {
         "name": "The Pumpkin King"
+      },
+      "dust_scarab": {
+        "name": "Dust Scarab"
+      },
+      "sand_stalker": {
+        "name": "Sand Stalker"
+      },
+      "sunbleached_husk": {
+        "name": "Sunbleached Husk"
       },
       "ironvein_foreman": {
         "name": "Contremaître Veinefer"
@@ -6167,6 +6185,21 @@ export const fr_CA: EnTranslations = {
         "name": "Holt",
         "title": "the Gravewarden",
         "greeting": "I buried most of these people myself, {playerName}, and now I put them back in the ground a second time. The grave-gate at the north end has not been sealed in a lifetime. Something below it is doing the raising."
+      },
+      "ember_trademaster": {
+        "name": "Kessa",
+        "title": "the Trade-Master",
+        "greeting": "Water, salt, and steel, traveller, that is all the Caravanserai sells and all the dunes respect. Buy what you need before you walk out under that sun."
+      },
+      "ember_wayfinder": {
+        "name": "Oren",
+        "title": "the Wayfinder",
+        "greeting": "You came through the gate, so you have already seen it, {playerName}: the sun that will not set. The old sun-wards along the dune road are dark, and until they burn again the dead never rest. Help me relight the first of them."
+      },
+      "ember_cultivator": {
+        "name": "Sabra",
+        "title": "the Sun-Cultivator",
+        "greeting": "The oasis blooms one flower the rest of the wastes cannot, {className}: the Sunflare Bulb. Bring me raw bulbs and a little ember essence, and the Grow Station will coax a true rare seed from them."
       },
       "tidewatcher_ondrel": {
         "name": "Ondrel Vane",
@@ -7024,6 +7057,19 @@ export const fr_CA: EnTranslations = {
         "objectives": {
           "0": {
             "label": "The Pumpkin King slain"
+          }
+        }
+      },
+      "q_ember_ward1": {
+        "title": "Relight the Sun-Ward",
+        "text": "The first sun-ward stands broken on the dune road north of the Caravanserai, {playerName}, and Sand Stalkers have made a nest of its fallen stones. Cull six of them and gather three ward-shards from the wreck, and I can rebind the ward and give the dead one length of road they cannot walk.",
+        "completion": "The ward-stone drinks the shards and catches light, and for the first time in a long age one stretch of the dune road throws a shadow. It is a small dark, {playerName}, but it is a start. The dead will not cross it.",
+        "objectives": {
+          "0": {
+            "label": "Sand Stalkers culled"
+          },
+          "1": {
+            "label": "Sun-Ward Shards gathered"
           }
         }
       },

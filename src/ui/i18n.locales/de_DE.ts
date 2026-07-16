@@ -14,6 +14,9 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const de_DE: Partial<Record<TranslationKey, string>> = {
+  'entities.items.ember_ward_shard.name': 'Sonnenhort-Splitter',
+  'entities.items.sunflare_bulb_raw.name': 'Rohe Sonnenglut-Knolle',
+  'entities.items.sunflare_bulb.name': 'Sonnenglut-Knolle',
   'entities.npcs.auctioneer_voss.greeting':
     'Der Weltmarkt ist auch hier geöffnet, {className}. Kauf bei jedem Abenteurer im Reich ein oder biete deine eigenen Waren feil.',
   'entities.npcs.auctioneer_voss.name': 'Auktionator Voss',

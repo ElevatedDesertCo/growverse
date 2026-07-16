@@ -901,6 +901,10 @@ export const en = {
       imperial_gold_armor_plate: { name: 'Imperial Gold' },
       vanguard_azure_armor_plate: { name: 'Vanguard Azure' },
       vanguard_chrome_armor_plate: { name: 'Vanguard Chrome' },
+      // Emberwastes realm 1: the ward-shard collectible + the Sunflare-Bulb seed loop.
+      ember_ward_shard: { name: 'Sun-Ward Shard' },
+      sunflare_bulb_raw: { name: 'Raw Sunflare Bulb' },
+      sunflare_bulb: { name: 'Sunflare Bulb' },
     },
     itemSets: itemSetEntityText,
     mobs: { ...worldNames.en.entities.mobs, ...mergeEntities.en.mobs, ...mergeExtra.en.mobs },

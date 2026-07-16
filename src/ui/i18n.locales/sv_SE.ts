@@ -2,6 +2,9 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const sv_SE: Partial<Record<TranslationKey, string>> = {
+  'entities.items.ember_ward_shard.name': 'Solvärnsskärva',
+  'entities.items.sunflare_bulb_raw.name': 'Rå solflammelök',
+  'entities.items.sunflare_bulb.name': 'Solflammelök',
   'entities.npcs.auctioneer_voss.greeting':
     'Growverse-marknaden är öppen även här, {className}. Köp från varje äventyrare i riket, eller lägg ut dina egna varor.',
   'entities.npcs.auctioneer_voss.name': 'Auktionsförrättare Voss',

@@ -5606,6 +5606,15 @@ export const zh_TW: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "先鋒鉻銀"
+      },
+      "ember_ward_shard": {
+        "name": "日護碎片"
+      },
+      "sunflare_bulb_raw": {
+        "name": "未處理日耀球莖"
+      },
+      "sunflare_bulb": {
+        "name": "日耀球莖"
       }
     },
     "mobs": {
@@ -5872,6 +5881,15 @@ export const zh_TW: EnTranslations = {
       },
       "grinning_king": {
         "name": "南瓜王"
+      },
+      "dust_scarab": {
+        "name": "塵土聖甲蟲"
+      },
+      "sand_stalker": {
+        "name": "潛沙獵手"
+      },
+      "sunbleached_husk": {
+        "name": "烈日枯殼"
       },
       "ironvein_foreman": {
         "name": "鐵脈工頭"
@@ -6167,6 +6185,21 @@ export const zh_TW: EnTranslations = {
         "name": "Holt",
         "title": "守墓人",
         "greeting": "這些人大多是我親手埋下的，{playerName}，如今我卻得再把他們送回土裡第二次。北端那道墓門，已有一輩子不曾封閉。底下有某種東西，正在喚起亡者。"
+      },
+      "ember_trademaster": {
+        "name": "凱薩",
+        "title": "貿易主管",
+        "greeting": "旅人，水、鹽與鋼鐵，商隊驛站只賣這些，也只有這些能得到沙丘的敬重。趁你還沒走到那烈日之下，先買好你需要的東西吧。"
+      },
+      "ember_wayfinder": {
+        "name": "Oren",
+        "title": "尋路者",
+        "greeting": "你既然穿過了傳送門，就已經見到了它，{playerName}：那永不落下的太陽。沙丘之路沿途的古老日護塔都已熄滅，只要它們不再燃起，亡者便永不安息。幫我重新點燃第一座吧。"
+      },
+      "ember_cultivator": {
+        "name": "薩布拉",
+        "title": "日栽者",
+        "greeting": "{className}，這片綠洲能開出荒野別處無法孕育的花朵：日耀球莖。給我帶來未處理的球莖和一點餘燼精華，培育站便能從中育出一枚真正的稀有種子。"
       },
       "tidewatcher_ondrel": {
         "name": "翁德瑞爾·韋恩",
@@ -7024,6 +7057,19 @@ export const zh_TW: EnTranslations = {
         "objectives": {
           "0": {
             "label": "已擊殺南瓜王"
+          }
+        }
+      },
+      "q_ember_ward1": {
+        "title": "重燃日護塔",
+        "text": "{playerName}，第一座日護塔破損佇立在商隊驛站以北的沙丘之路上，潛沙獵手在它倒塌的石塊間築起了巢穴。清除其中六隻，並從殘骸中收集三塊日護碎片，我便能重新綁定這座日護塔，為亡者劃出一段它們無法踏足的道路。",
+        "completion": "護塔之石吞入碎片，燃起光芒，久遠以來第一次，沙丘之路的一段投下了陰影。這只是一小片黑暗，{playerName}，但這是個開端。亡者不會跨過它。",
+        "objectives": {
+          "0": {
+            "label": "已清除的潛沙獵手"
+          },
+          "1": {
+            "label": "已收集的日護碎片"
           }
         }
       },

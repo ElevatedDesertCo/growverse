@@ -2,6 +2,9 @@
 import type { TranslationKey } from '../i18n.catalog';
 
 export const nl_NL: Partial<Record<TranslationKey, string>> = {
+  'entities.items.ember_ward_shard.name': 'Zonnewachtscherf',
+  'entities.items.sunflare_bulb_raw.name': 'Rauwe zonnevlambol',
+  'entities.items.sunflare_bulb.name': 'Zonnevlambol',
   'entities.npcs.auctioneer_voss.greeting':
     'De Wereldmarkt is hier ook geopend, {className}. Koop van elke avonturier in het rijk, of stal je eigen waren uit.',
   'entities.npcs.auctioneer_voss.name': 'Veilingmeester Voss',

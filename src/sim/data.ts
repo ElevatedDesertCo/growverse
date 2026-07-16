@@ -34,7 +34,15 @@ import {
   DELVE_MOBS,
 } from './content/delves';
 import { DUNGEON_DEFS, DUNGEON_MOBS } from './content/dungeons';
-import { EMBERWASTES_REALM } from './content/emberwastes';
+import {
+  EMBERWASTES_CAMPS,
+  EMBERWASTES_ITEMS,
+  EMBERWASTES_MOBS,
+  EMBERWASTES_NPCS,
+  EMBERWASTES_QUEST_ORDER,
+  EMBERWASTES_QUESTS,
+  EMBERWASTES_REALM,
+} from './content/emberwastes';
 import { HARVEST_NODE_SPAWNS, HARVEST_NODES } from './content/gathering';
 import { BASE_STRAIN_BY_SEED, BASE_STRAINS } from './content/genetics';
 import { GROUND_PICKUP_LINES } from './content/ground_pickup_lines';
@@ -169,6 +177,7 @@ export const ITEMS: Record<string, ItemDef> = mergeItems(
   TEMPLE_ITEMS,
   DELVE_ITEMS,
   CRAFT_ITEMS,
+  EMBERWASTES_ITEMS,
 );
 
 export {
@@ -190,6 +199,7 @@ export const MOBS: Record<string, MobTemplate> = {
   ...TEMPLE_DUNGEON_MOBS,
   ...HOLLOWMERE_MOBS,
   ...MAUSOLEUM_DUNGEON_MOBS,
+  ...EMBERWASTES_MOBS,
   ...DELVE_MOBS,
 };
 
@@ -200,6 +210,7 @@ export const NPCS: Record<string, NpcDef> = {
   ...ZONE4_NPCS,
   ...TEMPLE_NPCS,
   ...HOLLOWMERE_NPCS,
+  ...EMBERWASTES_NPCS,
   ...CRAFT_NPCS,
   brother_halven: BROTHER_HALVEN,
 };
@@ -211,6 +222,7 @@ export const QUESTS: Record<string, QuestDef> = {
   ...ZONE4_QUESTS,
   ...TEMPLE_QUESTS,
   ...HOLLOWMERE_QUESTS,
+  ...EMBERWASTES_QUESTS,
 };
 
 export const QUEST_ORDER: string[] = [
@@ -220,6 +232,7 @@ export const QUEST_ORDER: string[] = [
   ...ZONE4_QUEST_ORDER,
   ...TEMPLE_QUEST_ORDER,
   ...HOLLOWMERE_QUEST_ORDER,
+  ...EMBERWASTES_QUEST_ORDER,
 ];
 
 // Camps spawn in array order, each drawing world-gen RNG, so an entry inserted
@@ -242,6 +255,9 @@ export const CAMPS: CampDef[] = [
   // Hollowmere expansion (Phase 1 region): appended LAST so every pre-existing camp
   // (incl. the Phase 0 haunted fen) keeps its exact draw order; see hollowmere.ts.
   ...HOLLOWMERE_CAMPS,
+  // Emberwastes realm 1 (Sunmourn Dunes): appended LAST so every overworld camp keeps
+  // its exact world-gen draw order; these spawn in the far realm band. See emberwastes.ts.
+  ...EMBERWASTES_CAMPS,
 ];
 
 export const GROUND_OBJECTS: GroundObjectDef[] = [

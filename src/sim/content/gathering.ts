@@ -83,6 +83,16 @@ export const HARVEST_NODES: Record<string, HarvestNodeDef> = {
       { itemId: 'ember_essence', weight: 1 },
     ],
   },
+  // The Emberwastes oasis bloom (Herbalism): the raw Sunflare Bulb pressed into the
+  // realm's rare seed at the Grow Station (see content/emberwastes.ts + crafting.ts).
+  bloomspring: {
+    id: 'bloomspring',
+    profession: 'herbalism',
+    yields: [
+      { itemId: 'sunflare_bulb_raw', weight: 3 },
+      { itemId: 'common_seed', weight: 1 },
+    ],
+  },
 };
 
 // Node placements, seeded by biome: Bloomhaven Vale grows bloom/ember essence
@@ -204,6 +214,19 @@ export const HARVEST_NODE_SPAWNS: HarvestNodeSpawn[] = [
     positions: [
       { x: -48, z: 404 },
       { x: -66, z: 456 },
+    ],
+  },
+  // Emberwastes: the oasis blooms at the Caravanserai (realm coordinate band, around
+  // the hub at x=12000, z=20). Appended LAST so every overworld node keeps its exact
+  // spawn-order entity ids.
+  {
+    nodeId: 'bloomspring',
+    itemId: 'sunflare_bulb_raw',
+    name: 'Bloomspring',
+    positions: [
+      { x: 12022, z: 38 },
+      { x: 11982, z: 42 },
+      { x: 12012, z: 52 },
     ],
   },
 ];
