@@ -1,39 +1,46 @@
 import { describe, expect, it } from 'vitest';
 import {
-  HOLDER_TIER_DEFS, holderTierByIndex as sharedHolderTierByIndex,
+  HOLDER_TIER_DEFS,
   holderTierIndexForBalance,
+  holderTierByIndex as sharedHolderTierByIndex,
 } from '../src/sim/holder_tier';
 import {
-  HOLDER_TIERS, WOC_MAX_SUPPLY, holderTierForBalance, holderTierByIndex,
-  tierSupplyShare, holderTierBadgeDataUrl,
+  GROW_MAX_SUPPLY,
+  HOLDER_TIERS,
+  holderTierBadgeDataUrl,
+  holderTierByIndex,
+  holderTierForBalance,
+  tierSupplyShare,
 } from '../src/ui/holder_tier';
 
 describe('holder-tier ladder', () => {
   it('has eighteen rungs with strictly increasing thresholds and 1-based indexes', () => {
     expect(HOLDER_TIERS.length).toBe(18);
-    expect(WOC_MAX_SUPPLY).toBe(1_000_000_000);
+    expect(GROW_MAX_SUPPLY).toBe(1_000_000_000);
     for (let i = 0; i < HOLDER_TIERS.length; i++) {
       expect(HOLDER_TIERS[i].index).toBe(i + 1);
       if (i > 0) expect(HOLDER_TIERS[i].threshold).toBeGreaterThan(HOLDER_TIERS[i - 1].threshold);
     }
     expect(HOLDER_TIERS[0].threshold).toBe(1);
-    expect(HOLDER_TIERS[HOLDER_TIERS.length - 1].threshold).toBe(WOC_MAX_SUPPLY);
+    expect(HOLDER_TIERS[HOLDER_TIERS.length - 1].threshold).toBe(GROW_MAX_SUPPLY);
   });
 
-  it('fills the 2%-9% supply-whale band with one rung per whole percent (20M-90M $WOC)', () => {
+  it('fills the 2%-9% supply band with one rung per whole percent (20M-90M $GROW)', () => {
     for (let percent = 2; percent <= 9; percent++) {
       const tier = holderTierForBalance(percent * 10_000_000)!; // 20M..90M
       expect(tier).not.toBeNull();
       expect(tier.threshold).toBe(percent * 10_000_000);
       expect(tierSupplyShare(tier)).toBeCloseTo(percent / 100, 10); // 2%..9%
-      // The band sits strictly between Leviathan (1%) and Worldbearer (10%).
+      // The band sits strictly between Grovekeeper (1%) and Growmaster (10%).
       expect(tier.index).toBeGreaterThan(8);
       expect(tier.index).toBeLessThan(17);
     }
   });
 
   it('keeps UI presentation rungs aligned with the shared pure tier definitions', () => {
-    expect(HOLDER_TIERS.map(({ index, key, threshold }) => ({ index, key, threshold }))).toEqual(HOLDER_TIER_DEFS);
+    expect(HOLDER_TIERS.map(({ index, key, threshold }) => ({ index, key, threshold }))).toEqual(
+      HOLDER_TIER_DEFS,
+    );
   });
 
   it('returns null with no wallet or a sub-threshold balance', () => {
@@ -51,34 +58,34 @@ describe('holder-tier ladder', () => {
 
   it('treats each threshold as inclusive and just-below as the rung beneath', () => {
     // Exactly at a threshold maps up to that rung…
-    expect(holderTierForBalance(1)!.name).toBe('Ember');
-    expect(holderTierForBalance(10)!.name).toBe('Coinbearer');
-    expect(holderTierForBalance(1_000)!.name).toBe('Silverbound');
+    expect(holderTierForBalance(1)!.name).toBe('Seedling');
+    expect(holderTierForBalance(10)!.name).toBe('Sprout');
+    expect(holderTierForBalance(1_000)!.name).toBe('Gardener');
     // …and a hair below stays on the rung beneath (or null below the first).
     expect(holderTierForBalance(0.99)).toBeNull();
-    expect(holderTierForBalance(9.99)!.name).toBe('Ember');
-    expect(holderTierForBalance(999.99)!.name).toBe('Coppercrest');
+    expect(holderTierForBalance(9.99)!.name).toBe('Seedling');
+    expect(holderTierForBalance(999.99)!.name).toBe('Sapling');
   });
 
   it('maps balances to the highest qualifying rung', () => {
-    expect(holderTierForBalance(1)!.name).toBe('Ember');
-    expect(holderTierForBalance(9)!.name).toBe('Ember');
-    expect(holderTierForBalance(10)!.name).toBe('Coinbearer');
-    expect(holderTierForBalance(100)!.name).toBe('Coppercrest');
-    expect(holderTierForBalance(1_000)!.name).toBe('Silverbound');
-    expect(holderTierForBalance(10_000)!.name).toBe('Gilded');
-    expect(holderTierForBalance(100_000)!.name).toBe('Vaultwarden');
-    expect(holderTierForBalance(1_000_000)!.name).toBe('Whale');
-    expect(holderTierForBalance(10_000_000)!.name).toBe('Leviathan');
-    expect(holderTierForBalance(20_000_000)!.name).toBe('Tidelord');
-    expect(holderTierForBalance(50_000_000)!.name).toBe('Titanforged');
-    expect(holderTierForBalance(90_000_000)!.name).toBe('Worldforger');
-    expect(holderTierForBalance(100_000_000)!.name).toBe('Worldbearer');
-    expect(holderTierForBalance(1_000_000_000)!.name).toBe('Sovereign');
+    expect(holderTierForBalance(1)!.name).toBe('Seedling');
+    expect(holderTierForBalance(9)!.name).toBe('Seedling');
+    expect(holderTierForBalance(10)!.name).toBe('Sprout');
+    expect(holderTierForBalance(100)!.name).toBe('Sapling');
+    expect(holderTierForBalance(1_000)!.name).toBe('Gardener');
+    expect(holderTierForBalance(10_000)!.name).toBe('Tender of the Grove');
+    expect(holderTierForBalance(100_000)!.name).toBe('Cultivator');
+    expect(holderTierForBalance(1_000_000)!.name).toBe('Harvester');
+    expect(holderTierForBalance(10_000_000)!.name).toBe('Grovekeeper');
+    expect(holderTierForBalance(20_000_000)!.name).toBe('Bloomwarden');
+    expect(holderTierForBalance(50_000_000)!.name).toBe('Rootlord');
+    expect(holderTierForBalance(90_000_000)!.name).toBe('Worldtree');
+    expect(holderTierForBalance(100_000_000)!.name).toBe('Growmaster');
+    expect(holderTierForBalance(1_000_000_000)!.name).toBe('Sovereign of the Growverse');
   });
 
   it('clamps balances above max supply to the top rung', () => {
-    expect(holderTierForBalance(5_000_000_000)!.name).toBe('Sovereign');
+    expect(holderTierForBalance(5_000_000_000)!.name).toBe('Sovereign of the Growverse');
   });
 
   it('exposes a server-safe numeric tier lookup from the shared pure module', () => {
@@ -91,7 +98,7 @@ describe('holder-tier ladder', () => {
   it('reports supply share', () => {
     const sovereign = HOLDER_TIERS[17];
     const vaultwarden = HOLDER_TIERS[5];
-    expect(sovereign.name).toBe('Sovereign');
+    expect(sovereign.name).toBe('Sovereign of the Growverse');
     expect(tierSupplyShare(sovereign)).toBe(1);
     expect(tierSupplyShare(vaultwarden)).toBeCloseTo(0.0001, 10);
   });
@@ -126,20 +133,20 @@ describe('holder-tier ladder', () => {
     // In range: index n returns the rung whose .index === n.
     const ember = holderTierByIndex(1);
     expect(ember).toBeDefined();
-    expect(ember!.name).toBe('Ember');
+    expect(ember!.name).toBe('Seedling');
     expect(ember!.index).toBe(1);
 
     const gilded = holderTierByIndex(5);
-    expect(gilded!.name).toBe('Gilded');
+    expect(gilded!.name).toBe('Tender of the Grove');
     expect(gilded!.index).toBe(5);
 
     const sovereign = holderTierByIndex(18);
-    expect(sovereign!.name).toBe('Sovereign');
+    expect(sovereign!.name).toBe('Sovereign of the Growverse');
     expect(sovereign!.index).toBe(18);
 
     // A mid-band rung resolves to its name too.
     const titanforged = holderTierByIndex(12);
-    expect(titanforged!.name).toBe('Titanforged');
+    expect(titanforged!.name).toBe('Rootlord');
 
     // Out of range / zero / negative.
     expect(holderTierByIndex(0)).toBeUndefined();

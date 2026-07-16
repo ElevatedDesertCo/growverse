@@ -70,8 +70,15 @@ Why this model (vs spend-to-treasury or burn-to-buy):
 
 Same thresholds and mechanics as the shipped ladder in `src/sim/holder_tier.ts`
 (rungs 1-8 climb 10x, rungs 9-16 step by whole percents of supply, then 10% and
-100%); only the theme changes. Names below are the working set; final English copy
-can be tuned during integration, keys are the stable contract.
+100%); only the theme changes.
+
+> **IMPLEMENTATION NOTE (shipped):** the machine keys were NOT renamed. The
+> legacy upstream keys (`ember`, `coinbearer`, ... `sovereign`) are invisible to
+> players but feed CSS hooks, analytics, the i18n catalog keys, and all 20 locale
+> overlays, so renaming them is churn with no player-visible gain. The
+> cultivation names below shipped as the ENGLISH VALUES of
+> `wallet.holderTiers.<legacy-key>.name`/`.flavor`; the table's key column is the
+> original design proposal, kept for the name-to-threshold mapping.
 
 | Rung | Key | Threshold ($GROW) | Share | Working name |
 |---|---|---|---|---|
@@ -145,15 +152,15 @@ outcome a player competes over, it is not allowed.
 
 The engine was built for exactly this; integration is mostly renaming and content.
 
-1. **Mint config.** Generalize `WOC_MINT`/`SOLANA_RPC_URL` handling in
-   `server/woc_balance.ts` to the Growverse coin (env: `GROW_MINT`, keep `WOC_MINT`
-   as a deprecated fallback until cutover). One code path, one mint.
-2. **Ladder rebrand.** Re-key `src/sim/holder_tier.ts` to the Cultivation Ranks
-   (section 5). Tier keys feed CSS hooks and analytics, so land the rename atomically
-   with the presentation layer.
-3. **i18n.** All new player-visible strings (rank names, VIP quest text, store copy,
-   badge tooltips) are `t()` keys in English per the repo i18n workflow; sim/server
-   emit stable keys. The S3 guard applies.
+1. **Mint config. (SHIPPED)** `server/woc_balance.ts` reads `GROW_MINT` first,
+   with the legacy `WOC_MINT` names as fallbacks. One code path, one mint.
+2. **Ladder rebrand. (SHIPPED)** The Cultivation Ranks landed as English
+   name/flavor values on the stable legacy keys (see the section 5 note); the
+   supply constant is `GROW_MAX_SUPPLY`.
+3. **i18n. (SHIPPED for the rebrand)** Rank names and $GROW wallet copy landed as
+   English catalog values; the 20 locale overlays keep their existing (now stale)
+   translations for the maintainer to refill at release, per the repo workflow.
+   Future VIP quest/store strings follow the same rules; the S3 guard applies.
 4. **Holder quests.** Content records in `src/sim/content/` plus a server-side
    visibility gate keyed on the account's verified holder rung (the server already
    knows it; the gate is an interest/eligibility check, not sim logic, keeping

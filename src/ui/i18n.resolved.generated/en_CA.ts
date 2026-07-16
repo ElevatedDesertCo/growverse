@@ -182,7 +182,7 @@ export const en_CA: EnTranslations = {
       "close": "Close daily rewards",
       "loading": "Loading daily rewards...",
       "error": "Could not load daily rewards.",
-      "intro": "Hold enough WOC in your verified wallet to unlock daily rewards. Earn points with one daily spin and rotating tasks, then climb the daily leaderboard for a share of the prize pool.",
+      "intro": "Hold enough GROW in your verified wallet to unlock daily rewards. Earn points with one daily spin and rotating tasks, then climb the daily leaderboard for a share of the prize pool.",
       "prize": "Prize Pool",
       "reset": "Reset",
       "endsIn": "Ends in {time}",
@@ -190,7 +190,7 @@ export const en_CA: EnTranslations = {
       "remainingMinutes": "{minutes}m",
       "remainingHoursMinutes": "{hours}h {minutes}m",
       "score": "Score",
-      "walletValue": "Wallet Value (WOC)",
+      "walletValue": "Wallet Value (GROW)",
       "usd": "{amount} USD",
       "sol": "{amount} SOL",
       "unknown": "Unknown",
@@ -209,16 +209,16 @@ export const en_CA: EnTranslations = {
       "noLeaders": "No points yet.",
       "noHistory": "No payouts yet.",
       "walletConnectTitle": "Verify Wallet",
-      "walletConnectBody": "Verify a Solana wallet with WOC to unlock daily rewards.",
+      "walletConnectBody": "Verify a Solana wallet with GROW to unlock daily rewards.",
       "walletConnectButton": "Verify Wallet",
-      "walletHoldTitle": "Hold WOC",
-      "walletHoldBody": "Hold at least {amount} USD in WOC to unlock daily rewards.",
-      "walletPriceBody": "WOC pricing is unavailable right now. Check back shortly.",
+      "walletHoldTitle": "Hold GROW",
+      "walletHoldBody": "Hold at least {amount} USD in GROW to unlock daily rewards.",
+      "walletPriceBody": "GROW pricing is unavailable right now. Check back shortly.",
       "reason": {
         "eligible": "Rewards unlocked.",
-        "no_wallet": "Connect a wallet with at least $20 USD in WOC.",
-        "under_minimum": "Wallet is below the $20 USD WOC minimum.",
-        "price_unavailable": "WOC price is unavailable, rewards are temporarily locked."
+        "no_wallet": "Connect a wallet with at least $20 USD in GROW.",
+        "under_minimum": "Wallet is below the $20 USD GROW minimum.",
+        "price_unavailable": "GROW price is unavailable, rewards are temporarily locked."
       }
     },
     "theme": {
@@ -619,7 +619,7 @@ export const en_CA: EnTranslations = {
       "loggedOutPrompt": "Log in to manage your account.",
       "memberSince": "Member since {date}",
       "sectionSettings": "Account Settings",
-      "sectionWallet": "$WOC Wallet",
+      "sectionWallet": "$GROW Wallet",
       "sectionCharacters": "Characters",
       "sectionDanger": "Danger Zone",
       "changePassword": "Change Password",
@@ -2082,7 +2082,7 @@ export const en_CA: EnTranslations = {
     "twoFactorHint": "Enter the code from your authenticator app, or one of your recovery codes."
   },
   "wallet": {
-    "label": "$WOC Wallet",
+    "label": "$GROW Wallet",
     "connect": "Verify Wallet",
     "connectTitle": "Verify your Solana wallet",
     "connectAria": "Verify your Solana wallet",
@@ -2115,11 +2115,11 @@ export const en_CA: EnTranslations = {
     "linkedDisconnectedAria": "Wallet remains verified for your account. Reconnect to manage the wallet app.",
     "linkTitle": "Click to sign and link this wallet to your account.",
     "connectedTitle": "Connected. Log in to link this wallet to your account.",
-    "balanceTitle": "Verified Solana wallet $WOC balance",
+    "balanceTitle": "Verified Solana wallet $GROW balance",
     "balanceAria": "Verified Solana wallet balance: {balance}",
-    "balancePreviewTitle": "Connected wallet $WOC balance preview",
+    "balancePreviewTitle": "Connected wallet $GROW balance preview",
     "balancePreviewAria": "Connected wallet balance preview: {balance}. Link the wallet to verify holder flair.",
-    "balanceAmount": "{amount} $WOC",
+    "balanceAmount": "{amount} $GROW",
     "connected": "Connected: {address}",
     "connectedWithBalance": "Connected: {balance} - {address}",
     "connectedLinked": "Verified: {address}",
@@ -2139,80 +2139,80 @@ export const en_CA: EnTranslations = {
     "linkFailed": "Wallet verification failed.",
     "verifyFailed": "Wallet verification failed.",
     "unlinkFailed": "Could not unlink wallet.",
-    "holder": "$WOC holder",
-    "holderTierTitle": "{tier} $WOC holder",
+    "holder": "$GROW holder",
+    "holderTierTitle": "{tier} $GROW holder",
     "holderTiers": {
       "ember": {
-        "name": "Ember",
-        "flavor": "The spark is lit."
+        "name": "Seedling",
+        "flavor": "The first seed takes root."
       },
       "coinbearer": {
-        "name": "Coinbearer",
-        "flavor": "First coin in the war chest."
+        "name": "Sprout",
+        "flavor": "Green shoots break the soil."
       },
       "coppercrest": {
-        "name": "Coppercrest",
-        "flavor": "Coppers stacked, your name spoken."
+        "name": "Sapling",
+        "flavor": "Roots deepen, branches reach."
       },
       "silverbound": {
-        "name": "Silverbound",
-        "flavor": "Bound in silver, building the bag."
+        "name": "Gardener",
+        "flavor": "A plot of your own, tended daily."
       },
       "gilded": {
-        "name": "Gilded",
-        "flavor": "Gilded and grinning."
+        "name": "Tender of the Grove",
+        "flavor": "The grove knows your hands."
       },
       "vaultwarden": {
-        "name": "Vaultwarden",
-        "flavor": "Guarding a real vault now: 0.01% of all $WOC."
+        "name": "Cultivator",
+        "flavor": "A cultivator in earnest: 0.01% of all $GROW."
       },
       "whale": {
-        "name": "Whale",
-        "flavor": "The deep parts when you swim: 0.1% of supply."
+        "name": "Harvester",
+        "flavor": "Your harvests feed the realm: 0.1% of supply."
       },
       "leviathan": {
-        "name": "Leviathan",
-        "flavor": "Markets feel you move: 1% of supply."
+        "name": "Grovekeeper",
+        "flavor": "A living grove answers to you: 1% of supply."
       },
       "tidelord": {
-        "name": "Tidelord",
-        "flavor": "The tide answers your call: 2% of supply."
+        "name": "Bloomwarden",
+        "flavor": "The bloom answers your call: 2% of supply."
       },
       "stormcaller": {
-        "name": "Stormcaller",
-        "flavor": "Storms gather at your name: 3% of supply."
+        "name": "Verdant",
+        "flavor": "Life gathers at your name: 3% of supply."
       },
       "krakencrown": {
-        "name": "Krakencrown",
-        "flavor": "Crowned by the deep: 4% of supply."
+        "name": "Sunblessed",
+        "flavor": "Crowned by the sun itself: 4% of supply."
       },
       "titanforged": {
-        "name": "Titanforged",
-        "flavor": "Forged among titans: 5% of supply."
+        "name": "Rootlord",
+        "flavor": "Roots run beneath the realm: 5% of supply."
       },
       "starhoard": {
-        "name": "Starhoard",
-        "flavor": "A hoard that bends starlight: 6% of supply."
+        "name": "Wildbloom",
+        "flavor": "A bloom that bends starlight: 6% of supply."
       },
       "voidwarden": {
-        "name": "Voidwarden",
-        "flavor": "Keeper at the void's edge: 7% of supply."
+        "name": "Evergreen",
+        "flavor": "Seasons turn, you remain: 7% of supply."
       },
       "realmshaper": {
-        "name": "Realmshaper",
-        "flavor": "You reshape the realm: 8% of supply."
+        "name": "Groveshaper",
+        "flavor": "You reshape the living realm: 8% of supply."
       },
       "worldforger": {
-        "name": "Worldforger",
-        "flavor": "Forging a world of your own: 9% of supply."
+        "name": "Worldtree",
+        "flavor": "A canopy over a world of your own: 9% of supply."
       },
       "worldbearer": {
-        "name": "Worldbearer",
-        "flavor": "You carry a piece of the world: 10% of supply."
+        "name": "Growmaster",
+        "flavor": "You carry a tenth of the Growverse: 10% of supply."
       },
       "sovereign": {
-        "name": "Sovereign",
-        "flavor": "The realm bends the knee: the entire supply."
+        "name": "Sovereign of the Growverse",
+        "flavor": "The Growverse bends the knee: the entire supply."
       }
     }
   },
@@ -2239,7 +2239,7 @@ export const en_CA: EnTranslations = {
     "footerHandleWithRecruits": "@{handle} - {recruited}",
     "footerCta": "Forge your legend: {siteUrl}",
     "arenaStat": "Arena",
-    "shareTierBit": ", {tier}-rank $WOC holder",
+    "shareTierBit": ", {tier}-rank $GROW holder",
     "shareText": "I'm forging my legend in Growverse: Level {level} {className}{tierBit}. Join my realm:",
     "nativeShareTitle": "Growverse",
     "fileNameFallback": "player",
