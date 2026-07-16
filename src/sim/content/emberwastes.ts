@@ -217,6 +217,87 @@ export const EMBERWASTES_MOBS: Record<string, MobTemplate> = {
     scale: 1.1,
     color: 0xd9b45a,
   },
+
+  // --- Cinderreach (level 14 to 18): the volcanic scorchland and the Ember-cult ---
+  emberling: {
+    id: 'emberling',
+    name: 'Emberling',
+    minLevel: 14,
+    maxLevel: 15,
+    family: 'elemental',
+    hpBase: 58,
+    hpPerLevel: 18,
+    dmgBase: 11,
+    dmgPerLevel: 2.5,
+    attackSpeed: 1.7,
+    armorPerLevel: 12,
+    moveSpeed: 8,
+    aggroRadius: 12,
+    cinder: {
+      chance: 0.35,
+      perTick: 4,
+      interval: 2,
+      duration: 6,
+      name: 'Guttering Flame',
+      school: 'fire',
+    },
+    loot: [{ copper: 130, chance: 1 }],
+    scale: 0.7,
+    color: 0xe0662e,
+  },
+  cinder_golem: {
+    id: 'cinder_golem',
+    name: 'Cinder Golem',
+    minLevel: 16,
+    maxLevel: 16,
+    family: 'elemental',
+    elite: true,
+    hpBase: 220,
+    hpPerLevel: 28,
+    dmgBase: 15,
+    dmgPerLevel: 2.9,
+    attackSpeed: 2.6,
+    armorPerLevel: 22,
+    moveSpeed: 5.5,
+    aggroRadius: 13,
+    aoePulse: { min: 20, max: 30, radius: 8, every: 8, name: 'Molten Slag' },
+    loot: [
+      { copper: 520, chance: 1 },
+      { itemId: 'corruption_shard', chance: 0.5 },
+      { itemId: 'ember_essence', chance: 0.6 },
+    ],
+    scale: 1.4,
+    color: 0x8a3d2a,
+  },
+  ashen_zealot: {
+    id: 'ashen_zealot',
+    name: 'Ashen Zealot',
+    minLevel: 15,
+    maxLevel: 17,
+    family: 'humanoid',
+    hpBase: 92,
+    hpPerLevel: 21,
+    dmgBase: 12,
+    dmgPerLevel: 2.6,
+    attackSpeed: 2.3,
+    armorPerLevel: 14,
+    moveSpeed: 6.5,
+    aggroRadius: 13,
+    cinder: {
+      chance: 0.4,
+      perTick: 6,
+      interval: 2,
+      duration: 8,
+      name: 'Sunfire Brand',
+      school: 'fire',
+    },
+    loot: [
+      { copper: 175, chance: 1 },
+      { itemId: 'ember_essence', chance: 0.3 },
+    ],
+    scale: 1.02,
+    color: 0xb5482e,
+  },
 };
 
 // ---------------------------------------------------------------------------
@@ -278,7 +359,7 @@ export const EMBERWASTES_NPCS: Record<string, NpcDef> = {
     pos: { x: 12000, z: 340 },
     facing: 3.0,
     color: 0x7fae8a,
-    questIds: ['q_ember_ward2'],
+    questIds: ['q_ember_ward2', 'q_ember_ward3'],
     vendorItems: ['spring_water', 'roasted_boar', 'lesser_healing_potion', 'lesser_mana_potion'],
     greeting:
       'Careful on the canyon floor, $N: the Glassback Basilisks blend into the obsidian until they are on you. I stay for the veins, the finest glass-sand in any world, but the second sun-ward lies buried in the slot canyon north of here, and something wearing a heat-haze guards it.',
@@ -367,9 +448,27 @@ export const EMBERWASTES_QUESTS: Record<string, QuestDef> = {
     requiresQuest: 'q_ember_ward1',
     minLevel: 11,
   },
+  q_ember_ward3: {
+    id: 'q_ember_ward3',
+    name: 'The Cult of the Standing Sun',
+    giverNpcId: 'ember_glassmaker',
+    turnInNpcId: 'ember_glassmaker',
+    text: 'Now you know why the sun will not set, $N: the third sun-ward is no ruin. The Ember-cult keeps it lit on purpose, at their amphitheater up in Cinderreach, and every Ashen Zealot there feeds the fire that holds the day. Break their circle. Cut down ten of the zealots and shatter four of the Cinder Golems they raise from the slag, and I will know how deep this goes.',
+    completionText:
+      'Ten zealots down and their golems slagged, and still the sun hangs there, $N. So it is true: the ward here is not broken, it is being HELD, and the anchor is not on the surface at all. It runs down, into the old tomb-city under the dunes. That is where this ends.',
+    objectives: [
+      { type: 'kill', targetMobId: 'ashen_zealot', count: 10, label: 'Ashen Zealots cut down' },
+      { type: 'kill', targetMobId: 'cinder_golem', count: 4, label: 'Cinder Golems shattered' },
+    ],
+    xpReward: 4200,
+    copperReward: 1700,
+    itemRewards: {},
+    requiresQuest: 'q_ember_ward2',
+    minLevel: 14,
+  },
 };
 
-export const EMBERWASTES_QUEST_ORDER = ['q_ember_ward1', 'q_ember_ward2'];
+export const EMBERWASTES_QUEST_ORDER = ['q_ember_ward1', 'q_ember_ward2', 'q_ember_ward3'];
 
 // ---------------------------------------------------------------------------
 // World layout, the Sunmourn Dunes camps (append LAST in data.ts for world-gen
@@ -390,4 +489,11 @@ export const EMBERWASTES_CAMPS: CampDef[] = [
   { mobId: 'glassback_basilisk', center: { x: 12030, z: 420 }, radius: 16, count: 3 },
   { mobId: 'glassback_basilisk', center: { x: 11950, z: 440 }, radius: 12, count: 2 },
   { mobId: 'mirage_djinn', center: { x: 12000, z: 460 }, radius: 6, count: 1 },
+  // Cinderreach (480 < z < 780): emberling swarms in the ash drifts, the Ashen
+  // Cult massed at their amphitheater, Cinder Golems looming on the vents to the north.
+  { mobId: 'emberling', center: { x: 12045, z: 540 }, radius: 15, count: 6 },
+  { mobId: 'emberling', center: { x: 11950, z: 575 }, radius: 14, count: 6 },
+  { mobId: 'ashen_zealot', center: { x: 12000, z: 640 }, radius: 16, count: 6 },
+  { mobId: 'ashen_zealot', center: { x: 11945, z: 665 }, radius: 13, count: 5 },
+  { mobId: 'cinder_golem', center: { x: 12055, z: 710 }, radius: 14, count: 3 },
 ];

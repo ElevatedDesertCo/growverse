@@ -3153,6 +3153,16 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
     '尾根は静まり、巣は打ち砕かれた、{playerName}。俺は日守りまで降り、その焦点石から砂を払った。三つのうちの二つ目、最初と同じく暗かった。二つが灯り、残るは一つ。最後の一つは、教団が炎を守る場所にある。',
   'entities.quests.q_ember_ward2.objectives.0.label': '討伐したガラス背のバジリスク',
   'entities.quests.q_ember_ward2.objectives.1.label': '討ち取った峡谷のモズ',
+  'entities.mobs.emberling.name': '残り火の子',
+  'entities.mobs.cinder_golem.name': '燃え殻のゴーレム',
+  'entities.mobs.ashen_zealot.name': '灰の狂信者',
+  'entities.quests.q_ember_ward3.title': '沈まぬ太陽の教団',
+  'entities.quests.q_ember_ward3.text':
+    'なぜ太陽が沈まぬのか、これで分かったろう、{playerName}。三つ目の日守りは廃墟などではない。残り火教団がわざと燃やし続けているのだ。シンダーリーチの高みにある円形劇場でな。そこの灰の狂信者は一人残らず、昼を留めるあの炎に薪をくべている。奴らの円環を打ち破れ。狂信者を十人斬り伏せ、奴らが鉱滓から起こす燃え殻のゴーレムを四体砕け。そうすれば、これがどれほど根深いか分かる。',
+  'entities.quests.q_ember_ward3.completion':
+    '狂信者を十人倒し、ゴーレムも鉱滓に還した。それでもなお太陽はあそこに懸かったままだ、{playerName}。やはり本当だった。ここの日守りは壊れているのではない、無理やり保たれているのだ。そして要石は地表にすらない。地の底へ、砂丘の下の古い墓所の都へと続いている。すべてが終わるのはそこだ。',
+  'entities.quests.q_ember_ward3.objectives.0.label': '斬り伏せた灰の狂信者',
+  'entities.quests.q_ember_ward3.objectives.1.label': '砕いた燃え殻のゴーレム',
   'entities.realms.emberwastes.name': 'エンバーウェイスト',
   'worldContent.delveLockedChestInteract': 'Fで錠を開ける',
   'worldContent.delveRewardChestInteract': 'Fで戦利品を受け取る',

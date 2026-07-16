@@ -3149,6 +3149,16 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
     '능선은 잠잠해지고 굴은 부서졌네, {playerName}. 나는 수호탑까지 내려가 그 초점석에서 모래를 걷어냈다네. 셋 중 둘째, 첫째만큼이나 어두웠지. 둘은 다시 밝혔고, 하나가 남았네. 마지막 하나는 교단이 불을 지키는 곳에 있지.',
   'entities.quests.q_ember_ward2.objectives.0.label': '처치한 유리등 바실리스크',
   'entities.quests.q_ember_ward2.objectives.1.label': '쓰러뜨린 협곡 때까치',
+  'entities.mobs.emberling.name': '잔불 새끼',
+  'entities.mobs.cinder_golem.name': '잉걸 골렘',
+  'entities.mobs.ashen_zealot.name': '잿빛 광신도',
+  'entities.quests.q_ember_ward3.title': '지지 않는 태양의 교단',
+  'entities.quests.q_ember_ward3.text':
+    '이제 태양이 왜 지지 않는지 알겠지, {playerName}. 세 번째 태양 수호탑은 폐허가 아니라네. 잔불 교단이 신더리치 높은 곳의 원형 극장에서 일부러 불을 지피고 있는 것이지. 그곳의 잿빛 광신도는 하나같이 낮을 붙들어 두는 저 불에 땔감을 대고 있네. 그들의 원진을 깨뜨리게. 광신도 열을 베어 넘기고, 그들이 슬래그에서 일으키는 잉걸 골렘 넷을 부수게. 그러면 이 일이 얼마나 깊은지 알 수 있을 걸세.',
+  'entities.quests.q_ember_ward3.completion':
+    '광신도 열이 쓰러지고 그 골렘들도 슬래그로 돌아갔건만, 태양은 여전히 저기 걸려 있네, {playerName}. 그러니 사실이었어. 이곳의 수호탑은 부서진 것이 아니라, 억지로 붙들려 있는 것이지. 그리고 그 닻은 지표에 있지도 않네. 그것은 아래로, 사구 밑 오래된 무덤 도시로 뻗어 있다네. 이 모든 것이 끝나는 곳은 바로 거기일세.',
+  'entities.quests.q_ember_ward3.objectives.0.label': '베어 넘긴 잿빛 광신도',
+  'entities.quests.q_ember_ward3.objectives.1.label': '부순 잉걸 골렘',
   'entities.realms.emberwastes.name': '엠버웨이스트',
   'worldContent.delveLockedChestInteract': 'F를 눌러 자물쇠 따기',
   'worldContent.delveRewardChestInteract': 'F를 눌러 전리품 받기',

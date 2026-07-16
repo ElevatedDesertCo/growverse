@@ -3016,6 +3016,16 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
     '山脊安靜了，巢穴也毀了，{playerName}。我爬到了日護塔那裡，清掉了它聚焦石上的積沙：三座中的第二座，和第一座一樣黑暗。兩座已重燃，還剩一座，而最後那座就在異教徒守著聖火的地方。',
   'entities.quests.q_ember_ward2.objectives.0.label': '已清除的玻背蜥怪',
   'entities.quests.q_ember_ward2.objectives.1.label': '已擊殺的峽谷伯勞',
+  'entities.mobs.emberling.name': '餘燼崽',
+  'entities.mobs.cinder_golem.name': '煤渣魔像',
+  'entities.mobs.ashen_zealot.name': '灰燼狂信徒',
+  'entities.quests.q_ember_ward3.title': '不落之日的教團',
+  'entities.quests.q_ember_ward3.text':
+    '現在你明白太陽為何不落了，{playerName}：第三座日護塔並非廢墟。餘燼教團是故意讓它燃著的，就在他們位於燼達的圓形劇場裡，那裡每一個灰燼狂信徒都在給那把維繫白晝的火添薪。打破他們的儀式圈。擊殺十名狂信徒，再擊碎四尊他們從熔渣中喚起的煤渣魔像，我便能知道此事牽連有多深。',
+  'entities.quests.q_ember_ward3.completion':
+    '十名狂信徒已倒下，他們的魔像也化作了熔渣，可太陽依舊懸在那裡，{playerName}。看來是真的：這裡的日護塔並未損壞，而是被人硬生生地維繫著，而其錨點根本不在地表。它一直向下延伸，通向沙丘之下那座古老的陵墓之城。這一切將在那裡終結。',
+  'entities.quests.q_ember_ward3.objectives.0.label': '已擊殺的灰燼狂信徒',
+  'entities.quests.q_ember_ward3.objectives.1.label': '已擊碎的煤渣魔像',
   'entities.realms.emberwastes.name': '餘燼荒野',
   'worldContent.delveLockedChestInteract': '按 F 撬鎖',
   'worldContent.delveRewardChestInteract': '按 F 領取戰利品',

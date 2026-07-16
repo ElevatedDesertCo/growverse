@@ -9,14 +9,14 @@
     "applyTaunt pet auto-taunt arm (~8110)",
     "applyTaunt pet manual-taunt arm (petTaunt, ~4885)"
   ],
-  "draws": 1388,
-  "drawDigest": "7b82d638",
+  "draws": 1433,
+  "drawDigest": "559c0a47",
   "frames": [
     {
       "tick": 0,
       "time": 0,
-      "nextId": 622,
-      "state": "b8f49b71",
+      "nextId": 648,
+      "state": "0bc1fe35",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -34,7 +34,7 @@
           "counters": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 621,
+          "entityId": 647,
           "equipment": {
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
@@ -96,7 +96,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 57,
-          "id": 621,
+          "id": 647,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -140,9 +140,9 @@
     {
       "tick": 20,
       "time": 1,
-      "nextId": 622,
-      "state": "e1f7fc5b",
-      "events": "f00c2191",
+      "nextId": 648,
+      "state": "ebb05e0b",
+      "events": "aded7501",
       "rng": {
         "draws": 0,
         "digest": "811c9dc5"
@@ -151,8 +151,8 @@
     {
       "tick": 40,
       "time": 2,
-      "nextId": 622,
-      "state": "43b6193d",
+      "nextId": 648,
+      "state": "c43387bd",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -162,111 +162,111 @@
     {
       "tick": 60,
       "time": 3,
-      "nextId": 622,
-      "state": "02fa8238",
+      "nextId": 648,
+      "state": "f483b5a0",
       "events": "741638a5",
       "rng": {
-        "draws": 118,
-        "digest": "dad3cac4"
+        "draws": 123,
+        "digest": "dbcd8ca4"
       }
     },
     {
       "tick": 80,
       "time": 4,
-      "nextId": 622,
-      "state": "00ee37c3",
+      "nextId": 648,
+      "state": "1f9a9973",
       "events": "741638a5",
       "rng": {
-        "draws": 242,
-        "digest": "7b47d187"
+        "draws": 266,
+        "digest": "e56b71a6"
       }
     },
     {
       "tick": 100,
       "time": 5,
-      "nextId": 623,
-      "state": "bc064ef3",
-      "events": "647d9f08",
+      "nextId": 649,
+      "state": "41a002ef",
+      "events": "be741050",
       "rng": {
-        "draws": 367,
-        "digest": "d2ca9d9c"
+        "draws": 391,
+        "digest": "603b0b0d"
       }
     },
     {
       "tick": 120,
       "time": 6,
-      "nextId": 624,
-      "state": "2c2a255d",
-      "events": "b2c79fcb",
+      "nextId": 650,
+      "state": "5f8e1c04",
+      "events": "008cbe0d",
       "rng": {
-        "draws": 496,
-        "digest": "94099f1e"
+        "draws": 528,
+        "digest": "76b13c0c"
       }
     },
     {
       "tick": 140,
       "time": 7,
-      "nextId": 624,
-      "state": "f1ff69c8",
-      "events": "d5d55b2e",
+      "nextId": 650,
+      "state": "d398cbbd",
+      "events": "4f4e685e",
       "rng": {
-        "draws": 657,
-        "digest": "8fac4f95"
+        "draws": 705,
+        "digest": "3b93ff2e"
       }
     },
     {
       "tick": 160,
       "time": 8,
-      "nextId": 624,
-      "state": "d0b1a152",
-      "events": "265b25a4",
+      "nextId": 650,
+      "state": "c5c19b6b",
+      "events": "2dac3ef1",
       "rng": {
-        "draws": 835,
-        "digest": "e1364b0a"
+        "draws": 882,
+        "digest": "ccc20643"
       }
     },
     {
       "tick": 180,
       "time": 9,
-      "nextId": 624,
-      "state": "f2da151a",
-      "events": "181f33b6",
+      "nextId": 650,
+      "state": "296b1fb7",
+      "events": "5a98ee6c",
       "rng": {
-        "draws": 1023,
-        "digest": "01b368ee"
+        "draws": 1090,
+        "digest": "e306f6de"
       }
     },
     {
       "tick": 200,
       "time": 10,
-      "nextId": 624,
-      "state": "8828770a",
-      "events": "05f33b59",
+      "nextId": 650,
+      "state": "bd6a977f",
+      "events": "af695570",
       "rng": {
-        "draws": 1248,
-        "digest": "77ce0c6e"
+        "draws": 1307,
+        "digest": "10f57151"
       }
     },
     {
       "tick": 220,
       "time": 11,
-      "nextId": 624,
-      "state": "53907905",
-      "events": "bd811104",
+      "nextId": 650,
+      "state": "fc4309b3",
+      "events": "3a902c47",
       "rng": {
-        "draws": 1363,
-        "digest": "c4c4eee7"
+        "draws": 1410,
+        "digest": "71a85d12"
       }
     },
     {
       "tick": 220,
       "time": 11,
-      "nextId": 624,
-      "state": "32174348",
+      "nextId": 650,
+      "state": "8708526a",
       "events": "741638a5",
       "rng": {
-        "draws": 1363,
-        "digest": "c4c4eee7"
+        "draws": 1410,
+        "digest": "71a85d12"
       },
       "label": "pet-taunt",
       "players": [
@@ -282,7 +282,7 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 621,
+          "entityId": 647,
           "equipment": {
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
@@ -347,7 +347,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 6.05,
           "hp": 50000,
-          "id": 621,
+          "id": 647,
           "inCombat": true,
           "kind": "player",
           "level": 12,
@@ -381,7 +381,7 @@
             "str": 11
           },
           "swingTimer": 1.25,
-          "targetId": 623,
+          "targetId": 649,
           "templateId": "warlock",
           "weapon": {
             "max": 6,
@@ -390,7 +390,7 @@
           }
         },
         {
-          "aggroTargetId": 623,
+          "aggroTargetId": 649,
           "aiState": "idle",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -398,8 +398,8 @@
           "facing": 1.892547,
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
-          "hp": 348,
-          "id": 622,
+          "hp": 367,
+          "id": 648,
           "inCombat": true,
           "kind": "mob",
           "level": 12,
@@ -408,7 +408,7 @@
           "moveSpeed": 5,
           "onGround": true,
           "overpowerUntil": -1,
-          "ownerId": 621,
+          "ownerId": 647,
           "petAutoTaunt": true,
           "petMode": "aggressive",
           "petTauntTimer": 10,
@@ -435,7 +435,7 @@
           }
         },
         {
-          "aggroTargetId": 622,
+          "aggroTargetId": 648,
           "aiState": "attack",
           "critChance": 0.05,
           "detonateTimer": "Infinity",
@@ -443,11 +443,11 @@
           "facing": -1.249046,
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
-          "forcedTargetId": 622,
+          "forcedTargetId": 648,
           "forcedTargetTimer": 3,
           "hostile": true,
-          "hp": 49959,
-          "id": 623,
+          "hp": 49952,
+          "id": 649,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -477,17 +477,17 @@
             "armor": 70
           },
           "swingTimer": 0.05,
-          "tappedById": 621,
-          "targetId": 621,
+          "tappedById": 647,
+          "targetId": 647,
           "templateId": "forest_wolf",
           "threat": [
             [
-              621,
+              647,
               17
             ],
             [
-              622,
-              27
+              648,
+              34
             ]
           ],
           "weapon": {
@@ -501,12 +501,12 @@
     {
       "tick": 224,
       "time": 11.2,
-      "nextId": 624,
-      "state": "bf5f46c2",
-      "events": "7d6f354e",
+      "nextId": 650,
+      "state": "351d84d8",
+      "events": "c3fd3002",
       "rng": {
-        "draws": 1388,
-        "digest": "7b82d638"
+        "draws": 1433,
+        "digest": "559c0a47"
       },
       "label": "final",
       "players": [
@@ -522,7 +522,7 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 621,
+          "entityId": 647,
           "equipment": {
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
@@ -587,7 +587,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 6.25,
           "hp": 50000,
-          "id": 621,
+          "id": 647,
           "inCombat": true,
           "kind": "player",
           "level": 12,
@@ -621,7 +621,7 @@
             "str": 11
           },
           "swingTimer": 1.05,
-          "targetId": 623,
+          "targetId": 649,
           "templateId": "warlock",
           "weapon": {
             "max": 6,
@@ -630,7 +630,7 @@
           }
         },
         {
-          "aggroTargetId": 623,
+          "aggroTargetId": 649,
           "aiState": "idle",
           "combatTimer": 0.15,
           "critChance": 0.05,
@@ -639,8 +639,8 @@
           "facing": 1.570796,
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
-          "hp": 348,
-          "id": 622,
+          "hp": 367,
+          "id": 648,
           "inCombat": true,
           "kind": "mob",
           "level": 12,
@@ -649,7 +649,7 @@
           "moveSpeed": 5,
           "onGround": true,
           "overpowerUntil": -1,
-          "ownerId": 621,
+          "ownerId": 647,
           "petAutoTaunt": true,
           "petMode": "aggressive",
           "petTauntTimer": 9.8,
@@ -676,7 +676,7 @@
           }
         },
         {
-          "aggroTargetId": 622,
+          "aggroTargetId": 648,
           "aiState": "attack",
           "combatTimer": 0.2,
           "critChance": 0.05,
@@ -685,11 +685,11 @@
           "facing": -1.570796,
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
-          "forcedTargetId": 622,
+          "forcedTargetId": 648,
           "forcedTargetTimer": 2.8,
           "hostile": true,
-          "hp": 49946,
-          "id": 623,
+          "hp": 49939,
+          "id": 649,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -719,17 +719,17 @@
             "armor": 70
           },
           "swingTimer": 1.85,
-          "tappedById": 621,
-          "targetId": 621,
+          "tappedById": 647,
+          "targetId": 647,
           "templateId": "forest_wolf",
           "threat": [
             [
-              621,
+              647,
               17
             ],
             [
-              622,
-              40
+              648,
+              47
             ]
           ],
           "weapon": {

@@ -5900,6 +5900,15 @@ export const zh_CN: EnTranslations = {
       "mirage_djinn": {
         "name": "幻景镇尼"
       },
+      "emberling": {
+        "name": "余烬崽"
+      },
+      "cinder_golem": {
+        "name": "煤渣魔像"
+      },
+      "ashen_zealot": {
+        "name": "灰烬狂信徒"
+      },
       "ironvein_foreman": {
         "name": "铁脉工头"
       },
@@ -7097,6 +7106,19 @@ export const zh_CN: EnTranslations = {
           },
           "1": {
             "label": "已击杀的峡谷伯劳"
+          }
+        }
+      },
+      "q_ember_ward3": {
+        "title": "不落之日的教团",
+        "text": "现在你明白太阳为何不落了，{playerName}：第三座日护塔并非废墟。余烬教团是故意让它燃着的，就在他们位于烬达的圆形剧场里，那里每一个灰烬狂信徒都在给那把维系白昼的火添薪。打破他们的仪式圈。击杀十名狂信徒，再击碎四尊他们从熔渣中唤起的煤渣魔像，我便能知道此事牵连有多深。",
+        "completion": "十名狂信徒已倒下，他们的魔像也化作了熔渣，可太阳依旧悬在那里，{playerName}。看来是真的：这里的日护塔并未损坏，而是被人硬生生地维系着，而其锚点根本不在地表。它一直向下延伸，通向沙丘之下那座古老的陵墓之城。这一切将在那里终结。",
+        "objectives": {
+          "0": {
+            "label": "已击杀的灰烬狂信徒"
+          },
+          "1": {
+            "label": "已击碎的煤渣魔像"
           }
         }
       },

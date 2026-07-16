@@ -5900,6 +5900,15 @@ export const fr_CA: EnTranslations = {
       "mirage_djinn": {
         "name": "Mirage Djinn"
       },
+      "emberling": {
+        "name": "Emberling"
+      },
+      "cinder_golem": {
+        "name": "Cinder Golem"
+      },
+      "ashen_zealot": {
+        "name": "Ashen Zealot"
+      },
       "ironvein_foreman": {
         "name": "Contremaître Veinefer"
       },
@@ -7097,6 +7106,19 @@ export const fr_CA: EnTranslations = {
           },
           "1": {
             "label": "Canyon Shrikes downed"
+          }
+        }
+      },
+      "q_ember_ward3": {
+        "title": "The Cult of the Standing Sun",
+        "text": "Now you know why the sun will not set, {playerName}: the third sun-ward is no ruin. The Ember-cult keeps it lit on purpose, at their amphitheater up in Cinderreach, and every Ashen Zealot there feeds the fire that holds the day. Break their circle. Cut down ten of the zealots and shatter four of the Cinder Golems they raise from the slag, and I will know how deep this goes.",
+        "completion": "Ten zealots down and their golems slagged, and still the sun hangs there, {playerName}. So it is true: the ward here is not broken, it is being HELD, and the anchor is not on the surface at all. It runs down, into the old tomb-city under the dunes. That is where this ends.",
+        "objectives": {
+          "0": {
+            "label": "Ashen Zealots cut down"
+          },
+          "1": {
+            "label": "Cinder Golems shattered"
           }
         }
       },

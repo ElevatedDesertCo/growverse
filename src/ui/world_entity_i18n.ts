@@ -119,6 +119,10 @@ const MOB_IDS = [
   'glassback_basilisk',
   'canyon_shrike',
   'mirage_djinn',
+  // Emberwastes realm 1 (Cinderreach)
+  'emberling',
+  'cinder_golem',
+  'ashen_zealot',
 ] as const;
 
 const NPC_IDS = [
@@ -259,6 +263,7 @@ const QUEST_IDS = [
   // Emberwastes realm 1 (the sun-ward chain)
   'q_ember_ward1',
   'q_ember_ward2',
+  'q_ember_ward3',
 ] as const;
 
 const ZONE_IDS = ['eastbrook_vale', 'mirefen_marsh', 'thornpeak_heights', 'the_dam'] as const;

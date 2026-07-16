@@ -3184,6 +3184,16 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
     'Гребень тих, логово разбито, {playerName}. Я спустился к оберегу и очистил от песка его камень-средоточие: второй из трёх, тёмный, как был первый. Два зажжены, остался один, и последний там, где культ хранит свой огонь.',
   'entities.quests.q_ember_ward2.objectives.0.label': 'Истреблено стеклоспинных василисков',
   'entities.quests.q_ember_ward2.objectives.1.label': 'Повержено каньонных сорокопутов',
+  'entities.mobs.emberling.name': 'Угольное отродье',
+  'entities.mobs.cinder_golem.name': 'Шлаковый голем',
+  'entities.mobs.ashen_zealot.name': 'Пепельный фанатик',
+  'entities.quests.q_ember_ward3.title': 'Культ Стоящего Солнца',
+  'entities.quests.q_ember_ward3.text':
+    'Теперь ты знаешь, почему солнце не заходит, {playerName}: третий солнечный оберег вовсе не руина. Культ Углей намеренно держит его зажжённым, в своём амфитеатре наверху, в Пепельном Пределе, и каждый пепельный фанатик там питает огонь, что удерживает день. Разбей их круг. Сруби десятерых фанатиков и разбей четырёх шлаковых големов, которых они поднимают из шлака, и я пойму, как глубоко всё зашло.',
+  'entities.quests.q_ember_ward3.completion':
+    'Десять фанатиков пали, их големы обращены в шлак, а солнце всё так же висит там, {playerName}. Значит, это правда: оберег здесь не сломан, его УДЕРЖИВАЮТ, и якорь вовсе не на поверхности. Он уходит вниз, в древний город-усыпальницу под дюнами. Именно там всему этому придёт конец.',
+  'entities.quests.q_ember_ward3.objectives.0.label': 'Срублено пепельных фанатиков',
+  'entities.quests.q_ember_ward3.objectives.1.label': 'Разбито шлаковых големов',
   'entities.realms.emberwastes.name': 'Пепельные Пустоши',
   'worldContent.delveLockedChestInteract': 'Нажмите F, чтобы вскрыть замок',
   'worldContent.delveRewardChestInteract': 'Нажмите F, чтобы забрать добычу',
