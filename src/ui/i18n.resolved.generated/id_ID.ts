@@ -284,6 +284,13 @@ export const id_ID: EnTranslations = {
     "character": {
       "modelPreview": "Pratinjau Model Karakter"
     },
+    "professions": {
+      "title": "Professions",
+      "mining": "Mining",
+      "herbalism": "Herbalism",
+      "logging": "Logging",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
     "skipLinks": {
       "mainHud": "Lewati ke HUD Utama",
       "chat": "Lewati ke Obrolan"

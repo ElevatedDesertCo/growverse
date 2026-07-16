@@ -19,7 +19,7 @@
 
 import { audio } from '../game/audio';
 import { ITEMS } from '../sim/data';
-import type { EquipSlot } from '../sim/types';
+import type { EquipSlot, ProfessionId } from '../sim/types';
 import type { IWorld } from '../world_api';
 import { buildPaperdollView, type PaperdollSlot } from './char_view';
 import { markDialogRoot } from './dialog_root';
@@ -29,6 +29,7 @@ import { formatNumber, t } from './i18n';
 import { iconDataUrl, QUALITY_COLOR } from './icons';
 import type { PainterHostPresentation } from './painter_host';
 import { hydratePortraits, portraitChipHtml } from './portrait_chip';
+import { buildProfessionsView } from './professions_view';
 import type { StatId } from './stat_tooltip';
 import { svgIcon } from './ui_icons';
 
@@ -95,6 +96,15 @@ export interface CharWindowDeps extends PainterHostPresentation {
 const SHARE_GLYPH =
   '<svg class="pc-share-ico" viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M18 16.1a3 3 0 0 0-2.3 1.1l-6.7-3.9a3 3 0 0 0 0-2.6l6.7-3.9A3 3 0 1 0 15 4l-6.7 3.9a3 3 0 1 0 0 8.2L15 20a3 3 0 1 0 3-3.9z"/></svg>';
 
+// The gathering-profession skill names, keyed by ProfessionId, resolved through
+// t() at paint time (the ids themselves never surface to the player). `as const`
+// keeps the values as literal translation keys so t() type-checks them.
+const PROFESSION_LABEL_KEY = {
+  mining: 'hudChrome.professions.mining',
+  herbalism: 'hudChrome.professions.herbalism',
+  logging: 'hudChrome.professions.logging',
+} as const satisfies Record<ProfessionId, string>;
+
 export class CharWindow {
   private openerFocus: HTMLElement | null = null;
 
@@ -147,6 +157,7 @@ export class CharWindow {
     </div>`;
     html += `<div class="char-stats">${STAT_GRID.map((stat) => this.deps.statCellHtml(stat)).join('')}</div>`;
     html += this.deps.talentSummaryHtml();
+    html += this.professionsHtml(world);
     html += this.deps.progressionHtml(p.level);
     html += `<div class="pc-share-row"><button type="button" class="btn pc-share-btn" data-act="share-card">${SHARE_GLYPH}<span>${esc(t('playerCard.shareButton'))}</span></button></div>`;
     el.innerHTML = html;
@@ -175,6 +186,35 @@ export class CharWindow {
     this.deps.renderPreview();
     this.deps.renderSkinPicker();
     el.querySelector('[data-close]')?.addEventListener('click', () => this.close());
+  }
+
+  // The Professions group on the character sheet: one skill bar per gathering
+  // profession (Mining / Herbalism / Logging), matching the .char-progression
+  // chrome the spec and progression blocks use. The fill fraction rides a CSS
+  // custom property (--prof-pct), so no layout literal sits in this painter, and
+  // each row carries a localized aria label naming the skill and its ceiling.
+  private professionsHtml(world: IWorld): string {
+    const view = buildProfessionsView(world.professions);
+    const rows = view.rows
+      .map((row) => {
+        const name = t(PROFESSION_LABEL_KEY[row.id]);
+        const skill = formatNumber(row.skill, { maximumFractionDigits: 0 });
+        const max = formatNumber(row.max, { maximumFractionDigits: 0 });
+        const aria = t('hudChrome.professions.skillAria', { profession: name, skill, max });
+        return (
+          `<div class="prof-row" role="group" aria-label="${esc(aria)}">` +
+          `<span class="prof-name">${esc(name)}</span>` +
+          `<div class="prof-bar" style="--prof-pct:${row.pct}%"><div class="prof-bar-fill"></div></div>` +
+          `<span class="prof-skill">${esc(skill)} / ${esc(max)}</span>` +
+          `</div>`
+        );
+      })
+      .join('');
+    return (
+      `<div class="char-progression char-professions">` +
+      `<div class="cp-title">${t('hudChrome.professions.title')}</div>` +
+      `<div class="prof-list">${rows}</div></div>`
+    );
   }
 
   private buildSlotRow(cell: PaperdollSlot): HTMLElement {

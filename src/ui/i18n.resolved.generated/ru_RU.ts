@@ -284,6 +284,13 @@ export const ru_RU: EnTranslations = {
     "character": {
       "modelPreview": "Предпросмотр модели персонажа"
     },
+    "professions": {
+      "title": "Профессии",
+      "mining": "Горное дело",
+      "herbalism": "Травничество",
+      "logging": "Лесозаготовка",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
     "skipLinks": {
       "mainHud": "Перейти к основному интерфейсу",
       "chat": "Перейти к чату"

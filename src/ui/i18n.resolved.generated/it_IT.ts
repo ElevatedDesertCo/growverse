@@ -284,6 +284,13 @@ export const it_IT: EnTranslations = {
     "character": {
       "modelPreview": "Anteprima del modello del personaggio"
     },
+    "professions": {
+      "title": "Professions",
+      "mining": "Mining",
+      "herbalism": "Herbalism",
+      "logging": "Logging",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
     "skipLinks": {
       "mainHud": "Vai all'interfaccia principale",
       "chat": "Vai alla chat"

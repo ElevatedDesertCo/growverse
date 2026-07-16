@@ -284,6 +284,13 @@ export const ja_JP: EnTranslations = {
     "character": {
       "modelPreview": "キャラクターモデルプレビュー"
     },
+    "professions": {
+      "title": "専門技能",
+      "mining": "採掘",
+      "herbalism": "薬草学",
+      "logging": "伐採",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
     "skipLinks": {
       "mainHud": "メインHUDへスキップ",
       "chat": "チャットへスキップ"

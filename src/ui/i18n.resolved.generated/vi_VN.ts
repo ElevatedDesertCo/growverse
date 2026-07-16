@@ -284,6 +284,13 @@ export const vi_VN: EnTranslations = {
     "character": {
       "modelPreview": "Xem Trước Mô Hình Nhân Vật"
     },
+    "professions": {
+      "title": "Professions",
+      "mining": "Mining",
+      "herbalism": "Herbalism",
+      "logging": "Logging",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
     "skipLinks": {
       "mainHud": "Chuyển tới HUD Chính",
       "chat": "Chuyển tới Trò Chuyện"

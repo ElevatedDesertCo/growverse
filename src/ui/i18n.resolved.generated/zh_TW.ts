@@ -284,6 +284,13 @@ export const zh_TW: EnTranslations = {
     "character": {
       "modelPreview": "角色模型預覽"
     },
+    "professions": {
+      "title": "專業技能",
+      "mining": "採礦",
+      "herbalism": "草藥學",
+      "logging": "伐木",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
     "skipLinks": {
       "mainHud": "跳至主介面",
       "chat": "跳至聊天"

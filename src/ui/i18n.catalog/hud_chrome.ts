@@ -192,6 +192,19 @@ export const hudChromeStrings = {
   character: {
     modelPreview: 'Character Model Preview',
   },
+  // Professions panel on the character sheet: the gathering skills (Mining,
+  // Herbalism, Logging) each shown with a skill / ceiling bar. title and the three
+  // skill names are WORDY by M16 (each carries a four-plus consecutive-lowercase
+  // run), so the five non-Latin overlays carry real fills and the Latin overlays
+  // stay pending. skillAria has no wordy run (only tokens, a colon, and "of"), so it
+  // is English-only like the other accessible-name templates.
+  professions: {
+    title: 'Professions',
+    mining: 'Mining',
+    herbalism: 'Herbalism',
+    logging: 'Logging',
+    skillAria: '{profession}: {skill} of {max}',
+  },
   // Skip links: the first focusable elements on both game entries, a keyboard /
   // screen-reader shortcut to the main HUD and the chat log (mirrors the src/guide
   // .guide-skip precedent). English-only control labels (the hud_chrome exception);

@@ -284,6 +284,13 @@ export const tr_TR: EnTranslations = {
     "character": {
       "modelPreview": "Karakter Modeli Önizlemesi"
     },
+    "professions": {
+      "title": "Professions",
+      "mining": "Mining",
+      "herbalism": "Herbalism",
+      "logging": "Logging",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
     "skipLinks": {
       "mainHud": "Ana Arayüze Atla",
       "chat": "Sohbete Atla"

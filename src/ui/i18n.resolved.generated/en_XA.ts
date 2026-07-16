@@ -284,6 +284,13 @@ export const en_XA: EnTranslations = {
     "character": {
       "modelPreview": "[Çĥáŕáçţéŕ Ɱóðéļ Þŕéʋíéŵ]"
     },
+    "professions": {
+      "title": "[Þŕóƒéššíóñš]",
+      "mining": "[Ɱíñíñĝ]",
+      "herbalism": "[Ĥéŕƀáļíšɱ]",
+      "logging": "[Ļóĝĝíñĝ]",
+      "skillAria": "[{profession}: {skill} óƒ {max}]"
+    },
     "skipLinks": {
       "mainHud": "[Šķíþ ţó Ɱáíñ ĤÚÐ]",
       "chat": "[Šķíþ ţó Çĥáţ]"

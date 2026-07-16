@@ -1152,6 +1152,41 @@
     font-size: 11px;
     color: #b9ac82;
   }
+  /* Professions panel on the character sheet: a skill bar per gathering skill,
+     modeled on the breeding reputation rows (name / bar / value). */
+  .char-professions .prof-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 2px;
+  }
+  .prof-row {
+    display: grid;
+    grid-template-columns: 84px 1fr auto;
+    align-items: center;
+    gap: 8px;
+  }
+  .prof-name {
+    color: #efe4c2;
+    font-size: 12px;
+  }
+  .prof-bar {
+    height: 7px;
+    border-radius: 4px;
+    background: #120e06;
+    overflow: hidden;
+  }
+  .prof-bar-fill {
+    height: 100%;
+    width: var(--prof-pct, 0%);
+    background: linear-gradient(#c8a24a, #8a6a26);
+  }
+  .prof-skill {
+    color: #a89c78;
+    font-size: 11px;
+    text-align: right;
+    min-width: 44px;
+  }
 
   /* ---------- leaderboard ---------- */
   /* lifetime-XP leaderboard panel (modeled on the quest-log window) */

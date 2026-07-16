@@ -284,6 +284,13 @@ export const nl_NL: EnTranslations = {
     "character": {
       "modelPreview": "Voorbeeld van Personagemodel"
     },
+    "professions": {
+      "title": "Professions",
+      "mining": "Mining",
+      "herbalism": "Herbalism",
+      "logging": "Logging",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
     "skipLinks": {
       "mainHud": "Ga naar hoofd-HUD",
       "chat": "Ga naar chat"

@@ -284,6 +284,13 @@ export const ko_KR: EnTranslations = {
     "character": {
       "modelPreview": "캐릭터 모델 미리보기"
     },
+    "professions": {
+      "title": "전문 기술",
+      "mining": "채광",
+      "herbalism": "약초 채집",
+      "logging": "벌목",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
     "skipLinks": {
       "mainHud": "메인 HUD로 건너뛰기",
       "chat": "채팅으로 건너뛰기"

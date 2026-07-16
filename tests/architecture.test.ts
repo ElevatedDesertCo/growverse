@@ -147,6 +147,7 @@ const UI_PURE_CORES = [
   'src/ui/loot_settings_view.ts',
   'src/ui/market_view.ts',
   'src/ui/char_view.ts',
+  'src/ui/professions_view.ts',
   'src/ui/map_window_view.ts',
   'src/ui/arena_window_view.ts',
   'src/ui/leaderboard_view.ts',

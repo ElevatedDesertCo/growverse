@@ -284,6 +284,13 @@ export const sv_SE: EnTranslations = {
     "character": {
       "modelPreview": "Förhandsvisning av karaktärsmodell"
     },
+    "professions": {
+      "title": "Professions",
+      "mining": "Mining",
+      "herbalism": "Herbalism",
+      "logging": "Logging",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
     "skipLinks": {
       "mainHud": "Hoppa till huvud-HUD",
       "chat": "Hoppa till chatt"
