@@ -2345,6 +2345,8 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'entities.items.slow_bloom_lozenge.name': 'Pastille der langsamen Blüte',
   'entities.items.purple_petal.name': 'Purpurblütenblatt',
   'entities.items.golden_petal.name': 'Goldblütenblatt',
+  'entities.items.rough_timber.name': 'Rohholz',
+  'entities.items.copper_ore.name': 'Kupfererz',
   'entities.items.sableweb_slippers.name': 'Sableweb-Pantoffeln',
   'entities.items.simple_fishing_pole.name': 'Einfache Angel',
   'entities.items.tangled_weed.name': 'Verheddertes Kraut',

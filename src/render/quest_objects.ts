@@ -31,6 +31,10 @@ const QUEST_OBJECT_URLS: Record<string, string> = {
   bloom_extract: '/models/foliage/flower.glb',
   purple_petal: '/models/foliage/flower.glb',
   golden_petal: '/models/foliage/flower.glb',
+  // Logging + Mining harvest nodes: the CC0 resource props (a log stack, an ore-rock
+  // pile), so a Timber Stand reads as timber and a Copper Vein as ore at range.
+  rough_timber: '/models/resources/wood_log_stack.glb',
+  copper_ore: '/models/resources/stone_chunks_large.glb',
 };
 
 // The cannabis grow plant that sits on a garden bed, swapped as the plot matures. Three
@@ -104,6 +108,8 @@ const ITEM_MAT_OVERRIDES: Record<
   // Colored vale flower patches: tint the shared flower model per harvest variant.
   purple_petal: { color: 0x9a63c8, emissive: 0x3a1858, emissiveIntensity: 0.18 },
   golden_petal: { color: 0xd8b420, emissive: 0x5a4408, emissiveIntensity: 0.18 },
+  // Copper Vein: warm the grey ore-rock toward copper so it reads as a metal seam.
+  copper_ore: { color: 0xb87333, emissive: 0x3a1a08, emissiveIntensity: 0.14 },
 };
 
 const gltfByUrl = new Map<string, GLTF>();

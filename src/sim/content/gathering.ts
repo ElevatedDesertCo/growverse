@@ -9,7 +9,32 @@
 // through the reagent it grants (objectDisplayName in the renderer), so it reads as
 // e.g. "Bloom Essence". The behavior lives in src/sim/harvest.ts behind SimContext.
 
-import type { HarvestNodeDef, HarvestNodeSpawn } from '../types';
+import type { HarvestNodeDef, HarvestNodeSpawn, ItemDef } from '../types';
+
+// Gathering-only materials: the raw goods Logging and Mining pull from the world.
+// Unlike the essences (which the Cultivator also sells), timber and ore are earned
+// solely by working a node, so they live here with the gathering content that grants
+// them. Merged into the flat ITEMS table by data.ts. Both are quality >= common so the
+// "sell all junk" sweep (poor-only) never eats them; they carry a sell value so a
+// gathered stack is worth vendoring even before a crafting recipe consumes them.
+export const GATHER_MATERIALS: Record<string, ItemDef> = {
+  rough_timber: {
+    id: 'rough_timber',
+    name: 'Rough Timber',
+    kind: 'junk',
+    quality: 'common',
+    sellValue: 4,
+    buyValue: 20,
+  },
+  copper_ore: {
+    id: 'copper_ore',
+    name: 'Copper Ore',
+    kind: 'junk',
+    quality: 'common',
+    sellValue: 5,
+    buyValue: 25,
+  },
+};
 
 export const HARVEST_NODES: Record<string, HarvestNodeDef> = {
   bloom_thicket: {
@@ -80,6 +105,29 @@ export const HARVEST_NODES: Record<string, HarvestNodeDef> = {
     respawn: 120,
     yields: [
       { itemId: 'corruption_shard', weight: 3 },
+      { itemId: 'ember_essence', weight: 1 },
+    ],
+  },
+  // Timber stands: the Logging profession's node. Working one yields Rough Timber
+  // with an occasional Common Seed shaken loose from the canopy. The only Logging
+  // node in the world, so it is what raises the skill off 0.
+  timber_stand: {
+    id: 'timber_stand',
+    profession: 'logging',
+    castTime: 4,
+    yields: [
+      { itemId: 'rough_timber', weight: 3 },
+      { itemId: 'common_seed', weight: 1 },
+    ],
+  },
+  // Copper veins: a proper ore node for Mining, alongside the ember/corrupt vents.
+  // Yields Copper Ore with a stray Ember Essence baked into the rock.
+  copper_vein: {
+    id: 'copper_vein',
+    profession: 'mining',
+    castTime: 4,
+    yields: [
+      { itemId: 'copper_ore', weight: 3 },
       { itemId: 'ember_essence', weight: 1 },
     ],
   },
@@ -204,6 +252,36 @@ export const HARVEST_NODE_SPAWNS: HarvestNodeSpawn[] = [
     positions: [
       { x: -48, z: 404 },
       { x: -66, z: 456 },
+    ],
+  },
+  // Timber stands scattered through the wooded south-central vale. Every position is
+  // validated dry, road-clear, gentle-sloped, camp/garden/prop-clear, and clear of the
+  // other harvest nodes at the world seed (WORLD_SEED 20061).
+  {
+    nodeId: 'timber_stand',
+    itemId: 'rough_timber',
+    name: 'Timber Stand',
+    positions: [
+      { x: -25, z: -60 },
+      { x: 35, z: -60 },
+      { x: 90, z: -60 },
+      { x: -15, z: -35 },
+      { x: 45, z: -30 },
+      { x: 0, z: -10 },
+    ],
+  },
+  // Copper veins along the rockier western vale hills, validated the same way.
+  {
+    nodeId: 'copper_vein',
+    itemId: 'copper_ore',
+    name: 'Copper Vein',
+    positions: [
+      { x: -105, z: -30 },
+      { x: -45, z: -25 },
+      { x: -95, z: -5 },
+      { x: -105, z: 20 },
+      { x: -80, z: 30 },
+      { x: -50, z: 75 },
     ],
   },
 ];

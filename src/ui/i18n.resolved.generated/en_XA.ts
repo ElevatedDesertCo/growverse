@@ -5124,6 +5124,12 @@ export const en_XA: EnTranslations = {
       "golden_petal": {
         "name": "[Ĝóļðéñ Þéţáļ]"
       },
+      "rough_timber": {
+        "name": "[Ŕóúĝĥ Ţíɱƀéŕ]"
+      },
+      "copper_ore": {
+        "name": "[Çóþþéŕ Óŕé]"
+      },
       "bristleback_maul": {
         "name": "[Ɓŕíšţļéƀáçķ Ɱáúļ]"
       },

@@ -5124,6 +5124,12 @@ export const nl_NL: EnTranslations = {
       "golden_petal": {
         "name": "Gouden Bloemblad"
       },
+      "rough_timber": {
+        "name": "Ruw hout"
+      },
+      "copper_ore": {
+        "name": "Kopererts"
+      },
       "bristleback_maul": {
         "name": "Borstelrug-Strijdhamer"
       },

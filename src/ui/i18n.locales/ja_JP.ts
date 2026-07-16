@@ -2352,6 +2352,8 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.items.slow_bloom_lozenge.name': '遅咲きのトローチ',
   'entities.items.purple_petal.name': '紫の花びら',
   'entities.items.golden_petal.name': '金の花びら',
+  'entities.items.rough_timber.name': '粗い木材',
+  'entities.items.copper_ore.name': '銅鉱石',
   'entities.npcs.alchemist_sable.name': 'セイブル',
   'entities.npcs.alchemist_sable.title': '錬金術師',
   'entities.npcs.alchemist_sable.greeting':

@@ -5124,6 +5124,12 @@ export const tr_TR: EnTranslations = {
       "golden_petal": {
         "name": "Altın Yaprak"
       },
+      "rough_timber": {
+        "name": "Kaba kereste"
+      },
+      "copper_ore": {
+        "name": "Bakır cevheri"
+      },
       "bristleback_maul": {
         "name": "Dikensırt Balyozu"
       },

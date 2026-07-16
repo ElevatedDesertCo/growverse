@@ -5124,6 +5124,12 @@ export const pl_PL: EnTranslations = {
       "golden_petal": {
         "name": "Złoty Płatek"
       },
+      "rough_timber": {
+        "name": "Surowe drewno"
+      },
+      "copper_ore": {
+        "name": "Ruda miedzi"
+      },
       "bristleback_maul": {
         "name": "Tłuk szczeciniastych"
       },

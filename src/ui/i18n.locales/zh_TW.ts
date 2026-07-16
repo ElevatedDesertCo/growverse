@@ -2247,6 +2247,8 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.items.slow_bloom_lozenge.name': '緩釋綻放含片',
   'entities.items.purple_petal.name': '紫色花瓣',
   'entities.items.golden_petal.name': '金色花瓣',
+  'entities.items.rough_timber.name': '粗木料',
+  'entities.items.copper_ore.name': '銅礦石',
   'entities.npcs.alchemist_sable.name': '塞布爾',
   'entities.npcs.alchemist_sable.title': '煉金術士',
   'entities.npcs.alchemist_sable.greeting':

@@ -5124,6 +5124,12 @@ export const ko_KR: EnTranslations = {
       "golden_petal": {
         "name": "금빛 꽃잎"
       },
+      "rough_timber": {
+        "name": "거친 목재"
+      },
+      "copper_ore": {
+        "name": "구리 광석"
+      },
       "bristleback_maul": {
         "name": "뻣센등뼈 철퇴"
       },

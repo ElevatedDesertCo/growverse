@@ -5124,6 +5124,12 @@ export const zh_CN: EnTranslations = {
       "golden_petal": {
         "name": "金色花瓣"
       },
+      "rough_timber": {
+        "name": "粗木料"
+      },
+      "copper_ore": {
+        "name": "铜矿石"
+      },
       "bristleback_maul": {
         "name": "硬鬃重槌"
       },

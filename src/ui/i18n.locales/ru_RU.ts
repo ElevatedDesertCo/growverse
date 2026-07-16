@@ -2381,6 +2381,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.items.slow_bloom_lozenge.name': 'Пастилка медленного цветения',
   'entities.items.purple_petal.name': 'Пурпурный лепесток',
   'entities.items.golden_petal.name': 'Золотой лепесток',
+  'entities.items.rough_timber.name': 'Грубая древесина',
+  'entities.items.copper_ore.name': 'Медная руда',
   'entities.npcs.alchemist_sable.name': 'Сейбл',
   'entities.npcs.alchemist_sable.title': 'Алхимик',
   'entities.npcs.alchemist_sable.greeting':

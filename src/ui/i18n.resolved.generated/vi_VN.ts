@@ -5124,6 +5124,12 @@ export const vi_VN: EnTranslations = {
       "golden_petal": {
         "name": "Cánh Hoa Vàng"
       },
+      "rough_timber": {
+        "name": "Gỗ thô"
+      },
+      "copper_ore": {
+        "name": "Quặng đồng"
+      },
       "bristleback_maul": {
         "name": "Vồ Lưng Gai"
       },

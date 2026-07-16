@@ -5124,6 +5124,12 @@ export const id_ID: EnTranslations = {
       "golden_petal": {
         "name": "Kelopak Emas"
       },
+      "rough_timber": {
+        "name": "Kayu kasar"
+      },
+      "copper_ore": {
+        "name": "Bijih tembaga"
+      },
       "bristleback_maul": {
         "name": "Cabikan Punggung Berbulu"
       },

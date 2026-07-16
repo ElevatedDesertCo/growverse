@@ -5124,6 +5124,12 @@ export const sv_SE: EnTranslations = {
       "golden_petal": {
         "name": "Gyllene Kronblad"
       },
+      "rough_timber": {
+        "name": "Grovt timmer"
+      },
+      "copper_ore": {
+        "name": "Kopparmalm"
+      },
       "bristleback_maul": {
         "name": "Borstryggens klubba"
       },

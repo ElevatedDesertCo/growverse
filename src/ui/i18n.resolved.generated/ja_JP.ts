@@ -5124,6 +5124,12 @@ export const ja_JP: EnTranslations = {
       "golden_petal": {
         "name": "金の花びら"
       },
+      "rough_timber": {
+        "name": "粗い木材"
+      },
+      "copper_ore": {
+        "name": "銅鉱石"
+      },
       "bristleback_maul": {
         "name": "ブリストルバックの大槌"
       },

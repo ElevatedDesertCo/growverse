@@ -5124,6 +5124,12 @@ export const da_DK: EnTranslations = {
       "golden_petal": {
         "name": "Gyldent Kronblad"
       },
+      "rough_timber": {
+        "name": "Groft tømmer"
+      },
+      "copper_ore": {
+        "name": "Kobbermalm"
+      },
       "bristleback_maul": {
         "name": "Børsterygs-Lemlæster"
       },

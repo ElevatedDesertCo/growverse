@@ -2335,6 +2335,8 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'entities.items.slow_bloom_lozenge.name': 'Pastiglia a Fioritura Lenta',
   'entities.items.purple_petal.name': 'Petalo Purpureo',
   'entities.items.golden_petal.name': 'Petalo Dorato',
+  'entities.items.rough_timber.name': 'Legname grezzo',
+  'entities.items.copper_ore.name': 'Minerale di rame',
   'entities.items.sableweb_slippers.name': 'Pantofole Sableweb',
   'entities.items.simple_fishing_pole.name': 'Canna da pesca semplice',
   'entities.items.tangled_weed.name': 'Erbaccia aggrovigliata',

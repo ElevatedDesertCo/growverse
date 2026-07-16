@@ -2345,6 +2345,8 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.items.slow_bloom_lozenge.name': '느린 개화 로젠지',
   'entities.items.purple_petal.name': '보라색 꽃잎',
   'entities.items.golden_petal.name': '금빛 꽃잎',
+  'entities.items.rough_timber.name': '거친 목재',
+  'entities.items.copper_ore.name': '구리 광석',
   'entities.npcs.alchemist_sable.name': '세이블',
   'entities.npcs.alchemist_sable.title': '연금술사',
   'entities.npcs.alchemist_sable.greeting':

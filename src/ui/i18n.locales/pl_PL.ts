@@ -1142,6 +1142,8 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'entities.items.slow_bloom_lozenge.name': 'Pastylka powolnego rozkwitu',
   'entities.items.purple_petal.name': 'Purpurowy Płatek',
   'entities.items.golden_petal.name': 'Złoty Płatek',
+  'entities.items.rough_timber.name': 'Surowe drewno',
+  'entities.items.copper_ore.name': 'Ruda miedzi',
   'entities.items.raw_river_perch.name': 'Surowy okoń rzeczny',
   'entities.items.raw_stonescale_carp.name': 'Surowy karp kamiennołuski',
   'entities.items.recruit_tunic.name': 'Tunika rekruta',

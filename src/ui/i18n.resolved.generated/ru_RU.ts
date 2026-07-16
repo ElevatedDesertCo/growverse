@@ -5124,6 +5124,12 @@ export const ru_RU: EnTranslations = {
       "golden_petal": {
         "name": "Золотой лепесток"
       },
+      "rough_timber": {
+        "name": "Грубая древесина"
+      },
+      "copper_ore": {
+        "name": "Медная руда"
+      },
       "bristleback_maul": {
         "name": "Кувалда Щетиноспина"
       },

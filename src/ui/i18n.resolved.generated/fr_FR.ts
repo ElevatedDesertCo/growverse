@@ -5124,6 +5124,12 @@ export const fr_FR: EnTranslations = {
       "golden_petal": {
         "name": "Pétale doré"
       },
+      "rough_timber": {
+        "name": "Bois brut"
+      },
+      "copper_ore": {
+        "name": "Minerai de cuivre"
+      },
       "bristleback_maul": {
         "name": "Maillet Bristleback"
       },

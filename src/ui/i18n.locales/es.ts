@@ -2347,6 +2347,8 @@ export const es: Partial<Record<TranslationKey, string>> = {
   'entities.items.slow_bloom_lozenge.name': 'Pastilla de Floración Lenta',
   'entities.items.purple_petal.name': 'Pétalo Púrpura',
   'entities.items.golden_petal.name': 'Pétalo Dorado',
+  'entities.items.rough_timber.name': 'Madera basta',
+  'entities.items.copper_ore.name': 'Mineral de cobre',
   'entities.items.sableweb_slippers.name': 'Zapatillas Sableweb',
   'entities.items.simple_fishing_pole.name': 'Caña de pescar sencilla',
   'entities.items.tangled_weed.name': 'Hierba enredada',
