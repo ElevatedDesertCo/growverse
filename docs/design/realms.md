@@ -169,9 +169,15 @@ Realm implications (fold into every realm):
   camps, the Caravanserai's 3 NPCs, `q_ember_ward1`, the bloomspring node, and the
   `grow_sunflare_bulb` seed loop). Every seam validated; parity + i18n gates green.
   The map is still overworld-only (realm-scoped minimap deferred to M3).
-- M2 - Emberwastes full build-out: all sub-zones, the dungeon, full quest arc,
-  the rare-seed loop, the gear set. This is roughly the content volume of the
-  current game and is the long pole.
+- M2 - Emberwastes full build-out (DONE): all three sub-zones (Sunmourn Dunes,
+  The Glass Canyons, Cinderreach), the Buried Dynasty dungeon, the sun-ward quest
+  arc (q_ember_ward1 -> ward2 -> ward3 -> finale), the rare-seed loop (M1), and the
+  Sunforged gear set (archetype-locked, distributed as arc + finale rewards).
+  Shipped M2.1 (Glass Canyons), M2.2 (Cinderreach), M2.3 (The Buried Dynasty),
+  M2.4 (Sunforged set + reward retrofit). Remaining Emberwastes polish, tracked as
+  a follow-up: the Bloomhaven intro quest + portal unlock gating (minLevel 8 +
+  requiresQuest), a formal ITEM_SET bonus for the Sunforged pieces, and the
+  distinct desert biome art pass.
 - M3 - Generalize + Nexus: promote the hardcoding to a `RealmDef` registry, build
   the Bloomhaven Portal Nexus (a ring of realm portals), realm-scoped minimap,
   and the cross-realm rare-seed meta. Then stamp realm 2.
