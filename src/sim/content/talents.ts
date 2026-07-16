@@ -203,14 +203,20 @@ function nodeIndex(ct: ClassTalents): Map<string, TalentNode> {
 }
 
 // ---------------------------------------------------------------------------
-// Point economy — 1 point per level from FIRST_TALENT_LEVEL (11 points at the
-// level-20 cap). Recomputed from level so a tuning change is migration-safe.
+// Point economy — 1 point per level from FIRST_TALENT_LEVEL, capping at
+// TALENT_POINT_CAP_LEVEL (11 points). This is DECOUPLED from MAX_LEVEL: the level
+// cap rose to 30 (CR.1) but the 9 talent trees are authored for an 11-point build,
+// so levels past 20 grant stats/HP/ability access, not new talent points. Growing
+// the trees to absorb more points is a separate, deliberate design task. Recomputed
+// from level so a tuning change stays migration-safe.
 // ---------------------------------------------------------------------------
 
 export const FIRST_TALENT_LEVEL = 10;
+// The level at which talent points stop accruing (the trees hold 11 points).
+export const TALENT_POINT_CAP_LEVEL = 20;
 
 export function talentPointsAtLevel(level: number): number {
-  return Math.max(0, Math.min(level, MAX_LEVEL) - (FIRST_TALENT_LEVEL - 1));
+  return Math.max(0, Math.min(level, TALENT_POINT_CAP_LEVEL) - (FIRST_TALENT_LEVEL - 1));
 }
 
 export function pointsSpent(alloc: TalentAllocation): number {

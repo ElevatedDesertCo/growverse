@@ -13,6 +13,7 @@ import {
   dungeonAt,
   ITEMS,
   instanceOrigin,
+  isInstancePos,
   LAKE,
   MOBS,
   NPCS,
@@ -468,14 +469,17 @@ describe('dungeon instance placement and targetability', () => {
         `${dungeon.id} entry spawned in geometry`,
       ).toBe(false);
 
+      // isInstancePos, not a bare `x > DUNGEON_X_THRESHOLD`: realm bands also sit past
+      // the threshold but are open world (e.g. the Emberwastes harvest nodes), so they
+      // must not be scanned as instance encounters against the interior colliders.
       const mobs = [...sim.entities.values()].filter(
-        (e) => e.kind === 'mob' && e.spawnPos.x > DUNGEON_X_THRESHOLD,
+        (e) => e.kind === 'mob' && isInstancePos(e.spawnPos.x, e.spawnPos.z),
       );
       const objects = [...sim.entities.values()].filter(
         (e) =>
           e.kind === 'object' &&
           (e.objectItemId || e.templateId === 'dungeon_door') &&
-          e.pos.x > DUNGEON_X_THRESHOLD,
+          isInstancePos(e.pos.x, e.pos.z),
       );
       expect(
         mobs.length + objects.length,

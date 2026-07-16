@@ -12,6 +12,7 @@ import {
   pointsSpent,
   repairAllocation,
   TALENT_BUILD_VERSION,
+  TALENT_POINT_CAP_LEVEL,
   TALENTS,
   type TalentAllocation,
   talentPointsAtLevel,
@@ -175,10 +176,15 @@ describe('point economy', () => {
     expect(talentPointsAtLevel(FIRST_TALENT_LEVEL - 1)).toBe(0);
     expect(talentPointsAtLevel(1)).toBe(0);
   });
-  it('grants one point per level from the first talent level, 11 at cap', () => {
+  it('grants one point per level from the first talent level, 11 at the talent cap', () => {
     expect(talentPointsAtLevel(FIRST_TALENT_LEVEL)).toBe(1);
-    expect(talentPointsAtLevel(MAX_LEVEL)).toBe(MAX_LEVEL - FIRST_TALENT_LEVEL + 1);
-    expect(talentPointsAtLevel(MAX_LEVEL)).toBe(11);
+    // Points cap at TALENT_POINT_CAP_LEVEL (11), DECOUPLED from MAX_LEVEL (CR.1):
+    // the trees hold an 11-point build, so levels past 20 grant no new points.
+    expect(talentPointsAtLevel(TALENT_POINT_CAP_LEVEL)).toBe(
+      TALENT_POINT_CAP_LEVEL - FIRST_TALENT_LEVEL + 1,
+    );
+    expect(talentPointsAtLevel(TALENT_POINT_CAP_LEVEL)).toBe(11);
+    expect(talentPointsAtLevel(MAX_LEVEL)).toBe(11); // still 11 at the level-30 cap
   });
 });
 

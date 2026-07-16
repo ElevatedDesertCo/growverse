@@ -13,7 +13,7 @@ import type { TranslationKey } from '../i18n.catalog';
 export const fr_CA: Partial<Record<TranslationKey, string>> = {
   'entities.items.ember_ward_shard.name': 'Éclat de garde-soleil',
   'entities.items.sunflare_bulb_raw.name': 'Bulbe de flamboiement solaire brut',
-  'entities.items.sunflare_bulb.name': 'Bulbe de flamboiement solaire',
+  'entities.items.sunflare_bulb.name': 'Bulbe solaire ardent',
   'entities.items.glassscale_mail.name': 'Haubert à écailles de verre',
   'entities.items.sunbleached_leathers.name': 'Cuirs blanchis par le soleil',
   'entities.items.sunspun_robes.name': 'Robe filée au soleil',

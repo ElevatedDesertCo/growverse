@@ -726,19 +726,22 @@ describe('delve reward chest + surface exit flow', () => {
 
   // ----- §7.6 Bountiful Coffer (ultra-rare path) -----
 
-  it('the Bountiful roll is deterministic for a given seed', () => {
-    // Read the raw roll via enterReliquary (enterFinale pins it false). Same seed
-    // gives the same outcome; seed 160 is known to roll Bountiful. (The exact seed
-    // that rolls Bountiful shifts whenever content additions move the global rng
-    // draw order; pick any current one, the fixtures below set bountiful directly.)
+  it('the Bountiful roll is deterministic and reachable', () => {
+    // Read the raw roll via enterReliquary (enterFinale pins it false).
     const rollFor = (seed: number) => {
       const s = makeSim('warrior', seed);
       s.setPlayerLevel(DELVES.collapsed_reliquary.minLevel);
       enterReliquary(s);
       return s.delveRunForPlayer(s.playerId)?.bountiful;
     };
+    // Same seed gives the same outcome.
     expect(rollFor(1234)).toBe(rollFor(1234));
-    expect(rollFor(160)).toBe(true);
+    // Bountiful is reachable. We scan a seed range rather than pin one magic seed,
+    // because the exact seed that rolls Bountiful shifts whenever a content addition
+    // moves the global rng draw order (new realms, mobs, camps, ...); a scan tests
+    // the real invariant (Bountiful CAN roll) without that fragility.
+    const anyBountiful = Array.from({ length: 250 }, (_, i) => rollFor(i)).some(Boolean);
+    expect(anyBountiful).toBe(true);
   });
 
   it('a Bountiful Coffer refuses the lower antes and only opens at Hard-tier + Premium ante', () => {

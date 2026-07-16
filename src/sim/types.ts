@@ -2246,11 +2246,15 @@ export function normAngle(a: number): number {
 // ---------------------------------------------------------------------------
 
 // XP required to go from level L to L+1 (real vanilla values, levels 1..20)
+// XP to advance from level N to N+1 (index N-1). Entries 1..20 are the original
+// 1-20 curve; 21..30 continue it smoothly (the per-level delta keeps climbing at
+// roughly the same rate) for the level-30 cap. XP_TABLE[MAX_LEVEL-1] is also the
+// post-cap virtual-level step (see VLEVEL_CUM below).
 export const XP_TABLE = [
   400, 900, 1400, 2100, 2800, 3600, 4500, 5400, 6500, 7600, 8800, 10100, 11400, 12900, 14400, 16000,
-  17700, 19400, 21300, 23200,
+  17700, 19400, 21300, 23200, 25300, 27400, 29700, 32000, 34500, 37000, 39700, 42400, 45300, 48200,
 ];
-export const MAX_LEVEL = 20;
+export const MAX_LEVEL = 30;
 
 // Shared sim constants relocated here (C1) so both sim.ts and the extracted damage
 // core (src/sim/combat/damage.ts) can import them without a sim.ts cycle.

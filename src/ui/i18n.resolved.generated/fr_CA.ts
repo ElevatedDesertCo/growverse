@@ -5614,7 +5614,7 @@ export const fr_CA: EnTranslations = {
         "name": "Bulbe de flamboiement solaire brut"
       },
       "sunflare_bulb": {
-        "name": "Bulbe de flamboiement solaire"
+        "name": "Bulbe solaire ardent"
       },
       "glassscale_mail": {
         "name": "Haubert à écailles de verre"

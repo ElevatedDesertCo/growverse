@@ -13,8 +13,8 @@
     "Final Stand enrage at 5% + grantNythraxisLockout (raidLockouts) + onBossDeath death dialogue",
     "class:warrior"
   ],
-  "draws": 4556,
-  "drawDigest": "9c490708",
+  "draws": 4596,
+  "drawDigest": "a8bb40ef",
   "frames": [
     {
       "tick": 0,
@@ -34,8 +34,8 @@
       "tick": 1,
       "time": 0.05,
       "nextId": 659,
-      "state": "b08d3998",
-      "events": "3af37e72",
+      "state": "6375fe69",
+      "events": "840163d4",
       "rng": {
         "draws": 4,
         "digest": "549af066"
@@ -49,7 +49,7 @@
           "cls": "warrior",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 316
+            "damageTaken": 299
           },
           "delveClears": {},
           "delveDaily": {},
@@ -58,7 +58,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -121,7 +121,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -181,7 +181,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -241,7 +241,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -301,7 +301,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -351,18 +351,18 @@
       "entities": [
         {
           "aiState": "idle",
-          "attackPower": 122,
-          "critChance": 0.0695,
+          "attackPower": 162,
+          "critChance": 0.0745,
           "detonateTimer": "Infinity",
-          "dodgeChance": 0.0695,
+          "dodgeChance": 0.0745,
           "fiveSecondRule": 99.05,
-          "hp": 812,
+          "hp": 1192,
           "id": 649,
           "inCombat": true,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 812,
+          "maxHp": 1192,
           "maxResource": 100,
           "moveSpeed": 7,
           "onGround": true,
@@ -373,7 +373,7 @@
             "z": -1160
           },
           "potionCooldownUntil": -1,
-          "resource": 10.533333,
+          "resource": 9.966667,
           "resourceType": "rage",
           "spawnPos": {
             "x": 2,
@@ -382,12 +382,12 @@
           },
           "spellPower": 5,
           "stats": {
-            "agi": 39,
-            "armor": 376,
+            "agi": 49,
+            "armor": 516,
             "int": 10,
             "spi": 11,
-            "sta": 60,
-            "str": 61
+            "sta": 80,
+            "str": 81
           },
           "templateId": "warrior",
           "weapon": {
@@ -404,13 +404,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 99.05,
-          "hp": 418,
+          "hp": 638,
           "id": 650,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -420,20 +420,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -451,13 +451,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 99.05,
-          "hp": 418,
+          "hp": 638,
           "id": 651,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -467,20 +467,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -498,13 +498,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 99.05,
-          "hp": 418,
+          "hp": 638,
           "id": 652,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -514,20 +514,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -545,13 +545,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 99.05,
-          "hp": 418,
+          "hp": 638,
           "id": 653,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -561,20 +561,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -646,7 +646,7 @@
       "tick": 10,
       "time": 0.5,
       "nextId": 659,
-      "state": "949c2ce5",
+      "state": "eda882d4",
       "events": "741638a5",
       "rng": {
         "draws": 4,
@@ -657,7 +657,7 @@
       "tick": 20,
       "time": 1,
       "nextId": 659,
-      "state": "d9331092",
+      "state": "74eea7d9",
       "events": "741638a5",
       "rng": {
         "draws": 4,
@@ -668,8 +668,8 @@
       "tick": 30,
       "time": 1.5,
       "nextId": 659,
-      "state": "b16ea06c",
-      "events": "7b8ea869",
+      "state": "3394cba2",
+      "events": "cdbb5762",
       "rng": {
         "draws": 5,
         "digest": "d46c9a22"
@@ -679,7 +679,7 @@
       "tick": 40,
       "time": 2,
       "nextId": 659,
-      "state": "e947d540",
+      "state": "3e50191c",
       "events": "741638a5",
       "rng": {
         "draws": 5,
@@ -690,7 +690,7 @@
       "tick": 42,
       "time": 2.1,
       "nextId": 661,
-      "state": "959029be",
+      "state": "ee849c14",
       "events": "9aec74a9",
       "rng": {
         "draws": 13,
@@ -705,7 +705,7 @@
           "cls": "warrior",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 722
+            "damageTaken": 683
           },
           "delveClears": {},
           "delveDaily": {},
@@ -714,7 +714,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -777,7 +777,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -837,7 +837,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -897,7 +897,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -957,7 +957,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -1007,19 +1007,19 @@
       "entities": [
         {
           "aiState": "idle",
-          "attackPower": 122,
+          "attackPower": 162,
           "combatTimer": 0.6,
-          "critChance": 0.0695,
+          "critChance": 0.0745,
           "detonateTimer": "Infinity",
-          "dodgeChance": 0.0695,
+          "dodgeChance": 0.0745,
           "fiveSecondRule": 101.1,
-          "hp": 812,
+          "hp": 1192,
           "id": 649,
           "inCombat": true,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 812,
+          "maxHp": 1192,
           "maxResource": 100,
           "moveSpeed": 7,
           "onGround": true,
@@ -1030,7 +1030,7 @@
             "z": -1160
           },
           "potionCooldownUntil": -1,
-          "resource": 24.066667,
+          "resource": 22.766667,
           "resourceType": "rage",
           "spawnPos": {
             "x": 2,
@@ -1039,12 +1039,12 @@
           },
           "spellPower": 5,
           "stats": {
-            "agi": 39,
-            "armor": 376,
+            "agi": 49,
+            "armor": 516,
             "int": 10,
             "spi": 11,
-            "sta": 60,
-            "str": 61
+            "sta": 80,
+            "str": 81
           },
           "templateId": "warrior",
           "weapon": {
@@ -1061,13 +1061,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 101.1,
-          "hp": 418,
+          "hp": 638,
           "id": 650,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -1077,20 +1077,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -1108,13 +1108,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 101.1,
-          "hp": 418,
+          "hp": 638,
           "id": 651,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -1124,20 +1124,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -1155,13 +1155,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 101.1,
-          "hp": 418,
+          "hp": 638,
           "id": 652,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -1171,20 +1171,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -1202,13 +1202,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 101.1,
-          "hp": 418,
+          "hp": 638,
           "id": 653,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -1218,20 +1218,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -1409,7 +1409,7 @@
       "tick": 43,
       "time": 2.15,
       "nextId": 662,
-      "state": "aa33b01b",
+      "state": "0ede4323",
       "events": "c6ba2207",
       "rng": {
         "draws": 17,
@@ -1424,7 +1424,7 @@
           "cls": "warrior",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 722
+            "damageTaken": 683
           },
           "delveClears": {},
           "delveDaily": {},
@@ -1433,7 +1433,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -1496,7 +1496,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -1556,7 +1556,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -1616,7 +1616,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -1676,7 +1676,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -1726,7 +1726,7 @@
       "entities": [
         {
           "aiState": "idle",
-          "attackPower": 122,
+          "attackPower": 162,
           "auras": [
             {
               "duration": 21.5,
@@ -1739,17 +1739,17 @@
             }
           ],
           "combatTimer": 0.65,
-          "critChance": 0.0695,
+          "critChance": 0.0745,
           "detonateTimer": "Infinity",
-          "dodgeChance": 0.0695,
+          "dodgeChance": 0.0745,
           "fiveSecondRule": 101.15,
-          "hp": 812,
+          "hp": 1192,
           "id": 649,
           "inCombat": true,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 812,
+          "maxHp": 1192,
           "maxResource": 100,
           "moveSpeed": 7,
           "onGround": true,
@@ -1760,7 +1760,7 @@
             "z": -1160
           },
           "potionCooldownUntil": -1,
-          "resource": 24.066667,
+          "resource": 22.766667,
           "resourceType": "rage",
           "spawnPos": {
             "x": 2,
@@ -1769,12 +1769,12 @@
           },
           "spellPower": 5,
           "stats": {
-            "agi": 39,
-            "armor": 376,
+            "agi": 49,
+            "armor": 516,
             "int": 10,
             "spi": 11,
-            "sta": 60,
-            "str": 61
+            "sta": 80,
+            "str": 81
           },
           "templateId": "warrior",
           "weapon": {
@@ -1802,13 +1802,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 101.15,
-          "hp": 418,
+          "hp": 638,
           "id": 650,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -1818,20 +1818,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -1860,13 +1860,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 101.15,
-          "hp": 418,
+          "hp": 638,
           "id": 651,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -1876,20 +1876,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -1918,13 +1918,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 101.15,
-          "hp": 418,
+          "hp": 638,
           "id": 652,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -1934,20 +1934,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -1976,13 +1976,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 101.15,
-          "hp": 418,
+          "hp": 638,
           "id": 653,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -1992,20 +1992,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -2399,7 +2399,7 @@
       "tick": 50,
       "time": 2.5,
       "nextId": 662,
-      "state": "ea16cbbf",
+      "state": "43e25451",
       "events": "741638a5",
       "rng": {
         "draws": 47,
@@ -2410,7 +2410,7 @@
       "tick": 60,
       "time": 3,
       "nextId": 662,
-      "state": "0d046348",
+      "state": "9bc267ba",
       "events": "741638a5",
       "rng": {
         "draws": 107,
@@ -2421,7 +2421,7 @@
       "tick": 70,
       "time": 3.5,
       "nextId": 662,
-      "state": "83dd2c5d",
+      "state": "356c1e3f",
       "events": "741638a5",
       "rng": {
         "draws": 181,
@@ -2432,8 +2432,8 @@
       "tick": 80,
       "time": 4,
       "nextId": 662,
-      "state": "9652d4e1",
-      "events": "33f1ee2d",
+      "state": "acc73488",
+      "events": "ff917004",
       "rng": {
         "draws": 253,
         "digest": "e3ba1fe0"
@@ -2443,8 +2443,8 @@
       "tick": 90,
       "time": 4.5,
       "nextId": 662,
-      "state": "d9f7c7e5",
-      "events": "ef95d45f",
+      "state": "7af94cbf",
+      "events": "0e5c6b16",
       "rng": {
         "draws": 334,
         "digest": "1cca8210"
@@ -2454,7 +2454,7 @@
       "tick": 100,
       "time": 5,
       "nextId": 662,
-      "state": "c903c034",
+      "state": "a481ab3c",
       "events": "741638a5",
       "rng": {
         "draws": 417,
@@ -2465,7 +2465,7 @@
       "tick": 110,
       "time": 5.5,
       "nextId": 662,
-      "state": "b9d9f27a",
+      "state": "2ee0b690",
       "events": "741638a5",
       "rng": {
         "draws": 487,
@@ -2476,7 +2476,7 @@
       "tick": 120,
       "time": 6,
       "nextId": 662,
-      "state": "170825c7",
+      "state": "494d3a17",
       "events": "741638a5",
       "rng": {
         "draws": 567,
@@ -2487,8 +2487,8 @@
       "tick": 130,
       "time": 6.5,
       "nextId": 662,
-      "state": "b6f3c86b",
-      "events": "2a16492b",
+      "state": "3159b206",
+      "events": "330edf4a",
       "rng": {
         "draws": 646,
         "digest": "70e35209"
@@ -2498,8 +2498,8 @@
       "tick": 140,
       "time": 7,
       "nextId": 662,
-      "state": "36a1b9de",
-      "events": "9046a440",
+      "state": "8ea81c92",
+      "events": "7c5c3801",
       "rng": {
         "draws": 732,
         "digest": "42fa21c5"
@@ -2509,7 +2509,7 @@
       "tick": 150,
       "time": 7.5,
       "nextId": 662,
-      "state": "2645cb05",
+      "state": "1a6eee41",
       "events": "741638a5",
       "rng": {
         "draws": 792,
@@ -2520,7 +2520,7 @@
       "tick": 160,
       "time": 8,
       "nextId": 662,
-      "state": "70fbb29f",
+      "state": "6ada5463",
       "events": "741638a5",
       "rng": {
         "draws": 886,
@@ -2531,7 +2531,7 @@
       "tick": 170,
       "time": 8.5,
       "nextId": 662,
-      "state": "d967ef71",
+      "state": "ac2f7d8d",
       "events": "93fc3f4e",
       "rng": {
         "draws": 977,
@@ -2542,8 +2542,8 @@
       "tick": 180,
       "time": 9,
       "nextId": 662,
-      "state": "9294e5ba",
-      "events": "7b0ec657",
+      "state": "825ebe94",
+      "events": "60cedd9b",
       "rng": {
         "draws": 1097,
         "digest": "9d1468e8"
@@ -2553,8 +2553,8 @@
       "tick": 190,
       "time": 9.5,
       "nextId": 662,
-      "state": "1fb707f7",
-      "events": "bdad3188",
+      "state": "9a7c4928",
+      "events": "b7c8916f",
       "rng": {
         "draws": 1207,
         "digest": "2a090ad7"
@@ -2564,7 +2564,7 @@
       "tick": 200,
       "time": 10,
       "nextId": 662,
-      "state": "03abdfaf",
+      "state": "382ad374",
       "events": "741638a5",
       "rng": {
         "draws": 1302,
@@ -2575,7 +2575,7 @@
       "tick": 203,
       "time": 10.15,
       "nextId": 662,
-      "state": "b11f373a",
+      "state": "5e93a54d",
       "events": "741638a5",
       "rng": {
         "draws": 1312,
@@ -2590,7 +2590,7 @@
           "cls": "warrior",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 2713
+            "damageTaken": 2567
           },
           "delveClears": {},
           "delveDaily": {},
@@ -2599,7 +2599,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -2662,7 +2662,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -2722,7 +2722,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -2782,7 +2782,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -2842,7 +2842,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -2892,19 +2892,19 @@
       "entities": [
         {
           "aiState": "idle",
-          "attackPower": 122,
+          "attackPower": 162,
           "combatTimer": 1.1,
-          "critChance": 0.0695,
+          "critChance": 0.0745,
           "detonateTimer": "Infinity",
-          "dodgeChance": 0.0695,
+          "dodgeChance": 0.0745,
           "fiveSecondRule": 109.15,
-          "hp": 812,
+          "hp": 1192,
           "id": 649,
           "inCombat": true,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 812,
+          "maxHp": 1192,
           "maxResource": 100,
           "moveSpeed": 7,
           "onGround": true,
@@ -2915,7 +2915,7 @@
             "z": -1160
           },
           "potionCooldownUntil": -1,
-          "resource": 90.433333,
+          "resource": 85.566667,
           "resourceType": "rage",
           "spawnPos": {
             "x": 2,
@@ -2924,12 +2924,12 @@
           },
           "spellPower": 5,
           "stats": {
-            "agi": 39,
-            "armor": 376,
+            "agi": 49,
+            "armor": 516,
             "int": 10,
             "spi": 11,
-            "sta": 60,
-            "str": 61
+            "sta": 80,
+            "str": 81
           },
           "templateId": "warrior",
           "weapon": {
@@ -2957,13 +2957,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 109.15,
-          "hp": 418,
+          "hp": 638,
           "id": 650,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -2973,20 +2973,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -3015,13 +3015,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 109.15,
-          "hp": 418,
+          "hp": 638,
           "id": 651,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -3031,20 +3031,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -3062,13 +3062,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 109.15,
-          "hp": 418,
+          "hp": 638,
           "id": 652,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -3078,20 +3078,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -3120,13 +3120,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 109.15,
-          "hp": 418,
+          "hp": 638,
           "id": 653,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -3136,20 +3136,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -3526,7 +3526,7 @@
       "tick": 204,
       "time": 10.2,
       "nextId": 662,
-      "state": "53710bf0",
+      "state": "0db9962b",
       "events": "19dbde1a",
       "rng": {
         "draws": 1322,
@@ -3541,7 +3541,7 @@
           "cls": "warrior",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 2713
+            "damageTaken": 2567
           },
           "delveClears": {},
           "delveDaily": {},
@@ -3550,7 +3550,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -3613,7 +3613,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -3673,7 +3673,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -3733,7 +3733,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -3793,7 +3793,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167200,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -3843,19 +3843,19 @@
       "entities": [
         {
           "aiState": "idle",
-          "attackPower": 122,
+          "attackPower": 162,
           "combatTimer": 1.15,
-          "critChance": 0.0695,
+          "critChance": 0.0745,
           "detonateTimer": "Infinity",
-          "dodgeChance": 0.0695,
+          "dodgeChance": 0.0745,
           "fiveSecondRule": 109.2,
-          "hp": 812,
+          "hp": 1192,
           "id": 649,
           "inCombat": true,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 812,
+          "maxHp": 1192,
           "maxResource": 100,
           "moveSpeed": 7,
           "onGround": true,
@@ -3866,7 +3866,7 @@
             "z": -1160
           },
           "potionCooldownUntil": -1,
-          "resource": 90.433333,
+          "resource": 85.566667,
           "resourceType": "rage",
           "spawnPos": {
             "x": 2,
@@ -3875,12 +3875,12 @@
           },
           "spellPower": 5,
           "stats": {
-            "agi": 39,
-            "armor": 376,
+            "agi": 49,
+            "armor": 516,
             "int": 10,
             "spi": 11,
-            "sta": 60,
-            "str": 61
+            "sta": 80,
+            "str": 81
           },
           "templateId": "warrior",
           "weapon": {
@@ -3908,13 +3908,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 109.2,
-          "hp": 418,
+          "hp": 638,
           "id": 650,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -3924,20 +3924,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -3966,13 +3966,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 109.2,
-          "hp": 418,
+          "hp": 638,
           "id": 651,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -3982,20 +3982,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -4024,13 +4024,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 109.2,
-          "hp": 418,
+          "hp": 638,
           "id": 652,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -4040,20 +4040,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -4082,13 +4082,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 109.2,
-          "hp": 418,
+          "hp": 638,
           "id": 653,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -4098,20 +4098,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -4488,7 +4488,7 @@
       "tick": 210,
       "time": 10.5,
       "nextId": 662,
-      "state": "80468927",
+      "state": "89b6e594",
       "events": "741638a5",
       "rng": {
         "draws": 1357,
@@ -4499,8 +4499,8 @@
       "tick": 220,
       "time": 11,
       "nextId": 662,
-      "state": "b37b7b2d",
-      "events": "4fb905ea",
+      "state": "0c8fb84a",
+      "events": "3939c0ac",
       "rng": {
         "draws": 1418,
         "digest": "a1a56a3b"
@@ -4510,7 +4510,7 @@
       "tick": 230,
       "time": 11.5,
       "nextId": 662,
-      "state": "4949d9f2",
+      "state": "4591803e",
       "events": "741638a5",
       "rng": {
         "draws": 1477,
@@ -4521,8 +4521,8 @@
       "tick": 240,
       "time": 12,
       "nextId": 662,
-      "state": "3bb0b935",
-      "events": "bdad3188",
+      "state": "86059c2f",
+      "events": "b7c8916f",
       "rng": {
         "draws": 1546,
         "digest": "55be76fa"
@@ -4532,7 +4532,7 @@
       "tick": 250,
       "time": 12.5,
       "nextId": 662,
-      "state": "3acdf36a",
+      "state": "bc03c0c4",
       "events": "741638a5",
       "rng": {
         "draws": 1604,
@@ -4543,7 +4543,7 @@
       "tick": 260,
       "time": 13,
       "nextId": 662,
-      "state": "0d59e0df",
+      "state": "b8f7a395",
       "events": "741638a5",
       "rng": {
         "draws": 1653,
@@ -4554,30 +4554,30 @@
       "tick": 270,
       "time": 13.5,
       "nextId": 662,
-      "state": "17929de9",
-      "events": "92e24830",
+      "state": "3d350890",
+      "events": "14eb841d",
       "rng": {
-        "draws": 1725,
-        "digest": "c561cd6c"
+        "draws": 1723,
+        "digest": "f5792f68"
       }
     },
     {
       "tick": 280,
       "time": 14,
       "nextId": 662,
-      "state": "af9c99eb",
+      "state": "c031f9d9",
       "events": "741638a5",
       "rng": {
-        "draws": 1792,
-        "digest": "3e01b4b8"
+        "draws": 1791,
+        "digest": "e0a2fcd5"
       }
     },
     {
       "tick": 290,
       "time": 14.5,
       "nextId": 662,
-      "state": "a52f6fc6",
-      "events": "2331cb4d",
+      "state": "fbf5e818",
+      "events": "d15aba4f",
       "rng": {
         "draws": 1879,
         "digest": "0f2de7a6"
@@ -4587,110 +4587,110 @@
       "tick": 300,
       "time": 15,
       "nextId": 662,
-      "state": "09b8e452",
+      "state": "748d2b14",
       "events": "741638a5",
       "rng": {
-        "draws": 1944,
-        "digest": "b043ec40"
+        "draws": 1943,
+        "digest": "2e598591"
       }
     },
     {
       "tick": 310,
       "time": 15.5,
       "nextId": 662,
-      "state": "ca126bfb",
-      "events": "bc8e7462",
+      "state": "a3953dcd",
+      "events": "276b18e6",
       "rng": {
-        "draws": 2018,
-        "digest": "19683119"
+        "draws": 2008,
+        "digest": "24dadc91"
       }
     },
     {
       "tick": 320,
       "time": 16,
       "nextId": 662,
-      "state": "844c9249",
+      "state": "e686fa01",
       "events": "741638a5",
       "rng": {
-        "draws": 2085,
-        "digest": "88ed32a5"
+        "draws": 2075,
+        "digest": "97e2f929"
       }
     },
     {
       "tick": 330,
       "time": 16.5,
       "nextId": 662,
-      "state": "06f4cbd2",
+      "state": "25539dec",
       "events": "45af36e7",
       "rng": {
-        "draws": 2166,
-        "digest": "46cfd516"
+        "draws": 2153,
+        "digest": "4a301e60"
       }
     },
     {
       "tick": 340,
       "time": 17,
       "nextId": 662,
-      "state": "daf02385",
-      "events": "efad5098",
+      "state": "4ea4e256",
+      "events": "98327774",
       "rng": {
-        "draws": 2238,
-        "digest": "2fddacc6"
+        "draws": 2227,
+        "digest": "347dc8bc"
       }
     },
     {
       "tick": 350,
       "time": 17.5,
       "nextId": 662,
-      "state": "285424c8",
+      "state": "1deada37",
       "events": "741638a5",
       "rng": {
-        "draws": 2322,
-        "digest": "e5549e94"
+        "draws": 2310,
+        "digest": "86c7cae7"
       }
     },
     {
       "tick": 360,
       "time": 18,
       "nextId": 662,
-      "state": "ba56bfa9",
-      "events": "f1adaa8c",
+      "state": "6c8d2777",
+      "events": "1777c091",
       "rng": {
-        "draws": 2415,
-        "digest": "83a04d5a"
+        "draws": 2406,
+        "digest": "b1af7d56"
       }
     },
     {
       "tick": 370,
       "time": 18.5,
       "nextId": 662,
-      "state": "3a8e5210",
-      "events": "bc6627af",
+      "state": "c924796f",
+      "events": "70643c84",
       "rng": {
-        "draws": 2490,
-        "digest": "af7a4974"
+        "draws": 2492,
+        "digest": "8fce16bf"
       }
     },
     {
       "tick": 380,
       "time": 19,
       "nextId": 662,
-      "state": "a9194340",
+      "state": "faf8dce2",
       "events": "741638a5",
       "rng": {
-        "draws": 2572,
-        "digest": "b458a4e5"
+        "draws": 2554,
+        "digest": "897a379d"
       }
     },
     {
       "tick": 386,
       "time": 19.3,
       "nextId": 662,
-      "state": "4dea8838",
-      "events": "68322f5f",
+      "state": "33b46c70",
+      "events": "3f017f43",
       "rng": {
-        "draws": 2611,
-        "digest": "d2b1c821"
+        "draws": 2595,
+        "digest": "14875116"
       },
       "label": "deathless-start",
       "players": [
@@ -4702,9 +4702,8 @@
           "companionUpgrades": {},
           "counters": {
             "damageDealt": 3140,
-            "damageTaken": 6130,
-            "kills": 2,
-            "xpGained": 166
+            "damageTaken": 4411,
+            "kills": 2
           },
           "delveClears": {},
           "delveDaily": {},
@@ -4713,7 +4712,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
-          "lifetimeXp": 167366,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -4768,9 +4767,7 @@
           "arenaRating": 1500,
           "cls": "mage",
           "companionUpgrades": {},
-          "counters": {
-            "xpGained": 166
-          },
+          "counters": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 650,
@@ -4778,7 +4775,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167366,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -4831,8 +4828,7 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 140,
-            "xpGained": 166
+            "damageTaken": 213
           },
           "delveClears": {},
           "delveDaily": {},
@@ -4841,7 +4837,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167366,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -4894,8 +4890,7 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 140,
-            "xpGained": 166
+            "damageTaken": 213
           },
           "delveClears": {},
           "delveDaily": {},
@@ -4904,7 +4899,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167366,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -4957,8 +4952,7 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 140,
-            "xpGained": 166
+            "damageTaken": 213
           },
           "delveClears": {},
           "delveDaily": {},
@@ -4967,7 +4961,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167366,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -5017,19 +5011,19 @@
       "entities": [
         {
           "aiState": "idle",
-          "attackPower": 122,
+          "attackPower": 162,
           "combatTimer": 0.1,
-          "critChance": 0.0695,
+          "critChance": 0.0745,
           "detonateTimer": "Infinity",
-          "dodgeChance": 0.0695,
+          "dodgeChance": 0.0745,
           "fiveSecondRule": 118.3,
-          "hp": 812,
+          "hp": 1192,
           "id": 649,
           "inCombat": true,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 812,
+          "maxHp": 1192,
           "maxResource": 100,
           "moveSpeed": 7,
           "onGround": true,
@@ -5049,12 +5043,12 @@
           },
           "spellPower": 5,
           "stats": {
-            "agi": 39,
-            "armor": 376,
+            "agi": 49,
+            "armor": 516,
             "int": 10,
             "spi": 11,
-            "sta": 60,
-            "str": 61
+            "sta": 80,
+            "str": 81
           },
           "templateId": "warrior",
           "weapon": {
@@ -5071,13 +5065,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 118.3,
-          "hp": 418,
+          "hp": 638,
           "id": 650,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -5087,20 +5081,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -5118,14 +5112,14 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 118.3,
-          "hp": 418,
+          "hp": 638,
           "id": 651,
           "inCombat": true,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -5135,20 +5129,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -5166,14 +5160,14 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 118.3,
-          "hp": 418,
+          "hp": 638,
           "id": 652,
           "inCombat": true,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -5183,20 +5177,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -5214,14 +5208,14 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 118.3,
-          "hp": 418,
+          "hp": 638,
           "id": 653,
           "inCombat": true,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -5231,20 +5225,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -5630,40 +5624,40 @@
       "tick": 390,
       "time": 19.5,
       "nextId": 662,
-      "state": "860a41dd",
+      "state": "e8e7e5f7",
       "events": "7c76a206",
       "rng": {
-        "draws": 2627,
-        "digest": "30becf82"
+        "draws": 2616,
+        "digest": "5176723e"
       }
     },
     {
       "tick": 400,
       "time": 20,
       "nextId": 662,
-      "state": "df9a8052",
+      "state": "e8255b5c",
       "events": "bc80ddff",
       "rng": {
-        "draws": 2681,
-        "digest": "ce2055bb"
+        "draws": 2673,
+        "digest": "1cc83487"
       }
     },
     {
       "tick": 410,
       "time": 20.5,
       "nextId": 662,
-      "state": "9bd35fa8",
+      "state": "c752dbea",
       "events": "bc80ddff",
       "rng": {
-        "draws": 2745,
-        "digest": "28587bf1"
+        "draws": 2739,
+        "digest": "51d9a0a9"
       }
     },
     {
       "tick": 420,
       "time": 21,
       "nextId": 662,
-      "state": "15cb6c6f",
+      "state": "560d1615",
       "events": "bc80ddff",
       "rng": {
         "draws": 2804,
@@ -5674,99 +5668,99 @@
       "tick": 430,
       "time": 21.5,
       "nextId": 662,
-      "state": "e966f9c3",
+      "state": "706a0901",
       "events": "bc80ddff",
       "rng": {
-        "draws": 2872,
-        "digest": "e06370e6"
+        "draws": 2883,
+        "digest": "4e64d189"
       }
     },
     {
       "tick": 440,
       "time": 22,
       "nextId": 662,
-      "state": "844e4d90",
+      "state": "9b427a26",
       "events": "bc80ddff",
       "rng": {
-        "draws": 2926,
-        "digest": "ec79894c"
+        "draws": 2951,
+        "digest": "c288ad90"
       }
     },
     {
       "tick": 450,
       "time": 22.5,
       "nextId": 662,
-      "state": "2324551e",
+      "state": "92b99aec",
       "events": "bc80ddff",
       "rng": {
-        "draws": 2977,
-        "digest": "f12c26b8"
+        "draws": 3007,
+        "digest": "ead2c92e"
       }
     },
     {
       "tick": 460,
       "time": 23,
       "nextId": 662,
-      "state": "b5fddc5d",
+      "state": "30ba8f33",
       "events": "bc80ddff",
       "rng": {
-        "draws": 3036,
-        "digest": "96204a2b"
+        "draws": 3053,
+        "digest": "5952cf9e"
       }
     },
     {
       "tick": 470,
       "time": 23.5,
       "nextId": 662,
-      "state": "c11d5408",
+      "state": "51323262",
       "events": "bc80ddff",
       "rng": {
-        "draws": 3090,
-        "digest": "e4010f7a"
+        "draws": 3130,
+        "digest": "98f58e08"
       }
     },
     {
       "tick": 480,
       "time": 24,
       "nextId": 662,
-      "state": "6094626f",
+      "state": "5446aefd",
       "events": "bc80ddff",
       "rng": {
-        "draws": 3155,
-        "digest": "981f508f"
+        "draws": 3203,
+        "digest": "a7059c62"
       }
     },
     {
       "tick": 490,
       "time": 24.5,
       "nextId": 662,
-      "state": "7deaaff7",
+      "state": "073b6165",
       "events": "8132a19d",
       "rng": {
-        "draws": 3230,
-        "digest": "f358d236"
+        "draws": 3258,
+        "digest": "d3b3fd8a"
       }
     },
     {
       "tick": 500,
       "time": 25,
       "nextId": 662,
-      "state": "cf088a87",
+      "state": "da2bf8b5",
       "events": "741638a5",
       "rng": {
-        "draws": 3320,
-        "digest": "2b105fe5"
+        "draws": 3333,
+        "digest": "397b602d"
       }
     },
     {
       "tick": 506,
       "time": 25.3,
       "nextId": 662,
-      "state": "8cb3bcba",
+      "state": "cbf186cc",
       "events": "741638a5",
       "rng": {
-        "draws": 3370,
-        "digest": "bef6fd02"
+        "draws": 3387,
+        "digest": "86a69957"
       },
       "label": "deathless-interrupt",
       "players": [
@@ -5778,9 +5772,8 @@
           "companionUpgrades": {},
           "counters": {
             "damageDealt": 3140,
-            "damageTaken": 6130,
-            "kills": 2,
-            "xpGained": 166
+            "damageTaken": 4411,
+            "kills": 2
           },
           "delveClears": {},
           "delveDaily": {},
@@ -5789,7 +5782,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
-          "lifetimeXp": 167366,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -5844,9 +5837,7 @@
           "arenaRating": 1500,
           "cls": "mage",
           "companionUpgrades": {},
-          "counters": {
-            "xpGained": 166
-          },
+          "counters": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 650,
@@ -5854,7 +5845,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167366,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -5907,8 +5898,7 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 140,
-            "xpGained": 166
+            "damageTaken": 213
           },
           "delveClears": {},
           "delveDaily": {},
@@ -5917,7 +5907,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167366,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -5970,8 +5960,7 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 140,
-            "xpGained": 166
+            "damageTaken": 213
           },
           "delveClears": {},
           "delveDaily": {},
@@ -5980,7 +5969,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167366,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -6033,8 +6022,7 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 140,
-            "xpGained": 166
+            "damageTaken": 213
           },
           "delveClears": {},
           "delveDaily": {},
@@ -6043,7 +6031,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167366,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -6093,19 +6081,19 @@
       "entities": [
         {
           "aiState": "idle",
-          "attackPower": 122,
+          "attackPower": 162,
           "combatTimer": 6.1,
-          "critChance": 0.0695,
+          "critChance": 0.0745,
           "detonateTimer": "Infinity",
-          "dodgeChance": 0.0695,
+          "dodgeChance": 0.0745,
           "fiveSecondRule": 124.3,
-          "hp": 812,
+          "hp": 1192,
           "id": 649,
           "inCombat": true,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 812,
+          "maxHp": 1192,
           "maxResource": 100,
           "moveSpeed": 7,
           "onGround": true,
@@ -6125,12 +6113,12 @@
           },
           "spellPower": 5,
           "stats": {
-            "agi": 39,
-            "armor": 376,
+            "agi": 49,
+            "armor": 516,
             "int": 10,
             "spi": 11,
-            "sta": 60,
-            "str": 61
+            "sta": 80,
+            "str": 81
           },
           "templateId": "warrior",
           "weapon": {
@@ -6148,13 +6136,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 124.3,
-          "hp": 418,
+          "hp": 638,
           "id": 650,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -6164,20 +6152,20 @@
             "z": -1171
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -6196,13 +6184,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 124.3,
-          "hp": 418,
+          "hp": 638,
           "id": 651,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -6212,20 +6200,20 @@
             "z": -1171
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -6244,13 +6232,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 124.3,
-          "hp": 418,
+          "hp": 638,
           "id": 652,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -6260,20 +6248,20 @@
             "z": -1187
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -6291,13 +6279,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 124.3,
-          "hp": 418,
+          "hp": 638,
           "id": 653,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -6307,20 +6295,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -6717,40 +6705,40 @@
       "tick": 510,
       "time": 25.5,
       "nextId": 662,
-      "state": "7103b74d",
+      "state": "eaab9a23",
       "events": "741638a5",
       "rng": {
-        "draws": 3400,
-        "digest": "a4b1afe0"
+        "draws": 3409,
+        "digest": "9174f685"
       }
     },
     {
       "tick": 520,
       "time": 26,
       "nextId": 662,
-      "state": "8d36cd35",
+      "state": "8c033483",
       "events": "741638a5",
       "rng": {
-        "draws": 3464,
-        "digest": "a69fad02"
+        "draws": 3475,
+        "digest": "4919e5ae"
       }
     },
     {
       "tick": 530,
       "time": 26.5,
       "nextId": 662,
-      "state": "2c300367",
+      "state": "f9476035",
       "events": "741638a5",
       "rng": {
-        "draws": 3532,
-        "digest": "3f096c1a"
+        "draws": 3531,
+        "digest": "07378003"
       }
     },
     {
       "tick": 540,
       "time": 27,
       "nextId": 662,
-      "state": "0a540877",
+      "state": "d460d42d",
       "events": "741638a5",
       "rng": {
         "draws": 3588,
@@ -6761,40 +6749,40 @@
       "tick": 550,
       "time": 27.5,
       "nextId": 662,
-      "state": "719442f1",
+      "state": "f1ec4e67",
       "events": "741638a5",
       "rng": {
-        "draws": 3671,
-        "digest": "85405999"
+        "draws": 3659,
+        "digest": "954cbde4"
       }
     },
     {
       "tick": 560,
       "time": 28,
       "nextId": 662,
-      "state": "e28ed441",
+      "state": "8244131f",
       "events": "741638a5",
       "rng": {
-        "draws": 3736,
-        "digest": "82556f2b"
+        "draws": 3714,
+        "digest": "ab6caa72"
       }
     },
     {
       "tick": 570,
       "time": 28.5,
       "nextId": 662,
-      "state": "dc7b2db1",
+      "state": "04dfb967",
       "events": "741638a5",
       "rng": {
-        "draws": 3806,
-        "digest": "4c8a0ac6"
+        "draws": 3789,
+        "digest": "4fbf1ce2"
       }
     },
     {
       "tick": 580,
       "time": 29,
       "nextId": 662,
-      "state": "7ff1bd63",
+      "state": "87ed25b9",
       "events": "741638a5",
       "rng": {
         "draws": 3859,
@@ -6805,55 +6793,55 @@
       "tick": 590,
       "time": 29.5,
       "nextId": 662,
-      "state": "633e4d8c",
+      "state": "8cb0f576",
       "events": "c47dbd99",
       "rng": {
-        "draws": 3917,
-        "digest": "3976d551"
+        "draws": 3935,
+        "digest": "d03a3f58"
       }
     },
     {
       "tick": 600,
       "time": 30,
       "nextId": 662,
-      "state": "ad36a654",
-      "events": "597d04fe",
+      "state": "3f36a2af",
+      "events": "6f18d9e0",
       "rng": {
-        "draws": 3992,
-        "digest": "d00f9522"
+        "draws": 4004,
+        "digest": "4ada6d07"
       }
     },
     {
       "tick": 610,
       "time": 30.5,
       "nextId": 662,
-      "state": "7548e770",
+      "state": "f1b50d5b",
       "events": "741638a5",
       "rng": {
-        "draws": 4043,
-        "digest": "668eae9c"
+        "draws": 4059,
+        "digest": "69f312d0"
       }
     },
     {
       "tick": 620,
       "time": 31,
       "nextId": 662,
-      "state": "748421ce",
+      "state": "d0d2da21",
       "events": "741638a5",
       "rng": {
-        "draws": 4103,
-        "digest": "33cb8619"
+        "draws": 4132,
+        "digest": "6d4028a5"
       }
     },
     {
       "tick": 627,
       "time": 31.35,
       "nextId": 662,
-      "state": "929ab521",
+      "state": "dcb79c42",
       "events": "2d1b09b1",
       "rng": {
-        "draws": 4139,
-        "digest": "d26412e7"
+        "draws": 4166,
+        "digest": "ea511b1b"
       },
       "label": "finalstand",
       "players": [
@@ -6865,9 +6853,8 @@
           "companionUpgrades": {},
           "counters": {
             "damageDealt": 3140,
-            "damageTaken": 6502,
-            "kills": 2,
-            "xpGained": 166
+            "damageTaken": 4767,
+            "kills": 2
           },
           "delveClears": {},
           "delveDaily": {},
@@ -6876,7 +6863,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
-          "lifetimeXp": 167366,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -6931,9 +6918,7 @@
           "arenaRating": 1500,
           "cls": "mage",
           "companionUpgrades": {},
-          "counters": {
-            "xpGained": 166
-          },
+          "counters": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 650,
@@ -6941,7 +6926,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167366,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -6994,8 +6979,7 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 140,
-            "xpGained": 166
+            "damageTaken": 213
           },
           "delveClears": {},
           "delveDaily": {},
@@ -7004,7 +6988,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167366,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -7057,8 +7041,7 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 140,
-            "xpGained": 166
+            "damageTaken": 213
           },
           "delveClears": {},
           "delveDaily": {},
@@ -7067,7 +7050,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167366,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -7120,8 +7103,7 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 140,
-            "xpGained": 166
+            "damageTaken": 213
           },
           "delveClears": {},
           "delveDaily": {},
@@ -7130,7 +7112,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167366,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -7180,19 +7162,19 @@
       "entities": [
         {
           "aiState": "idle",
-          "attackPower": 122,
+          "attackPower": 162,
           "combatTimer": 1.55,
-          "critChance": 0.0695,
+          "critChance": 0.0745,
           "detonateTimer": "Infinity",
-          "dodgeChance": 0.0695,
+          "dodgeChance": 0.0745,
           "fiveSecondRule": 130.35,
-          "hp": 812,
+          "hp": 1192,
           "id": 649,
           "inCombat": true,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 812,
+          "maxHp": 1192,
           "maxResource": 100,
           "moveSpeed": 7,
           "onGround": true,
@@ -7212,12 +7194,12 @@
           },
           "spellPower": 5,
           "stats": {
-            "agi": 39,
-            "armor": 376,
+            "agi": 49,
+            "armor": 516,
             "int": 10,
             "spi": 11,
-            "sta": 60,
-            "str": 61
+            "sta": 80,
+            "str": 81
           },
           "templateId": "warrior",
           "weapon": {
@@ -7235,13 +7217,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 130.35,
-          "hp": 418,
+          "hp": 638,
           "id": 650,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -7251,20 +7233,20 @@
             "z": -1171
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -7283,13 +7265,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 130.35,
-          "hp": 418,
+          "hp": 638,
           "id": 651,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -7299,20 +7281,20 @@
             "z": -1171
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -7331,13 +7313,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 130.35,
-          "hp": 418,
+          "hp": 638,
           "id": 652,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -7347,20 +7329,20 @@
             "z": -1187
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -7378,13 +7360,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 130.35,
-          "hp": 418,
+          "hp": 638,
           "id": 653,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -7394,20 +7376,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -7806,11 +7788,11 @@
       "tick": 628,
       "time": 31.4,
       "nextId": 662,
-      "state": "cd55e24c",
-      "events": "05e76236",
+      "state": "aa42cad8",
+      "events": "44f968df",
       "rng": {
-        "draws": 4154,
-        "digest": "df415675"
+        "draws": 4177,
+        "digest": "71e9367b"
       },
       "label": "death",
       "players": [
@@ -7822,9 +7804,8 @@
           "companionUpgrades": {},
           "counters": {
             "damageDealt": 5189,
-            "damageTaken": 6502,
-            "kills": 3,
-            "xpGained": 249
+            "damageTaken": 4767,
+            "kills": 3
           },
           "delveClears": {},
           "delveDaily": {},
@@ -7833,7 +7814,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
-          "lifetimeXp": 167449,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -7894,9 +7875,7 @@
           "arenaRating": 1500,
           "cls": "mage",
           "companionUpgrades": {},
-          "counters": {
-            "xpGained": 249
-          },
+          "counters": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 650,
@@ -7904,7 +7883,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167449,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -7963,8 +7942,7 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 140,
-            "xpGained": 249
+            "damageTaken": 213
           },
           "delveClears": {},
           "delveDaily": {},
@@ -7973,7 +7951,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167449,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -8032,8 +8010,7 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 140,
-            "xpGained": 249
+            "damageTaken": 213
           },
           "delveClears": {},
           "delveDaily": {},
@@ -8042,7 +8019,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167449,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -8101,8 +8078,7 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 140,
-            "xpGained": 249
+            "damageTaken": 213
           },
           "delveClears": {},
           "delveDaily": {},
@@ -8111,7 +8087,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167449,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -8167,19 +8143,19 @@
       "entities": [
         {
           "aiState": "idle",
-          "attackPower": 122,
+          "attackPower": 162,
           "combatTimer": 0.05,
-          "critChance": 0.0695,
+          "critChance": 0.0745,
           "detonateTimer": "Infinity",
-          "dodgeChance": 0.0695,
+          "dodgeChance": 0.0745,
           "fiveSecondRule": 130.4,
-          "hp": 812,
+          "hp": 1192,
           "id": 649,
           "inCombat": true,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 812,
+          "maxHp": 1192,
           "maxResource": 100,
           "moveSpeed": 7,
           "onGround": true,
@@ -8199,12 +8175,12 @@
           },
           "spellPower": 5,
           "stats": {
-            "agi": 39,
-            "armor": 376,
+            "agi": 49,
+            "armor": 516,
             "int": 10,
             "spi": 11,
-            "sta": 60,
-            "str": 61
+            "sta": 80,
+            "str": 81
           },
           "templateId": "warrior",
           "weapon": {
@@ -8222,13 +8198,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 130.4,
-          "hp": 418,
+          "hp": 638,
           "id": 650,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -8238,20 +8214,20 @@
             "z": -1171
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -8270,13 +8246,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 130.4,
-          "hp": 418,
+          "hp": 638,
           "id": 651,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -8286,20 +8262,20 @@
             "z": -1171
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -8318,13 +8294,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 130.4,
-          "hp": 418,
+          "hp": 638,
           "id": 652,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -8334,20 +8310,20 @@
             "z": -1187
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -8365,13 +8341,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 130.4,
-          "hp": 418,
+          "hp": 638,
           "id": 653,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -8381,20 +8357,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -8424,11 +8400,11 @@
           },
           "level": 20,
           "loot": {
-            "copper": 187053,
+            "copper": 108474,
             "items": [
               {
                 "count": 1,
-                "itemId": "soulflame_cowl"
+                "itemId": "nighttalon_shoulderguards"
               },
               {
                 "count": 1,
@@ -8436,11 +8412,11 @@
               },
               {
                 "count": 1,
-                "itemId": "soulflame_mantle"
+                "itemId": "crownforged_dreadhelm"
               },
               {
                 "count": 1,
-                "itemId": "crownforged_dreadhelm"
+                "itemId": "crownforged_warspaulders"
               }
             ]
           },
@@ -8810,77 +8786,77 @@
       "tick": 630,
       "time": 31.5,
       "nextId": 662,
-      "state": "78e889d3",
+      "state": "ea24c19d",
       "events": "741638a5",
       "rng": {
-        "draws": 4164,
-        "digest": "64071885"
+        "draws": 4195,
+        "digest": "a8853b8b"
       }
     },
     {
       "tick": 640,
       "time": 32,
       "nextId": 662,
-      "state": "1c170e5a",
+      "state": "a50804ae",
       "events": "741638a5",
       "rng": {
-        "draws": 4224,
-        "digest": "c45b0fbc"
+        "draws": 4267,
+        "digest": "220f8258"
       }
     },
     {
       "tick": 650,
       "time": 32.5,
       "nextId": 662,
-      "state": "8b5528f2",
+      "state": "dca226be",
       "events": "741638a5",
       "rng": {
-        "draws": 4295,
-        "digest": "ccf0cb50"
+        "draws": 4331,
+        "digest": "3aab500b"
       }
     },
     {
       "tick": 660,
       "time": 33,
       "nextId": 662,
-      "state": "dd65f28f",
+      "state": "6848d4ed",
       "events": "741638a5",
       "rng": {
-        "draws": 4353,
-        "digest": "c61afcad"
+        "draws": 4392,
+        "digest": "6d225e66"
       }
     },
     {
       "tick": 670,
       "time": 33.5,
       "nextId": 662,
-      "state": "eeb13c49",
+      "state": "3bce1f0b",
       "events": "741638a5",
       "rng": {
-        "draws": 4410,
-        "digest": "cc8e84da"
+        "draws": 4462,
+        "digest": "747f19d0"
       }
     },
     {
       "tick": 680,
       "time": 34,
       "nextId": 662,
-      "state": "b9624f90",
+      "state": "2928e8b4",
       "events": "741638a5",
       "rng": {
-        "draws": 4493,
-        "digest": "a6b7e86b"
+        "draws": 4529,
+        "digest": "ca9e0637"
       }
     },
     {
       "tick": 688,
       "time": 34.4,
       "nextId": 662,
-      "state": "839f1275",
+      "state": "18787583",
       "events": "ce6913ba",
       "rng": {
-        "draws": 4556,
-        "digest": "9c490708"
+        "draws": 4596,
+        "digest": "a8bb40ef"
       },
       "label": "final",
       "players": [
@@ -8892,9 +8868,8 @@
           "companionUpgrades": {},
           "counters": {
             "damageDealt": 5189,
-            "damageTaken": 6502,
-            "kills": 3,
-            "xpGained": 249
+            "damageTaken": 4767,
+            "kills": 3
           },
           "delveClears": {},
           "delveDaily": {},
@@ -8903,7 +8878,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
-          "lifetimeXp": 167449,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -8964,9 +8939,7 @@
           "arenaRating": 1500,
           "cls": "mage",
           "companionUpgrades": {},
-          "counters": {
-            "xpGained": 249
-          },
+          "counters": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 650,
@@ -8974,7 +8947,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167449,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -9033,8 +9006,7 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 140,
-            "xpGained": 249
+            "damageTaken": 213
           },
           "delveClears": {},
           "delveDaily": {},
@@ -9043,7 +9015,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167449,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -9102,8 +9074,7 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 140,
-            "xpGained": 249
+            "damageTaken": 213
           },
           "delveClears": {},
           "delveDaily": {},
@@ -9112,7 +9083,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167449,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -9171,8 +9142,7 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {
-            "damageTaken": 140,
-            "xpGained": 249
+            "damageTaken": 213
           },
           "delveClears": {},
           "delveDaily": {},
@@ -9181,7 +9151,7 @@
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
           },
-          "lifetimeXp": 167449,
+          "lifetimeXp": 503700,
           "plots": [
             {},
             {},
@@ -9237,19 +9207,19 @@
       "entities": [
         {
           "aiState": "idle",
-          "attackPower": 122,
+          "attackPower": 162,
           "combatTimer": 3.05,
-          "critChance": 0.0695,
+          "critChance": 0.0745,
           "detonateTimer": "Infinity",
-          "dodgeChance": 0.0695,
+          "dodgeChance": 0.0745,
           "fiveSecondRule": 133.4,
-          "hp": 812,
+          "hp": 1192,
           "id": 649,
           "inCombat": true,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 812,
+          "maxHp": 1192,
           "maxResource": 100,
           "moveSpeed": 7,
           "onGround": true,
@@ -9269,12 +9239,12 @@
           },
           "spellPower": 5,
           "stats": {
-            "agi": 39,
-            "armor": 376,
+            "agi": 49,
+            "armor": 516,
             "int": 10,
             "spi": 11,
-            "sta": 60,
-            "str": 61
+            "sta": 80,
+            "str": 81
           },
           "templateId": "warrior",
           "weapon": {
@@ -9292,13 +9262,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 133.4,
-          "hp": 418,
+          "hp": 638,
           "id": 650,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -9308,20 +9278,20 @@
             "z": -1171
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -9340,13 +9310,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 133.4,
-          "hp": 418,
+          "hp": 638,
           "id": 651,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -9356,20 +9326,20 @@
             "z": -1171
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -9388,13 +9358,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 133.4,
-          "hp": 418,
+          "hp": 638,
           "id": 652,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -9404,20 +9374,20 @@
             "z": -1187
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -9435,13 +9405,13 @@
           "detonateTimer": "Infinity",
           "dodgeChance": 0.056,
           "fiveSecondRule": 133.4,
-          "hp": 418,
+          "hp": 638,
           "id": 653,
           "kind": "player",
-          "level": 20,
+          "level": 30,
           "lootFfaTimer": "Infinity",
-          "maxHp": 418,
-          "maxResource": 1506,
+          "maxHp": 638,
+          "maxResource": 2196,
           "moveSpeed": 7,
           "onGround": true,
           "overpowerUntil": -1,
@@ -9451,20 +9421,20 @@
             "z": -1174
           },
           "potionCooldownUntil": -1,
-          "resource": 1506,
+          "resource": 2196,
           "resourceType": "mana",
           "spawnPos": {
             "x": 2,
             "y": 1.5,
             "z": -2
           },
-          "spellPower": 41,
+          "spellPower": 56,
           "stats": {
             "agi": 12,
-            "armor": 133,
-            "int": 82,
-            "spi": 60,
-            "sta": 33,
+            "armor": 173,
+            "int": 112,
+            "spi": 80,
+            "sta": 43,
             "str": 10
           },
           "templateId": "mage",
@@ -9494,11 +9464,11 @@
           },
           "level": 20,
           "loot": {
-            "copper": 187053,
+            "copper": 108474,
             "items": [
               {
                 "count": 1,
-                "itemId": "soulflame_cowl"
+                "itemId": "nighttalon_shoulderguards"
               },
               {
                 "count": 1,
@@ -9506,11 +9476,11 @@
               },
               {
                 "count": 1,
-                "itemId": "soulflame_mantle"
+                "itemId": "crownforged_dreadhelm"
               },
               {
                 "count": 1,
-                "itemId": "crownforged_dreadhelm"
+                "itemId": "crownforged_warspaulders"
               }
             ]
           },
