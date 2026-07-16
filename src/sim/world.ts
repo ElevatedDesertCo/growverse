@@ -110,23 +110,24 @@ export const SKELETON_FORT = {
 // and feathers back up to the natural terrain over `feather`, so the mountain (which rises
 // past 40m here) is left as tall, unclimbable rock cliffs walling the chamber on every side
 // except the mouth: it reads as bored into the hillside, not an alcove stuck on its face.
-// The render module skins the roofed entrance tunnel (overhang, jambs, stalactites) and the
-// open-topped inner cavern (rough walls, stalagmite columns, boulders, bone piles) the
-// heightfield cannot. The mouth (low-x, toward the field the player crosses) stays open and
-// walkable; the inner chamber is open-topped so it stays sky-lit and playable at depth.
+// The render module skins the entrance tunnel (jambs, stalactites) and the inner cavern (rough
+// walls, stalagmite columns, boulders, bone piles) AND vaults a lumpy rock CEILING the heightfield
+// cannot, so the cave is enclosed overhead like a real cavern. The mouth (low-x, toward the field
+// the player crosses) stays an open hole in the cliff, and a couple of broken skylight collapses in
+// the vault crown let daylight shafts in so the roofed chamber stays lit and playable at depth.
 export const SKELETON_CAVE = {
-  x: 170, // sample center, INSIDE the inner chamber (so render baseY reads the flat floorY)
-  z: 132, // lair centerline along z (mountain foot NNW of the grotto, well out of the fort)
+  x: 173, // sample center, INSIDE the inner chamber (so render baseY reads the flat floorY)
+  z: 136, // lair centerline along z (mountain foot NNW of the grotto, clear of its crest ring)
   floorY: 2.5, // flat lair floor (matches the field just outside the mouth, so it grades in)
-  mouthX: 142, // entrance mouth (low-x, field side): tunnel begins here
+  mouthX: 140, // entrance mouth (low-x, field side): tunnel begins here
   throatX: 156, // throat: the narrow tunnel opens into the wide chamber here
-  backX: 189, // back wall of the inner chamber, deep in the mountain (natural terrain ~44m)
-  mouthHalf: 6, // entrance-tunnel half-width along z (the walkable throat between the jambs)
-  chamberHalf: 15, // inner-chamber half-width along z (the wide, deep lair the husks muster in)
+  backX: 191, // back wall of the inner chamber, deep in the mountain (natural terrain ~44m)
+  mouthHalf: 7, // entrance-tunnel half-width along z (the walkable throat between the jambs)
+  chamberHalf: 16, // inner-chamber half-width along z (the wide, deep lair the husks muster in)
   feather: 6, // floor feathers back up to natural terrain over this distance (steep rock walls)
   wallThick: 1.2, // side / back rock-wall half thickness (colliders + render)
-  archH: 12, // rock arch / overhang height above the floor at the mouth
-  jambR: 2.4, // mouth jamb (rock pillar) radius
+  archH: 15, // rock arch / vault spring height above the floor (roof rises above this)
+  jambR: 2.6, // mouth jamb (rock pillar) radius
 } as const;
 
 // The Sluice waterway (zone1): a millpond (carved as a lake in content) fed by a
@@ -325,9 +326,9 @@ function isOnGrottoFloor(x: number, z: number): boolean {
 // foot. On the low-x (mouth) side the field is already near floorY so the entrance grades in
 // cleanly; everywhere else the world-rim mountain rises past 40m, so the feather leaves tall,
 // unclimbable rock cliffs walling the tunnel and chamber. Applied AFTER the grotto carve:
-// the grotto's northern crest sits around z~113 and eases down into the low field, while this
-// cave's flat floor begins by z~117, so a narrow field valley separates the two (verified:
-// heights fall monotonically across the seam, no notch) and nothing else disturbs the floor.
+// the grotto's northern crest sits around z~112 and eases down into the low field, while this
+// cave's flat floor begins by z~120, so a field valley separates the two (verified: heights fall
+// monotonically down the grotto cliff into the cave floor, no notch) and nothing else disturbs it.
 // caveRectPin: 1 inside the rounded-rect [x0,x1] x [z-halfW, z+halfW], easing to 0 by feather.
 function caveRectPin(x: number, zoff: number, x0: number, x1: number, halfW: number): number {
   const c = SKELETON_CAVE;

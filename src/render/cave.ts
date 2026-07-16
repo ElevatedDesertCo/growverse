@@ -8,21 +8,26 @@ import { GFX, surfaceMat } from './gfx';
 // Wither Hollow: the Wither Husk host's cave SYSTEM, bored deep into the foot of the world-rim
 // mountain north of the Skeleton Grotto (the `SKELETON_CAVE` primitive in sim/world.ts). This
 // module skins that ONE const's KEYHOLE footprint: a roofed entrance tunnel on the field side
-// that opens through a rock throat into a wide, DEEP, open-topped inner chamber where the husks
-// muster (bone piles + skull totem deep at the back).
+// that opens through a rock throat into a wide, DEEP inner chamber where the husks muster (bone
+// piles + skull totem deep at the back).
 //
-// It is meant to read as a NATURAL cave gouged from the hillside, not a built structure, so the
-// rock is skinned with the SAME earth material the terrain paints the mountain with: the
-// `Rock051` colour + normal maps over a warm ochre tint, world-scaled so it tiles like the
-// cliff face behind it. The walls are not clean slabs but clusters of overlapping, tilted
-// boulders and rough chunks that dress the base of the carved cliff, so the mesh blends into the
-// mountainside the heightfield already raises (the terrain carve supplies the tall cliffs; this
-// only needs to face their lower reaches and add the tunnel roof the heightfield cannot).
+// It must read as a NATURAL cave gouged from the hillside, ENCLOSED by rock overhead, not an open
+// quarry: the terrain carve (skeletonCaveOffset) supplies the flat floor and the tall cliffs that
+// wall it, and THIS mesh dresses those cliffs and, crucially, VAULTS A ROCK CEILING over the whole
+// tunnel and chamber that the heightfield cannot. The vault is built from overlapping, tumbled
+// boulders arching across the span (a lumpy rock roof, never a smooth man-made dome) with
+// stalactites hanging beneath it. A couple of the crown stretches are left broken open as natural
+// skylight collapses so shafts of daylight fall into the chamber (and the camera can see down into
+// it); the mouth itself stays open so the player can walk in. The rock is skinned with the SAME
+// earth material the terrain paints the mountain with (the `Rock051` colour + normal maps over a
+// warm ochre tint, world-scaled so it tiles like the cliff face behind it), so the mesh blends into
+// the mountainside the heightfield already raises.
 //
 // The colliders (colliders.ts) derive their jambs, tunnel/chamber walls, shoulder step, and back
-// wall from the SAME const with the same arithmetic, so what you see is what you bump. All
-// geometry is static, merged per material into a handful of one-draw meshes, built once and
-// seated off a single `baseY` (the flat floor) sampled at the chamber centre.
+// wall from the SAME const with the same arithmetic, so what you see is what you bump (the vault is
+// overhead dressing, above head height, so it needs no collider). All geometry is static, merged
+// per material into a handful of one-draw meshes, built once and seated off a single `baseY` (the
+// flat floor) sampled at the chamber centre.
 
 export interface CaveView {
   group: THREE.Group;
@@ -31,7 +36,7 @@ export interface CaveView {
 // Warm earthy tints matching the sun-baked vale mountainside (multiply the near-grey Rock051
 // albedo). Lit rock reads as ochre-tan like the cliffs; the shadowed interior is a deeper brown.
 const ROCK = 0xbfad8a; // sunlit ochre-tan rock (matches the mountain splat)
-const ROCK_DARK = 0x8c7856; // shadowed interior / lower courses, deeper earth-brown
+const ROCK_DARK = 0x8c7856; // shadowed interior / lower courses / ceiling, deeper earth-brown
 const BONE = 0xcfc8b6; // bleached bone and skulls
 const EMBER = 0x74b83a; // sickly green ritual ember (emissive)
 
@@ -177,7 +182,7 @@ export function buildCave(seed: number): CaveView {
   const zMouthS = c.z - c.mouthHalf; // tunnel wall centreline, south
   const zChamN = c.z + c.chamberHalf; // chamber wall centreline, north
   const zChamS = c.z - c.chamberHalf; // chamber wall centreline, south
-  const ceilY = baseY + c.archH; // underside of the tunnel overhang roof
+  const ceilY = baseY + c.archH; // spring line of the tunnel vault (top of the tunnel walls)
 
   // A natural rock wall dressing the base of a carved cliff: overlapping tilted boulders in two
   // rough courses along a line, with a few tumbled chunk-boxes filling the mass behind them, so
@@ -233,6 +238,42 @@ export function buildCave(seed: number): CaveView {
     }
   };
 
+  // A natural rock VAULT roofing a span along x: overlapping tumbled boulders arching across z
+  // from the south spring, up over the crown, down to the north spring, rib after rib along x, so
+  // the cave is ENCLOSED overhead by lumpy rock (never a smooth dome). `springY` is where the
+  // arch springs from (the top of the side walls); `rise` is how far the crown sits above it.
+  // `skylights` lists x-stations where the crown is left broken open (a collapsed roof letting
+  // daylight and the camera through). Returns the underside crown height at chamber centre so the
+  // caller can hang stalactites from it.
+  const vault = (
+    x0: number,
+    x1: number,
+    halfW: number,
+    springY: number,
+    rise: number,
+    skylights: number[],
+    skyHalf: number,
+  ): void => {
+    const span = x1 - x0;
+    const nx = Math.max(2, Math.round(span / 2.8));
+    const na = Math.max(6, Math.round((Math.PI * halfW) / 3.0)); // boulders per half-arch rib
+    for (let i = 0; i < nx; i++) {
+      const rx = x0 + span * ((i + 0.5) / nx);
+      const openHere = skylights.some((g) => Math.abs(rx - g) < skyHalf);
+      for (let j = 0; j <= na; j++) {
+        const a = Math.PI * (j / na); // 0 = south spring, PI/2 = crown, PI = north spring
+        // leave the crown broken where a skylight collapse is called for
+        if (openHere && a > Math.PI * 0.34 && a < Math.PI * 0.66) continue;
+        const rz = c.z - halfW * Math.cos(a);
+        const ry = springY + rise * Math.sin(a);
+        const r = 1.8 + rnd() * 1.2;
+        const jx = (rnd() - 0.5) * 1.4;
+        const jz = (rnd() - 0.5) * 1.0;
+        boulder(rnd() < 0.55 ? rockDark : rock, r, rx + jx, ry, rz + jz, rnd);
+      }
+    }
+  };
+
   // ---- mouth jambs: two chunky rough boulder stacks framing the entrance ------------
   for (const jz of [zMouthS, zMouthN]) {
     cyl(rockDark, c.jambR, c.archH * 0.5, c.mouthX, baseY, jz, 7); // rough core
@@ -245,45 +286,19 @@ export function buildCave(seed: number): CaveView {
   rockWall('x', c.mouthX, c.throatX, zMouthS, c.archH * 0.85);
   rockWall('x', c.mouthX, c.throatX, zMouthN, c.archH * 0.85);
 
-  // ---- tunnel overhang roof: chunky jittered slabs bridging mouth to throat --------
-  {
-    const slabs = 4;
-    const span = c.throatX - c.mouthX;
-    for (let i = 0; i < slabs; i++) {
-      const t = (i + 0.5) / slabs;
-      const rx = c.mouthX + t * span;
-      const lift = (1 - t) * 0.8; // roof lifts toward the mouth so the entrance is tallest
-      box(
-        rockDark,
-        span / slabs + 1.2,
-        1.6 + rnd() * 0.7,
-        c.mouthHalf * 2 + c.wallThick * 2 + 0.8,
-        rx,
-        ceilY + lift + 0.6,
-        c.z + (rnd() - 0.5) * 0.4,
-        0,
-        (rnd() - 0.5) * 0.14,
-      );
-      // a boulder or two riding the roof so its top edge is broken, not a clean beam
-      boulder(
-        rock,
-        0.9 + rnd() * 0.7,
-        rx + (rnd() - 0.5) * 1.5,
-        ceilY + lift + 1.6,
-        c.z + (rnd() - 0.5) * 3,
-        rnd,
-      );
-    }
-    // arch lintel: a thick rough beam bridging the mouth jambs, crowned with rubble
-    box(rock, 2.0, 2.0, c.mouthHalf * 2 + 1.4, c.mouthX, ceilY + 0.9, c.z, 0, (rnd() - 0.5) * 0.1);
-    boulder(rockDark, 1.6, c.mouthX + 0.3, ceilY + 2.0, c.z, rnd);
-  }
+  // ---- tunnel roof: a rock vault arching the tunnel from just inside the mouth to the throat.
+  // The vault starts a step in from the mouth (mouthX + 2) so the entrance itself stays an open
+  // hole in the cliff the player walks through; it springs off the tunnel wall tops.
+  vault(c.mouthX + 2, c.throatX + 1, c.mouthHalf + c.wallThick, ceilY - 1.5, 4.5, [], 0);
+  // a rough lintel + rubble crowning the very mouth so the entrance reads as a bored arch
+  box(rock, 2.2, 2.2, c.mouthHalf * 2 + 2.0, c.mouthX, ceilY - 0.4, c.z, 0, (rnd() - 0.5) * 0.1);
+  boulder(rockDark, 1.8, c.mouthX + 0.3, ceilY + 0.9, c.z, rnd);
 
-  // ---- tunnel stalactites hanging from the roof underside --------------------------
+  // ---- tunnel stalactites hanging from the vault underside --------------------------
   for (let i = 0; i < 6; i++) {
-    const sx = c.mouthX + 1.5 + rnd() * (c.throatX - c.mouthX - 3);
-    const sz = c.z + (rnd() - 0.5) * (c.mouthHalf * 1.5);
-    spike(rockDark, 0.4 + rnd() * 0.3, 1.6 + rnd() * 1.6, sx, ceilY + 0.2, sz, false);
+    const sx = c.mouthX + 3 + rnd() * (c.throatX - c.mouthX - 4);
+    const sz = c.z + (rnd() - 0.5) * (c.mouthHalf * 1.4);
+    spike(rockDark, 0.4 + rnd() * 0.3, 1.6 + rnd() * 1.6, sx, ceilY + 1.6, sz, false);
   }
 
   // ---- shoulder walls: broken rock stepping the tunnel out into the wide chamber ----
@@ -294,10 +309,45 @@ export function buildCave(seed: number): CaveView {
   }
 
   // ---- inner chamber: tall broken-rock walls dressing the carved cliffs, each side --
-  // Open-topped (no roof) so the chamber stays sky-lit; these face the LOWER cliff and the
-  // terrain carve raises the true mountain wall above and behind them.
+  // These face the LOWER cliff; the terrain carve raises the true mountain wall above and behind
+  // them, and the vault below roofs the room between the two wall tops.
   rockWall('x', c.throatX, c.backX, zChamS, c.archH);
   rockWall('x', c.throatX, c.backX, zChamN, c.archH);
+
+  // ---- chamber ceiling: the big rock vault enclosing the cavern overhead ------------
+  // Springs off the chamber wall tops and arches high over the room. Two crown stretches are left
+  // broken open as skylight collapses (natural daylight shafts + a camera sightline down into the
+  // lair); everywhere else the room is roofed in lumpy rock, so it reads as a deep enclosed cave.
+  const chSpring = baseY + c.archH - 2; // overlap the wall tops so the vault seats on them
+  const chRise = 9.5; // crown sits well above head height for a cavernous feel
+  const sky1 = c.throatX + (c.backX - c.throatX) * 0.4;
+  const sky2 = c.throatX + (c.backX - c.throatX) * 0.74;
+  vault(c.throatX - 1, c.backX, c.chamberHalf + c.wallThick, chSpring, chRise, [sky1, sky2], 3.0);
+  // ragged rock lip around each skylight so the collapse reads as broken, not a cut hole
+  for (const sx of [sky1, sky2]) {
+    for (let k = 0; k < 5; k++) {
+      const a = (k / 5) * Math.PI * 2;
+      boulder(
+        rock,
+        1.2 + rnd() * 0.8,
+        sx + Math.cos(a) * 3.2 + (rnd() - 0.5),
+        chSpring + chRise - 0.5 + (rnd() - 0.5),
+        c.z + Math.sin(a) * 3.2 + (rnd() - 0.5),
+        rnd,
+      );
+    }
+  }
+
+  // ---- chamber stalactites hanging from the vault (skip near the open skylights) ----
+  for (let i = 0; i < 14; i++) {
+    const sx = c.throatX + 2 + rnd() * (c.backX - c.throatX - 4);
+    if (Math.abs(sx - sky1) < 3.5 || Math.abs(sx - sky2) < 3.5) continue; // leave the shafts clear
+    const sz = c.z + (rnd() - 0.5) * (c.chamberHalf * 1.5);
+    // hang from roughly the vault underside at that z (lower toward the springs)
+    const off = 1 - Math.abs(sz - c.z) / (c.chamberHalf + 1);
+    const hy = chSpring + chRise * Math.max(0.2, off) - 1.5;
+    spike(rockDark, 0.5 + rnd() * 0.45, 2.2 + rnd() * 2.6, sx, hy, sz, false);
+  }
 
   // ---- back wall: a broken rock face closing the deep end of the chamber -----------
   rockWall('z', zChamS, zChamN, c.backX, c.archH);
