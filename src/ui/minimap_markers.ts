@@ -30,7 +30,7 @@
 // Markers carry the identity (the party class id) the painter resolves
 // to a color, never the resolved color.
 
-import { isDelvePos, QUESTS, zoneAt } from '../sim/data';
+import { isDelvePos, QUESTS, zoneAtXZ } from '../sim/data';
 import { isQuestTurnInNpc } from '../sim/types';
 import type { IWorld } from '../world_api';
 
@@ -123,7 +123,9 @@ export function createMinimapMarkers(): MinimapMarkers {
       const rim = half - RIM_INSET;
       const rim2 = rim * rim;
       markers.length = 0;
-      const zone = zoneAt(p.pos.z);
+      // zoneAtXZ resolves the realm's own zone strip inside a realm band (else the
+      // overworld strip), so the minimap zone label + landmark pins follow the realm.
+      const zone = zoneAtXZ(p.pos.x, p.pos.z);
       model.zoneId = zone.id;
 
       // friend/guild lookup for colouring nearby allies; party members are drawn by the

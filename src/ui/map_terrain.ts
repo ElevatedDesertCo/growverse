@@ -6,8 +6,8 @@
 //
 // The colours sample the SAME `terrainHeight`/`roadDistance` the renderer and
 // sim use, so the map always matches the real world, do not diverge them.
-import { ZONES } from '../sim/data';
-import { roadDistance, terrainHeight, WATER_LEVEL, zoneBiomeAt } from '../sim/world';
+import { zoneStripAt } from '../sim/data';
+import { roadDistance, terrainHeight, WATER_LEVEL, zoneBiomeAtXZ } from '../sim/world';
 
 export interface MapRegion {
   minX: number;
@@ -44,8 +44,11 @@ export function paintTerrainRows(
       // the whole map east-west
       const x = region.maxX - (ix / W) * spanX;
       const z = region.maxZ - (iy / H) * spanZ;
+      // terrainHeight routes to realm terrain internally when (x,z) is in a realm
+      // band, and zoneBiomeAtXZ / zoneStripAt resolve against the realm's own strip,
+      // so this one painter draws both the overworld and any portal-reached realm.
       const h = terrainHeight(x, z, seed);
-      const biome = zoneBiomeAt(z);
+      const biome = zoneBiomeAtXZ(x, z);
       let r = 58,
         g = 105,
         b = 48;
@@ -82,7 +85,7 @@ export function paintTerrainRows(
         b = 62;
       }
       let nearHub = false;
-      for (const zn of ZONES) {
+      for (const zn of zoneStripAt(x, z)) {
         if (Math.hypot(x - zn.hub.x, z - zn.hub.z) < 14) {
           nearHub = true;
           break;

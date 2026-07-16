@@ -89,6 +89,9 @@ export interface MapPaintOptions {
   canvasSize: number;
   zoom: number;
   center: { x: number; z: number } | null;
+  /** X extent of the strip being drawn (realm band inside a realm, else omitted for
+   *  the overworld box). Forwarded to the view core for projection + culling. */
+  bounds?: { minX: number; maxX: number };
 }
 
 /** What the painter reports back so Hud can update its drag state + cursor. */
@@ -133,6 +136,7 @@ export class MapWindowPainter {
       center: opts.center,
       canvasSize: opts.canvasSize,
       decorations: this.decorations,
+      bounds: opts.bounds,
     });
     const colors = this.resolveColors();
     this.draw(ctx, model, opts.bg, opts.canvasSize, colors);

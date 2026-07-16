@@ -53,12 +53,15 @@ import {
   PLANTS,
   QUESTS,
   questRewardItem,
+  realmAt,
   WORLD_MAX_X,
   WORLD_MAX_Z,
   WORLD_MIN_X,
   WORLD_MIN_Z,
   ZONES,
   zoneAt,
+  zoneAtXZ,
+  zoneById,
 } from '../sim/data';
 import { specialRoleColor } from '../sim/discord_roles';
 import { armorTypeForItem, canEquipItem, weaponArchetypeForItem } from '../sim/equipment_rules';
@@ -5050,14 +5053,16 @@ export class Hud {
     this.setDisplay(this.deathOverlayEl, p.dead ? 'flex' : 'none');
     this.setDisplay(this.releaseSpiritBtnEl, deadInArena ? 'none' : '');
 
-    const inDungeon = p.pos.x > DUNGEON_X_THRESHOLD;
-    const currentZone = zoneAt(p.pos.z);
+    // A realm band also sits past DUNGEON_X_THRESHOLD but is real open world, not an
+    // instance, so exclude it here (realmAt gates the distinction, as in groundHeight).
+    const inDungeon = p.pos.x > DUNGEON_X_THRESHOLD && !realmAt(p.pos.x, p.pos.z);
+    const currentZone = zoneAtXZ(p.pos.x, p.pos.z);
     if (mediumHud) {
       // zone transitions: banner + welcome hint when crossing into a new band.
       // A ~5yd dead-band past the boundary stops a player straddling the border
       // from re-triggering the banner/log (and the map canvas regen) every step.
       if (!inDungeon && currentZone.id !== this.lastZoneId) {
-        const lastZone = ZONES.find((z) => z.id === this.lastZoneId);
+        const lastZone = zoneById(this.lastZoneId);
         const pastDeadBand =
           !lastZone ||
           p.pos.z < lastZone.zMin - ZONE_BANNER_DEADBAND ||
@@ -5825,9 +5830,20 @@ export class Hud {
     return c;
   }
 
-  // The full-zone band used by the world map (and prewarm), keyed only on z.
+  // The full-zone band used by the world map (and prewarm): the whole strip in X
+  // (the realm band inside a realm, else the overworld box) and the zone's z-band.
   private mapZoneRegion(zone: ZoneDef): MapRegion {
-    return { minX: WORLD_MIN_X, maxX: WORLD_MAX_X, minZ: zone.zMin, maxZ: zone.zMax };
+    const realm = realmAt(zone.hub.x, zone.hub.z);
+    const minX = realm ? realm.band.xMin : WORLD_MIN_X;
+    const maxX = realm ? realm.band.xMax : WORLD_MAX_X;
+    return { minX, maxX, minZ: zone.zMin, maxZ: zone.zMax };
+  }
+
+  // The X extent of the strip a zone belongs to (realm band or overworld box); the
+  // world-map view core needs it to project + cull against the right box.
+  private mapZoneBounds(zone: ZoneDef): { minX: number; maxX: number } {
+    const region = this.mapZoneRegion(zone);
+    return { minX: region.minX, maxX: region.maxX };
   }
 
   // The cached terrain background for a zone, rendering it synchronously only if
@@ -5850,7 +5866,7 @@ export class Hud {
   private prewarmMapBg(zoneId: string): void {
     if (this.mapBgCache.has(zoneId)) return;
     if (this.mapPrewarm?.zoneId === zoneId) return; // already prewarming it
-    const zone = ZONES.find((z) => z.id === zoneId);
+    const zone = zoneById(zoneId);
     if (!zone) return;
     this.cancelMapPrewarm(); // drop any prewarm for a now-stale zone
     const region = this.mapZoneRegion(zone);
@@ -6191,14 +6207,15 @@ export class Hud {
     // border-straddling can't thrash the cached terrain regen.
     const dungeon = dungeonAt(p.pos.x);
     const zone: ZoneDef = dungeon
-      ? zoneAt(dungeon.doorPos.z)
-      : (ZONES.find((z) => z.id === this.lastZoneId) ?? zoneAt(p.pos.z));
+      ? zoneAtXZ(dungeon.doorPos.x, dungeon.doorPos.z)
+      : (zoneById(this.lastZoneId) ?? zoneAtXZ(p.pos.x, p.pos.z));
     const result = this.mapPainter.paintOverworld(ctx, this.sim, {
       zone,
       bg: this.mapZoneBg(zone), // cached per zone; prewarmed during idle
       canvasSize: S,
       zoom: this.mapZoom,
       center: this.mapCenter,
+      bounds: this.mapZoneBounds(zone), // realm band X-extent inside a realm, else the overworld box
     });
     this.mapView = result.view;
     if (!this.mapDrag) canvas.style.cursor = result.cursor;

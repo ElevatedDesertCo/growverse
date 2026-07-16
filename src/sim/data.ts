@@ -425,6 +425,19 @@ export function zoneAtXZ(x: number, z: number): ZoneDef {
   return zones[zones.length - 1];
 }
 
+// Resolve a zone by id across every strip (the overworld ZONES plus each realm's
+// zones). Zone ids are globally unique, so this finds the one owner. Used by the
+// HUD map, which caches a committed zone id and must resolve it even inside a realm.
+export function zoneById(id: string): ZoneDef | undefined {
+  const overworld = ZONES.find((z) => z.id === id);
+  if (overworld) return overworld;
+  for (const realm of REALMS) {
+    const z = realm.zones.find((zn) => zn.id === id);
+    if (z) return z;
+  }
+  return undefined;
+}
+
 export function zoneWelcomeText(
   zone: ZoneDef,
   questState: (questId: string) => QuestState,

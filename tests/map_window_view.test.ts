@@ -9,7 +9,7 @@
 // getComputedStyle and are covered by the no-magic-values source guard instead.
 
 import { describe, expect, it } from 'vitest';
-import { DUNGEON_LIST, QUESTS, WORLD_MAX_X, WORLD_MIN_X, ZONES } from '../src/sim/data';
+import { DUNGEON_LIST, QUESTS, REALMS, WORLD_MAX_X, WORLD_MIN_X, ZONES } from '../src/sim/data';
 import { isQuestTurnInNpc } from '../src/sim/types';
 import type { Decoration } from '../src/sim/world';
 import { overworldDungeonPortals } from '../src/ui/map_dungeon_portals';
@@ -258,5 +258,54 @@ describe('buildOverworldMapModel (pure draw model)', () => {
 
   it('exposes the zoom ceiling used by the zoom control', () => {
     expect(MAP_MAX_ZOOM).toBeGreaterThan(1);
+  });
+});
+
+// M3.1: inside a portal-reached realm, Hud passes the realm band's X extent so the
+// projection follows the realm, not the overworld box (whose x is ~[-180,180]).
+describe('buildOverworldMapModel: realm-scoped bounds (M3.1)', () => {
+  const realm = REALMS[0];
+  const realmZone = realm.zones[0];
+  const rz = (realmZone.zMin + realmZone.zMax) / 2;
+  const realmWorld = (): IWorld => {
+    const player = {
+      id: 1,
+      kind: 'player',
+      name: 'Me',
+      pos: { x: realm.hubPos.x, z: rz },
+      facing: 0,
+    };
+    return {
+      player,
+      entities: new Map([[1, player]]),
+      socialInfo: null,
+      questState: () => 'available',
+      cfg: { seed: 1 },
+      delveRun: null,
+    } as unknown as IWorld;
+  };
+  const realmInput = (withBounds: boolean): OverworldMapInput => ({
+    world: realmWorld(),
+    zone: realmZone,
+    zoom: 1,
+    center: null,
+    canvasSize: CANVAS,
+    decorations: NO_DECOR,
+    ...(withBounds ? { bounds: { minX: realm.band.xMin, maxX: realm.band.xMax } } : {}),
+  });
+
+  it('projects a realm player onto the map when the realm band bounds are passed', () => {
+    const model = buildOverworldMapModel(realmInput(true));
+    expect(model.player).not.toBeNull();
+    expect(model.player?.mx).toBeGreaterThanOrEqual(0);
+    expect(model.player?.mx).toBeLessThanOrEqual(CANVAS);
+    // the view spans the realm band in X, not the overworld box
+    expect(model.view.minX).toBe(realm.band.xMin);
+    expect(model.view.maxX).toBe(realm.band.xMax);
+  });
+
+  it('culls the realm player under the default overworld bounds (the pre-M3.1 behavior)', () => {
+    const model = buildOverworldMapModel(realmInput(false));
+    expect(model.player).toBeNull(); // realm x is far past WORLD_MAX_X
   });
 });

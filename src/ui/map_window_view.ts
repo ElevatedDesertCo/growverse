@@ -177,6 +177,13 @@ export interface OverworldMapInput {
   canvasSize: number;
   /** The cached whole-world decorations (generated once from the seed). */
   decorations: readonly Decoration[];
+  /**
+   * The X extent of the strip being drawn. Omitted for the overworld (defaults to
+   * WORLD_MIN_X..WORLD_MAX_X); inside a portal-reached realm, Hud passes the realm
+   * band's xMin/xMax so the projection and off-strip culls follow the realm, not
+   * the overworld box.
+   */
+  bounds?: { minX: number; maxX: number };
 }
 
 /** Which world-map surface this world renders. Delve when the player stands in a
@@ -194,15 +201,17 @@ export function mapWindowMode(world: IWorld): MapWindowMode {
  * localized text and strokes.
  */
 export function buildOverworldMapModel(input: OverworldMapInput): OverworldMapModel {
-  const { world, zone, zoom, center, canvasSize: S, decorations } = input;
+  const { world, zone, zoom, center, canvasSize: S, decorations, bounds } = input;
   const p = world.player;
+  const boundMinX = bounds?.minX ?? WORLD_MIN_X;
+  const boundMaxX = bounds?.maxX ?? WORLD_MAX_X;
 
-  // The full committed-zone region: the whole world in X, the zone band in Z.
+  // The full committed-zone region: the whole strip in X, the zone band in Z.
   const full: MapViewRect = {
-    spanX: WORLD_MAX_X - WORLD_MIN_X,
+    spanX: boundMaxX - boundMinX,
     spanZ: zone.zMax - zone.zMin,
-    minX: WORLD_MIN_X,
-    maxX: WORLD_MAX_X,
+    minX: boundMinX,
+    maxX: boundMaxX,
     minZ: zone.zMin,
     maxZ: zone.zMax,
   };
@@ -270,7 +279,7 @@ export function buildOverworldMapModel(input: OverworldMapInput): OverworldMapMo
   }
 
   let player: MapPlayerMarker | null = null;
-  if (p.pos.z >= zone.zMin && p.pos.z < zone.zMax && p.pos.x <= WORLD_MAX_X) {
+  if (p.pos.z >= zone.zMin && p.pos.z < zone.zMax && p.pos.x >= boundMinX && p.pos.x <= boundMaxX) {
     const { mx, my } = toMap(p.pos.x, p.pos.z);
     player = { mx, my, angle: -p.facing };
   }
@@ -292,7 +301,7 @@ export function buildOverworldMapModel(input: OverworldMapInput): OverworldMapMo
         drawn.has(m.id)
       )
         return;
-      if (m.z < zone.zMin || m.z >= zone.zMax || m.x > WORLD_MAX_X) return;
+      if (m.z < zone.zMin || m.z >= zone.zMax || m.x > boundMaxX || m.x < boundMinX) return;
       drawn.add(m.id);
       const { mx, my } = toMap(m.x, m.z);
       allies.push({ mx, my, name: m.name, kind });
