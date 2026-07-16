@@ -3110,6 +3110,8 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.dungeons.drowned_temple.leaveText': '당신은 달의 관문을 통해 산속의 밤으로 떠오릅니다.',
   'worldContent.corpseName': '{name} (시체)',
   'worldContent.dungeonExitName': '{name} 출구',
+  'worldContent.realmPortalReturn': '지상 세계로 돌아가기',
+  'entities.realms.emberwastes.name': '엠버웨이스트',
   'worldContent.delveLockedChestInteract': 'F를 눌러 자물쇠 따기',
   'worldContent.delveRewardChestInteract': 'F를 눌러 전리품 받기',
   'worldContent.delveSurfaceExitInteract': 'F를 눌러 지상으로 오르기',

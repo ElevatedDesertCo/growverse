@@ -7282,6 +7282,11 @@ export const en_XA: EnTranslations = {
         "leaveText": "[Ýóú çļíɱƀ ƀáçķ ţó Ɓŕóţĥéŕ Ĥáļʋéñ áţ ţĥé ŕéļíɋúáŕý ŕúíñ.]"
       }
     },
+    "realms": {
+      "emberwastes": {
+        "name": "[Ţĥé Éɱƀéŕŵášţéš]"
+      }
+    },
     "itemSets": {
       "crownforged": {
         "name": "[Çŕóŵñƒóŕĝéð Ŕéĝáļíá]",
@@ -7327,6 +7332,7 @@ export const en_XA: EnTranslations = {
     "dungeonInstanceBusy": "[Áļļ íñšţáñçéš óƒ {name} áŕé ƀúšý. Ţŕý áĝáíñ šóóñ.]",
     "delveLockedChestInteract": "[Þŕéšš Ƒ ţó þíçķ ţĥé ļóçķ]",
     "delveRewardChestInteract": "[Þŕéšš Ƒ ţó çļáíɱ šþóíļš]",
-    "delveSurfaceExitInteract": "[Þŕéšš Ƒ ţó çļíɱƀ]"
+    "delveSurfaceExitInteract": "[Þŕéšš Ƒ ţó çļíɱƀ]",
+    "realmPortalReturn": "[Ŕéţúŕñ ţó ţĥé Óʋéŕŵóŕļð]"
   }
 };

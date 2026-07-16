@@ -7282,6 +7282,11 @@ export const pl_PL: EnTranslations = {
         "leaveText": "Wspinasz się z powrotem do Brata Halvena przy ruinie relikwiarza."
       }
     },
+    "realms": {
+      "emberwastes": {
+        "name": "The Emberwastes"
+      }
+    },
     "itemSets": {
       "crownforged": {
         "name": "Koronokuty rynsztunek bojowy",
@@ -7327,6 +7332,7 @@ export const pl_PL: EnTranslations = {
     "dungeonInstanceBusy": "Wszystkie instancje lokacji {name} są zajęte. Spróbuj ponownie za chwilę.",
     "delveLockedChestInteract": "Naciśnij F, aby otworzyć zamek wytrychem",
     "delveRewardChestInteract": "Naciśnij F, aby zgarnąć łupy",
-    "delveSurfaceExitInteract": "Naciśnij F, aby się wspiąć"
+    "delveSurfaceExitInteract": "Naciśnij F, aby się wspiąć",
+    "realmPortalReturn": "Return to the Overworld"
   }
 };

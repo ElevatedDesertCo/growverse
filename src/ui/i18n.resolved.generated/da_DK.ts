@@ -7282,6 +7282,11 @@ export const da_DK: EnTranslations = {
         "leaveText": "Du klatrer tilbage til Broder Halven ved relikvariets ruin."
       }
     },
+    "realms": {
+      "emberwastes": {
+        "name": "The Emberwastes"
+      }
+    },
     "itemSets": {
       "crownforged": {
         "name": "Kronesmedet kampudstyr",
@@ -7327,6 +7332,7 @@ export const da_DK: EnTranslations = {
     "dungeonInstanceBusy": "Alle instanser af {name} er optaget. Prøv igen snart.",
     "delveLockedChestInteract": "Tryk på F for at dirke låsen op",
     "delveRewardChestInteract": "Tryk på F for at kræve byttet",
-    "delveSurfaceExitInteract": "Tryk på F for at klatre"
+    "delveSurfaceExitInteract": "Tryk på F for at klatre",
+    "realmPortalReturn": "Return to the Overworld"
   }
 };

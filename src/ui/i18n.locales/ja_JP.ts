@@ -3114,6 +3114,8 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.dungeons.drowned_temple.leaveText': '月の門を抜けて、山の夜へと浮かび上がる。',
   'worldContent.corpseName': '{name}（死体）',
   'worldContent.dungeonExitName': '{name}の出口',
+  'worldContent.realmPortalReturn': '地上世界へ戻る',
+  'entities.realms.emberwastes.name': 'エンバーウェイスト',
   'worldContent.delveLockedChestInteract': 'Fで錠を開ける',
   'worldContent.delveRewardChestInteract': 'Fで戦利品を受け取る',
   'worldContent.delveSurfaceExitInteract': 'Fで地上へ登る',

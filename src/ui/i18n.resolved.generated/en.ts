@@ -7282,6 +7282,11 @@ export const en: EnTranslations = {
         "leaveText": "You climb back to Brother Halven at the reliquary ruin."
       }
     },
+    "realms": {
+      "emberwastes": {
+        "name": "The Emberwastes"
+      }
+    },
     "itemSets": {
       "crownforged": {
         "name": "Crownforged Regalia",
@@ -7327,6 +7332,7 @@ export const en: EnTranslations = {
     "dungeonInstanceBusy": "All instances of {name} are busy. Try again soon.",
     "delveLockedChestInteract": "Press F to pick the lock",
     "delveRewardChestInteract": "Press F to claim spoils",
-    "delveSurfaceExitInteract": "Press F to climb"
+    "delveSurfaceExitInteract": "Press F to climb",
+    "realmPortalReturn": "Return to the Overworld"
   }
 };

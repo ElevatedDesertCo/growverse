@@ -7282,6 +7282,11 @@ export const ko_KR: EnTranslations = {
         "leaveText": "성물실 폐허의 브라더 할벤에게로 다시 올라갑니다."
       }
     },
+    "realms": {
+      "emberwastes": {
+        "name": "엠버웨이스트"
+      }
+    },
     "itemSets": {
       "crownforged": {
         "name": "왕관벼림 전투장비",
@@ -7327,6 +7332,7 @@ export const ko_KR: EnTranslations = {
     "dungeonInstanceBusy": "{name}의 모든 인스턴스가 사용 중입니다. 잠시 후 다시 시도하십시오.",
     "delveLockedChestInteract": "F를 눌러 자물쇠 따기",
     "delveRewardChestInteract": "F를 눌러 전리품 받기",
-    "delveSurfaceExitInteract": "F를 눌러 지상으로 오르기"
+    "delveSurfaceExitInteract": "F를 눌러 지상으로 오르기",
+    "realmPortalReturn": "지상 세계로 돌아가기"
   }
 };

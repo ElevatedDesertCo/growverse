@@ -7282,6 +7282,11 @@ export const sv_SE: EnTranslations = {
         "leaveText": "Du klättrar tillbaka till broder Halven vid relikvarieruinen."
       }
     },
+    "realms": {
+      "emberwastes": {
+        "name": "The Emberwastes"
+      }
+    },
     "itemSets": {
       "crownforged": {
         "name": "Kronsmidd stridsutrustning",
@@ -7327,6 +7332,7 @@ export const sv_SE: EnTranslations = {
     "dungeonInstanceBusy": "Alla instanser av {name} är upptagna. Försök igen snart.",
     "delveLockedChestInteract": "Tryck på F för att dyrka upp låset",
     "delveRewardChestInteract": "Tryck på F för att hämta bytet",
-    "delveSurfaceExitInteract": "Tryck på F för att klättra"
+    "delveSurfaceExitInteract": "Tryck på F för att klättra",
+    "realmPortalReturn": "Return to the Overworld"
   }
 };

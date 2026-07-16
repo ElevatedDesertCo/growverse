@@ -7282,6 +7282,11 @@ export const tr_TR: EnTranslations = {
         "leaveText": "Emanetlik harabesinde Birader Halven'in yanına tırmanıp geri dönersin."
       }
     },
+    "realms": {
+      "emberwastes": {
+        "name": "The Emberwastes"
+      }
+    },
     "itemSets": {
       "crownforged": {
         "name": "Taçdövme savaş takımı",
@@ -7327,6 +7332,7 @@ export const tr_TR: EnTranslations = {
     "dungeonInstanceBusy": "{name} zindanının tüm kopyaları dolu. Birazdan tekrar deneyin.",
     "delveLockedChestInteract": "Kilidi açmak için F'ye bas",
     "delveRewardChestInteract": "Ganimeti almak için F'ye bas",
-    "delveSurfaceExitInteract": "Tırmanmak için F'ye bas"
+    "delveSurfaceExitInteract": "Tırmanmak için F'ye bas",
+    "realmPortalReturn": "Return to the Overworld"
   }
 };

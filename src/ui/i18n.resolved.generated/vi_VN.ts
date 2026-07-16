@@ -7282,6 +7282,11 @@ export const vi_VN: EnTranslations = {
         "leaveText": "Bạn trèo trở lại chỗ Tu Huynh Halven tại tàn tích thánh tích."
       }
     },
+    "realms": {
+      "emberwastes": {
+        "name": "The Emberwastes"
+      }
+    },
     "itemSets": {
       "crownforged": {
         "name": "Bộ chiến Crownforged",
@@ -7327,6 +7332,7 @@ export const vi_VN: EnTranslations = {
     "dungeonInstanceBusy": "Tất cả các phiên bản của {name} đang bận. Hãy thử lại sau.",
     "delveLockedChestInteract": "Nhấn F để cạy khóa",
     "delveRewardChestInteract": "Nhấn F để nhận chiến lợi phẩm",
-    "delveSurfaceExitInteract": "Nhấn F để leo lên"
+    "delveSurfaceExitInteract": "Nhấn F để leo lên",
+    "realmPortalReturn": "Return to the Overworld"
   }
 };

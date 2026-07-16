@@ -1,4 +1,4 @@
-import { DELVES, DUNGEONS, MOBS, NPCS, QUESTS, ZONES } from '../sim/data';
+import { DELVES, DUNGEONS, MOBS, NPCS, QUESTS, REALMS, ZONES } from '../sim/data';
 
 // English world-entity names + narratives (mobs, NPCs, quests, zones, dungeons).
 //
@@ -256,6 +256,7 @@ const DUNGEON_IDS = [
   'sunken_mausoleum',
 ] as const;
 const DELVE_IDS = ['collapsed_reliquary'] as const;
+const REALM_IDS = ['emberwastes'] as const;
 
 type MobId = (typeof MOB_IDS)[number];
 type NpcId = (typeof NPC_IDS)[number];
@@ -263,6 +264,7 @@ type QuestId = (typeof QUEST_IDS)[number];
 type ZoneId = (typeof ZONE_IDS)[number];
 type DungeonId = (typeof DUNGEON_IDS)[number];
 type DelveId = (typeof DELVE_IDS)[number];
+type RealmId = (typeof REALM_IDS)[number];
 
 type MobTranslations = Record<MobId, { name: string }>;
 type NpcTranslations = Record<NpcId, { name: string; title: string; greeting: string }>;
@@ -282,6 +284,7 @@ type DungeonTranslations = Record<
   { name: string; enterText: string; leaveText: string }
 >;
 type DelveTranslations = Record<DelveId, { name: string; enterText: string; leaveText: string }>;
+type RealmTranslations = Record<RealmId, { name: string }>;
 
 type WorldEntityTranslations = {
   worldContent: {
@@ -292,6 +295,7 @@ type WorldEntityTranslations = {
     delveLockedChestInteract: string;
     delveRewardChestInteract: string;
     delveSurfaceExitInteract: string;
+    realmPortalReturn: string;
   };
   entities: {
     mobs: MobTranslations;
@@ -300,6 +304,7 @@ type WorldEntityTranslations = {
     zones: ZoneTranslations;
     dungeons: DungeonTranslations;
     delves: DelveTranslations;
+    realms: RealmTranslations;
   };
 };
 
@@ -378,6 +383,11 @@ function makeEnglishWorldEntities(): WorldEntityTranslations {
     };
   });
 
+  const realms = {} as RealmTranslations;
+  orderedValues(REALM_IDS, Object.fromEntries(REALMS.map((r) => [r.id, r]))).forEach((realm) => {
+    realms[realm.id as RealmId] = { name: realm.name };
+  });
+
   return {
     worldContent: {
       corpseName: '{name} (corpse)',
@@ -387,8 +397,9 @@ function makeEnglishWorldEntities(): WorldEntityTranslations {
       delveLockedChestInteract: 'Press F to pick the lock',
       delveRewardChestInteract: 'Press F to claim spoils',
       delveSurfaceExitInteract: 'Press F to climb',
+      realmPortalReturn: 'Return to the Overworld',
     },
-    entities: { mobs, npcs, quests, zones, dungeons, delves },
+    entities: { mobs, npcs, quests, zones, dungeons, delves, realms },
   };
 }
 

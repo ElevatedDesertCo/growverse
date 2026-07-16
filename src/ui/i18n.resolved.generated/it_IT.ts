@@ -7282,6 +7282,11 @@ export const it_IT: EnTranslations = {
         "leaveText": "Risali da Fratello Halven, alla rovina del reliquiario."
       }
     },
+    "realms": {
+      "emberwastes": {
+        "name": "The Emberwastes"
+      }
+    },
     "itemSets": {
       "crownforged": {
         "name": "Tenuta da battaglia Forgiacorona",
@@ -7327,6 +7332,7 @@ export const it_IT: EnTranslations = {
     "dungeonInstanceBusy": "Tutte le istanze di {name} sono occupate. Riprova tra poco.",
     "delveLockedChestInteract": "Premi F per scassinare la serratura",
     "delveRewardChestInteract": "Premi F per reclamare il bottino",
-    "delveSurfaceExitInteract": "Premi F per risalire"
+    "delveSurfaceExitInteract": "Premi F per risalire",
+    "realmPortalReturn": "Return to the Overworld"
   }
 };

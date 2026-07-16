@@ -7282,6 +7282,11 @@ export const ja_JP: EnTranslations = {
         "leaveText": "あなたは聖遺物庫の廃墟にいるハルヴェン修道士のもとへ登り戻る。"
       }
     },
+    "realms": {
+      "emberwastes": {
+        "name": "エンバーウェイスト"
+      }
+    },
     "itemSets": {
       "crownforged": {
         "name": "冠鋳の戦装束",
@@ -7327,6 +7332,7 @@ export const ja_JP: EnTranslations = {
     "dungeonInstanceBusy": "{name}のインスタンスはすべて使用中です。少し待ってから再試行してください。",
     "delveLockedChestInteract": "Fで錠を開ける",
     "delveRewardChestInteract": "Fで戦利品を受け取る",
-    "delveSurfaceExitInteract": "Fで地上へ登る"
+    "delveSurfaceExitInteract": "Fで地上へ登る",
+    "realmPortalReturn": "地上世界へ戻る"
   }
 };

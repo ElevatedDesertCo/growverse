@@ -2975,6 +2975,8 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'entities.dungeons.drowned_temple.leaveText': '你穿过月门，浮上山间的夜色之中。',
   'worldContent.corpseName': '{name}（尸体）',
   'worldContent.dungeonExitName': '{name}出口',
+  'worldContent.realmPortalReturn': '返回主世界',
+  'entities.realms.emberwastes.name': '余烬荒野',
   'worldContent.delveLockedChestInteract': '按 F 撬锁',
   'worldContent.delveRewardChestInteract': '按 F 领取战利品',
   'worldContent.delveSurfaceExitInteract': '按 F 攀回地表',

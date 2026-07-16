@@ -3145,6 +3145,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.dungeons.drowned_temple.leaveText': 'Ты всплываешь сквозь лунные врата в горную ночь.',
   'worldContent.corpseName': '{name} (труп)',
   'worldContent.dungeonExitName': 'Выход из {name}',
+  'worldContent.realmPortalReturn': 'Вернуться в основной мир',
+  'entities.realms.emberwastes.name': 'Пепельные Пустоши',
   'worldContent.delveLockedChestInteract': 'Нажмите F, чтобы вскрыть замок',
   'worldContent.delveRewardChestInteract': 'Нажмите F, чтобы забрать добычу',
   'worldContent.delveSurfaceExitInteract': 'Нажмите F, чтобы подняться',

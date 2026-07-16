@@ -104,6 +104,7 @@ import {
   NPCS,
   PLAYER_START,
   QUESTS,
+  REALMS,
   realmAt,
   zoneAt,
 } from './data';
@@ -1157,6 +1158,32 @@ export class Sim {
           emptyFor: 0,
         });
       }
+    }
+
+    // Realm portals: an overworld-side gate INTO each realm, plus a return gate in
+    // the realm hub. Same interact/proximity path as dungeon doors (see
+    // interaction.ts + realms_transition.ts). Draws no rng.
+    for (const realm of REALMS) {
+      const entry = createGroundObject(
+        this.nextId++,
+        '',
+        realm.name,
+        this.groundPos(realm.entryPortalPos.x, realm.entryPortalPos.z),
+      );
+      entry.templateId = 'realm_portal';
+      entry.targetRealmId = realm.id;
+      entry.lootable = true; // interactable
+      this.addEntity(entry);
+      const ret = createGroundObject(
+        this.nextId++,
+        '',
+        'Overworld',
+        this.groundPos(realm.returnPortalPos.x, realm.returnPortalPos.z),
+      );
+      ret.templateId = 'realm_portal';
+      ret.targetRealmId = 'overworld';
+      ret.lootable = true;
+      this.addEntity(ret);
     }
 
     for (const delve of DELVE_LIST) {

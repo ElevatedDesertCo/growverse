@@ -7282,6 +7282,11 @@ export const pt_BR: EnTranslations = {
         "leaveText": "Você sobe de volta até o Irmão Halven, na ruína do relicário."
       }
     },
+    "realms": {
+      "emberwastes": {
+        "name": "The Emberwastes"
+      }
+    },
     "itemSets": {
       "crownforged": {
         "name": "Traje de batalha Forjacoroa",
@@ -7327,6 +7332,7 @@ export const pt_BR: EnTranslations = {
     "dungeonInstanceBusy": "Todas as instâncias de {name} estão ocupadas. Tente novamente em breve.",
     "delveLockedChestInteract": "Pressione F para arrombar a fechadura",
     "delveRewardChestInteract": "Pressione F para reivindicar o saque",
-    "delveSurfaceExitInteract": "Pressione F para subir"
+    "delveSurfaceExitInteract": "Pressione F para subir",
+    "realmPortalReturn": "Return to the Overworld"
   }
 };

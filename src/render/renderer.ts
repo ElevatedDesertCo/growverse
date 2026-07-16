@@ -679,7 +679,10 @@ function setRenderCategory(obj: THREE.Object3D, category: RenderDiagnosticsCateg
 
 function isPersistentPortalObject(e: Entity): boolean {
   return (
-    e.kind === 'object' && (e.templateId === 'dungeon_door' || e.templateId === 'dungeon_exit')
+    e.kind === 'object' &&
+    (e.templateId === 'dungeon_door' ||
+      e.templateId === 'dungeon_exit' ||
+      e.templateId === 'realm_portal')
   );
 }
 
@@ -2165,7 +2168,12 @@ export class Renderer {
 
   private objectPoolKeyFor(e: Entity): string | null {
     if (e.kind !== 'object' || !e.objectItemId) return null;
-    if (e.templateId === 'dungeon_door' || e.templateId === 'dungeon_exit') return null;
+    if (
+      e.templateId === 'dungeon_door' ||
+      e.templateId === 'dungeon_exit' ||
+      e.templateId === 'realm_portal'
+    )
+      return null;
     return `object:${e.objectItemId}`;
   }
 
@@ -3150,9 +3158,16 @@ export class Renderer {
     let gardenBare: THREE.Group | undefined;
     if (
       e.kind === 'object' &&
-      (e.templateId === 'dungeon_door' || e.templateId === 'dungeon_exit')
+      (e.templateId === 'dungeon_door' ||
+        e.templateId === 'dungeon_exit' ||
+        e.templateId === 'realm_portal')
     ) {
-      const entering = e.templateId === 'dungeon_door';
+      // Realm portals reuse the dungeon-door body: an entry portal (targeting a
+      // realm) reads as an inbound door, the paired return portal (targeting the
+      // overworld) reads as an exit.
+      const entering =
+        e.templateId === 'dungeon_door' ||
+        (e.templateId === 'realm_portal' && e.targetRealmId !== 'overworld');
       const built = this.buildDoorBody(entering, e.dungeonId);
       body = built.body;
       portal = built.portal;

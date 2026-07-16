@@ -7282,6 +7282,11 @@ export const zh_CN: EnTranslations = {
         "leaveText": "你攀回圣物库废墟旁的哈尔文修士身边。"
       }
     },
+    "realms": {
+      "emberwastes": {
+        "name": "余烬荒野"
+      }
+    },
     "itemSets": {
       "crownforged": {
         "name": "铸冠战装",
@@ -7327,6 +7332,7 @@ export const zh_CN: EnTranslations = {
     "dungeonInstanceBusy": "{name}的所有副本都已被占用。请稍后再试。",
     "delveLockedChestInteract": "按 F 撬锁",
     "delveRewardChestInteract": "按 F 领取战利品",
-    "delveSurfaceExitInteract": "按 F 攀回地表"
+    "delveSurfaceExitInteract": "按 F 攀回地表",
+    "realmPortalReturn": "返回主世界"
   }
 };

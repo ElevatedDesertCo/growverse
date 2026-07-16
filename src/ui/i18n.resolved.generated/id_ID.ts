@@ -7282,6 +7282,11 @@ export const id_ID: EnTranslations = {
         "leaveText": "Kau memanjat kembali menuju Bruder Halven di reruntuhan reliquary."
       }
     },
+    "realms": {
+      "emberwastes": {
+        "name": "The Emberwastes"
+      }
+    },
     "itemSets": {
       "crownforged": {
         "name": "Perlengkapan tempur Tempa Mahkota",
@@ -7327,6 +7332,7 @@ export const id_ID: EnTranslations = {
     "dungeonInstanceBusy": "Semua instansi {name} sedang sibuk. Coba lagi sebentar lagi.",
     "delveLockedChestInteract": "Tekan F untuk membuka kunci",
     "delveRewardChestInteract": "Tekan F untuk mengklaim rampasan",
-    "delveSurfaceExitInteract": "Tekan F untuk memanjat"
+    "delveSurfaceExitInteract": "Tekan F untuk memanjat",
+    "realmPortalReturn": "Return to the Overworld"
   }
 };

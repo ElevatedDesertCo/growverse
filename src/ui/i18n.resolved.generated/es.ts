@@ -7282,6 +7282,11 @@ export const es: EnTranslations = {
         "leaveText": "Subes de vuelta hasta el Hermano Halven, en la ruina del relicario."
       }
     },
+    "realms": {
+      "emberwastes": {
+        "name": "The Emberwastes"
+      }
+    },
     "itemSets": {
       "crownforged": {
         "name": "Equipo de batalla Forjacorona",
@@ -7327,6 +7332,7 @@ export const es: EnTranslations = {
     "dungeonInstanceBusy": "Todas las instancias de {name} están ocupadas. Inténtalo de nuevo pronto.",
     "delveLockedChestInteract": "Pulsa F para forzar la cerradura",
     "delveRewardChestInteract": "Pulsa F para reclamar el botín",
-    "delveSurfaceExitInteract": "Pulsa F para trepar"
+    "delveSurfaceExitInteract": "Pulsa F para trepar",
+    "realmPortalReturn": "Return to the Overworld"
   }
 };

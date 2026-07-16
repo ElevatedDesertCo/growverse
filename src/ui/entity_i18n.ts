@@ -8,6 +8,7 @@ import {
   MOBS,
   NPCS,
   QUESTS,
+  REALMS,
   ZONES,
 } from '../sim/data';
 import type { ItemDef, PlayerClass } from '../sim/types';
@@ -34,6 +35,7 @@ export type EntityTranslationKind =
   | 'zonePoi'
   | 'dungeon'
   | 'delve'
+  | 'realm'
   | 'itemSet';
 export type EntityTranslationField =
   | 'name'
@@ -93,7 +95,8 @@ export type EntityTranslationRequest =
       id: string;
       field: 'name' | 'enterText' | 'leaveText';
       values?: InterpolationValues;
-    };
+    }
+  | { kind: 'realm'; id: string; field: 'name'; values?: InterpolationValues };
 
 export interface EntityTranslationManifestEntry {
   kind: EntityTranslationKind;
@@ -239,6 +242,10 @@ function canonicalEntityText(request: EntityTranslationRequest): string {
       if (request.field === 'leaveText') return delve.leaveText;
       return delve.name;
     }
+    case 'realm': {
+      const realm = REALMS.find((candidate) => candidate.id === request.id);
+      return realm?.name ?? request.id;
+    }
   }
 }
 
@@ -270,6 +277,8 @@ export function entityTranslationKey(request: EntityTranslationRequest): string 
       return `entities.dungeons.${entityPathSegment(request.id)}.${request.field}`;
     case 'delve':
       return `entities.delves.${entityPathSegment(request.id)}.${request.field}`;
+    case 'realm':
+      return `entities.realms.${entityPathSegment(request.id)}.name`;
   }
 }
 
@@ -335,6 +344,10 @@ export function zonePoiLabel(zoneId: string, poiIndex: number): string {
 
 export function dungeonDisplayName(dungeonId: string): string {
   return tEntity({ kind: 'dungeon', id: dungeonId, field: 'name' });
+}
+
+export function realmDisplayName(realmId: string): string {
+  return tEntity({ kind: 'realm', id: realmId, field: 'name' });
 }
 
 export function resetEntityTranslationFallbackLog(): void {

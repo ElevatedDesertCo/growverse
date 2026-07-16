@@ -7282,6 +7282,11 @@ export const de_DE: EnTranslations = {
         "leaveText": "Du kletterst zurück zu Bruder Halven bei der Reliquiarruine."
       }
     },
+    "realms": {
+      "emberwastes": {
+        "name": "The Emberwastes"
+      }
+    },
     "itemSets": {
       "crownforged": {
         "name": "Kronengeschmiedete Kriegstracht",
@@ -7327,6 +7332,7 @@ export const de_DE: EnTranslations = {
     "dungeonInstanceBusy": "Alle Instanzen von {name} sind belegt. Versuch es bald erneut.",
     "delveLockedChestInteract": "Drücke F, um das Schloss zu knacken",
     "delveRewardChestInteract": "Drücke F, um Beute zu beanspruchen",
-    "delveSurfaceExitInteract": "Drücke F, um hinaufzuklettern"
+    "delveSurfaceExitInteract": "Drücke F, um hinaufzuklettern",
+    "realmPortalReturn": "Return to the Overworld"
   }
 };

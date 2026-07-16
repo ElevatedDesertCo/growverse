@@ -7282,6 +7282,11 @@ export const ru_RU: EnTranslations = {
         "leaveText": "Вы поднимаетесь обратно к Брату Хальвену у руин реликвария."
       }
     },
+    "realms": {
+      "emberwastes": {
+        "name": "Пепельные Пустоши"
+      }
+    },
     "itemSets": {
       "crownforged": {
         "name": "Боевой доспех Кованой Короны",
@@ -7327,6 +7332,7 @@ export const ru_RU: EnTranslations = {
     "dungeonInstanceBusy": "Все копии {name} заняты. Попробуйте еще раз чуть позже.",
     "delveLockedChestInteract": "Нажмите F, чтобы вскрыть замок",
     "delveRewardChestInteract": "Нажмите F, чтобы забрать добычу",
-    "delveSurfaceExitInteract": "Нажмите F, чтобы подняться"
+    "delveSurfaceExitInteract": "Нажмите F, чтобы подняться",
+    "realmPortalReturn": "Вернуться в основной мир"
   }
 };

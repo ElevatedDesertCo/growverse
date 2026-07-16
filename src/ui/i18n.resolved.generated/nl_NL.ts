@@ -7282,6 +7282,11 @@ export const nl_NL: EnTranslations = {
         "leaveText": "Je klimt terug omhoog naar Broeder Halven bij de reliekschrijnruïne."
       }
     },
+    "realms": {
+      "emberwastes": {
+        "name": "The Emberwastes"
+      }
+    },
     "itemSets": {
       "crownforged": {
         "name": "Kroongesmede gevechtsuitrusting",
@@ -7327,6 +7332,7 @@ export const nl_NL: EnTranslations = {
     "dungeonInstanceBusy": "Alle instanties van {name} zijn bezet. Probeer het zo weer.",
     "delveLockedChestInteract": "Druk op F om het slot te kraken",
     "delveRewardChestInteract": "Druk op F om de buit op te eisen",
-    "delveSurfaceExitInteract": "Druk op F om te klimmen"
+    "delveSurfaceExitInteract": "Druk op F om te klimmen",
+    "realmPortalReturn": "Return to the Overworld"
   }
 };

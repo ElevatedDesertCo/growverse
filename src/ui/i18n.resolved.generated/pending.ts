@@ -130,6 +130,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.realms.emberwastes.name",
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
@@ -225,7 +226,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "worldContent.realmPortalReturn"
   ],
   "es_ES": [
     "abilityUi.cast.harvest",
@@ -348,6 +350,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.realms.emberwastes.name",
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
@@ -443,7 +446,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "worldContent.realmPortalReturn"
   ],
   "fr_FR": [
     "abilityUi.cast.harvest",
@@ -566,6 +570,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.realms.emberwastes.name",
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
@@ -661,7 +666,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "worldContent.realmPortalReturn"
   ],
   "fr_CA": [
     "abilityUi.cast.harvest",
@@ -784,6 +790,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.realms.emberwastes.name",
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
@@ -879,7 +886,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "worldContent.realmPortalReturn"
   ],
   "en_CA": [],
   "it_IT": [
@@ -1003,6 +1011,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.realms.emberwastes.name",
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
@@ -1098,7 +1107,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "worldContent.realmPortalReturn"
   ],
   "de_DE": [
     "abilityUi.cast.harvest",
@@ -1221,6 +1231,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.realms.emberwastes.name",
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
@@ -1316,7 +1327,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "worldContent.realmPortalReturn"
   ],
   "zh_CN": [
     "entities.npcs.gravewarden_holt.name",
@@ -1471,6 +1483,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.realms.emberwastes.name",
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
@@ -1566,7 +1579,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "worldContent.realmPortalReturn"
   ],
   "ru_RU": [
     "entities.npcs.gravewarden_holt.name",
@@ -1697,6 +1711,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.realms.emberwastes.name",
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
@@ -1792,7 +1807,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "worldContent.realmPortalReturn"
   ],
   "pl_PL": [
     "abilityUi.cast.harvest",
@@ -1915,6 +1931,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.realms.emberwastes.name",
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
@@ -2010,7 +2027,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "worldContent.realmPortalReturn"
   ],
   "id_ID": [
     "abilityUi.cast.harvest",
@@ -2133,6 +2151,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.realms.emberwastes.name",
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
@@ -2228,7 +2247,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "worldContent.realmPortalReturn"
   ],
   "tr_TR": [
     "abilityUi.cast.harvest",
@@ -2351,6 +2371,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.realms.emberwastes.name",
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
@@ -2446,7 +2467,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "worldContent.realmPortalReturn"
   ],
   "sv_SE": [
     "abilityUi.cast.harvest",
@@ -2569,6 +2591,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.realms.emberwastes.name",
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
@@ -2664,7 +2687,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "worldContent.realmPortalReturn"
   ],
   "vi_VN": [
     "abilityUi.cast.harvest",
@@ -2787,6 +2811,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.realms.emberwastes.name",
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
@@ -2882,7 +2907,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "worldContent.realmPortalReturn"
   ],
   "da_DK": [
     "abilityUi.cast.harvest",
@@ -3005,6 +3031,7 @@ export const pending: Record<string, readonly string[]> = {
     "entities.quests.q_welcome_dam.objectives.0.label",
     "entities.quests.q_welcome_dam.text",
     "entities.quests.q_welcome_dam.title",
+    "entities.realms.emberwastes.name",
     "entities.zones.eastbrook_vale.pois.10.label",
     "entities.zones.eastbrook_vale.pois.11.label",
     "entities.zones.the_dam.name",
@@ -3100,6 +3127,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "worldContent.realmPortalReturn"
   ]
 };

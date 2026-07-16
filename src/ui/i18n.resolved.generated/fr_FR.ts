@@ -7282,6 +7282,11 @@ export const fr_FR: EnTranslations = {
         "leaveText": "Vous remontez auprès du frère Halven, à la ruine du reliquaire."
       }
     },
+    "realms": {
+      "emberwastes": {
+        "name": "The Emberwastes"
+      }
+    },
     "itemSets": {
       "crownforged": {
         "name": "Tenue de guerre Couronneforge",
@@ -7327,6 +7332,7 @@ export const fr_FR: EnTranslations = {
     "dungeonInstanceBusy": "Toutes les instances de {name} sont occupées. Réessayez bientôt.",
     "delveLockedChestInteract": "Appuyez sur F pour crocheter la serrure",
     "delveRewardChestInteract": "Appuyez sur F pour récupérer le butin",
-    "delveSurfaceExitInteract": "Appuyez sur F pour remonter"
+    "delveSurfaceExitInteract": "Appuyez sur F pour remonter",
+    "realmPortalReturn": "Return to the Overworld"
   }
 };

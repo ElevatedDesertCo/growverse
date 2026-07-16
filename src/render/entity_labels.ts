@@ -5,7 +5,7 @@
 // a renderer <-> painter import cycle.
 
 import type { Entity } from '../sim/types';
-import { dungeonDisplayName, tEntity } from '../ui/entity_i18n';
+import { dungeonDisplayName, realmDisplayName, tEntity } from '../ui/entity_i18n';
 import { t } from '../ui/i18n';
 
 export function mobDisplayName(mobId: string): string {
@@ -34,6 +34,13 @@ export function objectDisplayName(entity: Entity): string {
     return entity.templateId === 'dungeon_exit'
       ? t('worldContent.dungeonExitName', { name: dungeonName })
       : dungeonName;
+  }
+  // Realm portals: the entry gate (targets a realm) reads as that realm's name,
+  // like a dungeon door; the paired return gate reads as the overworld exit.
+  if (entity.templateId === 'realm_portal' && entity.targetRealmId) {
+    return entity.targetRealmId === 'overworld'
+      ? t('worldContent.realmPortalReturn')
+      : realmDisplayName(entity.targetRealmId);
   }
   // Collectible/quest ground objects carry the item id they grant; localize the
   // nameplate through the item dictionary instead of the raw English name.
