@@ -1504,6 +1504,28 @@ export interface ZoneDef {
   welcomeQuestId?: string; // only show the hint while this quest is available
 }
 
+// A realm is a portal-reached dimension: its own coordinate band holding its own
+// ordered zone strip, terrain seed, and hub, roughly the size of the overworld.
+// The overworld is the implicit realm 'overworld'. Realms are isolated (no roads
+// connect them; reached only by their portal), so realm-scoped terrain and zone
+// lookups resolve against `zones` when (x,z) falls inside `band`. Full design +
+// the phased plan live in docs/design/realms.md.
+export interface RealmDef {
+  id: string;
+  name: string;
+  // An unused far coordinate box the realm occupies; realm-scoped world lookups
+  // (terrainHeight / zoneAt / zoneBiomeAt) switch to this realm inside it.
+  band: { xMin: number; xMax: number; zMin: number; zMax: number };
+  // Per-realm heightfield offset so a realm does not share the overworld terrain.
+  terrainSeed: number;
+  // The realm's own ordered zone strip (its sub-zones), mirroring the overworld ZONES.
+  zones: ZoneDef[];
+  hubPos: { x: number; z: number }; // portal arrival point inside the realm
+  returnPortalPos: { x: number; z: number }; // the return-to-overworld gate location
+  entryPortalPos: { x: number; z: number }; // the overworld-side gate INTO this realm
+  unlock?: { minLevel?: number; requiresQuest?: string };
+}
+
 export interface BuildingDef {
   kind: 'house' | 'inn' | 'chapel';
   x: number;

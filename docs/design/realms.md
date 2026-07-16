@@ -356,9 +356,14 @@ in, walk the dunes, take/turn-in the quest, harvest+grow the seed, portal out,
 with determinism intact.
 
 M1 engine tasks (the code, in dependency order):
-1. Add `'desert'` to `BiomeId`; fill the compiler-forced `Record<BiomeId,...>`
-   tables in `render/{terrain,foliage,sky}.ts` (reuse the vale `arid` path + sand
-   splat + a placeholder HDRI/backdrop until final desert art lands).
+1. DONE (M1.1): the `RealmDef` type is in `types.ts`. Biome: the existing `'vale'`
+   biome is already coded as "a sun-baked desert" (warm ochre palette, sand splat,
+   arid HDRI), so the Emberwastes prototype REUSES `biome:'vale'` on its zones and
+   already reads as desert with zero biome-table churn. A distinct `'desert'` /
+   `'scorchland'` biome (redder dunes, harsher sky, Cinderreach ash) is deferred to
+   a later visual-polish pass; adding a `BiomeId` literal then forces ~21
+   `Record<BiomeId,...>` entries across `render/{terrain,foliage,sky,motes,renderer}`
+   + `world.ts` (compiler-guided) plus art.
 2. Add the `RealmDef` type (`types.ts`) + `EMBERWASTES_REALM` with an unused far
    coordinate band and its own `terrainSeed`.
 3. Make `terrainHeight` / `zoneAt` / `zoneBiomeAt` (`world.ts` + `data.ts`)
