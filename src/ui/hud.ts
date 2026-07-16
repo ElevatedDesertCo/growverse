@@ -2908,6 +2908,8 @@ export class Hud {
       void this.openPlayerCard();
     },
     openPrestige: () => this.openPrestigeDialog(),
+    embedBags: () => this.embedBagsInChar(),
+    restoreBags: () => this.restoreBagsFromChar(),
   });
   // Options window painter (options_view.ts core + options_window.ts painter). The
   // window renders no item rows, so it composes no PainterHostPresentation bag; it
@@ -9282,6 +9284,34 @@ export class Hud {
 
   toggleChar(): void {
     this.charWindow.toggle();
+  }
+
+  // Reparent the live #bags node into the character sheet's bags slot and repaint
+  // it, so gear and inventory read as one view. The node keeps its id and every
+  // listener (this is a MOVE, not a rebuild), so the bags window keeps working
+  // wherever it lives; restoreBagsFromChar puts it back on close.
+  private bagsHomeParent: HTMLElement | null = null;
+  private embedBagsInChar(): void {
+    const slot = document.getElementById('char-bags-slot');
+    if (!slot) return;
+    const bags = $('#bags');
+    if (bags.parentElement !== slot) {
+      this.bagsHomeParent ??= bags.parentElement;
+      slot.appendChild(bags);
+    }
+    bags.classList.add('bags-embedded');
+    bags.style.display = 'flex';
+    this.renderBags();
+  }
+
+  private restoreBagsFromChar(): void {
+    const bags = $('#bags');
+    if (!bags.classList.contains('bags-embedded')) return;
+    bags.classList.remove('bags-embedded');
+    if (this.bagsHomeParent && bags.parentElement !== this.bagsHomeParent) {
+      this.bagsHomeParent.appendChild(bags);
+    }
+    bags.style.display = 'none';
   }
 
   private renderCharPreview(): void {

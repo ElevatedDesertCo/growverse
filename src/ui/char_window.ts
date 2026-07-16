@@ -91,6 +91,10 @@ export interface CharWindowDeps extends PainterHostPresentation {
   renderSkinPicker(): void;
   openPlayerCard(): void;
   openPrestige(): void;
+  /** Reparent the live #bags node into the char window's slot and repaint it. */
+  embedBags(): void;
+  /** Return #bags to its own floating window and hide it (on char close). */
+  restoreBags(): void;
 }
 
 const SHARE_GLYPH =
@@ -128,6 +132,9 @@ export class CharWindow {
   close(): void {
     const el = this.deps.root();
     if (el.style.display !== 'block') return;
+    // Return the embedded bags to its own floating window before hiding the sheet,
+    // so a later standalone bags open (B) finds it where it belongs.
+    this.deps.restoreBags();
     el.style.display = 'none';
     this.deps.hideTooltip();
     this.deps.restoreFocus(this.openerFocus);
@@ -146,6 +153,12 @@ export class CharWindow {
     const level = formatNumber(p.level, { maximumFractionDigits: 0 });
     // WCAG 2.2 AA: name the focus-trapped root via the character title span.
     markDialogRoot(el, { labelledBy: 'char-title' });
+    // Persistent shell: a `main` region rebuilt every render, a `bags-slot` that
+    // holds the reparented live #bags node (the HUD moves it in via embedBags), and
+    // a `footer` built once. Only `main` is innerHTML-rebuilt, so a repaint (on an
+    // inventory change) never destroys the embedded bags window or its listeners.
+    const main = this.ensureShell(el);
+
     let html = `<div class="panel-title char-title-portrait">${portraitChipHtml({ cls: world.cfg.playerClass, skin: p.skin ?? 0, name: p.name, variant: 'md' })}<span class="char-title-text" id="char-title">${esc(p.name)} <span class="panel-subtitle">${esc(t('itemUi.equipment.levelClass', { level, className }))}</span></span><button type="button" class="x-btn" data-close aria-label="${esc(t('hud.options.returnToGame'))}">${svgIcon('close')}</button></div>`;
     html += `<div class="paperdoll">
       <div class="equip-col" id="equip-col-left"></div>
@@ -159,24 +172,19 @@ export class CharWindow {
     html += this.deps.talentSummaryHtml();
     html += this.professionsHtml(world);
     html += this.deps.progressionHtml(p.level);
-    html += `<div class="pc-share-row"><button type="button" class="btn pc-share-btn" data-act="share-card">${SHARE_GLYPH}<span>${esc(t('playerCard.shareButton'))}</span></button></div>`;
-    el.innerHTML = html;
-    hydratePortraits(el);
-    el.querySelector('[data-act="prestige"]')?.addEventListener('click', () =>
-      this.deps.openPrestige(),
-    );
-    el.querySelector('[data-act="share-card"]')?.addEventListener('click', () => {
-      audio.click();
-      this.deps.openPlayerCard();
-    });
+    main.innerHTML = html;
+    hydratePortraits(main);
+    main
+      .querySelector('[data-act="prestige"]')
+      ?.addEventListener('click', () => this.deps.openPrestige());
 
     const view = buildPaperdollView(world.equipment, ITEMS);
-    const leftCol = el.querySelector('#equip-col-left');
-    const rightCol = el.querySelector('#equip-col-right');
+    const leftCol = main.querySelector('#equip-col-left');
+    const rightCol = main.querySelector('#equip-col-right');
     for (const cell of view.left) leftCol?.appendChild(this.buildSlotRow(cell));
     for (const cell of view.right) rightCol?.appendChild(this.buildSlotRow(cell));
 
-    for (const cell of el.querySelectorAll<HTMLElement>('.char-stats [data-stat]')) {
+    for (const cell of main.querySelectorAll<HTMLElement>('.char-stats [data-stat]')) {
       const stat = cell.dataset.stat as StatId;
       // Resolve the tooltip lazily, on show, so the breakdown reflects the
       // player's current stats at the moment they hover, not at render time.
@@ -185,7 +193,34 @@ export class CharWindow {
 
     this.deps.renderPreview();
     this.deps.renderSkinPicker();
-    el.querySelector('[data-close]')?.addEventListener('click', () => this.close());
+    main.querySelector('[data-close]')?.addEventListener('click', () => this.close());
+    // Reparent + repaint the bags grid into the slot so gear and inventory read as
+    // one view. HUD-owned because the #bags lifecycle and cross-window modes are.
+    this.deps.embedBags();
+  }
+
+  // Build the persistent main / bags-slot / footer shell once, returning the `main`
+  // region. The footer's share button is wired here (it lives outside the rebuilt
+  // main so its listener survives every repaint); prestige is re-wired per render
+  // because it lives in the progression block inside main.
+  private ensureShell(el: HTMLElement): HTMLElement {
+    const existing = el.querySelector<HTMLElement>('.char-main');
+    if (existing) return existing;
+    el.textContent = '';
+    const main = document.createElement('div');
+    main.className = 'char-main';
+    const slot = document.createElement('div');
+    slot.className = 'char-bags-slot';
+    slot.id = 'char-bags-slot';
+    const footer = document.createElement('div');
+    footer.className = 'char-footer';
+    footer.innerHTML = `<div class="pc-share-row"><button type="button" class="btn pc-share-btn" data-act="share-card">${SHARE_GLYPH}<span>${esc(t('playerCard.shareButton'))}</span></button></div>`;
+    footer.querySelector('[data-act="share-card"]')?.addEventListener('click', () => {
+      audio.click();
+      this.deps.openPlayerCard();
+    });
+    el.append(main, slot, footer);
+    return main;
   }
 
   // The Professions group on the character sheet: one skill bar per gathering

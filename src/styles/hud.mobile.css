@@ -1007,6 +1007,29 @@
   body.mobile-touch #bags .bag-grid {
     min-height: 150px;
   }
+  /* Character-sheet embedded bags on mobile: the fixed full-screen bag positioning
+     above must NOT apply when the bags node is reparented into the character window
+     (char_window.ts embedBags). Restate the flow-inside overrides at higher
+     specificity so they win in this later layer, and the grid caps its own height so
+     it scrolls within the (already scrollable) character sheet. */
+  body.mobile-touch #bags.bags-embedded {
+    position: static;
+    left: auto;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    width: 100%;
+    max-width: 100%;
+    transform: none;
+    max-height: 360px;
+    margin: 0;
+    padding: 0;
+    z-index: auto;
+    box-sizing: border-box;
+  }
+  body.mobile-touch #bags.bags-embedded .panel-title .x-btn {
+    display: none;
+  }
   body.mobile-touch .vendor-item,
   body.mobile-touch .craft-btn,
   body.mobile-touch .bag-item,

@@ -28,7 +28,7 @@ const page = await browser.newPage();
 await page.setViewport(
   MOBILE
     ? { width: 844, height: 390, isMobile: true, hasTouch: true, deviceScaleFactor: 2 }
-    : { width: 1280, height: 900, deviceScaleFactor: 2 },
+    : { width: 1280, height: 1180, deviceScaleFactor: 2 },
 );
 if (MOBILE) {
   const cdp = await page.target().createCDPSession();
@@ -74,6 +74,19 @@ await page.evaluate(() => {
     meta.professions.herbalism = 67;
     meta.professions.logging = 8;
   }
+  // Grant a spread of bag items so the embedded inventory grid renders full.
+  for (const [id, n] of [
+    ['rough_timber', 12],
+    ['copper_ore', 8],
+    ['bloom_essence', 5],
+    ['common_seed', 3],
+    ['roasted_boar', 2],
+    ['bloom_juice', 4],
+  ]) {
+    try {
+      sim.addItem(id, n, sim.playerId);
+    } catch {}
+  }
 });
 
 await tap('.tut-skip');
@@ -116,6 +129,28 @@ if (box && box.width > 0) {
   console.log('professions panel found + cropped');
 } else {
   console.log('WARNING: .char-professions not found in the char window');
+}
+
+// Capture the embedded bags section (scrolled into view).
+const bagsBox = await page.evaluate(() => {
+  const el = document.querySelector('.char-bags-slot');
+  if (!el) return null;
+  el.scrollIntoView({ block: 'center' });
+  const r = el.getBoundingClientRect();
+  return { x: r.x, y: r.y, width: r.width, height: r.height };
+});
+await wait(200);
+if (bagsBox && bagsBox.width > 0 && bagsBox.height > 0) {
+  await page.screenshot({
+    path: `tmp/embedded_bags${SUF}.png`,
+    clip: {
+      x: Math.max(0, bagsBox.x),
+      y: Math.max(0, bagsBox.y),
+      width: bagsBox.width,
+      height: Math.min(bagsBox.height, 700),
+    },
+  });
+  console.log('embedded bags found + cropped');
 }
 
 if (errors.length) console.log('PAGE ERRORS:\n' + errors.join('\n'));

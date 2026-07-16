@@ -75,3 +75,43 @@ describe('char_window: paperdoll core + HUD-owned preview boundary', () => {
     expect(painter).not.toMatch(/\bMath\.random\b/);
   });
 });
+
+describe('char_window: professions panel', () => {
+  it('drives the professions rows off the pure professions_view core', () => {
+    expect(painter).toContain('buildProfessionsView(world.professions)');
+  });
+
+  it('labels the panel + each skill via hudChrome.professions keys', () => {
+    expect(painter).toContain("t('hudChrome.professions.title')");
+    expect(painter).toContain("t('hudChrome.professions.skillAria'");
+    expect(painter).toContain('hudChrome.professions.mining');
+    expect(painter).toContain('hudChrome.professions.herbalism');
+    expect(painter).toContain('hudChrome.professions.logging');
+  });
+});
+
+describe('char_window: embedded bags', () => {
+  it('builds a persistent shell (main / bags-slot / footer) so a repaint keeps the bags', () => {
+    // The bags node is reparented into the slot; only .char-main is innerHTML-rebuilt.
+    expect(painter).toContain("className = 'char-main'");
+    expect(painter).toContain("slot.id = 'char-bags-slot'");
+    expect(painter).toContain("className = 'char-footer'");
+    // The repaint targets main, never the whole root, so the slot + bags survive.
+    expect(painter).toContain('main.innerHTML = html');
+    expect(painter).not.toContain('el.innerHTML =');
+  });
+
+  it('reparents + repaints the bags through the HUD deps, never building bags here', () => {
+    expect(painter).toContain('this.deps.embedBags()');
+    // embed/restore are HUD-owned (the #bags lifecycle + cross-window modes are).
+    expect(painter).toContain('embedBags(): void');
+    expect(painter).toContain('restoreBags(): void');
+    // The bag grid itself is NOT rebuilt in this painter.
+    expect(painter).not.toMatch(/\bbuildBagGrid\b/);
+  });
+
+  it('restores the bags to their own window on close', () => {
+    const close = painter.slice(painter.indexOf('close(): void {'));
+    expect(close).toContain('this.deps.restoreBags()');
+  });
+});
