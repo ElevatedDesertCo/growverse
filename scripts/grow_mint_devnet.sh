@@ -51,7 +51,7 @@ AUTHORITY=$(solana-keygen pubkey "$KP")
 echo "==> Devnet authority: $AUTHORITY"
 
 BALANCE=$(solana -C "$CFG" balance | awk '{print $1}')
-if awk "BEGIN{exit !($BALANCE < 0.5)}"; then
+if awk -v b="$BALANCE" 'BEGIN{exit !(b+0 < 0.5)}'; then
   echo "==> Airdropping devnet SOL (faucet can be flaky; retrying up to 5 times)"
   for i in 1 2 3 4 5; do
     if solana -C "$CFG" airdrop 2 >/dev/null 2>&1; then break; fi
@@ -59,7 +59,7 @@ if awk "BEGIN{exit !($BALANCE < 0.5)}"; then
     sleep 5
   done
   BALANCE=$(solana -C "$CFG" balance | awk '{print $1}')
-  if awk "BEGIN{exit !($BALANCE < 0.5)}"; then
+  if awk -v b="$BALANCE" 'BEGIN{exit !(b+0 < 0.5)}'; then
     echo "ERROR: airdrop failed. Fund $AUTHORITY manually at https://faucet.solana.com (devnet) and re-run." >&2
     exit 1
   fi
@@ -67,7 +67,7 @@ fi
 
 echo "==> Creating the GROW test mint (decimals: $DECIMALS, no freeze authority)"
 CREATE_OUT=$(spl-token -C "$CFG" create-token --decimals "$DECIMALS")
-MINT=$(printf '%s\n' "$CREATE_OUT" | grep -m1 'Creating token' | awk '{print $3}')
+MINT=$(printf '%s\n' "$CREATE_OUT" | { grep -m1 'Creating token' || true; } | awk '{print $3}')
 if [ -z "$MINT" ]; then
   echo "ERROR: could not parse mint address from spl-token output:" >&2
   printf '%s\n' "$CREATE_OUT" >&2

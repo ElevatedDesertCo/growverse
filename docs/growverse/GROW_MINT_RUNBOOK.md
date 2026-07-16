@@ -110,14 +110,17 @@ spl-token create-token --decimals 9
 #    URI from 2.2). Use metaboss (https://metaboss.dev):
 metaboss create metadata --mint GROW_MINT --metadata metadata.json
 #    then mark it immutable once verified:
-metaboss set immutable --mint GROW_MINT
+metaboss set immutable -a GROW_MINT
 
-# 3. Mint the allocations straight to the bucket wallets.
+# 3. Mint the full supply to the authority's own token account, then move each
+#    allocation to its bucket wallet (--fund-recipient creates the bucket's
+#    associated token account if it does not exist yet).
 spl-token create-account GROW_MINT
-spl-token mint GROW_MINT 400000000 REWARDS_MULTISIG_TOKEN_ACCOUNT
-spl-token mint GROW_MINT 250000000 LIQUIDITY_MULTISIG_TOKEN_ACCOUNT
-spl-token mint GROW_MINT 200000000 TREASURY_MULTISIG_TOKEN_ACCOUNT
-spl-token mint GROW_MINT 150000000 TEAM_VESTING_FUNDING_ACCOUNT
+spl-token mint GROW_MINT 1000000000
+spl-token transfer GROW_MINT 400000000 REWARDS_MULTISIG_ADDRESS --fund-recipient
+spl-token transfer GROW_MINT 250000000 LIQUIDITY_MULTISIG_ADDRESS --fund-recipient
+spl-token transfer GROW_MINT 200000000 TREASURY_MULTISIG_ADDRESS --fund-recipient
+spl-token transfer GROW_MINT 150000000 TEAM_VESTING_FUNDING_ADDRESS --fund-recipient
 
 # 4. THE POINT OF NO RETURN: fix the supply forever.
 spl-token authorize GROW_MINT mint --disable
@@ -125,9 +128,8 @@ spl-token authorize GROW_MINT mint --disable
 # 5. Retire the authority keypair (it now controls nothing, but hygiene).
 ```
 
-Use `spl-token transfer ... --fund-recipient` variants if a bucket needs its
-associated token account created; verify every bucket balance on
-https://solscan.io before step 4.
+Verify every bucket balance on https://solscan.io (and that the authority's own
+token account is back to zero) before step 4.
 
 ### 2.4 After the mint
 
@@ -140,7 +142,11 @@ https://solscan.io before step 4.
 4. Liquidity is a separate, deliberate decision: when ready, seed the pool
    from the liquidity multisig (Raydium or Meteora), then lock or burn the LP
    position and publish the transaction.
-5. Marketing posture: utility only. Re-read GROW_COIN.md section 10 before the
+5. Update `TERMS_AND_CONDITIONS.md` / `PRIVACY_POLICY.md` (and the served
+   `public/terms.html` / `public/privacy.html`): they currently describe the
+   token as third-party-issued, which stops being true the moment we mint.
+   GROW_COIN.md section 10 requires this before launch.
+6. Marketing posture: utility only. Re-read GROW_COIN.md section 10 before the
    announcement post.
 
 ## 3. Verification checklist
@@ -153,4 +159,5 @@ https://solscan.io before step 4.
 - [ ] Mainnet: freeze authority shows `null` (was never set)
 - [ ] Mainnet: metadata renders (name/symbol/logo) in Phantom and Solscan
 - [ ] Team vesting contract live and published
+- [ ] Terms and privacy pages updated for the self-issued token
 - [ ] Production `GROW_MINT` set; a real linked wallet shows its rank in-game

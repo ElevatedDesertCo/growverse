@@ -1203,7 +1203,7 @@ export class GameServer {
     if (e && ((e.holderTier ?? 0) !== tier || (e.holderBalance ?? 0) !== balance)) {
       e.holderTier = tier; // identity diff re-broadcasts it to nearby players
       e.holderBalance = balance;
-      console.log(`[woc] ${session.name} holder tier → ${tier} (${balance} $WOC)`);
+      console.log(`[woc] ${session.name} holder tier → ${tier} (${balance} $GROW)`);
     }
   }
 
@@ -3529,7 +3529,7 @@ export class GameServer {
         e.holderBalance = n > 0 ? 10 ** (n - 1) : 0;
       }
       this.devTierPids.add(pid); // keep the chain refresh from clobbering it
-      this.broadcastSystem(`[dev] ${session.name} $WOC holder tier → ${n}`);
+      this.broadcastSystem(`[dev] ${session.name} $GROW holder tier → ${n}`);
       return null;
     }
     if (!text.startsWith('/')) {

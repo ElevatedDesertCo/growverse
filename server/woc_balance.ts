@@ -23,16 +23,23 @@ import {
 import { isSolanaAddress } from './wallet_link';
 
 // GROW_MINT is the Growverse coin mint (see docs/growverse/GROW_COIN.md); the
-// legacy WOC_MINT names stay honored as fallbacks so existing deploys keep
-// working until their env is updated. The hardcoded default is the upstream
-// $WOC mint this fork inherited.
-const WOC_MINT = (
-  process.env.GROW_MINT ??
-  process.env.WOC_MINT ??
-  process.env.VITE_GROW_MINT ??
-  process.env.VITE_WOC_MINT ??
-  '3WjLscH2JsXLEFJZRA9z8ti8yRGxWGKbqymPd7UicRth'
-).trim();
+// $GROW names always win over the legacy WOC names, which stay honored so
+// existing deploys keep working until their env is updated. A set-but-empty
+// var (e.g. an uncommented `GROW_MINT=` line) is skipped rather than silently
+// breaking every balance read. The hardcoded default is the upstream $WOC
+// mint this fork inherited.
+export const DEFAULT_TOKEN_MINT = '3WjLscH2JsXLEFJZRA9z8ti8yRGxWGKbqymPd7UicRth';
+
+/** First non-empty (after trim) mint from the env precedence chain. Exported for tests. */
+export function resolveTokenMint(env: Record<string, string | undefined>): string {
+  for (const name of ['GROW_MINT', 'VITE_GROW_MINT', 'WOC_MINT', 'VITE_WOC_MINT']) {
+    const value = env[name]?.trim();
+    if (value) return value;
+  }
+  return DEFAULT_TOKEN_MINT;
+}
+
+const WOC_MINT = resolveTokenMint(process.env);
 const SOLANA_RPC_URL = (
   process.env.SOLANA_RPC_URL ??
   process.env.VITE_SOLANA_RPC_URL ??

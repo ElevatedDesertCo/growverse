@@ -285,7 +285,7 @@ export function holderTierFlavorText(tier: HolderTier): string {
 
 /**
  * The highest rung a balance qualifies for, or null when there is no connected
- * wallet (balance === null) or the balance is below the first rung (< 1 $WOC).
+ * wallet (balance === null) or the balance is below the first rung (< 1 $GROW).
  */
 export function holderTierForBalance(balance: number | null): HolderTier | null {
   const shared = sharedHolderTierForBalance(balance);

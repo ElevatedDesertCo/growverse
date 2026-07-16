@@ -29,7 +29,7 @@ and the game server never touches player funds.
 | Total supply | 1,000,000,000 (fixed) | Matches the existing 18-rung holder-tier ladder math (`src/sim/holder_tier.ts`), which is percent-of-1B based |
 | Decimals | 9 | SPL default; 1B * 10^9 raw units fits u64 comfortably |
 | Mint authority | **Revoked after initial mint** | Fixed supply forever; the single strongest credibility signal |
-| Freeze authority | **Revoked at creation** | No one can freeze holder accounts; expected by DEXes and screeners |
+| Freeze authority | **Never set** (classic SPL default) | No one can freeze holder accounts; expected by DEXes and screeners |
 | Metadata | Metaplex Token Metadata (immutable after launch) | Name, symbol, logo URI, description; host logo/JSON on permanent storage (Arweave/Irys or shadow-drive) |
 | Metadata description | "The coin of the Growverse. Holding $GROW unlocks cosmetic VIP perks in the Growverse MMO. No gameplay power. growverse game by Elevated Desert Co." | Keep utility-framed, no price/profit language |
 
@@ -169,9 +169,10 @@ The engine was built for exactly this; integration is mostly renaming and conten
    server-side on equip/claim.
 6. **Wiki.** `npm run wiki:content` regen; holder-exclusive content is flagged
    spoiler-safe in the guide.
-7. **Tests.** Extend `tests/wallet*.test.ts`, `tests/woc_balance.test.ts` (rename),
-   holder-tier unit tests for the new keys, and a fairness test that no holder perk
-   grants stats.
+7. **Tests. (PARTIALLY SHIPPED)** The holder-tier and balance suites were updated
+   for the rebrand (Cultivation Rank names, `GROW_MAX_SUPPLY`, the `GROW_MINT`
+   env precedence). Still open: a fairness test that no future holder perk
+   grants stats, plus suites for the VIP quests/skins when they land.
 
 Determinism invariant restated: **`src/sim/` never reads the chain.** Wallet, RPC,
 and balances stay in `server/` + `src/net/`; the sim only ever sees a resolved tier
