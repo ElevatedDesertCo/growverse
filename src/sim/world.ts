@@ -71,8 +71,10 @@ export const SKELETON_GROTTO = {
   wallHeight: 16, // how far the enclosing rock wall rises above the floor on the walled arcs
 } as const;
 
-// A huge ruined stone fort planted on the Skeleton Grotto floor: the Wither Husk host
-// musters inside it. It is a 1-of-1 landmark (like SLUICE_BRIDGE): this ONE const is the
+// A huge ruined stone fort planted on the Skeleton Grotto floor. The Wither Husk host once
+// mustered inside it but has since withdrawn to its cave lair (SKELETON_CAVE / Wither Hollow,
+// below), so the fort now stands empty. It is a 1-of-1 landmark (like SLUICE_BRIDGE): this ONE
+// const is the
 // single source of truth that both the render mesh (render/fort.ts) and the movement
 // colliders (colliders.ts) derive from, so the walls you see are exactly the walls you
 // bump. It sits ENTIRELY on the flat grotto floor (every corner is within bowlRadius, so
@@ -95,6 +97,29 @@ export const SKELETON_FORT = {
   towerH: 10, // corner-tower body height above the floor (a conical roof rises above)
   keepHalf: 4.5, // central keep half-extent (a 9yd square)
   keepH: 14, // central keep body height above the floor (a peaked roof + banner rises above)
+} as const;
+
+// Wither Hollow (zone1): a cave gouged into the foot of the world-rim mountain a short
+// way NNW of the Skeleton Grotto, the true lair the Wither Husk host holes up in (they no
+// longer muster in the ruined fort). A 1-of-1 landmark like SLUICE_BRIDGE / SKELETON_FORT:
+// this ONE const drives the terrain carve (skeletonCaveOffset), the rock-arch mesh
+// (render/cave.ts) and the movement colliders (colliders.ts), so the cave you see is the
+// cave you bump. The pad carve pins a flat, slightly sunken lair floor and feathers back
+// up to the natural terrain, so it reads as bored into the hillside: open field grades in
+// on the low-x (mouth) side, the steep mountain rises as a cliff back-wall on the high-x
+// side. The render arch adds the overhang roof, jambs, and stalactites the heightfield
+// cannot. The mouth (low-x, toward the field the player crosses) is left open and walkable.
+export const SKELETON_CAVE = {
+  x: 154, // lair center, at the mountain foot NNW of the grotto (well out of the fort)
+  z: 130,
+  floorY: 3.0, // flat, slightly sunken lair floor
+  padRadius: 8, // flat floor reach: the walkable lair chamber
+  reach: 16, // feather back to natural terrain by here (field in front, mountain behind)
+  half: 6, // cave footprint half-extent: mouth at x-half (low-x), back wall at x+half
+  mouthHalf: 4, // mouth opening half-width along z (the walkable entrance between the jambs)
+  archH: 7.5, // rock arch / overhang height above the floor at the mouth
+  jambR: 1.6, // mouth jamb (rock pillar) radius
+  wallThick: 1.0, // side / back rock-wall half thickness
 } as const;
 
 // The Sluice waterway (zone1): a millpond (carved as a lake in content) fed by a
@@ -285,6 +310,29 @@ export function skeletonGrottoOffset(x: number, z: number, h: number): number {
 function isOnGrottoFloor(x: number, z: number): boolean {
   const g = SKELETON_GROTTO;
   return Math.hypot(x - g.x, z - g.z) < g.bowlRadius + 1;
+}
+
+// Wither Hollow (SKELETON_CAVE): pin a flat, slightly sunken lair floor across the pad and
+// feather back to the natural terrain by `reach`, so the carve digs a level recess into the
+// mountain foot. On the low-x (mouth) side the field is already near floorY so the entrance
+// grades in cleanly; on the high-x (back) side the world-rim mountain rises steeply, so the
+// feather leaves a tall rock cliff as the cave's back wall. Applied AFTER the grotto carve:
+// their reach circles only graze in a thin band (grotto reaches z=118, cave reaches z=114)
+// where BOTH feathers are already near zero, so the sequential re-pin is smooth (verified:
+// no notch across z=114..122), and nothing else disturbs the lair floor.
+export function skeletonCaveOffset(x: number, z: number, h: number): number {
+  const c = SKELETON_CAVE;
+  const d = Math.hypot(x - c.x, z - c.z);
+  if (d >= c.reach) return h;
+  const pin = 1 - smoothstep(c.padRadius, c.reach, d); // 1 across the pad, 0 at reach
+  return h * (1 - pin) + c.floorY * pin;
+}
+
+// A point sits on Wither Hollow's lair floor (keeps the decoration field off the cave
+// chamber, mirroring isOnGrottoFloor; the mountain flank around it still takes its rocks).
+function isOnCaveFloor(x: number, z: number): boolean {
+  const c = SKELETON_CAVE;
+  return Math.hypot(x - c.x, z - c.z) < c.padRadius + 1;
 }
 
 // The western mountain that backs the Sluice waterfall: a gaussian peak.
@@ -639,6 +687,8 @@ export function terrainHeightNatural(x: number, z: number, seed: number): number
   h += rim * 40;
   // Carve the Skeleton Grotto AFTER the rim so its floor wins over the mountainside.
   h = skeletonGrottoOffset(x, z, h);
+  // Then dig Wither Hollow's lair floor into the mountain foot (also after the rim).
+  h = skeletonCaveOffset(x, z, h);
   h += mirefenImpactCraterOffset(x, z);
   h = sluiceBridgeOffset(x, z, h, seed);
   h = dockDeckOffset(x, z, h);
@@ -773,6 +823,7 @@ export function generateDecorations(seed: number): Decoration[] {
       if (isOnDock(x, z)) continue;
       if (isOnStairs(x, z)) continue;
       if (isOnGrottoFloor(x, z)) continue;
+      if (isOnCaveFloor(x, z)) continue;
       let inHub = false;
       for (const zone of ZONES) {
         const dx = x - zone.hub.x,

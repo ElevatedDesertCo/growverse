@@ -20,7 +20,13 @@ import {
   SANCTUM_LAYOUT,
   TEMPLE_LAYOUT,
 } from './dungeon_layout';
-import { generateDecorations, groundHeight, SKELETON_FORT, SLUICE_BRIDGE } from './world';
+import {
+  generateDecorations,
+  groundHeight,
+  SKELETON_CAVE,
+  SKELETON_FORT,
+  SLUICE_BRIDGE,
+} from './world';
 
 // Static world collision. Prop placement comes from the per-zone content
 // modules (merged into PROPS by sim/data.ts): the renderer builds its meshes
@@ -378,6 +384,57 @@ function staticWorldColliders(seed: number): Collider[] {
       cameraTopY: topY(seed, f.x, f.z, f.keepH + f.merlonH + 5.5),
       camGhost: true,
     });
+  }
+
+  // Wither Hollow: movement colliders derived from the SAME SKELETON_CAVE const the render
+  // mesh (render/cave.ts) is built from, so the rock you see is the rock you bump. The two
+  // mouth jambs, a flank wall down each side, and the back wall fence the recess; the MOUTH
+  // (low-x, between the jambs) is left open so the player can walk in to fight the husks. The
+  // whole lair sits on the flat carved floor, so cameraTopY samples groundHeight there. All
+  // camGhost: the rock blocks movement but the chase cam ghosts through it (the renderer
+  // hides whatever crosses the eye-to-camera segment) so the overhang never yanks the camera.
+  {
+    const c = SKELETON_CAVE;
+    const xMouth = c.x - c.half; // open mouth wall
+    const xBack = c.x + c.half; // recess back wall
+    const zN = c.z + c.mouthHalf + c.wallThick; // north flank
+    const zS = c.z - c.mouthHalf - c.wallThick; // south flank
+    const sideTop = topY(seed, c.x, c.z, c.archH);
+    const backTop = topY(seed, c.x, c.z, c.archH + 2);
+    const jambTop = topY(seed, c.x, c.z, c.archH + 1.4);
+    // Two flank walls (run along x, from the mouth to the back).
+    for (const sz of [zS, zN])
+      out.push({
+        type: 'obb',
+        x: c.x,
+        z: sz,
+        hw: c.half,
+        hd: c.wallThick,
+        rot: 0,
+        cameraTopY: sideTop,
+        camGhost: true,
+      });
+    // Back wall (runs along z, closing the recess).
+    out.push({
+      type: 'obb',
+      x: xBack,
+      z: c.z,
+      hw: c.wallThick,
+      hd: c.mouthHalf + c.wallThick,
+      rot: 0,
+      cameraTopY: backTop,
+      camGhost: true,
+    });
+    // Two mouth jambs framing the open entrance.
+    for (const jz of [c.z - c.mouthHalf, c.z + c.mouthHalf])
+      out.push({
+        type: 'circle',
+        x: xMouth,
+        z: jz,
+        r: c.jambR,
+        cameraTopY: jambTop,
+        camGhost: true,
+      });
   }
 
   // The Sluice bridge parapets: two solid stone rails running the length of the
