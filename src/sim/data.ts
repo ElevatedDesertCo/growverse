@@ -18,6 +18,7 @@ import type {
   PlayerClass,
   QuestDef,
   QuestState,
+  RealmDef,
   ZoneDef,
   ZonePropsDef,
 } from './types';
@@ -370,6 +371,37 @@ export function zoneAt(z: number): ZoneDef {
     if (z < zone.zMax) return zone;
   }
   return ZONES[ZONES.length - 1];
+}
+
+// Portal-reached dimensions. Each realm occupies its own far coordinate band with
+// its own zone strip + terrain seed (see docs/design/realms.md). EMPTY for now:
+// the realm-aware branches in world.ts stay dormant until a realm is registered
+// here (M1.4), so the overworld heightfield is byte-identical and parity unchanged.
+export const REALMS: RealmDef[] = [];
+
+// The realm whose band contains (x,z), or null for the overworld. Pure + cheap
+// (a short linear scan of REALMS); realm-scoped world lookups gate on it.
+export function realmAt(x: number, z: number): RealmDef | null {
+  for (const realm of REALMS) {
+    const b = realm.band;
+    if (x >= b.xMin && x <= b.xMax && z >= b.zMin && z <= b.zMax) return realm;
+  }
+  return null;
+}
+
+// The zone strip a point resolves against: the realm's zones inside a realm band,
+// else the overworld ZONES.
+export function zoneStripAt(x: number, z: number): ZoneDef[] {
+  return realmAt(x, z)?.zones ?? ZONES;
+}
+
+// zoneAt / zoneBiomeAt scoped to whichever strip (x,z) is in (realm or overworld).
+export function zoneAtXZ(x: number, z: number): ZoneDef {
+  const zones = zoneStripAt(x, z);
+  for (const zone of zones) {
+    if (z < zone.zMax) return zone;
+  }
+  return zones[zones.length - 1];
 }
 
 export function zoneWelcomeText(

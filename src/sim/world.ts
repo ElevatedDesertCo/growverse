@@ -4,6 +4,7 @@ import {
   DUNGEON_X_THRESHOLD,
   PROPS,
   ROADS,
+  realmAt,
   WORLD_MAX_X,
   WORLD_MAX_Z,
   WORLD_MIN_X,
@@ -11,7 +12,7 @@ import {
   ZONES,
 } from './data';
 import { fbm2, hash2 } from './rng';
-import type { BiomeId } from './types';
+import type { BiomeId, RealmDef } from './types';
 
 // Terrain is a pure function of (x, z, seed): both the sim (ground clamping)
 // and the renderer (mesh) sample the same heightfield, so they always agree.
@@ -648,8 +649,51 @@ export function terrainHeightNatural(x: number, z: number, seed: number): number
 // The walkable open-world surface: natural terrain plus the house entry ramps that make the
 // plinth steps climbable. This is what the sim moves on and what the terrain mesh renders.
 export function terrainHeight(x: number, z: number, seed: number): number {
+  const realm = realmAt(x, z);
+  if (realm) return realmTerrainHeight(realm, x, z, seed);
   const h = houseStepsOffset(x, z, terrainHeightNatural(x, z, seed), seed);
   return stairsOffset(x, z, h, seed);
+}
+
+// A realm's heightfield: the overworld `baseHeight` shape (biome hills/base blend,
+// hub plateaus, dry-land floor, lake carves) scoped to the REALM's own zone strip
+// and offset terrain seed, MINUS the overworld-only special cases (sluice/grulmaw
+// peaks, house/stair ramps). Self-contained so the overworld path (terrainHeight
+// above, when realmAt is null) stays byte-identical; only reached for (x,z) inside
+// a registered realm band. See docs/design/realms.md. Kept simple for the M1
+// prototype; a realm may later carve its own signature terrain here.
+export function realmTerrainHeight(realm: RealmDef, x: number, z: number, seed: number): number {
+  const rs = seed + realm.terrainSeed;
+  const zones = realm.zones;
+  // biome shape blend across the realm's own zone bands (mirrors shapeAt)
+  let hill = BIOME_SHAPE[zones[0].biome].hill;
+  let base = BIOME_SHAPE[zones[0].biome].base;
+  for (let i = 0; i + 1 < zones.length; i++) {
+    const t = smoothstep(zones[i].zMax - 30, zones[i].zMax + 35, z);
+    hill = lerp(hill, BIOME_SHAPE[zones[i + 1].biome].hill, t);
+    base = lerp(base, BIOME_SHAPE[zones[i + 1].biome].base, t);
+  }
+  let h = (fbm2(x * HILL_SCALE + 100, z * HILL_SCALE + 100, rs, 4) - 0.5) * hill + base;
+  h += (fbm2(x * DETAIL_SCALE, z * DETAIL_SCALE, rs + 7, 2) - 0.5) * 2.2;
+  for (const zone of zones) {
+    const dHub = Math.hypot(x - zone.hub.x, z - zone.hub.z);
+    if (dHub < zone.hub.radius * 1.6) {
+      const blend = smoothstep(zone.hub.radius * 0.7, zone.hub.radius * 1.6, dHub);
+      h = h * blend + BIOME_SHAPE[zone.biome].hubHeight * (1 - blend);
+    }
+  }
+  const minLand = WATER_LEVEL + 1.4;
+  if (h < minLand) h = minLand - (minLand - h) * 0.12;
+  for (const zone of zones) {
+    for (const lake of zone.lakes) {
+      const dLake = Math.hypot(x - lake.x, z - lake.z);
+      if (dLake < lake.radius * 1.6) {
+        const lakeBlend = smoothstep(lake.radius * 0.55, lake.radius * 1.6, dLake);
+        h = h * lakeBlend + (WATER_LEVEL - 4) * (1 - lakeBlend);
+      }
+    }
+  }
+  return h;
 }
 
 // Distance from (x,z) to the nearest road polyline segment.
@@ -742,6 +786,19 @@ export function zoneBiomeAt(z: number): BiomeId {
     if (z < zone.zMax) return zone.biome;
   }
   return ZONES[ZONES.length - 1].biome;
+}
+
+// Biome at (x,z), realm-aware: the realm's own zone biome inside a realm band,
+// else the overworld zoneBiomeAt(z). The renderer/map switch to this where realm
+// biome must be read (M1.4); zoneBiomeAt(z) stays for overworld-only callers and
+// returns identically while REALMS is empty.
+export function zoneBiomeAtXZ(x: number, z: number): BiomeId {
+  const realm = realmAt(x, z);
+  if (!realm) return zoneBiomeAt(z);
+  for (const zone of realm.zones) {
+    if (z < zone.zMax) return zone.biome;
+  }
+  return realm.zones[realm.zones.length - 1].biome;
 }
 
 export function generateDecorations(seed: number): Decoration[] {
