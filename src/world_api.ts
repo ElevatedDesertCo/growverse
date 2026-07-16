@@ -303,6 +303,8 @@ export const COMMAND_NAMES = [
   'breed_strains',
   'release_strain',
   'telemetry',
+  'enter_realm',
+  'leave_realm',
 ] as const;
 
 // The union both the send path (`online.ts`) and the dispatch switch
@@ -477,6 +479,8 @@ export const COMMAND_FACETS = {
   // (untagged; on the DISPATCH_ONLY_COMMANDS allowlist), NOT IWorldDungeons.
   enter_dungeon: 'IWorldDungeons',
   leave_dungeon: 'IWorldDungeons',
+  enter_realm: 'IWorldDungeons',
+  leave_realm: 'IWorldDungeons',
   // IWorldDelves: delve enter/leave + interact + companion upgrade + Marks-vendor buy
   // + lockpick lifecycle + chest collect. Note the wire-name skew: delveBuyShopItem
   // sends `delve_buy`, so the tag is keyed on the WIRE string `delve_buy`. The reads

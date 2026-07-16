@@ -34,6 +34,7 @@ import {
   DELVE_MOBS,
 } from './content/delves';
 import { DUNGEON_DEFS, DUNGEON_MOBS } from './content/dungeons';
+import { EMBERWASTES_REALM } from './content/emberwastes';
 import { HARVEST_NODE_SPAWNS, HARVEST_NODES } from './content/gathering';
 import { BASE_STRAIN_BY_SEED, BASE_STRAINS } from './content/genetics';
 import { GROUND_PICKUP_LINES } from './content/ground_pickup_lines';
@@ -374,10 +375,11 @@ export function zoneAt(z: number): ZoneDef {
 }
 
 // Portal-reached dimensions. Each realm occupies its own far coordinate band with
-// its own zone strip + terrain seed (see docs/design/realms.md). EMPTY for now:
-// the realm-aware branches in world.ts stay dormant until a realm is registered
-// here (M1.4), so the overworld heightfield is byte-identical and parity unchanged.
-export const REALMS: RealmDef[] = [];
+// its own zone strip + terrain seed (see docs/design/realms.md). Realm bands are
+// far from the overworld and hold no auto-generated content, so registering one
+// leaves the overworld heightfield byte-identical (parity unchanged); the realm
+// branches only fire for (x,z) inside a realm band.
+export const REALMS: RealmDef[] = [EMBERWASTES_REALM];
 
 // The realm whose band contains (x,z), or null for the overworld. Pure + cheap
 // (a short linear scan of REALMS); realm-scoped world lookups gate on it.

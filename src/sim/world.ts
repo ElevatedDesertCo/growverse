@@ -584,9 +584,12 @@ function baseHeight(x: number, z: number, seed: number): number {
   return h;
 }
 
-// Ground height including instanced dungeon floors (flat, far off-world).
+// Ground height including instanced dungeon floors (flat, far off-world). Realm
+// bands also live past the threshold but have REAL terrain, so they take the
+// terrainHeight path (which routes to realmTerrainHeight) instead of the flat
+// dungeon floor. Overworld (x <= threshold) never calls realmAt: byte-identical.
 export function groundHeight(x: number, z: number, seed: number): number {
-  if (x > DUNGEON_X_THRESHOLD) return DUNGEON_FLOOR_Y;
+  if (x > DUNGEON_X_THRESHOLD && !realmAt(x, z)) return DUNGEON_FLOOR_Y;
   return terrainHeight(x, z, seed);
 }
 

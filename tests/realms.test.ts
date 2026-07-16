@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { realmAt, zoneAtXZ } from '../src/sim/data';
+import { Sim } from '../src/sim/sim';
 import type { RealmDef, ZoneDef } from '../src/sim/types';
 import { realmTerrainHeight } from '../src/sim/world';
 
@@ -75,10 +76,36 @@ describe('realms: realm-scoped terrain (M1.2)', () => {
     );
   });
 
-  it('REALMS is empty, so realmAt is null and lookups stay overworld (parity-safe)', () => {
-    expect(realmAt(9120, 40)).toBeNull();
-    expect(realmAt(0, 0)).toBeNull();
-    // zoneAtXZ falls back to a real overworld zone everywhere while no realm exists
+  it('realmAt resolves the registered Emberwastes band and is null in the overworld', () => {
+    expect(realmAt(12000, 20)?.id).toBe('emberwastes'); // inside the registered realm band
+    expect(realmAt(0, 0)).toBeNull(); // overworld (parity-safe path)
+    expect(realmAt(9120, 40)).toBeNull(); // the local fixture band is NOT registered
+    // zoneAtXZ falls back to a real overworld zone in the overworld
     expect(typeof zoneAtXZ(0, 0).id).toBe('string');
+  });
+});
+
+describe('realms: portal transition (M1.3)', () => {
+  it('enterRealm teleports to the hub and leaveRealm returns to the overworld gate', () => {
+    const sim = new Sim({ seed: 42, playerClass: 'warrior' });
+    expect(sim.currentRealmId()).toBe('overworld');
+
+    sim.enterRealm('emberwastes');
+    const hub = sim.player.pos;
+    expect(Math.hypot(hub.x - 12000, hub.z - 20)).toBeLessThan(2);
+    expect(sim.currentRealmId()).toBe('emberwastes');
+
+    sim.leaveRealm();
+    const back = sim.player.pos;
+    expect(Math.hypot(back.x - 0, back.z - -30)).toBeLessThan(2);
+    expect(sim.currentRealmId()).toBe('overworld');
+  });
+
+  it('enterRealm with an unknown realm id is a no-op', () => {
+    const sim = new Sim({ seed: 42, playerClass: 'warrior' });
+    const before = { ...sim.player.pos };
+    sim.enterRealm('nowhere');
+    expect(sim.player.pos.x).toBe(before.x);
+    expect(sim.player.pos.z).toBe(before.z);
   });
 });

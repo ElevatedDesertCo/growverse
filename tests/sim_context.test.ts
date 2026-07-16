@@ -142,6 +142,8 @@ const CALLBACK_KEYS = [
   'instanceOriginOf',
   'enterDungeon',
   'leaveDungeon',
+  'enterRealm',
+  'leaveRealm',
   // M3 mob-swing affix cascade surface.
   'effectiveArmor',
   'recalcPlayer',
@@ -321,6 +323,8 @@ function makeFakeHost() {
     instanceOriginOf: vi.fn(() => ({ x: 0, z: 0 })),
     enterDungeon: vi.fn(),
     leaveDungeon: vi.fn(),
+    enterRealm: vi.fn(),
+    leaveRealm: vi.fn(),
     addEntity: vi.fn(),
     dropEntity: vi.fn(),
     rebucket: vi.fn(),

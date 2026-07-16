@@ -153,6 +153,11 @@ export function interact(ctx: SimContext, pid?: number): void {
           ctx.leaveDungeon(p.id);
           return;
         }
+        if (target.templateId === 'realm_portal' && target.targetRealmId) {
+          if (target.targetRealmId === 'overworld') ctx.leaveRealm(p.id);
+          else ctx.enterRealm(target.targetRealmId, p.id);
+          return;
+        }
         if (tryStartNythraxisWardChannel(ctx, target, p)) return;
         pickUpObject(ctx, target.id, p.id);
         return;
@@ -198,6 +203,11 @@ export function interact(ctx: SimContext, pid?: number): void {
     }
     if (obj.templateId === 'dungeon_exit') {
       ctx.leaveDungeon(p.id);
+      return;
+    }
+    if (obj.templateId === 'realm_portal' && obj.targetRealmId) {
+      if (obj.targetRealmId === 'overworld') ctx.leaveRealm(p.id);
+      else ctx.enterRealm(obj.targetRealmId, p.id);
       return;
     }
     if (tryStartNythraxisWardChannel(ctx, obj, p)) return;

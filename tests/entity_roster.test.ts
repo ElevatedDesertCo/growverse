@@ -181,6 +181,8 @@ function makeCtx() {
     instanceOriginOf: vi.fn(() => ({ x: 0, z: 0 })),
     enterDungeon: vi.fn(),
     leaveDungeon: vi.fn(),
+    enterRealm: vi.fn(),
+    leaveRealm: vi.fn(),
     addEntity: vi.fn(),
     dropEntity: vi.fn(),
     rebucket: vi.fn(),

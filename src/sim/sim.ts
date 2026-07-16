@@ -104,6 +104,7 @@ import {
   NPCS,
   PLAYER_START,
   QUESTS,
+  realmAt,
   zoneAt,
 } from './data';
 import * as companionMod from './delves/companion';
@@ -247,6 +248,7 @@ import {
   onInventoryChangedForQuests,
   onMobKilledForQuests,
 } from './quests/quest_credit';
+import { enterRealm as enterRealmImpl, leaveRealm as leaveRealmImpl } from './realms_transition';
 
 // computeQuestState (the pure quest-state fn) moved to quests/quest_commands.ts (W4);
 // re-export it here so ClientWorld's `import { computeQuestState } from '../sim/sim'`
@@ -2246,6 +2248,8 @@ export class Sim {
       instanceOriginOf: sim.instanceOriginOf.bind(sim),
       enterDungeon: sim.enterDungeon.bind(sim),
       leaveDungeon: sim.leaveDungeon.bind(sim),
+      enterRealm: sim.enterRealm.bind(sim),
+      leaveRealm: sim.leaveRealm.bind(sim),
       addEntity: sim.addEntity.bind(sim),
       dropEntity: sim.dropEntity.bind(sim),
       rebucket: sim.rebucket.bind(sim),
@@ -5525,6 +5529,20 @@ export class Sim {
 
   leaveDungeon(pid?: number): void {
     leaveDungeonImpl(this.ctx, pid);
+  }
+
+  enterRealm(realmId: string, pid?: number): void {
+    enterRealmImpl(this.ctx, realmId, pid);
+  }
+
+  leaveRealm(pid?: number): void {
+    leaveRealmImpl(this.ctx, pid);
+  }
+
+  // The realm the player currently stands in (derived from position), or
+  // 'overworld'. IWorld discriminator the map/renderer read to scope to a realm.
+  currentRealmId(): string {
+    return realmAt(this.player.pos.x, this.player.pos.z)?.id ?? 'overworld';
   }
 
   // Legacy single-dungeon entry points (tests + scripts use these).

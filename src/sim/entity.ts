@@ -116,6 +116,7 @@ function baseEntity(id: number, pos: Vec3): Entity {
     objectItemId: null,
     harvestNodeId: null,
     dungeonId: null,
+    targetRealmId: null,
     dead: false,
     scale: 1,
     color: 0xffffff,

@@ -19,7 +19,7 @@ import {
   type TalentAllocation,
   talentPointsAtLevel,
 } from '../sim/content/talents';
-import { abilitiesKnownAt, CLASSES, NPCS, resolveDelveShopOffers } from '../sim/data';
+import { abilitiesKnownAt, CLASSES, NPCS, realmAt, resolveDelveShopOffers } from '../sim/data';
 import { deadTargetSelectable } from '../sim/dead_target';
 import { LEADERBOARD_PAGE_SIZE } from '../sim/leaderboard_page';
 import type { Ante, PickAction } from '../sim/lockpick';
@@ -810,6 +810,7 @@ function blankEntity(id: number): Entity {
     objectItemId: null,
     harvestNodeId: null,
     dungeonId: null,
+    targetRealmId: null,
     dead: false,
     scale: 1,
     color: 0xffffff,
@@ -2101,6 +2102,18 @@ export class ClientWorld implements IWorld {
   }
   leaveDungeon(): void {
     this.cmd({ cmd: 'leave_dungeon' });
+  }
+  enterRealm(realmId: string): void {
+    this.cmd({ cmd: 'enter_realm', realm: realmId });
+  }
+  leaveRealm(): void {
+    this.cmd({ cmd: 'leave_realm' });
+  }
+  // Derived from the mirrored self position (realms occupy fixed coordinate bands),
+  // so it needs no extra snapshot field: the position sync already tells us.
+  currentRealmId(): string {
+    const p = this.player;
+    return realmAt(p.pos.x, p.pos.z)?.id ?? 'overworld';
   }
   // Raid lockouts mirrored from snapshot self as {dungeonId: expiryEpochMs}; the
   // remaining time is derived locally so the countdown ticks down without traffic.

@@ -11,4 +11,10 @@ export interface IWorldDungeons {
   // Still-locked raids for the local player (unlock countdown in ms), driving the
   // minimap raid-lockout badge + panel. Empty when nothing is locked.
   raidLockouts(): RaidLockout[];
+  // Realm portals (docs/design/realms.md): step through a portal into a
+  // dimension, or back to the overworld. `currentRealmId` is the realm the local
+  // player stands in ('overworld' when not in a realm) and scopes the map/renderer.
+  enterRealm(realmId: string): void;
+  leaveRealm(): void;
+  currentRealmId(): string;
 }

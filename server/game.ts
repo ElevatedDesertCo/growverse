@@ -2837,6 +2837,31 @@ export class GameServer {
         if (exit) sim.leaveDungeon(pid);
         break;
       }
+      case 'enter_realm': {
+        // must be standing near a realm_portal object that names this realm
+        const realmId = msg.realm;
+        if (typeof realmId !== 'string') break;
+        const e = sim.entities.get(pid);
+        const portal = [...sim.entities.values()].find(
+          (x) => x.templateId === 'realm_portal' && x.targetRealmId === realmId,
+        );
+        if (e && portal && Math.hypot(e.pos.x - portal.pos.x, e.pos.z - portal.pos.z) < 8)
+          sim.enterRealm(realmId, pid);
+        break;
+      }
+      case 'leave_realm': {
+        const e = sim.entities.get(pid);
+        const portal = e
+          ? [...sim.entities.values()].find(
+              (x) =>
+                x.templateId === 'realm_portal' &&
+                x.targetRealmId === 'overworld' &&
+                Math.hypot(e.pos.x - x.pos.x, e.pos.z - x.pos.z) < 8,
+            )
+          : null;
+        if (portal) sim.leaveRealm(pid);
+        break;
+      }
       case 'enter_delve': {
         if (typeof msg.delveId !== 'string' || typeof msg.tierId !== 'string') break;
         const e = sim.entities.get(pid);

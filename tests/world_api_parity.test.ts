@@ -231,6 +231,9 @@ export const IWORLD_MEMBERS = [
   { name: 'companionUpgrades', kind: 'data' },
   { name: 'delveDaily', kind: 'data' },
   { name: 'raidLockouts', kind: 'method' }, // read-returning (5/6)
+  { name: 'enterRealm', kind: 'method' },
+  { name: 'leaveRealm', kind: 'method' },
+  { name: 'currentRealmId', kind: 'method' }, // read-returning
   { name: 'leaderboard', kind: 'method' }, // async
   { name: 'guildLeaderboard', kind: 'method' }, // async
   { name: 'devLeaderboard', kind: 'method' }, // async
@@ -349,9 +352,9 @@ beforeAll(() => {
 
 describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => {
   it('pins total / data / method counts', () => {
-    expect(IWORLD_MEMBERS.length).toBe(161);
+    expect(IWORLD_MEMBERS.length).toBe(164);
     expect(DATA_MEMBERS.length).toBe(41);
-    expect(METHOD_MEMBERS.length).toBe(120);
+    expect(METHOD_MEMBERS.length).toBe(123);
   });
 
   it('has no duplicate member names', () => {
@@ -397,6 +400,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'convertPartyToRaid',
       'convertRaidToParty',
       'copper',
+      'currentRealmId',
       'deleteLoadout',
       'delveBuyShopItem',
       'delveDaily',
@@ -413,6 +417,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'duelRequest',
       'enterDelve',
       'enterDungeon',
+      'enterRealm',
       'entities',
       'equipItem',
       'equipment',
@@ -440,6 +445,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'leaderboard',
       'leaveDelve',
       'leaveDungeon',
+      'leaveRealm',
       'lifetimeXp',
       'loadouts',
       'lockpickAbort',
@@ -602,6 +608,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'companionUpgrade',
       'convertPartyToRaid',
       'convertRaidToParty',
+      'currentRealmId',
       'deleteLoadout',
       'delveBuyShopItem',
       'delveInteract',
@@ -614,6 +621,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'duelRequest',
       'enterDelve',
       'enterDungeon',
+      'enterRealm',
       'equipItem',
       'feedPet',
       'friendAdd',
@@ -636,6 +644,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'leaderboard',
       'leaveDelve',
       'leaveDungeon',
+      'leaveRealm',
       'lockpickAbort',
       'lockpickAction',
       'lockpickEngage',
@@ -968,6 +977,9 @@ const FACET_DUNGEONS = [
   'enterDungeon',
   'leaveDungeon',
   'raidLockouts',
+  'enterRealm',
+  'leaveRealm',
+  'currentRealmId',
 ] as const satisfies readonly (keyof IWorldDungeons)[];
 type _ExhaustDungeons = AssertNever<Exclude<keyof IWorldDungeons, (typeof FACET_DUNGEONS)[number]>>;
 
@@ -1073,8 +1085,8 @@ describe('W1: aggregate IWorld member set equals the disjoint union of the 22 fa
 
   it('the union of the 22 facets equals the pinned 160-member IWORLD_MEMBERS set', () => {
     const union = Object.values(FACET_MEMBER_ARRAYS).flatMap((arr) => [...arr]);
-    expect(union.length, 'union size before dedup (catches a duplicated member)').toBe(161);
-    expect(new Set(union).size, 'union size after dedup (catches a duplicated member)').toBe(161);
+    expect(union.length, 'union size before dedup (catches a duplicated member)').toBe(164);
+    expect(new Set(union).size, 'union size after dedup (catches a duplicated member)').toBe(164);
     const sortedUnion = [...union].sort();
     const pinned = IWORLD_MEMBERS.map((m) => m.name).sort();
     expect(sortedUnion).toEqual(pinned);

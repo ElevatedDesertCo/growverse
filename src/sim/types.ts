@@ -1465,8 +1465,9 @@ export interface DungeonObjectSpawn {
   name: string;
   x: number; // relative to instance origin
   z: number;
-  templateId?: 'dungeon_door' | 'dungeon_exit';
+  templateId?: 'dungeon_door' | 'dungeon_exit' | 'realm_portal';
   dungeonId?: string;
+  targetRealmId?: string; // realm_portal: the realm id to enter, or 'overworld' to return
 }
 
 export interface DungeonDef {
@@ -1866,6 +1867,7 @@ export interface Entity {
   // ordinary collectibles/quest objects.
   harvestNodeId: string | null;
   dungeonId: string | null; // set on dungeon door/exit portals
+  targetRealmId: string | null; // set on realm_portal objects: the realm to enter (or 'overworld')
   // misc
   dead: boolean;
   scale: number;
