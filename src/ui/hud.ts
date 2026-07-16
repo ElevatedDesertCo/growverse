@@ -48,6 +48,7 @@ import {
   dungeonAt,
   ITEMS,
   isDelvePos,
+  isInstancePos,
   MOBS,
   NPCS,
   PLANTS,
@@ -5053,9 +5054,9 @@ export class Hud {
     this.setDisplay(this.deathOverlayEl, p.dead ? 'flex' : 'none');
     this.setDisplay(this.releaseSpiritBtnEl, deadInArena ? 'none' : '');
 
-    // A realm band also sits past DUNGEON_X_THRESHOLD but is real open world, not an
-    // instance, so exclude it here (realmAt gates the distinction, as in groundHeight).
-    const inDungeon = p.pos.x > DUNGEON_X_THRESHOLD && !realmAt(p.pos.x, p.pos.z);
+    // isInstancePos excludes realm bands, which also sit past DUNGEON_X_THRESHOLD but
+    // are real open world, not an instance (the canonical check; see data.ts).
+    const inDungeon = isInstancePos(p.pos.x, p.pos.z);
     const currentZone = zoneAtXZ(p.pos.x, p.pos.z);
     if (mediumHud) {
       // zone transitions: banner + welcome hint when crossing into a new band.

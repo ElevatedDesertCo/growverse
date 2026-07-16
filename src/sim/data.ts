@@ -416,6 +416,16 @@ export function zoneStripAt(x: number, z: number): ZoneDef[] {
   return realmAt(x, z)?.zones ?? ZONES;
 }
 
+// True when (x,z) is inside a private instance (a dungeon/arena band past
+// DUNGEON_X_THRESHOLD) as opposed to real open world. Realm bands ALSO sit past the
+// threshold but are shared open world with their own terrain, so they are excluded.
+// This is the canonical "am I in an instance?" test: prefer it over a bare
+// `x > DUNGEON_X_THRESHOLD` anywhere a realm coordinate could reach the check (UI
+// state, zone banners, and, once realms gain colliding structures, collision/leash).
+export function isInstancePos(x: number, z: number): boolean {
+  return x > DUNGEON_X_THRESHOLD && realmAt(x, z) === null;
+}
+
 // zoneAt / zoneBiomeAt scoped to whichever strip (x,z) is in (realm or overworld).
 export function zoneAtXZ(x: number, z: number): ZoneDef {
   const zones = zoneStripAt(x, z);

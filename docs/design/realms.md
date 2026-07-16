@@ -158,6 +158,43 @@ Realm implications (fold into every realm):
 - `src/ui/map_window_{view,painter}.ts`, `minimap_{markers,painter}.ts`,
   `map_dungeon_portals.ts` (map + portal pins), `world_entity_i18n.ts` (names).
 
+### Adding a realm (the recipe, as of M3)
+
+The engine is registry-driven: a new realm is almost entirely a content add. Steps,
+mirroring the Emberwastes:
+
+1. **Author `src/sim/content/<realm>.ts`**: a `RealmDef` (id, name, an UNUSED far
+   coordinate `band`, a `terrainSeed`, the `zones` strip partitioned by `zMax`,
+   `hubPos`/`returnPortalPos`/`entryPortalPos`, `unlock`), plus the realm's mobs, NPCs,
+   quests, items, camps, and any dungeon defs/mobs. Reuse an existing `BiomeId` on the
+   zones unless a distinct biome is worth the ~21-table render churn.
+2. **Register in `data.ts`**: add the `RealmDef` to `REALMS`, and merge the content at
+   its table (`MOBS`/`NPCS`/`QUESTS`/`QUEST_ORDER`/`ITEMS` via `mergeItems`/`DUNGEONS`),
+   appending camps LAST for world-gen determinism.
+3. **i18n**: add every mob/npc/quest/zone/dungeon/realm id to `world_entity_i18n.ts`;
+   new item names to the `entities.items` block in `i18n.catalog/index.ts`; then the
+   locale fills (5 non-Latin for wordy strings; all 19 for item names).
+4. **Gates**: `npm run i18n:gen`, `UPDATE_PARITY=1` re-mint (the portal + entities shift
+   ids), `wiki:content` (realm content stays out of the public wiki by not importing its
+   mobs into `build_content.mjs`, matching precedent), then run architecture / realms /
+   content_integrity / progression / i18n / guide / parity.
+
+Everything downstream is already generic and reads the registry: `realmAt`/`zoneStripAt`/
+`zoneAtXZ`/`zoneById` (band + strip resolution), `terrainHeight`→`realmTerrainHeight`
+(terrain), the portal spawn loop over `REALMS` (`sim.ts`), the unlock gate
+(`realms_transition.enterRealm`), portal render (`renderer.ts` `realm_portal` branch),
+and the realm-scoped world map (M3.1).
+
+**One cross-cutting caveat (the `DUNGEON_X_THRESHOLD` sweep).** Realm bands sit past
+`DUNGEON_X_THRESHOLD`, the same test used to mean "inside an instance." Use
+`isInstancePos(x,z)` (data.ts), which excludes realms, for any NEW instance check. The
+existing bare `x > DUNGEON_X_THRESHOLD` sites (mob leash in `mob/locomotion.ts`, interior
+collision in `colliders.ts`, saved-position restore in `sim.ts`, arena flags, render VFX
+gating) are currently BENIGN for a prop-less realm (collision resolves to a no-op far
+outside any interior geometry; the longer leash is harmless and already baked into
+parity). They must be migrated to `isInstancePos` before a realm gains colliding
+structures or interior-scoped behavior.
+
 ## Milestone roadmap
 
 - M1 - Engine + thin slice (DONE): realm-scoping seam (`terrainHeight`/`zoneAt`/
@@ -179,9 +216,17 @@ Realm implications (fold into every realm):
   Emberwastes item is the distinct desert-biome art pass (all sub-zones currently
   reuse the desert-styled vale biome); it is a visual-only lift with no gameplay
   effect, deferred until the biome-table work is scheduled.
-- M3 - Generalize + Nexus: promote the hardcoding to a `RealmDef` registry, build
-  the Bloomhaven Portal Nexus (a ring of realm portals), realm-scoped minimap,
-  and the cross-realm rare-seed meta. Then stamp realm 2.
+- M3 - Generalize + Nexus (IN PROGRESS): promote the hardcoding to a `RealmDef`
+  registry, build the Bloomhaven Portal Nexus (a ring of realm portals),
+  realm-scoped map, and the cross-realm rare-seed meta. Then stamp realm 2.
+  - M3.1 (DONE): realm-scoped world map (terrain bg + projection + zone banners
+    follow the realm band); minimap labels/pins realm-aware, its terrain-texture
+    background deferred (M3.1b).
+  - M3.3 (DONE): the registry is generalized (see "Adding a realm" above);
+    `isInstancePos` added as the canonical realm-vs-instance test.
+  - Remaining: M3.1b (minimap bg), M3.2 (the Portal Nexus hub), and the
+    cross-realm rare-seed meta (needs realm 2's signature seed).
+  - Realm 2 (the Gilded Veldt) is gated on the level-cap raise below.
 
 Note: a level cap raise (needed for realm 2 and beyond) is a separate XP/progression
 task to schedule before M3.
