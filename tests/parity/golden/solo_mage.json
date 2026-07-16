@@ -8,8 +8,8 @@
     "casting lifecycle (C4a)",
     "effect dispatch + spell damage (C4b/C1)"
   ],
-  "draws": 535,
-  "drawDigest": "88325bc4",
+  "draws": 539,
+  "drawDigest": "26eb96e0",
   "frames": [
     {
       "tick": 0,
@@ -198,8 +198,8 @@
       "state": "26527cbd",
       "events": "553fee8f",
       "rng": {
-        "draws": 473,
-        "digest": "d049049c"
+        "draws": 475,
+        "digest": "bc25cdc0"
       }
     },
     {
@@ -209,8 +209,8 @@
       "state": "e2877901",
       "events": "741638a5",
       "rng": {
-        "draws": 535,
-        "digest": "88325bc4"
+        "draws": 539,
+        "digest": "26eb96e0"
       },
       "label": "final",
       "players": [

@@ -387,49 +387,62 @@ function staticWorldColliders(seed: number): Collider[] {
   }
 
   // Wither Hollow: movement colliders derived from the SAME SKELETON_CAVE const the render
-  // mesh (render/cave.ts) is built from, so the rock you see is the rock you bump. The two
-  // mouth jambs, a flank wall down each side, and the back wall fence the recess; the MOUTH
-  // (low-x, between the jambs) is left open so the player can walk in to fight the husks. The
-  // whole lair sits on the flat carved floor, so cameraTopY samples groundHeight there. All
-  // camGhost: the rock blocks movement but the chase cam ghosts through it (the renderer
-  // hides whatever crosses the eye-to-camera segment) so the overhang never yanks the camera.
+  // mesh (render/cave.ts) is built from, so the rock you see is the rock you bump. They trace
+  // the KEYHOLE the terrain carve digs: two mouth jambs, the narrow entrance-tunnel walls, the
+  // shoulder walls where the tunnel opens into the wide inner chamber, the deep chamber flank
+  // walls, and the back wall. The MOUTH (low-x, between the jambs) is left open so the player
+  // can walk in to the lair. The carved rock cliffs already block on their own (they rise well
+  // past the climb-slope cap); these give the block a crisp face and a cameraTopY. The whole
+  // lair sits on the flat carved floor, so cameraTopY samples groundHeight there. All camGhost:
+  // the rock blocks movement but the chase cam ghosts through it (the renderer hides whatever
+  // crosses the eye-to-camera segment) so the overhang and tall walls never yank the camera.
   {
     const c = SKELETON_CAVE;
-    const xMouth = c.x - c.half; // open mouth wall
-    const xBack = c.x + c.half; // recess back wall
-    const zN = c.z + c.mouthHalf + c.wallThick; // north flank
-    const zS = c.z - c.mouthHalf - c.wallThick; // south flank
-    const sideTop = topY(seed, c.x, c.z, c.archH);
-    const backTop = topY(seed, c.x, c.z, c.archH + 2);
+    const t = c.wallThick;
+    const tunnelTop = topY(seed, c.x, c.z, c.archH);
+    const chamberTop = topY(seed, c.x, c.z, c.archH + 6);
+    const backTop = topY(seed, c.x, c.z, c.archH + 8);
     const jambTop = topY(seed, c.x, c.z, c.archH + 1.4);
-    // Two flank walls (run along x, from the mouth to the back).
-    for (const sz of [zS, zN])
-      out.push({
-        type: 'obb',
-        x: c.x,
-        z: sz,
-        hw: c.half,
-        hd: c.wallThick,
-        rot: 0,
-        cameraTopY: sideTop,
-        camGhost: true,
-      });
-    // Back wall (runs along z, closing the recess).
-    out.push({
-      type: 'obb',
-      x: xBack,
-      z: c.z,
-      hw: c.wallThick,
-      hd: c.mouthHalf + c.wallThick,
-      rot: 0,
-      cameraTopY: backTop,
-      camGhost: true,
-    });
+    const pushObb = (x: number, z: number, hw: number, hd: number, top: number) =>
+      out.push({ type: 'obb', x, z, hw, hd, rot: 0, cameraTopY: top, camGhost: true });
+    // Entrance-tunnel walls: run along x from the mouth to the throat, at z = +/- mouthHalf.
+    for (const s of [-1, 1]) {
+      pushObb(
+        (c.mouthX + c.throatX) / 2,
+        c.z + s * (c.mouthHalf + t),
+        (c.throatX - c.mouthX) / 2,
+        t,
+        tunnelTop,
+      );
+    }
+    // Shoulder walls: the rock step at the throat where the tunnel widens into the chamber,
+    // running along z from mouthHalf out to chamberHalf on each side (at x = throatX).
+    for (const s of [-1, 1]) {
+      pushObb(
+        c.throatX,
+        c.z + (s * (c.mouthHalf + c.chamberHalf)) / 2,
+        t,
+        (c.chamberHalf - c.mouthHalf) / 2,
+        chamberTop,
+      );
+    }
+    // Deep chamber flank walls: run along x from the throat to the back, at z = +/- chamberHalf.
+    for (const s of [-1, 1]) {
+      pushObb(
+        (c.throatX + c.backX) / 2,
+        c.z + s * (c.chamberHalf + t),
+        (c.backX - c.throatX) / 2,
+        t,
+        chamberTop,
+      );
+    }
+    // Back wall (runs along z, closing the deep end of the chamber).
+    pushObb(c.backX, c.z, t, c.chamberHalf + t, backTop);
     // Two mouth jambs framing the open entrance.
     for (const jz of [c.z - c.mouthHalf, c.z + c.mouthHalf])
       out.push({
         type: 'circle',
-        x: xMouth,
+        x: c.mouthX,
         z: jz,
         r: c.jambR,
         cameraTopY: jambTop,

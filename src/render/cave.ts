@@ -3,17 +3,19 @@ import { mergeGeometries } from 'three/examples/jsm/utils/BufferGeometryUtils.js
 import { SKELETON_CAVE, terrainHeight } from '../sim/world';
 import { surfaceMat } from './gfx';
 
-// Wither Hollow: the Wither Husk host's cave lair, gouged into the foot of the world-rim
-// mountain north of the Skeleton Grotto (the `SKELETON_CAVE` primitive in sim/world.ts).
-// This module skins that ONE const: two rough rock jambs framing the mouth, a rubble side
-// wall down each flank, a rock back-wall closing the recess, a chunky overhang roof with
-// hanging stalactites, stalagmites and boulder rubble on the floor, and a bone-pile / skull
-// totem centrepiece with a sickly ember. The colliders (colliders.ts) derive their jambs,
-// side walls, and back wall from the SAME const with the same arithmetic, so what you see
-// is what you bump. The terrain carve (skeletonCaveOffset) supplies the flat lair floor and
-// the steep mountain cliff behind the back wall; this mesh adds the roof the heightfield
-// cannot. All geometry is static, merged per material into a handful of one-draw meshes,
-// built once and seated off a single `baseY` (the flat lair floor) at the cave centre.
+// Wither Hollow: the Wither Husk host's cave SYSTEM, bored deep into the foot of the world-rim
+// mountain north of the Skeleton Grotto (the `SKELETON_CAVE` primitive in sim/world.ts). This
+// module skins that ONE const's KEYHOLE footprint: a roofed entrance tunnel on the field side
+// (rough jambs, rubble walls, a chunky overhang roof, hanging stalactites) that opens through a
+// rock throat into a wide, DEEP, open-topped inner chamber (tall rough rock walls, stalagmite
+// columns, wall ledges, boulder rubble, and the husks' bone piles + skull totem deep at the
+// back). The inner chamber is left open-topped so it stays sky-lit and playable at depth. The
+// colliders (colliders.ts) derive their jambs, tunnel walls, shoulder walls, chamber walls, and
+// back wall from the SAME const with the same arithmetic, so what you see is what you bump. The
+// terrain carve (skeletonCaveOffset) supplies the flat lair floor and the steep mountain cliffs
+// that wall the tunnel and chamber; this mesh dresses those cliffs with rock and adds the tunnel
+// roof the heightfield cannot. All geometry is static, merged per material into a handful of
+// one-draw meshes, built once and seated off a single `baseY` (the flat floor) at the centre.
 
 export interface CaveView {
   group: THREE.Group;
@@ -107,77 +109,59 @@ export function buildCave(seed: number): CaveView {
   const bone: THREE.BufferGeometry[] = [];
   const ember: THREE.BufferGeometry[] = [];
 
-  const xMouth = c.x - c.half; // low-x wall: the open mouth, facing the field
-  const xBack = c.x + c.half; // high-x wall: the recess back, into the mountain
-  const zN = c.z + c.mouthHalf + c.wallThick; // north flank wall centreline
-  const zS = c.z - c.mouthHalf - c.wallThick; // south flank wall centreline
-  const ceilY = baseY + c.archH; // underside of the overhang roof at the mouth
+  const zMouthN = c.z + c.mouthHalf; // tunnel wall centreline, north
+  const zMouthS = c.z - c.mouthHalf; // tunnel wall centreline, south
+  const zChamN = c.z + c.chamberHalf; // chamber wall centreline, north
+  const zChamS = c.z - c.chamberHalf; // chamber wall centreline, south
+  const ceilY = baseY + c.archH; // underside of the tunnel overhang roof
 
-  // ---- mouth jambs: two rough rock pillars framing the entrance --------------------
-  for (const jz of [c.z - c.mouthHalf, c.z + c.mouthHalf]) {
-    cyl(rock, c.jambR, c.archH + 1.4, xMouth, baseY, jz, 7);
-    // a couple of stacked boulders crown each jamb so it reads as piled rock, not a post
-    boulder(rock, c.jambR * 0.9, xMouth, baseY + c.archH + 1.2, jz);
-    boulder(rockDark, c.jambR * 0.7, xMouth + 0.4, baseY + c.archH + 1.9, jz - 0.3);
-  }
-
-  // ---- flank walls: a run of jittered rubble boxes down each side -------------------
-  for (const sz of [zS, zN]) {
-    const steps = 6;
+  // A run of jittered rubble wall boxes from (x0..x1) along x, centred on z, of nominal height
+  // `hh`; the lower course is dark (shadowed) with a proud, yawed cap block on top. Used for
+  // both the low tunnel walls and the tall open-chamber walls.
+  const rubbleWallX = (x0: number, x1: number, zc: number, hh: number, steps: number): void => {
+    const span = x1 - x0;
     for (let i = 0; i < steps; i++) {
       const t = (i + 0.5) / steps;
-      const bx = xMouth + t * (xBack - xMouth);
-      const h = c.archH * (0.82 + rnd() * 0.3);
-      const w = (xBack - xMouth) / steps + 0.6;
-      const jz = sz + (rnd() - 0.5) * 0.5;
-      // lower course is darker (shadowed), an upper cap block sits proud and yawed
-      box(rockDark, w, h, c.wallThick * 2 + 0.4, bx, baseY + h / 2, jz, (rnd() - 0.5) * 0.3);
+      const bx = x0 + t * span;
+      const h = hh * (0.85 + rnd() * 0.3);
+      const w = span / steps + 0.6;
+      const jz = zc + (rnd() - 0.5) * 0.6;
+      box(rockDark, w, h, c.wallThick * 2 + 0.4, bx, baseY + h / 2, jz, (rnd() - 0.5) * 0.25);
       box(
         rock,
         w * 0.7,
-        h * 0.4,
+        h * 0.35,
         c.wallThick * 2,
         bx + (rnd() - 0.5) * 0.6,
-        baseY + h + h * 0.12,
+        baseY + h + h * 0.1,
         jz,
         (rnd() - 0.5) * 0.5,
       );
     }
+  };
+
+  // ---- mouth jambs: two tall rough rock pillars framing the entrance ----------------
+  for (const jz of [zMouthS, zMouthN]) {
+    cyl(rock, c.jambR, c.archH + 1.4, c.mouthX, baseY, jz, 7);
+    boulder(rock, c.jambR * 0.9, c.mouthX, baseY + c.archH + 1.2, jz);
+    boulder(rockDark, c.jambR * 0.7, c.mouthX + 0.4, baseY + c.archH + 1.9, jz - 0.3);
   }
 
-  // ---- back wall: a tall rough rock mass closing the recess (mountain behind it) ----
-  {
-    const steps = 5;
-    const span = c.mouthHalf * 2 + c.wallThick * 2;
-    for (let i = 0; i < steps; i++) {
-      const t = (i + 0.5) / steps;
-      const bz = c.z - span / 2 + t * span;
-      const h = c.archH + 1.5 + rnd() * 1.6;
-      box(rockDark, c.wallThick * 2 + 0.6, h, span / steps + 0.6, xBack, baseY + h / 2, bz);
-    }
-    // a few boulders spilling down the back into the chamber
-    for (let i = 0; i < 4; i++)
-      boulder(
-        rock,
-        0.9 + rnd() * 0.6,
-        xBack - 0.9,
-        baseY + 0.5 + rnd() * 0.6,
-        c.z + (rnd() - 0.5) * 6,
-      );
-  }
+  // ---- entrance tunnel: low rubble walls, mouth to throat, each side ----------------
+  rubbleWallX(c.mouthX, c.throatX, zMouthS, c.archH, 5);
+  rubbleWallX(c.mouthX, c.throatX, zMouthN, c.archH, 5);
 
-  // ---- overhang roof: chunky jittered slabs bridging mouth to back ------------------
+  // ---- tunnel overhang roof: chunky jittered slabs bridging mouth to throat --------
   {
     const slabs = 4;
+    const span = c.throatX - c.mouthX;
     for (let i = 0; i < slabs; i++) {
       const t = (i + 0.5) / slabs;
-      const rx = xMouth + t * (xBack - xMouth);
-      // the roof lifts a touch toward the mouth so the entrance is the tallest point
-      const lift = (1 - t) * 0.8;
-      const w = (xBack - xMouth) / slabs + 1.2;
+      const rx = c.mouthX + t * span;
+      const lift = (1 - t) * 0.8; // roof lifts toward the mouth so the entrance is tallest
       box(
         rockDark,
-        w,
+        span / slabs + 1.2,
         1.4 + rnd() * 0.5,
         c.mouthHalf * 2 + c.wallThick * 2 + 0.6,
         rx,
@@ -188,64 +172,134 @@ export function buildCave(seed: number): CaveView {
       );
     }
     // arch lintel: a thick rough beam bridging the two mouth jambs at the top
-    box(rock, 1.6, 1.8, c.mouthHalf * 2 + 1.2, xMouth, ceilY + 0.9, c.z);
-    boulder(rock, 1.5, xMouth + 0.3, ceilY + 1.9, c.z);
+    box(rock, 1.6, 1.8, c.mouthHalf * 2 + 1.2, c.mouthX, ceilY + 0.9, c.z);
+    boulder(rock, 1.5, c.mouthX + 0.3, ceilY + 1.9, c.z);
   }
 
-  // ---- stalactites hanging from the roof underside ---------------------------------
-  for (let i = 0; i < 6; i++) {
-    const sx = xMouth + 1.5 + rnd() * (c.half * 2 - 3);
-    const sz = c.z + (rnd() - 0.5) * (c.mouthHalf * 1.6);
+  // ---- tunnel stalactites hanging from the roof underside --------------------------
+  for (let i = 0; i < 5; i++) {
+    const sx = c.mouthX + 1.5 + rnd() * (c.throatX - c.mouthX - 3);
+    const sz = c.z + (rnd() - 0.5) * (c.mouthHalf * 1.5);
     spike(rockDark, 0.4 + rnd() * 0.25, 1.6 + rnd() * 1.4, sx, ceilY + 0.2, sz, false);
   }
 
-  // ---- stalagmites rising from the floor -------------------------------------------
-  for (let i = 0; i < 5; i++) {
-    const sx = xMouth + 2 + rnd() * (c.half * 2 - 4);
-    const sz = c.z + (rnd() - 0.5) * (c.mouthHalf * 1.5);
-    spike(rock, 0.45 + rnd() * 0.3, 1.2 + rnd() * 1.3, sx, baseY, sz, true);
+  // ---- shoulder walls: the rock step where the tunnel opens into the wide chamber ---
+  // Each runs along z from the tunnel edge (mouthHalf) out to the chamber edge (chamberHalf),
+  // at x = throatX, so the chamber reads as a bigger room stepped back off the tunnel.
+  for (const s of [-1, 1]) {
+    const z0 = c.z + s * c.mouthHalf;
+    const z1 = c.z + s * c.chamberHalf;
+    const steps = 3;
+    for (let i = 0; i < steps; i++) {
+      const t = (i + 0.5) / steps;
+      const bz = z0 + t * (z1 - z0);
+      const h = c.archH + 3 + rnd() * 3;
+      box(
+        rockDark,
+        c.wallThick * 2 + 0.5,
+        h,
+        Math.abs(z1 - z0) / steps + 0.6,
+        c.throatX,
+        baseY + h / 2,
+        bz,
+      );
+    }
   }
 
-  // ---- boulder rubble scattered at the mouth and inside ----------------------------
-  for (let i = 0; i < 7; i++) {
-    const bx = xMouth - 0.5 + rnd() * (c.half * 2);
-    const bz = c.z + (rnd() - 0.5) * (c.mouthHalf * 1.7);
-    const r = 0.6 + rnd() * 0.7;
+  // ---- inner chamber: tall open-topped rough rock walls, throat to back, each side --
+  // Taller than the tunnel and left OPEN at the top (no roof) so the chamber is sky-lit; the
+  // terrain carve raises the true mountain cliff behind these, this just dresses the base.
+  rubbleWallX(c.throatX, c.backX, zChamS, c.archH + 6, 7);
+  rubbleWallX(c.throatX, c.backX, zChamN, c.archH + 6, 7);
+
+  // ---- back wall: a tall rough rock mass closing the deep end of the chamber --------
+  {
+    const steps = 7;
+    const span = c.chamberHalf * 2 + c.wallThick * 2;
+    for (let i = 0; i < steps; i++) {
+      const t = (i + 0.5) / steps;
+      const bz = c.z - span / 2 + t * span;
+      const h = c.archH + 6 + rnd() * 3;
+      box(rockDark, c.wallThick * 2 + 0.6, h, span / steps + 0.6, c.backX, baseY + h / 2, bz);
+    }
+    // boulders spilling down the back into the chamber floor
+    for (let i = 0; i < 6; i++)
+      boulder(
+        rock,
+        0.9 + rnd() * 0.7,
+        c.backX - 1.2 - rnd() * 1.5,
+        baseY + 0.5 + rnd() * 0.7,
+        c.z + (rnd() - 0.5) * (c.chamberHalf * 1.6),
+      );
+  }
+
+  // ---- wall ledges: rough rock shelves jutting from the chamber flanks --------------
+  for (let i = 0; i < 5; i++) {
+    const s = i % 2 === 0 ? 1 : -1;
+    const lx = c.throatX + 3 + rnd() * (c.backX - c.throatX - 5);
+    const ly = baseY + 2 + rnd() * (c.archH * 0.6);
+    box(
+      rock,
+      2 + rnd() * 1.5,
+      0.7,
+      2.5,
+      lx,
+      ly,
+      c.z + s * (c.chamberHalf - 1),
+      (rnd() - 0.5) * 0.4,
+    );
+  }
+
+  // ---- stalagmite columns rising from the chamber floor (some tall pillars) ---------
+  for (let i = 0; i < 8; i++) {
+    const sx = c.throatX + 1.5 + rnd() * (c.backX - c.throatX - 3);
+    const sz = c.z + (rnd() - 0.5) * (c.chamberHalf * 1.7);
+    const tall = rnd() < 0.35;
+    spike(rock, 0.5 + rnd() * 0.4, tall ? 4 + rnd() * 3 : 1.4 + rnd() * 1.4, sx, baseY, sz, true);
+  }
+
+  // ---- boulder rubble scattered through the chamber and mouth -----------------------
+  for (let i = 0; i < 12; i++) {
+    const bx = c.mouthX + rnd() * (c.backX - c.mouthX);
+    const spread = bx < c.throatX ? c.mouthHalf * 1.6 : c.chamberHalf * 1.7;
+    const bz = c.z + (rnd() - 0.5) * spread;
+    const r = 0.6 + rnd() * 0.9;
     boulder(rock, r, bx, baseY + r * 0.55, bz);
   }
 
-  // ---- bone-pile / skull totem centrepiece, deeper in the chamber ------------------
-  {
-    const cx = c.x + 1.5;
-    const cz = c.z;
-    // a low heap of criss-crossed long bones
-    for (let i = 0; i < 9; i++) {
-      const a = rnd() * Math.PI;
+  // ---- bone piles + skull totem: the husks' muster, deep at the back of the chamber -
+  const pile = (cx: number, cz: number, bones: number, skulls: number): void => {
+    for (let i = 0; i < bones; i++) {
       box(
         bone,
         0.14,
         0.14,
         1.4 + rnd() * 0.8,
-        cx + (rnd() - 0.5) * 1.8,
+        cx + (rnd() - 0.5) * 2.2,
         baseY + 0.14 + rnd() * 0.2,
-        cz + (rnd() - 0.5) * 1.8,
-        a,
+        cz + (rnd() - 0.5) * 2.2,
+        rnd() * Math.PI,
       );
     }
-    // a couple of skulls perched on the heap
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < skulls; i++) {
       const g = new THREE.IcosahedronGeometry(0.32, 0);
-      g.translate(cx + (rnd() - 0.5) * 1.4, baseY + 0.4 + rnd() * 0.2, cz + (rnd() - 0.5) * 1.4);
+      g.translate(cx + (rnd() - 0.5) * 1.8, baseY + 0.4 + rnd() * 0.2, cz + (rnd() - 0.5) * 1.8);
       bone.push(g);
     }
+  };
+  {
+    const cx = c.backX - 6; // deep in the chamber, short of the back wall
+    const cz = c.z;
+    pile(cx, cz, 12, 4);
+    pile(cx - 5, cz + c.chamberHalf * 0.5, 7, 2); // a second heap off to one side
     // a bone totem pole with a crowning skull
-    cyl(bone, 0.12, 2.4, cx, baseY, cz + 0.2, 6);
-    const skull = new THREE.IcosahedronGeometry(0.36, 0);
-    skull.translate(cx, baseY + 2.55, cz + 0.2);
+    cyl(bone, 0.14, 2.8, cx, baseY, cz + 0.2, 6);
+    const skull = new THREE.IcosahedronGeometry(0.4, 0);
+    skull.translate(cx, baseY + 2.95, cz + 0.2);
     bone.push(skull);
     // a sickly ember bowl at the totem foot (emissive; a cosmetic glow, not a light source)
-    const bowl = new THREE.CylinderGeometry(0.5, 0.32, 0.35, 10);
-    bowl.translate(cx, baseY + 0.18, cz - 0.9);
+    const bowl = new THREE.CylinderGeometry(0.55, 0.35, 0.38, 10);
+    bowl.translate(cx, baseY + 0.2, cz - 1.1);
     ember.push(bowl);
   }
 
