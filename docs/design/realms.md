@@ -160,11 +160,15 @@ Realm implications (fold into every realm):
 
 ## Milestone roadmap
 
-- M1 - Engine + thin slice: realm-scoping seam (`terrainHeight`/`zoneAt`/
+- M1 - Engine + thin slice (DONE): realm-scoping seam (`terrainHeight`/`zoneAt`/
   `zoneBiomeAt` realm-aware) + `realm_portal` transition + realm-scoped map,
   proven with ONE sub-zone of the Emberwastes (portal in, one biome, the entry
-  town, a few mobs, one quest, walk around, portal out). Ships nothing to players
-  until stable; validates every seam.
+  town, a few mobs, one quest, walk around, portal out). Shipped in four commits:
+  M1.1 `RealmDef` type, M1.2 realm-scoped terrain, M1.3 portal transition, M1.4a
+  portal spawn + render + i18n, M1.4b the Sunmourn Dunes content (3 dune mobs +
+  camps, the Caravanserai's 3 NPCs, `q_ember_ward1`, the bloomspring node, and the
+  `grow_sunflare_bulb` seed loop). Every seam validated; parity + i18n gates green.
+  The map is still overworld-only (realm-scoped minimap deferred to M3).
 - M2 - Emberwastes full build-out: all sub-zones, the dungeon, full quest arc,
   the rare-seed loop, the gear set. This is roughly the content volume of the
   current game and is the long pole.
