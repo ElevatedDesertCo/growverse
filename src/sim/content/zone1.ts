@@ -1178,13 +1178,13 @@ export const ZONE1_CAMPS: CampDef[] = [
   // Undead: the Wither Husk host has abandoned the ruined SKELETON_FORT and holed up in its
   // true lair, WITHER HOLLOW (the SKELETON_CAVE in world.ts), a cave SYSTEM gouged deep into
   // the mountain foot NNW of the grotto. The pack musters deep in the wide inner chamber
-  // (center 168,130, radius 5: the flatten ring, radius ~9, stays entirely inside the carved
+  // (center 170,132, radius 5: the flatten ring, radius ~9, stays entirely inside the carved
   // chamber floor so it leaves no plateau artifact on the mountainside), and Captain Verlan
-  // holds the throat where the entrance tunnel opens into the chamber (162,130). The fort now
+  // holds the throat where the entrance tunnel opens into the chamber (160,132). The fort now
   // sits empty. (Radius only scales each spawn's drawn offset and this grotto pair is the
   // final RNG consumer at construction, so moving the mobs shifts no other content's roll.)
-  { mobId: 'restless_bones', center: { x: 168, z: 130 }, radius: 5, count: 8 },
-  { mobId: 'captain_verlan', center: { x: 162, z: 130 }, radius: 2.5, count: 1 },
+  { mobId: 'restless_bones', center: { x: 170, z: 132 }, radius: 5, count: 8 },
+  { mobId: 'captain_verlan', center: { x: 160, z: 132 }, radius: 2.5, count: 1 },
 ];
 
 // Spawned LAST in the merged CAMPS array (see data.ts) so these appended draws

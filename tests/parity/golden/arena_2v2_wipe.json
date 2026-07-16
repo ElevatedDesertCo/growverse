@@ -8,8 +8,8 @@
     "first kill does not end the match; team wipe (isArenaTeamWiped) does",
     "endArenaMatch ranked Elo on both teams (arena2v2 standings) + returnFromArena"
   ],
-  "draws": 1301,
-  "drawDigest": "585d95a9",
+  "draws": 1302,
+  "drawDigest": "1426d176",
   "frames": [
     {
       "tick": 0,
@@ -1432,8 +1432,8 @@
       "state": "f49f6249",
       "events": "741638a5",
       "rng": {
-        "draws": 492,
-        "digest": "0f45feaf"
+        "draws": 495,
+        "digest": "67250103"
       }
     },
     {
@@ -1443,8 +1443,8 @@
       "state": "72d36de7",
       "events": "741638a5",
       "rng": {
-        "draws": 660,
-        "digest": "131819ba"
+        "draws": 666,
+        "digest": "e6aabb56"
       }
     },
     {
@@ -1454,8 +1454,8 @@
       "state": "8c19f9dd",
       "events": "741638a5",
       "rng": {
-        "draws": 870,
-        "digest": "2eafe728"
+        "draws": 868,
+        "digest": "939843f0"
       }
     },
     {
@@ -1465,8 +1465,8 @@
       "state": "6e223c5f",
       "events": "741638a5",
       "rng": {
-        "draws": 1094,
-        "digest": "69c1c002"
+        "draws": 1076,
+        "digest": "6d1a39c3"
       }
     },
     {
@@ -1476,8 +1476,8 @@
       "state": "681c4e69",
       "events": "3ebeff69",
       "rng": {
-        "draws": 1209,
-        "digest": "b255b056"
+        "draws": 1211,
+        "digest": "f1d4f0f5"
       }
     },
     {
@@ -1487,8 +1487,8 @@
       "state": "ed40fa91",
       "events": "741638a5",
       "rng": {
-        "draws": 1301,
-        "digest": "585d95a9"
+        "draws": 1302,
+        "digest": "1426d176"
       },
       "label": "returned",
       "players": [
@@ -1961,8 +1961,8 @@
       "state": "ed40fa91",
       "events": "741638a5",
       "rng": {
-        "draws": 1301,
-        "digest": "585d95a9"
+        "draws": 1302,
+        "digest": "1426d176"
       },
       "label": "final",
       "players": [
