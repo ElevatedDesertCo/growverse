@@ -98,6 +98,34 @@ and its own map. Concretely:
   `UPDATE_PARITY=1 npx vitest run tests/parity` in a separate reviewed commit.
 - No wall-clock in sim; realm transitions and any timers use the sim clock.
 
+### Reconciliation: gathering professions (Mining / Herbalism / Logging)
+
+Main now has a gathering-professions system (`src/sim/professions.ts`,
+`PlayerMeta.professions`, exposed on the reputation IWorld facet + net snapshot).
+Each `HarvestNodeDef` carries an optional `profession: 'mining'|'herbalism'|
+'logging'` tag; working a tagged node trains that skill +1 (0 to 100),
+deterministically (no rng, no emit, no parity impact). Existing tags:
+blooms/flowers -> herbalism, ember/corrupt vents -> mining. Logging has NO nodes
+yet.
+
+Realm implications (fold into every realm):
+- Every realm harvest node MUST carry a `profession` tag, or gathering it trains
+  nothing. Blooms/oasis growth -> herbalism; mineral/crystal/obsidian veins ->
+  mining; timber -> logging.
+- Realms are how the professions grow. Assign nodes so realms advance the skills
+  thematically: Emberwastes (herbalism oasis + mining obsidian/ember), Frostmere
+  (mining ice-crystal + herbalism frostflora), a savanna/forest realm is where
+  Logging finally gets its timber nodes.
+- Cross-realm meta hook: professions are already per-character progression synced
+  everywhere, so realm gathering feeds a global skill for free. OPTIONAL small
+  engine addition to give it teeth: a `minSkill?: number` gate on `HarvestNodeDef`
+  + a check in `harvest.ts`, so higher-realm rare nodes (e.g. the Sunflare Bulb's
+  premium variant) require a profession floor. Not built yet; flagged as the
+  natural way to tie the rare-seed hybrid meta to profession progression. Do NOT
+  add the gate speculatively; only if we decide professions should gate realms.
+- The rare-seed legendary-hybrid meta (M3) can require high Herbalism to grow,
+  linking the two progression tracks.
+
 ### Gates each realm must clear
 
 - Parity goldens (`tests/parity`): append camps last; re-mint on purpose.
@@ -287,8 +315,17 @@ is missing).
 
 ### Harvest + grow (in `gathering.ts` / `crafting.ts`)
 
-- `HarvestNodeDef` `bloomspring`: yields `{sunflare_bulb_raw: 3, common_seed: 1}`;
-  `HARVEST_NODE_SPAWNS` at the Sunmourn oasis positions.
+Every realm node carries a `profession` tag (see the professions reconciliation
+in Architecture): working it trains that skill +1. The Emberwastes seed loop
+touches BOTH professions, which is intentional (Herbalism grows it, Mining
+supplies the essence).
+
+- `HarvestNodeDef` `bloomspring` (Herbalism): `profession: 'herbalism'`, yields
+  `{sunflare_bulb_raw: 3, common_seed: 1}`; `HARVEST_NODE_SPAWNS` at the Sunmourn
+  oasis positions.
+- `HarvestNodeDef` `obsidian_vein` (Mining): `profession: 'mining'`, in the Glass
+  Canyons, yields a desert mineral + the existing `ember_essence` (so the realm
+  has its own Mining nodes, not just reused ember vents).
 - `CraftRecipe` `grow_sunflare_bulb`: `station:'grow'`, inputs
   `sunflare_bulb_raw x2 + ember_essence x1`, output `sunflare_bulb x1`,
   `requiredLevel: 10`.
