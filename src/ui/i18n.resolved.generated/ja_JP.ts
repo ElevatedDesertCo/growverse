@@ -2428,7 +2428,8 @@ export const ja_JP: EnTranslations = {
       "minLevel": "必要レベル{level}",
       "tier": {
         "normal": "ノーマル",
-        "heroic": "ヒロイック"
+        "heroic": "ヒロイック",
+        "incursion": "インカージョン"
       },
       "companion": {
         "pick": "仲間を選ぶ",

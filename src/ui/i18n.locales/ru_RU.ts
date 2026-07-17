@@ -4902,6 +4902,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'delveUi.board.openDelve': 'Обрушившийся Реликварий',
   'delveUi.board.openDelveAria': 'Открыть доску Вылазок у {name}',
   'delveUi.board.tier.heroic': 'Героическая',
+  'delveUi.board.tier.incursion': 'Вторжение',
   'delveUi.board.tier.normal': 'Обычная',
   'delveUi.board.title': 'Доска Вылазок',
   'delveUi.boss.varric.bell.emote': 'Дьякон Варрик хватает погребённый колокол обеими руками!',

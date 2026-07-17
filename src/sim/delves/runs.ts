@@ -59,8 +59,12 @@ import {
   DT,
   dist2d,
   type Entity,
+  INCURSION_FIRST_CLEAR_XP_FRAC,
+  INCURSION_REPEAT_CLEAR_XP_FRAC,
   INSTANCE_EMPTY_TIMEOUT,
+  MAX_LEVEL,
   type Vec3,
+  xpForLevel,
 } from '../types';
 
 // Push-out radii (yards) for solid delve props, kept under the chest/grave interact
@@ -311,6 +315,9 @@ export function enterDelve(ctx: SimContext, delveId: string, tierId: string, pid
       return;
     }
     claimDelveRun(ctx, run, key, delveId, tierId);
+    // Incursion tier: lock the run's enemy/reward level to the entering player's
+    // level for the life of the run (re-entry into an existing run keeps it).
+    run.scaleLevel = tierDef?.scaleToPlayer ? r.e.level : undefined;
   } else {
     run.emptyFor = 0;
   }
@@ -427,7 +434,10 @@ export function spawnDelveModule(ctx: SimContext, run: DelveRun): void {
   for (const spawn of spawnSet.spawns) {
     const template = MOBS[spawn.mobId];
     if (!template) continue;
-    const level = template.minLevel + tier.enemyLevelBonus;
+    // Incursion tier: enemies scale to the entering player's captured level;
+    // fixed tiers keep the authored template level. Clamped to the level cap.
+    const baseLevel = tier.scaleToPlayer && run.scaleLevel ? run.scaleLevel : template.minLevel;
+    const level = Math.min(MAX_LEVEL, baseLevel + tier.enemyLevelBonus);
     const mob = createMob(
       ctx.nextId++,
       template,
@@ -640,11 +650,19 @@ export function grantDelveClearTo(
   const tier = delve.tiers.find((t) => t.id === run.tierId);
   const clearKey = `${run.delveId}:${run.tierId}`;
   const firstClear = !meta.delveDaily.firstClearXp.has(clearKey);
-  // Per-tier reward overrides (Heroic 1050/650, copper 16-24) fall back to the
-  // delve's Normal baseRewards when a tier omits them.
-  const xp = firstClear
-    ? (tier?.firstClearXp ?? delve.baseRewards.firstClearXp)
-    : (tier?.repeatClearXp ?? delve.baseRewards.repeatClearXp);
+  // Incursion tier: reward a fraction of the run level's XP-to-next so the payout
+  // keeps pace with the curve at any level (a flat authored value would be
+  // trivial at high level). Fixed tiers use the authored per-tier overrides,
+  // falling back to the delve's Normal baseRewards.
+  const xp =
+    tier?.scaleToPlayer && run.scaleLevel
+      ? Math.round(
+          xpForLevel(run.scaleLevel) *
+            (firstClear ? INCURSION_FIRST_CLEAR_XP_FRAC : INCURSION_REPEAT_CLEAR_XP_FRAC),
+        )
+      : firstClear
+        ? (tier?.firstClearXp ?? delve.baseRewards.firstClearXp)
+        : (tier?.repeatClearXp ?? delve.baseRewards.repeatClearXp);
   if (firstClear) meta.delveDaily.firstClearXp.add(clearKey);
   const marks = delveMarkPayout(ctx, run, meta);
   meta.delveDaily.markClears += 1;

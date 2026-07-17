@@ -2428,7 +2428,8 @@ export const en_XA: EnTranslations = {
       "minLevel": "[Ŕéɋúíŕéš Ļéʋéļ {level}]",
       "tier": {
         "normal": "[Ñóŕɱáļ]",
-        "heroic": "[Ĥéŕóíç]"
+        "heroic": "[Ĥéŕóíç]",
+        "incursion": "[Íñçúŕšíóñ]"
       },
       "companion": {
         "pick": "[Çĥóóšé á çóɱþáñíóñ]",

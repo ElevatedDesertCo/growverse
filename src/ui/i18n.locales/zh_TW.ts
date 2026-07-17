@@ -4565,6 +4565,7 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'delveUi.board.openDelve': '崩塌的聖物庫',
   'delveUi.board.openDelveAria': '從 {name} 開啟秘探看板',
   'delveUi.board.tier.heroic': '英雄',
+  'delveUi.board.tier.incursion': '侵襲',
   'delveUi.board.tier.normal': '普通',
   'delveUi.board.title': '秘探看板',
   'delveUi.boss.varric.bell.emote': '執事瓦瑞克雙手緊握那口埋藏的喪鐘！',

@@ -2428,7 +2428,8 @@ export const ko_KR: EnTranslations = {
       "minLevel": "필요 레벨 {level}",
       "tier": {
         "normal": "일반",
-        "heroic": "영웅"
+        "heroic": "영웅",
+        "incursion": "침공"
       },
       "companion": {
         "pick": "동료 선택",

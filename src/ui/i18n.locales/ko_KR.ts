@@ -4813,6 +4813,7 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'delveUi.board.openDelve': '무너진 성물실',
   'delveUi.board.openDelveAria': '{name}에서 탐굴 게시판 열기',
   'delveUi.board.tier.heroic': '영웅',
+  'delveUi.board.tier.incursion': '침공',
   'delveUi.board.tier.normal': '일반',
   'delveUi.board.title': '탐굴 게시판',
   'delveUi.boss.varric.bell.emote': '부제 바릭이 두 손으로 묻혀 있던 종을 움켜쥡니다!',

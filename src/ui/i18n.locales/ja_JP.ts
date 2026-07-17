@@ -4805,6 +4805,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'delveUi.board.openDelve': '崩れた聖遺物庫',
   'delveUi.board.openDelveAria': '{name}からデルヴボードを開く',
   'delveUi.board.tier.heroic': 'ヒロイック',
+  'delveUi.board.tier.incursion': 'インカージョン',
   'delveUi.board.tier.normal': 'ノーマル',
   'delveUi.board.title': 'デルヴボード',
   'delveUi.boss.varric.bell.emote': '助祭ヴァリックが埋もれた鐘を両手で握りしめる!',

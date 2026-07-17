@@ -2428,7 +2428,8 @@ export const pt_BR: EnTranslations = {
       "minLevel": "Requer nível {level}",
       "tier": {
         "normal": "Normal",
-        "heroic": "Heroico"
+        "heroic": "Heroico",
+        "incursion": "Incursion"
       },
       "companion": {
         "pick": "Escolha uma companheira",

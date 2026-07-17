@@ -929,7 +929,7 @@ export class Hud {
   private breedingSig = '';
   private openDelveBoardNpcId: number | null = null;
   private lastDelveTrackerSig = '';
-  private selectedDelveTier: 'normal' | 'heroic' = 'normal';
+  private selectedDelveTier: 'normal' | 'heroic' | 'incursion' = 'normal';
   private delveBoardTab: 'delve' | 'shop' = 'delve';
   private delveTrap: FocusTrapHandle | null = null;
   private lockpickTrap: FocusTrapHandle | null = null;
@@ -5390,6 +5390,14 @@ export class Hud {
     this.renderDelveBoard(true);
   }
 
+  // Localized label for a delve tier id (normal / heroic / incursion). One
+  // resolver for the board buttons, the enter aria-label, and the run tracker.
+  private delveTierLabel(tierId: string): string {
+    if (tierId === 'heroic') return t('delveUi.board.tier.heroic');
+    if (tierId === 'incursion') return t('delveUi.board.tier.incursion');
+    return t('delveUi.board.tier.normal');
+  }
+
   private renderDelveBoard(focus = false): void {
     const el = $('#delve-board');
     const npcId = this.openDelveBoardNpcId;
@@ -5408,9 +5416,13 @@ export class Hud {
       return;
     }
     const delveName = delveDisplayName(delve.id);
-    const canEnter = this.sim.player.level >= delve.minLevel;
-    const tierNormal = t('delveUi.board.tier.normal');
-    const tierHeroic = t('delveUi.board.tier.heroic');
+    // A tier is enterable when the player clears both the delve floor and the
+    // tier's own minPlayerLevel gate (the Heroic/Incursion gates). Mirrors the
+    // server-side `enterDelve` checks so the button state matches the outcome.
+    const selectedTierDef = delve.tiers.find((tr) => tr.id === this.selectedDelveTier);
+    const tierMinLevel = Math.max(delve.minLevel, selectedTierDef?.minPlayerLevel ?? 0);
+    const canEnter = this.sim.player.level >= tierMinLevel;
+    const selectedTierLabel = this.delveTierLabel(this.selectedDelveTier);
     const marks = formatNumber(this.sim.delveMarks, { maximumFractionDigits: 0 });
     const tab = this.delveBoardTab;
     const tabBtn = (id: 'delve' | 'shop', label: string): string =>
@@ -5443,9 +5455,10 @@ export class Hud {
           ` aria-label="${esc(t('delveUi.board.companion.upgradeAria', { name: tessaName, rank: nextRankLabel, marks: costMarks }))}"` +
           `${affordable ? '' : ' disabled'}>${esc(t('delveUi.board.companion.upgrade', { rank: nextRankLabel, marks: costMarks }))}</button>`;
       }
-      const tierRow = ['normal', 'heroic']
-        .map((tierId) => {
-          const label = tierId === 'heroic' ? tierHeroic : tierNormal;
+      const tierRow = delve.tiers
+        .map((tierDef) => {
+          const tierId = tierDef.id;
+          const label = this.delveTierLabel(tierId);
           const selected = this.selectedDelveTier === tierId ? ' selected' : '';
           return `<button type="button" class="delve-tier-btn${selected}" data-tier-pick="${esc(tierId)}" aria-pressed="${this.selectedDelveTier === tierId}">${esc(label)}</button>`;
         })
@@ -5457,7 +5470,7 @@ export class Hud {
         `<div class="delve-companion-name">${esc(tessaName)} <span class="quest-muted">(${esc(tessaRankLabel)})</span></div>` +
         `<div class="delve-companion-boon quest-muted">${esc(t('delveUi.board.companion.boon'))}</div>` +
         `${companionAction}</div>` +
-        `<button type="button" class="btn delve-enter-btn" data-delve-enter aria-label="${esc(t('delveUi.board.enterAria', { delve: delveName, tier: this.selectedDelveTier === 'heroic' ? tierHeroic : tierNormal }))}"${canEnter ? '' : ' disabled'}>${esc(t('delveUi.board.enter'))}</button>`;
+        `<button type="button" class="btn delve-enter-btn" data-delve-enter aria-label="${esc(t('delveUi.board.enterAria', { delve: delveName, tier: selectedTierLabel }))}"${canEnter ? '' : ' disabled'}>${esc(t('delveUi.board.enter'))}</button>`;
     }
     el.innerHTML =
       `<div class="panel-title"><span>${esc(t('delveUi.board.title'))}</span><button type="button" class="x-btn" data-close aria-label="${esc(t('questUi.dialog.close'))}">${svgIcon('close')}</button></div>` +
@@ -5479,7 +5492,10 @@ export class Hud {
     } else {
       el.querySelectorAll('[data-tier-pick]').forEach((btn) => {
         btn.addEventListener('click', () => {
-          this.selectedDelveTier = (btn as HTMLElement).dataset.tierPick as 'normal' | 'heroic';
+          this.selectedDelveTier = (btn as HTMLElement).dataset.tierPick as
+            | 'normal'
+            | 'heroic'
+            | 'incursion';
           this.renderDelveBoard(true);
         });
       });
@@ -5768,8 +5784,7 @@ export class Hud {
     this.lastDelveTrackerSig = sig;
     el.style.display = 'block';
     const delveName = delveDisplayName(run.delveId);
-    const tierLabel =
-      run.tierId === 'heroic' ? t('delveUi.board.tier.heroic') : t('delveUi.board.tier.normal');
+    const tierLabel = this.delveTierLabel(run.tierId);
     const modId = run.modules[run.moduleIndex];
     const modName = modId ? t(`delveUi.moduleName.${modId}` as TranslationKey) : '';
     const moduleLine = t('delveUi.tracker.module', {

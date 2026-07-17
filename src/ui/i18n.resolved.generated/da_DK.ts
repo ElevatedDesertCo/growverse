@@ -2428,7 +2428,8 @@ export const da_DK: EnTranslations = {
       "minLevel": "Kræver Niveau {level}",
       "tier": {
         "normal": "Normal",
-        "heroic": "Heroisk"
+        "heroic": "Heroisk",
+        "incursion": "Incursion"
       },
       "companion": {
         "pick": "Vælg en ledsager",

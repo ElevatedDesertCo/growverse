@@ -2428,7 +2428,8 @@ export const vi_VN: EnTranslations = {
       "minLevel": "Yêu cầu Cấp {level}",
       "tier": {
         "normal": "Thường",
-        "heroic": "Anh Hùng"
+        "heroic": "Anh Hùng",
+        "incursion": "Incursion"
       },
       "companion": {
         "pick": "Chọn một đồng hành",

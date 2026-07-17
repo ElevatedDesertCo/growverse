@@ -2428,7 +2428,8 @@ export const zh_TW: EnTranslations = {
       "minLevel": "需要等級 {level}",
       "tier": {
         "normal": "普通",
-        "heroic": "英雄"
+        "heroic": "英雄",
+        "incursion": "侵襲"
       },
       "companion": {
         "pick": "選擇一名同伴",

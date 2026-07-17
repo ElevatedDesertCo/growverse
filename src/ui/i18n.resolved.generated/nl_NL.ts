@@ -2428,7 +2428,8 @@ export const nl_NL: EnTranslations = {
       "minLevel": "Vereist Niveau {level}",
       "tier": {
         "normal": "Normaal",
-        "heroic": "Heroïsch"
+        "heroic": "Heroïsch",
+        "incursion": "Incursion"
       },
       "companion": {
         "pick": "Kies een metgezel",

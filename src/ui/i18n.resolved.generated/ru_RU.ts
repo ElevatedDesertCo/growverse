@@ -2428,7 +2428,8 @@ export const ru_RU: EnTranslations = {
       "minLevel": "Требуется уровень {level}",
       "tier": {
         "normal": "Обычная",
-        "heroic": "Героическая"
+        "heroic": "Героическая",
+        "incursion": "Вторжение"
       },
       "companion": {
         "pick": "Выберите спутника",

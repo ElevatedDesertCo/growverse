@@ -138,6 +138,20 @@ export const COLLAPSED_RELIQUARY_DELVE: DelveDef = {
       copperMin: 16,
       copperMax: 24,
     },
+    {
+      // Incursion: the endgame scaling loop. Enemies match the entering player's
+      // level (+2, capped at the level cap) and rewards scale with the XP curve,
+      // so one delve stays relevant across the whole 20..cap corridor. Level 20+.
+      id: 'incursion',
+      label: 'Incursion',
+      enemyLevelBonus: 2,
+      affixCount: 2,
+      rewardMult: 1.6,
+      minPlayerLevel: 20,
+      scaleToPlayer: true,
+      copperMin: 20,
+      copperMax: 32,
+    },
   ],
   baseRewards: {
     copperMin: 8,

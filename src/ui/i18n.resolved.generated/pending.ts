@@ -11,6 +11,7 @@
 export const pending: Record<string, readonly string[]> = {
   "es": [
     "abilityUi.cast.harvest",
+    "delveUi.board.tier.incursion",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -287,6 +288,7 @@ export const pending: Record<string, readonly string[]> = {
   ],
   "es_ES": [
     "abilityUi.cast.harvest",
+    "delveUi.board.tier.incursion",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -563,6 +565,7 @@ export const pending: Record<string, readonly string[]> = {
   ],
   "fr_FR": [
     "abilityUi.cast.harvest",
+    "delveUi.board.tier.incursion",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -839,6 +842,7 @@ export const pending: Record<string, readonly string[]> = {
   ],
   "fr_CA": [
     "abilityUi.cast.harvest",
+    "delveUi.board.tier.incursion",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -1116,6 +1120,7 @@ export const pending: Record<string, readonly string[]> = {
   "en_CA": [],
   "it_IT": [
     "abilityUi.cast.harvest",
+    "delveUi.board.tier.incursion",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -1392,6 +1397,7 @@ export const pending: Record<string, readonly string[]> = {
   ],
   "de_DE": [
     "abilityUi.cast.harvest",
+    "delveUi.board.tier.incursion",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -1704,6 +1710,7 @@ export const pending: Record<string, readonly string[]> = {
   ],
   "pt_BR": [
     "abilityUi.cast.harvest",
+    "delveUi.board.tier.incursion",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -1989,6 +1996,7 @@ export const pending: Record<string, readonly string[]> = {
   ],
   "nl_NL": [
     "abilityUi.cast.harvest",
+    "delveUi.board.tier.incursion",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -2265,6 +2273,7 @@ export const pending: Record<string, readonly string[]> = {
   ],
   "pl_PL": [
     "abilityUi.cast.harvest",
+    "delveUi.board.tier.incursion",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -2541,6 +2550,7 @@ export const pending: Record<string, readonly string[]> = {
   ],
   "id_ID": [
     "abilityUi.cast.harvest",
+    "delveUi.board.tier.incursion",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -2817,6 +2827,7 @@ export const pending: Record<string, readonly string[]> = {
   ],
   "tr_TR": [
     "abilityUi.cast.harvest",
+    "delveUi.board.tier.incursion",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -3093,6 +3104,7 @@ export const pending: Record<string, readonly string[]> = {
   ],
   "sv_SE": [
     "abilityUi.cast.harvest",
+    "delveUi.board.tier.incursion",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -3369,6 +3381,7 @@ export const pending: Record<string, readonly string[]> = {
   ],
   "vi_VN": [
     "abilityUi.cast.harvest",
+    "delveUi.board.tier.incursion",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",
@@ -3645,6 +3658,7 @@ export const pending: Record<string, readonly string[]> = {
   ],
   "da_DK": [
     "abilityUi.cast.harvest",
+    "delveUi.board.tier.incursion",
     "entities.dungeons.blightroot_hollow.enterText",
     "entities.dungeons.blightroot_hollow.leaveText",
     "entities.dungeons.blightroot_hollow.name",

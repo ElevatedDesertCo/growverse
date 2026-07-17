@@ -552,6 +552,7 @@ export const en = {
       tier: {
         normal: 'Normal',
         heroic: 'Heroic',
+        incursion: 'Incursion',
       },
       companion: {
         pick: 'Choose a companion',

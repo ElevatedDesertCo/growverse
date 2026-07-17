@@ -4564,6 +4564,7 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'delveUi.board.openDelve': '坍塌的圣物库',
   'delveUi.board.openDelveAria': '从{name}打开探秘面板',
   'delveUi.board.tier.heroic': '英雄',
+  'delveUi.board.tier.incursion': '侵袭',
   'delveUi.board.tier.normal': '普通',
   'delveUi.board.title': '探秘面板',
   'delveUi.boss.varric.bell.emote': '执事瓦里克双手紧握那口埋藏的钟！',

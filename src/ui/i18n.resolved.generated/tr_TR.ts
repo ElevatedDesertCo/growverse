@@ -2428,7 +2428,8 @@ export const tr_TR: EnTranslations = {
       "minLevel": "Seviye {level} gerektirir",
       "tier": {
         "normal": "Normal",
-        "heroic": "Kahramanca"
+        "heroic": "Kahramanca",
+        "incursion": "Incursion"
       },
       "companion": {
         "pick": "Bir yoldaş seç",

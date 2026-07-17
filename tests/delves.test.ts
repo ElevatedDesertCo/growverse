@@ -18,11 +18,13 @@ import {
   MOBS,
 } from '../src/sim/data';
 import { DELVE_MODULE_LAYOUTS } from '../src/sim/delve_layout';
+import { grantDelveClearTo } from '../src/sim/delves/runs';
 
 import { createMob } from '../src/sim/entity';
 import { solveLockActions } from '../src/sim/lockpick';
 import { Rng } from '../src/sim/rng';
 import { DELVE_IMPLEMENTED_AFFIXES, Sim } from '../src/sim/sim';
+import { INCURSION_FIRST_CLEAR_XP_FRAC, MAX_LEVEL, xpForLevel } from '../src/sim/types';
 import { terrainHeight } from '../src/sim/world';
 
 function makeSim(cls: 'warrior' | 'warlock' = 'warrior', seed = 42) {
@@ -300,6 +302,64 @@ describe('delve death rules', () => {
     expect(sim.player.hp).toBe(sim.player.maxHp);
     const door = DELVES.collapsed_reliquary.doorPos;
     expect(Math.hypot(sim.player.pos.x - door.x, sim.player.pos.z - (door.z - 4))).toBeLessThan(2);
+  });
+});
+
+describe('incursion (scaleToPlayer) tier', () => {
+  const enterIncursion = (sim: Sim, level: number) => {
+    sim.setPlayerLevel(level);
+    const door = DELVES.collapsed_reliquary.doorPos;
+    teleport(sim, door.x, door.z);
+    sim.enterDelve('collapsed_reliquary', 'incursion');
+    return sim.delveRunForPlayer(sim.playerId)!;
+  };
+  const enemyLevels = (sim: Sim, run: any): number[] => {
+    run.modules = ['reliquary_sunken_ossuary'];
+    run.moduleIndex = 0;
+    (sim as any).spawnDelveModule(run);
+    return run.mobIds.map((id: number) => sim.entities.get(id)!.level);
+  };
+
+  it('captures the entering level and scales enemies to it (+2)', () => {
+    const sim = makeSim();
+    const run = enterIncursion(sim, 60);
+    expect(run.scaleLevel).toBe(60);
+    const levels = enemyLevels(sim, run);
+    expect(levels.length).toBeGreaterThan(0);
+    for (const lvl of levels) expect(lvl).toBe(62); // 60 + enemyLevelBonus(2)
+  });
+
+  it('clamps scaled enemy level to the level cap', () => {
+    const sim = makeSim();
+    const run = enterIncursion(sim, MAX_LEVEL);
+    const levels = enemyLevels(sim, run);
+    for (const lvl of levels) expect(lvl).toBe(MAX_LEVEL); // min(cap, 100+2)
+  });
+
+  it('reward XP scales with the run level (a fraction of XP-to-next)', () => {
+    const sim = makeSim();
+    const run = enterIncursion(sim, 60);
+    const ctx = (sim as any).ctx;
+    const meta = sim.meta(sim.playerId)!;
+    const before = sim.xp;
+    grantDelveClearTo(ctx, run, DELVES.collapsed_reliquary, meta, sim.playerId);
+    const gained = sim.xp - before;
+    // first daily clear = INCURSION_FIRST_CLEAR_XP_FRAC of xpForLevel(60)
+    expect(gained).toBe(Math.round(xpForLevel(60) * INCURSION_FIRST_CLEAR_XP_FRAC));
+    expect(gained).toBeGreaterThan(DELVES.collapsed_reliquary.baseRewards.firstClearXp);
+  });
+
+  it('fixed tiers are unchanged: Normal enemies stay at the authored template level', () => {
+    const sim = makeSim();
+    sim.setPlayerLevel(60);
+    const door = DELVES.collapsed_reliquary.doorPos;
+    teleport(sim, door.x, door.z);
+    sim.enterDelve('collapsed_reliquary', 'normal');
+    const run = sim.delveRunForPlayer(sim.playerId)!;
+    expect(run.scaleLevel).toBeUndefined();
+    const levels = enemyLevels(sim, run);
+    // template minLevel is the low crypt band, never the level-60 player
+    for (const lvl of levels) expect(lvl).toBeLessThan(20);
   });
 });
 

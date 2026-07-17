@@ -2428,7 +2428,8 @@ export const id_ID: EnTranslations = {
       "minLevel": "Membutuhkan Level {level}",
       "tier": {
         "normal": "Normal",
-        "heroic": "Heroik"
+        "heroic": "Heroik",
+        "incursion": "Incursion"
       },
       "companion": {
         "pick": "Pilih seorang pendamping",

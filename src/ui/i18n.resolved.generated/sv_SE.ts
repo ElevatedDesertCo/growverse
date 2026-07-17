@@ -2428,7 +2428,8 @@ export const sv_SE: EnTranslations = {
       "minLevel": "Kräver nivå {level}",
       "tier": {
         "normal": "Normal",
-        "heroic": "Heroisk"
+        "heroic": "Heroisk",
+        "incursion": "Incursion"
       },
       "companion": {
         "pick": "Välj en följeslagare",

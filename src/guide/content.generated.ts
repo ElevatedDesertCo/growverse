@@ -1829,7 +1829,8 @@ export const GUIDE_DELVES: GuideDelve[] = [
     },
     "tiers": [
       "Normal",
-      "Heroic"
+      "Heroic",
+      "Incursion"
     ],
     "affixes": [
       "Restless Graves",

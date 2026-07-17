@@ -2543,6 +2543,13 @@ export interface DelveRewardTable {
   repeatClearXp: number;
 }
 
+// Incursion (scaleToPlayer) reward tuning: a clear grants a fraction of the
+// entering level's XP-to-next, so the loop keeps pace with the curve at any
+// level (a flat authored XP would be trivial at level 80). First clear of the
+// day pays more; repeats are the grind rate.
+export const INCURSION_FIRST_CLEAR_XP_FRAC = 0.35;
+export const INCURSION_REPEAT_CLEAR_XP_FRAC = 0.15;
+
 export interface DelveTierDef {
   id: string;
   label: string;
@@ -2552,6 +2559,11 @@ export interface DelveTierDef {
   // Minimum player level required to select this tier (the Heroic gate). Omit for
   // an unrestricted tier. Enforced server-side in `enterDelve`.
   minPlayerLevel?: number;
+  // Incursion tier: enemies (and rewards) scale to the ENTERING player's level
+  // instead of the delve's authored template levels, so one delve stays a
+  // relevant endgame loop across the whole 20..cap corridor. The run captures the
+  // entering level once (DelveRun.scaleLevel) so difficulty is locked per run.
+  scaleToPlayer?: boolean;
   // Per-tier reward overrides; fall back to `delve.baseRewards` when omitted, so a
   // tier's XP/copper lives in content data, not inline in sim logic.
   firstClearXp?: number;
@@ -2630,6 +2642,10 @@ export interface DelveRun {
   partyKey: string | null;
   seed: number;
   tierId: string;
+  // For a `scaleToPlayer` tier: the entering player's level, captured once at
+  // claim so enemy levels and rewards stay fixed for the run. undefined on a
+  // fixed-level tier (enemy levels come from the authored templates).
+  scaleLevel?: number;
   affixes: string[];
   modules: string[];
   moduleIndex: number;
