@@ -32,6 +32,7 @@
 // `src/sim`-pure: no DOM/Three/render/ui/game/net imports, no Math.random/Date.now
 // (enforced by tests/architecture.test.ts).
 
+import { withParagon } from '../content/paragon';
 import {
   cloneAllocation,
   computeTalentModifiers,
@@ -52,9 +53,10 @@ import type { SimContext } from '../sim_context';
 import type { Entity } from '../types';
 
 // The ONLY place a talent tree is walked. Re-resolves the flat modifier struct and
-// refreshes the stat pass + known-ability resolver that consume it.
+// refreshes the stat pass + known-ability resolver that consume it. Paragon stat
+// deltas fold into the same bundle so a talent respec never drops them.
 function recomputeTalents(ctx: SimContext, meta: PlayerMeta): void {
-  meta.talentMods = computeTalentModifiers(meta.cls, meta.talents);
+  meta.talentMods = withParagon(computeTalentModifiers(meta.cls, meta.talents), meta.paragon);
   const e = ctx.entities.get(meta.entityId);
   if (e) recalcPlayerStats(e, meta.cls, meta.equipment, ctx.playerMods(meta));
   ctx.refreshKnownAbilities(meta, false);

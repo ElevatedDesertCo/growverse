@@ -30,6 +30,7 @@ import {
   type PowerupDef,
   tierForWave,
 } from '../content/augments';
+import { withParagon } from '../content/paragon';
 import {
   cloneAllocation,
   computeTalentModifiers,
@@ -231,7 +232,9 @@ export function fiestaRestoreChar(meta: PlayerMeta, e: Entity): void {
   e.level = snap.level;
   meta.xp = snap.xp;
   meta.talents = snap.talents;
-  meta.talentMods = computeTalentModifiers(meta.cls, meta.talents);
+  // Refold paragon on the way out: the bout ran on the balanced fiestaMods, so
+  // the real character's post-cap stats are restored here, not lost.
+  meta.talentMods = withParagon(computeTalentModifiers(meta.cls, meta.talents), meta.paragon);
   meta.fiestaRestore = null;
   meta.known = abilitiesKnownAt(meta.cls, e.level, meta.talentMods);
   meta.wireRev++; // real talents restored, refresh the wire promptly

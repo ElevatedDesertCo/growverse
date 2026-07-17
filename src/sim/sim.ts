@@ -53,6 +53,14 @@ import { isSpellResisted } from './combat/spell_resist';
 // the PlayerMeta interface + the power-up catalog the fiestaMatchInfo accessor reads.
 import { type AugmentSpecial, type AugmentTier, POWERUPS_BY_ID } from './content/augments';
 import {
+  isValidParagon,
+  type ParagonAllocation,
+  paragonPointsAvailable,
+  paragonPointsSpent,
+  sanitizeParagon,
+  withParagon,
+} from './content/paragon';
+import {
   classHasSkin,
   EVENT_SKIN_TOKEN_ID,
   MECH_CHROMAS,
@@ -746,6 +754,10 @@ export interface PlayerMeta {
   // change (recomputeTalents), never walked on the combat or stat hot path.
   talents: TalentAllocation;
   talentMods: TalentModifiers;
+  // Paragon: the endless post-cap allocation (node id -> points). Its flat stat
+  // deltas are folded into `talentMods` at recompute time (withParagon), so the
+  // hot path reads one bundle. Balanced Fiesta uses fiestaMods and skips it.
+  paragon: ParagonAllocation;
   // 2v2 Fiesta (session-only, never persisted). `fiestaAugments` is the ordered
   // list of augment ids picked this bout; `fiestaMods` is talentMods with those
   // augments folded in (the effective modifier the stat/ability hot paths use
@@ -859,6 +871,8 @@ export interface CharacterState {
   // Talents & Specializations (JSONB; no schema migration). All optional so
   // characters saved before talents existed load cleanly (default: no points spent).
   talents?: TalentAllocation;
+  // Paragon post-cap allocation (JSONB; optional so pre-paragon saves load as {}).
+  paragon?: ParagonAllocation;
   loadouts?: SavedLoadout[];
   activeLoadout?: number;
   raidLockouts?: Record<string, number>;
@@ -1357,6 +1371,7 @@ export class Sim {
       arenaKills: savedState?.arenaKills ?? 0,
       talents: emptyAllocation(),
       talentMods: emptyModifiers(),
+      paragon: {},
       fiestaAugments: [],
       fiestaMods: null,
       fiestaSpecial: {},
@@ -1426,6 +1441,13 @@ export class Sim {
           },
           talentPointsAtLevel(player.level),
         );
+      // Paragon replays verbatim too: coerce it to the points the lifetime XP
+      // actually affords (drops unknown nodes and trims an over-budget/tampered save).
+      if (s.paragon)
+        meta.paragon = sanitizeParagon(
+          s.paragon,
+          paragonPointsAvailable(virtualLevel(meta.lifetimeXp)),
+        );
       if (s.loadouts)
         meta.loadouts = s.loadouts.map((l) => ({
           name: l.name,
@@ -1453,8 +1475,9 @@ export class Sim {
     }
 
     // Resolve the flat talent struct once, before the stat pass + ability
-    // resolver below consume it (they only ever read these flat numbers).
-    meta.talentMods = computeTalentModifiers(cls, meta.talents);
+    // resolver below consume it (they only ever read these flat numbers). Paragon
+    // stat deltas fold into the same bundle here (withParagon).
+    meta.talentMods = withParagon(computeTalentModifiers(cls, meta.talents), meta.paragon);
     this.refreshKnownAbilities(meta, false);
     recalcPlayerStats(player, cls, meta.equipment, meta.talentMods);
     if (savedState) {
@@ -1632,6 +1655,7 @@ export class Sim {
       arena2v2Losses: meta.arena2v2Losses,
       arenaKills: meta.arenaKills,
       talents: cloneAllocation(restore ? restore.talents : meta.talents),
+      paragon: { ...meta.paragon },
       loadouts: meta.loadouts.map((l) => ({
         name: l.name,
         alloc: cloneAllocation(l.alloc),
@@ -2569,6 +2593,63 @@ export class Sim {
   // Free respec (out of combat): wipe all talent points. Spec is retained.
   respec(pid?: number): boolean {
     return respecTalents(this.ctx, pid);
+  }
+
+  // -------------------------------------------------------------------------
+  // Paragon: the endless post-cap track. Points come from virtual levels past
+  // PARAGON_START_LEVEL (so it keeps growing forever); the allocation folds into
+  // talentMods.stats via withParagon at recompute time (see rebuildParagon).
+  // -------------------------------------------------------------------------
+
+  paragonPoints(pid?: number): { total: number; spent: number } {
+    const r = this.resolve(pid);
+    if (!r) return { total: 0, spent: 0 };
+    return {
+      total: paragonPointsAvailable(virtualLevel(r.meta.lifetimeXp)),
+      spent: paragonPointsSpent(r.meta.paragon),
+    };
+  }
+
+  // Read-only view of the current paragon allocation (node id -> points).
+  paragonAllocation(pid?: number): ParagonAllocation {
+    const r = this.resolve(pid);
+    return r ? { ...r.meta.paragon } : {};
+  }
+
+  // Commit a whole paragon allocation. Rejects (returns false, no change) any
+  // allocation with unknown nodes, negative/non-integer points, or a total over
+  // the earned budget. Server-authoritative, like applyTalents.
+  applyParagon(alloc: ParagonAllocation, pid?: number): boolean {
+    const r = this.resolve(pid);
+    if (!r) return false;
+    const clean: ParagonAllocation = {};
+    for (const id in alloc) {
+      const pts = Math.floor(alloc[id] ?? 0);
+      if (pts > 0) clean[id] = pts;
+    }
+    const available = paragonPointsAvailable(virtualLevel(r.meta.lifetimeXp));
+    if (!isValidParagon(clean, available)) return false;
+    r.meta.paragon = clean;
+    this.rebuildParagon(r.meta);
+    return true;
+  }
+
+  // Free paragon respec: refund every point.
+  respecParagon(pid?: number): boolean {
+    const r = this.resolve(pid);
+    if (!r) return false;
+    r.meta.paragon = {};
+    this.rebuildParagon(r.meta);
+    return true;
+  }
+
+  // Re-fold paragon into the flat modifier bundle and refresh the stat pass.
+  // Paragon touches only stats (never abilities), so known-abilities are left as is.
+  private rebuildParagon(meta: PlayerMeta): void {
+    meta.talentMods = withParagon(computeTalentModifiers(meta.cls, meta.talents), meta.paragon);
+    const e = this.entities.get(meta.entityId);
+    if (e) recalcPlayerStats(e, meta.cls, meta.equipment, this.playerMods(meta));
+    meta.wireRev++;
   }
 
   // Save the current build (talents + spec + the given action-bar slot map) as a
