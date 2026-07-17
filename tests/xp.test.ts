@@ -92,28 +92,31 @@ describe('virtual-level curve', () => {
   });
 
   it('virtual level climbs past the cap on lifetime XP boundaries', () => {
-    // exactly at the cap threshold → virtual 20, one XP short → still 19's band? no: 20
-    expect(virtualLevel(xpToReachLevel(20))).toBe(20);
-    expect(virtualLevel(xpToReachLevel(21))).toBe(21);
-    expect(virtualLevel(xpToReachLevel(21) - 1)).toBe(20);
-    expect(virtualLevel(xpToReachLevel(27))).toBe(27);
-    expect(virtualLevel(xpToReachLevel(27) + 1)).toBe(27);
-    expect(virtualLevel(xpToReachLevel(28) - 1)).toBe(27);
+    const cap = MAX_LEVEL;
+    // exactly at the cap threshold → virtual cap, one XP short → still cap-1's band
+    expect(virtualLevel(xpToReachLevel(cap))).toBe(cap);
+    expect(virtualLevel(xpToReachLevel(cap + 1))).toBe(cap + 1);
+    expect(virtualLevel(xpToReachLevel(cap + 1) - 1)).toBe(cap);
+    expect(virtualLevel(xpToReachLevel(cap + 7))).toBe(cap + 7);
+    expect(virtualLevel(xpToReachLevel(cap + 7) + 1)).toBe(cap + 7);
+    expect(virtualLevel(xpToReachLevel(cap + 8) - 1)).toBe(cap + 7);
   });
 
   it('post-cap levels cost progressively more (geometric grind)', () => {
-    const step21 = xpToReachLevel(22) - xpToReachLevel(21);
-    const step20 = xpToReachLevel(21) - xpToReachLevel(20);
-    const step30 = xpToReachLevel(31) - xpToReachLevel(30);
-    expect(step21).toBeGreaterThan(step20);
-    expect(step30).toBeGreaterThan(step21);
+    const cap = MAX_LEVEL;
+    const stepA = xpToReachLevel(cap + 2) - xpToReachLevel(cap + 1);
+    const stepBase = xpToReachLevel(cap + 1) - xpToReachLevel(cap);
+    const stepFar = xpToReachLevel(cap + 11) - xpToReachLevel(cap + 10);
+    expect(stepA).toBeGreaterThan(stepBase);
+    expect(stepFar).toBeGreaterThan(stepA);
   });
 
   it('virtualLevelProgress reports position within the current virtual level', () => {
-    const base = xpToReachLevel(25);
-    const span = xpToReachLevel(26) - xpToReachLevel(25);
+    const lvl = MAX_LEVEL + 5;
+    const base = xpToReachLevel(lvl);
+    const span = xpToReachLevel(lvl + 1) - xpToReachLevel(lvl);
     const prog = virtualLevelProgress(base + Math.floor(span / 2));
-    expect(prog.level).toBe(25);
+    expect(prog.level).toBe(lvl);
     expect(prog.span).toBe(span);
     expect(prog.into).toBeCloseTo(Math.floor(span / 2), -1);
   });
@@ -140,9 +143,11 @@ describe('solo grantXp at the cap', () => {
     const sim = makeSim('warrior');
     sim.setPlayerLevel(MAX_LEVEL);
     let expected = sim.lifetimeXp;
+    // each award is a fraction of one post-cap virtual level; the sum crosses it
+    const award = Math.ceil(PRESTIGE_XP_PER_RANK / 25);
     for (let i = 0; i < 50; i++) {
-      sim.grantXp(1000);
-      expected += 1000;
+      sim.grantXp(award);
+      expected += award;
     }
     expect(sim.lifetimeXp).toBe(expected);
     expect(virtualLevel(sim.lifetimeXp)).toBeGreaterThan(MAX_LEVEL);
@@ -352,7 +357,9 @@ describe('persistence', () => {
   it('round-trips lifetimeXp, prestigeRank, and milestones', () => {
     const sim = makeSim('warrior');
     sim.setPlayerLevel(MAX_LEVEL);
-    sim.grantXp(MILESTONES[0].lifetimeXp + 5);
+    // enough post-cap XP for exactly one prestige rank (also re-checks every
+    // cosmetic milestone the at-cap lifetime total already sits past)
+    sim.grantXp(PRESTIGE_XP_PER_RANK + 100);
     sim.prestige();
     const state = sim.serializeCharacter(sim.playerId)!;
     expect(state.lifetimeXp).toBeGreaterThan(0);
@@ -489,7 +496,7 @@ describe('online ClientWorld path', () => {
     if ('error' in session) throw new Error(session.error);
 
     server.sim.setPlayerLevel(MAX_LEVEL, session.pid);
-    server.sim.grantXp(xpToReachLevel(23), server.sim.meta(session.pid)!);
+    server.sim.grantXp(PRESTIGE_XP_PER_RANK + 100, server.sim.meta(session.pid)!);
     server.sim.prestige(session.pid);
 
     (server as any).broadcastSnapshots();

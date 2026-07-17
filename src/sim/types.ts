@@ -2246,15 +2246,35 @@ export function normAngle(a: number): number {
 // ---------------------------------------------------------------------------
 
 // XP required to go from level L to L+1 (real vanilla values, levels 1..20)
-// XP to advance from level N to N+1 (index N-1). Entries 1..20 are the original
-// 1-20 curve; 21..30 continue it smoothly (the per-level delta keeps climbing at
-// roughly the same rate) for the level-30 cap. XP_TABLE[MAX_LEVEL-1] is also the
-// post-cap virtual-level step (see VLEVEL_CUM below).
-export const XP_TABLE = [
+export const MAX_LEVEL = 100;
+
+// Last level with hand-authored ability ranks (the original cap). Ability damage
+// and healing ranks are authored through this level; past it, ability OUTPUT is
+// extrapolated so it keeps pace with the Attack/Ranged/Spell Power that scale it
+// (see src/sim/ability_scaling.ts). At or below this level the resolved effects
+// are byte-identical to the authored data (extrapolation factor is exactly 1).
+export const ABILITY_AUTHORED_CAP_LEVEL = 20;
+
+// The hand-tuned early curve: XP to advance from level N to N+1 (index N-1) for
+// levels 1..20. Kept explicit because the low-level pacing was authored by feel.
+const AUTHORED_XP_1_20 = [
   400, 900, 1400, 2100, 2800, 3600, 4500, 5400, 6500, 7600, 8800, 10100, 11400, 12900, 14400, 16000,
-  17700, 19400, 21300, 23200, 25300, 27400, 29700, 32000, 34500, 37000, 39700, 42400, 45300, 48200,
+  17700, 19400, 21300, 23200,
 ];
-export const MAX_LEVEL = 30;
+
+// XP to advance from level N to N+1 (index N-1), for levels 1..MAX_LEVEL. The
+// authored 1-20 band above, then a smooth polynomial continuation (cost ~= 150 *
+// L^1.68, fit to the authored 1-20 shape, rounded to the nearest 100 and forced
+// strictly increasing) so a 100-level curve needs no hundred-entry hand table.
+// XP_TABLE[MAX_LEVEL-1] is also the post-cap virtual-level step (see VLEVEL_CUM).
+export const XP_TABLE: number[] = (() => {
+  const table = [...AUTHORED_XP_1_20];
+  for (let level = table.length + 1; level <= MAX_LEVEL; level++) {
+    const cost = Math.round((150 * level ** 1.68) / 100) * 100;
+    table.push(Math.max(cost, table[table.length - 1] + 100));
+  }
+  return table;
+})();
 
 // Shared sim constants relocated here (C1) so both sim.ts and the extracted damage
 // core (src/sim/combat/damage.ts) can import them without a sim.ts cycle.
@@ -2274,8 +2294,8 @@ export function xpForLevel(level: number): number {
 // At the level cap, XP keeps accruing into a 64-bit lifetime counter that
 // drives a cosmetic *virtual level* so the XP bar keeps "leveling" forever.
 // The threshold table below is the cumulative lifetime XP needed to reach each
-// virtual level. Real levels 1..20 reuse XP_TABLE exactly (so below the cap
-// `virtualLevel(lifetimeXp) === level`); past the cap the per-level cost keeps
+// virtual level. Real levels below the cap reuse XP_TABLE exactly (so below the
+// cap `virtualLevel(lifetimeXp) === level`); past the cap the per-level cost keeps
 // growing geometrically (RuneScape-style ~10%/level) so the grind has a long
 // tail but the bar always visibly moves. Built once and cached.
 // ---------------------------------------------------------------------------
@@ -2293,7 +2313,7 @@ const VLEVEL_CUM: number[] = (() => {
     total += XP_TABLE[lvl - 1];
     cum[lvl + 1] = total;
   }
-  // post-cap: continue from the 20→21 step, growing geometrically
+  // post-cap: continue from the final real-level step, growing geometrically
   let step = XP_TABLE[MAX_LEVEL - 1];
   for (let lvl = MAX_LEVEL; lvl < MAX_VIRTUAL_LEVEL; lvl++) {
     total += Math.round(step);
@@ -2359,7 +2379,7 @@ export const MILESTONES: MilestoneDef[] = [
 // be spammed from a hacked client to inflate the (leaderboard-visible) rank —
 // the server caps rank at maxPrestigeRank(lifetimeXp) regardless of how many
 // prestige commands arrive.
-export const PRESTIGE_XP_PER_RANK = xpForLevel(MAX_LEVEL); // = 23,200
+export const PRESTIGE_XP_PER_RANK = xpForLevel(MAX_LEVEL); // one full cap-level bar
 
 // Highest prestige rank the given lifetime XP can support (post-cap XP / cost).
 export function maxPrestigeRank(lifetimeXp: number): number {

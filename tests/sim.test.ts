@@ -1438,7 +1438,10 @@ describe('leveling', () => {
 
   it('caps at max level', () => {
     const sim = makeSim('warrior');
-    (sim as any).grantXp(999999);
+    // grant far more than the whole 1..cap curve needs, then assert it stops at the cap
+    let total = 0;
+    for (let l = 1; l < MAX_LEVEL; l++) total += xpForLevel(l);
+    (sim as any).grantXp(total * 2 + 999999);
     expect(sim.player.level).toBe(MAX_LEVEL);
   });
 });

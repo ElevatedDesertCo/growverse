@@ -278,6 +278,6 @@ describe('xp pacing budget (no forced grinding)', () => {
 
   it('XP table reaches the level cap', () => {
     expect(XP_TABLE.length).toBeGreaterThanOrEqual(MAX_LEVEL);
-    expect(MAX_LEVEL).toBe(30);
+    expect(MAX_LEVEL).toBe(100);
   });
 });

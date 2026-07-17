@@ -558,8 +558,8 @@
       "tick": 60,
       "time": 3,
       "nextId": 650,
-      "state": "754d409b",
-      "events": "ad03545f",
+      "state": "28e4d405",
+      "events": "51f7da38",
       "rng": {
         "draws": 107,
         "digest": "545df91f"
@@ -575,7 +575,7 @@
           "companionUpgrades": {},
           "counters": {
             "levelUps": 1,
-            "xpGained": 48810
+            "xpGained": 344210
           },
           "delveClears": {},
           "delveDaily": {},
@@ -584,7 +584,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
-          "lifetimeXp": 551900,
+          "lifetimeXp": 13001200,
           "plots": [
             {},
             {},
@@ -632,6 +632,9 @@
           },
           "unlockedMilestones": [
             "champion",
+            "eternal",
+            "mythic",
+            "paragon",
             "veteran"
           ],
           "xp": 210
@@ -640,19 +643,19 @@
       "entities": [
         {
           "aiState": "idle",
-          "attackPower": 162,
+          "attackPower": 442,
           "combatTimer": 102,
-          "critChance": 0.0745,
+          "critChance": 0.1095,
           "detonateTimer": "Infinity",
-          "dodgeChance": 0.0745,
+          "dodgeChance": 0.1095,
           "fallStartY": 1.5,
           "fiveSecondRule": 102,
-          "hp": 1192,
+          "hp": 3852,
           "id": 649,
           "kind": "player",
-          "level": 30,
+          "level": 100,
           "lootFfaTimer": "Infinity",
-          "maxHp": 1192,
+          "maxHp": 3852,
           "maxResource": 100,
           "moveSpeed": 7,
           "onGround": true,
@@ -672,12 +675,12 @@
           },
           "spellPower": 5,
           "stats": {
-            "agi": 49,
-            "armor": 516,
+            "agi": 119,
+            "armor": 1496,
             "int": 10,
             "spi": 11,
-            "sta": 80,
-            "str": 81
+            "sta": 220,
+            "str": 221
           },
           "templateId": "warrior",
           "weapon": {
@@ -692,7 +695,7 @@
       "tick": 60,
       "time": 3,
       "nextId": 650,
-      "state": "03c2ee50",
+      "state": "a05708dc",
       "events": "b60f8ff4",
       "rng": {
         "draws": 107,
@@ -709,7 +712,7 @@
           "companionUpgrades": {},
           "counters": {
             "levelUps": 1,
-            "xpGained": 48810
+            "xpGained": 344210
           },
           "delveClears": {},
           "delveDaily": {},
@@ -718,7 +721,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
-          "lifetimeXp": 551900,
+          "lifetimeXp": 13001200,
           "plots": [
             {},
             {},
@@ -767,6 +770,9 @@
           },
           "unlockedMilestones": [
             "champion",
+            "eternal",
+            "mythic",
+            "paragon",
             "veteran"
           ]
         }
@@ -774,19 +780,19 @@
       "entities": [
         {
           "aiState": "idle",
-          "attackPower": 162,
+          "attackPower": 442,
           "combatTimer": 102,
-          "critChance": 0.0745,
+          "critChance": 0.1095,
           "detonateTimer": "Infinity",
-          "dodgeChance": 0.0745,
+          "dodgeChance": 0.1095,
           "fallStartY": 1.5,
           "fiveSecondRule": 102,
-          "hp": 1192,
+          "hp": 3852,
           "id": 649,
           "kind": "player",
-          "level": 30,
+          "level": 100,
           "lootFfaTimer": "Infinity",
-          "maxHp": 1192,
+          "maxHp": 3852,
           "maxResource": 100,
           "moveSpeed": 7,
           "onGround": true,
@@ -806,12 +812,12 @@
           },
           "spellPower": 5,
           "stats": {
-            "agi": 49,
-            "armor": 516,
+            "agi": 119,
+            "armor": 1496,
             "int": 10,
             "spi": 11,
-            "sta": 80,
-            "str": 81
+            "sta": 220,
+            "str": 221
           },
           "templateId": "warrior",
           "weapon": {
@@ -826,7 +832,7 @@
       "tick": 60,
       "time": 3,
       "nextId": 650,
-      "state": "03c2ee50",
+      "state": "a05708dc",
       "events": "741638a5",
       "rng": {
         "draws": 107,
@@ -843,7 +849,7 @@
           "companionUpgrades": {},
           "counters": {
             "levelUps": 1,
-            "xpGained": 48810
+            "xpGained": 344210
           },
           "delveClears": {},
           "delveDaily": {},
@@ -852,7 +858,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
-          "lifetimeXp": 551900,
+          "lifetimeXp": 13001200,
           "plots": [
             {},
             {},
@@ -901,6 +907,9 @@
           },
           "unlockedMilestones": [
             "champion",
+            "eternal",
+            "mythic",
+            "paragon",
             "veteran"
           ]
         }
@@ -908,19 +917,19 @@
       "entities": [
         {
           "aiState": "idle",
-          "attackPower": 162,
+          "attackPower": 442,
           "combatTimer": 102,
-          "critChance": 0.0745,
+          "critChance": 0.1095,
           "detonateTimer": "Infinity",
-          "dodgeChance": 0.0745,
+          "dodgeChance": 0.1095,
           "fallStartY": 1.5,
           "fiveSecondRule": 102,
-          "hp": 1192,
+          "hp": 3852,
           "id": 649,
           "kind": "player",
-          "level": 30,
+          "level": 100,
           "lootFfaTimer": "Infinity",
-          "maxHp": 1192,
+          "maxHp": 3852,
           "maxResource": 100,
           "moveSpeed": 7,
           "onGround": true,
@@ -940,12 +949,12 @@
           },
           "spellPower": 5,
           "stats": {
-            "agi": 49,
-            "armor": 516,
+            "agi": 119,
+            "armor": 1496,
             "int": 10,
             "spi": 11,
-            "sta": 80,
-            "str": 81
+            "sta": 220,
+            "str": 221
           },
           "templateId": "warrior",
           "weapon": {
@@ -960,7 +969,7 @@
       "tick": 60,
       "time": 3,
       "nextId": 650,
-      "state": "03c2ee50",
+      "state": "a05708dc",
       "events": "741638a5",
       "rng": {
         "draws": 107,
@@ -977,7 +986,7 @@
           "companionUpgrades": {},
           "counters": {
             "levelUps": 1,
-            "xpGained": 48810
+            "xpGained": 344210
           },
           "delveClears": {},
           "delveDaily": {},
@@ -986,7 +995,7 @@
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
-          "lifetimeXp": 551900,
+          "lifetimeXp": 13001200,
           "plots": [
             {},
             {},
@@ -1035,6 +1044,9 @@
           },
           "unlockedMilestones": [
             "champion",
+            "eternal",
+            "mythic",
+            "paragon",
             "veteran"
           ]
         }
@@ -1042,19 +1054,19 @@
       "entities": [
         {
           "aiState": "idle",
-          "attackPower": 162,
+          "attackPower": 442,
           "combatTimer": 102,
-          "critChance": 0.0745,
+          "critChance": 0.1095,
           "detonateTimer": "Infinity",
-          "dodgeChance": 0.0745,
+          "dodgeChance": 0.1095,
           "fallStartY": 1.5,
           "fiveSecondRule": 102,
-          "hp": 1192,
+          "hp": 3852,
           "id": 649,
           "kind": "player",
-          "level": 30,
+          "level": 100,
           "lootFfaTimer": "Infinity",
-          "maxHp": 1192,
+          "maxHp": 3852,
           "maxResource": 100,
           "moveSpeed": 7,
           "onGround": true,
@@ -1074,12 +1086,12 @@
           },
           "spellPower": 5,
           "stats": {
-            "agi": 49,
-            "armor": 516,
+            "agi": 119,
+            "armor": 1496,
             "int": 10,
             "spi": 11,
-            "sta": 80,
-            "str": 81
+            "sta": 220,
+            "str": 221
           },
           "templateId": "warrior",
           "weapon": {

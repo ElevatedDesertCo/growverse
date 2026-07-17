@@ -1,3 +1,4 @@
+import { abilityOutputScale, scaleAbilityEffects } from '../ability_scaling';
 import type { AbilityDef, AbilityEffect, PlayerClass, Stats, WeaponInfo } from '../types';
 import type { TalentModifiers } from './talents';
 
@@ -3740,6 +3741,12 @@ export function abilitiesKnownAt(
         if (r.threatFlat !== undefined) threatFlat = r.threatFlat;
       }
     }
+    // Extrapolate authored damage/healing past the authored-rank cap so ability
+    // output keeps pace with the rating that scales it (see ability_scaling.ts).
+    // At or below the cap the factor is 1 and `effects` stays the authored array
+    // reference (byte-identical sub-cap resolution).
+    const outScale = abilityOutputScale(cls, CLASSES[cls], def, level);
+    if (outScale !== 1) effects = scaleAbilityEffects(effects, outScale);
     const entry: KnownAbility = {
       def,
       rank,

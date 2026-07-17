@@ -184,7 +184,7 @@ describe('point economy', () => {
       TALENT_POINT_CAP_LEVEL - FIRST_TALENT_LEVEL + 1,
     );
     expect(talentPointsAtLevel(TALENT_POINT_CAP_LEVEL)).toBe(11);
-    expect(talentPointsAtLevel(MAX_LEVEL)).toBe(11); // still 11 at the level-30 cap
+    expect(talentPointsAtLevel(MAX_LEVEL)).toBe(11); // still 11 at the level cap
   });
 });
 
