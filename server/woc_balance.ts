@@ -160,11 +160,36 @@ export function wocBalanceCacheStats(): UsageCacheSnapshot {
 }
 
 /**
+ * Dev-only $GROW balance override: lets a local game exercise the full wallet
+ * link + Cultivation Rank experience with no token minted and no RPC (devnet
+ * faucets are unreliable). Doubly gated: GROW_DEV_BALANCE is honored ONLY when
+ * ALLOW_DEV_COMMANDS=1, the existing dev/E2E gate that must NEVER be set in
+ * production. Exported for tests.
+ */
+export function devBalanceOverride(env: Record<string, string | undefined>): number | null {
+  if (env.ALLOW_DEV_COMMANDS !== '1') return null;
+  const raw = env.GROW_DEV_BALANCE?.trim();
+  if (!raw) return null;
+  const value = Number(raw);
+  return Number.isFinite(value) && value >= 0 ? value : null;
+}
+
+if (devBalanceOverride(process.env) !== null) {
+  console.warn(
+    '[woc] GROW_DEV_BALANCE override active (dev only): every linked wallet reads as',
+    devBalanceOverride(process.env),
+    '$GROW. Never enable this in production.',
+  );
+}
+
+/**
  * The owner's total $WOC across all their token accounts for the mint, in
  * human-readable units. Returns null on any RPC/parse failure so callers can
  * keep the last known value.
  */
 export async function fetchWocBalance(pubkey: string): Promise<number | null> {
+  const override = devBalanceOverride(process.env);
+  if (override !== null) return override;
   recordUsageMetric('woc.balance.rpc');
   try {
     const res = await fetch(SOLANA_RPC_URL, {

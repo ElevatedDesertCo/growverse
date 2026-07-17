@@ -21,6 +21,24 @@ env files beyond the public mint address, or the game server.
 3. For the local game: Docker (for `npm run db:up`) and the usual
    `npm install` done.
 
+## 0.5 No devnet SOL? Test the game anyway (dev override)
+
+Devnet faucets rate-limit aggressively and gate on GitHub history; do not let
+them block game testing. The server supports a dev-only fake balance so the
+whole wallet-link + Cultivation Rank flow works with NO minted token and NO
+RPC. In `.env.local`:
+
+```sh
+ALLOW_DEV_COMMANDS=1
+GROW_DEV_BALANCE=250000
+```
+
+Restart `npm run server`, link any wallet in-game (signing is free, no SOL
+needed), and every linked wallet reads as 250,000 $GROW (Cultivator). Change
+the number and restart to hop ranks. The override is honored ONLY when
+`ALLOW_DEV_COMMANDS=1`, which is already forbidden in production, so it cannot
+leak. Remove both lines once a real mint exists.
+
 ## 1. Devnet rehearsal (do this now)
 
 Devnet is a free playground chain: fake SOL from a faucet, same programs and

@@ -5,6 +5,7 @@ import {
   CACHE_TTL_MS,
   cachedWocBalance,
   DEFAULT_TOKEN_MINT,
+  devBalanceOverride,
   fetchWocBalance,
   handleWocBalance,
   holderInfoForPubkey,
@@ -556,5 +557,35 @@ describe('resolveTokenMint env precedence', () => {
   it('falls back to the inherited upstream default when nothing is set', () => {
     expect(resolveTokenMint({})).toBe(DEFAULT_TOKEN_MINT);
     expect(resolveTokenMint({ GROW_MINT: '' })).toBe(DEFAULT_TOKEN_MINT);
+  });
+});
+
+describe('devBalanceOverride (local testing without a minted token)', () => {
+  afterEach(() => vi.unstubAllEnvs());
+
+  it('is inert unless ALLOW_DEV_COMMANDS=1 gates it on', () => {
+    expect(devBalanceOverride({ GROW_DEV_BALANCE: '250000' })).toBeNull();
+    expect(devBalanceOverride({ ALLOW_DEV_COMMANDS: '0', GROW_DEV_BALANCE: '250000' })).toBeNull();
+    expect(devBalanceOverride({ ALLOW_DEV_COMMANDS: '1', GROW_DEV_BALANCE: '250000' })).toBe(
+      250_000,
+    );
+  });
+
+  it('rejects empty, negative, and non-numeric values', () => {
+    expect(devBalanceOverride({ ALLOW_DEV_COMMANDS: '1' })).toBeNull();
+    expect(devBalanceOverride({ ALLOW_DEV_COMMANDS: '1', GROW_DEV_BALANCE: '' })).toBeNull();
+    expect(devBalanceOverride({ ALLOW_DEV_COMMANDS: '1', GROW_DEV_BALANCE: '  ' })).toBeNull();
+    expect(devBalanceOverride({ ALLOW_DEV_COMMANDS: '1', GROW_DEV_BALANCE: '-5' })).toBeNull();
+    expect(devBalanceOverride({ ALLOW_DEV_COMMANDS: '1', GROW_DEV_BALANCE: 'lots' })).toBeNull();
+    expect(devBalanceOverride({ ALLOW_DEV_COMMANDS: '1', GROW_DEV_BALANCE: '0' })).toBe(0);
+  });
+
+  it('short-circuits fetchWocBalance without touching the RPC when active', async () => {
+    vi.stubEnv('ALLOW_DEV_COMMANDS', '1');
+    vi.stubEnv('GROW_DEV_BALANCE', '250000');
+    const rpc = vi.fn();
+    vi.stubGlobal('fetch', rpc);
+    expect(await fetchWocBalance(VALID_ADDR)).toBe(250_000);
+    expect(rpc).not.toHaveBeenCalled();
   });
 });
