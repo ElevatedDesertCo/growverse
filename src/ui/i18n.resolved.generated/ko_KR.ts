@@ -1051,6 +1051,7 @@ export const ko_KR: EnTranslations = {
       "costLabel": "비용",
       "requiresLabel": "필요",
       "levelReq": "레벨 {level} 필요",
+      "professionReq": "{profession} {skill} 필요",
       "produces": "{name} {count}개 생산",
       "crafted": "{name}을(를) 제작했습니다.",
       "empty": "아직 여기서 제작할 수 있는 것이 없습니다.",
@@ -5136,6 +5137,12 @@ export const ko_KR: EnTranslations = {
       },
       "copper_ore": {
         "name": "구리 광석"
+      },
+      "trellis_frame": {
+        "name": "재배 격자"
+      },
+      "coppermesh_gloves": {
+        "name": "구리 그물 장갑"
       },
       "bristleback_maul": {
         "name": "뻣센등뼈 철퇴"

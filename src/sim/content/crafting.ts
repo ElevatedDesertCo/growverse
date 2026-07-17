@@ -124,6 +124,28 @@ export const CRAFT_ITEMS: Record<string, ItemDef> = {
     quality: 'uncommon',
     sellValue: 35,
   },
+  // --- Gathering-profession crafts (timber -> grow accessory, ore -> gear) ------
+  // Built at the Grow Station from Rough Timber (Logging): a wooden trellis the vale
+  // growers lean their cannaplants on. A grow accessory alongside the lamp + coil.
+  trellis_frame: {
+    id: 'trellis_frame',
+    name: 'Trellis Frame',
+    kind: 'junk',
+    quality: 'uncommon',
+    sellValue: 38,
+  },
+  // Cut at the Upgrade Bench from Copper Ore (Mining): light leather gloves reinforced
+  // with copper mesh, budgeted like the other generalist Riftforged uncommons.
+  coppermesh_gloves: {
+    id: 'coppermesh_gloves',
+    name: 'Coppermesh Gloves',
+    kind: 'armor',
+    armorType: 'leather',
+    slot: 'gloves',
+    quality: 'uncommon',
+    stats: { armor: 24, agi: 2 },
+    sellValue: 85,
+  },
 
   // --- Upgrade Bench outputs: consumable + gear ------------------------------
   // A battle elixir cut from Corruption Shards: a temporary attack-power edge.
@@ -545,6 +567,29 @@ export const CRAFT_RECIPES: CraftRecipe[] = [
     ],
     copperCost: 260,
     output: { itemId: 'riftforged_blade', count: 1 },
+  },
+  // --- Gathering-profession crafts: the timber/ore payoff --------------------
+  // Logging: a Rough Timber trellis, unlocked once the skill reaches 10 (a few
+  // stands' worth of work). Consumes the timber that working the stands grants.
+  {
+    id: 'craft_trellis_frame',
+    station: 'grow',
+    category: 'accessory',
+    inputs: [{ itemId: 'rough_timber', count: 4 }],
+    copperCost: 60,
+    output: { itemId: 'trellis_frame', count: 1 },
+    requiredProfession: { id: 'logging', skill: 10 },
+  },
+  // Mining: copper-meshed gloves cut from Copper Ore, unlocked at skill 15. The ore
+  // gate is what makes leveling Mining at the veins matter.
+  {
+    id: 'craft_coppermesh_gloves',
+    station: 'upgrade',
+    category: 'gear',
+    inputs: [{ itemId: 'copper_ore', count: 4 }],
+    copperCost: 100,
+    output: { itemId: 'coppermesh_gloves', count: 1 },
+    requiredProfession: { id: 'mining', skill: 15 },
   },
   // --- Cookfire (Dockside Cook): raw fish -> cooked meal ---------------------
   // One recipe per catchable fish. A few coppers of firewood turns a raw catch

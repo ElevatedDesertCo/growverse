@@ -1051,6 +1051,7 @@ export const en_XA: EnTranslations = {
       "costLabel": "[Çóšţ]",
       "requiresLabel": "[Ŕéɋúíŕéš]",
       "levelReq": "[Ŕéɋúíŕéš ļéʋéļ {level}]",
+      "professionReq": "[Ŕéɋúíŕéš {profession} {skill}]",
       "produces": "[Ýíéļðš {count} {name}]",
       "crafted": "[Çŕáƒţéð {name}.]",
       "empty": "[Ñóţĥíñĝ çáñ ƀé çŕáƒţéð ĥéŕé ýéţ.]",
@@ -5136,6 +5137,12 @@ export const en_XA: EnTranslations = {
       },
       "copper_ore": {
         "name": "[Çóþþéŕ Óŕé]"
+      },
+      "trellis_frame": {
+        "name": "[Ţŕéļļíš Ƒŕáɱé]"
+      },
+      "coppermesh_gloves": {
+        "name": "[Çóþþéŕɱéšĥ Ĝļóʋéš]"
       },
       "bristleback_maul": {
         "name": "[Ɓŕíšţļéƀáçķ Ɱáúļ]"

@@ -1051,6 +1051,7 @@ export const es_ES: EnTranslations = {
       "costLabel": "Cost",
       "requiresLabel": "Requires",
       "levelReq": "Requires level {level}",
+      "professionReq": "Requires {profession} {skill}",
       "produces": "Yields {count} {name}",
       "crafted": "Crafted {name}.",
       "empty": "Nothing can be crafted here yet.",
@@ -5136,6 +5137,12 @@ export const es_ES: EnTranslations = {
       },
       "copper_ore": {
         "name": "Mineral de cobre"
+      },
+      "trellis_frame": {
+        "name": "Espaldera de Cultivo"
+      },
+      "coppermesh_gloves": {
+        "name": "Guantes de Malla de Cobre"
       },
       "bristleback_maul": {
         "name": "Maza Bristleback"

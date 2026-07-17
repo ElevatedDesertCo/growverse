@@ -1051,6 +1051,7 @@ export const ja_JP: EnTranslations = {
       "costLabel": "コスト",
       "requiresLabel": "必要",
       "levelReq": "レベル {level} が必要",
+      "professionReq": "{profession} {skill} が必要",
       "produces": "{name} を {count} 個生産",
       "crafted": "{name} を作成した。",
       "empty": "ここではまだ何も作成できない。",
@@ -5136,6 +5137,12 @@ export const ja_JP: EnTranslations = {
       },
       "copper_ore": {
         "name": "銅鉱石"
+      },
+      "trellis_frame": {
+        "name": "栽培トレリス"
+      },
+      "coppermesh_gloves": {
+        "name": "銅メッシュグローブ"
       },
       "bristleback_maul": {
         "name": "ブリストルバックの大槌"

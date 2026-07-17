@@ -1051,6 +1051,7 @@ export const ru_RU: EnTranslations = {
       "costLabel": "Стоимость",
       "requiresLabel": "Требуется",
       "levelReq": "Требуется уровень {level}",
+      "professionReq": "Требуется {profession} {skill}",
       "produces": "Даёт {count} шт. {name}",
       "crafted": "Создано: {name}.",
       "empty": "Здесь пока нечего создавать.",
@@ -5136,6 +5137,12 @@ export const ru_RU: EnTranslations = {
       },
       "copper_ore": {
         "name": "Медная руда"
+      },
+      "trellis_frame": {
+        "name": "Шпалера"
+      },
+      "coppermesh_gloves": {
+        "name": "Медные сетчатые перчатки"
       },
       "bristleback_maul": {
         "name": "Кувалда Щетиноспина"

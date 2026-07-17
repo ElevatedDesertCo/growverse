@@ -1161,6 +1161,10 @@ export interface CraftRecipe {
   // Optional commune-reputation gate: the recipe is locked until the player reaches the
   // given standing tier with the faction (Phase C). See src/sim/reputation.ts.
   requiredRep?: { factionId: FactionId; tier: RepTier };
+  // Optional gathering-profession gate: the recipe is locked until the player's skill in
+  // the profession reaches `skill`. This is how working timber/ore nodes (which raise
+  // Logging / Mining) unlocks the recipes that consume them. See src/sim/professions.ts.
+  requiredProfession?: { id: ProfessionId; skill: number };
 }
 
 export interface NpcDef {

@@ -8,13 +8,21 @@
 // callbacks. Interpolated names pass through esc(); the recipe/item names come
 // from the item table via itemDisplayName, not raw t().
 
-import type { CraftStation } from '../sim/types';
+import type { CraftStation, ProfessionId } from '../sim/types';
 import type { CraftingView } from './crafting_view';
 import { itemDisplayName } from './entity_i18n';
 import { esc } from './esc';
-import { formatNumber, t } from './i18n';
+import { formatNumber, type TranslationKey, t } from './i18n';
 import type { PainterHostPresentation } from './painter_host';
 import { svgIcon } from './ui_icons';
+
+// The gathering-profession skill names, keyed by ProfessionId (shared with the char
+// sheet's professions panel); resolved through t() when a recipe names a skill gate.
+const PROFESSION_LABEL_KEY: Record<ProfessionId, TranslationKey> = {
+  mining: 'hudChrome.professions.mining',
+  herbalism: 'hudChrome.professions.herbalism',
+  logging: 'hudChrome.professions.logging',
+};
 
 /**
  * Hud-supplied glue. Composes the shared PainterHostPresentation bag (icon / money
@@ -82,6 +90,14 @@ export function renderCraftingWindow(
         row.requiredLevel !== undefined
           ? `<div class="craft-req${row.meetsLevel ? '' : ' craft-req-short'}">${esc(t('hudChrome.crafting.levelReq', { level: count(row.requiredLevel) }))}</div>`
           : '';
+      const professionReq = row.requiredProfession
+        ? `<div class="craft-req${row.meetsProfession ? '' : ' craft-req-short'}">${esc(
+            t('hudChrome.crafting.professionReq', {
+              profession: t(PROFESSION_LABEL_KEY[row.requiredProfession.id]),
+              skill: count(row.requiredProfession.skill),
+            }),
+          )}</div>`
+        : '';
 
       const btn = document.createElement('button');
       btn.type = 'button';
@@ -99,7 +115,7 @@ export function renderCraftingWindow(
 
       wrap.innerHTML =
         `<div class="craft-output">${deps.itemIcon(row.output)}<span class="craft-output-name">${esc(outputName)}${row.outputCount > 1 ? ` <span class="craft-output-count">x${esc(count(row.outputCount))}</span>` : ''}</span></div>` +
-        `<div class="craft-detail"><div class="craft-reagents">${reagents}</div>${levelReq}<div class="craft-cost"><span class="craft-cost-label">${esc(t('hudChrome.crafting.costLabel'))}</span> ${deps.moneyHtml(row.copperCost)}</div></div>`;
+        `<div class="craft-detail"><div class="craft-reagents">${reagents}</div>${levelReq}${professionReq}<div class="craft-cost"><span class="craft-cost-label">${esc(t('hudChrome.crafting.costLabel'))}</span> ${deps.moneyHtml(row.copperCost)}</div></div>`;
 
       deps.attachTooltip(wrap.querySelector('.craft-output') as HTMLElement, () =>
         deps.itemTooltip(row.output),

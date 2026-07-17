@@ -1051,6 +1051,7 @@ export const vi_VN: EnTranslations = {
       "costLabel": "Cost",
       "requiresLabel": "Requires",
       "levelReq": "Requires level {level}",
+      "professionReq": "Requires {profession} {skill}",
       "produces": "Yields {count} {name}",
       "crafted": "Crafted {name}.",
       "empty": "Nothing can be crafted here yet.",
@@ -5136,6 +5137,12 @@ export const vi_VN: EnTranslations = {
       },
       "copper_ore": {
         "name": "Quặng đồng"
+      },
+      "trellis_frame": {
+        "name": "Giàn Leo"
+      },
+      "coppermesh_gloves": {
+        "name": "Găng Tay Lưới Đồng"
       },
       "bristleback_maul": {
         "name": "Vồ Lưng Gai"

@@ -1148,6 +1148,8 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'entities.items.golden_petal.name': 'Cánh Hoa Vàng',
   'entities.items.rough_timber.name': 'Gỗ thô',
   'entities.items.copper_ore.name': 'Quặng đồng',
+  'entities.items.trellis_frame.name': 'Giàn Leo',
+  'entities.items.coppermesh_gloves.name': 'Găng Tay Lưới Đồng',
   'entities.items.raw_river_perch.name': 'Cá Rô Sông Sống',
   'entities.items.raw_stonescale_carp.name': 'Cá Chép Vảy Đá Sống',
   'entities.items.recruit_tunic.name': 'Áo Da của Tân Binh',

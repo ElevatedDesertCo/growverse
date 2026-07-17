@@ -12,7 +12,7 @@
 // It mirrors the server-authoritative gate in sim/crafting.ts (materials, copper,
 // level); the server always re-validates, so this is purely presentational.
 
-import type { CraftRecipe, CraftStation, ItemDef } from '../sim/types';
+import type { CraftRecipe, CraftStation, ItemDef, ProfessionId } from '../sim/types';
 
 export interface CraftInputRow {
   itemId: string;
@@ -28,6 +28,8 @@ export interface CraftRow {
   outputCount: number;
   copperCost: number;
   requiredLevel?: number;
+  /** The gathering-profession gate (id + skill), when the recipe has one. */
+  requiredProfession?: { id: ProfessionId; skill: number };
   inputs: CraftInputRow[];
   /** Every reagent is present in sufficient quantity. */
   hasMaterials: boolean;
@@ -35,7 +37,9 @@ export interface CraftRow {
   canAfford: boolean;
   /** Player level meets the recipe's requiredLevel (true when there is none). */
   meetsLevel: boolean;
-  /** All three gates pass: the Craft button is enabled. */
+  /** Player's profession skill meets requiredProfession (true when there is none). */
+  meetsProfession: boolean;
+  /** All gates pass: the Craft button is enabled. */
   craftable: boolean;
 }
 
@@ -66,6 +70,7 @@ export function buildCraftingView(
   countOf: (itemId: string) => number,
   playerCopper: number,
   playerLevel: number,
+  professionSkill: (id: ProfessionId) => number,
 ): CraftingView {
   const order: string[] = [];
   const byCategory = new Map<string, CraftRow[]>();
@@ -93,17 +98,22 @@ export function buildCraftingView(
 
     const canAfford = playerCopper >= recipe.copperCost;
     const meetsLevel = recipe.requiredLevel === undefined || playerLevel >= recipe.requiredLevel;
+    const meetsProfession =
+      recipe.requiredProfession === undefined ||
+      professionSkill(recipe.requiredProfession.id) >= recipe.requiredProfession.skill;
     const row: CraftRow = {
       recipeId: recipe.id,
       output,
       outputCount: recipe.output.count,
       copperCost: recipe.copperCost,
       requiredLevel: recipe.requiredLevel,
+      requiredProfession: recipe.requiredProfession,
       inputs,
       hasMaterials,
       canAfford,
       meetsLevel,
-      craftable: hasMaterials && canAfford && meetsLevel,
+      meetsProfession,
+      craftable: hasMaterials && canAfford && meetsLevel && meetsProfession,
     };
 
     let bucket = byCategory.get(recipe.category);

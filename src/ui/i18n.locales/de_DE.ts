@@ -2347,6 +2347,8 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'entities.items.golden_petal.name': 'Goldblütenblatt',
   'entities.items.rough_timber.name': 'Rohholz',
   'entities.items.copper_ore.name': 'Kupfererz',
+  'entities.items.trellis_frame.name': 'Rankgerüst',
+  'entities.items.coppermesh_gloves.name': 'Kupfergeflecht-Handschuhe',
   'entities.items.sableweb_slippers.name': 'Sableweb-Pantoffeln',
   'entities.items.simple_fishing_pole.name': 'Einfache Angel',
   'entities.items.tangled_weed.name': 'Verheddertes Kraut',

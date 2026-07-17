@@ -2387,6 +2387,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.items.golden_petal.name': 'Золотой лепесток',
   'entities.items.rough_timber.name': 'Грубая древесина',
   'entities.items.copper_ore.name': 'Медная руда',
+  'entities.items.trellis_frame.name': 'Шпалера',
+  'entities.items.coppermesh_gloves.name': 'Медные сетчатые перчатки',
   'entities.npcs.alchemist_sable.name': 'Сейбл',
   'entities.npcs.alchemist_sable.title': 'Алхимик',
   'entities.npcs.alchemist_sable.greeting':
@@ -5305,6 +5307,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.crafting.costLabel': 'Стоимость',
   'hudChrome.crafting.requiresLabel': 'Требуется',
   'hudChrome.crafting.levelReq': 'Требуется уровень {level}',
+  'hudChrome.crafting.professionReq': 'Требуется {profession} {skill}',
   'hudChrome.crafting.produces': 'Даёт {count} шт. {name}',
   'hudChrome.crafting.crafted': 'Создано: {name}.',
   'hudChrome.crafting.empty': 'Здесь пока нечего создавать.',

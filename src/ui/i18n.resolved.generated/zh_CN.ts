@@ -1051,6 +1051,7 @@ export const zh_CN: EnTranslations = {
       "costLabel": "花费",
       "requiresLabel": "需要",
       "levelReq": "需要等级 {level}",
+      "professionReq": "需要{profession} {skill}",
       "produces": "产出 {count} 个{name}",
       "crafted": "制作了{name}。",
       "empty": "这里暂时没有可制作的物品。",
@@ -5136,6 +5137,12 @@ export const zh_CN: EnTranslations = {
       },
       "copper_ore": {
         "name": "铜矿石"
+      },
+      "trellis_frame": {
+        "name": "藤架"
+      },
+      "coppermesh_gloves": {
+        "name": "铜网手套"
       },
       "bristleback_maul": {
         "name": "硬鬃重槌"

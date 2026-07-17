@@ -2351,6 +2351,8 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.items.golden_petal.name': '금빛 꽃잎',
   'entities.items.rough_timber.name': '거친 목재',
   'entities.items.copper_ore.name': '구리 광석',
+  'entities.items.trellis_frame.name': '재배 격자',
+  'entities.items.coppermesh_gloves.name': '구리 그물 장갑',
   'entities.npcs.alchemist_sable.name': '세이블',
   'entities.npcs.alchemist_sable.title': '연금술사',
   'entities.npcs.alchemist_sable.greeting':
@@ -5202,6 +5204,7 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.crafting.costLabel': '비용',
   'hudChrome.crafting.requiresLabel': '필요',
   'hudChrome.crafting.levelReq': '레벨 {level} 필요',
+  'hudChrome.crafting.professionReq': '{profession} {skill} 필요',
   'hudChrome.crafting.produces': '{name} {count}개 생산',
   'hudChrome.crafting.crafted': '{name}을(를) 제작했습니다.',
   'hudChrome.crafting.empty': '아직 여기서 제작할 수 있는 것이 없습니다.',

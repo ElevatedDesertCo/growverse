@@ -1157,6 +1157,8 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'entities.items.golden_petal.name': 'Gouden Bloemblad',
   'entities.items.rough_timber.name': 'Ruw hout',
   'entities.items.copper_ore.name': 'Kopererts',
+  'entities.items.trellis_frame.name': 'Klimrek',
+  'entities.items.coppermesh_gloves.name': 'Kopergaas Handschoenen',
   'entities.items.raw_river_perch.name': 'Rauwe Rivierbaars',
   'entities.items.raw_stonescale_carp.name': 'Rauwe Steenschub-Karper',
   'entities.items.recruit_tunic.name': 'Tuniek van de Rekruut',

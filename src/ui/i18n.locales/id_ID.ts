@@ -1167,6 +1167,8 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'entities.items.golden_petal.name': 'Kelopak Emas',
   'entities.items.rough_timber.name': 'Kayu kasar',
   'entities.items.copper_ore.name': 'Bijih tembaga',
+  'entities.items.trellis_frame.name': 'Rangka Rambatan',
+  'entities.items.coppermesh_gloves.name': 'Sarung Tangan Jaring Tembaga',
   'entities.items.raw_river_perch.name': 'Ikan Perch Sungai Mentah',
   'entities.items.raw_stonescale_carp.name': 'Ikan Mas Sisik Batu Mentah',
   'entities.items.recruit_tunic.name': 'Tunik Rekrut',

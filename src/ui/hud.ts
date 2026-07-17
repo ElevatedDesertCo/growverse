@@ -8893,6 +8893,7 @@ export class Hud {
     const counts = new Map<string, number>();
     for (const slot of this.sim.inventory)
       counts.set(slot.itemId, (counts.get(slot.itemId) ?? 0) + slot.count);
+    const profSkill = new Map(this.sim.professions.map((p) => [p.id, p.skill]));
     const view = buildCraftingView(
       station,
       CRAFT_RECIPES,
@@ -8900,6 +8901,7 @@ export class Hud {
       (itemId) => counts.get(itemId) ?? 0,
       this.sim.copper,
       this.sim.player.level,
+      (id) => profSkill.get(id) ?? 0,
     );
     renderCraftingWindow($('#craft-window'), view, {
       ...this.presentationBag,

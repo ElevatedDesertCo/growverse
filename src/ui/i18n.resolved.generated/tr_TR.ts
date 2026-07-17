@@ -1051,6 +1051,7 @@ export const tr_TR: EnTranslations = {
       "costLabel": "Cost",
       "requiresLabel": "Requires",
       "levelReq": "Requires level {level}",
+      "professionReq": "Requires {profession} {skill}",
       "produces": "Yields {count} {name}",
       "crafted": "Crafted {name}.",
       "empty": "Nothing can be crafted here yet.",
@@ -5136,6 +5137,12 @@ export const tr_TR: EnTranslations = {
       },
       "copper_ore": {
         "name": "Bakır cevheri"
+      },
+      "trellis_frame": {
+        "name": "Bitki Kafesi"
+      },
+      "coppermesh_gloves": {
+        "name": "Bakır Örgü Eldiven"
       },
       "bristleback_maul": {
         "name": "Dikensırt Balyozu"

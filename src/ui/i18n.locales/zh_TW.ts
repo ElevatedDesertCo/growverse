@@ -2253,6 +2253,8 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.items.golden_petal.name': '金色花瓣',
   'entities.items.rough_timber.name': '粗木料',
   'entities.items.copper_ore.name': '銅礦石',
+  'entities.items.trellis_frame.name': '藤架',
+  'entities.items.coppermesh_gloves.name': '銅網手套',
   'entities.npcs.alchemist_sable.name': '塞布爾',
   'entities.npcs.alchemist_sable.title': '煉金術士',
   'entities.npcs.alchemist_sable.greeting':
@@ -4936,6 +4938,7 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'hudChrome.crafting.costLabel': '花費',
   'hudChrome.crafting.requiresLabel': '需要',
   'hudChrome.crafting.levelReq': '需要等級 {level}',
+  'hudChrome.crafting.professionReq': '需要{profession} {skill}',
   'hudChrome.crafting.produces': '產出 {count} 個{name}',
   'hudChrome.crafting.crafted': '製作了{name}。',
   'hudChrome.crafting.empty': '這裡暫時沒有可製作的物品。',

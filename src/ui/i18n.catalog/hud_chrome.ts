@@ -1153,6 +1153,10 @@ export const hudChromeStrings = {
     costLabel: 'Cost',
     requiresLabel: 'Requires',
     levelReq: 'Requires level {level}',
+    // Gathering-profession gate on a recipe (e.g. "Requires Logging 10"). WORDY by
+    // M16 ("Requires" is a four-plus lowercase run), so the five non-Latin overlays
+    // carry real fills; {profession} is an already-localized skill name.
+    professionReq: 'Requires {profession} {skill}',
     produces: 'Yields {count} {name}',
     crafted: 'Crafted {name}.',
     empty: 'Nothing can be crafted here yet.',

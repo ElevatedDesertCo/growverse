@@ -1051,6 +1051,7 @@ export const id_ID: EnTranslations = {
       "costLabel": "Cost",
       "requiresLabel": "Requires",
       "levelReq": "Requires level {level}",
+      "professionReq": "Requires {profession} {skill}",
       "produces": "Yields {count} {name}",
       "crafted": "Crafted {name}.",
       "empty": "Nothing can be crafted here yet.",
@@ -5136,6 +5137,12 @@ export const id_ID: EnTranslations = {
       },
       "copper_ore": {
         "name": "Bijih tembaga"
+      },
+      "trellis_frame": {
+        "name": "Rangka Rambatan"
+      },
+      "coppermesh_gloves": {
+        "name": "Sarung Tangan Jaring Tembaga"
       },
       "bristleback_maul": {
         "name": "Cabikan Punggung Berbulu"

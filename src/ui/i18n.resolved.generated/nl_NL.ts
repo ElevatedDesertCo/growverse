@@ -1051,6 +1051,7 @@ export const nl_NL: EnTranslations = {
       "costLabel": "Cost",
       "requiresLabel": "Requires",
       "levelReq": "Requires level {level}",
+      "professionReq": "Requires {profession} {skill}",
       "produces": "Yields {count} {name}",
       "crafted": "Crafted {name}.",
       "empty": "Nothing can be crafted here yet.",
@@ -5136,6 +5137,12 @@ export const nl_NL: EnTranslations = {
       },
       "copper_ore": {
         "name": "Kopererts"
+      },
+      "trellis_frame": {
+        "name": "Klimrek"
+      },
+      "coppermesh_gloves": {
+        "name": "Kopergaas Handschoenen"
       },
       "bristleback_maul": {
         "name": "Borstelrug-Strijdhamer"

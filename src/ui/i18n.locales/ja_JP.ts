@@ -2358,6 +2358,8 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.items.golden_petal.name': '金の花びら',
   'entities.items.rough_timber.name': '粗い木材',
   'entities.items.copper_ore.name': '銅鉱石',
+  'entities.items.trellis_frame.name': '栽培トレリス',
+  'entities.items.coppermesh_gloves.name': '銅メッシュグローブ',
   'entities.npcs.alchemist_sable.name': 'セイブル',
   'entities.npcs.alchemist_sable.title': '錬金術師',
   'entities.npcs.alchemist_sable.greeting':
@@ -5195,6 +5197,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.crafting.costLabel': 'コスト',
   'hudChrome.crafting.requiresLabel': '必要',
   'hudChrome.crafting.levelReq': 'レベル {level} が必要',
+  'hudChrome.crafting.professionReq': '{profession} {skill} が必要',
   'hudChrome.crafting.produces': '{name} を {count} 個生産',
   'hudChrome.crafting.crafted': '{name} を作成した。',
   'hudChrome.crafting.empty': 'ここではまだ何も作成できない。',

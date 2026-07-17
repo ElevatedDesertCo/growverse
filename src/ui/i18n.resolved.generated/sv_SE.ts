@@ -1051,6 +1051,7 @@ export const sv_SE: EnTranslations = {
       "costLabel": "Cost",
       "requiresLabel": "Requires",
       "levelReq": "Requires level {level}",
+      "professionReq": "Requires {profession} {skill}",
       "produces": "Yields {count} {name}",
       "crafted": "Crafted {name}.",
       "empty": "Nothing can be crafted here yet.",
@@ -5136,6 +5137,12 @@ export const sv_SE: EnTranslations = {
       },
       "copper_ore": {
         "name": "Kopparmalm"
+      },
+      "trellis_frame": {
+        "name": "Spaljé"
+      },
+      "coppermesh_gloves": {
+        "name": "Koppartrådshandskar"
       },
       "bristleback_maul": {
         "name": "Borstryggens klubba"

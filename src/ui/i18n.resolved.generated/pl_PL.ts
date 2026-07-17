@@ -1051,6 +1051,7 @@ export const pl_PL: EnTranslations = {
       "costLabel": "Cost",
       "requiresLabel": "Requires",
       "levelReq": "Requires level {level}",
+      "professionReq": "Requires {profession} {skill}",
       "produces": "Yields {count} {name}",
       "crafted": "Crafted {name}.",
       "empty": "Nothing can be crafted here yet.",
@@ -5136,6 +5137,12 @@ export const pl_PL: EnTranslations = {
       },
       "copper_ore": {
         "name": "Ruda miedzi"
+      },
+      "trellis_frame": {
+        "name": "Kratka do Uprawy"
+      },
+      "coppermesh_gloves": {
+        "name": "Rękawice z Miedzianej Siatki"
       },
       "bristleback_maul": {
         "name": "Tłuk szczeciniastych"

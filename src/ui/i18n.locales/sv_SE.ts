@@ -1136,6 +1136,8 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'entities.items.golden_petal.name': 'Gyllene Kronblad',
   'entities.items.rough_timber.name': 'Grovt timmer',
   'entities.items.copper_ore.name': 'Kopparmalm',
+  'entities.items.trellis_frame.name': 'Spaljé',
+  'entities.items.coppermesh_gloves.name': 'Koppartrådshandskar',
   'entities.items.raw_river_perch.name': 'Rå flodabborre',
   'entities.items.raw_stonescale_carp.name': 'Rå stenfjällskarp',
   'entities.items.recruit_tunic.name': 'Rekrytens tunika',
