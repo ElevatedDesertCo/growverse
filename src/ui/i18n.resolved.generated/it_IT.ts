@@ -5385,6 +5385,18 @@ export const it_IT: EnTranslations = {
       "verlans_oathblade": {
         "name": "Lama del giuramento di Verlan"
       },
+      "reins_highfield_alpaca": {
+        "name": "Redini dell’alpaca di Campoalto"
+      },
+      "reins_ironhide_bull": {
+        "name": "Redini del toro Pellediferro"
+      },
+      "reins_thornback_boar": {
+        "name": "Redini del cinghiale Dorsospino"
+      },
+      "reins_verdant_bloomstrider": {
+        "name": "Redini del Fiorapassi Verdeggiante"
+      },
       "briny_idol": {
         "name": "Idolo Salmastro"
       },

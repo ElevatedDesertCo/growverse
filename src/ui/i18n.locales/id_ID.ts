@@ -5186,4 +5186,8 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Jangan sekarang',
   'hudChrome.nativeUpdate.title': 'Pembaruan Tersedia',
   'hudChrome.nativeUpdate.update': 'Perbarui',
+  'entities.items.reins_highfield_alpaca.name': 'Tali Kekang Alpaka Highfield',
+  'entities.items.reins_ironhide_bull.name': 'Tali Kekang Banteng Kulit Besi',
+  'entities.items.reins_thornback_boar.name': 'Tali Kekang Babi Hutan Punggung Duri',
+  'entities.items.reins_verdant_bloomstrider.name': 'Tali Kekang Bloomstrider Hijau',
 };

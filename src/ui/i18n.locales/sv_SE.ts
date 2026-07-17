@@ -5123,4 +5123,8 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Inte nu',
   'hudChrome.nativeUpdate.title': 'Uppdatering tillgänglig',
   'hudChrome.nativeUpdate.update': 'Uppdatera',
+  'entities.items.reins_highfield_alpaca.name': 'Tyglar till Högfältsalpackan',
+  'entities.items.reins_ironhide_bull.name': 'Tyglar till Järnhudstjuren',
+  'entities.items.reins_thornback_boar.name': 'Tyglar till Törnryggsvinet',
+  'entities.items.reins_verdant_bloomstrider.name': 'Tyglar till den Grönskande Blomvandraren',
 };

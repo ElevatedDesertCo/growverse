@@ -5385,6 +5385,18 @@ export const en_XA: EnTranslations = {
       "verlans_oathblade": {
         "name": "[Ʋéŕļáñ'š Óáţĥƀļáðé]"
       },
+      "reins_highfield_alpaca": {
+        "name": "[Ŕéíñš óƒ ţĥé Ĥíĝĥƒíéļð Áļþáçá]"
+      },
+      "reins_ironhide_bull": {
+        "name": "[Ŕéíñš óƒ ţĥé Íŕóñĥíðé Ɓúļļ]"
+      },
+      "reins_thornback_boar": {
+        "name": "[Ŕéíñš óƒ ţĥé Ţĥóŕñƀáçķ Ɓóáŕ]"
+      },
+      "reins_verdant_bloomstrider": {
+        "name": "[Ŕéíñš óƒ ţĥé Ʋéŕðáñţ Ɓļóóɱšţŕíðéŕ]"
+      },
       "briny_idol": {
         "name": "[Ɓŕíñý Íðóļ]"
       },

@@ -5385,6 +5385,18 @@ export const de_DE: EnTranslations = {
       "verlans_oathblade": {
         "name": "Verlans Eidklinge"
       },
+      "reins_highfield_alpaca": {
+        "name": "Zügel des Hochfeld-Alpakas"
+      },
+      "reins_ironhide_bull": {
+        "name": "Zügel des Eisenhautbullen"
+      },
+      "reins_thornback_boar": {
+        "name": "Zügel des Dornrückenebers"
+      },
+      "reins_verdant_bloomstrider": {
+        "name": "Zügel des Grünen Blütenschreiters"
+      },
       "briny_idol": {
         "name": "Salzlaken-Götze"
       },

@@ -73,6 +73,12 @@ export interface VisualDef {
   tint?: number | 'entity';
   /** lerp amount toward the tint (default 0.4) */
   tintStrength?: number;
+  /** flat emissive tinge laid onto the body materials (the Verdant
+   *  Bloomstrider's soft green glow). Applied wherever the tier's material
+   *  carries an emissive channel (standard/lambert); basic stays flat. */
+  emissiveTint?: number;
+  /** emissive strength for emissiveTint (default 0 = off) */
+  emissiveIntensity?: number;
   /** u/s at which the walk/run cycles look right (timeScale matching) */
   walkRef?: number;
   runRef?: number;
@@ -522,6 +528,33 @@ export const VISUALS: Record<string, VisualDef> = {
     url: `${CREATURES}/chicken_cow.glb`,
     height: 2.3,
     clips: CHICKEN_COW,
+  },
+
+  // -- mounts (Mounts and Stables v1; ridden bodies driven by render/mounts.ts) --
+  // Keyed mount_<MountDef.visual>; the boar mount reuses the mob_boar body
+  // (see MOUNT_VISUAL_KEYS in render/mounts.ts). No tint: the stable's
+  // creatures keep their authored coats, apart from the Bloomstrider below.
+  mount_alpaca: {
+    url: `${CREATURES}/alpaca.glb`,
+    height: 1.7,
+    clips: animal(['Attack_Headbutt']),
+  },
+  mount_bull: {
+    url: `${CREATURES}/bull.glb`,
+    height: 1.9,
+    clips: animal(['Attack_Headbutt', 'Attack']),
+  },
+  // Verdant Bloomstrider ($GROW exclusive): the stag body under a verdant
+  // treatment via the shared tint seam: a moss-green material lerp plus a soft
+  // green emissive tinge. Cosmetic prestige only, never a gameplay advantage.
+  mount_stag_verdant: {
+    url: `${CREATURES}/stag.glb`,
+    height: 1.9,
+    clips: animal(['Attack_Headbutt', 'Attack']),
+    tint: 0x55a04b,
+    tintStrength: 0.55,
+    emissiveTint: 0x2f7d32,
+    emissiveIntensity: 0.22,
   },
 
   // -- mob families --------------------------------------------------------

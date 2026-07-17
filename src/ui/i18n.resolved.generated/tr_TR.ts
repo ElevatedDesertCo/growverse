@@ -5385,6 +5385,18 @@ export const tr_TR: EnTranslations = {
       "verlans_oathblade": {
         "name": "Verlan'ın Yemin Kılıcı"
       },
+      "reins_highfield_alpaca": {
+        "name": "Highfield Alpakası Dizginleri"
+      },
+      "reins_ironhide_bull": {
+        "name": "Demir Derili Boğa Dizginleri"
+      },
+      "reins_thornback_boar": {
+        "name": "Dikenli Sırt Yaban Domuzu Dizginleri"
+      },
+      "reins_verdant_bloomstrider": {
+        "name": "Yeşeren Çiçek Gezgini Dizginleri"
+      },
       "briny_idol": {
         "name": "Tuzlu Put"
       },

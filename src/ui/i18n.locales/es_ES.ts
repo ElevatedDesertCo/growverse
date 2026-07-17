@@ -286,4 +286,8 @@ export const es_ES: Partial<Record<TranslationKey, string>> = {
   'hudChrome.auraEffect.school.shadow': 'Sombra',
   'hudChrome.auraEffect.school.holy': 'Sagrada',
   'hudChrome.auraEffect.school.nature': 'Natural',
+  'entities.items.reins_highfield_alpaca.name': 'Riendas de la alpaca de Campoalto',
+  'entities.items.reins_ironhide_bull.name': 'Riendas del toro Pielhierro',
+  'entities.items.reins_thornback_boar.name': 'Riendas del jabalí Lomoespina',
+  'entities.items.reins_verdant_bloomstrider.name': 'Riendas del Zancaflor Verdeante',
 };

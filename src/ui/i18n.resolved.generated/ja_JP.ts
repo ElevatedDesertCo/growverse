@@ -5385,6 +5385,18 @@ export const ja_JP: EnTranslations = {
       "verlans_oathblade": {
         "name": "ヴァーランの誓約刃"
       },
+      "reins_highfield_alpaca": {
+        "name": "ハイフィールド・アルパカの手綱"
+      },
+      "reins_ironhide_bull": {
+        "name": "アイアンハイド・ブルの手綱"
+      },
+      "reins_thornback_boar": {
+        "name": "ソーンバック・ボアの手綱"
+      },
+      "reins_verdant_bloomstrider": {
+        "name": "翠緑のブルームストライダーの手綱"
+      },
       "briny_idol": {
         "name": "潮辛の偶像"
       },

@@ -5140,4 +5140,8 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.update': 'Cập Nhật',
   'errors.api.desktopCodeInvalid':
     'Mã đăng nhập máy tính không hợp lệ hoặc đã hết hạn. Vui lòng thử lại.',
+  'entities.items.reins_highfield_alpaca.name': 'Dây cương Lạc đà Alpaca Highfield',
+  'entities.items.reins_ironhide_bull.name': 'Dây cương Bò Da Sắt',
+  'entities.items.reins_thornback_boar.name': 'Dây cương Heo Rừng Gai Lưng',
+  'entities.items.reins_verdant_bloomstrider.name': 'Dây cương Bloomstrider Xanh Tươi',
 };

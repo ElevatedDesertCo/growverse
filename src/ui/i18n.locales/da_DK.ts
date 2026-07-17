@@ -5110,4 +5110,8 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.update': 'Opdater',
   'errors.api.desktopCodeInvalid':
     'Desktop-loginkoden er ugyldig eller udløbet. Prøv venligst igen.',
+  'entities.items.reins_highfield_alpaca.name': 'Tøjler til Highfield-alpakaen',
+  'entities.items.reins_ironhide_bull.name': 'Tøjler til Jernhudstyren',
+  'entities.items.reins_thornback_boar.name': 'Tøjler til Tornrygsvinet',
+  'entities.items.reins_verdant_bloomstrider.name': 'Tøjler til den Grønne Blomstervandrer',
 };

@@ -5204,4 +5204,8 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Non ora',
   'hudChrome.nativeUpdate.title': 'Aggiornamento disponibile',
   'hudChrome.nativeUpdate.update': 'Aggiorna',
+  'entities.items.reins_highfield_alpaca.name': 'Redini dell’alpaca di Campoalto',
+  'entities.items.reins_ironhide_bull.name': 'Redini del toro Pellediferro',
+  'entities.items.reins_thornback_boar.name': 'Redini del cinghiale Dorsospino',
+  'entities.items.reins_verdant_bloomstrider.name': 'Redini del Fiorapassi Verdeggiante',
 };

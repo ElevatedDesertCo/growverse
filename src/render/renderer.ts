@@ -75,6 +75,7 @@ import { buildImpactSite, type ImpactSiteView } from './impact_site';
 import { ensureDelveInteriorKit } from './interior_kit';
 import { type LocoTrack, newLocoTrack, updateLocomotion } from './locomotion';
 import { buildMotes, type MotesView } from './motes';
+import { MountLayer } from './mounts';
 import { COMBO_PIP_MAX } from './nameplate_combo';
 import { NameplatePainter } from './nameplate_painter';
 import {
@@ -717,6 +718,8 @@ export class Renderer {
   nameplateLayer: HTMLDivElement;
   // Travel-form speed-illusion overlay (presentation only; see travel_speed_fx*).
   private travelSpeedFx: TravelSpeedFxPainter;
+  // Rider-on-mount visuals: per-entity mount bodies + rider seating (mounts.ts).
+  private mounts: MountLayer;
   private nameplatePainter: NameplatePainter;
   // Last local-player XZ, to derive ground speed for the speed cue (yd/s).
   private lastLocalPos: { x: number; z: number } | null = null;
@@ -1420,6 +1423,9 @@ export class Renderer {
       return new THREE.Vector3(v.group.position.x, v.group.position.y + h, v.group.position.z);
     });
     this.vfx.setViewportScale(this.webgl.domElement.clientHeight * this.webgl.getPixelRatio(), 60);
+
+    // rider-on-mount layer: owns per-entity mount visuals + the Bloomstrider petals
+    this.mounts = new MountLayer(this.vfx, () => this.reducedMotion());
 
     // ambient precipitation: biome-driven snow/rain that rides with the camera
     this.weather = new Weather(this.scene, this.lowGfx);
@@ -3814,6 +3820,9 @@ export class Renderer {
   private removeView(id: number): void {
     const v = this.views.get(id);
     if (!v) return;
+    // Restore any rider saddle offset BEFORE the visual may be pooled below,
+    // and dispose the entity's mount visual (mounts.ts owns that state).
+    this.mounts.remove(id);
     this.scene.remove(v.group);
     if (v.viewLights.length > 0) {
       for (const light of v.viewLights) {
@@ -4083,6 +4092,7 @@ export class Renderer {
           v.bearVisual?.setShadow(wantFormShadow);
           v.catVisual?.setShadow(wantFormShadow);
           v.travelVisual?.setShadow(wantFormShadow);
+          this.mounts.setShadow(id, wantFormShadow);
         } else if (wantShadow !== v.shadowOn) {
           v.shadowOn = wantShadow;
           for (const caster of v.objectCasters) (caster as THREE.Mesh).castShadow = wantShadow;
@@ -4345,6 +4355,10 @@ export class Renderer {
         if (v.isFar) animate = (this.frameIdx + e.id) % 6 === 0;
         else if (d2 > ENTITY_SHADOW_RANGE_SQ) animate = ((this.frameIdx + e.id) & 1) === 0;
       }
+      // Mounted rider: build/drive the mount body under the entity group, seat
+      // the rider at saddle height, and quiet the rider's own locomotion (st is
+      // mutated to a seated pose). Must run before active.update consumes st.
+      this.mounts.sync(e, v.group, active, st, dt, animate);
       active.update(dt, st, animate);
 
       const emoteId =

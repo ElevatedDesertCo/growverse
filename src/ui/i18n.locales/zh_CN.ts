@@ -5079,4 +5079,8 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.stablemaster_marla.name': '马厩长玛拉',
   'entities.npcs.stablemaster_marla.title': '布鲁姆海文马厩管理人',
   'entities.npcs.stablemaster_marla.greeting': '马厩的门开着呢，{className}。这里的每一头坐骑都被悉心养大，骑起来又稳又乖。至于绽放行者嘛……那可是长出来的，从未被驯服过。',
+  'entities.items.reins_highfield_alpaca.name': '高地草原羊驼缰绳',
+  'entities.items.reins_ironhide_bull.name': '铁皮公牛缰绳',
+  'entities.items.reins_thornback_boar.name': '棘背野猪缰绳',
+  'entities.items.reins_verdant_bloomstrider.name': '翠绿绽放行者缰绳',
 };

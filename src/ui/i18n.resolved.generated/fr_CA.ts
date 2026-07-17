@@ -5385,6 +5385,18 @@ export const fr_CA: EnTranslations = {
       "verlans_oathblade": {
         "name": "Lame du serment de Verlan"
       },
+      "reins_highfield_alpaca": {
+        "name": "Rênes de l’alpaga des Hauts-Champs"
+      },
+      "reins_ironhide_bull": {
+        "name": "Rênes du taureau Peau-de-Fer"
+      },
+      "reins_thornback_boar": {
+        "name": "Rênes du sanglier Dos-Épineux"
+      },
+      "reins_verdant_bloomstrider": {
+        "name": "Rênes de l’Arpenteur-Fleuri verdoyant"
+      },
       "briny_idol": {
         "name": "Idole saumâtre"
       },

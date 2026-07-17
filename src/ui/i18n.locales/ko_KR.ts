@@ -5347,4 +5347,8 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.stablemaster_marla.name': '마구간지기 말라',
   'entities.npcs.stablemaster_marla.title': '블룸헤이븐 마구간 관리인',
   'entities.npcs.stablemaster_marla.greeting': '마구간 문은 열려 있습니다, {className}. 여기 있는 탈것들은 모두 정성껏 길러져 온순하게 잘 달립니다. 다만 블룸스트라이더는... 그건 길러진 것이 아니라 자라난 것이라, 한 번도 길들여진 적이 없지요.',
+  'entities.items.reins_highfield_alpaca.name': '하이필드 알파카의 고삐',
+  'entities.items.reins_ironhide_bull.name': '무쇠가죽 황소의 고삐',
+  'entities.items.reins_thornback_boar.name': '가시등 멧돼지의 고삐',
+  'entities.items.reins_verdant_bloomstrider.name': '신록의 블룸스트라이더 고삐',
 };

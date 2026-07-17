@@ -5116,4 +5116,8 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Şimdi Değil',
   'hudChrome.nativeUpdate.title': 'Güncelleme Mevcut',
   'hudChrome.nativeUpdate.update': 'Güncelle',
+  'entities.items.reins_highfield_alpaca.name': 'Highfield Alpakası Dizginleri',
+  'entities.items.reins_ironhide_bull.name': 'Demir Derili Boğa Dizginleri',
+  'entities.items.reins_thornback_boar.name': 'Dikenli Sırt Yaban Domuzu Dizginleri',
+  'entities.items.reins_verdant_bloomstrider.name': 'Yeşeren Çiçek Gezgini Dizginleri',
 };

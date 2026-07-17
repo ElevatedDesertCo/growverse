@@ -5251,4 +5251,8 @@ export const fr_FR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Pas maintenant',
   'hudChrome.nativeUpdate.title': 'Mise à jour disponible',
   'hudChrome.nativeUpdate.update': 'Mettre à jour',
+  'entities.items.reins_highfield_alpaca.name': 'Rênes de l’alpaga des Hauts-Champs',
+  'entities.items.reins_ironhide_bull.name': 'Rênes du taureau Peau-de-Fer',
+  'entities.items.reins_thornback_boar.name': 'Rênes du sanglier Dos-Épineux',
+  'entities.items.reins_verdant_bloomstrider.name': 'Rênes de l’Arpenteur-Fleuri verdoyant',
 };

@@ -5385,6 +5385,18 @@ export const sv_SE: EnTranslations = {
       "verlans_oathblade": {
         "name": "Verlans edsklinga"
       },
+      "reins_highfield_alpaca": {
+        "name": "Tyglar till Högfältsalpackan"
+      },
+      "reins_ironhide_bull": {
+        "name": "Tyglar till Järnhudstjuren"
+      },
+      "reins_thornback_boar": {
+        "name": "Tyglar till Törnryggsvinet"
+      },
+      "reins_verdant_bloomstrider": {
+        "name": "Tyglar till den Grönskande Blomvandraren"
+      },
       "briny_idol": {
         "name": "Salt avgudabild"
       },

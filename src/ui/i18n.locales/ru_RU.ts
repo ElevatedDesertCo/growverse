@@ -5451,4 +5451,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.stablemaster_marla.name': 'Смотрительница конюшен Марла',
   'entities.npcs.stablemaster_marla.title': 'Хранительница конюшен Блумхейвена',
   'entities.npcs.stablemaster_marla.greeting': 'Ворота конюшни открыты, {className}. Каждого из этих скакунов растили с заботой, и ход у них ровный. А вот Цветущий Странник... тот вырос сам, и приручить его не удалось никому.',
+  'entities.items.reins_highfield_alpaca.name': 'Поводья альпаки с Верхних полей',
+  'entities.items.reins_ironhide_bull.name': 'Поводья железношкурого быка',
+  'entities.items.reins_thornback_boar.name': 'Поводья тернистого вепря',
+  'entities.items.reins_verdant_bloomstrider.name': 'Поводья Цветущего Странника',
 };

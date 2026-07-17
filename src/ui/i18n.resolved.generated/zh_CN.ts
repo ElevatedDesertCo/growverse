@@ -5385,6 +5385,18 @@ export const zh_CN: EnTranslations = {
       "verlans_oathblade": {
         "name": "维尔兰的誓约之刃"
       },
+      "reins_highfield_alpaca": {
+        "name": "高地草原羊驼缰绳"
+      },
+      "reins_ironhide_bull": {
+        "name": "铁皮公牛缰绳"
+      },
+      "reins_thornback_boar": {
+        "name": "棘背野猪缰绳"
+      },
+      "reins_verdant_bloomstrider": {
+        "name": "翠绿绽放行者缰绳"
+      },
       "briny_idol": {
         "name": "咸海神像"
       },

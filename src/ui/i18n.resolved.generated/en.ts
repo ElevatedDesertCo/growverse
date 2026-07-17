@@ -5385,6 +5385,18 @@ export const en: EnTranslations = {
       "verlans_oathblade": {
         "name": "Verlan's Oathblade"
       },
+      "reins_highfield_alpaca": {
+        "name": "Reins of the Highfield Alpaca"
+      },
+      "reins_ironhide_bull": {
+        "name": "Reins of the Ironhide Bull"
+      },
+      "reins_thornback_boar": {
+        "name": "Reins of the Thornback Boar"
+      },
+      "reins_verdant_bloomstrider": {
+        "name": "Reins of the Verdant Bloomstrider"
+      },
       "briny_idol": {
         "name": "Briny Idol"
       },

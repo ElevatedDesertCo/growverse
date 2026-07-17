@@ -5385,6 +5385,18 @@ export const zh_TW: EnTranslations = {
       "verlans_oathblade": {
         "name": "維爾蘭的誓約之刃"
       },
+      "reins_highfield_alpaca": {
+        "name": "高地草原羊駝韁繩"
+      },
+      "reins_ironhide_bull": {
+        "name": "鐵皮公牛韁繩"
+      },
+      "reins_thornback_boar": {
+        "name": "棘背野豬韁繩"
+      },
+      "reins_verdant_bloomstrider": {
+        "name": "翠綠綻放行者韁繩"
+      },
       "briny_idol": {
         "name": "鹹海神像"
       },

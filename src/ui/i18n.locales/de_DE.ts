@@ -5236,4 +5236,8 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Jetzt nicht',
   'hudChrome.nativeUpdate.title': 'Update verfügbar',
   'hudChrome.nativeUpdate.update': 'Aktualisieren',
+  'entities.items.reins_highfield_alpaca.name': 'Zügel des Hochfeld-Alpakas',
+  'entities.items.reins_ironhide_bull.name': 'Zügel des Eisenhautbullen',
+  'entities.items.reins_thornback_boar.name': 'Zügel des Dornrückenebers',
+  'entities.items.reins_verdant_bloomstrider.name': 'Zügel des Grünen Blütenschreiters',
 };

@@ -5385,6 +5385,18 @@ export const nl_NL: EnTranslations = {
       "verlans_oathblade": {
         "name": "Verlans Eedkling"
       },
+      "reins_highfield_alpaca": {
+        "name": "Teugels van de Hoogveld-alpaca"
+      },
+      "reins_ironhide_bull": {
+        "name": "Teugels van de IJzerhuidstier"
+      },
+      "reins_thornback_boar": {
+        "name": "Teugels van het Doornrugzwijn"
+      },
+      "reins_verdant_bloomstrider": {
+        "name": "Teugels van de Groene Bloesemloper"
+      },
       "briny_idol": {
         "name": "Zilt Afgodsbeeld"
       },

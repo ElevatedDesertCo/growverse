@@ -5385,6 +5385,18 @@ export const id_ID: EnTranslations = {
       "verlans_oathblade": {
         "name": "Bilah Sumpah Verlan"
       },
+      "reins_highfield_alpaca": {
+        "name": "Tali Kekang Alpaka Highfield"
+      },
+      "reins_ironhide_bull": {
+        "name": "Tali Kekang Banteng Kulit Besi"
+      },
+      "reins_thornback_boar": {
+        "name": "Tali Kekang Babi Hutan Punggung Duri"
+      },
+      "reins_verdant_bloomstrider": {
+        "name": "Tali Kekang Bloomstrider Hijau"
+      },
       "briny_idol": {
         "name": "Berhala Asin"
       },

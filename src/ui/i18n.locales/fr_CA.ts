@@ -230,4 +230,8 @@ export const fr_CA: Partial<Record<TranslationKey, string>> = {
   'hudChrome.auraEffect.school.shadow': 'ombre',
   'hudChrome.auraEffect.school.holy': 'sacré',
   'hudChrome.auraEffect.school.nature': 'nature',
+  'entities.items.reins_highfield_alpaca.name': 'Rênes de l’alpaga des Hauts-Champs',
+  'entities.items.reins_ironhide_bull.name': 'Rênes du taureau Peau-de-Fer',
+  'entities.items.reins_thornback_boar.name': 'Rênes du sanglier Dos-Épineux',
+  'entities.items.reins_verdant_bloomstrider.name': 'Rênes de l’Arpenteur-Fleuri verdoyant',
 };

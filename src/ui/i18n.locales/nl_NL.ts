@@ -5179,4 +5179,8 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Niet nu',
   'hudChrome.nativeUpdate.title': 'Update beschikbaar',
   'hudChrome.nativeUpdate.update': 'Bijwerken',
+  'entities.items.reins_highfield_alpaca.name': 'Teugels van de Hoogveld-alpaca',
+  'entities.items.reins_ironhide_bull.name': 'Teugels van de IJzerhuidstier',
+  'entities.items.reins_thornback_boar.name': 'Teugels van het Doornrugzwijn',
+  'entities.items.reins_verdant_bloomstrider.name': 'Teugels van de Groene Bloesemloper',
 };

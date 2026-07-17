@@ -5341,4 +5341,8 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.stablemaster_marla.name': '厩舎長マーラ',
   'entities.npcs.stablemaster_marla.title': 'ブルームヘイヴン厩舎の管理人',
   'entities.npcs.stablemaster_marla.greeting': '厩舎の門は開いていますよ、{className}。ここのマウントはどれも大切に育てられ、乗り心地も穏やかです。ただブルームストライダーだけは……あれは育ったもので、飼い馴らされたことは一度もありません。',
+  'entities.items.reins_highfield_alpaca.name': 'ハイフィールド・アルパカの手綱',
+  'entities.items.reins_ironhide_bull.name': 'アイアンハイド・ブルの手綱',
+  'entities.items.reins_thornback_boar.name': 'ソーンバック・ボアの手綱',
+  'entities.items.reins_verdant_bloomstrider.name': '翠緑のブルームストライダーの手綱',
 };

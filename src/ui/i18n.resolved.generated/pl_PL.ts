@@ -5385,6 +5385,18 @@ export const pl_PL: EnTranslations = {
       "verlans_oathblade": {
         "name": "Ostrze przysięgi Verlana"
       },
+      "reins_highfield_alpaca": {
+        "name": "Wodze alpaki z Wysokich Pól"
+      },
+      "reins_ironhide_bull": {
+        "name": "Wodze byka Żelaznoskórego"
+      },
+      "reins_thornback_boar": {
+        "name": "Wodze dzika Ciernistego Grzbietu"
+      },
+      "reins_verdant_bloomstrider": {
+        "name": "Wodze Zielonego Kwiatostępa"
+      },
       "briny_idol": {
         "name": "Słony bożek"
       },

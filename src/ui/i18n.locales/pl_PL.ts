@@ -5149,4 +5149,8 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Nie teraz',
   'hudChrome.nativeUpdate.title': 'Dostępna aktualizacja',
   'hudChrome.nativeUpdate.update': 'Aktualizuj',
+  'entities.items.reins_highfield_alpaca.name': 'Wodze alpaki z Wysokich Pól',
+  'entities.items.reins_ironhide_bull.name': 'Wodze byka Żelaznoskórego',
+  'entities.items.reins_thornback_boar.name': 'Wodze dzika Ciernistego Grzbietu',
+  'entities.items.reins_verdant_bloomstrider.name': 'Wodze Zielonego Kwiatostępa',
 };

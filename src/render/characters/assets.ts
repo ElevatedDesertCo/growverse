@@ -652,8 +652,10 @@ export function tintedMaterial(
   skinTex: THREE.Texture | null = null,
   emisTex: THREE.Texture | null = null,
   role: MaterialRole = 'body',
+  emissiveTint: number | null = null,
+  emissiveIntensity = 0,
 ): THREE.Material {
-  const key = `${src.uuid}|${tint ?? 'n'}|${tint === null ? 0 : strength}|${GFX.standardMaterials ? 's' : 'l'}|${skinTex ? skinTex.uuid : 'n'}|${emisTex ? emisTex.uuid : 'n'}|${role}`;
+  const key = `${src.uuid}|${tint ?? 'n'}|${tint === null ? 0 : strength}|${GFX.standardMaterials ? 's' : 'l'}|${skinTex ? skinTex.uuid : 'n'}|${emisTex ? emisTex.uuid : 'n'}|${role}|${emissiveTint ?? 'n'}|${emissiveTint === null ? 0 : emissiveIntensity}`;
   const cached = matCache.get(key);
   if (cached) return cached;
 
@@ -693,6 +695,16 @@ export function tintedMaterial(
   }
   if (role === 'weapon') applyWeaponMaterialPolish(mat);
   if (!GFX.standardMaterials) applyLowReadabilityLift(mat, role);
+  // Flat per-visual emissive tinge (VisualDef.emissiveTint, e.g. the Verdant
+  // Bloomstrider's soft green glow). Applied last so it wins over the
+  // low-readability lift; basic materials have no emissive channel and stay flat.
+  if (emissiveTint !== null) {
+    const em = mat as THREE.Material & { emissive?: THREE.Color; emissiveIntensity?: number };
+    if (em.emissive) {
+      em.emissive.set(emissiveTint);
+      em.emissiveIntensity = Math.max(em.emissiveIntensity ?? 0, emissiveIntensity);
+    }
+  }
   matCache.set(key, mat);
   return mat;
 }
@@ -713,20 +725,32 @@ export function applyMaterials(
 ): void {
   const tint = tintFor(def, entityColor);
   const strength = def.tintStrength ?? DEFAULT_TINT_STRENGTH;
+  const glow = def.emissiveTint ?? null;
+  const glowStrength = def.emissiveIntensity ?? 0;
   root.traverse((o) => {
     const mesh = o as THREE.Mesh;
     if (!mesh.isMesh) return;
     const role: MaterialRole = mesh.userData.weaponMesh ? 'weapon' : 'body';
     const materialTint = role === 'weapon' ? null : tint;
+    const materialGlow = role === 'weapon' ? null : glow;
     // skin/emissive override only touches the character's own atlas meshes, not weapons
     const sk = skinTex && mesh.userData.bodyMesh ? skinTex : null;
     const em = emisTex && mesh.userData.bodyMesh ? emisTex : null;
     if (Array.isArray(mesh.material)) {
       mesh.material = mesh.material.map((m) =>
-        tintedMaterial(m, materialTint, strength, sk, em, role),
+        tintedMaterial(m, materialTint, strength, sk, em, role, materialGlow, glowStrength),
       );
     } else {
-      mesh.material = tintedMaterial(mesh.material, materialTint, strength, sk, em, role);
+      mesh.material = tintedMaterial(
+        mesh.material,
+        materialTint,
+        strength,
+        sk,
+        em,
+        role,
+        materialGlow,
+        glowStrength,
+      );
     }
   });
 }
@@ -738,7 +762,18 @@ export function tintedFarMaterials(
 ): THREE.Material[] {
   const tint = tintFor(def, entityColor);
   const strength = def.tintStrength ?? DEFAULT_TINT_STRENGTH;
-  return srcMats.map((m) => tintedMaterial(m, tint, strength));
+  return srcMats.map((m) =>
+    tintedMaterial(
+      m,
+      tint,
+      strength,
+      null,
+      null,
+      'body',
+      def.emissiveTint ?? null,
+      def.emissiveIntensity ?? 0,
+    ),
+  );
 }
 
 // ---------------------------------------------------------------------------

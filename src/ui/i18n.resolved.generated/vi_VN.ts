@@ -5385,6 +5385,18 @@ export const vi_VN: EnTranslations = {
       "verlans_oathblade": {
         "name": "Thề Kiếm của Verlan"
       },
+      "reins_highfield_alpaca": {
+        "name": "Dây cương Lạc đà Alpaca Highfield"
+      },
+      "reins_ironhide_bull": {
+        "name": "Dây cương Bò Da Sắt"
+      },
+      "reins_thornback_boar": {
+        "name": "Dây cương Heo Rừng Gai Lưng"
+      },
+      "reins_verdant_bloomstrider": {
+        "name": "Dây cương Bloomstrider Xanh Tươi"
+      },
       "briny_idol": {
         "name": "Thần Tượng Mặn Mòi"
       },

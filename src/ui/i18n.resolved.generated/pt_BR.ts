@@ -5385,6 +5385,18 @@ export const pt_BR: EnTranslations = {
       "verlans_oathblade": {
         "name": "Lâmina do juramento de Verlan"
       },
+      "reins_highfield_alpaca": {
+        "name": "Rédeas da alpaca de Campoalto"
+      },
+      "reins_ironhide_bull": {
+        "name": "Rédeas do touro Couro-de-Ferro"
+      },
+      "reins_thornback_boar": {
+        "name": "Rédeas do javali Dorso-Espinhoso"
+      },
+      "reins_verdant_bloomstrider": {
+        "name": "Rédeas do Andarilho-Florido Verdejante"
+      },
       "briny_idol": {
         "name": "Ídolo Salobro"
       },

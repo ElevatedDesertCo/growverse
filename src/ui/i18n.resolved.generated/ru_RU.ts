@@ -5385,6 +5385,18 @@ export const ru_RU: EnTranslations = {
       "verlans_oathblade": {
         "name": "Клинок клятвы Верлана"
       },
+      "reins_highfield_alpaca": {
+        "name": "Поводья альпаки с Верхних полей"
+      },
+      "reins_ironhide_bull": {
+        "name": "Поводья железношкурого быка"
+      },
+      "reins_thornback_boar": {
+        "name": "Поводья тернистого вепря"
+      },
+      "reins_verdant_bloomstrider": {
+        "name": "Поводья Цветущего Странника"
+      },
       "briny_idol": {
         "name": "Просоленный идол"
       },

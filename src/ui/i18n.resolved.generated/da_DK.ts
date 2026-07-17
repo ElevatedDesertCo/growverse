@@ -5385,6 +5385,18 @@ export const da_DK: EnTranslations = {
       "verlans_oathblade": {
         "name": "Verlans Edsklinge"
       },
+      "reins_highfield_alpaca": {
+        "name": "Tøjler til Highfield-alpakaen"
+      },
+      "reins_ironhide_bull": {
+        "name": "Tøjler til Jernhudstyren"
+      },
+      "reins_thornback_boar": {
+        "name": "Tøjler til Tornrygsvinet"
+      },
+      "reins_verdant_bloomstrider": {
+        "name": "Tøjler til den Grønne Blomstervandrer"
+      },
       "briny_idol": {
         "name": "Saltvandsafgud"
       },

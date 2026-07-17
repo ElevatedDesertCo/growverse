@@ -579,6 +579,31 @@ export class Vfx {
     );
   }
 
+  /** Verdant Bloomstrider leaf/petal trail: soft nature-green leaves with
+   *  blossom-pink flecks shed around the moving mount, tossed up slightly and
+   *  drifting back down. Continuous emitter, called per frame while moving
+   *  (render/mounts.ts gates on reduced motion). */
+  petalTrail(entityId: number, dt: number): void {
+    if (!this.emitChance(22, dt)) return;
+    const at = this.anchor(entityId, 0.45);
+    if (!at) return;
+    const a = Math.random() * Math.PI * 2;
+    const leaf = Math.random() < 0.7;
+    this.spawn(
+      at.x + Math.sin(a) * 0.6,
+      at.y + Math.random() * 0.4,
+      at.z + Math.cos(a) * 0.6,
+      (Math.random() - 0.5) * 0.8,
+      0.4 + Math.random() * 0.8,
+      (Math.random() - 0.5) * 0.8,
+      leaf ? SCHOOL_COLORS.nature : 0xf0a8c8,
+      0.22,
+      0.7 + Math.random() * 0.5,
+      2.2, // gentle fall after the initial toss
+      leaf ? SPR.sparkle : SPR.star,
+    );
+  }
+
   swimRipple(at: THREE.Vector3, dt: number): void {
     if (!this.emitChance(9, dt)) return;
     const a = Math.random() * Math.PI * 2;

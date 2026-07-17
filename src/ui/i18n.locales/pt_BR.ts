@@ -5192,4 +5192,8 @@ export const pt_BR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Agora não',
   'hudChrome.nativeUpdate.title': 'Atualização disponível',
   'hudChrome.nativeUpdate.update': 'Atualizar',
+  'entities.items.reins_highfield_alpaca.name': 'Rédeas da alpaca de Campoalto',
+  'entities.items.reins_ironhide_bull.name': 'Rédeas do touro Couro-de-Ferro',
+  'entities.items.reins_thornback_boar.name': 'Rédeas do javali Dorso-Espinhoso',
+  'entities.items.reins_verdant_bloomstrider.name': 'Rédeas do Andarilho-Florido Verdejante',
 };

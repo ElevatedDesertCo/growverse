@@ -5385,6 +5385,18 @@ export const ko_KR: EnTranslations = {
       "verlans_oathblade": {
         "name": "베를란의 맹세검"
       },
+      "reins_highfield_alpaca": {
+        "name": "하이필드 알파카의 고삐"
+      },
+      "reins_ironhide_bull": {
+        "name": "무쇠가죽 황소의 고삐"
+      },
+      "reins_thornback_boar": {
+        "name": "가시등 멧돼지의 고삐"
+      },
+      "reins_verdant_bloomstrider": {
+        "name": "신록의 블룸스트라이더 고삐"
+      },
       "briny_idol": {
         "name": "소금기 어린 우상"
       },
