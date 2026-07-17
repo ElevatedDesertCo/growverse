@@ -95,6 +95,57 @@ describe('crafting: Grow Station', () => {
     expect(meta.copper).toBe(5);
     expect(errorTexts(evs)).toContain('Not enough money.');
   });
+
+  it('locks a profession-gated recipe until the gathering skill is high enough', () => {
+    const sim = makeWorld();
+    const { pid, meta } = craftPlayer(sim, 'cultivator_marlow');
+    meta.copper = 200;
+    sim.addItem('rough_timber', 8, pid); // enough for two Trellis Frames
+    const profs = (meta as unknown as { professions: Record<string, number> }).professions;
+
+    // Below the Logging 10 gate: blocked, nothing consumed.
+    profs.logging = 5;
+    sim.drainEvents();
+    sim.craft('craft_trellis_frame', pid);
+    let evs = sim.drainEvents();
+    expect(sim.countItem('trellis_frame', pid)).toBe(0);
+    expect(sim.countItem('rough_timber', pid)).toBe(8); // reagents untouched
+    expect(errorTexts(evs)).toContain('You are not skilled enough to craft that yet.');
+
+    // At the gate: it crafts.
+    profs.logging = 10;
+    sim.craft('craft_trellis_frame', pid);
+    evs = sim.drainEvents();
+    expect(sim.countItem('trellis_frame', pid)).toBe(1);
+    expect(sim.countItem('rough_timber', pid)).toBe(4); // 8 - 4 consumed
+    expect(craftEvents(evs)).toHaveLength(1);
+  });
+
+  it('gates the Herbalism Verdant Draught on the Herbalism skill', () => {
+    const sim = makeWorld();
+    const { pid, meta } = craftPlayer(sim, 'alchemist_sable');
+    meta.copper = 200;
+    sim.addItem('purple_petal', 2, pid);
+    sim.addItem('bloom_extract', 2, pid);
+    const profs = (meta as unknown as { professions: Record<string, number> }).professions;
+
+    // Below Herbalism 15: blocked.
+    profs.herbalism = 14;
+    sim.drainEvents();
+    sim.craft('alchemy_verdant_draught', pid);
+    let evs = sim.drainEvents();
+    expect(sim.countItem('verdant_draught', pid)).toBe(0);
+    expect(errorTexts(evs)).toContain('You are not skilled enough to craft that yet.');
+
+    // At Herbalism 15: it crafts, consuming both herbalism-gathered inputs.
+    profs.herbalism = 15;
+    sim.craft('alchemy_verdant_draught', pid);
+    evs = sim.drainEvents();
+    expect(sim.countItem('verdant_draught', pid)).toBe(1);
+    expect(sim.countItem('purple_petal', pid)).toBe(0);
+    expect(sim.countItem('bloom_extract', pid)).toBe(0);
+    expect(craftEvents(evs)).toHaveLength(1);
+  });
 });
 
 describe('crafting: station proximity', () => {

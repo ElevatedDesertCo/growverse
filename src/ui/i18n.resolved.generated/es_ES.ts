@@ -284,6 +284,30 @@ export const es_ES: EnTranslations = {
     "character": {
       "modelPreview": "Vista previa del modelo del personaje"
     },
+    "professions": {
+      "title": "Professions",
+      "mining": "Mining",
+      "herbalism": "Herbalism",
+      "logging": "Logging",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
+    "loadouts": {
+      "title": "Loadouts",
+      "hint": "Save gear + talent sets in the Talents panel.",
+      "applyAria": "Apply loadout: {name}"
+    },
+    "overview": {
+      "tablistAria": "Character sheet views",
+      "gearTab": "Character",
+      "overviewTab": "Overview",
+      "commune": "Commune Standing",
+      "sessions": "Bloom Sessions",
+      "strains": "Strain Library",
+      "noSessions": "No active Bloom Session. Brew a tonic at the Alchemy Lab.",
+      "sessionAria": "{name}: {time}",
+      "minutesShort": "{n}m",
+      "secondsShort": "{n}s"
+    },
     "skipLinks": {
       "mainHud": "Saltar a la interfaz principal",
       "chat": "Saltar al chat"
@@ -1044,6 +1068,7 @@ export const es_ES: EnTranslations = {
       "costLabel": "Cost",
       "requiresLabel": "Requires",
       "levelReq": "Requires level {level}",
+      "professionReq": "Requires {profession} {skill}",
       "produces": "Yields {count} {name}",
       "crafted": "Crafted {name}.",
       "empty": "Nothing can be crafted here yet.",
@@ -5123,6 +5148,21 @@ export const es_ES: EnTranslations = {
       },
       "golden_petal": {
         "name": "Pétalo Dorado"
+      },
+      "rough_timber": {
+        "name": "Madera basta"
+      },
+      "copper_ore": {
+        "name": "Mineral de cobre"
+      },
+      "trellis_frame": {
+        "name": "Espaldera de Cultivo"
+      },
+      "coppermesh_gloves": {
+        "name": "Guantes de Malla de Cobre"
+      },
+      "verdant_draught": {
+        "name": "Brebaje Verdante"
       },
       "bristleback_maul": {
         "name": "Maza Bristleback"

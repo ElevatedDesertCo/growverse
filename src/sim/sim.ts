@@ -1402,6 +1402,7 @@ export class Sim {
           name: l.name,
           alloc: cloneAllocation(l.alloc),
           bar: [...(l.bar ?? [])],
+          gear: l.gear ? { ...l.gear } : undefined,
         }));
       if (typeof s.activeLoadout === 'number') meta.activeLoadout = s.activeLoadout;
       if (s.raidLockouts) {
@@ -1607,6 +1608,7 @@ export class Sim {
         name: l.name,
         alloc: cloneAllocation(l.alloc),
         bar: [...l.bar],
+        gear: l.gear ? { ...l.gear } : undefined,
       })),
       activeLoadout: meta.activeLoadout,
       raidLockouts: Object.fromEntries(
@@ -2549,13 +2551,35 @@ export class Sim {
     pidOrAlloc?: number | TalentAllocation,
     allocMaybe?: TalentAllocation,
   ): number {
-    return saveTalentLoadout(this.ctx, name, bar, pidOrAlloc, allocMaybe);
+    const idx = saveTalentLoadout(this.ctx, name, bar, pidOrAlloc, allocMaybe);
+    // A loadout is a gear + talent SET: snapshot the current equipment alongside
+    // the talents saveTalentLoadout stored (the talents module stays talent-only).
+    if (idx >= 0) {
+      const pid = typeof pidOrAlloc === 'number' ? pidOrAlloc : undefined;
+      const meta = pid !== undefined ? this.players.get(pid) : this.primary;
+      const lo = meta?.loadouts[idx];
+      if (meta && lo) lo.gear = { ...meta.equipment };
+    }
+    return idx;
   }
 
-  // Apply a saved loadout's talents (out of combat). The action bar is restored
-  // client-side from the loadout's stored slot map. Re-validated server-side.
+  // Apply a saved loadout's talents AND gear (out of combat). switchTalentLoadout
+  // re-allocates the talents; here we re-equip the saved gear from bags where the
+  // items are still available. The action bar is restored client-side from the
+  // loadout's stored slot map. Both are re-validated server-side.
   switchLoadout(index: number, pid?: number): boolean {
-    return switchTalentLoadout(this.ctx, index, pid);
+    if (!switchTalentLoadout(this.ctx, index, pid)) return false;
+    const meta = pid !== undefined ? this.players.get(pid) : this.primary;
+    const lo = meta?.loadouts[index];
+    if (meta && lo?.gear) {
+      for (const [slot, itemId] of Object.entries(lo.gear)) {
+        // Equip the saved piece only when it is not already in that slot and it is
+        // sitting in the player's bags (a sold/lost item is simply skipped).
+        if (meta.equipment[slot as EquipSlot] === itemId) continue;
+        if (this.countItem(itemId, meta.entityId) > 0) this.equipItem(itemId, meta.entityId);
+      }
+    }
+    return true;
   }
 
   deleteLoadout(index: number, pid?: number): boolean {

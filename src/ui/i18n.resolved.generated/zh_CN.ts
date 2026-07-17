@@ -284,6 +284,30 @@ export const zh_CN: EnTranslations = {
     "character": {
       "modelPreview": "角色模型预览"
     },
+    "professions": {
+      "title": "专业技能",
+      "mining": "采矿",
+      "herbalism": "草药学",
+      "logging": "伐木",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
+    "loadouts": {
+      "title": "配装",
+      "hint": "在天赋面板中保存装备与天赋套装。",
+      "applyAria": "应用配装：{name}"
+    },
+    "overview": {
+      "tablistAria": "角色面板视图",
+      "gearTab": "角色",
+      "overviewTab": "概览",
+      "commune": "公社声望",
+      "sessions": "绽放疗程",
+      "strains": "品系库",
+      "noSessions": "当前没有绽放疗程。前往炼金实验室调制一份药剂。",
+      "sessionAria": "{name}: {time}",
+      "minutesShort": "{n}m",
+      "secondsShort": "{n}s"
+    },
     "skipLinks": {
       "mainHud": "跳转到主界面",
       "chat": "跳转到聊天"
@@ -1044,6 +1068,7 @@ export const zh_CN: EnTranslations = {
       "costLabel": "花费",
       "requiresLabel": "需要",
       "levelReq": "需要等级 {level}",
+      "professionReq": "需要{profession} {skill}",
       "produces": "产出 {count} 个{name}",
       "crafted": "制作了{name}。",
       "empty": "这里暂时没有可制作的物品。",
@@ -5123,6 +5148,21 @@ export const zh_CN: EnTranslations = {
       },
       "golden_petal": {
         "name": "金色花瓣"
+      },
+      "rough_timber": {
+        "name": "粗木料"
+      },
+      "copper_ore": {
+        "name": "铜矿石"
+      },
+      "trellis_frame": {
+        "name": "藤架"
+      },
+      "coppermesh_gloves": {
+        "name": "铜网手套"
+      },
+      "verdant_draught": {
+        "name": "翠绿药剂"
       },
       "bristleback_maul": {
         "name": "硬鬃重槌"

@@ -284,6 +284,30 @@ export const ru_RU: EnTranslations = {
     "character": {
       "modelPreview": "Предпросмотр модели персонажа"
     },
+    "professions": {
+      "title": "Профессии",
+      "mining": "Горное дело",
+      "herbalism": "Травничество",
+      "logging": "Лесозаготовка",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
+    "loadouts": {
+      "title": "Наборы",
+      "hint": "Сохраняйте наборы снаряжения и талантов в панели талантов.",
+      "applyAria": "Применить набор: {name}"
+    },
+    "overview": {
+      "tablistAria": "Виды листа персонажа",
+      "gearTab": "Персонаж",
+      "overviewTab": "Обзор",
+      "commune": "Репутация общины",
+      "sessions": "Сеансы цветения",
+      "strains": "Библиотека сортов",
+      "noSessions": "Нет активного сеанса цветения. Приготовьте настойку в алхимической лаборатории.",
+      "sessionAria": "{name}: {time}",
+      "minutesShort": "{n}m",
+      "secondsShort": "{n}s"
+    },
     "skipLinks": {
       "mainHud": "Перейти к основному интерфейсу",
       "chat": "Перейти к чату"
@@ -1044,6 +1068,7 @@ export const ru_RU: EnTranslations = {
       "costLabel": "Стоимость",
       "requiresLabel": "Требуется",
       "levelReq": "Требуется уровень {level}",
+      "professionReq": "Требуется {profession} {skill}",
       "produces": "Даёт {count} шт. {name}",
       "crafted": "Создано: {name}.",
       "empty": "Здесь пока нечего создавать.",
@@ -5123,6 +5148,21 @@ export const ru_RU: EnTranslations = {
       },
       "golden_petal": {
         "name": "Золотой лепесток"
+      },
+      "rough_timber": {
+        "name": "Грубая древесина"
+      },
+      "copper_ore": {
+        "name": "Медная руда"
+      },
+      "trellis_frame": {
+        "name": "Шпалера"
+      },
+      "coppermesh_gloves": {
+        "name": "Медные сетчатые перчатки"
+      },
+      "verdant_draught": {
+        "name": "Изумрудный настой"
       },
       "bristleback_maul": {
         "name": "Кувалда Щетиноспина"

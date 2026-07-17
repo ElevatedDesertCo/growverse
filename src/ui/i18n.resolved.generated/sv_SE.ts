@@ -284,6 +284,30 @@ export const sv_SE: EnTranslations = {
     "character": {
       "modelPreview": "Förhandsvisning av karaktärsmodell"
     },
+    "professions": {
+      "title": "Professions",
+      "mining": "Mining",
+      "herbalism": "Herbalism",
+      "logging": "Logging",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
+    "loadouts": {
+      "title": "Loadouts",
+      "hint": "Save gear + talent sets in the Talents panel.",
+      "applyAria": "Apply loadout: {name}"
+    },
+    "overview": {
+      "tablistAria": "Character sheet views",
+      "gearTab": "Character",
+      "overviewTab": "Overview",
+      "commune": "Commune Standing",
+      "sessions": "Bloom Sessions",
+      "strains": "Strain Library",
+      "noSessions": "No active Bloom Session. Brew a tonic at the Alchemy Lab.",
+      "sessionAria": "{name}: {time}",
+      "minutesShort": "{n}m",
+      "secondsShort": "{n}s"
+    },
     "skipLinks": {
       "mainHud": "Hoppa till huvud-HUD",
       "chat": "Hoppa till chatt"
@@ -1044,6 +1068,7 @@ export const sv_SE: EnTranslations = {
       "costLabel": "Cost",
       "requiresLabel": "Requires",
       "levelReq": "Requires level {level}",
+      "professionReq": "Requires {profession} {skill}",
       "produces": "Yields {count} {name}",
       "crafted": "Crafted {name}.",
       "empty": "Nothing can be crafted here yet.",
@@ -5123,6 +5148,21 @@ export const sv_SE: EnTranslations = {
       },
       "golden_petal": {
         "name": "Gyllene Kronblad"
+      },
+      "rough_timber": {
+        "name": "Grovt timmer"
+      },
+      "copper_ore": {
+        "name": "Kopparmalm"
+      },
+      "trellis_frame": {
+        "name": "Spaljé"
+      },
+      "coppermesh_gloves": {
+        "name": "Koppartrådshandskar"
+      },
+      "verdant_draught": {
+        "name": "Grönskande Brygd"
       },
       "bristleback_maul": {
         "name": "Borstryggens klubba"

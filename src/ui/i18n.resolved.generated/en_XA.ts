@@ -284,6 +284,30 @@ export const en_XA: EnTranslations = {
     "character": {
       "modelPreview": "[Çĥáŕáçţéŕ Ɱóðéļ Þŕéʋíéŵ]"
     },
+    "professions": {
+      "title": "[Þŕóƒéššíóñš]",
+      "mining": "[Ɱíñíñĝ]",
+      "herbalism": "[Ĥéŕƀáļíšɱ]",
+      "logging": "[Ļóĝĝíñĝ]",
+      "skillAria": "[{profession}: {skill} óƒ {max}]"
+    },
+    "loadouts": {
+      "title": "[Ļóáðóúţš]",
+      "hint": "[Šáʋé ĝéáŕ + ţáļéñţ šéţš íñ ţĥé Ţáļéñţš þáñéļ.]",
+      "applyAria": "[Áþþļý ļóáðóúţ: {name}]"
+    },
+    "overview": {
+      "tablistAria": "[Çĥáŕáçţéŕ šĥééţ ʋíéŵš]",
+      "gearTab": "[Çĥáŕáçţéŕ]",
+      "overviewTab": "[Óʋéŕʋíéŵ]",
+      "commune": "[Çóɱɱúñé Šţáñðíñĝ]",
+      "sessions": "[Ɓļóóɱ Šéššíóñš]",
+      "strains": "[Šţŕáíñ Ļíƀŕáŕý]",
+      "noSessions": "[Ñó áçţíʋé Ɓļóóɱ Šéššíóñ. Ɓŕéŵ á ţóñíç áţ ţĥé Áļçĥéɱý Ļáƀ.]",
+      "sessionAria": "[{name}: {time}]",
+      "minutesShort": "[{n}ɱ]",
+      "secondsShort": "[{n}š]"
+    },
     "skipLinks": {
       "mainHud": "[Šķíþ ţó Ɱáíñ ĤÚÐ]",
       "chat": "[Šķíþ ţó Çĥáţ]"
@@ -1044,6 +1068,7 @@ export const en_XA: EnTranslations = {
       "costLabel": "[Çóšţ]",
       "requiresLabel": "[Ŕéɋúíŕéš]",
       "levelReq": "[Ŕéɋúíŕéš ļéʋéļ {level}]",
+      "professionReq": "[Ŕéɋúíŕéš {profession} {skill}]",
       "produces": "[Ýíéļðš {count} {name}]",
       "crafted": "[Çŕáƒţéð {name}.]",
       "empty": "[Ñóţĥíñĝ çáñ ƀé çŕáƒţéð ĥéŕé ýéţ.]",
@@ -5123,6 +5148,21 @@ export const en_XA: EnTranslations = {
       },
       "golden_petal": {
         "name": "[Ĝóļðéñ Þéţáļ]"
+      },
+      "rough_timber": {
+        "name": "[Ŕóúĝĥ Ţíɱƀéŕ]"
+      },
+      "copper_ore": {
+        "name": "[Çóþþéŕ Óŕé]"
+      },
+      "trellis_frame": {
+        "name": "[Ţŕéļļíš Ƒŕáɱé]"
+      },
+      "coppermesh_gloves": {
+        "name": "[Çóþþéŕɱéšĥ Ĝļóʋéš]"
+      },
+      "verdant_draught": {
+        "name": "[Ʋéŕðáñţ Ðŕáúĝĥţ]"
       },
       "bristleback_maul": {
         "name": "[Ɓŕíšţļéƀáçķ Ɱáúļ]"

@@ -5,7 +5,7 @@
 // the deplete/respawn, the guards, and determinism.
 
 import { describe, expect, it } from 'vitest';
-import { HARVEST_NODES } from '../src/sim/data';
+import { HARVEST_NODES, ITEMS } from '../src/sim/data';
 import { createGroundObject } from '../src/sim/entity';
 import { Sim } from '../src/sim/sim';
 import { type Entity, HARVEST_CAST_ID } from '../src/sim/types';
@@ -111,6 +111,25 @@ describe('harvest nodes', () => {
     expect(sim.player.castingAbility).toBe(null);
     expect(totalYield(sim)).toBe(before);
     expect(node.lootable).toBe(true);
+  });
+
+  it('spawns the timber + copper veins into the world and grants real items', () => {
+    const sim = makeSim();
+    const nodeIds = new Set(
+      [...sim.entities.values()]
+        .filter((e: Entity) => e.kind === 'object' && e.harvestNodeId)
+        .map((e: Entity) => e.harvestNodeId as string),
+    );
+    // the Phase 2b nodes are live in the world
+    expect(nodeIds.has('timber_stand')).toBe(true);
+    expect(nodeIds.has('copper_vein')).toBe(true);
+    // every yield of every node references a real ITEMS entry (rough_timber/copper_ore
+    // included), so a gather grants a genuine item, never a dangling id
+    for (const node of Object.values(HARVEST_NODES)) {
+      for (const y of node.yields) expect(ITEMS[y.itemId], y.itemId).toBeTruthy();
+    }
+    expect(ITEMS.rough_timber?.name).toBe('Rough Timber');
+    expect(ITEMS.copper_ore?.name).toBe('Copper Ore');
   });
 
   it('is deterministic: same seed + inputs yields the same reagent', () => {

@@ -284,6 +284,30 @@ export const tr_TR: EnTranslations = {
     "character": {
       "modelPreview": "Karakter Modeli Önizlemesi"
     },
+    "professions": {
+      "title": "Professions",
+      "mining": "Mining",
+      "herbalism": "Herbalism",
+      "logging": "Logging",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
+    "loadouts": {
+      "title": "Loadouts",
+      "hint": "Save gear + talent sets in the Talents panel.",
+      "applyAria": "Apply loadout: {name}"
+    },
+    "overview": {
+      "tablistAria": "Character sheet views",
+      "gearTab": "Character",
+      "overviewTab": "Overview",
+      "commune": "Commune Standing",
+      "sessions": "Bloom Sessions",
+      "strains": "Strain Library",
+      "noSessions": "No active Bloom Session. Brew a tonic at the Alchemy Lab.",
+      "sessionAria": "{name}: {time}",
+      "minutesShort": "{n}m",
+      "secondsShort": "{n}s"
+    },
     "skipLinks": {
       "mainHud": "Ana Arayüze Atla",
       "chat": "Sohbete Atla"
@@ -1044,6 +1068,7 @@ export const tr_TR: EnTranslations = {
       "costLabel": "Cost",
       "requiresLabel": "Requires",
       "levelReq": "Requires level {level}",
+      "professionReq": "Requires {profession} {skill}",
       "produces": "Yields {count} {name}",
       "crafted": "Crafted {name}.",
       "empty": "Nothing can be crafted here yet.",
@@ -5123,6 +5148,21 @@ export const tr_TR: EnTranslations = {
       },
       "golden_petal": {
         "name": "Altın Yaprak"
+      },
+      "rough_timber": {
+        "name": "Kaba kereste"
+      },
+      "copper_ore": {
+        "name": "Bakır cevheri"
+      },
+      "trellis_frame": {
+        "name": "Bitki Kafesi"
+      },
+      "coppermesh_gloves": {
+        "name": "Bakır Örgü Eldiven"
+      },
+      "verdant_draught": {
+        "name": "Yeşil İksir"
       },
       "bristleback_maul": {
         "name": "Dikensırt Balyozu"

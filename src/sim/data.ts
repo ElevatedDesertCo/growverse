@@ -33,7 +33,7 @@ import {
   DELVE_MOBS,
 } from './content/delves';
 import { DUNGEON_DEFS, DUNGEON_MOBS } from './content/dungeons';
-import { HARVEST_NODE_SPAWNS, HARVEST_NODES } from './content/gathering';
+import { GATHER_MATERIALS, HARVEST_NODE_SPAWNS, HARVEST_NODES } from './content/gathering';
 import { BASE_STRAIN_BY_SEED, BASE_STRAINS } from './content/genetics';
 import { GROUND_PICKUP_LINES } from './content/ground_pickup_lines';
 import {
@@ -167,6 +167,7 @@ export const ITEMS: Record<string, ItemDef> = mergeItems(
   TEMPLE_ITEMS,
   DELVE_ITEMS,
   CRAFT_ITEMS,
+  GATHER_MATERIALS,
 );
 
 export {

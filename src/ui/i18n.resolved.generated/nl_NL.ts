@@ -284,6 +284,30 @@ export const nl_NL: EnTranslations = {
     "character": {
       "modelPreview": "Voorbeeld van Personagemodel"
     },
+    "professions": {
+      "title": "Professions",
+      "mining": "Mining",
+      "herbalism": "Herbalism",
+      "logging": "Logging",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
+    "loadouts": {
+      "title": "Loadouts",
+      "hint": "Save gear + talent sets in the Talents panel.",
+      "applyAria": "Apply loadout: {name}"
+    },
+    "overview": {
+      "tablistAria": "Character sheet views",
+      "gearTab": "Character",
+      "overviewTab": "Overview",
+      "commune": "Commune Standing",
+      "sessions": "Bloom Sessions",
+      "strains": "Strain Library",
+      "noSessions": "No active Bloom Session. Brew a tonic at the Alchemy Lab.",
+      "sessionAria": "{name}: {time}",
+      "minutesShort": "{n}m",
+      "secondsShort": "{n}s"
+    },
     "skipLinks": {
       "mainHud": "Ga naar hoofd-HUD",
       "chat": "Ga naar chat"
@@ -1044,6 +1068,7 @@ export const nl_NL: EnTranslations = {
       "costLabel": "Cost",
       "requiresLabel": "Requires",
       "levelReq": "Requires level {level}",
+      "professionReq": "Requires {profession} {skill}",
       "produces": "Yields {count} {name}",
       "crafted": "Crafted {name}.",
       "empty": "Nothing can be crafted here yet.",
@@ -5123,6 +5148,21 @@ export const nl_NL: EnTranslations = {
       },
       "golden_petal": {
         "name": "Gouden Bloemblad"
+      },
+      "rough_timber": {
+        "name": "Ruw hout"
+      },
+      "copper_ore": {
+        "name": "Kopererts"
+      },
+      "trellis_frame": {
+        "name": "Klimrek"
+      },
+      "coppermesh_gloves": {
+        "name": "Kopergaas Handschoenen"
+      },
+      "verdant_draught": {
+        "name": "Groenkracht-drank"
       },
       "bristleback_maul": {
         "name": "Borstelrug-Strijdhamer"

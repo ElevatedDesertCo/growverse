@@ -1007,6 +1007,29 @@
   body.mobile-touch #bags .bag-grid {
     min-height: 150px;
   }
+  /* Character-sheet embedded bags on mobile: the fixed full-screen bag positioning
+     above must NOT apply when the bags node is reparented into the character window
+     (char_window.ts embedBags). Restate the flow-inside overrides at higher
+     specificity so they win in this later layer, and the grid caps its own height so
+     it scrolls within the (already scrollable) character sheet. */
+  body.mobile-touch #bags.bags-embedded {
+    position: static;
+    left: auto;
+    right: auto;
+    top: auto;
+    bottom: auto;
+    width: 100%;
+    max-width: 100%;
+    transform: none;
+    max-height: 360px;
+    margin: 0;
+    padding: 0;
+    z-index: auto;
+    box-sizing: border-box;
+  }
+  body.mobile-touch #bags.bags-embedded .panel-title .x-btn {
+    display: none;
+  }
   body.mobile-touch .vendor-item,
   body.mobile-touch .craft-btn,
   body.mobile-touch .bag-item,
@@ -1078,6 +1101,33 @@
     max-height: calc(100vh - 20px);
     box-sizing: border-box;
     overflow-y: auto;
+  }
+  /* The wide three-column equipment screen collapses to a single stacked column on a
+     phone (the window is a narrow 360px rail). .char-main stays display:contents so
+     its gear + rail columns and the bags slot stack in order inside the block body,
+     and the paperdoll / bags top separators (dropped for the desktop columns) come
+     back so the stacked sections read as distinct rows. */
+  body.mobile-touch #char-window .char-body {
+    display: block;
+    margin-top: 6px;
+  }
+  body.mobile-touch #char-window .char-col-rail .char-stats {
+    border-top: 1px solid #463a1c;
+    margin-top: 10px;
+    padding-top: 8px;
+  }
+  body.mobile-touch #char-window .char-bags-slot {
+    margin-top: 10px;
+    border-top: 1px solid #463a1c;
+    padding-top: 8px;
+  }
+  /* The Overview dashboard's side-by-side panels stack on the narrow phone rail, and
+     the strain cards drop to a single column. */
+  body.mobile-touch #char-window .char-overview {
+    grid-template-columns: 1fr;
+  }
+  body.mobile-touch #char-window .ov-strain-list {
+    grid-template-columns: 1fr 1fr;
   }
   /* Narrow the flanking equip columns so both fit beside the model on a phone. */
   body.mobile-touch .equip-col {

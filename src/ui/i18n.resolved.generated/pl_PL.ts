@@ -284,6 +284,30 @@ export const pl_PL: EnTranslations = {
     "character": {
       "modelPreview": "Podgląd modelu postaci"
     },
+    "professions": {
+      "title": "Professions",
+      "mining": "Mining",
+      "herbalism": "Herbalism",
+      "logging": "Logging",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
+    "loadouts": {
+      "title": "Loadouts",
+      "hint": "Save gear + talent sets in the Talents panel.",
+      "applyAria": "Apply loadout: {name}"
+    },
+    "overview": {
+      "tablistAria": "Character sheet views",
+      "gearTab": "Character",
+      "overviewTab": "Overview",
+      "commune": "Commune Standing",
+      "sessions": "Bloom Sessions",
+      "strains": "Strain Library",
+      "noSessions": "No active Bloom Session. Brew a tonic at the Alchemy Lab.",
+      "sessionAria": "{name}: {time}",
+      "minutesShort": "{n}m",
+      "secondsShort": "{n}s"
+    },
     "skipLinks": {
       "mainHud": "Przejdź do głównego HUD",
       "chat": "Przejdź do czatu"
@@ -1044,6 +1068,7 @@ export const pl_PL: EnTranslations = {
       "costLabel": "Cost",
       "requiresLabel": "Requires",
       "levelReq": "Requires level {level}",
+      "professionReq": "Requires {profession} {skill}",
       "produces": "Yields {count} {name}",
       "crafted": "Crafted {name}.",
       "empty": "Nothing can be crafted here yet.",
@@ -5123,6 +5148,21 @@ export const pl_PL: EnTranslations = {
       },
       "golden_petal": {
         "name": "Złoty Płatek"
+      },
+      "rough_timber": {
+        "name": "Surowe drewno"
+      },
+      "copper_ore": {
+        "name": "Ruda miedzi"
+      },
+      "trellis_frame": {
+        "name": "Kratka do Uprawy"
+      },
+      "coppermesh_gloves": {
+        "name": "Rękawice z Miedzianej Siatki"
+      },
+      "verdant_draught": {
+        "name": "Zielony Wywar"
       },
       "bristleback_maul": {
         "name": "Tłuk szczeciniastych"

@@ -284,6 +284,30 @@ export const vi_VN: EnTranslations = {
     "character": {
       "modelPreview": "Xem Trước Mô Hình Nhân Vật"
     },
+    "professions": {
+      "title": "Professions",
+      "mining": "Mining",
+      "herbalism": "Herbalism",
+      "logging": "Logging",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
+    "loadouts": {
+      "title": "Loadouts",
+      "hint": "Save gear + talent sets in the Talents panel.",
+      "applyAria": "Apply loadout: {name}"
+    },
+    "overview": {
+      "tablistAria": "Character sheet views",
+      "gearTab": "Character",
+      "overviewTab": "Overview",
+      "commune": "Commune Standing",
+      "sessions": "Bloom Sessions",
+      "strains": "Strain Library",
+      "noSessions": "No active Bloom Session. Brew a tonic at the Alchemy Lab.",
+      "sessionAria": "{name}: {time}",
+      "minutesShort": "{n}m",
+      "secondsShort": "{n}s"
+    },
     "skipLinks": {
       "mainHud": "Chuyển tới HUD Chính",
       "chat": "Chuyển tới Trò Chuyện"
@@ -1044,6 +1068,7 @@ export const vi_VN: EnTranslations = {
       "costLabel": "Cost",
       "requiresLabel": "Requires",
       "levelReq": "Requires level {level}",
+      "professionReq": "Requires {profession} {skill}",
       "produces": "Yields {count} {name}",
       "crafted": "Crafted {name}.",
       "empty": "Nothing can be crafted here yet.",
@@ -5123,6 +5148,21 @@ export const vi_VN: EnTranslations = {
       },
       "golden_petal": {
         "name": "Cánh Hoa Vàng"
+      },
+      "rough_timber": {
+        "name": "Gỗ thô"
+      },
+      "copper_ore": {
+        "name": "Quặng đồng"
+      },
+      "trellis_frame": {
+        "name": "Giàn Leo"
+      },
+      "coppermesh_gloves": {
+        "name": "Găng Tay Lưới Đồng"
+      },
+      "verdant_draught": {
+        "name": "Thuốc Xanh Tươi"
       },
       "bristleback_maul": {
         "name": "Vồ Lưng Gai"

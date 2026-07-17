@@ -284,6 +284,30 @@ export const it_IT: EnTranslations = {
     "character": {
       "modelPreview": "Anteprima del modello del personaggio"
     },
+    "professions": {
+      "title": "Professions",
+      "mining": "Mining",
+      "herbalism": "Herbalism",
+      "logging": "Logging",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
+    "loadouts": {
+      "title": "Loadouts",
+      "hint": "Save gear + talent sets in the Talents panel.",
+      "applyAria": "Apply loadout: {name}"
+    },
+    "overview": {
+      "tablistAria": "Character sheet views",
+      "gearTab": "Character",
+      "overviewTab": "Overview",
+      "commune": "Commune Standing",
+      "sessions": "Bloom Sessions",
+      "strains": "Strain Library",
+      "noSessions": "No active Bloom Session. Brew a tonic at the Alchemy Lab.",
+      "sessionAria": "{name}: {time}",
+      "minutesShort": "{n}m",
+      "secondsShort": "{n}s"
+    },
     "skipLinks": {
       "mainHud": "Vai all'interfaccia principale",
       "chat": "Vai alla chat"
@@ -1044,6 +1068,7 @@ export const it_IT: EnTranslations = {
       "costLabel": "Cost",
       "requiresLabel": "Requires",
       "levelReq": "Requires level {level}",
+      "professionReq": "Requires {profession} {skill}",
       "produces": "Yields {count} {name}",
       "crafted": "Crafted {name}.",
       "empty": "Nothing can be crafted here yet.",
@@ -5123,6 +5148,21 @@ export const it_IT: EnTranslations = {
       },
       "golden_petal": {
         "name": "Petalo Dorato"
+      },
+      "rough_timber": {
+        "name": "Legname grezzo"
+      },
+      "copper_ore": {
+        "name": "Minerale di rame"
+      },
+      "trellis_frame": {
+        "name": "Traliccio da Coltivazione"
+      },
+      "coppermesh_gloves": {
+        "name": "Guanti in Maglia di Rame"
+      },
+      "verdant_draught": {
+        "name": "Pozione Verdeggiante"
       },
       "bristleback_maul": {
         "name": "Maglio Bristleback"

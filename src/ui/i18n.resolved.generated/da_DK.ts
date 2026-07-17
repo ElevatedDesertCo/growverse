@@ -284,6 +284,30 @@ export const da_DK: EnTranslations = {
     "character": {
       "modelPreview": "Forhåndsvisning af karaktermodel"
     },
+    "professions": {
+      "title": "Professions",
+      "mining": "Mining",
+      "herbalism": "Herbalism",
+      "logging": "Logging",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
+    "loadouts": {
+      "title": "Loadouts",
+      "hint": "Save gear + talent sets in the Talents panel.",
+      "applyAria": "Apply loadout: {name}"
+    },
+    "overview": {
+      "tablistAria": "Character sheet views",
+      "gearTab": "Character",
+      "overviewTab": "Overview",
+      "commune": "Commune Standing",
+      "sessions": "Bloom Sessions",
+      "strains": "Strain Library",
+      "noSessions": "No active Bloom Session. Brew a tonic at the Alchemy Lab.",
+      "sessionAria": "{name}: {time}",
+      "minutesShort": "{n}m",
+      "secondsShort": "{n}s"
+    },
     "skipLinks": {
       "mainHud": "Spring til hoved-HUD",
       "chat": "Spring til chat"
@@ -1044,6 +1068,7 @@ export const da_DK: EnTranslations = {
       "costLabel": "Cost",
       "requiresLabel": "Requires",
       "levelReq": "Requires level {level}",
+      "professionReq": "Requires {profession} {skill}",
       "produces": "Yields {count} {name}",
       "crafted": "Crafted {name}.",
       "empty": "Nothing can be crafted here yet.",
@@ -5123,6 +5148,21 @@ export const da_DK: EnTranslations = {
       },
       "golden_petal": {
         "name": "Gyldent Kronblad"
+      },
+      "rough_timber": {
+        "name": "Groft tømmer"
+      },
+      "copper_ore": {
+        "name": "Kobbermalm"
+      },
+      "trellis_frame": {
+        "name": "Espalier"
+      },
+      "coppermesh_gloves": {
+        "name": "Kobbernet-handsker"
+      },
+      "verdant_draught": {
+        "name": "Grøn Eliksir"
       },
       "bristleback_maul": {
         "name": "Børsterygs-Lemlæster"

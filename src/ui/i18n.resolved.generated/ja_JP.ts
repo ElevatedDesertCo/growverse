@@ -284,6 +284,30 @@ export const ja_JP: EnTranslations = {
     "character": {
       "modelPreview": "キャラクターモデルプレビュー"
     },
+    "professions": {
+      "title": "専門技能",
+      "mining": "採掘",
+      "herbalism": "薬草学",
+      "logging": "伐採",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
+    "loadouts": {
+      "title": "装備セット",
+      "hint": "タレントパネルで装備とタレントのセットを保存。",
+      "applyAria": "装備セットを適用：{name}"
+    },
+    "overview": {
+      "tablistAria": "キャラクターシート表示",
+      "gearTab": "キャラクター",
+      "overviewTab": "概要",
+      "commune": "コミューン評判",
+      "sessions": "ブルームセッション",
+      "strains": "品種ライブラリ",
+      "noSessions": "有効なブルームセッションはありません。錬金術ラボで強壮薬を調合しましょう。",
+      "sessionAria": "{name}: {time}",
+      "minutesShort": "{n}m",
+      "secondsShort": "{n}s"
+    },
     "skipLinks": {
       "mainHud": "メインHUDへスキップ",
       "chat": "チャットへスキップ"
@@ -1044,6 +1068,7 @@ export const ja_JP: EnTranslations = {
       "costLabel": "コスト",
       "requiresLabel": "必要",
       "levelReq": "レベル {level} が必要",
+      "professionReq": "{profession} {skill} が必要",
       "produces": "{name} を {count} 個生産",
       "crafted": "{name} を作成した。",
       "empty": "ここではまだ何も作成できない。",
@@ -5123,6 +5148,21 @@ export const ja_JP: EnTranslations = {
       },
       "golden_petal": {
         "name": "金の花びら"
+      },
+      "rough_timber": {
+        "name": "粗い木材"
+      },
+      "copper_ore": {
+        "name": "銅鉱石"
+      },
+      "trellis_frame": {
+        "name": "栽培トレリス"
+      },
+      "coppermesh_gloves": {
+        "name": "銅メッシュグローブ"
+      },
+      "verdant_draught": {
+        "name": "翠緑の水薬"
       },
       "bristleback_maul": {
         "name": "ブリストルバックの大槌"

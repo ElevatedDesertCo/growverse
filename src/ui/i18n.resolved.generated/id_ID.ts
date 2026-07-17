@@ -284,6 +284,30 @@ export const id_ID: EnTranslations = {
     "character": {
       "modelPreview": "Pratinjau Model Karakter"
     },
+    "professions": {
+      "title": "Professions",
+      "mining": "Mining",
+      "herbalism": "Herbalism",
+      "logging": "Logging",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
+    "loadouts": {
+      "title": "Loadouts",
+      "hint": "Save gear + talent sets in the Talents panel.",
+      "applyAria": "Apply loadout: {name}"
+    },
+    "overview": {
+      "tablistAria": "Character sheet views",
+      "gearTab": "Character",
+      "overviewTab": "Overview",
+      "commune": "Commune Standing",
+      "sessions": "Bloom Sessions",
+      "strains": "Strain Library",
+      "noSessions": "No active Bloom Session. Brew a tonic at the Alchemy Lab.",
+      "sessionAria": "{name}: {time}",
+      "minutesShort": "{n}m",
+      "secondsShort": "{n}s"
+    },
     "skipLinks": {
       "mainHud": "Lewati ke HUD Utama",
       "chat": "Lewati ke Obrolan"
@@ -1044,6 +1068,7 @@ export const id_ID: EnTranslations = {
       "costLabel": "Cost",
       "requiresLabel": "Requires",
       "levelReq": "Requires level {level}",
+      "professionReq": "Requires {profession} {skill}",
       "produces": "Yields {count} {name}",
       "crafted": "Crafted {name}.",
       "empty": "Nothing can be crafted here yet.",
@@ -5123,6 +5148,21 @@ export const id_ID: EnTranslations = {
       },
       "golden_petal": {
         "name": "Kelopak Emas"
+      },
+      "rough_timber": {
+        "name": "Kayu kasar"
+      },
+      "copper_ore": {
+        "name": "Bijih tembaga"
+      },
+      "trellis_frame": {
+        "name": "Rangka Rambatan"
+      },
+      "coppermesh_gloves": {
+        "name": "Sarung Tangan Jaring Tembaga"
+      },
+      "verdant_draught": {
+        "name": "Ramuan Rimbun"
       },
       "bristleback_maul": {
         "name": "Cabikan Punggung Berbulu"

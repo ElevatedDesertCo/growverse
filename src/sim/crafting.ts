@@ -47,6 +47,15 @@ export function craft(ctx: SimContext, recipeId: string, pid?: number): void {
     return;
   }
   if (
+    recipe.requiredProfession &&
+    meta.professions[recipe.requiredProfession.id] < recipe.requiredProfession.skill
+  ) {
+    // Reuse the level-gate line (already localized): the player lacks the gathering
+    // skill the recipe needs. No new sim string.
+    ctx.error(meta.entityId, 'You are not skilled enough to craft that yet.');
+    return;
+  }
+  if (
     recipe.requiredRep &&
     !meetsTier(meta.reputation, recipe.requiredRep.factionId, recipe.requiredRep.tier)
   ) {

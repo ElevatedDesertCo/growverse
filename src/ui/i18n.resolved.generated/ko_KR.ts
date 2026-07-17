@@ -284,6 +284,30 @@ export const ko_KR: EnTranslations = {
     "character": {
       "modelPreview": "캐릭터 모델 미리보기"
     },
+    "professions": {
+      "title": "전문 기술",
+      "mining": "채광",
+      "herbalism": "약초 채집",
+      "logging": "벌목",
+      "skillAria": "{profession}: {skill} of {max}"
+    },
+    "loadouts": {
+      "title": "장비 세트",
+      "hint": "특성 패널에서 장비 + 특성 세트를 저장하세요.",
+      "applyAria": "장비 세트 적용: {name}"
+    },
+    "overview": {
+      "tablistAria": "캐릭터 시트 보기",
+      "gearTab": "캐릭터",
+      "overviewTab": "개요",
+      "commune": "공동체 평판",
+      "sessions": "블룸 세션",
+      "strains": "품종 라이브러리",
+      "noSessions": "활성화된 블룸 세션이 없습니다. 연금술 실험실에서 강장제를 제조하세요.",
+      "sessionAria": "{name}: {time}",
+      "minutesShort": "{n}m",
+      "secondsShort": "{n}s"
+    },
     "skipLinks": {
       "mainHud": "메인 HUD로 건너뛰기",
       "chat": "채팅으로 건너뛰기"
@@ -1044,6 +1068,7 @@ export const ko_KR: EnTranslations = {
       "costLabel": "비용",
       "requiresLabel": "필요",
       "levelReq": "레벨 {level} 필요",
+      "professionReq": "{profession} {skill} 필요",
       "produces": "{name} {count}개 생산",
       "crafted": "{name}을(를) 제작했습니다.",
       "empty": "아직 여기서 제작할 수 있는 것이 없습니다.",
@@ -5123,6 +5148,21 @@ export const ko_KR: EnTranslations = {
       },
       "golden_petal": {
         "name": "금빛 꽃잎"
+      },
+      "rough_timber": {
+        "name": "거친 목재"
+      },
+      "copper_ore": {
+        "name": "구리 광석"
+      },
+      "trellis_frame": {
+        "name": "재배 격자"
+      },
+      "coppermesh_gloves": {
+        "name": "구리 그물 장갑"
+      },
+      "verdant_draught": {
+        "name": "신록의 물약"
       },
       "bristleback_maul": {
         "name": "뻣센등뼈 철퇴"

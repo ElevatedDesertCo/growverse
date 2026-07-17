@@ -92,6 +92,23 @@ describe('professions: earned by gathering', () => {
     expect(skillOf(sim, 'herbalism')).toBe(0);
   });
 
+  it('working a timber stand raises Logging (the only Logging node)', () => {
+    const sim = makeSim();
+    const node = spawnNode(sim, 'timber_stand', 'rough_timber'); // tagged logging
+    workNode(sim, node);
+    expect(skillOf(sim, 'logging')).toBe(1);
+    expect(skillOf(sim, 'mining')).toBe(0);
+    expect(skillOf(sim, 'herbalism')).toBe(0);
+  });
+
+  it('working a copper vein raises Mining', () => {
+    const sim = makeSim();
+    const node = spawnNode(sim, 'copper_vein', 'copper_ore'); // tagged mining
+    workNode(sim, node);
+    expect(skillOf(sim, 'mining')).toBe(1);
+    expect(skillOf(sim, 'logging')).toBe(0);
+  });
+
   it('a profession skill survives a character save/load round-trip', () => {
     const sim = makeSim();
     const node = spawnNode(sim, 'bloom_thicket', 'bloom_essence');

@@ -75,3 +75,95 @@ describe('char_window: paperdoll core + HUD-owned preview boundary', () => {
     expect(painter).not.toMatch(/\bMath\.random\b/);
   });
 });
+
+describe('char_window: professions panel', () => {
+  it('drives the professions rows off the pure professions_view core', () => {
+    expect(painter).toContain('buildProfessionsView(world.professions)');
+  });
+
+  it('labels the panel + each skill via hudChrome.professions keys', () => {
+    expect(painter).toContain("t('hudChrome.professions.title')");
+    expect(painter).toContain("t('hudChrome.professions.skillAria'");
+    expect(painter).toContain('hudChrome.professions.mining');
+    expect(painter).toContain('hudChrome.professions.herbalism');
+    expect(painter).toContain('hudChrome.professions.logging');
+  });
+});
+
+describe('char_window: embedded bags', () => {
+  it('builds a persistent shell (main / bags-slot / footer) so a repaint keeps the bags', () => {
+    // The bags node is reparented into the slot; only .char-main is innerHTML-rebuilt.
+    expect(painter).toContain("className = 'char-main'");
+    expect(painter).toContain("slot.id = 'char-bags-slot'");
+    expect(painter).toContain("className = 'char-footer'");
+    // The repaint targets the titlebar + main, never the whole root, so the bags
+    // slot (the third grid column) + its embedded bags survive every render.
+    expect(painter).toContain('main.innerHTML = gear + rail');
+    expect(painter).not.toContain('el.innerHTML =');
+  });
+
+  it('reparents + repaints the bags through the HUD deps, never building bags here', () => {
+    expect(painter).toContain('this.deps.embedBags()');
+    // embed/restore are HUD-owned (the #bags lifecycle + cross-window modes are).
+    expect(painter).toContain('embedBags(): void');
+    expect(painter).toContain('restoreBags(): void');
+    // The bag grid itself is NOT rebuilt in this painter.
+    expect(painter).not.toMatch(/\bbuildBagGrid\b/);
+  });
+
+  it('restores the bags to their own window on close', () => {
+    const close = painter.slice(painter.indexOf('close(): void {'));
+    expect(close).toContain('this.deps.restoreBags()');
+  });
+});
+
+describe('char_window: overview tab', () => {
+  it('drives the overview off the pure overview_view core with the three world reads', () => {
+    expect(painter).toContain(
+      'buildOverviewView(world.reputation, world.strains, world.player.auras',
+    );
+  });
+
+  it('paints a tablist that switches between the Gear and Overview tabs', () => {
+    expect(painter).toContain('role="tablist"');
+    expect(painter).toContain('role="tab"');
+    expect(painter).toContain('aria-selected=');
+    expect(painter).toContain('data-tab=');
+    // The switch flips the stored tab and repaints the whole sheet.
+    expect(painter).toContain('this.tab = next');
+    expect(painter).toContain('this.render()');
+    // The Overview tab collapses the body to a single column.
+    expect(painter).toContain("body.classList.add('char-body-overview')");
+    expect(painter).toContain("body.classList.remove('char-body-overview')");
+  });
+
+  it('labels the tabs + overview panels via hudChrome.overview keys', () => {
+    expect(painter).toContain("t('hudChrome.overview.tablistAria')");
+    expect(painter).toContain("t('hudChrome.overview.commune')");
+    expect(painter).toContain("t('hudChrome.overview.sessions')");
+    expect(painter).toContain("t('hudChrome.overview.strains')");
+    expect(painter).toContain("t('hudChrome.overview.noSessions')");
+  });
+
+  it('reuses the breeding + reputation catalog keys for strain traits and tiers', () => {
+    expect(painter).toContain('hudChrome.reputation.tier.');
+    expect(painter).toContain("t('hudChrome.breeding.potency')");
+    expect(painter).toContain("t('hudChrome.breeding.landrace')");
+  });
+});
+
+describe('char_window: loadouts', () => {
+  it('renders saved loadouts as apply chips wired through the deps', () => {
+    expect(painter).toContain('world.loadouts');
+    expect(painter).toContain('world.activeLoadout');
+    expect(painter).toContain('data-loadout');
+    expect(painter).toContain('this.deps.applyLoadout(i)');
+    expect(painter).toContain('applyLoadout(index: number): void');
+  });
+
+  it('labels the panel + chips via hudChrome.loadouts keys', () => {
+    expect(painter).toContain("t('hudChrome.loadouts.title')");
+    expect(painter).toContain("t('hudChrome.loadouts.hint')");
+    expect(painter).toContain("t('hudChrome.loadouts.applyAria'");
+  });
+});
