@@ -68,10 +68,7 @@ describe('mount content', () => {
     // a second copy is refused before payment
     sim.tick();
     const before = m.copper;
-    const evs = [
-      ...sim.tick(),
-      ...(sim.buyItem(npc.id, 'reins_highfield_alpaca'), sim.tick()),
-    ];
+    const evs = [...sim.tick(), ...(sim.buyItem(npc.id, 'reins_highfield_alpaca'), sim.tick())];
     expect(m.copper).toBe(before);
     expect(evs.some((e) => e.type === 'error')).toBe(true);
   });

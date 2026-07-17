@@ -170,17 +170,17 @@ import { Market, type MarketListing, type MarketSave } from './market';
 import { defaultMarketQuery, type MarketQuery } from './market_query';
 import * as lifecycle from './mob/lifecycle';
 import { resetEvadingMob as resetEvadingMobFn, updateMob as updateMobFn } from './mob/locomotion';
-import {
-  dismountCommand as dismountCommandImpl,
-  dismountPlayer,
-  summonMount as summonMountImpl,
-} from './mounts';
 import { runMobSwingAffixes } from './mob/mob_swing';
 import {
   retargetMob as retargetMobFn,
   updateMobTarget as updateMobTargetFn,
 } from './mob/targeting';
 import { combatProfileForMob, effectiveMobMeleeRange, type MobCombatProfile } from './mob_combat';
+import {
+  dismountCommand as dismountCommandImpl,
+  dismountPlayer,
+  summonMount as summonMountImpl,
+} from './mounts';
 import {
   findPlayerPath,
   PLAYER_BODY_RADIUS,

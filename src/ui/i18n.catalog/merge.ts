@@ -496,7 +496,13 @@ const mergeStringsEn = {
   },
   itemUi: {
     ...itemNames.en.itemUi,
-    kind: { ...itemNames.en.itemUi.kind, tool: 'Tool', potion: 'Potion', elixir: 'Elixir', mount: 'Mount' },
+    kind: {
+      ...itemNames.en.itemUi.kind,
+      tool: 'Tool',
+      potion: 'Potion',
+      elixir: 'Elixir',
+      mount: 'Mount',
+    },
     tooltip: {
       ...itemNames.en.itemUi.tooltip,
       useFishing: 'Use: Fish in nearby waters.',
@@ -826,7 +832,13 @@ export const mergeStrings = {
     },
     itemUi: {
       ...itemNames.fr_FR.itemUi,
-      kind: { ...itemNames.fr_FR.itemUi.kind, tool: 'Outil', potion: 'Potion', elixir: 'Élixir', mount: 'Monture' },
+      kind: {
+        ...itemNames.fr_FR.itemUi.kind,
+        tool: 'Outil',
+        potion: 'Potion',
+        elixir: 'Élixir',
+        mount: 'Monture',
+      },
       tooltip: {
         ...itemNames.fr_FR.itemUi.tooltip,
         useFishing: 'Utiliser : pêcher dans les eaux proches.',
@@ -1306,7 +1318,13 @@ export const mergeStrings = {
     },
     itemUi: {
       ...itemNames.zh_CN.itemUi,
-      kind: { ...itemNames.zh_CN.itemUi.kind, tool: '工具', potion: '药水', elixir: '药剂', mount: '坐骑' },
+      kind: {
+        ...itemNames.zh_CN.itemUi.kind,
+        tool: '工具',
+        potion: '药水',
+        elixir: '药剂',
+        mount: '坐骑',
+      },
       tooltip: {
         ...itemNames.zh_CN.itemUi.tooltip,
         useFishing: '使用：在附近水域钓鱼。',
@@ -1458,7 +1476,13 @@ export const mergeStrings = {
     },
     itemUi: {
       ...itemNames.zh_TW.itemUi,
-      kind: { ...itemNames.zh_TW.itemUi.kind, tool: '工具', potion: '藥水', elixir: '藥劑', mount: '坐騎' },
+      kind: {
+        ...itemNames.zh_TW.itemUi.kind,
+        tool: '工具',
+        potion: '藥水',
+        elixir: '藥劑',
+        mount: '坐騎',
+      },
       tooltip: {
         ...itemNames.zh_TW.itemUi.tooltip,
         useFishing: '使用：在附近水域釣魚。',
@@ -1610,7 +1634,13 @@ export const mergeStrings = {
     },
     itemUi: {
       ...itemNames.ko_KR.itemUi,
-      kind: { ...itemNames.ko_KR.itemUi.kind, tool: '도구', potion: '물약', elixir: '비약', mount: '탈것' },
+      kind: {
+        ...itemNames.ko_KR.itemUi.kind,
+        tool: '도구',
+        potion: '물약',
+        elixir: '비약',
+        mount: '탈것',
+      },
       tooltip: {
         ...itemNames.ko_KR.itemUi.tooltip,
         useFishing: '사용: 가까운 물가에서 낚시합니다.',

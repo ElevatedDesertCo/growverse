@@ -175,15 +175,14 @@ export const ITEMS: Record<string, ItemDef> = mergeItems(
 // The mount registry (Mounts and Stables v1). Keyed by mount id; the engine
 // resolves speed and gating from here, the renderer resolves the visual key.
 export const MOUNTS: Record<string, MountDef> = MOUNT_DEFS;
-export { RIDING_LEVEL, STABLE_VENDOR_ITEMS } from './content/mounts';
 
 export {
   CRAFT_RECIPES,
   CRAFT_RECIPES_BY_ID,
 } from './content/crafting';
-
 export type { AggregatedSetEffect } from './content/item_sets';
 export { aggregateSetBonuses, ITEM_SETS } from './content/item_sets';
+export { RIDING_LEVEL, STABLE_VENDOR_ITEMS } from './content/mounts';
 
 export const MOBS: Record<string, MobTemplate> = {
   ...ZONE1_MOBS,

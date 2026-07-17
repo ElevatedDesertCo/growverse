@@ -5079,7 +5079,8 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'itemUi.kind.mount': '坐騎',
   'entities.npcs.stablemaster_marla.name': '馬廄長瑪拉',
   'entities.npcs.stablemaster_marla.title': '布魯姆海文馬廄管理人',
-  'entities.npcs.stablemaster_marla.greeting': '馬廄的門開著呢，{className}。這裡的每一頭坐騎都被悉心養大，騎起來又穩又乖。至於綻放行者嘛……那可是長出來的，從未被馴服過。',
+  'entities.npcs.stablemaster_marla.greeting':
+    '馬廄的門開著呢，{className}。這裡的每一頭坐騎都被悉心養大，騎起來又穩又乖。至於綻放行者嘛……那可是長出來的，從未被馴服過。',
   'entities.items.reins_highfield_alpaca.name': '高地草原羊駝韁繩',
   'entities.items.reins_ironhide_bull.name': '鐵皮公牛韁繩',
   'entities.items.reins_thornback_boar.name': '棘背野豬韁繩',

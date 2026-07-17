@@ -5315,7 +5315,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.garden.unlockLevel': 'Открывается на уровне {level}',
   'hudChrome.garden.open': 'Ухаживать за садом',
   'hudChrome.breeding.title': 'Генетика штаммов',
-  'hudChrome.breeding.hint': 'Скрестите два штамма, чтобы объединить их черты, или посадите один в саду.',
+  'hudChrome.breeding.hint':
+    'Скрестите два штамма, чтобы объединить их черты, или посадите один в саду.',
   'hudChrome.breeding.open': 'Вывести штаммы',
   'hudChrome.breeding.empty': 'Штаммов пока нет. Соберите Цветение, чтобы открыть первый штамм.',
   'hudChrome.breeding.landrace': 'Ландрас',
@@ -5327,7 +5328,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.breeding.plant': 'Посадить',
   'hudChrome.breeding.release': 'Отпустить',
   'hudChrome.breeding.breed': 'Скрестить',
-  'hudChrome.breeding.full': 'Библиотека штаммов заполнена. Отпустите штамм, чтобы освободить место.',
+  'hudChrome.breeding.full':
+    'Библиотека штаммов заполнена. Отпустите штамм, чтобы освободить место.',
   'hudChrome.reputation.tier.neutral': 'Нейтралитет',
   'hudChrome.reputation.tier.friendly': 'Дружелюбие',
   'hudChrome.reputation.tier.honored': 'Уважение',
@@ -5437,7 +5439,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.mounts.windowTitle': 'Транспорт',
   'hudChrome.mounts.summon': 'Призвать',
   'hudChrome.mounts.dismiss': 'Спешиться',
-  'hudChrome.mounts.none': 'Вы еще не научились ездить ни на одном транспорте. Загляните в конюшни.',
+  'hudChrome.mounts.none':
+    'Вы еще не научились ездить ни на одном транспорте. Загляните в конюшни.',
   'hudChrome.mounts.errors.alreadyKnown': 'Вы уже умеете ездить на этом транспорте.',
   'hudChrome.mounts.errors.notKnown': 'Вы не умеете ездить на этом транспорте.',
   'hudChrome.mounts.errors.notEnoughGrow': 'Недостаточно $GROW.',
@@ -5450,7 +5453,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'itemUi.kind.mount': 'Транспорт',
   'entities.npcs.stablemaster_marla.name': 'Смотрительница конюшен Марла',
   'entities.npcs.stablemaster_marla.title': 'Хранительница конюшен Блумхейвена',
-  'entities.npcs.stablemaster_marla.greeting': 'Ворота конюшни открыты, {className}. Каждого из этих скакунов растили с заботой, и ход у них ровный. А вот Цветущий Странник... тот вырос сам, и приручить его не удалось никому.',
+  'entities.npcs.stablemaster_marla.greeting':
+    'Ворота конюшни открыты, {className}. Каждого из этих скакунов растили с заботой, и ход у них ровный. А вот Цветущий Странник... тот вырос сам, и приручить его не удалось никому.',
   'entities.items.reins_highfield_alpaca.name': 'Поводья альпаки с Верхних полей',
   'entities.items.reins_ironhide_bull.name': 'Поводья железношкурого быка',
   'entities.items.reins_thornback_boar.name': 'Поводья тернистого вепря',
