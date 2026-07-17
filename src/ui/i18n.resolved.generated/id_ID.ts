@@ -296,6 +296,18 @@ export const id_ID: EnTranslations = {
       "hint": "Save gear + talent sets in the Talents panel.",
       "applyAria": "Apply loadout: {name}"
     },
+    "overview": {
+      "tablistAria": "Character sheet views",
+      "gearTab": "Character",
+      "overviewTab": "Overview",
+      "commune": "Commune Standing",
+      "sessions": "Bloom Sessions",
+      "strains": "Strain Library",
+      "noSessions": "No active Bloom Session. Brew a tonic at the Alchemy Lab.",
+      "sessionAria": "{name}: {time}",
+      "minutesShort": "{n}m",
+      "secondsShort": "{n}s"
+    },
     "skipLinks": {
       "mainHud": "Lewati ke HUD Utama",
       "chat": "Lewati ke Obrolan"

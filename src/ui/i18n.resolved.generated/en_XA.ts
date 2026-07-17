@@ -296,6 +296,18 @@ export const en_XA: EnTranslations = {
       "hint": "[Šáʋé ĝéáŕ + ţáļéñţ šéţš íñ ţĥé Ţáļéñţš þáñéļ.]",
       "applyAria": "[Áþþļý ļóáðóúţ: {name}]"
     },
+    "overview": {
+      "tablistAria": "[Çĥáŕáçţéŕ šĥééţ ʋíéŵš]",
+      "gearTab": "[Çĥáŕáçţéŕ]",
+      "overviewTab": "[Óʋéŕʋíéŵ]",
+      "commune": "[Çóɱɱúñé Šţáñðíñĝ]",
+      "sessions": "[Ɓļóóɱ Šéššíóñš]",
+      "strains": "[Šţŕáíñ Ļíƀŕáŕý]",
+      "noSessions": "[Ñó áçţíʋé Ɓļóóɱ Šéššíóñ. Ɓŕéŵ á ţóñíç áţ ţĥé Áļçĥéɱý Ļáƀ.]",
+      "sessionAria": "[{name}: {time}]",
+      "minutesShort": "[{n}ɱ]",
+      "secondsShort": "[{n}š]"
+    },
     "skipLinks": {
       "mainHud": "[Šķíþ ţó Ɱáíñ ĤÚÐ]",
       "chat": "[Šķíþ ţó Çĥáţ]"

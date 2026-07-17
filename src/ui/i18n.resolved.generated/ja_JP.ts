@@ -296,6 +296,18 @@ export const ja_JP: EnTranslations = {
       "hint": "タレントパネルで装備とタレントのセットを保存。",
       "applyAria": "装備セットを適用：{name}"
     },
+    "overview": {
+      "tablistAria": "キャラクターシート表示",
+      "gearTab": "キャラクター",
+      "overviewTab": "概要",
+      "commune": "コミューン評判",
+      "sessions": "ブルームセッション",
+      "strains": "品種ライブラリ",
+      "noSessions": "有効なブルームセッションはありません。錬金術ラボで強壮薬を調合しましょう。",
+      "sessionAria": "{name}: {time}",
+      "minutesShort": "{n}m",
+      "secondsShort": "{n}s"
+    },
     "skipLinks": {
       "mainHud": "メインHUDへスキップ",
       "chat": "チャットへスキップ"

@@ -296,6 +296,18 @@ export const ru_RU: EnTranslations = {
       "hint": "Сохраняйте наборы снаряжения и талантов в панели талантов.",
       "applyAria": "Применить набор: {name}"
     },
+    "overview": {
+      "tablistAria": "Виды листа персонажа",
+      "gearTab": "Персонаж",
+      "overviewTab": "Обзор",
+      "commune": "Репутация общины",
+      "sessions": "Сеансы цветения",
+      "strains": "Библиотека сортов",
+      "noSessions": "Нет активного сеанса цветения. Приготовьте настойку в алхимической лаборатории.",
+      "sessionAria": "{name}: {time}",
+      "minutesShort": "{n}m",
+      "secondsShort": "{n}s"
+    },
     "skipLinks": {
       "mainHud": "Перейти к основному интерфейсу",
       "chat": "Перейти к чату"

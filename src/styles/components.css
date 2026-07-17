@@ -840,12 +840,52 @@
      display:contents so its two rebuilt columns join the persistent bags slot as the
      three grid columns (char_window.ts). Mobile collapses this to a single stacked
      column in hud.mobile.css. */
+  /* Tab strip between the titlebar and the body: the Gear view and the grower's
+     Overview dashboard. Underline-style tabs, the active one gold. */
+  .char-tabs {
+    margin-top: 6px;
+  }
+  .char-tabs-inner {
+    display: flex;
+    gap: 4px;
+    border-bottom: 1px solid #463a1c;
+  }
+  .char-tab {
+    font-family: var(--title-font);
+    font-size: 12px;
+    letter-spacing: 0.3px;
+    padding: 6px 14px;
+    border: none;
+    border-bottom: 2px solid transparent;
+    background: none;
+    color: #a89c78;
+    cursor: pointer;
+    margin-bottom: -1px;
+  }
+  .char-tab:hover {
+    color: #efe4c2;
+  }
+  .char-tab.active {
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
   .char-body {
     display: grid;
     grid-template-columns: 372px minmax(220px, 1fr) minmax(240px, 1.1fr);
     gap: 16px;
     align-items: start;
     margin-top: 8px;
+  }
+  /* The Overview tab collapses the three-column grid to one full-width column (the
+     dashboard panels stack), and hides the bags slot (kept parented, just off-view). */
+  .char-body.char-body-overview {
+    grid-template-columns: 1fr;
+  }
+  .char-body.char-body-overview .char-main {
+    display: block;
+  }
+  .char-body.char-body-overview .char-bags-slot {
+    display: none;
   }
   .char-main {
     display: contents;
@@ -1247,6 +1287,115 @@
     border-color: var(--gold);
     color: #201800;
     background: var(--gold);
+  }
+
+  /* Overview tab: the grower's dashboard. Commune standing + Bloom Sessions sit side
+     by side, the strain library spans the full width below. Bars reuse the profession
+     bar palette; strain cards reuse the breeding trait chrome. */
+  .char-overview {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0 24px;
+    align-items: start;
+  }
+  .char-overview .char-overview-panel:nth-child(3) {
+    grid-column: 1 / -1;
+  }
+  .ov-rep-list,
+  .ov-session-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 2px;
+  }
+  .ov-rep-row {
+    display: grid;
+    grid-template-columns: auto auto 1fr auto;
+    align-items: center;
+    gap: 8px;
+  }
+  .ov-rep-name {
+    color: #efe4c2;
+    font-size: 12px;
+  }
+  .ov-rep-tier {
+    color: var(--gold);
+    font-size: 11px;
+    font-family: var(--title-font);
+  }
+  .ov-session-row {
+    display: grid;
+    grid-template-columns: 1fr 96px auto;
+    align-items: center;
+    gap: 8px;
+  }
+  .ov-session-name {
+    color: #efe4c2;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .ov-bar {
+    height: 7px;
+    border-radius: 4px;
+    background: #120e06;
+    overflow: hidden;
+  }
+  .ov-bar-fill {
+    height: 100%;
+    background: linear-gradient(#c8a24a, #8a6a26);
+  }
+  /* The Bloom Session timer drains toward empty, so tint it a cooler green to read as
+     "time left" rather than a standing gauge. */
+  .ov-bar-timed .ov-bar-fill {
+    background: linear-gradient(#8fce6a, #4f8a34);
+  }
+  .ov-rep-pts,
+  .ov-session-time {
+    color: #a89c78;
+    font-size: 11px;
+    text-align: right;
+  }
+  .ov-strain-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+    gap: 8px;
+    margin-top: 2px;
+  }
+  .ov-strain {
+    border: 1px solid #463a1c;
+    border-radius: 5px;
+    padding: 6px 9px;
+    background: rgba(0, 0, 0, 0.24);
+  }
+  .ov-strain-head {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 3px;
+  }
+  .ov-strain-name {
+    color: #efe4c2;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  .ov-landrace {
+    font-size: 9.5px;
+    padding: 1px 6px;
+    border-radius: 8px;
+    border: 1px solid #6a5a2a;
+    color: #d8c88a;
+    background: #241d0c;
+  }
+  .ov-traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 10px;
+  }
+  .ov-trait {
+    color: #a89c78;
+    font-size: 11px;
   }
 
   /* ---------- leaderboard ---------- */

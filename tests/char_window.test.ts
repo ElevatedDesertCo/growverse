@@ -117,6 +117,41 @@ describe('char_window: embedded bags', () => {
   });
 });
 
+describe('char_window: overview tab', () => {
+  it('drives the overview off the pure overview_view core with the three world reads', () => {
+    expect(painter).toContain(
+      'buildOverviewView(world.reputation, world.strains, world.player.auras',
+    );
+  });
+
+  it('paints a tablist that switches between the Gear and Overview tabs', () => {
+    expect(painter).toContain('role="tablist"');
+    expect(painter).toContain('role="tab"');
+    expect(painter).toContain('aria-selected=');
+    expect(painter).toContain('data-tab=');
+    // The switch flips the stored tab and repaints the whole sheet.
+    expect(painter).toContain('this.tab = next');
+    expect(painter).toContain('this.render()');
+    // The Overview tab collapses the body to a single column.
+    expect(painter).toContain("body.classList.add('char-body-overview')");
+    expect(painter).toContain("body.classList.remove('char-body-overview')");
+  });
+
+  it('labels the tabs + overview panels via hudChrome.overview keys', () => {
+    expect(painter).toContain("t('hudChrome.overview.tablistAria')");
+    expect(painter).toContain("t('hudChrome.overview.commune')");
+    expect(painter).toContain("t('hudChrome.overview.sessions')");
+    expect(painter).toContain("t('hudChrome.overview.strains')");
+    expect(painter).toContain("t('hudChrome.overview.noSessions')");
+  });
+
+  it('reuses the breeding + reputation catalog keys for strain traits and tiers', () => {
+    expect(painter).toContain('hudChrome.reputation.tier.');
+    expect(painter).toContain("t('hudChrome.breeding.potency')");
+    expect(painter).toContain("t('hudChrome.breeding.landrace')");
+  });
+});
+
 describe('char_window: loadouts', () => {
   it('renders saved loadouts as apply chips wired through the deps', () => {
     expect(painter).toContain('world.loadouts');

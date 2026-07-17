@@ -296,6 +296,18 @@ export const zh_TW: EnTranslations = {
       "hint": "在天賦面板中儲存裝備與天賦套裝。",
       "applyAria": "套用配裝：{name}"
     },
+    "overview": {
+      "tablistAria": "角色面板檢視",
+      "gearTab": "角色",
+      "overviewTab": "總覽",
+      "commune": "公社聲望",
+      "sessions": "綻放療程",
+      "strains": "品系庫",
+      "noSessions": "目前沒有綻放療程。前往煉金實驗室調製一份藥劑。",
+      "sessionAria": "{name}: {time}",
+      "minutesShort": "{n}m",
+      "secondsShort": "{n}s"
+    },
     "skipLinks": {
       "mainHud": "跳至主介面",
       "chat": "跳至聊天"

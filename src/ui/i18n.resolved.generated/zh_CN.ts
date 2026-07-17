@@ -296,6 +296,18 @@ export const zh_CN: EnTranslations = {
       "hint": "在天赋面板中保存装备与天赋套装。",
       "applyAria": "应用配装：{name}"
     },
+    "overview": {
+      "tablistAria": "角色面板视图",
+      "gearTab": "角色",
+      "overviewTab": "概览",
+      "commune": "公社声望",
+      "sessions": "绽放疗程",
+      "strains": "品系库",
+      "noSessions": "当前没有绽放疗程。前往炼金实验室调制一份药剂。",
+      "sessionAria": "{name}: {time}",
+      "minutesShort": "{n}m",
+      "secondsShort": "{n}s"
+    },
     "skipLinks": {
       "mainHud": "跳转到主界面",
       "chat": "跳转到聊天"

@@ -27,6 +27,12 @@ import { classDisplayName, itemDisplayName } from './entity_i18n';
 import { esc } from './esc';
 import { formatNumber, t } from './i18n';
 import { iconDataUrl, QUALITY_COLOR } from './icons';
+import {
+  buildOverviewView,
+  type OverviewRepRow,
+  type OverviewSessionRow,
+  type OverviewStrainRow,
+} from './overview_view';
 import type { PainterHostPresentation } from './painter_host';
 import { hydratePortraits, portraitChipHtml } from './portrait_chip';
 import { buildProfessionsView } from './professions_view';
@@ -111,8 +117,20 @@ const PROFESSION_LABEL_KEY = {
   logging: 'hudChrome.professions.logging',
 } as const satisfies Record<ProfessionId, string>;
 
+// The character sheet's two tabs: the Gear view (paperdoll + stats + bags) and the
+// grower's Overview dashboard (commune standing + Bloom Sessions + strain library).
+// The label values are literal translation keys so t() type-checks them.
+type CharTab = 'character' | 'overview';
+const CHAR_TABS = [
+  { id: 'character', label: 'hudChrome.overview.gearTab' },
+  { id: 'overview', label: 'hudChrome.overview.overviewTab' },
+] as const satisfies readonly { id: CharTab; label: string }[];
+
 export class CharWindow {
   private openerFocus: HTMLElement | null = null;
+  // Which tab is showing. Persists while the window is open; a fresh open keeps the
+  // last-viewed tab (the shell rebuilds identically either way).
+  private tab: CharTab = 'character';
 
   constructor(private readonly deps: CharWindowDeps) {}
 
@@ -155,17 +173,40 @@ export class CharWindow {
     const level = formatNumber(p.level, { maximumFractionDigits: 0 });
     // WCAG 2.2 AA: name the focus-trapped root via the character title span.
     markDialogRoot(el, { labelledBy: 'char-title' });
-    // Persistent shell: a full-width titlebar and a `main` region are rebuilt every
-    // render; the `bags-slot` (which holds the reparented live #bags node) and the
-    // `footer` are built once. main is `display:contents`, so its gear + rail columns
-    // and the bags slot are the three grid columns of .char-body. Only the titlebar
-    // and main are innerHTML-rebuilt, so a repaint never destroys the embedded bags.
-    const { titlebar, main } = this.ensureShell(el);
+    // Persistent shell: a full-width titlebar, a tab strip, and a `main` region are
+    // rebuilt every render; the `bags-slot` (which holds the reparented live #bags
+    // node) and the `footer` are built once. On the Gear tab main is
+    // `display:contents`, so its gear + rail columns and the bags slot are the three
+    // grid columns of .char-body; the Overview tab collapses the body to one column.
+    // Only the titlebar / tabs / main are innerHTML-rebuilt, so a repaint never
+    // destroys the embedded bags.
+    const { titlebar, tabs, main, body } = this.ensureShell(el);
 
     titlebar.innerHTML = `<div class="panel-title char-title-portrait">${portraitChipHtml({ cls: world.cfg.playerClass, skin: p.skin ?? 0, name: p.name, variant: 'md' })}<span class="char-title-text" id="char-title">${esc(p.name)} <span class="panel-subtitle">${esc(t('itemUi.equipment.levelClass', { level, className }))}</span></span><button type="button" class="x-btn" data-close aria-label="${esc(t('hud.options.returnToGame'))}">${svgIcon('close')}</button></div>`;
     hydratePortraits(titlebar);
     titlebar.querySelector('[data-close]')?.addEventListener('click', () => this.close());
 
+    this.paintTabs(tabs);
+
+    if (this.tab === 'overview') {
+      body.classList.add('char-body-overview');
+      main.innerHTML = this.overviewHtml(world);
+    } else {
+      body.classList.remove('char-body-overview');
+      this.paintGearTab(main, world, p.level);
+    }
+
+    // Reparent + repaint the bags grid into the slot so gear and inventory read as
+    // one view (hidden by CSS on the Overview tab, but kept parented so a
+    // close->restore stays symmetric). HUD-owned because the #bags lifecycle and
+    // cross-window modes are.
+    this.deps.embedBags();
+  }
+
+  // Paint the Gear tab into `main`: the paperdoll column plus the rail (stats,
+  // specialization, professions, loadouts, progression), then wire the equip slots,
+  // stat tooltips, and the HUD-owned 3D preview + skin picker.
+  private paintGearTab(main: HTMLElement, world: IWorld, level: number): void {
     // Column 1: the paperdoll (equip slots flanking the 3D model). Column 2: the rail
     // (stats, specialization, professions, progression). Column 3 is the bags slot.
     const gear = `<div class="char-col-gear"><div class="paperdoll">
@@ -182,7 +223,7 @@ export class CharWindow {
       this.deps.talentSummaryHtml() +
       this.professionsHtml(world) +
       this.loadoutsHtml(world) +
-      this.deps.progressionHtml(p.level) +
+      this.deps.progressionHtml(level) +
       `</div>`;
     main.innerHTML = gear + rail;
     main
@@ -210,30 +251,59 @@ export class CharWindow {
 
     this.deps.renderPreview();
     this.deps.renderSkinPicker();
-    // Reparent + repaint the bags grid into the slot so gear and inventory read as
-    // one view. HUD-owned because the #bags lifecycle and cross-window modes are.
-    this.deps.embedBags();
   }
 
-  // Build the persistent titlebar / body(main + bags-slot) / footer shell once,
-  // returning the rebuilt regions. The footer's share button is wired here (it lives
-  // outside the rebuilt main so its listener survives every repaint); the close and
-  // prestige buttons are re-wired per render since they live in the titlebar / rail.
-  private ensureShell(el: HTMLElement): { titlebar: HTMLElement; main: HTMLElement } {
+  // Paint the tab strip and wire the switch. Clicking the inactive tab flips the
+  // stored tab and repaints the whole sheet (the bags stay parented in their slot).
+  private paintTabs(tabs: HTMLElement): void {
+    tabs.innerHTML =
+      `<div class="char-tabs-inner" role="tablist" aria-label="${esc(t('hudChrome.overview.tablistAria'))}">` +
+      CHAR_TABS.map((tb) => {
+        const active = tb.id === this.tab;
+        const cls = active ? 'char-tab active' : 'char-tab';
+        return `<button type="button" class="${cls}" role="tab" aria-selected="${active}" data-tab="${tb.id}">${esc(t(tb.label))}</button>`;
+      }).join('') +
+      `</div>`;
+    for (const btn of tabs.querySelectorAll<HTMLElement>('[data-tab]')) {
+      btn.addEventListener('click', () => {
+        const next: CharTab = btn.dataset.tab === 'overview' ? 'overview' : 'character';
+        if (next === this.tab) return;
+        this.tab = next;
+        this.render();
+      });
+    }
+  }
+
+  // Build the persistent titlebar / tabs / body(main + bags-slot) / footer shell once,
+  // returning the rebuilt regions plus the body (whose class toggles the Overview
+  // single-column layout). The footer's share button is wired here (it lives outside
+  // the rebuilt main so its listener survives every repaint); the close, tab, and
+  // prestige buttons are re-wired per render since they live in the titlebar / tabs /
+  // rail.
+  private ensureShell(el: HTMLElement): {
+    titlebar: HTMLElement;
+    tabs: HTMLElement;
+    main: HTMLElement;
+    body: HTMLElement;
+  } {
     const main = el.querySelector<HTMLElement>('.char-main');
     const titlebar = el.querySelector<HTMLElement>('.char-titlebar');
-    if (main && titlebar) return { titlebar, main };
+    const tabs = el.querySelector<HTMLElement>('.char-tabs');
+    const body = el.querySelector<HTMLElement>('.char-body');
+    if (main && titlebar && tabs && body) return { titlebar, tabs, main, body };
     el.textContent = '';
     const tb = document.createElement('div');
     tb.className = 'char-titlebar';
-    const body = document.createElement('div');
-    body.className = 'char-body';
+    const tabsEl = document.createElement('div');
+    tabsEl.className = 'char-tabs';
+    const bodyEl = document.createElement('div');
+    bodyEl.className = 'char-body';
     const mainEl = document.createElement('div');
     mainEl.className = 'char-main';
     const slot = document.createElement('div');
     slot.className = 'char-bags-slot';
     slot.id = 'char-bags-slot';
-    body.append(mainEl, slot);
+    bodyEl.append(mainEl, slot);
     const footer = document.createElement('div');
     footer.className = 'char-footer';
     footer.innerHTML = `<div class="pc-share-row"><button type="button" class="btn pc-share-btn" data-act="share-card">${SHARE_GLYPH}<span>${esc(t('playerCard.shareButton'))}</span></button></div>`;
@@ -241,8 +311,8 @@ export class CharWindow {
       audio.click();
       this.deps.openPlayerCard();
     });
-    el.append(tb, body, footer);
-    return { titlebar: tb, main: mainEl };
+    el.append(tb, tabsEl, bodyEl, footer);
+    return { titlebar: tb, tabs: tabsEl, main: mainEl, body: bodyEl };
   }
 
   // The Professions group on the character sheet: one skill bar per gathering
@@ -299,6 +369,111 @@ export class CharWindow {
       `<div class="char-progression char-loadouts">${title}` +
       `<div class="loadout-chips">${chips}</div></div>`
     );
+  }
+
+  // The Overview tab: a read-only grower's dashboard aggregating three IWorld reads
+  // via the pure overview core: commune standing, active Bloom Sessions, and the
+  // strain library. Actionable breeding stays in the Breeding window at the Grow
+  // Station; this is the always-reachable summary.
+  private overviewHtml(world: IWorld): string {
+    const view = buildOverviewView(world.reputation, world.strains, world.player.auras ?? []);
+    return (
+      `<div class="char-overview">` +
+      this.communeHtml(view.reputation) +
+      this.sessionsHtml(view.sessions) +
+      this.strainsHtml(view.strains) +
+      `</div>`
+    );
+  }
+
+  // Commune standing: one row per faction with its tier and a fill toward the next
+  // tier (full at the exalted cap). Tier names reuse the reputation catalog keys.
+  private communeHtml(rows: OverviewRepRow[]): string {
+    const title = `<div class="cp-title">${t('hudChrome.overview.commune')}</div>`;
+    if (rows.length === 0) {
+      return `<div class="char-progression char-overview-panel">${title}<div class="cp-none">${esc(t('hudChrome.breeding.empty'))}</div></div>`;
+    }
+    const body = rows
+      .map((r) => {
+        const tierName = t(`hudChrome.reputation.tier.${r.tier}` as Parameters<typeof t>[0]);
+        const points = formatNumber(r.points, { maximumFractionDigits: 0 });
+        const label = r.atMax
+          ? points
+          : `${points} / ${formatNumber(r.nextThreshold ?? 0, { maximumFractionDigits: 0 })}`;
+        return (
+          `<div class="ov-rep-row">` +
+          `<span class="ov-rep-name">${esc(r.name)}</span>` +
+          `<span class="ov-rep-tier">${esc(tierName)}</span>` +
+          `<div class="ov-bar"><div class="ov-bar-fill" style="width:${r.pct}%"></div></div>` +
+          `<span class="ov-rep-pts">${esc(label)}</span>` +
+          `</div>`
+        );
+      })
+      .join('');
+    return `<div class="char-progression char-overview-panel">${title}<div class="ov-rep-list">${body}</div></div>`;
+  }
+
+  // Active Bloom Sessions: the running tonic buffs with a duration-fill timer bar, or
+  // a one-line hint pointing at the Alchemy Lab when none are active.
+  private sessionsHtml(rows: OverviewSessionRow[]): string {
+    const title = `<div class="cp-title">${t('hudChrome.overview.sessions')}</div>`;
+    if (rows.length === 0) {
+      return `<div class="char-progression char-overview-panel">${title}<div class="cp-none">${esc(t('hudChrome.overview.noSessions'))}</div></div>`;
+    }
+    const body = rows
+      .map((s) => {
+        const time = this.formatSessionTime(s.remaining);
+        const aria = t('hudChrome.overview.sessionAria', { name: s.name, time });
+        return (
+          `<div class="ov-session-row" role="group" aria-label="${esc(aria)}">` +
+          `<span class="ov-session-name">${esc(s.name)}</span>` +
+          `<div class="ov-bar ov-bar-timed"><div class="ov-bar-fill" style="width:${s.pct}%"></div></div>` +
+          `<span class="ov-session-time">${esc(time)}</span>` +
+          `</div>`
+        );
+      })
+      .join('');
+    return `<div class="char-progression char-overview-panel">${title}<div class="ov-session-list">${body}</div></div>`;
+  }
+
+  // Strain library: the expressed-phenotype rows (potency / vigor / yield), or the
+  // shared "no strains yet" empty line. Trait + landrace labels reuse breeding keys.
+  private strainsHtml(rows: OverviewStrainRow[]): string {
+    const title = `<div class="cp-title">${t('hudChrome.overview.strains')}</div>`;
+    if (rows.length === 0) {
+      return `<div class="char-progression char-overview-panel">${title}<div class="cp-none">${esc(t('hudChrome.breeding.empty'))}</div></div>`;
+    }
+    const num = (n: number): string => formatNumber(n, { maximumFractionDigits: 0 });
+    const body = rows
+      .map((s) => {
+        const landrace = s.landrace
+          ? `<span class="ov-landrace">${esc(t('hudChrome.breeding.landrace'))}</span>`
+          : '';
+        const traits =
+          `<span class="ov-trait">${esc(t('hudChrome.breeding.potency'))} ${esc(num(s.potency))}</span>` +
+          `<span class="ov-trait">${esc(t('hudChrome.breeding.vigor'))} ${esc(num(s.vigor))}</span>` +
+          `<span class="ov-trait">${esc(t('hudChrome.breeding.yield'))} ${esc(num(s.yield))}</span>`;
+        return (
+          `<div class="ov-strain">` +
+          `<div class="ov-strain-head"><span class="ov-strain-name">${esc(s.name)}</span>${landrace}</div>` +
+          `<div class="ov-traits">${traits}</div>` +
+          `</div>`
+        );
+      })
+      .join('');
+    return `<div class="char-progression char-overview-panel">${title}<div class="ov-strain-list">${body}</div></div>`;
+  }
+
+  // A compact buff-timer label: whole minutes past a minute, whole seconds below it,
+  // both through the unit templates so the number stays locale-formatted.
+  private formatSessionTime(seconds: number): string {
+    if (seconds >= 60) {
+      const mins = formatNumber(Math.ceil(seconds / 60), { maximumFractionDigits: 0 });
+      return t('hudChrome.overview.minutesShort', { n: mins });
+    }
+    return t('hudChrome.overview.secondsShort', {
+      n: formatNumber(seconds, { maximumFractionDigits: 0 }),
+    });
   }
 
   private buildSlotRow(cell: PaperdollSlot): HTMLElement {

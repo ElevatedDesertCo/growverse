@@ -214,6 +214,26 @@ export const hudChromeStrings = {
     hint: 'Save gear + talent sets in the Talents panel.',
     applyAria: 'Apply loadout: {name}',
   },
+  // Overview tab on the character sheet: a read-only grower's dashboard aggregating
+  // commune standing, active Bloom Sessions, and the strain library. gearTab /
+  // overviewTab / commune / sessions / strains / noSessions / tablistAria are WORDY
+  // by M16 (each carries a four-plus consecutive-lowercase run), so the five non-Latin
+  // overlays carry real fills and the Latin overlays stay pending. sessionAria /
+  // minutesShort / secondsShort are token-and-punctuation only (no wordy run) so they
+  // stay English-only like the other accessible-name / unit templates. The strain
+  // traits + tier names reuse the breeding / reputation keys above.
+  overview: {
+    tablistAria: 'Character sheet views',
+    gearTab: 'Character',
+    overviewTab: 'Overview',
+    commune: 'Commune Standing',
+    sessions: 'Bloom Sessions',
+    strains: 'Strain Library',
+    noSessions: 'No active Bloom Session. Brew a tonic at the Alchemy Lab.',
+    sessionAria: '{name}: {time}',
+    minutesShort: '{n}m',
+    secondsShort: '{n}s',
+  },
   // Skip links: the first focusable elements on both game entries, a keyboard /
   // screen-reader shortcut to the main HUD and the chat log (mirrors the src/guide
   // .guide-skip precedent). English-only control labels (the hud_chrome exception);

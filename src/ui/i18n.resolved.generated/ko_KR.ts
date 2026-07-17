@@ -296,6 +296,18 @@ export const ko_KR: EnTranslations = {
       "hint": "특성 패널에서 장비 + 특성 세트를 저장하세요.",
       "applyAria": "장비 세트 적용: {name}"
     },
+    "overview": {
+      "tablistAria": "캐릭터 시트 보기",
+      "gearTab": "캐릭터",
+      "overviewTab": "개요",
+      "commune": "공동체 평판",
+      "sessions": "블룸 세션",
+      "strains": "품종 라이브러리",
+      "noSessions": "활성화된 블룸 세션이 없습니다. 연금술 실험실에서 강장제를 제조하세요.",
+      "sessionAria": "{name}: {time}",
+      "minutesShort": "{n}m",
+      "secondsShort": "{n}s"
+    },
     "skipLinks": {
       "mainHud": "메인 HUD로 건너뛰기",
       "chat": "채팅으로 건너뛰기"
