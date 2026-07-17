@@ -291,6 +291,11 @@ export const it_IT: EnTranslations = {
       "logging": "Logging",
       "skillAria": "{profession}: {skill} of {max}"
     },
+    "loadouts": {
+      "title": "Loadouts",
+      "hint": "Save gear + talent sets in the Talents panel.",
+      "applyAria": "Apply loadout: {name}"
+    },
     "skipLinks": {
       "mainHud": "Vai all'interfaccia principale",
       "chat": "Vai alla chat"

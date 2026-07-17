@@ -116,3 +116,19 @@ describe('char_window: embedded bags', () => {
     expect(close).toContain('this.deps.restoreBags()');
   });
 });
+
+describe('char_window: loadouts', () => {
+  it('renders saved loadouts as apply chips wired through the deps', () => {
+    expect(painter).toContain('world.loadouts');
+    expect(painter).toContain('world.activeLoadout');
+    expect(painter).toContain('data-loadout');
+    expect(painter).toContain('this.deps.applyLoadout(i)');
+    expect(painter).toContain('applyLoadout(index: number): void');
+  });
+
+  it('labels the panel + chips via hudChrome.loadouts keys', () => {
+    expect(painter).toContain("t('hudChrome.loadouts.title')");
+    expect(painter).toContain("t('hudChrome.loadouts.hint')");
+    expect(painter).toContain("t('hudChrome.loadouts.applyAria'");
+  });
+});

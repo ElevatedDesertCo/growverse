@@ -291,6 +291,11 @@ export const tr_TR: EnTranslations = {
       "logging": "Logging",
       "skillAria": "{profession}: {skill} of {max}"
     },
+    "loadouts": {
+      "title": "Loadouts",
+      "hint": "Save gear + talent sets in the Talents panel.",
+      "applyAria": "Apply loadout: {name}"
+    },
     "skipLinks": {
       "mainHud": "Ana Arayüze Atla",
       "chat": "Sohbete Atla"

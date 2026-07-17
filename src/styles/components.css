@@ -1221,6 +1221,33 @@
     text-align: right;
     min-width: 44px;
   }
+  /* Loadouts panel: saved gear + talent sets as clickable chips, the active one
+     highlighted gold. Modeled on the milestone badges. */
+  .char-loadouts .loadout-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 2px;
+  }
+  .loadout-chip {
+    font-family: var(--title-font);
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 10px;
+    border: 1px solid #6a5a2a;
+    color: #d8c88a;
+    background: #241d0c;
+    cursor: pointer;
+  }
+  .loadout-chip:hover {
+    border-color: var(--gold);
+    color: #ffe27a;
+  }
+  .loadout-chip.active {
+    border-color: var(--gold);
+    color: #201800;
+    background: var(--gold);
+  }
 
   /* ---------- leaderboard ---------- */
   /* lifetime-XP leaderboard panel (modeled on the quest-log window) */

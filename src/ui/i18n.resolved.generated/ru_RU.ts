@@ -291,6 +291,11 @@ export const ru_RU: EnTranslations = {
       "logging": "Лесозаготовка",
       "skillAria": "{profession}: {skill} of {max}"
     },
+    "loadouts": {
+      "title": "Наборы",
+      "hint": "Сохраняйте наборы снаряжения и талантов в панели талантов.",
+      "applyAria": "Применить набор: {name}"
+    },
     "skipLinks": {
       "mainHud": "Перейти к основному интерфейсу",
       "chat": "Перейти к чату"

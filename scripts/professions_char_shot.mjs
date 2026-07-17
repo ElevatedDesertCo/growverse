@@ -87,6 +87,11 @@ await page.evaluate(() => {
       sim.addItem(id, n, sim.playerId);
     } catch {}
   }
+  // Save a couple of gear + talent loadouts so the Loadouts panel renders chips.
+  try {
+    sim.saveLoadout('Tank Set', []);
+    sim.saveLoadout('DPS Set', []);
+  } catch {}
 });
 
 await tap('.tut-skip');

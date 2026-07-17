@@ -291,6 +291,11 @@ export const nl_NL: EnTranslations = {
       "logging": "Logging",
       "skillAria": "{profession}: {skill} of {max}"
     },
+    "loadouts": {
+      "title": "Loadouts",
+      "hint": "Save gear + talent sets in the Talents panel.",
+      "applyAria": "Apply loadout: {name}"
+    },
     "skipLinks": {
       "mainHud": "Ga naar hoofd-HUD",
       "chat": "Ga naar chat"

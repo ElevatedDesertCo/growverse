@@ -291,6 +291,11 @@ export const en_XA: EnTranslations = {
       "logging": "[Ļóĝĝíñĝ]",
       "skillAria": "[{profession}: {skill} óƒ {max}]"
     },
+    "loadouts": {
+      "title": "[Ļóáðóúţš]",
+      "hint": "[Šáʋé ĝéáŕ + ţáļéñţ šéţš íñ ţĥé Ţáļéñţš þáñéļ.]",
+      "applyAria": "[Áþþļý ļóáðóúţ: {name}]"
+    },
     "skipLinks": {
       "mainHud": "[Šķíþ ţó Ɱáíñ ĤÚÐ]",
       "chat": "[Šķíþ ţó Çĥáţ]"

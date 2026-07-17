@@ -2910,6 +2910,12 @@ export class Hud {
     openPrestige: () => this.openPrestigeDialog(),
     embedBags: () => this.embedBagsInChar(),
     restoreBags: () => this.restoreBagsFromChar(),
+    applyLoadout: (index) => {
+      this.sim.switchLoadout(index);
+      audio.click();
+      this.renderBags();
+      this.renderCharIfOpen();
+    },
   });
   // Options window painter (options_view.ts core + options_window.ts painter). The
   // window renders no item rows, so it composes no PainterHostPresentation bag; it

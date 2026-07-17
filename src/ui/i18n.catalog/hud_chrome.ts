@@ -205,6 +205,15 @@ export const hudChromeStrings = {
     logging: 'Logging',
     skillAria: '{profession}: {skill} of {max}',
   },
+  // Loadouts panel on the character sheet: saved gear + talent sets, clickable to
+  // apply. title / hint are WORDY by M16 (a four-plus lowercase run), so the five
+  // non-Latin overlays carry real fills; applyAria is likewise wordy ("Apply"). The
+  // saving/naming flow stays in the Talents panel, so the hint points there.
+  loadouts: {
+    title: 'Loadouts',
+    hint: 'Save gear + talent sets in the Talents panel.',
+    applyAria: 'Apply loadout: {name}',
+  },
   // Skip links: the first focusable elements on both game entries, a keyboard /
   // screen-reader shortcut to the main HUD and the chat log (mirrors the src/guide
   // .guide-skip precedent). English-only control labels (the hud_chrome exception);

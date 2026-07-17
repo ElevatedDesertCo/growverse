@@ -291,6 +291,11 @@ export const zh_TW: EnTranslations = {
       "logging": "伐木",
       "skillAria": "{profession}: {skill} of {max}"
     },
+    "loadouts": {
+      "title": "配裝",
+      "hint": "在天賦面板中儲存裝備與天賦套裝。",
+      "applyAria": "套用配裝：{name}"
+    },
     "skipLinks": {
       "mainHud": "跳至主介面",
       "chat": "跳至聊天"

@@ -10,7 +10,7 @@
 // numbers; they never walk the tree. See docs/prd/talents-and-specializations.md.
 // ---------------------------------------------------------------------------
 
-import type { AbilityEffect } from '../types';
+import type { AbilityEffect, EquipSlot } from '../types';
 import { MAX_LEVEL, type PlayerClass } from '../types';
 import {
   DRUID_TALENTS,
@@ -147,6 +147,10 @@ export interface SavedLoadout {
   name: string;
   alloc: TalentAllocation;
   bar: (string | null)[]; // action-bar ability ids (per-build hotbar)
+  // Equipment snapshot captured when the loadout is saved (itemId per slot);
+  // applying the loadout re-equips these from bags where available. Optional so
+  // pre-gear-loadout saves (and talent-only builds) still load.
+  gear?: Partial<Record<EquipSlot, string>>;
 }
 
 export const MAX_LOADOUTS = 10;

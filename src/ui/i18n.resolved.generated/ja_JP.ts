@@ -291,6 +291,11 @@ export const ja_JP: EnTranslations = {
       "logging": "伐採",
       "skillAria": "{profession}: {skill} of {max}"
     },
+    "loadouts": {
+      "title": "装備セット",
+      "hint": "タレントパネルで装備とタレントのセットを保存。",
+      "applyAria": "装備セットを適用：{name}"
+    },
     "skipLinks": {
       "mainHud": "メインHUDへスキップ",
       "chat": "チャットへスキップ"

@@ -95,6 +95,8 @@ export interface CharWindowDeps extends PainterHostPresentation {
   embedBags(): void;
   /** Return #bags to its own floating window and hide it (on char close). */
   restoreBags(): void;
+  /** Apply a saved gear + talent loadout by index (swaps gear + talents). */
+  applyLoadout(index: number): void;
 }
 
 const SHARE_GLYPH =
@@ -179,12 +181,19 @@ export class CharWindow {
       `<div class="char-stats">${STAT_GRID.map((stat) => this.deps.statCellHtml(stat)).join('')}</div>` +
       this.deps.talentSummaryHtml() +
       this.professionsHtml(world) +
+      this.loadoutsHtml(world) +
       this.deps.progressionHtml(p.level) +
       `</div>`;
     main.innerHTML = gear + rail;
     main
       .querySelector('[data-act="prestige"]')
       ?.addEventListener('click', () => this.deps.openPrestige());
+    for (const chip of main.querySelectorAll<HTMLElement>('[data-loadout]')) {
+      chip.addEventListener('click', () => {
+        const i = Number(chip.dataset.loadout);
+        if (Number.isInteger(i)) this.deps.applyLoadout(i);
+      });
+    }
 
     const view = buildPaperdollView(world.equipment, ITEMS);
     const leftCol = main.querySelector('#equip-col-left');
@@ -262,6 +271,33 @@ export class CharWindow {
       `<div class="char-progression char-professions">` +
       `<div class="cp-title">${t('hudChrome.professions.title')}</div>` +
       `<div class="prof-list">${rows}</div></div>`
+    );
+  }
+
+  // The Loadouts group: saved gear + talent sets as clickable chips (the active one
+  // highlighted). Clicking a chip applies that set (swaps gear + talents, server-
+  // validated). Saving/naming stays in the Talents panel; this is the quick-switch.
+  // Hidden entirely when the player has no saved loadouts, with a one-line hint.
+  private loadoutsHtml(world: IWorld): string {
+    const loadouts = world.loadouts;
+    const active = world.activeLoadout;
+    const title = `<div class="cp-title">${t('hudChrome.loadouts.title')}</div>`;
+    if (loadouts.length === 0) {
+      return (
+        `<div class="char-progression char-loadouts">${title}` +
+        `<div class="cp-none">${esc(t('hudChrome.loadouts.hint'))}</div></div>`
+      );
+    }
+    const chips = loadouts
+      .map((lo, i) => {
+        const cls = i === active ? 'loadout-chip active' : 'loadout-chip';
+        const aria = t('hudChrome.loadouts.applyAria', { name: lo.name });
+        return `<button type="button" class="${cls}" data-loadout="${i}" aria-label="${esc(aria)}">${esc(lo.name)}</button>`;
+      })
+      .join('');
+    return (
+      `<div class="char-progression char-loadouts">${title}` +
+      `<div class="loadout-chips">${chips}</div></div>`
     );
   }
 

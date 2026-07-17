@@ -291,6 +291,11 @@ export const ko_KR: EnTranslations = {
       "logging": "벌목",
       "skillAria": "{profession}: {skill} of {max}"
     },
+    "loadouts": {
+      "title": "장비 세트",
+      "hint": "특성 패널에서 장비 + 특성 세트를 저장하세요.",
+      "applyAria": "장비 세트 적용: {name}"
+    },
     "skipLinks": {
       "mainHud": "메인 HUD로 건너뛰기",
       "chat": "채팅으로 건너뛰기"
