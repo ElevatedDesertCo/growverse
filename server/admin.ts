@@ -28,9 +28,12 @@ import {
   type WordTier,
 } from './chat_filter_db';
 import {
+  accountById,
   accountForToken,
   accountMailTarget,
   findAccount,
+  getGrowBalance,
+  growLedgerFor,
   isAdminAccount,
   saveToken,
   setAccountDeactivated,
@@ -62,6 +65,18 @@ const DEFAULT_PAGE_LIMIT = 25;
 const ACTIVITY_WINDOW_DAYS = 30;
 
 const IP_BLOCK_KICK_MESSAGE = 'Connection to the server was lost.';
+
+// Bounds for a single admin $GROW credit/adjustment.
+const GROW_ADJUST_MAX_ABS = 1_000_000;
+const GROW_LEDGER_PAGE = 50;
+
+// A single admin $GROW adjustment: a non-zero finite integer within the
+// per-action bound, in either direction (negative = correction).
+export function parseGrowAmount(value: unknown): number | null {
+  if (typeof value !== 'number' || !Number.isFinite(value) || !Number.isInteger(value)) return null;
+  if (value === 0 || Math.abs(value) > GROW_ADJUST_MAX_ABS) return null;
+  return value;
+}
 
 function ok(res: http.ServerResponse, data: unknown): void {
   json(res, 200, { success: true, data, error: null });
@@ -373,6 +388,28 @@ export async function handleAdminApi(
       return removed ? ok(res, { ok: true }) : fail(res, 404, 'IP not found');
     }
 
+    // $GROW: credit (positive) or correct (negative) an account's balance. The
+    // atomic guard in creditGrow refuses any adjustment that would go below
+    // zero; live sessions on the account see the new balance immediately.
+    const growCreditMatch = /^\/admin\/api\/accounts\/(\d+)\/grow\/credit$/.exec(path);
+    if (req.method === 'POST' && growCreditMatch) {
+      const targetAccountId = Number(growCreditMatch[1]);
+      const body = await readBody(req);
+      const amount = parseGrowAmount(body.amount);
+      if (amount === null) {
+        return fail(res, 400, 'amount must be a non-zero integer within 1000000');
+      }
+      const reason = typeof body.reason === 'string' ? body.reason.trim().slice(0, 200) : '';
+      if (!reason) return fail(res, 400, 'a reason is required');
+      const actor = (await accountById(accountId))?.username ?? '';
+      try {
+        const balance = await game.creditGrowForAccount(targetAccountId, amount, reason, actor);
+        return ok(res, { balance });
+      } catch (err) {
+        return fail(res, 400, err instanceof Error ? err.message : 'grow credit failed');
+      }
+    }
+
     if (req.method !== 'GET') return fail(res, 405, 'method not allowed');
 
     if (path === '/admin/api/blocked-ips') {
@@ -519,6 +556,17 @@ export async function handleAdminApi(
         chat,
         blockedIps: getBlockedIpsForAccount(game, detail),
       });
+    }
+    // $GROW: an account's authoritative balance plus its recent ledger.
+    const growMatch = /^\/admin\/api\/accounts\/(\d+)\/grow$/.exec(path);
+    if (growMatch) {
+      const id = Number(growMatch[1]);
+      if ((await accountById(id)) === null) return fail(res, 404, 'account not found');
+      const [balance, ledger] = await Promise.all([
+        getGrowBalance(id),
+        growLedgerFor(id, GROW_LEDGER_PAGE),
+      ]);
+      return ok(res, { balance, ledger });
     }
     const detailMatch = /^\/admin\/api\/accounts\/(\d+)$/.exec(path);
     if (detailMatch) {

@@ -261,6 +261,19 @@ export interface AccountDetail {
   moderationHistory: ModerationHistoryEntry[];
 }
 
+// GET /admin/api/accounts/:id/grow: the authoritative $GROW balance plus the
+// most recent ledger rows (newest first).
+export interface GrowInfo {
+  balance: number;
+  ledger: {
+    id: number;
+    delta: number;
+    reason: string;
+    actor: string;
+    createdAt: string;
+  }[];
+}
+
 export interface ModerationHistoryEntry {
   id: number;
   action: string;

@@ -205,6 +205,11 @@ const ADMIN_ERROR_KEYS: Record<string, string> = {
   'block expiry must be in the future': 'error.blockExpiryFuture',
   'failed to block ip': 'error.blockFailed',
   'ip not found': 'error.blockNotFound',
+  'amount must be a non-zero integer within 1000000': 'error.growInvalidAmount',
+  'a reason is required': 'error.growReasonRequired',
+  'grow adjustment rejected: account missing or balance would go below zero':
+    'error.growAdjustRejected',
+  'grow credit failed': 'error.growCreditFailed',
 };
 export function localizeAdminError(message: string): string {
   const key = ADMIN_ERROR_KEYS[message.trim().toLowerCase()];

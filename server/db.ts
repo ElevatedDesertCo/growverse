@@ -513,6 +513,20 @@ CREATE TABLE IF NOT EXISTS referrals (
   created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
 CREATE INDEX IF NOT EXISTS referrals_referrer ON referrals(referrer_account_id);
+-- $GROW ledger (docs/prd/mounts-and-stables.md). accounts.grow_balance is the
+-- authoritative premium-currency balance the sim's meta.growCoins mirrors; every
+-- change writes a grow_ledger row in the same transaction, so the balance is
+-- always audit-backed. v1 is fully off-chain (no blockchain code).
+ALTER TABLE accounts ADD COLUMN IF NOT EXISTS grow_balance BIGINT NOT NULL DEFAULT 0;
+CREATE TABLE IF NOT EXISTS grow_ledger (
+  id BIGSERIAL PRIMARY KEY,
+  account_id INT NOT NULL REFERENCES accounts(id) ON DELETE CASCADE,
+  delta BIGINT NOT NULL,
+  reason TEXT NOT NULL,
+  actor TEXT NOT NULL DEFAULT '',
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE INDEX IF NOT EXISTS grow_ledger_account ON grow_ledger(account_id, id DESC);
 `;
 
 export async function ensureSchema(): Promise<void> {
@@ -2314,4 +2328,118 @@ export async function pruneChatLogs(retentionDays: number): Promise<number> {
     [String(Math.floor(retentionDays))],
   );
   return res.rowCount ?? 0;
+}
+
+// ---------------------------------------------------------------------------
+// $GROW ledger: accounts.grow_balance is the authoritative premium-currency
+// balance; the sim's meta.growCoins is a live mirror the server resyncs on
+// join, after every settled spend, and after an admin credit. Every balance
+// change pairs the UPDATE with a grow_ledger INSERT in one transaction.
+// ---------------------------------------------------------------------------
+
+export interface GrowLedgerRow {
+  id: number;
+  delta: number;
+  reason: string;
+  actor: string;
+  createdAt: string;
+}
+
+const GROW_LEDGER_MAX_LIMIT = 200;
+
+export async function getGrowBalance(accountId: number): Promise<number> {
+  const res = await pool.query('SELECT grow_balance FROM accounts WHERE id = $1', [accountId]);
+  return Number(res.rows[0]?.grow_balance ?? 0);
+}
+
+// Credit (positive) or adjust (negative, for corrections) an account's $GROW.
+// The conditional UPDATE is the atomic guard: an adjustment that would take the
+// balance below zero (or targets a missing account) matches no row and nothing
+// is written. Returns the new balance; throws on a guarded-out adjustment.
+export async function creditGrow(
+  accountId: number,
+  amount: number,
+  reason: string,
+  actor: string,
+): Promise<number> {
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    const res = await client.query(
+      `UPDATE accounts SET grow_balance = grow_balance + $2
+       WHERE id = $1 AND grow_balance + $2 >= 0
+       RETURNING grow_balance`,
+      [accountId, amount],
+    );
+    const row = res.rows[0];
+    if (!row)
+      throw new Error('grow adjustment rejected: account missing or balance would go below zero');
+    await client.query(
+      'INSERT INTO grow_ledger (account_id, delta, reason, actor) VALUES ($1, $2, $3, $4)',
+      [accountId, amount, reason, actor],
+    );
+    await client.query('COMMIT');
+    return Number(row.grow_balance);
+  } catch (err) {
+    await client.query('ROLLBACK').catch(() => {});
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+
+// Settle an in-sim $GROW spend against the ledger. The conditional UPDATE only
+// matches while the balance still covers the amount, so a concurrent change can
+// never drive the balance negative; a failed debit reports ok:false with the
+// real balance so the caller can resync the sim's mirror.
+export async function debitGrow(
+  accountId: number,
+  amount: number,
+  reason: string,
+): Promise<{ ok: boolean; balance: number }> {
+  const client = await pool.connect();
+  try {
+    await client.query('BEGIN');
+    const res = await client.query(
+      `UPDATE accounts SET grow_balance = grow_balance - $2
+       WHERE id = $1 AND grow_balance >= $2
+       RETURNING grow_balance`,
+      [accountId, amount],
+    );
+    const row = res.rows[0];
+    if (!row) {
+      await client.query('ROLLBACK');
+      const bal = await client.query('SELECT grow_balance FROM accounts WHERE id = $1', [
+        accountId,
+      ]);
+      return { ok: false, balance: Number(bal.rows[0]?.grow_balance ?? 0) };
+    }
+    await client.query(
+      'INSERT INTO grow_ledger (account_id, delta, reason, actor) VALUES ($1, $2, $3, $4)',
+      [accountId, -amount, reason, 'game'],
+    );
+    await client.query('COMMIT');
+    return { ok: true, balance: Number(row.grow_balance) };
+  } catch (err) {
+    await client.query('ROLLBACK').catch(() => {});
+    throw err;
+  } finally {
+    client.release();
+  }
+}
+
+export async function growLedgerFor(accountId: number, limit = 50): Promise<GrowLedgerRow[]> {
+  const capped = Math.min(GROW_LEDGER_MAX_LIMIT, Math.max(1, Math.floor(limit)));
+  const res = await pool.query(
+    `SELECT id, delta, reason, actor, created_at FROM grow_ledger
+     WHERE account_id = $1 ORDER BY id DESC LIMIT $2`,
+    [accountId, capped],
+  );
+  return res.rows.map((r) => ({
+    id: Number(r.id),
+    delta: Number(r.delta),
+    reason: r.reason,
+    actor: r.actor,
+    createdAt: r.created_at,
+  }));
 }

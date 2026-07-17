@@ -51,6 +51,9 @@ import { dailyRewardService } from './daily_rewards';
 import type { AccountChatMuteStatus, AccountCosmetics, RequestMetadata } from './db';
 import {
   closePlaySession,
+  creditGrow,
+  debitGrow,
+  getGrowBalance,
   grantAccountMechChroma,
   insertChatLogs,
   loadMarketState,
@@ -1039,6 +1042,7 @@ export class GameServer {
             lap('tick');
             this.routeEvents(events);
             this.detectActivity(events);
+            this.settleGrowSpends(events);
             lap('events');
             this.runAntibotTick();
             lap('antibot');
@@ -1558,6 +1562,12 @@ export class GameServer {
       list: [{ type: 'log', text: `${name} has entered Growverse.`, color: '#ffd100' }],
     });
     void this.initSocial(session);
+    // Seed the in-sim $GROW mirror from the authoritative account ledger
+    // (best-effort: a balance read must never affect joining the world; the
+    // mirror stays at its last-saved value until the read lands).
+    void this.syncGrowBalance(session).catch((err) =>
+      console.error('grow balance sync failed:', err),
+    );
     // Stamp the $WOC holder-tier flair (best-effort: a balance read must never
     // affect joining the world).
     void this.refreshHolderTier(session).catch((err) =>
@@ -3399,6 +3409,63 @@ export class GameServer {
         );
       }
     }
+  }
+
+  // Overwrite the in-sim $GROW mirror with the authoritative ledger balance.
+  // The `grow` field rides every self-frame (selfWireJson), so the client sees
+  // the new value on the next snapshot with no extra push.
+  private setGrowCoins(pid: number, balance: number): void {
+    const meta = this.sim.meta(pid);
+    if (meta) meta.growCoins = Math.max(0, balance);
+  }
+
+  private async syncGrowBalance(session: ClientSession): Promise<void> {
+    const balance = await getGrowBalance(session.accountId);
+    if (this.clients.get(session.pid) !== session) return; // left while loading
+    this.setGrowCoins(session.pid, balance);
+  }
+
+  // Settle this tick's in-sim $GROW spends against the account ledger. The sim
+  // already granted the item and debited its meta.growCoins mirror; this only
+  // records the authoritative debit and resyncs the mirror to the real balance
+  // (they should agree; on a race the ledger wins). No gameplay resolves here.
+  private settleGrowSpends(events: SimEvent[]): void {
+    for (const ev of events) {
+      if (ev.type !== 'grow_spend') continue;
+      const session = this.clients.get(ev.pid);
+      if (!session) {
+        console.error(`grow_spend for pid ${ev.pid} has no live session; spend not settled`);
+        continue;
+      }
+      void debitGrow(session.accountId, ev.amount, `purchase:${ev.itemId}`)
+        .then(({ ok, balance }) => {
+          if (!ok) {
+            console.error(
+              `grow debit failed for account ${session.accountId} (amount ${ev.amount}, item ${ev.itemId}): balance changed underneath, resyncing mirror to ${balance}`,
+            );
+          }
+          if (this.clients.get(session.pid) !== session) return;
+          this.setGrowCoins(session.pid, balance);
+        })
+        .catch((err) => console.error('grow debit failed:', err));
+    }
+  }
+
+  // Admin credit path: write the ledger, then live-update the in-sim mirror for
+  // every online session on the account so the credit appears in-game
+  // immediately. Returns the new authoritative balance.
+  async creditGrowForAccount(
+    accountId: number,
+    amount: number,
+    reason: string,
+    actor: string,
+  ): Promise<number> {
+    const balance = await creditGrow(accountId, amount, reason, actor);
+    for (const live of this.clients.values()) {
+      if (live.accountId !== accountId) continue;
+      this.setGrowCoins(live.pid, balance);
+    }
+    return balance;
   }
 
   private routeEvents(events: SimEvent[]): void {

@@ -11,6 +11,7 @@
   } from '../moderation_actions';
   import AccountModerationActions from '../components/AccountModerationActions.svelte';
   import AccountNote from '../components/AccountNote.svelte';
+  import GrowLedger from '../components/GrowLedger.svelte';
   import ChatModerationControls from '../components/ChatModerationControls.svelte';
   import ModerationActionPrompt from '../components/ModerationActionPrompt.svelte';
   import ModerationHistory from '../components/ModerationHistory.svelte';
@@ -160,6 +161,7 @@
   </div>
 
   {#if includeAdminControls}
+    <GrowLedger accountId={detail.id} />
     <AccountNote accountId={detail.id} onSubmit={submitPending} />
   {/if}
   <ModerationHistory entries={detail.moderationHistory} />
