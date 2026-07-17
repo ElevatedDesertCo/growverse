@@ -5061,4 +5061,18 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.cook_cobb.title': '码头厨师',
   'entities.npcs.cook_cobb.greeting':
     '只要有耐心垂钓，明镜湖便会赏你一尾上好的鳟鱼。拿上钓竿，把渔获带回我的篝火旁吧。',
+  'hudChrome.mounts.learned': '你学会了骑乘{name}。',
+  'hudChrome.mounts.windowTitle': '坐骑',
+  'hudChrome.mounts.summon': '召唤',
+  'hudChrome.mounts.dismiss': '收起',
+  'hudChrome.mounts.none': '你还没有学会任何坐骑。去马厩看看吧。',
+  'hudChrome.mounts.errors.alreadyKnown': '你已经学会骑乘该坐骑。',
+  'hudChrome.mounts.errors.notKnown': '你还不会骑乘该坐骑。',
+  'hudChrome.mounts.errors.notEnoughGrow': '你的$GROW不足。',
+  'hudChrome.mounts.errors.learnLevel': '需要达到{level}级才能学习骑术。',
+  'hudChrome.mounts.errors.rideLevel': '需要达到{level}级才能骑乘。',
+  'itemUi.kind.mount': '坐骑',
+  'entities.npcs.stablemaster_marla.name': '马厩长玛拉',
+  'entities.npcs.stablemaster_marla.title': '布鲁姆海文马厩管理人',
+  'entities.npcs.stablemaster_marla.greeting': '马厩的门开着呢，{className}。这里的每一头坐骑都被悉心养大，骑起来又稳又乖。至于绽放行者嘛……那可是长出来的，从未被驯服过。',
 };

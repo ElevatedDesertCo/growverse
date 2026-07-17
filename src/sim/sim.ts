@@ -101,6 +101,7 @@ import {
   ITEMS,
   isDelvePos,
   MOBS,
+  MOUNTS,
   NPCS,
   PLAYER_START,
   QUESTS,
@@ -169,6 +170,11 @@ import { Market, type MarketListing, type MarketSave } from './market';
 import { defaultMarketQuery, type MarketQuery } from './market_query';
 import * as lifecycle from './mob/lifecycle';
 import { resetEvadingMob as resetEvadingMobFn, updateMob as updateMobFn } from './mob/locomotion';
+import {
+  dismountCommand as dismountCommandImpl,
+  dismountPlayer,
+  summonMount as summonMountImpl,
+} from './mounts';
 import { runMobSwingAffixes } from './mob/mob_swing';
 import {
   retargetMob as retargetMobFn,
@@ -696,6 +702,14 @@ export interface PlayerMeta {
   // by working world nodes; persisted in CharacterState. See src/sim/professions.ts.
   professions: ProfessionSkills;
   copper: number;
+  // $GROW balance mirror. Offline/headless worlds start (and usually stay) at 0;
+  // online the server sets it from the account ledger on login and after admin
+  // credits, and settles every in-sim spend (the 'grow_spend' event) against
+  // that ledger. The sim treats it as a plain deterministic number, like copper.
+  growCoins: number;
+  // Learned mounts (MOUNTS keys), the stable ledger behind the Mounts window.
+  // Persisted in CharacterState like unlockedMilestones. See src/sim/mounts.ts.
+  ownedMounts: Set<string>;
   equipment: PlayerEquipment;
   xp: number;
   // Post-cap progression (Max-Level XP Overflow). `lifetimeXp` is the monotonic
@@ -805,6 +819,11 @@ export interface CharacterState {
   // Rested XP pool. Optional so pre-rested-XP saves load cleanly (defaults to 0).
   restedXp?: number;
   copper: number;
+  // $GROW balance mirror + learned mounts. Optional so pre-mount saves load
+  // cleanly (defaults: 0 / none). Online, the account ledger remains the
+  // authority for growCoins; this field is the offline/last-known mirror.
+  growCoins?: number;
+  ownedMounts?: string[];
   hp: number;
   resource: number;
   pos: { x: number; z: number };
@@ -1305,6 +1324,8 @@ export class Sim {
       reputation: emptyReputation(),
       professions: emptyProfessions(),
       copper: 0,
+      growCoins: 0,
+      ownedMounts: new Set(),
       equipment: { mainhand: classDef.startWeapon, chest: classDef.startChest },
       xp: 0,
       lifetimeXp: 0,
@@ -1363,6 +1384,8 @@ export class Sim {
       if (s.unlockedMilestones)
         for (const id of s.unlockedMilestones) meta.unlockedMilestones.add(id);
       meta.copper = s.copper;
+      meta.growCoins = Math.max(0, s.growCoins ?? 0);
+      if (s.ownedMounts) for (const id of s.ownedMounts) meta.ownedMounts.add(id);
       meta.equipment = { ...s.equipment };
       meta.inventory = s.inventory.map((i) => ({ ...i }));
       meta.vendorBuyback = (s.vendorBuyback ?? []).map((i) => ({ ...i }));
@@ -1564,6 +1587,8 @@ export class Sim {
       unlockedMilestones: [...meta.unlockedMilestones],
       restedXp: meta.restedXp,
       copper: meta.copper,
+      growCoins: meta.growCoins,
+      ownedMounts: [...meta.ownedMounts],
       hp: e.hp,
       // A druid saved while shifted runs on rage/energy with its mana parked in
       // savedMana; persist the parked mana so reload (always caster form) restores
@@ -1815,6 +1840,23 @@ export class Sim {
   }
   set copper(v: number) {
     this.primary.copper = v;
+  }
+  // IWorldMounts reads: the $GROW balance mirror, the learned-mount ledger, and
+  // the active ride. Mirrored by ClientWorld from the self-snapshot.
+  get growCoins(): number {
+    return this.primary.growCoins;
+  }
+  get ownedMounts(): string[] {
+    return [...this.primary.ownedMounts];
+  }
+  get activeMountId(): string | null {
+    return this.entities.get(this.primaryId)?.mountId ?? null;
+  }
+  summonMount(mountId: string, pid?: number): void {
+    summonMountImpl(this.ctx, mountId, pid);
+  }
+  dismount(pid?: number): void {
+    dismountCommandImpl(this.ctx, pid);
   }
   get xp(): number {
     return this.primary.xp;
@@ -2759,6 +2801,11 @@ export class Sim {
       // buff_speed and form_travel both carry a 1+fraction multiplier (1.4 = +40%).
       if (a.kind === 'buff_speed' || a.kind === 'form_travel') speed = Math.max(speed, a.value);
     }
+    // Active mount: MAX-folded like the speed auras, never stacked on them.
+    if (e.mountId !== null) {
+      const mount = MOUNTS[e.mountId];
+      if (mount) speed = Math.max(speed, 1 + mount.speedBonus);
+    }
     // Fiesta move-speed augments (only ever non-zero inside a Fiesta bout).
     if (e.kind === 'player') {
       const ms = this.players.get(e.id)?.fiestaSpecial.moveSpeedPct;
@@ -3010,6 +3057,8 @@ export class Sim {
     const hasMoveInput = mx !== 0 || mz !== 0;
     const moving = hasMoveInput && !isRooted(p);
     const swimming = this.isSwimming(p);
+    // Mounts are ground-only: submerging ends the ride.
+    if (swimming) dismountPlayer(p);
     let wishX = 0,
       wishZ = 0,
       wishSpeed = 0;
@@ -3690,6 +3739,9 @@ export class Sim {
     b.combatTimer = 0;
     a.inCombat = true;
     b.inCombat = true;
+    // Combat ends a ride, for the aggressor and the victim alike.
+    dismountPlayer(a);
+    dismountPlayer(b);
     // players and their pets pull wild mobs; pets never run wild-mob AI
     const aAttacker = a.kind === 'player' || (a.kind === 'mob' && a.ownerId !== null);
     if (b.kind === 'mob' && b.ownerId === null && !b.dead && aAttacker && b.aiState !== 'evade') {

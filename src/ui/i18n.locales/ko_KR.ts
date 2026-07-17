@@ -5329,4 +5329,18 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.cook_cobb.title': '부둣가 요리사',
   'entities.npcs.cook_cobb.greeting':
     '거울 호수는 인내심 있는 낚싯줄에 훌륭한 송어를 내어 준답니다. 낚싯대를 챙겨 잡은 것을 내 모닥불로 가져오세요.',
+  'hudChrome.mounts.learned': '{name} 타는 법을 배웠습니다.',
+  'hudChrome.mounts.windowTitle': '탈것',
+  'hudChrome.mounts.summon': '소환',
+  'hudChrome.mounts.dismiss': '해제',
+  'hudChrome.mounts.none': '아직 배운 탈것이 없습니다. 마구간을 방문해 보세요.',
+  'hudChrome.mounts.errors.alreadyKnown': '이미 그 탈것을 탈 수 있습니다.',
+  'hudChrome.mounts.errors.notKnown': '그 탈것을 탈 줄 모릅니다.',
+  'hudChrome.mounts.errors.notEnoughGrow': '$GROW가 부족합니다.',
+  'hudChrome.mounts.errors.learnLevel': '탑승을 배우려면 {level}레벨이 되어야 합니다.',
+  'hudChrome.mounts.errors.rideLevel': '타려면 {level}레벨이 되어야 합니다.',
+  'itemUi.kind.mount': '탈것',
+  'entities.npcs.stablemaster_marla.name': '마구간지기 말라',
+  'entities.npcs.stablemaster_marla.title': '블룸헤이븐 마구간 관리인',
+  'entities.npcs.stablemaster_marla.greeting': '마구간 문은 열려 있습니다, {className}. 여기 있는 탈것들은 모두 정성껏 길러져 온순하게 잘 달립니다. 다만 블룸스트라이더는... 그건 길러진 것이 아니라 자라난 것이라, 한 번도 길들여진 적이 없지요.',
 };

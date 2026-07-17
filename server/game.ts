@@ -567,6 +567,8 @@ function dynamicFields(e: Entity): Record<string, unknown> {
     if (e.channeling) out.chan = 1;
   }
   if (e.sitting || e.eating || e.drinking) out.sit = 1;
+  // active mount id (players only); absent = on foot, decoded to null client-side
+  if (e.mountId !== null) out.mt = e.mountId;
   if (e.aggroTargetId !== null) out.aggro = e.aggroTargetId;
   if (e.tappedById !== null) out.tap = e.tappedById;
   if (e.ownerId !== null) out.own = e.ownerId;
@@ -2351,6 +2353,12 @@ export class GameServer {
       case 'sell_all_junk':
         sim.sellAllJunk(pid);
         break;
+      case 'summon_mount':
+        if (typeof msg.mount === 'string') sim.summonMount(msg.mount, pid);
+        break;
+      case 'dismount':
+        sim.dismount(pid);
+        break;
       case 'craft':
         if (typeof msg.recipe === 'string') sim.craft(msg.recipe, pid);
         break;
@@ -3112,6 +3120,7 @@ export class GameServer {
       rxp: Math.round(meta.restedXp),
       prk: meta.prestigeRank,
       copper: meta.copper,
+      grow: meta.growCoins,
       gcd: round2(p.gcdRemaining),
       pcd: round2(p.potionCdRemaining),
       swing: round2(p.swingTimer),
@@ -3213,6 +3222,7 @@ export class GameServer {
       maybe('qdone', [...meta.questsDone]);
       maybe('flags', [...meta.worldFlags]);
       maybe('milestones', [...meta.unlockedMilestones]);
+      maybe('mounts', [...meta.ownedMounts]);
       // talents/spec/loadouts: the client recomputes its known abilities from this.
       maybe('tal', {
         alloc: meta.talents,

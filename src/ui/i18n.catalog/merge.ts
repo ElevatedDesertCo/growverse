@@ -492,7 +492,7 @@ const mergeStringsEn = {
   },
   itemUi: {
     ...itemNames.en.itemUi,
-    kind: { ...itemNames.en.itemUi.kind, tool: 'Tool', potion: 'Potion', elixir: 'Elixir' },
+    kind: { ...itemNames.en.itemUi.kind, tool: 'Tool', potion: 'Potion', elixir: 'Elixir', mount: 'Mount' },
     tooltip: {
       ...itemNames.en.itemUi.tooltip,
       useFishing: 'Use: Fish in nearby waters.',
@@ -664,6 +664,7 @@ export const mergeStrings = {
         tool: 'Herramienta',
         potion: 'Poción',
         elixir: 'Elixir',
+        mount: 'Montura',
       },
       tooltip: {
         ...itemNames.es.itemUi.tooltip,
@@ -821,7 +822,7 @@ export const mergeStrings = {
     },
     itemUi: {
       ...itemNames.fr_FR.itemUi,
-      kind: { ...itemNames.fr_FR.itemUi.kind, tool: 'Outil', potion: 'Potion', elixir: 'Élixir' },
+      kind: { ...itemNames.fr_FR.itemUi.kind, tool: 'Outil', potion: 'Potion', elixir: 'Élixir', mount: 'Monture' },
       tooltip: {
         ...itemNames.fr_FR.itemUi.tooltip,
         useFishing: 'Utiliser : pêcher dans les eaux proches.',
@@ -984,6 +985,7 @@ export const mergeStrings = {
         tool: 'Strumento',
         potion: 'Pozione',
         elixir: 'Elisir',
+        mount: 'Cavalcatura',
       },
       tooltip: {
         ...itemNames.it_IT.itemUi.tooltip,
@@ -1144,6 +1146,7 @@ export const mergeStrings = {
         tool: 'Werkzeug',
         potion: 'Trank',
         elixir: 'Elixier',
+        mount: 'Reittier',
       },
       tooltip: {
         ...itemNames.de_DE.itemUi.tooltip,
@@ -1299,7 +1302,7 @@ export const mergeStrings = {
     },
     itemUi: {
       ...itemNames.zh_CN.itemUi,
-      kind: { ...itemNames.zh_CN.itemUi.kind, tool: '工具', potion: '药水', elixir: '药剂' },
+      kind: { ...itemNames.zh_CN.itemUi.kind, tool: '工具', potion: '药水', elixir: '药剂', mount: '坐骑' },
       tooltip: {
         ...itemNames.zh_CN.itemUi.tooltip,
         useFishing: '使用：在附近水域钓鱼。',
@@ -1451,7 +1454,7 @@ export const mergeStrings = {
     },
     itemUi: {
       ...itemNames.zh_TW.itemUi,
-      kind: { ...itemNames.zh_TW.itemUi.kind, tool: '工具', potion: '藥水', elixir: '藥劑' },
+      kind: { ...itemNames.zh_TW.itemUi.kind, tool: '工具', potion: '藥水', elixir: '藥劑', mount: '坐騎' },
       tooltip: {
         ...itemNames.zh_TW.itemUi.tooltip,
         useFishing: '使用：在附近水域釣魚。',
@@ -1603,7 +1606,7 @@ export const mergeStrings = {
     },
     itemUi: {
       ...itemNames.ko_KR.itemUi,
-      kind: { ...itemNames.ko_KR.itemUi.kind, tool: '도구', potion: '물약', elixir: '비약' },
+      kind: { ...itemNames.ko_KR.itemUi.kind, tool: '도구', potion: '물약', elixir: '비약', mount: '탈것' },
       tooltip: {
         ...itemNames.ko_KR.itemUi.tooltip,
         useFishing: '사용: 가까운 물가에서 낚시합니다.',
@@ -1763,6 +1766,7 @@ export const mergeStrings = {
         tool: '道具',
         potion: 'ポーション',
         elixir: 'エリクサー',
+        mount: 'マウント',
       },
       tooltip: {
         ...itemNames.ja_JP.itemUi.tooltip,
@@ -1922,6 +1926,7 @@ export const mergeStrings = {
         tool: 'Ferramenta',
         potion: 'Poção',
         elixir: 'Elixir',
+        mount: 'Montaria',
       },
       tooltip: {
         ...itemNames.pt_BR.itemUi.tooltip,
@@ -2083,6 +2088,7 @@ export const mergeStrings = {
         tool: 'Инструмент',
         potion: 'Зелье',
         elixir: 'Эликсир',
+        mount: 'Транспорт',
       },
       tooltip: {
         ...itemNames.ru_RU.itemUi.tooltip,

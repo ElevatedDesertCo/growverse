@@ -21,6 +21,7 @@ import { recalcPlayerStats } from './entity';
 import { canEquipItem } from './equipment_rules';
 import { formatMoney } from './format_money';
 import { meetsLevelRequirement, requiredLevelFor } from './item_level_req';
+import { learnMount } from './mounts';
 import { startSession } from './sessions';
 import type { ItemUseResult, PlayerMeta } from './sim';
 import type { SimContext } from './sim_context';
@@ -131,6 +132,10 @@ export function useItem(ctx: SimContext, itemId: string, pid?: number): ItemUseR
     ctx.openSkinSelect(meta, def.use.catalog ?? 'class', itemId);
     return;
   }
+  if (def.use?.type === 'learnMount') {
+    learnMount(ctx, meta, p, itemId, def.use.mountId);
+    return;
+  }
   if (p.castingAbility === FISHING_CAST_ID) {
     ctx.error(meta.entityId, 'You are busy.');
     return;
@@ -219,7 +224,7 @@ export function buyItem(ctx: SimContext, npcId: number, itemId: string, pid?: nu
     ctx.error(meta.entityId, 'That item is not sold here.');
     return;
   }
-  if (!def?.buyValue) {
+  if (!def || (!def.buyValue && !def.growPrice)) {
     ctx.error(meta.entityId, 'That item is not for sale.');
     return;
   }
@@ -227,11 +232,34 @@ export function buyItem(ctx: SimContext, npcId: number, itemId: string, pid?: nu
     ctx.error(meta.entityId, 'Too far away.');
     return;
   }
+  // A mount is a one-time unlock: refuse a repeat purchase before any payment
+  // (copper or $GROW) so a player can never pay twice for the same ride.
+  if (def.use?.type === 'learnMount' && meta.ownedMounts.has(def.use.mountId)) {
+    ctx.error(meta.entityId, 'You already know how to ride that mount.');
+    return;
+  }
+  // $GROW-priced stock settles against the grow balance, never copper. Handed
+  // over as a single unit; the server settles the debit via the grow_spend event.
+  if (def.growPrice) {
+    if (meta.growCoins < def.growPrice) {
+      ctx.error(meta.entityId, "You don't have enough $GROW.");
+      return;
+    }
+    meta.growCoins -= def.growPrice;
+    ctx.addItem(itemId, 1, meta.entityId);
+    ctx.emit({ type: 'grow_spend', amount: def.growPrice, itemId, pid: meta.entityId });
+    ctx.emit({ type: 'vendor', action: 'buy', itemId, pid: meta.entityId });
+    return;
+  }
   // Food and drink are handed over in a stack (vendorStackSize); the player pays
   // the per-unit buyValue for every unit, so the per-unit price stays classic and
   // vendor buy price stays above the per-unit sell value (no buy-low/sell-high loop).
   const qty = vendorStackSize(def);
-  const cost = def.buyValue * qty;
+  const cost = (def.buyValue ?? 0) * qty;
+  if (cost <= 0) {
+    ctx.error(meta.entityId, 'That item is not for sale.');
+    return;
+  }
   if (meta.copper < cost) {
     ctx.error(meta.entityId, 'Not enough money.');
     return;

@@ -28,6 +28,7 @@
 // tests/architecture.test.ts.
 
 import { ITEMS, MOBS } from '../data';
+import { dismountPlayer } from '../mounts';
 import { scheduleProjectile } from '../projectile_travel';
 import type { PlayerMeta, ResolvedAbility } from '../sim';
 import type { SimContext } from '../sim_context';
@@ -400,6 +401,8 @@ export function castAbility(
   if (ability.id !== 'ghost_wolf' && p.auras.some((a) => a.id === 'ghost_wolf')) {
     ctx.breakGhostWolf(p);
   }
+  // Casting anything ends a ride (classic: no mounted spellwork).
+  dismountPlayer(p);
   // Stash the (clamped) aim so the resolved area effects read it, both for an
   // instant cast (resolved just below) and a cast-time spell (resolved on
   // completion in updateCasting). Cleared there / on cancel.

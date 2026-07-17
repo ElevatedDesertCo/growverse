@@ -5062,4 +5062,18 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.cook_cobb.title': '碼頭廚子',
   'entities.npcs.cook_cobb.greeting':
     '明鏡湖會賞給耐心垂釣者一尾上好的鱒魚。拿根釣竿，把漁獲帶回我的火堆旁。',
+  'hudChrome.mounts.learned': '你學會了騎乘{name}。',
+  'hudChrome.mounts.windowTitle': '坐騎',
+  'hudChrome.mounts.summon': '召喚',
+  'hudChrome.mounts.dismiss': '收起',
+  'hudChrome.mounts.none': '你還沒有學會任何坐騎。去馬廄看看吧。',
+  'hudChrome.mounts.errors.alreadyKnown': '你已經學會騎乘該坐騎。',
+  'hudChrome.mounts.errors.notKnown': '你還不會騎乘該坐騎。',
+  'hudChrome.mounts.errors.notEnoughGrow': '你的$GROW不足。',
+  'hudChrome.mounts.errors.learnLevel': '需要達到{level}級才能學習騎術。',
+  'hudChrome.mounts.errors.rideLevel': '需要達到{level}級才能騎乘。',
+  'itemUi.kind.mount': '坐騎',
+  'entities.npcs.stablemaster_marla.name': '馬廄長瑪拉',
+  'entities.npcs.stablemaster_marla.title': '布魯姆海文馬廄管理人',
+  'entities.npcs.stablemaster_marla.greeting': '馬廄的門開著呢，{className}。這裡的每一頭坐騎都被悉心養大，騎起來又穩又乖。至於綻放行者嘛……那可是長出來的，從未被馴服過。',
 };

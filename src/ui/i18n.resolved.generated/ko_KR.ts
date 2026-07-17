@@ -154,6 +154,22 @@ export const ko_KR: EnTranslations = {
     "spectate": {
       "banner": "{name} 관전 중"
     },
+    "mounts": {
+      "learned": "{name} 타는 법을 배웠습니다.",
+      "windowTitle": "탈것",
+      "summon": "소환",
+      "dismiss": "해제",
+      "none": "아직 배운 탈것이 없습니다. 마구간을 방문해 보세요.",
+      "growBalance": "$GROW: {amount}",
+      "growPrice": "{amount} $GROW",
+      "errors": {
+        "alreadyKnown": "이미 그 탈것을 탈 수 있습니다.",
+        "notKnown": "그 탈것을 탈 줄 모릅니다.",
+        "notEnoughGrow": "$GROW가 부족합니다.",
+        "learnLevel": "탑승을 배우려면 {level}레벨이 되어야 합니다.",
+        "rideLevel": "타려면 {level}레벨이 되어야 합니다."
+      }
+    },
     "emotes": {
       "wave": "손인사",
       "laugh": "ㅋㅋ",
@@ -3678,7 +3694,8 @@ export const ko_KR: EnTranslations = {
       "drink": "음료",
       "tool": "도구",
       "potion": "물약",
-      "elixir": "비약"
+      "elixir": "비약",
+      "mount": "탈것"
     },
     "stats": {
       "armor": "방어도",
@@ -6122,6 +6139,11 @@ export const ko_KR: EnTranslations = {
         "name": "코브",
         "title": "부둣가 요리사",
         "greeting": "거울 호수는 인내심 있는 낚싯줄에 훌륭한 송어를 내어 준답니다. 낚싯대를 챙겨 잡은 것을 내 모닥불로 가져오세요."
+      },
+      "stablemaster_marla": {
+        "name": "마구간지기 말라",
+        "title": "블룸헤이븐 마구간 관리인",
+        "greeting": "마구간 문은 열려 있습니다, {className}. 여기 있는 탈것들은 모두 정성껏 길러져 온순하게 잘 달립니다. 다만 블룸스트라이더는... 그건 길러진 것이 아니라 자라난 것이라, 한 번도 길들여진 적이 없지요."
       },
       "rowan_sawtooth": {
         "name": "로언 소투스",

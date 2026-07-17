@@ -154,6 +154,22 @@ export const it_IT: EnTranslations = {
     "spectate": {
       "banner": "Stai osservando {name}"
     },
+    "mounts": {
+      "learned": "You learn to ride the {name}.",
+      "windowTitle": "Mounts",
+      "summon": "Summon",
+      "dismiss": "Dismiss",
+      "none": "You have not learned any mounts yet. Visit the Bloomhaven stables.",
+      "growBalance": "$GROW: {amount}",
+      "growPrice": "{amount} $GROW",
+      "errors": {
+        "alreadyKnown": "You already know how to ride that mount.",
+        "notKnown": "You don't know how to ride that mount.",
+        "notEnoughGrow": "You don't have enough $GROW.",
+        "learnLevel": "You must be level {level} to learn to ride.",
+        "rideLevel": "You must be level {level} to ride."
+      }
+    },
     "emotes": {
       "wave": "Saluta",
       "laugh": "Ridi",
@@ -3678,7 +3694,8 @@ export const it_IT: EnTranslations = {
       "drink": "Bevanda",
       "tool": "Strumento",
       "potion": "Pozione",
-      "elixir": "Elisir"
+      "elixir": "Elisir",
+      "mount": "Mount"
     },
     "stats": {
       "armor": "Armatura",
@@ -6122,6 +6139,11 @@ export const it_IT: EnTranslations = {
         "name": "Cobb",
         "title": "the Dockside Cook",
         "greeting": "Mirror Lake gives up a fine trout to a patient line. Grab a pole, and bring the catch back to my fire."
+      },
+      "stablemaster_marla": {
+        "name": "Stablemaster Marla",
+        "title": "Keeper of the Bloomhaven Stables",
+        "greeting": "The stable gate is open, {className}. Every mount here was raised gentle and rides steady. The Bloomstrider, though... that one was grown, never tamed."
       },
       "rowan_sawtooth": {
         "name": "Rowan Sawtooth",

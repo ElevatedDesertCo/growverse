@@ -154,6 +154,22 @@ export const zh_TW: EnTranslations = {
     "spectate": {
       "banner": "正在觀察 {name}"
     },
+    "mounts": {
+      "learned": "你學會了騎乘{name}。",
+      "windowTitle": "坐騎",
+      "summon": "召喚",
+      "dismiss": "收起",
+      "none": "你還沒有學會任何坐騎。去馬廄看看吧。",
+      "growBalance": "$GROW: {amount}",
+      "growPrice": "{amount} $GROW",
+      "errors": {
+        "alreadyKnown": "你已經學會騎乘該坐騎。",
+        "notKnown": "你還不會騎乘該坐騎。",
+        "notEnoughGrow": "你的$GROW不足。",
+        "learnLevel": "需要達到{level}級才能學習騎術。",
+        "rideLevel": "需要達到{level}級才能騎乘。"
+      }
+    },
     "emotes": {
       "wave": "揮手",
       "laugh": "大笑",
@@ -3678,7 +3694,8 @@ export const zh_TW: EnTranslations = {
       "drink": "飲料",
       "tool": "工具",
       "potion": "藥水",
-      "elixir": "藥劑"
+      "elixir": "藥劑",
+      "mount": "坐騎"
     },
     "stats": {
       "armor": "護甲",
@@ -6122,6 +6139,11 @@ export const zh_TW: EnTranslations = {
         "name": "柯布",
         "title": "碼頭廚子",
         "greeting": "明鏡湖會賞給耐心垂釣者一尾上好的鱒魚。拿根釣竿，把漁獲帶回我的火堆旁。"
+      },
+      "stablemaster_marla": {
+        "name": "馬廄長瑪拉",
+        "title": "布魯姆海文馬廄管理人",
+        "greeting": "馬廄的門開著呢，{className}。這裡的每一頭坐騎都被悉心養大，騎起來又穩又乖。至於綻放行者嘛……那可是長出來的，從未被馴服過。"
       },
       "rowan_sawtooth": {
         "name": "羅恩·鋸齒",

@@ -725,6 +725,7 @@ function blankEntity(id: number): Entity {
     resource: 0,
     maxResource: 0,
     resourceType: null,
+    mountId: null,
     overheadEmoteId: null,
     overheadEmoteUntil: 0,
     overheadEmoteSeq: 0,
@@ -848,6 +849,10 @@ export class ClientWorld implements IWorld {
   professions: ProfessionView[] = [];
   equipment: Partial<Record<EquipSlot, string>> = {};
   copper = 0;
+  // --- IWorldMounts: $GROW balance mirror + learned mounts (self-snapshot);
+  // activeMountId mirrors the self entity's wire `mt` field. ---
+  growCoins = 0;
+  ownedMounts: string[] = [];
   // --- IWorldCosmetics: account cosmetics (completed-quest + mech-chroma ids),
   // mirrored from snapshot self. ---
   accountCosmetics: AccountCosmetics = { completedQuestIds: [], mechChromaIds: [] };
@@ -1354,6 +1359,9 @@ export class ClientWorld implements IWorld {
       e.dead = nowDead;
       e.lootable = !!w.loot;
       e.hostile = !!w.h;
+      // active mount (players only): rides every update like hostility flags so
+      // a dismount (absent key) clears the ride on every client.
+      e.mountId = w.mt ?? null;
       e.castingAbility = w.cast ?? null;
       e.castRemaining = w.castRem ?? 0;
       e.castTotal = w.castTot ?? 0;
@@ -1511,6 +1519,10 @@ export class ClientWorld implements IWorld {
       // Terse keys (inv/buyback/equip/copper) and the per-field guards are unchanged by
       // the move; the offline counterpart is src/sim/items.ts.
       this.copper = s.copper ?? 0;
+      // IWorldMounts self-decode: the $GROW balance rides every self-frame (?? 0);
+      // the learned-mount ledger is delta-guarded (omitted keeps the prior mirror).
+      this.growCoins = s.grow ?? 0;
+      if (s.mounts !== undefined) this.ownedMounts = s.mounts;
       if (s.inv !== undefined) {
         this.inventory = s.inv;
         this.invChanged = true;
@@ -1793,6 +1805,17 @@ export class ClientWorld implements IWorld {
   }
   buyItem(npcId: number, itemId: string): void {
     this.cmd({ cmd: 'buy', npc: npcId, item: itemId });
+  }
+  // --- IWorldMounts: the active ride mirrors the self entity's wire `mt`;
+  // summon/dismiss are server-authoritative commands. ---
+  get activeMountId(): string | null {
+    return this.entities.get(this.playerId)?.mountId ?? null;
+  }
+  summonMount(mountId: string): void {
+    this.cmd({ cmd: 'summon_mount', mount: mountId });
+  }
+  dismount(): void {
+    this.cmd({ cmd: 'dismount' });
   }
   sellItem(itemId: string, count?: number): void {
     this.cmd({ cmd: 'sell', item: itemId, count });

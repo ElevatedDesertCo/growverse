@@ -25,6 +25,7 @@
 import { DELVES, GROUP_XP_BONUS, MOBS } from '../data';
 import { recalcPlayerStats } from '../entity';
 import { DAMAGE_IDLE_DESPAWN_MOB_IDS, DAMAGE_IDLE_DESPAWN_SECONDS } from '../entity_roster';
+import { dismountPlayer } from '../mounts';
 import type { PlayerMeta } from '../sim';
 import type { SimContext } from '../sim_context';
 import { addThreat, clearThreat } from '../threat';
@@ -294,9 +295,10 @@ export function dealDamage(
     }
   }
 
-  // taking or dealing real damage breaks stealth
+  // taking or dealing real damage breaks stealth, and knocks a rider off the mount
   if (amount > 0) {
     ctx.breakStealth(target);
+    dismountPlayer(target);
     if (source && source.id !== target.id) {
       ctx.breakStealth(source);
     }

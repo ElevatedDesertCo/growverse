@@ -274,7 +274,10 @@ export type ItemUse =
   | { type: 'mechChroma'; chromaId: string }
   // Opens the client-side event skin-select overlay. The server rolls a rank on
   // use (see Sim.openSkinSelect) and the player locks one in via claimEventSkin.
-  | { type: 'skinSelect'; catalog?: SkinCatalog };
+  | { type: 'skinSelect'; catalog?: SkinCatalog }
+  // Consumes the item and adds `mountId` to the player's owned-mount ledger
+  // (PlayerMeta.ownedMounts), gated on the mount's requiredLevel. See sim/mounts.ts.
+  | { type: 'learnMount'; mountId: string };
 
 // Rarity ranks for the cosmetic skin-select event, ordered low → high. A rolled
 // rank unlocks its own tier and every tier below it (epic unlocks rare+uncommon).
@@ -291,7 +294,8 @@ type ItemKind =
   | 'drink'
   | 'tool'
   | 'potion'
-  | 'elixir';
+  | 'elixir'
+  | 'mount';
 
 interface BaseItemDef {
   id: string;
@@ -306,6 +310,10 @@ interface BaseItemDef {
   use?: ItemUse;
   sellValue: number; // copper (vendor buys at this)
   buyValue?: number; // copper (vendor sells at this)
+  // Premium price in $GROW (the grow-coin ledger currency). A grow-priced item
+  // is bought with PlayerMeta.growCoins instead of copper; the server settles
+  // the spend against the account ledger. Mutually exclusive with buyValue.
+  growPrice?: number;
   questId?: string;
   noVendorSell?: boolean;
   noDiscard?: boolean;
@@ -1191,6 +1199,28 @@ export interface NpcDef {
   dynamic?: boolean;
 }
 
+// A rideable mount (Mounts and Stables v1, docs/prd/mounts-and-stables.md).
+// Data-authored in src/sim/content/mounts.ts and merged into MOUNTS by data.ts.
+// A mount is SOLD as an item (kind 'mount', use 'learnMount'); learning it adds
+// `id` to PlayerMeta.ownedMounts, and summoning sets Entity.mountId, whose
+// speedBonus folds into Sim.moveSpeedMult.
+export interface MountDef {
+  id: string;
+  // The vendor item that teaches this mount (a MOUNT_ITEMS key).
+  itemId: string;
+  // Player-visible English mount name (re-localized at the client boundary).
+  name: string;
+  // Ground-speed bonus while riding, as a fraction (0.6 = +60%).
+  speedBonus: number;
+  // Minimum character level to learn and to summon.
+  requiredLevel: number;
+  // Render visual key: which creature model carries the rider (see
+  // src/render/characters/manifest.ts).
+  visual: string;
+  // The $GROW exclusive: cosmetic prestige only (never extra speed).
+  exclusive?: boolean;
+}
+
 export interface CampDef {
   mobId: string;
   center: { x: number; z: number };
@@ -1741,6 +1771,10 @@ export interface Entity {
   // Hosts read it per interest-scan visit (O(viewers x neighbors)); recomputing
   // it from auras each visit was a measurable cost in crowds.
   stealthed: boolean;
+  // Active mount id (a MOUNTS key) while the player is riding, else null. Set by
+  // sim/mounts.ts (summon/dismount); folds into moveSpeedMult and rides the wire
+  // so every client can render the rider-on-mount visual.
+  mountId: string | null;
   ccDr: Map<CrowdControlDrCategory, CrowdControlDrState>;
   castingAbility: string | null;
   castRemaining: number;
@@ -1993,6 +2027,10 @@ export type SimEvent = { pid?: number } & (
   // itemId names the single item for buy/sell/buyback; it is omitted for the
   // bulk "sell all junk" sweep, which the client treats as a plain refresh signal.
   | { type: 'vendor'; action: 'buy' | 'sell' | 'buyback'; itemId?: string }
+  // A grow-priced vendor purchase resolved in-sim. Personal (pid) so the server
+  // can settle the debit against the account $GROW ledger; the client treats it
+  // as a vendor refresh. `amount` is the $GROW spent.
+  | { type: 'grow_spend'; amount: number; itemId: string; pid: number }
   // Bank movement: the client refreshes the open stash window. itemId names the
   // moved stack; the client logs a line built locally so the sim stays
   // language-agnostic, like 'vendor'/'craft'.

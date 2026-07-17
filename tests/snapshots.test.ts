@@ -1870,6 +1870,7 @@ const ALL_DELTA_KEYS = [
   'market',
   'marks',
   'milestones',
+  'mounts',
   'party',
   'prof',
   'qdone',
@@ -1903,6 +1904,7 @@ const TERSE_TO_IWORLD: Record<string, string> = {
   duel: 'duelInfo',
   equip: 'equipment',
   flags: 'worldFlags',
+  grow: 'growCoins',
   inv: 'inventory',
   lockouts: 'selfLockouts',
   lroll: 'lootRollPrompts',
@@ -1910,6 +1912,7 @@ const TERSE_TO_IWORLD: Record<string, string> = {
   market: 'marketInfo',
   marks: 'markers',
   milestones: 'unlockedMilestones',
+  mounts: 'ownedMounts',
   mres: 'maxResource',
   party: 'partyInfo',
   prk: 'prestigeRank',
@@ -2148,8 +2151,8 @@ describe('full self-state snapshot delta fixture', () => {
 
 describe('delta-key contract pins (anti-drift)', () => {
   it('ALL_DELTA_KEYS contains exactly 31 unique keys in sorted order', () => {
-    expect(ALL_DELTA_KEYS).toHaveLength(31);
-    expect(new Set(ALL_DELTA_KEYS).size).toBe(31);
+    expect(ALL_DELTA_KEYS).toHaveLength(32);
+    expect(new Set(ALL_DELTA_KEYS).size).toBe(32);
     expect([...ALL_DELTA_KEYS]).toEqual([...ALL_DELTA_KEYS].sort());
   });
 
@@ -2161,7 +2164,7 @@ describe('delta-key contract pins (anti-drift)', () => {
     const scraped = new Set<string>();
     for (let m = re.exec(src); m !== null; m = re.exec(src)) scraped.add(m[1]);
     expect(scraped.has('lockouts')).toBe(true); // the multi-line call IS captured
-    expect(scraped.size).toBe(31);
+    expect(scraped.size).toBe(32);
     expect([...scraped].sort()).toEqual([...ALL_DELTA_KEYS].sort());
   });
 
@@ -2187,7 +2190,7 @@ describe('delta-key contract pins (anti-drift)', () => {
     // reviewable change landing in alphabetical order
     expect(Object.keys(TERSE_TO_IWORLD)).toEqual([...Object.keys(TERSE_TO_IWORLD)].sort());
     // every entry is either a delta key or one of the always-present self scalars
-    const SELF_SCALARS = new Set(['res', 'mres', 'rtype', 'lxp', 'rxp', 'prk']);
+    const SELF_SCALARS = new Set(['res', 'mres', 'rtype', 'lxp', 'rxp', 'prk', 'grow']);
     for (const terse of Object.keys(TERSE_TO_IWORLD)) {
       expect(
         (ALL_DELTA_KEYS as readonly string[]).includes(terse) || SELF_SCALARS.has(terse),

@@ -46,6 +46,7 @@ function baseEntity(id: number, pos: Vec3): Entity {
     combatTimer: 99,
     auras: [],
     stealthed: false,
+    mountId: null,
     ccDr: new Map(),
     castingAbility: null,
     castRemaining: 0,

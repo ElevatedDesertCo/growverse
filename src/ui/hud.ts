@@ -495,6 +495,7 @@ const ITEM_KIND_LABEL_KEYS: Record<ItemDef['kind'], TranslationKey> = {
   tool: 'itemUi.kind.tool',
   potion: 'itemUi.kind.potion',
   elixir: 'itemUi.kind.elixir',
+  mount: 'itemUi.kind.mount',
 };
 const ITEM_STAT_LABEL_KEYS: Partial<Record<keyof Stats, TranslationKey>> = {
   armor: 'itemUi.stats.armor',
@@ -7468,6 +7469,9 @@ export class Hud {
       'You have nothing to collect.': 'itemUi.errors.nothingToCollect',
       "You can't assist yourself.": 'hud.errors.assistSelf',
       'Assist whom? Target a player or use /assist <name>.': 'hud.errors.assistWhom',
+      'You already know how to ride that mount.': 'hudChrome.mounts.errors.alreadyKnown',
+      "You don't know how to ride that mount.": 'hudChrome.mounts.errors.notKnown',
+      "You don't have enough $GROW.": 'hudChrome.mounts.errors.notEnoughGrow',
       'That recipe is not available here.': 'hudChrome.crafting.errors.recipeUnavailable',
       'You are too far from the station.': 'hudChrome.crafting.errors.tooFarFromStation',
       'You are not skilled enough to craft that yet.': 'hudChrome.crafting.errors.levelTooLow',
@@ -7494,6 +7498,10 @@ export class Hud {
       });
     match = /^That ability requires the target below (\d+)% health\.$/.exec(text);
     if (match) return t('hud.errors.targetHealthBelow', { percent: match[1] });
+    match = /^You must be level (\d+) to learn to ride\.$/.exec(text);
+    if (match) return t('hudChrome.mounts.errors.learnLevel', { level: match[1] });
+    match = /^You must be level (\d+) to ride\.$/.exec(text);
+    if (match) return t('hudChrome.mounts.errors.rideLevel', { level: match[1] });
     match = /^Not enough (.+)!$/.exec(text);
     if (match) return t('hud.errors.notEnoughResource', { resource: match[1] });
     match = /^Several players match '(.+)'\. Use exact capitalization\.$/.exec(text);
@@ -7634,6 +7642,9 @@ export class Hud {
     match = /^Your market listing of (.+) expired and waits at the Merchant\.$/.exec(text);
     if (match)
       return t('itemUi.logs.expiredListing', { item: itemDisplayNameFromSource(match[1]) });
+    // The mount-learned line is emitted as a 'log' event (sim/mounts.ts).
+    match = /^You learn to ride the (.+)\.$/.exec(text);
+    if (match) return t('hudChrome.mounts.learned', { name: match[1] });
     // The dungeon party-size warning is emitted as a 'log' event (sim.ts), so it must be
     // matched on this path, not in localizeLootText.
     match = /^(.+) is meant for a full party of (\d+)\. Tread carefully\.$/.exec(text);

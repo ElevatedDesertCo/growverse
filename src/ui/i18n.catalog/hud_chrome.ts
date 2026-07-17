@@ -11,6 +11,24 @@ export const hudChromeStrings = {
   spectate: {
     banner: 'Spectating {name}',
   },
+  // Mounts and Stables v1: stable vendor + summon flow chrome, plus the
+  // client-side re-localization of the sim's English mount emits.
+  mounts: {
+    learned: 'You learn to ride the {name}.',
+    windowTitle: 'Mounts',
+    summon: 'Summon',
+    dismiss: 'Dismiss',
+    none: 'You have not learned any mounts yet. Visit the Bloomhaven stables.',
+    growBalance: '$GROW: {amount}',
+    growPrice: '{amount} $GROW',
+    errors: {
+      alreadyKnown: 'You already know how to ride that mount.',
+      notKnown: "You don't know how to ride that mount.",
+      notEnoughGrow: "You don't have enough $GROW.",
+      learnLevel: 'You must be level {level} to learn to ride.',
+      rideLevel: 'You must be level {level} to ride.',
+    },
+  },
   // Overhead emote display names (wheel tooltips/labels, editor items, overhead
   // bubble text). Source ids/order mirror OVERHEAD_EMOTES in world_api.ts.
   emotes: {

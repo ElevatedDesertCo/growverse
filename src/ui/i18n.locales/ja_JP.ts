@@ -5323,4 +5323,18 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.cook_cobb.title': '波止場の料理人',
   'entities.npcs.cook_cobb.greeting':
     'ミラー湖は、辛抱強く糸を垂らせば見事なマスを恵んでくれる。竿を手に取って、釣った魚を私のかまどまで持ってきておくれ。',
+  'hudChrome.mounts.learned': '{name}への騎乗を習得した。',
+  'hudChrome.mounts.windowTitle': 'マウント',
+  'hudChrome.mounts.summon': '召喚',
+  'hudChrome.mounts.dismiss': '解除',
+  'hudChrome.mounts.none': 'まだマウントを習得していません。厩舎を訪れましょう。',
+  'hudChrome.mounts.errors.alreadyKnown': 'そのマウントの騎乗はすでに習得済みです。',
+  'hudChrome.mounts.errors.notKnown': 'そのマウントの騎乗をまだ習得していません。',
+  'hudChrome.mounts.errors.notEnoughGrow': '$GROWが足りません。',
+  'hudChrome.mounts.errors.learnLevel': '騎乗を習得するにはレベル{level}が必要です。',
+  'hudChrome.mounts.errors.rideLevel': '騎乗するにはレベル{level}が必要です。',
+  'itemUi.kind.mount': 'マウント',
+  'entities.npcs.stablemaster_marla.name': '厩舎長マーラ',
+  'entities.npcs.stablemaster_marla.title': 'ブルームヘイヴン厩舎の管理人',
+  'entities.npcs.stablemaster_marla.greeting': '厩舎の門は開いていますよ、{className}。ここのマウントはどれも大切に育てられ、乗り心地も穏やかです。ただブルームストライダーだけは……あれは育ったもので、飼い馴らされたことは一度もありません。',
 };

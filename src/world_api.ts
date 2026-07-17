@@ -9,7 +9,7 @@
 // keep resolving to THIS file, never the sibling directory.
 //
 // ---------------------------------------------------------------------------
-// FACET MAP: the 21 domain facets (each IWorld member assigned exactly once; 145
+// FACET MAP: the 22 domain facets (each IWorld member assigned exactly once; 150
 // total). One interface per file under ./world_api/; aux types travel with their
 // facet. The authoritative member-per-facet split is the W0c parity test.
 //
@@ -30,6 +30,7 @@
 //   duel_arena.ts       IWorldDuelArena      duels + ranked arena + 2v2 fiesta
 //   social_graph.ts     IWorldSocialGraph    friends/blocks/guild (online-only frames)
 //   market.ts           IWorldMarket         World Market browse/list/buy
+//   mounts.ts           IWorldMounts         mount ledger, $GROW balance, summon
 //   dungeons.ts         IWorldDungeons       dungeon enter/leave + raid lockouts
 //   delves.ts           IWorldDelves         delve runs, lockpick, companion
 //   daily_rewards.ts    IWorldDailyRewards   daily WOC-holder rewards
@@ -40,9 +41,9 @@
 //                                          ALL_DELTA_KEYS (25) + TERSE_TO_IWORLD mapping.
 //   tests/command_schema.test.ts   (W0b)  COMMAND_NAMES universe; ClientWorld send-set
 //                                          subset-of dispatch-set; DISPATCH_ONLY (7).
-//   tests/world_api_parity.test.ts (W0c)  IWORLD_MEMBERS (145) present + same-kind on
+//   tests/world_api_parity.test.ts (W0c)  IWORLD_MEMBERS (150) present + same-kind on
 //                                          Sim + ClientWorld; aggregate == disjoint
-//                                          union of the 21 facets.
+//                                          union of the 22 facets.
 // ---------------------------------------------------------------------------
 
 import type { IWorldChat } from './world_api/chat';
@@ -59,6 +60,7 @@ import type { IWorldInteraction } from './world_api/interaction';
 import type { IWorldInventory } from './world_api/inventory';
 import type { IWorldLoot } from './world_api/loot';
 import type { IWorldMarket } from './world_api/market';
+import type { IWorldMounts } from './world_api/mounts';
 import type { IWorldParty } from './world_api/party';
 import type { IWorldPet } from './world_api/pet';
 import type { IWorldProgressionXp } from './world_api/progression_xp';
@@ -155,6 +157,7 @@ export interface IWorld
     IWorldDuelArena,
     IWorldSocialGraph,
     IWorldMarket,
+    IWorldMounts,
     IWorldDungeons,
     IWorldDelves,
     IWorldDailyRewards,
@@ -303,6 +306,8 @@ export const COMMAND_NAMES = [
   'breed_strains',
   'release_strain',
   'telemetry',
+  'summon_mount',
+  'dismount',
 ] as const;
 
 // The union both the send path (`online.ts`) and the dispatch switch
@@ -368,7 +373,8 @@ export type WorldFacet =
   | 'IWorldCrafting'
   | 'IWorldCultivation'
   | 'IWorldReputation'
-  | 'IWorldTelemetry';
+  | 'IWorldTelemetry'
+  | 'IWorldMounts';
 
 export const COMMAND_FACETS = {
   // IWorldCombat: ability casts, auto-attack, spirit release.
@@ -508,4 +514,8 @@ export const COMMAND_FACETS = {
   plant_strain: 'IWorldCultivation',
   breed_strains: 'IWorldCultivation',
   release_strain: 'IWorldCultivation',
+  // IWorldMounts: summon/dismiss the active mount (the ledger reads ride the
+  // self-snapshot; a mount purchase is the ordinary vendor `buy`).
+  summon_mount: 'IWorldMounts',
+  dismount: 'IWorldMounts',
 } as const satisfies Partial<Record<ClientCommand, WorldFacet>>;

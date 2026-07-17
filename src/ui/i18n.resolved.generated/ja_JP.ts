@@ -154,6 +154,22 @@ export const ja_JP: EnTranslations = {
     "spectate": {
       "banner": "{name}を観戦中"
     },
+    "mounts": {
+      "learned": "{name}への騎乗を習得した。",
+      "windowTitle": "マウント",
+      "summon": "召喚",
+      "dismiss": "解除",
+      "none": "まだマウントを習得していません。厩舎を訪れましょう。",
+      "growBalance": "$GROW: {amount}",
+      "growPrice": "{amount} $GROW",
+      "errors": {
+        "alreadyKnown": "そのマウントの騎乗はすでに習得済みです。",
+        "notKnown": "そのマウントの騎乗をまだ習得していません。",
+        "notEnoughGrow": "$GROWが足りません。",
+        "learnLevel": "騎乗を習得するにはレベル{level}が必要です。",
+        "rideLevel": "騎乗するにはレベル{level}が必要です。"
+      }
+    },
     "emotes": {
       "wave": "手を振る",
       "laugh": "大笑い",
@@ -3678,7 +3694,8 @@ export const ja_JP: EnTranslations = {
       "drink": "飲み物",
       "tool": "道具",
       "potion": "ポーション",
-      "elixir": "エリクサー"
+      "elixir": "エリクサー",
+      "mount": "マウント"
     },
     "stats": {
       "armor": "防御力",
@@ -6122,6 +6139,11 @@ export const ja_JP: EnTranslations = {
         "name": "コブ",
         "title": "波止場の料理人",
         "greeting": "ミラー湖は、辛抱強く糸を垂らせば見事なマスを恵んでくれる。竿を手に取って、釣った魚を私のかまどまで持ってきておくれ。"
+      },
+      "stablemaster_marla": {
+        "name": "厩舎長マーラ",
+        "title": "ブルームヘイヴン厩舎の管理人",
+        "greeting": "厩舎の門は開いていますよ、{className}。ここのマウントはどれも大切に育てられ、乗り心地も穏やかです。ただブルームストライダーだけは……あれは育ったもので、飼い馴らされたことは一度もありません。"
       },
       "rowan_sawtooth": {
         "name": "ローワン・ソウトゥース",

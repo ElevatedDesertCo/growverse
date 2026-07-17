@@ -14,6 +14,7 @@ import type {
   GroundObjectDef,
   ItemDef,
   MobTemplate,
+  MountDef,
   NpcDef,
   PlayerClass,
   QuestDef,
@@ -128,6 +129,7 @@ export {
 } from './content/delves';
 
 import { DELVE_ITEMS } from './content/delves/items';
+import { MOUNT_DEFS, MOUNT_ITEMS } from './content/mounts';
 import { DELVE_MODULE_LAYOUTS, type DelveModuleId, delveModuleSpan } from './delve_layout';
 
 function mergeItems(...parts: Record<string, ItemDef>[]): Record<string, ItemDef> {
@@ -167,7 +169,13 @@ export const ITEMS: Record<string, ItemDef> = mergeItems(
   TEMPLE_ITEMS,
   DELVE_ITEMS,
   CRAFT_ITEMS,
+  MOUNT_ITEMS,
 );
+
+// The mount registry (Mounts and Stables v1). Keyed by mount id; the engine
+// resolves speed and gating from here, the renderer resolves the visual key.
+export const MOUNTS: Record<string, MountDef> = MOUNT_DEFS;
+export { RIDING_LEVEL, STABLE_VENDOR_ITEMS } from './content/mounts';
 
 export {
   CRAFT_RECIPES,

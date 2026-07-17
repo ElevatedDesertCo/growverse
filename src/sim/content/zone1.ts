@@ -11,6 +11,7 @@ import type {
   ZoneDef,
   ZonePropsDef,
 } from '../types';
+import { STABLE_VENDOR_ITEMS } from './mounts';
 
 export const TOWN_RADIUS = 34;
 export const GRAVEYARD_POS = { x: -12, z: -22 };
@@ -685,6 +686,20 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     questIds: ['q_murlocs'],
     vendorItems: ['simple_fishing_pole'],
     greeting: 'Grlsnapgrl, sorry, been listening to those reservoir snappers too long.',
+  },
+  stablemaster_marla: {
+    id: 'stablemaster_marla',
+    name: 'Stablemaster Marla',
+    title: 'Keeper of the Bloomhaven Stables',
+    // the stable yard on the town's northwest edge, between Brandt's corner and
+    // the north lane, turned to greet riders coming up from the plaza
+    pos: { x: -13, z: 16 },
+    facing: 2.4,
+    color: 0x8e5a2b,
+    questIds: [],
+    vendorItems: [...STABLE_VENDOR_ITEMS],
+    greeting:
+      'The stable gate is open, $C. Every mount here was raised gentle and rides steady. The Bloomstrider, though... that one was grown, never tamed.',
   },
   foreman_odell: {
     id: 'foreman_odell',

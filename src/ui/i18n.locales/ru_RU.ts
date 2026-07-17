@@ -5433,4 +5433,18 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.cook_cobb.title': 'Портовая кухарка',
   'entities.npcs.cook_cobb.greeting':
     'Зеркальное озеро дарит отменную форель терпеливой удочке. Возьми снасть и неси улов к моему костру.',
+  'hudChrome.mounts.learned': 'Вы научились ездить верхом: {name}.',
+  'hudChrome.mounts.windowTitle': 'Транспорт',
+  'hudChrome.mounts.summon': 'Призвать',
+  'hudChrome.mounts.dismiss': 'Спешиться',
+  'hudChrome.mounts.none': 'Вы еще не научились ездить ни на одном транспорте. Загляните в конюшни.',
+  'hudChrome.mounts.errors.alreadyKnown': 'Вы уже умеете ездить на этом транспорте.',
+  'hudChrome.mounts.errors.notKnown': 'Вы не умеете ездить на этом транспорте.',
+  'hudChrome.mounts.errors.notEnoughGrow': 'Недостаточно $GROW.',
+  'hudChrome.mounts.errors.learnLevel': 'Чтобы научиться верховой езде, требуется уровень {level}.',
+  'hudChrome.mounts.errors.rideLevel': 'Для верховой езды требуется уровень {level}.',
+  'itemUi.kind.mount': 'Транспорт',
+  'entities.npcs.stablemaster_marla.name': 'Смотрительница конюшен Марла',
+  'entities.npcs.stablemaster_marla.title': 'Хранительница конюшен Блумхейвена',
+  'entities.npcs.stablemaster_marla.greeting': 'Ворота конюшни открыты, {className}. Каждого из этих скакунов растили с заботой, и ход у них ровный. А вот Цветущий Странник... тот вырос сам, и приручить его не удалось никому.',
 };
