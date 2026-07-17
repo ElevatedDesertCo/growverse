@@ -78,7 +78,9 @@ describe('content referential integrity', () => {
     for (const npc of Object.values(NPCS)) {
       for (const itemId of npc.vendorItems ?? []) {
         if (!ITEMS[itemId]) problems.push(`${npc.id}: vendor item ${itemId} missing`);
-        else if (!ITEMS[itemId].buyValue) problems.push(`${npc.id}: vendor item ${itemId} has no buyValue`);
+        // A vendor row must be purchasable: copper (buyValue) or $GROW (growPrice).
+        else if (!ITEMS[itemId].buyValue && !ITEMS[itemId].growPrice)
+          problems.push(`${npc.id}: vendor item ${itemId} has no buyValue`);
       }
       for (const qid of npc.questIds) {
         if (!QUESTS[qid]) problems.push(`${npc.id}: questId ${qid} missing`);
