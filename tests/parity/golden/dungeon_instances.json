@@ -10,8 +10,8 @@
     "updateDoorTriggers exit portal -> leaveDungeon (~14620)",
     "updateInstances empty-reset -> freeInstance despawn + partyKey null (~14841/14816)"
   ],
-  "draws": 46,
-  "drawDigest": "8dd3dc69",
+  "draws": 41,
+  "drawDigest": "e2cf3deb",
   "frames": [
     {
       "tick": 0,
@@ -869,11 +869,11 @@
       "tick": 4,
       "time": 0.2,
       "nextId": 598,
-      "state": "072936b1",
+      "state": "0cb38fc3",
       "events": "a45af0e8",
       "rng": {
-        "draws": 45,
-        "digest": "9154fa7f"
+        "draws": 40,
+        "digest": "d85dc3f2"
       },
       "label": "left",
       "players": [
@@ -1128,7 +1128,7 @@
             "armor": 108
           },
           "templateId": "crypt_shambler",
-          "wanderTimer": 2.754428,
+          "wanderTimer": 6.296549,
           "weapon": {
             "max": 38,
             "min": 24,
@@ -1167,7 +1167,7 @@
             "armor": 108
           },
           "templateId": "crypt_shambler",
-          "wanderTimer": 2.962457,
+          "wanderTimer": 2.537575,
           "weapon": {
             "max": 38,
             "min": 24,
@@ -1689,33 +1689,33 @@
       "tick": 5,
       "time": 0.25,
       "nextId": 598,
-      "state": "5b56eb39",
+      "state": "9e0347c6",
       "events": "b35adcc8",
       "rng": {
-        "draws": 45,
-        "digest": "9154fa7f"
+        "draws": 40,
+        "digest": "d85dc3f2"
       }
     },
     {
       "tick": 10,
       "time": 0.5,
       "nextId": 598,
-      "state": "0fdd4b0a",
+      "state": "8e8d418b",
       "events": "741638a5",
       "rng": {
-        "draws": 45,
-        "digest": "9154fa7f"
+        "draws": 40,
+        "digest": "d85dc3f2"
       }
     },
     {
       "tick": 15,
       "time": 0.75,
       "nextId": 598,
-      "state": "b6189a4d",
+      "state": "c66f6de2",
       "events": "741638a5",
       "rng": {
-        "draws": 45,
-        "digest": "9154fa7f"
+        "draws": 40,
+        "digest": "d85dc3f2"
       }
     },
     {
@@ -1725,8 +1725,8 @@
       "state": "fefa5110",
       "events": "741638a5",
       "rng": {
-        "draws": 46,
-        "digest": "8dd3dc69"
+        "draws": 41,
+        "digest": "e2cf3deb"
       }
     },
     {
@@ -1736,8 +1736,8 @@
       "state": "f1018008",
       "events": "741638a5",
       "rng": {
-        "draws": 46,
-        "digest": "8dd3dc69"
+        "draws": 41,
+        "digest": "e2cf3deb"
       },
       "label": "reset",
       "players": [
@@ -1973,8 +1973,8 @@
       "state": "f1018008",
       "events": "741638a5",
       "rng": {
-        "draws": 46,
-        "digest": "8dd3dc69"
+        "draws": 41,
+        "digest": "e2cf3deb"
       },
       "label": "final",
       "players": [

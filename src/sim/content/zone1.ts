@@ -1175,16 +1175,16 @@ export const ZONE1_CAMPS: CampDef[] = [
   { mobId: 'dust_reaver', center: { x: 92, z: -82 }, radius: 8, count: 3 },
   { mobId: 'vale_bandit', center: { x: 88, z: -90 }, radius: 8, count: 3 },
   { mobId: 'gorrak', center: { x: 89, z: -91 }, radius: 2, count: 1 },
-  // Undead: the Skeleton Grotto, now walled by the SKELETON_FORT (world.ts). The husk
-  // pack garrisons the fort COURTYARD, ringed around the central keep: the center is
-  // pulled back onto the fort center (150,84) and the radius tightened to 10 so the
-  // pack rings the keep and clears both the front gate opening (x=136) and the curtain
-  // walls, instead of the old (146,84) r14 spread that spilled the pack out through the
-  // gateway. (Radius only scales each spawn's drawn offset and the camp loop is the
-  // final RNG consumer at construction, so re-centering moves the mobs without shifting
-  // any other content's spawn roll.) Verlan holds the rear, near the crypt cave-mouth.
-  { mobId: 'restless_bones', center: { x: 150, z: 84 }, radius: 10, count: 8 },
-  { mobId: 'captain_verlan', center: { x: 160, z: 84 }, radius: 4, count: 1 },
+  // Undead: the Wither Husk host has abandoned the ruined SKELETON_FORT and holed up in its
+  // true lair, WITHER HOLLOW (the SKELETON_CAVE in world.ts), a cave SYSTEM gouged deep into
+  // the mountain foot NNW of the grotto. The pack musters deep in the wide inner chamber
+  // (center 173,136, radius 5: the flatten ring, radius ~9, stays entirely inside the carved
+  // chamber floor so it leaves no plateau artifact on the mountainside), and Captain Verlan
+  // holds the throat where the entrance tunnel opens into the chamber (162,136). The fort now
+  // sits empty. (Radius only scales each spawn's drawn offset and this grotto pair is the
+  // final RNG consumer at construction, so moving the mobs shifts no other content's roll.)
+  { mobId: 'restless_bones', center: { x: 173, z: 136 }, radius: 5, count: 8 },
+  { mobId: 'captain_verlan', center: { x: 162, z: 136 }, radius: 2.5, count: 1 },
 ];
 
 // Spawned LAST in the merged CAMPS array (see data.ts) so these appended draws

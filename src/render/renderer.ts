@@ -39,6 +39,7 @@ import type { SpatialAudioSink, Surface } from './audio_sink';
 import { type BirdsView, buildBirds } from './birds';
 import { buildBridge } from './bridge';
 import { type CameraOcclusionState, stepCameraOcclusion } from './camera_collision';
+import { buildCave } from './cave';
 import { characterSoulRendActive } from './character_effects';
 import { type AnimState, type CharacterVisual, createCharacterVisual } from './characters';
 import { mechAssetsReady, preloadMechAssets } from './characters/assets';
@@ -1255,13 +1256,23 @@ export class Renderer {
     freezeStaticMatrices(bridge.group);
 
     // The Skeleton Grotto fort: a huge ruined stone stronghold raised on the flat
-    // grotto floor (SKELETON_FORT in sim/world.ts), where the Wither Husk host
-    // musters. Static geometry, merged per material, no per-frame work; the walls
-    // are movement colliders derived from the same const in colliders.ts.
+    // grotto floor (SKELETON_FORT in sim/world.ts); the Wither Husk host has since
+    // withdrawn to its cave lair (below), so it stands empty. Static geometry, merged
+    // per material, no per-frame work; the walls are movement colliders derived from
+    // the same const in colliders.ts.
     const fort = buildFort(this.sim.cfg.seed);
     setRenderCategory(fort.group, 'props');
     this.scene.add(fort.group);
     freezeStaticMatrices(fort.group);
+
+    // Wither Hollow: the Wither Husk host's cave lair north of the grotto (SKELETON_CAVE
+    // in sim/world.ts). Static rock geometry, merged per material, no per-frame work; the
+    // jambs, flank walls, and back wall are movement colliders derived from the same const
+    // in colliders.ts. The terrain carve (skeletonCaveOffset) supplies the flat lair floor.
+    const cave = buildCave(this.sim.cfg.seed);
+    setRenderCategory(cave.group, 'props');
+    this.scene.add(cave.group);
+    freezeStaticMatrices(cave.group);
 
     // selection ring — a classic target reticle: a base ring plus four
     // inward-pointing ticks. The base ring is draped over the terrain each

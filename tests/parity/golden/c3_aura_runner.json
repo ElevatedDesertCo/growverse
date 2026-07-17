@@ -10,8 +10,8 @@
     "pulseGroundAoE over 2+ in-radius hostiles: rng.range per target, stable order",
     "class:paladin"
   ],
-  "draws": 963,
-  "drawDigest": "239f0574",
+  "draws": 965,
+  "drawDigest": "2413bf29",
   "frames": [
     {
       "tick": 0,
@@ -848,8 +848,8 @@
       "state": "e741fd01",
       "events": "741638a5",
       "rng": {
-        "draws": 769,
-        "digest": "596fbba0"
+        "draws": 770,
+        "digest": "acf98123"
       }
     },
     {
@@ -859,8 +859,8 @@
       "state": "90107575",
       "events": "741638a5",
       "rng": {
-        "draws": 804,
-        "digest": "0baea0ac"
+        "draws": 805,
+        "digest": "f507b284"
       }
     },
     {
@@ -870,8 +870,8 @@
       "state": "b0774475",
       "events": "741638a5",
       "rng": {
-        "draws": 844,
-        "digest": "f3fa6329"
+        "draws": 845,
+        "digest": "90176c26"
       }
     },
     {
@@ -881,8 +881,8 @@
       "state": "840d238a",
       "events": "741638a5",
       "rng": {
-        "draws": 897,
-        "digest": "3a424134"
+        "draws": 898,
+        "digest": "53fd36b6"
       }
     },
     {
@@ -892,19 +892,19 @@
       "state": "da1784fa",
       "events": "741638a5",
       "rng": {
-        "draws": 949,
-        "digest": "67536440"
+        "draws": 951,
+        "digest": "5c68213c"
       }
     },
     {
       "tick": 182,
       "time": 9.1,
       "nextId": 586,
-      "state": "dab479d4",
-      "events": "e9fc134b",
+      "state": "972c3db9",
+      "events": "e0740550",
       "rng": {
-        "draws": 963,
-        "digest": "239f0574"
+        "draws": 965,
+        "digest": "2413bf29"
       },
       "label": "final",
       "players": [
@@ -916,7 +916,7 @@
           "cls": "paladin",
           "companionUpgrades": {},
           "counters": {
-            "damageDealt": 257,
+            "damageDealt": 258,
             "damageTaken": 27
           },
           "delveClears": {},
@@ -1090,7 +1090,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 39868,
+          "hp": 39866,
           "id": 584,
           "inCombat": true,
           "kind": "mob",
@@ -1123,7 +1123,7 @@
           "threat": [
             [
               582,
-              133
+              135
             ]
           ],
           "weapon": {
@@ -1143,7 +1143,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hostile": true,
-          "hp": 39875,
+          "hp": 39876,
           "id": 585,
           "inCombat": true,
           "kind": "mob",
@@ -1176,7 +1176,7 @@
           "threat": [
             [
               582,
-              126
+              125
             ]
           ],
           "weapon": {

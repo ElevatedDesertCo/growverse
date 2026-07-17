@@ -4,8 +4,9 @@ import { SKELETON_FORT, terrainHeight } from '../sim/world';
 import { surfaceMat } from './gfx';
 
 // The Skeleton Grotto fort: a huge ruined stone stronghold raised on the flat grotto
-// floor (the `SKELETON_FORT` primitive in sim/world.ts), where the Wither Husk host
-// musters. This module skins that ONE const: a square curtain wall with a crenellated
+// floor (the `SKELETON_FORT` primitive in sim/world.ts). The Wither Husk host once mustered
+// here but has withdrawn to its cave lair (render/cave.ts), so it stands empty now. This
+// module skins that ONE const: a square curtain wall with a crenellated
 // walk, a round corner tower under a conical roof at each angle, a tall crenellated keep
 // with a peaked roof and a tattered banner at the center, a FRONT gatehouse on the low-x
 // (grotto mouth) side, and a REAR sally-port on the high-x side lined up with the crypt
