@@ -49,6 +49,7 @@ import {
   ITEMS,
   isDelvePos,
   MOBS,
+  MOUNTS,
   NPCS,
   PLANTS,
   QUESTS,
@@ -252,6 +253,8 @@ import {
   minimapZoomValue,
   nextMinimapZoom,
 } from './minimap_zoom';
+import { buildMountsView } from './mounts_view';
+import { renderMountsWindow } from './mounts_window';
 import { OptionsWindow } from './options_window';
 import { makeWriterFacet, type PainterHostPresentation } from './painter_host';
 import { partyFrameSignature, selectPartyFrameMembers } from './party_frames';
@@ -1370,6 +1373,7 @@ export class Hud {
       this.renderCharIfOpen();
     });
     $('#mm-social').addEventListener('click', () => this.toggleSocial());
+    $('#mm-mounts')?.addEventListener('click', () => this.toggleMounts());
     $('#mm-options')?.addEventListener('click', () => this.toggleOptionsMenu());
     $('#mm-arena').addEventListener('click', () => this.toggleArena());
     $('#mm-leaderboard').addEventListener('click', () => this.toggleLeaderboard());
@@ -1728,6 +1732,11 @@ export class Hud {
         break;
       case 'stash-window':
         this.closeStash();
+        break;
+      case 'mounts-window':
+        // Route through closeMounts so focus returns to the opener (WCAG 2.2 AA),
+        // consistent with the toggle / X close path.
+        this.closeMounts();
         break;
       case 'garden-window':
         this.closeGarden();
@@ -3412,6 +3421,7 @@ export class Hud {
       this.renderVendor();
     if (this.openCraftingNpcId !== null && $('#craft-window').style.display === 'block')
       this.renderCrafting();
+    if (this.mountsWindowVisible) this.renderMounts();
     if (this.marketWindow.isOpen) this.marketWindow.render();
     this.charWindow.renderIfOpen();
     // The arena window's render-skip signature is text-independent (offline sentinel or a
@@ -5175,6 +5185,9 @@ export class Hud {
         const npc = sim.entities.get(this.openCraftingNpcId);
         if (!npc || dist2d(p.pos, npc.pos) > 8) this.closeCrafting();
       }
+      // Mounts window: re-render only when the ledger / active ride signature
+      // moved (summon, dismiss, and a freshly learned mount resolve async online).
+      this.refreshMountsIfChanged();
       // Close the quest/gossip dialog once the player walks out of talking range
       // (or the NPC is gone), the same way the vendor window auto-closes above. You
       // open within INTERACT_RANGE (5), so the wider 8 threshold never fires on open.
@@ -8850,6 +8863,7 @@ export class Hud {
           enabled: junk.length > 0,
           proceeds: junkProceeds,
         },
+        growCoins: this.sim.growCoins,
       },
     );
   }
@@ -9001,6 +9015,87 @@ export class Hud {
 
   get stashOpen(): boolean {
     return this.openStashNpcId !== null;
+  }
+
+  // -------------------------------------------------------------------------
+  // Mounts window. A self-contained window (mounts_view.ts core +
+  // mounts_window.ts painter): Hud keeps only the open/close/focus glue and a
+  // cheap open-state signature so update() re-renders when the ledger or the
+  // active ride changes under the window (summon/dismiss resolve async
+  // online). The root is created lazily beside #vendor-window (index.html is
+  // not edited) so it inherits the same window container and CSS.
+  // -------------------------------------------------------------------------
+  private mountsWindowVisible = false;
+  private mountsOpener: HTMLElement | null = null;
+  private mountsSig = '';
+  private readonly mountsFocus = this.windowFocus('#mounts-window');
+
+  private mountsWindowEl(): HTMLElement {
+    let el = document.getElementById('mounts-window');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'mounts-window';
+      el.className = 'window panel';
+      const sibling = document.getElementById('vendor-window');
+      (sibling?.parentElement ?? document.getElementById('ui') ?? document.body).appendChild(el);
+    }
+    return el;
+  }
+
+  toggleMounts(): void {
+    if (this.mountsWindowVisible) this.closeMounts();
+    else this.openMounts();
+  }
+
+  openMounts(): void {
+    this.closeOtherWindows('#mounts-window');
+    this.mountsWindowVisible = true;
+    this.renderMounts();
+    this.mountsOpener = this.mountsFocus.captureFocus();
+  }
+
+  private currentMountsSig(): string {
+    return `${this.sim.ownedMounts.length}:${this.sim.activeMountId ?? ''}`;
+  }
+
+  private renderMounts(): void {
+    if (!this.mountsWindowVisible) return;
+    this.mountsSig = this.currentMountsSig();
+    renderMountsWindow(
+      this.mountsWindowEl(),
+      buildMountsView(this.sim.ownedMounts, this.sim.activeMountId, MOUNTS, this.sim.player.level),
+      {
+        onSummon: (mountId) => {
+          this.sim.summonMount(mountId);
+          this.renderMounts();
+        },
+        onDismiss: () => {
+          this.sim.dismount();
+          this.renderMounts();
+        },
+        onClose: () => this.closeMounts(),
+      },
+    );
+  }
+
+  // Cheap per-update refresh while open: rebuild only when the learned-mount
+  // ledger or the active ride actually changed (a two-field signature compare).
+  private refreshMountsIfChanged(): void {
+    if (!this.mountsWindowVisible) return;
+    if (this.currentMountsSig() !== this.mountsSig) this.renderMounts();
+  }
+
+  closeMounts(): void {
+    if (!this.mountsWindowVisible) return;
+    this.mountsWindowVisible = false;
+    const el = document.getElementById('mounts-window');
+    if (el) el.style.display = 'none';
+    this.mountsFocus.restoreFocus(this.mountsOpener);
+    this.mountsOpener = null;
+  }
+
+  get mountsOpen(): boolean {
+    return this.mountsWindowVisible;
   }
 
   // -------------------------------------------------------------------------

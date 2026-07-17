@@ -15,7 +15,13 @@ import { vendorStackSize } from '../sim/vendor_stack';
 export interface VendorGoodsRow {
   itemId: string;
   item: ItemDef;
-  /** Total copper for one purchase (per-unit buyValue times quantity). Always > 0. */
+  /** Payment currency for this row: classic copper coins, or the $GROW balance. */
+  priceKind: 'copper' | 'grow';
+  /**
+   * Total for one purchase. Copper rows: per-unit buyValue times quantity.
+   * Grow rows: the flat growPrice (a single unit, settled against the account
+   * $GROW balance, never copper). Always > 0.
+   */
   price: number;
   /** Units handed over per purchase: food/drink come in a stack, the rest are 1. */
   quantity: number;
@@ -32,14 +38,19 @@ export interface VendorBuybackRow {
 export interface VendorView {
   goods: VendorGoodsRow[];
   buyback: VendorBuybackRow[];
+  /** True when at least one good is $GROW-priced; the window then shows the balance. */
+  hasGrowGoods: boolean;
 }
 
 /**
  * Build the structured vendor view from raw inputs.
  *
  * Goods: a vendor item is offered only if it exists in the item table and has a
- * truthy buyValue (vendors never list a priceless item). Buyback: a stored slot
- * is redeemable only if the item still exists and the stack count is positive.
+ * truthy growPrice or buyValue (vendors never list a priceless item). A
+ * growPrice wins over any copper buyValue, mirroring the sim buy path
+ * (src/sim/items.ts): $GROW stock settles against the account balance and is
+ * handed over as a single unit. Buyback: a stored slot is redeemable only if
+ * the item still exists and the stack count is positive.
  */
 export function buildVendorView(
   vendorItemIds: readonly string[],
@@ -47,11 +58,18 @@ export function buildVendorView(
   items: Record<string, ItemDef>,
 ): VendorView {
   const goods: VendorGoodsRow[] = [];
+  let hasGrowGoods = false;
   for (const itemId of vendorItemIds) {
     const item = items[itemId];
-    if (!item?.buyValue) continue;
+    if (!item) continue;
+    if (item.growPrice) {
+      goods.push({ itemId, item, priceKind: 'grow', price: item.growPrice, quantity: 1 });
+      hasGrowGoods = true;
+      continue;
+    }
+    if (!item.buyValue) continue;
     const quantity = vendorStackSize(item);
-    goods.push({ itemId, item, price: item.buyValue * quantity, quantity });
+    goods.push({ itemId, item, priceKind: 'copper', price: item.buyValue * quantity, quantity });
   }
   const buyback: VendorBuybackRow[] = [];
   for (const slot of buybackSlots) {
@@ -59,5 +77,5 @@ export function buildVendorView(
     if (!item || slot.count <= 0) continue;
     buyback.push({ itemId: slot.itemId, item, count: slot.count, price: item.sellValue });
   }
-  return { goods, buyback };
+  return { goods, buyback, hasGrowGoods };
 }

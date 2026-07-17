@@ -2697,6 +2697,16 @@
     font-size: 11px;
     color: #ddd;
   }
+  /* $GROW pricing (the stable's exclusive stock): green-tinted so the account
+     currency reads apart from copper coins at a glance. */
+  .vendor-item .vi-price.vi-price-grow {
+    color: var(--color-text-success);
+  }
+  .vendor-grow-balance {
+    padding: 2px 5px 6px;
+    font-size: 11px;
+    color: var(--color-text-success);
+  }
   .vendor-sell-junk {
     display: flex;
     align-items: center;
@@ -2743,6 +2753,52 @@
     margin-top: 8px;
     border-top: 1px solid #463a1c;
     padding-top: 6px;
+  }
+
+  /* Mounts window (mounts_window.ts): learned-mount rows sharing the vendor
+     chrome, each with a Summon/Dismiss action button (40px touch floor). */
+  #mounts-window {
+    width: 320px;
+  }
+  .mount-row {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    width: 100%;
+    padding: 5px;
+  }
+  .mount-name {
+    font-size: 12px;
+    flex: 1;
+  }
+  .mount-row-exclusive .mount-name {
+    color: var(--gold);
+  }
+  .mount-active-marker {
+    font-size: 11px;
+    color: var(--color-text-success);
+  }
+  .mount-act {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 40px;
+    min-height: 40px;
+    padding: 0 12px;
+    border: 1px solid #6a5320;
+    border-radius: 4px;
+    cursor: var(--cursor-point);
+    background: linear-gradient(#8a6a26, #5a4413 55%, #473409);
+    color: #ffe6a8;
+    font-family: var(--title-font);
+    font-size: 12px;
+  }
+  .mount-act:hover:not(:disabled) {
+    filter: brightness(1.12);
+  }
+  .mount-act:disabled {
+    opacity: 0.5;
+    cursor: default;
   }
 
   /* ---------- crafting (grow station / upgrade bench) ---------- */

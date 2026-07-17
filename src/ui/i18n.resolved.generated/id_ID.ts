@@ -162,6 +162,10 @@ export const id_ID: EnTranslations = {
       "none": "You have not learned any mounts yet. Visit the Bloomhaven stables.",
       "growBalance": "$GROW: {amount}",
       "growPrice": "{amount} $GROW",
+      "active": "Active",
+      "close": "Close mounts window",
+      "summonAria": "Summon {name}",
+      "dismissAria": "Dismiss {name}",
       "errors": {
         "alreadyKnown": "You already know how to ride that mount.",
         "notKnown": "You don't know how to ride that mount.",

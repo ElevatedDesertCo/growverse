@@ -162,6 +162,10 @@ export const zh_CN: EnTranslations = {
       "none": "你还没有学会任何坐骑。去马厩看看吧。",
       "growBalance": "$GROW: {amount}",
       "growPrice": "{amount} $GROW",
+      "active": "使用中",
+      "close": "关闭坐骑窗口",
+      "summonAria": "召唤{name}",
+      "dismissAria": "收起{name}",
       "errors": {
         "alreadyKnown": "你已经学会骑乘该坐骑。",
         "notKnown": "你还不会骑乘该坐骑。",

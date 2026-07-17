@@ -162,6 +162,10 @@ export const ru_RU: EnTranslations = {
       "none": "Вы еще не научились ездить ни на одном транспорте. Загляните в конюшни.",
       "growBalance": "$GROW: {amount}",
       "growPrice": "{amount} $GROW",
+      "active": "Активен",
+      "close": "Закрыть окно транспорта",
+      "summonAria": "Призвать: {name}",
+      "dismissAria": "Спешиться: {name}",
       "errors": {
         "alreadyKnown": "Вы уже умеете ездить на этом транспорте.",
         "notKnown": "Вы не умеете ездить на этом транспорте.",

@@ -162,6 +162,10 @@ export const ko_KR: EnTranslations = {
       "none": "아직 배운 탈것이 없습니다. 마구간을 방문해 보세요.",
       "growBalance": "$GROW: {amount}",
       "growPrice": "{amount} $GROW",
+      "active": "사용 중",
+      "close": "탈것 창 닫기",
+      "summonAria": "{name} 소환",
+      "dismissAria": "{name} 해제",
       "errors": {
         "alreadyKnown": "이미 그 탈것을 탈 수 있습니다.",
         "notKnown": "그 탈것을 탈 줄 모릅니다.",

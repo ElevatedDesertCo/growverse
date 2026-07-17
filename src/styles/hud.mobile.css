@@ -901,6 +901,7 @@
   body.mobile-touch #spellbook,
   body.mobile-touch #vendor-window,
   body.mobile-touch #craft-window,
+  body.mobile-touch #mounts-window,
   body.mobile-touch #market-window,
   body.mobile-touch #quest-dialog {
     left: 10px;
@@ -910,6 +911,9 @@
     transform: none;
     box-sizing: border-box;
     overflow-y: auto;
+  }
+  body.mobile-touch #mounts-window {
+    max-height: calc(58vh - 20px);
   }
   body.mobile-touch #vendor-window,
   body.mobile-touch #craft-window {
@@ -1008,6 +1012,7 @@
     min-height: 150px;
   }
   body.mobile-touch .vendor-item,
+  body.mobile-touch .mount-act,
   body.mobile-touch .craft-btn,
   body.mobile-touch .bag-item,
   body.mobile-touch .mkt-tab,

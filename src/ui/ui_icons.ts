@@ -49,7 +49,8 @@ export type UiIconName =
   | 'nameplates'
   | 'vibrate'
   | 'anvil'
-  | 'lock';
+  | 'lock'
+  | 'mount';
 
 // Inner SVG markup per icon (one or more <path>). Default fill rule is nonzero
 // (correct for game-icons.net art incl. overlaps); the two hand-authored cut-out
@@ -122,6 +123,10 @@ const ICONS: Record<UiIconName, string> = {
   // (three shapes merged by the nonzero fill rule into one silhouette).
   anvil:
     '<path d="M48 182 L150 154 L440 154 L440 206 L120 206 C96 206 70 198 48 182 Z M232 206 h48 v44 h-48 z M150 250 h212 l30 60 H120 Z"/>',
+  // hand-authored horseshoe (mounts): an open arch with flared end plates
+  // (three shapes merged by the nonzero fill rule into one silhouette).
+  mount:
+    '<path d="M256 72c98 0 172 78 172 176v72h-72l14-56h-26v-16c0-56-32-104-88-104s-88 48-88 104v16h-26l14 56H84v-72c0-98 74-176 172-176zM84 344h88v56H84zM340 344h88v56h-88z"/>',
 };
 
 export function hasUiIcon(name: string): name is UiIconName {

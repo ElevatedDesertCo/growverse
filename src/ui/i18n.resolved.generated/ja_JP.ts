@@ -162,6 +162,10 @@ export const ja_JP: EnTranslations = {
       "none": "まだマウントを習得していません。厩舎を訪れましょう。",
       "growBalance": "$GROW: {amount}",
       "growPrice": "{amount} $GROW",
+      "active": "使用中",
+      "close": "マウントウィンドウを閉じる",
+      "summonAria": "{name}を召喚",
+      "dismissAria": "{name}を解除",
       "errors": {
         "alreadyKnown": "そのマウントの騎乗はすでに習得済みです。",
         "notKnown": "そのマウントの騎乗をまだ習得していません。",

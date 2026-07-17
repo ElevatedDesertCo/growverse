@@ -31,6 +31,8 @@ export interface VendorWindowDeps extends PainterHostPresentation {
     enabled: boolean;
     proceeds: number;
   };
+  /** The player's $GROW balance, shown only when the vendor stocks grow-priced goods. */
+  growCoins: number;
 }
 
 /** Paint the vendor panel from a prepared view. */
@@ -46,11 +48,28 @@ export function renderVendorWindow(
   const scrollTop = el.scrollTop;
   el.innerHTML = `<div class="panel-title"><span>${esc(t('itemUi.vendor.goodsTitle', { name: vendorName }))}</span><button type="button" class="x-btn" data-close aria-label="${esc(t('itemUi.vendor.close'))}">${svgIcon('close')}</button></div>`;
 
-  for (const { itemId, item, price: priceCopper, quantity } of view.goods) {
+  // The stable's $GROW stock reads against the account balance, so surface it
+  // in the header area, but only when this vendor actually lists a grow-priced
+  // good (the ordinary copper merchants stay untouched).
+  if (view.hasGrowGoods) {
+    const balance = document.createElement('div');
+    balance.className = 'vendor-grow-balance';
+    balance.textContent = t('hudChrome.mounts.growBalance', {
+      amount: formatNumber(deps.growCoins, { maximumFractionDigits: 0 }),
+    });
+    el.appendChild(balance);
+  }
+
+  for (const { itemId, item, price: priceAmount, priceKind, quantity } of view.goods) {
     const row = document.createElement('button');
     row.type = 'button';
     row.className = 'vendor-item';
-    const price = formatLocalizedMoney(priceCopper);
+    const price =
+      priceKind === 'grow'
+        ? t('hudChrome.mounts.growPrice', {
+            amount: formatNumber(priceAmount, { maximumFractionDigits: 0 }),
+          })
+        : formatLocalizedMoney(priceAmount);
     const itemName = itemDisplayName(item);
     const stack =
       quantity > 1
@@ -60,7 +79,11 @@ export function renderVendorWindow(
       'aria-label',
       t('itemUi.vendor.buyAria', { item: `${itemName}${stack}`, price }),
     );
-    row.innerHTML = `${deps.itemIcon(item)}<span class="vi-name">${esc(itemName)}${esc(stack)}</span><span class="vi-price">${deps.moneyHtml(priceCopper)}</span>`;
+    const priceHtml =
+      priceKind === 'grow'
+        ? `<span class="vi-price vi-price-grow">${esc(price)}</span>`
+        : `<span class="vi-price">${deps.moneyHtml(priceAmount)}</span>`;
+    row.innerHTML = `${deps.itemIcon(item)}<span class="vi-name">${esc(itemName)}${esc(stack)}</span>${priceHtml}`;
     row.addEventListener('click', () => deps.onBuy(itemId));
     deps.attachTooltip(
       row,

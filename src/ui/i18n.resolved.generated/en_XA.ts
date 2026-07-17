@@ -162,6 +162,10 @@ export const en_XA: EnTranslations = {
       "none": "[Ýóú ĥáʋé ñóţ ļéáŕñéð áñý ɱóúñţš ýéţ. Ʋíšíţ ţĥé Ɓļóóɱĥáʋéñ šţáƀļéš.]",
       "growBalance": "[$ĜŔÓŴ: {amount}]",
       "growPrice": "[{amount} $ĜŔÓŴ]",
+      "active": "[Áçţíʋé]",
+      "close": "[Çļóšé ɱóúñţš ŵíñðóŵ]",
+      "summonAria": "[Šúɱɱóñ {name}]",
+      "dismissAria": "[Ðíšɱíšš {name}]",
       "errors": {
         "alreadyKnown": "[Ýóú áļŕéáðý ķñóŵ ĥóŵ ţó ŕíðé ţĥáţ ɱóúñţ.]",
         "notKnown": "[Ýóú ðóñ'ţ ķñóŵ ĥóŵ ţó ŕíðé ţĥáţ ɱóúñţ.]",
