@@ -2349,6 +2349,7 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'entities.items.copper_ore.name': 'Kupfererz',
   'entities.items.trellis_frame.name': 'Rankgerüst',
   'entities.items.coppermesh_gloves.name': 'Kupfergeflecht-Handschuhe',
+  'entities.items.verdant_draught.name': 'Grünkraft-Trank',
   'entities.items.sableweb_slippers.name': 'Sableweb-Pantoffeln',
   'entities.items.simple_fishing_pole.name': 'Einfache Angel',
   'entities.items.tangled_weed.name': 'Verheddertes Kraut',

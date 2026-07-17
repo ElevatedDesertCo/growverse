@@ -5144,6 +5144,9 @@ export const ru_RU: EnTranslations = {
       "coppermesh_gloves": {
         "name": "Медные сетчатые перчатки"
       },
+      "verdant_draught": {
+        "name": "Изумрудный настой"
+      },
       "bristleback_maul": {
         "name": "Кувалда Щетиноспина"
       },

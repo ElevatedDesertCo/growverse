@@ -1144,6 +1144,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'entities.items.copper_ore.name': 'Bakır cevheri',
   'entities.items.trellis_frame.name': 'Bitki Kafesi',
   'entities.items.coppermesh_gloves.name': 'Bakır Örgü Eldiven',
+  'entities.items.verdant_draught.name': 'Yeşil İksir',
   'entities.items.raw_river_perch.name': 'Çiğ Nehir Levreği',
   'entities.items.raw_stonescale_carp.name': 'Çiğ Taşpul Sazanı',
   'entities.items.recruit_tunic.name': 'Acemi Erin Tuniği',

@@ -5144,6 +5144,9 @@ export const nl_NL: EnTranslations = {
       "coppermesh_gloves": {
         "name": "Kopergaas Handschoenen"
       },
+      "verdant_draught": {
+        "name": "Groenkracht-drank"
+      },
       "bristleback_maul": {
         "name": "Borstelrug-Strijdhamer"
       },

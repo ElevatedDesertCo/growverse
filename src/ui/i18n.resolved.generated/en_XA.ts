@@ -5144,6 +5144,9 @@ export const en_XA: EnTranslations = {
       "coppermesh_gloves": {
         "name": "[Çóþþéŕɱéšĥ Ĝļóʋéš]"
       },
+      "verdant_draught": {
+        "name": "[Ʋéŕðáñţ Ðŕáúĝĥţ]"
+      },
       "bristleback_maul": {
         "name": "[Ɓŕíšţļéƀáçķ Ɱáúļ]"
       },

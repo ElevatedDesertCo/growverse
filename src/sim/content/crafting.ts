@@ -294,6 +294,16 @@ export const CRAFT_ITEMS: Record<string, ItemDef> = {
     potionMana: 120,
     sellValue: 12,
   },
+  // The Herbalism payoff: a potent healing draught pressed from the vale's blooms,
+  // stronger than the common Swirling draught. Unlocked by Herbalism (see recipe).
+  verdant_draught: {
+    id: 'verdant_draught',
+    name: 'Verdant Draught',
+    kind: 'potion',
+    quality: 'uncommon',
+    potionHp: 160,
+    sellValue: 18,
+  },
   elixir_of_the_bloom: {
     id: 'elixir_of_the_bloom',
     name: 'Elixir of the Bloom',
@@ -664,6 +674,21 @@ export const CRAFT_RECIPES: CraftRecipe[] = [
     inputs: [{ itemId: 'bloom_extract', count: 2 }],
     copperCost: 10,
     output: { itemId: 'swirling_mana_draught', count: 1 },
+  },
+  // Herbalism payoff (parity with the Logging/Mining gates): a stronger heal draught
+  // pressed from Purple Petals + Bloom Extract, unlocked at Herbalism 15. Both inputs
+  // are herbalism-gathered, so working the flower patches unlocks it.
+  {
+    id: 'alchemy_verdant_draught',
+    station: 'alchemy',
+    category: 'consumable',
+    inputs: [
+      { itemId: 'purple_petal', count: 2 },
+      { itemId: 'bloom_extract', count: 2 },
+    ],
+    copperCost: 45,
+    output: { itemId: 'verdant_draught', count: 1 },
+    requiredProfession: { id: 'herbalism', skill: 15 },
   },
   {
     id: 'alchemy_elixir_of_the_bloom',

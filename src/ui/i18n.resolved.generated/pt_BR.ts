@@ -5144,6 +5144,9 @@ export const pt_BR: EnTranslations = {
       "coppermesh_gloves": {
         "name": "Luvas de Malha de Cobre"
       },
+      "verdant_draught": {
+        "name": "Poção Verdejante"
+      },
       "bristleback_maul": {
         "name": "Malho Bristleback"
       },

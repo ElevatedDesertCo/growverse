@@ -5144,6 +5144,9 @@ export const ko_KR: EnTranslations = {
       "coppermesh_gloves": {
         "name": "구리 그물 장갑"
       },
+      "verdant_draught": {
+        "name": "신록의 물약"
+      },
       "bristleback_maul": {
         "name": "뻣센등뼈 철퇴"
       },

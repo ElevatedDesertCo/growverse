@@ -5144,6 +5144,9 @@ export const da_DK: EnTranslations = {
       "coppermesh_gloves": {
         "name": "Kobbernet-handsker"
       },
+      "verdant_draught": {
+        "name": "Grøn Eliksir"
+      },
       "bristleback_maul": {
         "name": "Børsterygs-Lemlæster"
       },

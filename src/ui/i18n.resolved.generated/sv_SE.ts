@@ -5144,6 +5144,9 @@ export const sv_SE: EnTranslations = {
       "coppermesh_gloves": {
         "name": "Koppartrådshandskar"
       },
+      "verdant_draught": {
+        "name": "Grönskande Brygd"
+      },
       "bristleback_maul": {
         "name": "Borstryggens klubba"
       },

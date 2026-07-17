@@ -2360,6 +2360,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.items.copper_ore.name': '銅鉱石',
   'entities.items.trellis_frame.name': '栽培トレリス',
   'entities.items.coppermesh_gloves.name': '銅メッシュグローブ',
+  'entities.items.verdant_draught.name': '翠緑の水薬',
   'entities.npcs.alchemist_sable.name': 'セイブル',
   'entities.npcs.alchemist_sable.title': '錬金術師',
   'entities.npcs.alchemist_sable.greeting':

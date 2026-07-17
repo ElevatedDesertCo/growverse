@@ -5144,6 +5144,9 @@ export const zh_TW: EnTranslations = {
       "coppermesh_gloves": {
         "name": "銅網手套"
       },
+      "verdant_draught": {
+        "name": "翠綠藥劑"
+      },
       "bristleback_maul": {
         "name": "硬鬃重槌"
       },

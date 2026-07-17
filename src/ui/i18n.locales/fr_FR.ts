@@ -2364,6 +2364,7 @@ export const fr_FR: Partial<Record<TranslationKey, string>> = {
   'entities.items.copper_ore.name': 'Minerai de cuivre',
   'entities.items.trellis_frame.name': 'Treillis de Culture',
   'entities.items.coppermesh_gloves.name': 'Gants en Maille de Cuivre',
+  'entities.items.verdant_draught.name': 'Breuvage Verdoyant',
   'entities.items.sableweb_slippers.name': 'Mules Sableweb',
   'entities.items.simple_fishing_pole.name': 'Canne à pêche simple',
   'entities.items.tangled_weed.name': 'Herbe emmêlée',

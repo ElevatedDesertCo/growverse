@@ -2255,6 +2255,7 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.items.copper_ore.name': '銅礦石',
   'entities.items.trellis_frame.name': '藤架',
   'entities.items.coppermesh_gloves.name': '銅網手套',
+  'entities.items.verdant_draught.name': '翠綠藥劑',
   'entities.npcs.alchemist_sable.name': '塞布爾',
   'entities.npcs.alchemist_sable.title': '煉金術士',
   'entities.npcs.alchemist_sable.greeting':

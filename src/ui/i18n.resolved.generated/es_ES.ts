@@ -5144,6 +5144,9 @@ export const es_ES: EnTranslations = {
       "coppermesh_gloves": {
         "name": "Guantes de Malla de Cobre"
       },
+      "verdant_draught": {
+        "name": "Brebaje Verdante"
+      },
       "bristleback_maul": {
         "name": "Maza Bristleback"
       },

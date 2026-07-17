@@ -5144,6 +5144,9 @@ export const tr_TR: EnTranslations = {
       "coppermesh_gloves": {
         "name": "Bakır Örgü Eldiven"
       },
+      "verdant_draught": {
+        "name": "Yeşil İksir"
+      },
       "bristleback_maul": {
         "name": "Dikensırt Balyozu"
       },

@@ -5144,6 +5144,9 @@ export const ja_JP: EnTranslations = {
       "coppermesh_gloves": {
         "name": "銅メッシュグローブ"
       },
+      "verdant_draught": {
+        "name": "翠緑の水薬"
+      },
       "bristleback_maul": {
         "name": "ブリストルバックの大槌"
       },

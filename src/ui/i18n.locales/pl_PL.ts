@@ -1146,6 +1146,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'entities.items.copper_ore.name': 'Ruda miedzi',
   'entities.items.trellis_frame.name': 'Kratka do Uprawy',
   'entities.items.coppermesh_gloves.name': 'Rękawice z Miedzianej Siatki',
+  'entities.items.verdant_draught.name': 'Zielony Wywar',
   'entities.items.raw_river_perch.name': 'Surowy okoń rzeczny',
   'entities.items.raw_stonescale_carp.name': 'Surowy karp kamiennołuski',
   'entities.items.recruit_tunic.name': 'Tunika rekruta',

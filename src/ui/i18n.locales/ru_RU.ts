@@ -2389,6 +2389,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.items.copper_ore.name': 'Медная руда',
   'entities.items.trellis_frame.name': 'Шпалера',
   'entities.items.coppermesh_gloves.name': 'Медные сетчатые перчатки',
+  'entities.items.verdant_draught.name': 'Изумрудный настой',
   'entities.npcs.alchemist_sable.name': 'Сейбл',
   'entities.npcs.alchemist_sable.title': 'Алхимик',
   'entities.npcs.alchemist_sable.greeting':

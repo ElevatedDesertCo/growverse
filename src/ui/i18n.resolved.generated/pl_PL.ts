@@ -5144,6 +5144,9 @@ export const pl_PL: EnTranslations = {
       "coppermesh_gloves": {
         "name": "Rękawice z Miedzianej Siatki"
       },
+      "verdant_draught": {
+        "name": "Zielony Wywar"
+      },
       "bristleback_maul": {
         "name": "Tłuk szczeciniastych"
       },

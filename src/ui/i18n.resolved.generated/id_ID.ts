@@ -5144,6 +5144,9 @@ export const id_ID: EnTranslations = {
       "coppermesh_gloves": {
         "name": "Sarung Tangan Jaring Tembaga"
       },
+      "verdant_draught": {
+        "name": "Ramuan Rimbun"
+      },
       "bristleback_maul": {
         "name": "Cabikan Punggung Berbulu"
       },

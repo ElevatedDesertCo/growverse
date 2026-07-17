@@ -2353,6 +2353,7 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.items.copper_ore.name': '구리 광석',
   'entities.items.trellis_frame.name': '재배 격자',
   'entities.items.coppermesh_gloves.name': '구리 그물 장갑',
+  'entities.items.verdant_draught.name': '신록의 물약',
   'entities.npcs.alchemist_sable.name': '세이블',
   'entities.npcs.alchemist_sable.title': '연금술사',
   'entities.npcs.alchemist_sable.greeting':

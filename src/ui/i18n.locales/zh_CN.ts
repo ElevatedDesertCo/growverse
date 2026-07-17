@@ -2253,6 +2253,7 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'entities.items.copper_ore.name': '铜矿石',
   'entities.items.trellis_frame.name': '藤架',
   'entities.items.coppermesh_gloves.name': '铜网手套',
+  'entities.items.verdant_draught.name': '翠绿药剂',
   'entities.npcs.alchemist_sable.name': '塞布尔',
   'entities.npcs.alchemist_sable.title': '炼金术士',
   'entities.npcs.alchemist_sable.greeting':

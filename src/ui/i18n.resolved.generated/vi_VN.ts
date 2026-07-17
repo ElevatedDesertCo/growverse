@@ -5144,6 +5144,9 @@ export const vi_VN: EnTranslations = {
       "coppermesh_gloves": {
         "name": "Găng Tay Lưới Đồng"
       },
+      "verdant_draught": {
+        "name": "Thuốc Xanh Tươi"
+      },
       "bristleback_maul": {
         "name": "Vồ Lưng Gai"
       },

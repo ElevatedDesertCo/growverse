@@ -2339,6 +2339,7 @@ export const pt_BR: Partial<Record<TranslationKey, string>> = {
   'entities.items.copper_ore.name': 'Minério de cobre',
   'entities.items.trellis_frame.name': 'Treliça de Cultivo',
   'entities.items.coppermesh_gloves.name': 'Luvas de Malha de Cobre',
+  'entities.items.verdant_draught.name': 'Poção Verdejante',
   'entities.items.sableweb_slippers.name': 'Pantufas Sableweb',
   'entities.items.simple_fishing_pole.name': 'Vara de pesca simples',
   'entities.items.tangled_weed.name': 'Erva emaranhada',
