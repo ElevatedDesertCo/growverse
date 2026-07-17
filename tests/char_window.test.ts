@@ -96,8 +96,9 @@ describe('char_window: embedded bags', () => {
     expect(painter).toContain("className = 'char-main'");
     expect(painter).toContain("slot.id = 'char-bags-slot'");
     expect(painter).toContain("className = 'char-footer'");
-    // The repaint targets main, never the whole root, so the slot + bags survive.
-    expect(painter).toContain('main.innerHTML = html');
+    // The repaint targets the titlebar + main, never the whole root, so the bags
+    // slot (the third grid column) + its embedded bags survive every render.
+    expect(painter).toContain('main.innerHTML = gear + rail');
     expect(painter).not.toContain('el.innerHTML =');
   });
 

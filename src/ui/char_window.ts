@@ -153,27 +153,35 @@ export class CharWindow {
     const level = formatNumber(p.level, { maximumFractionDigits: 0 });
     // WCAG 2.2 AA: name the focus-trapped root via the character title span.
     markDialogRoot(el, { labelledBy: 'char-title' });
-    // Persistent shell: a `main` region rebuilt every render, a `bags-slot` that
-    // holds the reparented live #bags node (the HUD moves it in via embedBags), and
-    // a `footer` built once. Only `main` is innerHTML-rebuilt, so a repaint (on an
-    // inventory change) never destroys the embedded bags window or its listeners.
-    const main = this.ensureShell(el);
+    // Persistent shell: a full-width titlebar and a `main` region are rebuilt every
+    // render; the `bags-slot` (which holds the reparented live #bags node) and the
+    // `footer` are built once. main is `display:contents`, so its gear + rail columns
+    // and the bags slot are the three grid columns of .char-body. Only the titlebar
+    // and main are innerHTML-rebuilt, so a repaint never destroys the embedded bags.
+    const { titlebar, main } = this.ensureShell(el);
 
-    let html = `<div class="panel-title char-title-portrait">${portraitChipHtml({ cls: world.cfg.playerClass, skin: p.skin ?? 0, name: p.name, variant: 'md' })}<span class="char-title-text" id="char-title">${esc(p.name)} <span class="panel-subtitle">${esc(t('itemUi.equipment.levelClass', { level, className }))}</span></span><button type="button" class="x-btn" data-close aria-label="${esc(t('hud.options.returnToGame'))}">${svgIcon('close')}</button></div>`;
-    html += `<div class="paperdoll">
+    titlebar.innerHTML = `<div class="panel-title char-title-portrait">${portraitChipHtml({ cls: world.cfg.playerClass, skin: p.skin ?? 0, name: p.name, variant: 'md' })}<span class="char-title-text" id="char-title">${esc(p.name)} <span class="panel-subtitle">${esc(t('itemUi.equipment.levelClass', { level, className }))}</span></span><button type="button" class="x-btn" data-close aria-label="${esc(t('hud.options.returnToGame'))}">${svgIcon('close')}</button></div>`;
+    hydratePortraits(titlebar);
+    titlebar.querySelector('[data-close]')?.addEventListener('click', () => this.close());
+
+    // Column 1: the paperdoll (equip slots flanking the 3D model). Column 2: the rail
+    // (stats, specialization, professions, progression). Column 3 is the bags slot.
+    const gear = `<div class="char-col-gear"><div class="paperdoll">
       <div class="equip-col" id="equip-col-left"></div>
       <div class="char-model-panel">
         <div id="char-model-preview" class="char-model-preview" role="img" aria-label="${esc(t('hudChrome.character.modelPreview'))}"></div>
         <div id="char-skin-row" class="skin-row char-skin-row" role="list" aria-label="${esc(t('auth.appearance'))}"></div>
       </div>
       <div class="equip-col equip-col-right" id="equip-col-right"></div>
-    </div>`;
-    html += `<div class="char-stats">${STAT_GRID.map((stat) => this.deps.statCellHtml(stat)).join('')}</div>`;
-    html += this.deps.talentSummaryHtml();
-    html += this.professionsHtml(world);
-    html += this.deps.progressionHtml(p.level);
-    main.innerHTML = html;
-    hydratePortraits(main);
+    </div></div>`;
+    const rail =
+      `<div class="char-col-rail">` +
+      `<div class="char-stats">${STAT_GRID.map((stat) => this.deps.statCellHtml(stat)).join('')}</div>` +
+      this.deps.talentSummaryHtml() +
+      this.professionsHtml(world) +
+      this.deps.progressionHtml(p.level) +
+      `</div>`;
+    main.innerHTML = gear + rail;
     main
       .querySelector('[data-act="prestige"]')
       ?.addEventListener('click', () => this.deps.openPrestige());
@@ -193,25 +201,30 @@ export class CharWindow {
 
     this.deps.renderPreview();
     this.deps.renderSkinPicker();
-    main.querySelector('[data-close]')?.addEventListener('click', () => this.close());
     // Reparent + repaint the bags grid into the slot so gear and inventory read as
     // one view. HUD-owned because the #bags lifecycle and cross-window modes are.
     this.deps.embedBags();
   }
 
-  // Build the persistent main / bags-slot / footer shell once, returning the `main`
-  // region. The footer's share button is wired here (it lives outside the rebuilt
-  // main so its listener survives every repaint); prestige is re-wired per render
-  // because it lives in the progression block inside main.
-  private ensureShell(el: HTMLElement): HTMLElement {
-    const existing = el.querySelector<HTMLElement>('.char-main');
-    if (existing) return existing;
+  // Build the persistent titlebar / body(main + bags-slot) / footer shell once,
+  // returning the rebuilt regions. The footer's share button is wired here (it lives
+  // outside the rebuilt main so its listener survives every repaint); the close and
+  // prestige buttons are re-wired per render since they live in the titlebar / rail.
+  private ensureShell(el: HTMLElement): { titlebar: HTMLElement; main: HTMLElement } {
+    const main = el.querySelector<HTMLElement>('.char-main');
+    const titlebar = el.querySelector<HTMLElement>('.char-titlebar');
+    if (main && titlebar) return { titlebar, main };
     el.textContent = '';
-    const main = document.createElement('div');
-    main.className = 'char-main';
+    const tb = document.createElement('div');
+    tb.className = 'char-titlebar';
+    const body = document.createElement('div');
+    body.className = 'char-body';
+    const mainEl = document.createElement('div');
+    mainEl.className = 'char-main';
     const slot = document.createElement('div');
     slot.className = 'char-bags-slot';
     slot.id = 'char-bags-slot';
+    body.append(mainEl, slot);
     const footer = document.createElement('div');
     footer.className = 'char-footer';
     footer.innerHTML = `<div class="pc-share-row"><button type="button" class="btn pc-share-btn" data-act="share-card">${SHARE_GLYPH}<span>${esc(t('playerCard.shareButton'))}</span></button></div>`;
@@ -219,8 +232,8 @@ export class CharWindow {
       audio.click();
       this.deps.openPlayerCard();
     });
-    el.append(main, slot, footer);
-    return main;
+    el.append(tb, body, footer);
+    return { titlebar: tb, main: mainEl };
   }
 
   // The Professions group on the character sheet: one skill bar per gathering

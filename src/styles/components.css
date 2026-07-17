@@ -832,7 +832,41 @@
   /* ---------- character window ---------- */
   /* character window */
   #char-window {
-    width: 600px;
+    width: min(1020px, 96vw);
+  }
+  /* The character sheet is a wide three-column equipment screen: a full-width
+     titlebar, then a body grid of gear (paperdoll) / rail (stats + specialization +
+     professions + progression) / bags, then a full-width footer. .char-main is
+     display:contents so its two rebuilt columns join the persistent bags slot as the
+     three grid columns (char_window.ts). Mobile collapses this to a single stacked
+     column in hud.mobile.css. */
+  .char-body {
+    display: grid;
+    grid-template-columns: 372px minmax(220px, 1fr) minmax(240px, 1.1fr);
+    gap: 16px;
+    align-items: start;
+    margin-top: 8px;
+  }
+  .char-main {
+    display: contents;
+  }
+  .char-col-gear,
+  .char-col-rail {
+    min-width: 0;
+  }
+  /* The rail is the top of its own column, so drop the stats' paperdoll separator
+     (it only makes sense above the stats in the stacked mobile layout). */
+  .char-col-rail .char-stats {
+    border-top: none;
+    margin-top: 0;
+    padding-top: 0;
+  }
+  /* Bags is its own column here, not a stacked section: drop the top separator the
+     mobile stack restores. */
+  .char-body .char-bags-slot {
+    margin-top: 0;
+    border-top: none;
+    padding-top: 0;
   }
   .paperdoll {
     display: flex;
@@ -843,7 +877,7 @@
     display: flex;
     flex-direction: column;
     gap: 5px;
-    width: 150px;
+    width: 116px;
     flex-shrink: 0;
   }
   .equip-col-right .equip-slot {

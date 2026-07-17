@@ -1102,6 +1102,25 @@
     box-sizing: border-box;
     overflow-y: auto;
   }
+  /* The wide three-column equipment screen collapses to a single stacked column on a
+     phone (the window is a narrow 360px rail). .char-main stays display:contents so
+     its gear + rail columns and the bags slot stack in order inside the block body,
+     and the paperdoll / bags top separators (dropped for the desktop columns) come
+     back so the stacked sections read as distinct rows. */
+  body.mobile-touch #char-window .char-body {
+    display: block;
+    margin-top: 6px;
+  }
+  body.mobile-touch #char-window .char-col-rail .char-stats {
+    border-top: 1px solid #463a1c;
+    margin-top: 10px;
+    padding-top: 8px;
+  }
+  body.mobile-touch #char-window .char-bags-slot {
+    margin-top: 10px;
+    border-top: 1px solid #463a1c;
+    padding-top: 8px;
+  }
   /* Narrow the flanking equip columns so both fit beside the model on a phone. */
   body.mobile-touch .equip-col {
     width: 108px;
