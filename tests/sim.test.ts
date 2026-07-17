@@ -1502,7 +1502,9 @@ describe('quests', () => {
   it('ground objects can only be picked up with the quest active', () => {
     const sim = makeSim('warrior');
     sim.player.level = 3;
-    const crate = [...sim.entities.values()].find((e) => e.kind === 'object')!;
+    const crate = [...sim.entities.values()].find(
+      (e) => e.kind === 'object' && e.objectItemId === 'supply_crate',
+    )!;
     teleportTo(sim, crate.pos.x + 1, crate.pos.z);
     sim.pickUpObject(crate.id);
     expect(sim.countItem('supply_crate')).toBe(0);
