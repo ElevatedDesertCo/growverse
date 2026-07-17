@@ -168,6 +168,8 @@ export const vi_VN: EnTranslations = {
       "dismissAria": "Dismiss {name}",
       "errors": {
         "alreadyKnown": "You already know how to ride that mount.",
+        "alreadyHaveReins": "You already have those reins.",
+        "fiestaBout": "You can't do that during a Fiesta bout.",
         "notKnown": "You don't know how to ride that mount.",
         "notEnoughGrow": "You don't have enough $GROW.",
         "learnLevel": "You must be level {level} to learn to ride.",
@@ -1154,6 +1156,7 @@ export const vi_VN: EnTranslations = {
       "quests": "Nhiệm Vụ",
       "dungeons": "Hầm Ngục & Raid",
       "delves": "Hang Sâu",
+      "mounts": "Mounts",
       "reference": "Tra Cứu",
       "controls": "Điều Khiển",
       "combat": "Chiến Đấu",
@@ -1717,6 +1720,22 @@ export const vi_VN: EnTranslations = {
       "marksBody": "Dọn sạch hang sâu kiếm được Huy Hiệu Hang Sâu, một loại tiền tệ tách biệt với tiền vàng của bạn. Tiêu chúng ở chỗ người giữ để tăng sức cho đồng hành và sắm trang bị bạn không tìm thấy ở bất cứ đâu khác.",
       "whereHeading": "Tìm ở đâu",
       "whereBody": "Hang sâu đầu tiên, Thánh Tích Sụp Đổ, mở ra ở Đồi Thánh Tích trong thung lũng khởi đầu Thung Lũng Đông Khê. Tu Huynh Halven trông coi cái bảng ở đó, và ông sẽ cử bạn xuống một khi bạn đã sẵn sàng."
+    },
+    "mountsPage": {
+      "heading": "Mounts",
+      "intro": "Mounts carry you across the realm in style. Learn to ride at the Bloomhaven stables, pick a companion whose temper suits you, and the roads get a great deal shorter.",
+      "whatHeading": "How riding works",
+      "whatBody": "Each mount is a one-time unlock: buy its reins at the stable, learn it, and it is yours for good. Summon it whenever you are out of combat and on dry land; taking a hit, starting a cast, or diving underwater puts you back on your feet.",
+      "tiersHeading": "Riding and swift riding",
+      "tiersBody": "The stable raises two stocks. Riding mounts are the first step, and swift mounts are the same steady stock raised faster. Within a tier every mount moves at the same pace, so the choice is temperament and looks, never speed.",
+      "exclusiveHeading": "The Bloomstriders",
+      "exclusiveBody": "Two mounts, the Verdant Bloomstrider and the Elder Bloomstrider, are grown rather than raised and are the stable exclusives bought with $GROW. They are prestige rides: within their tier they are exactly as fast as every other mount.",
+      "whereHeading": "Where to learn",
+      "whereBody": "Visit the Bloomhaven stables in the starting vale once you reach level {level}. The stablemaster will start you with riding lessons on the practice course, and the reins on offer cover both tiers.",
+      "fromLevel": "From level {n}",
+      "ridingTier": "Riding",
+      "swiftTier": "Swift",
+      "exclusiveTag": "$GROW exclusive"
     },
     "talentsPage": {
       "heading": "Tài năng và chuyên môn hóa",
@@ -5639,6 +5658,30 @@ export const vi_VN: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "Crôm Tiên Phong"
+      },
+      "reins_swift_highfield_alpaca": {
+        "name": "Dây cương Lạc đà Alpaca Highfield Thần Tốc"
+      },
+      "reins_swift_ironhide_bull": {
+        "name": "Dây cương Bò Da Sắt Thần Tốc"
+      },
+      "reins_swift_thornback_boar": {
+        "name": "Dây cương Heo Rừng Gai Lưng Thần Tốc"
+      },
+      "reins_elder_bloomstrider": {
+        "name": "Dây cương Bloomstrider Trưởng Lão"
+      },
+      "verdant_wardrobe_crate": {
+        "name": "Rương Trang Phục Xanh Tươi"
+      },
+      "course_low_rail": {
+        "name": "Bước nhảy rào thấp"
+      },
+      "course_hay_bales": {
+        "name": "Bước nhảy đống rơm"
+      },
+      "course_timber_arch": {
+        "name": "Cổng vòm gỗ"
       }
     },
     "mobs": {
@@ -6013,6 +6056,32 @@ export const vi_VN: EnTranslations = {
       },
       "ysolei": {
         "name": "Ysolei, Hóa Thân Nguyệt Chết Chìm"
+      }
+    },
+    "mounts": {
+      "mount_alpaca": {
+        "name": "Highfield Alpaca"
+      },
+      "mount_bull": {
+        "name": "Ironhide Bull"
+      },
+      "mount_boar": {
+        "name": "Thornback Boar"
+      },
+      "mount_bloomstrider": {
+        "name": "Verdant Bloomstrider"
+      },
+      "mount_swift_alpaca": {
+        "name": "Swift Highfield Alpaca"
+      },
+      "mount_swift_bull": {
+        "name": "Swift Ironhide Bull"
+      },
+      "mount_swift_boar": {
+        "name": "Swift Thornback Boar"
+      },
+      "mount_elder_bloomstrider": {
+        "name": "Elder Bloomstrider"
       }
     },
     "npcs": {
@@ -6962,6 +7031,22 @@ export const vi_VN: EnTranslations = {
         "objectives": {
           "0": {
             "label": "Đã hạ Mogger"
+          }
+        }
+      },
+      "q_riding_lessons": {
+        "title": "Riding Lessons",
+        "text": "So you want to ride, {className}? Then you learn the yard before you learn the road. Walk my practice course: the low rail, the hay bales, then back through the timber arch. Go! Clear every jump, then ride back through the arch.",
+        "completion": "Steady hands, steady seat. You will do. Take this for your trouble: it should cover your first set of reins. Pick a mount whose temper suits you, and mind the Bloomstrider, that one chooses its rider.",
+        "objectives": {
+          "0": {
+            "label": "Low Rail cleared"
+          },
+          "1": {
+            "label": "Hay Bales cleared"
+          },
+          "2": {
+            "label": "Timber Arch ridden through"
           }
         }
       },

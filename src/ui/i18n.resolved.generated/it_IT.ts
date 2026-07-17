@@ -168,6 +168,8 @@ export const it_IT: EnTranslations = {
       "dismissAria": "Dismiss {name}",
       "errors": {
         "alreadyKnown": "You already know how to ride that mount.",
+        "alreadyHaveReins": "You already have those reins.",
+        "fiestaBout": "You can't do that during a Fiesta bout.",
         "notKnown": "You don't know how to ride that mount.",
         "notEnoughGrow": "You don't have enough $GROW.",
         "learnLevel": "You must be level {level} to learn to ride.",
@@ -1154,6 +1156,7 @@ export const it_IT: EnTranslations = {
       "quests": "Missioni",
       "dungeons": "Dungeon e Incursioni",
       "delves": "Incursioni",
+      "mounts": "Mounts",
       "reference": "Riferimento",
       "controls": "Comandi",
       "combat": "Combattimento",
@@ -1717,6 +1720,22 @@ export const it_IT: EnTranslations = {
       "marksBody": "Completare le incursioni fa guadagnare Sigilli d'Incursione, una valuta tenuta separata dalle tue monete. Spendili dal custode per rafforzare la tua compagna e procurarti equipaggiamento che non troverai da nessun'altra parte.",
       "whereHeading": "Dove trovarne una",
       "whereBody": "La prima incursione, il Reliquiario Crollato, si apre alla Collina del Reliquiario, nella valle iniziale della Valle di Eastbrook. Fratello Halven custodisce lì il tabellone, e ti manderà giù quando sarai pronto."
+    },
+    "mountsPage": {
+      "heading": "Mounts",
+      "intro": "Mounts carry you across the realm in style. Learn to ride at the Bloomhaven stables, pick a companion whose temper suits you, and the roads get a great deal shorter.",
+      "whatHeading": "How riding works",
+      "whatBody": "Each mount is a one-time unlock: buy its reins at the stable, learn it, and it is yours for good. Summon it whenever you are out of combat and on dry land; taking a hit, starting a cast, or diving underwater puts you back on your feet.",
+      "tiersHeading": "Riding and swift riding",
+      "tiersBody": "The stable raises two stocks. Riding mounts are the first step, and swift mounts are the same steady stock raised faster. Within a tier every mount moves at the same pace, so the choice is temperament and looks, never speed.",
+      "exclusiveHeading": "The Bloomstriders",
+      "exclusiveBody": "Two mounts, the Verdant Bloomstrider and the Elder Bloomstrider, are grown rather than raised and are the stable exclusives bought with $GROW. They are prestige rides: within their tier they are exactly as fast as every other mount.",
+      "whereHeading": "Where to learn",
+      "whereBody": "Visit the Bloomhaven stables in the starting vale once you reach level {level}. The stablemaster will start you with riding lessons on the practice course, and the reins on offer cover both tiers.",
+      "fromLevel": "From level {n}",
+      "ridingTier": "Riding",
+      "swiftTier": "Swift",
+      "exclusiveTag": "$GROW exclusive"
     },
     "talentsPage": {
       "heading": "Talenti e specializzazioni",
@@ -5639,6 +5658,30 @@ export const it_IT: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "Avanguardia cromo"
+      },
+      "reins_swift_highfield_alpaca": {
+        "name": "Redini dell’alpaca rapida di Campoalto"
+      },
+      "reins_swift_ironhide_bull": {
+        "name": "Redini del toro rapido Pellediferro"
+      },
+      "reins_swift_thornback_boar": {
+        "name": "Redini del cinghiale rapido Dorsospino"
+      },
+      "reins_elder_bloomstrider": {
+        "name": "Redini del Fiorapassi Anziano"
+      },
+      "verdant_wardrobe_crate": {
+        "name": "Cassa guardaroba verdeggiante"
+      },
+      "course_low_rail": {
+        "name": "Salto della sbarra bassa"
+      },
+      "course_hay_bales": {
+        "name": "Salto delle balle di fieno"
+      },
+      "course_timber_arch": {
+        "name": "Arco di legno"
       }
     },
     "mobs": {
@@ -6013,6 +6056,32 @@ export const it_IT: EnTranslations = {
       },
       "ysolei": {
         "name": "Ysolei, Avatar della Luna Annegata"
+      }
+    },
+    "mounts": {
+      "mount_alpaca": {
+        "name": "Highfield Alpaca"
+      },
+      "mount_bull": {
+        "name": "Ironhide Bull"
+      },
+      "mount_boar": {
+        "name": "Thornback Boar"
+      },
+      "mount_bloomstrider": {
+        "name": "Verdant Bloomstrider"
+      },
+      "mount_swift_alpaca": {
+        "name": "Swift Highfield Alpaca"
+      },
+      "mount_swift_bull": {
+        "name": "Swift Ironhide Bull"
+      },
+      "mount_swift_boar": {
+        "name": "Swift Thornback Boar"
+      },
+      "mount_elder_bloomstrider": {
+        "name": "Elder Bloomstrider"
       }
     },
     "npcs": {
@@ -6962,6 +7031,22 @@ export const it_IT: EnTranslations = {
         "objectives": {
           "0": {
             "label": "Mogger ucciso"
+          }
+        }
+      },
+      "q_riding_lessons": {
+        "title": "Riding Lessons",
+        "text": "So you want to ride, {className}? Then you learn the yard before you learn the road. Walk my practice course: the low rail, the hay bales, then back through the timber arch. Go! Clear every jump, then ride back through the arch.",
+        "completion": "Steady hands, steady seat. You will do. Take this for your trouble: it should cover your first set of reins. Pick a mount whose temper suits you, and mind the Bloomstrider, that one chooses its rider.",
+        "objectives": {
+          "0": {
+            "label": "Low Rail cleared"
+          },
+          "1": {
+            "label": "Hay Bales cleared"
+          },
+          "2": {
+            "label": "Timber Arch ridden through"
           }
         }
       },

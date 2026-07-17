@@ -3,8 +3,10 @@
 // ownedMounts/growCoins persistence round-trip.
 
 import { describe, expect, it } from 'vitest';
-import { MOUNTS, RIDING_LEVEL } from '../src/sim/data';
+import { ITEMS, MOUNTS, RIDING_LEVEL } from '../src/sim/data';
 import { Sim } from '../src/sim/sim';
+import { tradeSetOffer } from '../src/sim/social/trade';
+import type { MountDef } from '../src/sim/types';
 import { terrainHeight } from '../src/sim/world';
 
 const makeSim = (cls = 'warrior', seed = 42) =>
@@ -36,20 +38,80 @@ function stablemaster(sim: Sim) {
 }
 
 describe('mount content', () => {
-  it('registers the v1 roster with the exclusive priced in $GROW only', () => {
+  it('registers the two-tier roster with the exclusives priced in $GROW only', () => {
     expect(Object.keys(MOUNTS).sort()).toEqual([
       'mount_alpaca',
       'mount_bloomstrider',
       'mount_boar',
       'mount_bull',
+      'mount_elder_bloomstrider',
+      'mount_swift_alpaca',
+      'mount_swift_boar',
+      'mount_swift_bull',
     ]);
-    const exclusive = MOUNTS.mount_bloomstrider;
-    expect(exclusive.exclusive).toBe(true);
-    // Fairness invariant: the $GROW exclusive is cosmetic prestige only.
-    for (const m of Object.values(MOUNTS)) {
-      expect(m.speedBonus).toBe(exclusive.speedBonus);
-      expect(m.requiredLevel).toBe(RIDING_LEVEL);
+    expect(MOUNTS.mount_bloomstrider.exclusive).toBe(true);
+    expect(MOUNTS.mount_elder_bloomstrider.exclusive).toBe(true);
+    // Fairness invariant: a $GROW exclusive never outruns the copper mounts,
+    // and every mount is actually reachable (gate within the level cap).
+    const all = Object.values(MOUNTS);
+    const maxCopperSpeed = Math.max(...all.filter((m) => !m.exclusive).map((m) => m.speedBonus));
+    for (const m of all) {
+      expect(m.requiredLevel, m.id).toBeLessThanOrEqual(20);
+      if (m.exclusive) expect(m.speedBonus, m.id).toBeLessThanOrEqual(maxCopperSpeed);
     }
+  });
+
+  it('marks every stable item soulbound-style (no trade, no market, no vendor sellback)', () => {
+    for (const m of Object.values(MOUNTS)) {
+      const item = ITEMS[m.itemId];
+      expect(item?.noTrade, m.itemId).toBe(true);
+      expect(item?.noMarketList, m.itemId).toBe(true);
+      expect(item?.noVendorSell, m.itemId).toBe(true);
+    }
+    expect(ITEMS.verdant_wardrobe_crate?.noTrade).toBe(true);
+  });
+
+  it('filters reins out of a player trade offer (noTrade, soulbound-style)', () => {
+    // Direct module drive with a minimal fake ctx, per tests/trade.test.ts.
+    const players = new Map<number, { entityId: number; name: string; copper: number }>();
+    const entities = new Map<number, { id: number; pos: { x: number; y: number; z: number } }>();
+    const trades = new Map<number, unknown>();
+    const bag = new Map<string, number>([
+      ['reins_highfield_alpaca', 1],
+      ['baked_bread', 2],
+    ]);
+    players.set(1, { entityId: 1, name: 'Trader', copper: 0 });
+    entities.set(1, { id: 1, pos: { x: 0, y: 0, z: 0 } });
+    const session = {
+      a: 1,
+      b: 2,
+      offerA: { items: [] as { itemId: string; count: number }[], copper: 0 },
+      offerB: { items: [], copper: 0 },
+      acceptedA: false,
+      acceptedB: false,
+    };
+    trades.set(1, session);
+    const ctx = {
+      players,
+      entities,
+      trades,
+      resolve: (pid?: number) => {
+        const meta = players.get(pid ?? -1);
+        const e = entities.get(pid ?? -1);
+        return meta && e ? { meta, e } : null;
+      },
+      countItem: (itemId: string) => bag.get(itemId) ?? 0,
+    } as unknown as import('../src/sim/sim_context').SimContext;
+    tradeSetOffer(
+      ctx,
+      [
+        { itemId: 'reins_highfield_alpaca', count: 1 },
+        { itemId: 'baked_bread', count: 2 },
+      ],
+      0,
+      1,
+    );
+    expect(session.offerA.items.map((s) => s.itemId)).toEqual(['baked_bread']);
   });
 
   it('sells every mount at the stable, reins learn on use, and the vendor refuses a repeat sale', () => {
@@ -174,6 +236,34 @@ describe('summon and dismount', () => {
     sim.player.inCombat = true;
     sim.summonMount('mount_bull');
     expect(sim.activeMountId).toBe(null);
+  });
+});
+
+describe('riding lessons', () => {
+  it('walks the practice course and pays out enough for a first set of reins', () => {
+    const sim = makeSim();
+    sim.setPlayerLevel(RIDING_LEVEL);
+    const marla = stablemaster(sim);
+    teleportTo(sim, marla.pos.x, marla.pos.z - 1);
+    sim.acceptQuest('q_riding_lessons');
+    expect(sim.questLog.get('q_riding_lessons')?.state).toBe('active');
+    for (const marker of ['course_low_rail', 'course_hay_bales', 'course_timber_arch']) {
+      const obj = [...sim.entities.values()].find(
+        (e) => e.kind === 'object' && e.objectItemId === marker,
+      );
+      expect(obj, marker).toBeDefined();
+      if (!obj) return;
+      teleportTo(sim, obj.pos.x, obj.pos.z);
+      sim.pickUpObject(obj.id);
+    }
+    expect(sim.questLog.get('q_riding_lessons')?.state).toBe('ready');
+    const m = meta(sim);
+    const before = m.copper;
+    teleportTo(sim, marla.pos.x, marla.pos.z - 1);
+    sim.turnInQuest('q_riding_lessons');
+    expect(sim.questLog.has('q_riding_lessons')).toBe(false);
+    // The payout covers a riding-tier set of reins (40000c).
+    expect(m.copper - before).toBe(40000);
   });
 });
 

@@ -5255,4 +5255,12 @@ export const fr_FR: Partial<Record<TranslationKey, string>> = {
   'entities.items.reins_ironhide_bull.name': 'Rênes du taureau Peau-de-Fer',
   'entities.items.reins_thornback_boar.name': 'Rênes du sanglier Dos-Épineux',
   'entities.items.reins_verdant_bloomstrider.name': 'Rênes de l’Arpenteur-Fleuri verdoyant',
+  'entities.items.reins_swift_highfield_alpaca.name': 'Rênes de l’alpaga rapide des Hauts-Champs',
+  'entities.items.reins_swift_ironhide_bull.name': 'Rênes du taureau rapide Peau-de-Fer',
+  'entities.items.reins_swift_thornback_boar.name': 'Rênes du sanglier rapide Dos-Épineux',
+  'entities.items.reins_elder_bloomstrider.name': 'Rênes de l’Arpenteur-Fleuri ancien',
+  'entities.items.verdant_wardrobe_crate.name': 'Caisse de garde-robe verdoyante',
+  'entities.items.course_low_rail.name': 'Saut de barre basse',
+  'entities.items.course_hay_bales.name': 'Saut de bottes de foin',
+  'entities.items.course_timber_arch.name': 'Arche de bois',
 };

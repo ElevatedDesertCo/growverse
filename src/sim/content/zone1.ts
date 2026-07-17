@@ -696,7 +696,7 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
     pos: { x: -13, z: 16 },
     facing: 2.4,
     color: 0x8e5a2b,
-    questIds: [],
+    questIds: ['q_riding_lessons'],
     vendorItems: [...STABLE_VENDOR_ITEMS],
     greeting:
       'The stable gate is open, $C. Every mount here was raised gentle and rides steady. The Bloomstrider, though... that one was grown, never tamed.',
@@ -1120,6 +1120,31 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     },
     requiresQuest: 'q_sluice_welcome',
   },
+  q_riding_lessons: {
+    id: 'q_riding_lessons',
+    name: 'Riding Lessons',
+    giverNpcId: 'stablemaster_marla',
+    turnInNpcId: 'stablemaster_marla',
+    text: 'So you want to ride, $C? Then you learn the yard before you learn the road. Walk my practice course: the low rail, the hay bales, then back through the timber arch. Go! Clear every jump, then ride back through the arch.',
+    completionText:
+      'Steady hands, steady seat. You will do. Take this for your trouble: it should cover your first set of reins. Pick a mount whose temper suits you, and mind the Bloomstrider, that one chooses its rider.',
+    objectives: [
+      { type: 'interact', targetObjectItemId: 'course_low_rail', count: 1, label: 'Low Rail cleared' },
+      { type: 'interact', targetObjectItemId: 'course_hay_bales', count: 1, label: 'Hay Bales cleared' },
+      {
+        type: 'interact',
+        targetObjectItemId: 'course_timber_arch',
+        count: 1,
+        label: 'Timber Arch ridden through',
+      },
+    ],
+    // The payout deliberately covers a first set of riding-tier reins (4g), so
+    // finishing lessons earns the first mount.
+    xpReward: 3000,
+    copperReward: 40000,
+    itemRewards: {},
+    minLevel: 20,
+  },
 };
 
 export const ZONE1_QUEST_ORDER = [
@@ -1143,6 +1168,7 @@ export const ZONE1_QUEST_ORDER = [
   'q_hollow',
   'q_gravecallers_trail',
   'q_mogger',
+  'q_riding_lessons',
 ];
 
 // ---------------------------------------------------------------------------
@@ -1215,6 +1241,23 @@ export const ZONE1_CHAPEL_CAMPS: CampDef[] = [
 ];
 
 export const ZONE1_OBJECTS: GroundObjectDef[] = [
+  // The riding-lessons practice course, laid out around the stable yard on the
+  // town's northwest edge (Stablemaster Marla stands at -13,16).
+  {
+    itemId: 'course_low_rail',
+    name: 'Low Rail Jump',
+    positions: [{ x: -18, z: 20 }],
+  },
+  {
+    itemId: 'course_hay_bales',
+    name: 'Hay Bale Jump',
+    positions: [{ x: -9, z: 21 }],
+  },
+  {
+    itemId: 'course_timber_arch',
+    name: 'Timber Arch',
+    positions: [{ x: -13, z: 25 }],
+  },
   {
     itemId: 'supply_crate',
     name: 'Stolen Supply Crate',

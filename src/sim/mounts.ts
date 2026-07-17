@@ -21,6 +21,13 @@ export function learnMount(
 ): void {
   const mount = MOUNTS[mountId];
   if (!mount) return;
+  if (p.dead) return;
+  // A Fiesta bout standardizes the character to level 20 with a throwaway
+  // build; learning a permanent unlock off that temporary level is not allowed.
+  if (meta.fiestaRestore) {
+    ctx.error(meta.entityId, "You can't do that during a Fiesta bout.");
+    return;
+  }
   if (meta.ownedMounts.has(mountId)) {
     ctx.error(meta.entityId, 'You already know how to ride that mount.');
     return;
@@ -62,10 +69,22 @@ export function summonMount(ctx: SimContext, mountId: string, pid?: number): voi
     ctx.error(meta.entityId, "You can't do that while in combat.");
     return;
   }
+  // No mounted spellwork: a summon during a cast would let the cast complete
+  // mounted (castAbility only dismounts at cast START).
+  if (p.castingAbility !== null) {
+    ctx.error(meta.entityId, 'You are busy.');
+    return;
+  }
+  if (meta.fiestaRestore) {
+    ctx.error(meta.entityId, "You can't do that during a Fiesta bout.");
+    return;
+  }
   if (ctx.isSwimming(p)) {
     ctx.error(meta.entityId, "You can't do that while swimming.");
     return;
   }
+  // Classic: mounting up breaks stealth rather than hiding a rider.
+  ctx.breakStealth(p);
   p.mountId = mountId;
 }
 

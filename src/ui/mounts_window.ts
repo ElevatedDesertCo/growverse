@@ -6,9 +6,11 @@
 // state. The cross-window orchestration (open/close pairing, focus capture and
 // return, the open-state refresh) stays in Hud because it needs Hud's private
 // state; this module only renders one panel and reports clicks back through
-// the injected callbacks. Mount names are player-visible English content data
-// (MountDef.name) rendered via textContent / esc(), the v1 name path.
+// the injected callbacks. Mount names are player-visible content data
+// (MountDef.name) localized through mountDisplayName (entity_i18n's
+// entities.mounts.<id>.name keys) and rendered via textContent / esc().
 
+import { mountDisplayName } from './entity_i18n';
 import { esc } from './esc';
 import { t } from './i18n';
 import type { MountsView } from './mounts_view';
@@ -46,9 +48,10 @@ export function renderMountsWindow(
     const line = document.createElement('div');
     line.className = `mount-row${row.exclusive ? ' mount-row-exclusive' : ''}${row.active ? ' mount-row-active' : ''}`;
 
+    const localizedName = mountDisplayName(row.mountId);
     const name = document.createElement('span');
     name.className = 'mount-name';
-    name.textContent = row.name;
+    name.textContent = localizedName;
     line.appendChild(name);
 
     if (row.active) {
@@ -66,8 +69,8 @@ export function renderMountsWindow(
     btn.setAttribute(
       'aria-label',
       row.active
-        ? t('hudChrome.mounts.dismissAria', { name: row.name })
-        : t('hudChrome.mounts.summonAria', { name: row.name }),
+        ? t('hudChrome.mounts.dismissAria', { name: localizedName })
+        : t('hudChrome.mounts.summonAria', { name: localizedName }),
     );
     btn.addEventListener('click', () =>
       row.active ? deps.onDismiss() : deps.onSummon(row.mountId),

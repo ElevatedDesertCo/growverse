@@ -55,6 +55,7 @@ export interface InputCallbacks {
       | 'social'
       | 'arena'
       | 'leaderboard'
+      | 'mounts'
       | 'discord',
   ): void;
   onEmoteWheel(open: boolean): void;
@@ -744,6 +745,9 @@ export class Input {
         return;
       case 'leaderboard':
         this.cb.onUiKey('leaderboard');
+        return;
+      case 'mounts':
+        this.cb.onUiKey('mounts');
         return;
       case 'discord':
         this.cb.onUiKey('discord');

@@ -5144,4 +5144,12 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'entities.items.reins_ironhide_bull.name': 'Dây cương Bò Da Sắt',
   'entities.items.reins_thornback_boar.name': 'Dây cương Heo Rừng Gai Lưng',
   'entities.items.reins_verdant_bloomstrider.name': 'Dây cương Bloomstrider Xanh Tươi',
+  'entities.items.reins_swift_highfield_alpaca.name': 'Dây cương Lạc đà Alpaca Highfield Thần Tốc',
+  'entities.items.reins_swift_ironhide_bull.name': 'Dây cương Bò Da Sắt Thần Tốc',
+  'entities.items.reins_swift_thornback_boar.name': 'Dây cương Heo Rừng Gai Lưng Thần Tốc',
+  'entities.items.reins_elder_bloomstrider.name': 'Dây cương Bloomstrider Trưởng Lão',
+  'entities.items.verdant_wardrobe_crate.name': 'Rương Trang Phục Xanh Tươi',
+  'entities.items.course_low_rail.name': 'Bước nhảy rào thấp',
+  'entities.items.course_hay_bales.name': 'Bước nhảy đống rơm',
+  'entities.items.course_timber_arch.name': 'Cổng vòm gỗ',
 };

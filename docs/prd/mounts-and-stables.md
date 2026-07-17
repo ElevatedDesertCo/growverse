@@ -156,9 +156,31 @@ and a riding-lessons quest are follow-ups, not v1.
 5. UI: vendor grow pricing, Mounts window, i18n, wiki content.
 6. QA and ship: tests, /qa, push to `claude/mount-system-stable-xrvpsk`.
 
-## Follow-ups (explicitly out of v1)
+## v1.1 addendum (implemented after the QA pass, owner-approved)
 
-- Riding Lessons quest and jump course at the stable (the teaser video).
-- Epic +100% tier, mounted-only zones, mount drops from bosses.
-- $GROW token bridge (wallet link, deposits), account-wide mount collections
-  UI, additional $GROW sinks (exclusive gear, quests).
+- Reins and the wardrobe crate are noTrade (soulbound-style): never tradable,
+  market-listed, or vendor-sold. A mount is a personal unlock.
+- $GROW purchases are DEBIT-FIRST: the server settles the atomic ledger debit
+  before the sim is allowed to grant the item; a sim-side refusal after a
+  successful debit refunds the ledger; sibling sessions on the account resync
+  after every balance change; the join-time mirror starts at zero until the
+  ledger read lands. The sim's grow_spend event is now a refresh/audit signal,
+  not a settlement trigger.
+- Riding Lessons: a level-20 quest at the stable (walk the practice course:
+  low rail, hay bales, timber arch); the payout covers a first set of
+  riding-tier reins.
+- Swift tier (+100%): three swift copper mounts (10x price) plus the Elder
+  Bloomstrider ($GROW exclusive, speed-equal to swift copper). The level cap
+  is 20, so the swift tier shares the level gate and is priced, not gated.
+- A second $GROW sink: the Verdant Wardrobe Crate (cosmetic skin roll).
+- Policy decisions: mounting is blocked during a Fiesta bout and while
+  casting; mounting breaks stealth; entering an instanced interior dismounts;
+  arena/duel mounting out of combat stays allowed (equal access, no paid
+  advantage). Learning is blocked while dead or Fiesta-standardized; buying a
+  second set of unused reins is refused.
+
+## Follow-ups (still out)
+
+- Mounted-only zones, mount drops from bosses, riding-course E2E script.
+- $GROW token bridge (wallet link, deposits), account-wide collections UI,
+  further $GROW sinks (exclusive gear, quests), RL obs exposure of mounts.

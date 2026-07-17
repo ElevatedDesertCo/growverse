@@ -168,6 +168,8 @@ export const sv_SE: EnTranslations = {
       "dismissAria": "Dismiss {name}",
       "errors": {
         "alreadyKnown": "You already know how to ride that mount.",
+        "alreadyHaveReins": "You already have those reins.",
+        "fiestaBout": "You can't do that during a Fiesta bout.",
         "notKnown": "You don't know how to ride that mount.",
         "notEnoughGrow": "You don't have enough $GROW.",
         "learnLevel": "You must be level {level} to learn to ride.",
@@ -1154,6 +1156,7 @@ export const sv_SE: EnTranslations = {
       "quests": "Uppdrag",
       "dungeons": "Fängelsehål och raider",
       "delves": "Delver",
+      "mounts": "Mounts",
       "reference": "Referens",
       "controls": "Kontroller",
       "combat": "Strid",
@@ -1717,6 +1720,22 @@ export const sv_SE: EnTranslations = {
       "marksBody": "Att rensa delver ger Delve-märken, en valuta som hålls åtskild från ditt mynt. Spendera dem hos vaktaren för att stärka din följeslagare och plocka upp utrustning du inte hittar någon annanstans.",
       "whereHeading": "Var du hittar en",
       "whereBody": "Den första delven, Det rasade relikvariet, öppnar vid Relikkullen i startdalen Östbäcksdalen. Broder Halven sköter tavlan där, och han skickar ner dig så snart du är redo."
+    },
+    "mountsPage": {
+      "heading": "Mounts",
+      "intro": "Mounts carry you across the realm in style. Learn to ride at the Bloomhaven stables, pick a companion whose temper suits you, and the roads get a great deal shorter.",
+      "whatHeading": "How riding works",
+      "whatBody": "Each mount is a one-time unlock: buy its reins at the stable, learn it, and it is yours for good. Summon it whenever you are out of combat and on dry land; taking a hit, starting a cast, or diving underwater puts you back on your feet.",
+      "tiersHeading": "Riding and swift riding",
+      "tiersBody": "The stable raises two stocks. Riding mounts are the first step, and swift mounts are the same steady stock raised faster. Within a tier every mount moves at the same pace, so the choice is temperament and looks, never speed.",
+      "exclusiveHeading": "The Bloomstriders",
+      "exclusiveBody": "Two mounts, the Verdant Bloomstrider and the Elder Bloomstrider, are grown rather than raised and are the stable exclusives bought with $GROW. They are prestige rides: within their tier they are exactly as fast as every other mount.",
+      "whereHeading": "Where to learn",
+      "whereBody": "Visit the Bloomhaven stables in the starting vale once you reach level {level}. The stablemaster will start you with riding lessons on the practice course, and the reins on offer cover both tiers.",
+      "fromLevel": "From level {n}",
+      "ridingTier": "Riding",
+      "swiftTier": "Swift",
+      "exclusiveTag": "$GROW exclusive"
     },
     "talentsPage": {
       "heading": "Talanger och specialiseringar",
@@ -5639,6 +5658,30 @@ export const sv_SE: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "Förtrupp krom"
+      },
+      "reins_swift_highfield_alpaca": {
+        "name": "Tyglar till den snabba Högfältsalpackan"
+      },
+      "reins_swift_ironhide_bull": {
+        "name": "Tyglar till den snabba Järnhudstjuren"
+      },
+      "reins_swift_thornback_boar": {
+        "name": "Tyglar till det snabba Törnryggsvinet"
+      },
+      "reins_elder_bloomstrider": {
+        "name": "Tyglar till den Äldre Blomvandraren"
+      },
+      "verdant_wardrobe_crate": {
+        "name": "Grönskande garderobskista"
+      },
+      "course_low_rail": {
+        "name": "Hopp över låg bom"
+      },
+      "course_hay_bales": {
+        "name": "Hopp över höbalar"
+      },
+      "course_timber_arch": {
+        "name": "Träbåge"
       }
     },
     "mobs": {
@@ -6013,6 +6056,32 @@ export const sv_SE: EnTranslations = {
       },
       "ysolei": {
         "name": "Ysolei, den dränkta månens avatar"
+      }
+    },
+    "mounts": {
+      "mount_alpaca": {
+        "name": "Highfield Alpaca"
+      },
+      "mount_bull": {
+        "name": "Ironhide Bull"
+      },
+      "mount_boar": {
+        "name": "Thornback Boar"
+      },
+      "mount_bloomstrider": {
+        "name": "Verdant Bloomstrider"
+      },
+      "mount_swift_alpaca": {
+        "name": "Swift Highfield Alpaca"
+      },
+      "mount_swift_bull": {
+        "name": "Swift Ironhide Bull"
+      },
+      "mount_swift_boar": {
+        "name": "Swift Thornback Boar"
+      },
+      "mount_elder_bloomstrider": {
+        "name": "Elder Bloomstrider"
       }
     },
     "npcs": {
@@ -6962,6 +7031,22 @@ export const sv_SE: EnTranslations = {
         "objectives": {
           "0": {
             "label": "Mogger dräpt"
+          }
+        }
+      },
+      "q_riding_lessons": {
+        "title": "Riding Lessons",
+        "text": "So you want to ride, {className}? Then you learn the yard before you learn the road. Walk my practice course: the low rail, the hay bales, then back through the timber arch. Go! Clear every jump, then ride back through the arch.",
+        "completion": "Steady hands, steady seat. You will do. Take this for your trouble: it should cover your first set of reins. Pick a mount whose temper suits you, and mind the Bloomstrider, that one chooses its rider.",
+        "objectives": {
+          "0": {
+            "label": "Low Rail cleared"
+          },
+          "1": {
+            "label": "Hay Bales cleared"
+          },
+          "2": {
+            "label": "Timber Arch ridden through"
           }
         }
       },

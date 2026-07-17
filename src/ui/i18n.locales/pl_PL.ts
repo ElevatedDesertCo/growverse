@@ -5153,4 +5153,12 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'entities.items.reins_ironhide_bull.name': 'Wodze byka Żelaznoskórego',
   'entities.items.reins_thornback_boar.name': 'Wodze dzika Ciernistego Grzbietu',
   'entities.items.reins_verdant_bloomstrider.name': 'Wodze Zielonego Kwiatostępa',
+  'entities.items.reins_swift_highfield_alpaca.name': 'Wodze szybkiej alpaki z Wysokich Pól',
+  'entities.items.reins_swift_ironhide_bull.name': 'Wodze szybkiego byka Żelaznoskórego',
+  'entities.items.reins_swift_thornback_boar.name': 'Wodze szybkiego dzika Ciernistego Grzbietu',
+  'entities.items.reins_elder_bloomstrider.name': 'Wodze Starszego Kwiatostępa',
+  'entities.items.verdant_wardrobe_crate.name': 'Zieleniejąca skrzynia z garderobą',
+  'entities.items.course_low_rail.name': 'Skok przez niską poprzeczkę',
+  'entities.items.course_hay_bales.name': 'Skok przez bele siana',
+  'entities.items.course_timber_arch.name': 'Drewniany łuk',
 };

@@ -9,6 +9,18 @@ export interface GroundPickupLines {
 }
 
 export const GROUND_PICKUP_LINES: Record<string, GroundPickupLines> = {
+  course_low_rail: {
+    deny: 'Take Riding Lessons from Stablemaster Marla before you walk the course.',
+    enough: 'You have already cleared the low rail.',
+  },
+  course_hay_bales: {
+    deny: 'Take Riding Lessons from Stablemaster Marla before you walk the course.',
+    enough: 'You have already cleared the hay bales.',
+  },
+  course_timber_arch: {
+    deny: 'Take Riding Lessons from Stablemaster Marla before you walk the course.',
+    enough: 'You have already ridden back through the arch.',
+  },
   supply_crate: {
     deny: 'The crate is nailed shut.',
     enough: 'You already have enough supply crates.',

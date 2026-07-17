@@ -5240,4 +5240,12 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'entities.items.reins_ironhide_bull.name': 'Zügel des Eisenhautbullen',
   'entities.items.reins_thornback_boar.name': 'Zügel des Dornrückenebers',
   'entities.items.reins_verdant_bloomstrider.name': 'Zügel des Grünen Blütenschreiters',
+  'entities.items.reins_swift_highfield_alpaca.name': 'Zügel des schnellen Hochfeld-Alpakas',
+  'entities.items.reins_swift_ironhide_bull.name': 'Zügel des schnellen Eisenhautbullen',
+  'entities.items.reins_swift_thornback_boar.name': 'Zügel des schnellen Dornrückenebers',
+  'entities.items.reins_elder_bloomstrider.name': 'Zügel des Alten Blütenschreiters',
+  'entities.items.verdant_wardrobe_crate.name': 'Grüne Garderobenkiste',
+  'entities.items.course_low_rail.name': 'Niedrige Hürde',
+  'entities.items.course_hay_bales.name': 'Heuballensprung',
+  'entities.items.course_timber_arch.name': 'Holzbogen',
 };

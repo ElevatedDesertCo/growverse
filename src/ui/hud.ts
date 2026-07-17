@@ -172,6 +172,7 @@ import {
   classDisplayName,
   dungeonDisplayName,
   itemDisplayName,
+  mountDisplayName,
   tEntity,
   zoneDisplayName,
   zonePoiLabel,
@@ -4351,6 +4352,7 @@ export class Hud {
       ['#mm-leaderboard', 'leaderboard', 'game.leaderboard.title'],
       ['#mm-emote', 'emoteWheel', 'hudChrome.emoteWheel.label'],
       ['#mm-social', 'social', 'hud.social.friendsTab'],
+      ['#mm-mounts', 'mounts', 'hudChrome.mounts.windowTitle'],
     ];
     for (const [selector, action, labelKey] of sideButtons) {
       const btn = document.querySelector<HTMLElement>(selector);
@@ -7483,6 +7485,8 @@ export class Hud {
       "You can't assist yourself.": 'hud.errors.assistSelf',
       'Assist whom? Target a player or use /assist <name>.': 'hud.errors.assistWhom',
       'You already know how to ride that mount.': 'hudChrome.mounts.errors.alreadyKnown',
+      'You already have those reins.': 'hudChrome.mounts.errors.alreadyHaveReins',
+      "You can't do that during a Fiesta bout.": 'hudChrome.mounts.errors.fiestaBout',
       "You don't know how to ride that mount.": 'hudChrome.mounts.errors.notKnown',
       "You don't have enough $GROW.": 'hudChrome.mounts.errors.notEnoughGrow',
       'That recipe is not available here.': 'hudChrome.crafting.errors.recipeUnavailable',
@@ -7655,9 +7659,18 @@ export class Hud {
     match = /^Your market listing of (.+) expired and waits at the Merchant\.$/.exec(text);
     if (match)
       return t('itemUi.logs.expiredListing', { item: itemDisplayNameFromSource(match[1]) });
-    // The mount-learned line is emitted as a 'log' event (sim/mounts.ts).
+    // The mount-learned line is emitted as a 'log' event (sim/mounts.ts). The
+    // captured English MountDef.name maps back to its MOUNTS entry by exact
+    // def.name match so the toast renders the localized mount name; an
+    // unmatched capture falls back to the raw English name.
     match = /^You learn to ride the (.+)\.$/.exec(text);
-    if (match) return t('hudChrome.mounts.learned', { name: match[1] });
+    if (match) {
+      const learnedName = match[1];
+      const learnedDef = Object.values(MOUNTS).find((def) => def.name === learnedName);
+      return t('hudChrome.mounts.learned', {
+        name: learnedDef ? mountDisplayName(learnedDef.id) : learnedName,
+      });
+    }
     // The dungeon party-size warning is emitted as a 'log' event (sim.ts), so it must be
     // matched on this path, not in localizeLootText.
     match = /^(.+) is meant for a full party of (\d+)\. Tread carefully\.$/.exec(text);
@@ -9055,7 +9068,9 @@ export class Hud {
   }
 
   private currentMountsSig(): string {
-    return `${this.sim.ownedMounts.length}:${this.sim.activeMountId ?? ''}`;
+    // The player level is part of the signature so a level-up while the window
+    // is open re-renders and enables newly summonable rows.
+    return `${this.sim.ownedMounts.length}:${this.sim.activeMountId ?? ''}:${this.sim.player.level}`;
   }
 
   private renderMounts(): void {

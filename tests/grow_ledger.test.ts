@@ -1,8 +1,9 @@
-// Server-side $GROW ledger (docs/prd/mounts-and-stables.md): the grow_spend
-// sim event settles against the account ledger via debitGrow, the in-sim
-// meta.growCoins mirror resyncs to the authoritative balance (especially on a
-// failed/raced debit), join seeds the mirror from the ledger, admin credits
-// live-update online sessions, and the admin credit endpoint validates input.
+// Server-side $GROW ledger (docs/prd/mounts-and-stables.md): grow purchases are
+// DEBIT-FIRST (buyGrowItem debits the ledger before the sim may grant, refunds
+// when the sim refuses or the buyer left mid-flight, and resyncs every
+// same-account mirror to the authoritative balance), join zeroes then seeds the
+// mirror from the ledger, admin credits live-update online sessions, and the
+// admin credit endpoint validates input.
 import { EventEmitter } from 'node:events';
 import type { IncomingMessage, ServerResponse } from 'node:http';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
@@ -90,44 +91,129 @@ describe('grow balance sync on join', () => {
   });
 });
 
-describe('grow_spend settlement', () => {
-  it('debits the ledger with the purchase reason and resyncs the mirror on success', async () => {
+// --- debit-first grow purchases ----------------------------------------------
+
+const REINS = 'reins_verdant_bloomstrider'; // growPrice 100, sold by the stable
+const REINS_PRICE = 100;
+
+function stableNpc(server: GameServer): { id: number; pos: { x: number; z: number } } {
+  const npc = [...server.sim.entities.values()].find((e) => e.templateId === 'stablemaster_marla');
+  if (!npc) throw new Error('stablemaster_marla not in world');
+  return npc;
+}
+
+function moveTo(server: GameServer, pid: number, x: number, z: number): void {
+  const e = server.sim.entities.get(pid);
+  if (!e) throw new Error('no player entity');
+  e.pos.x = x;
+  e.pos.z = z;
+  e.prevPos = { ...e.pos };
+}
+
+// Drive the real command path: the wire 'buy' cmd routes grow-priced items
+// through the async debit-first buyGrowItem, never straight into sim.buyItem.
+function sendBuy(server: GameServer, session: ClientSession, npcId: number): void {
+  server.handleMessage(session, JSON.stringify({ t: 'cmd', cmd: 'buy', npc: npcId, item: REINS }));
+}
+
+describe('debit-first grow purchases', () => {
+  it('debits the ledger first, grants the item, and lands the mirror on the balance', async () => {
     vi.mocked(getGrowBalance).mockResolvedValue(1000);
     vi.mocked(debitGrow).mockResolvedValue({ ok: true, balance: 900 });
     const server = new GameServer();
     const session = joinServer(server, fakeWs(), 6, 102, 'Buyer');
     await flush();
-    (server as unknown as { settleGrowSpends(events: unknown[]): void }).settleGrowSpends([
-      { type: 'grow_spend', amount: 100, itemId: 'mount_dirtbike', pid: session.pid },
-    ]);
+    const npc = stableNpc(server);
+    moveTo(server, session.pid, npc.pos.x + 1, npc.pos.z);
+    sendBuy(server, session, npc.id);
+    // The debit is issued synchronously with the command, before any grant.
+    expect(debitGrow).toHaveBeenCalledWith(6, REINS_PRICE, `purchase:${REINS}`);
+    expect(server.sim.countItem(REINS, session.pid)).toBe(0);
     await flush();
-    expect(debitGrow).toHaveBeenCalledWith(6, 100, 'purchase:mount_dirtbike');
+    expect(server.sim.countItem(REINS, session.pid)).toBe(1);
     expect(metaOf(server, session.pid).growCoins).toBe(900);
+    expect(creditGrow).not.toHaveBeenCalled();
   });
 
-  it('resyncs meta.growCoins to the real balance and logs when the debit fails', async () => {
-    vi.mocked(getGrowBalance).mockResolvedValue(100);
+  it('grants nothing on a failed debit and resyncs the mirror to the real balance', async () => {
+    vi.mocked(getGrowBalance).mockResolvedValue(1000);
     vi.mocked(debitGrow).mockResolvedValue({ ok: false, balance: 40 });
-    const errSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
-    try {
-      const server = new GameServer();
-      const session = joinServer(server, fakeWs(), 7, 103, 'Racer');
-      await flush();
-      // The sim optimistically debited its mirror; the ledger debit then fails
-      // (balance changed underneath), so the mirror must snap to the truth.
-      metaOf(server, session.pid).growCoins = 0;
-      (server as unknown as { settleGrowSpends(events: unknown[]): void }).settleGrowSpends([
-        { type: 'grow_spend', amount: 100, itemId: 'mount_dirtbike', pid: session.pid },
-      ]);
-      await flush();
-      expect(debitGrow).toHaveBeenCalledWith(7, 100, 'purchase:mount_dirtbike');
-      expect(metaOf(server, session.pid).growCoins).toBe(40);
-      expect(errSpy.mock.calls.some((call) => String(call[0]).includes('grow debit failed'))).toBe(
-        true,
-      );
-    } finally {
-      errSpy.mockRestore();
-    }
+    const server = new GameServer();
+    const session = joinServer(server, fakeWs(), 7, 103, 'Racer');
+    await flush();
+    expect(metaOf(server, session.pid).growCoins).toBe(1000); // stale-high seed
+    const npc = stableNpc(server);
+    moveTo(server, session.pid, npc.pos.x + 1, npc.pos.z);
+    sendBuy(server, session, npc.id);
+    await flush();
+    expect(debitGrow).toHaveBeenCalledWith(7, REINS_PRICE, `purchase:${REINS}`);
+    expect(server.sim.countItem(REINS, session.pid)).toBe(0);
+    expect(metaOf(server, session.pid).growCoins).toBe(40);
+    expect(creditGrow).not.toHaveBeenCalled();
+  });
+
+  it('refunds the debit when the sim refuses the purchase', async () => {
+    vi.mocked(getGrowBalance).mockResolvedValue(1000);
+    vi.mocked(debitGrow).mockResolvedValue({ ok: true, balance: 900 });
+    vi.mocked(creditGrow).mockResolvedValue(1000);
+    const server = new GameServer();
+    const session = joinServer(server, fakeWs(), 6, 102, 'FarAway');
+    await flush();
+    const npc = stableNpc(server);
+    // Out of interact range: the ledger debit succeeds but the sim refuses the
+    // sale, so nothing is granted and the debit must come straight back.
+    moveTo(server, session.pid, npc.pos.x + 500, npc.pos.z);
+    sendBuy(server, session, npc.id);
+    await flush();
+    expect(debitGrow).toHaveBeenCalledWith(6, REINS_PRICE, `purchase:${REINS}`);
+    expect(creditGrow).toHaveBeenCalledWith(6, REINS_PRICE, `refund:${REINS}`, 'game');
+    expect(server.sim.countItem(REINS, session.pid)).toBe(0);
+    expect(metaOf(server, session.pid).growCoins).toBe(1000);
+  });
+
+  it('resyncs a sibling session on the same account after a buy', async () => {
+    vi.mocked(getGrowBalance).mockResolvedValue(1000);
+    vi.mocked(debitGrow).mockResolvedValue({ ok: true, balance: 900 });
+    const server = new GameServer();
+    const buyer = joinServer(server, fakeWs(), 6, 102, 'BuyerOne');
+    const sibling = joinServer(server, fakeWs(), 6, 103, 'BuyerTwo');
+    const other = joinServer(server, fakeWs(), 9, 105, 'Bystander');
+    await flush();
+    expect(metaOf(server, sibling.pid).growCoins).toBe(1000);
+    const npc = stableNpc(server);
+    moveTo(server, buyer.pid, npc.pos.x + 1, npc.pos.z);
+    sendBuy(server, buyer, npc.id);
+    await flush();
+    // The two characters share one ledger balance: the sibling's mirror snaps
+    // to it too, so it can never spend the same 1000 twice.
+    expect(metaOf(server, buyer.pid).growCoins).toBe(900);
+    expect(metaOf(server, sibling.pid).growCoins).toBe(900);
+    expect(metaOf(server, other.pid).growCoins).toBe(1000);
+  });
+
+  it('refunds a debit that lands after the buyer left the world', async () => {
+    vi.mocked(getGrowBalance).mockResolvedValue(1000);
+    let resolveDebit!: (v: { ok: boolean; balance: number }) => void;
+    vi.mocked(debitGrow).mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          resolveDebit = resolve;
+        }),
+    );
+    vi.mocked(creditGrow).mockResolvedValue(1000);
+    const server = new GameServer();
+    const session = joinServer(server, fakeWs(), 8, 104, 'Ghost');
+    await flush();
+    const npc = stableNpc(server);
+    moveTo(server, session.pid, npc.pos.x + 1, npc.pos.z);
+    sendBuy(server, session, npc.id);
+    expect(debitGrow).toHaveBeenCalledWith(8, REINS_PRICE, `purchase:${REINS}`);
+    // The socket drops while the debit is still in flight: the player never
+    // received anything, so the successful debit must be returned in full.
+    await server.leave(session, 'test');
+    resolveDebit({ ok: true, balance: 900 });
+    await flush();
+    expect(creditGrow).toHaveBeenCalledWith(8, REINS_PRICE, `refund:${REINS} (left world)`, 'game');
   });
 });
 

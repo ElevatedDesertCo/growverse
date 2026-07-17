@@ -5114,4 +5114,12 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'entities.items.reins_ironhide_bull.name': 'Tøjler til Jernhudstyren',
   'entities.items.reins_thornback_boar.name': 'Tøjler til Tornrygsvinet',
   'entities.items.reins_verdant_bloomstrider.name': 'Tøjler til den Grønne Blomstervandrer',
+  'entities.items.reins_swift_highfield_alpaca.name': 'Tøjler til den hurtige Highfield-alpaka',
+  'entities.items.reins_swift_ironhide_bull.name': 'Tøjler til den hurtige Jernhudstyr',
+  'entities.items.reins_swift_thornback_boar.name': 'Tøjler til det hurtige Tornrygsvin',
+  'entities.items.reins_elder_bloomstrider.name': 'Tøjler til den Ældre Blomstervandrer',
+  'entities.items.verdant_wardrobe_crate.name': 'Grøn garderobekiste',
+  'entities.items.course_low_rail.name': 'Spring over den lave bom',
+  'entities.items.course_hay_bales.name': 'Spring over høballerne',
+  'entities.items.course_timber_arch.name': 'Træbue',
 };

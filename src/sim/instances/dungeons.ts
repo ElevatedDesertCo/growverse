@@ -17,6 +17,7 @@
 
 import { DUNGEON_X_THRESHOLD, DUNGEONS, dungeonAt, instanceOrigin, MOBS } from '../data';
 import { createGroundObject, createMob } from '../entity';
+import { dismountPlayer } from '../mounts';
 import type { InstanceSlot, PlayerMeta } from '../sim';
 import type { SimContext } from '../sim_context';
 import {
@@ -122,6 +123,8 @@ export function enterDungeon(ctx: SimContext, dungeonId: string, pid?: number): 
   }
   const origin = instanceOriginOf(inst);
   const p = r.e;
+  // Mounts stay at the door: instanced interiors are fought on foot.
+  dismountPlayer(p);
   p.pos = ctx.groundPos(origin.x + dungeon.entry.x, origin.z + dungeon.entry.z);
   p.prevPos = { ...p.pos };
   ctx.rebucket(p);

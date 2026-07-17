@@ -5190,4 +5190,12 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'entities.items.reins_ironhide_bull.name': 'Tali Kekang Banteng Kulit Besi',
   'entities.items.reins_thornback_boar.name': 'Tali Kekang Babi Hutan Punggung Duri',
   'entities.items.reins_verdant_bloomstrider.name': 'Tali Kekang Bloomstrider Hijau',
+  'entities.items.reins_swift_highfield_alpaca.name': 'Tali Kekang Alpaka Highfield Cepat',
+  'entities.items.reins_swift_ironhide_bull.name': 'Tali Kekang Banteng Kulit Besi Cepat',
+  'entities.items.reins_swift_thornback_boar.name': 'Tali Kekang Babi Hutan Punggung Duri Cepat',
+  'entities.items.reins_elder_bloomstrider.name': 'Tali Kekang Bloomstrider Tetua',
+  'entities.items.verdant_wardrobe_crate.name': 'Peti Busana Hijau',
+  'entities.items.course_low_rail.name': 'Lompatan Palang Rendah',
+  'entities.items.course_hay_bales.name': 'Lompatan Tumpukan Jerami',
+  'entities.items.course_timber_arch.name': 'Lengkung Kayu',
 };

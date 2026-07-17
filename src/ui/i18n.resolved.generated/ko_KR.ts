@@ -168,6 +168,8 @@ export const ko_KR: EnTranslations = {
       "dismissAria": "{name} 해제",
       "errors": {
         "alreadyKnown": "이미 그 탈것을 탈 수 있습니다.",
+        "alreadyHaveReins": "이미 그 고삐를 가지고 있습니다.",
+        "fiestaBout": "피에스타 경기 중에는 할 수 없습니다.",
         "notKnown": "그 탈것을 탈 줄 모릅니다.",
         "notEnoughGrow": "$GROW가 부족합니다.",
         "learnLevel": "탑승을 배우려면 {level}레벨이 되어야 합니다.",
@@ -1154,6 +1156,7 @@ export const ko_KR: EnTranslations = {
       "quests": "퀘스트",
       "dungeons": "던전과 공격대",
       "delves": "탐굴",
+      "mounts": "탈것",
       "reference": "참고 자료",
       "controls": "조작법",
       "combat": "전투",
@@ -1717,6 +1720,22 @@ export const ko_KR: EnTranslations = {
       "marksBody": "탐굴을 완료하면 탐굴 증표를 얻습니다. 탐굴 증표는 금화와는 별개로 관리되는 화폐입니다. 관리인에게 증표를 지불해 동료를 강화하고, 다른 어디에서도 구할 수 없는 장비를 손에 넣으십시오.",
       "whereHeading": "어디서 찾을 수 있나",
       "whereBody": "첫 번째 탐굴인 무너진 성물실은 시작 지역인 이스트브룩 골짜기의 성물실 언덕에서 열립니다. 그곳의 게시판은 브라더 할벤이 지키며, 준비가 되면 그가 당신을 아래로 내려보냅니다."
+    },
+    "mountsPage": {
+      "heading": "탈것",
+      "intro": "탈것은 당신을 태우고 멋지게 대륙을 누빕니다. 블룸헤이븐 마구간에서 타는 법을 배우고 성미가 맞는 동반자를 고르면 길이 한결 짧아집니다.",
+      "whatHeading": "승마 방식",
+      "whatBody": "탈것은 한 번만 해금하면 됩니다. 마구간에서 고삐를 사서 배우면 영원히 당신의 것입니다. 전투 중이 아니고 마른 땅 위라면 언제든 소환할 수 있으며, 공격을 받거나 시전을 시작하거나 물에 잠기면 다시 두 발로 서게 됩니다.",
+      "tiersHeading": "승마와 날쌘 승마",
+      "tiersBody": "마구간은 두 무리를 기릅니다. 일반 탈것이 첫걸음이고, 날쌘 탈것은 같은 온순한 무리를 더 빠르게 길러낸 것입니다. 같은 단계 안에서는 모든 탈것의 속도가 같으므로, 선택 기준은 성미와 겉모습이지 속도가 아닙니다.",
+      "exclusiveHeading": "블룸스트라이더",
+      "exclusiveBody": "신록의 블룸스트라이더와 원로 블룸스트라이더 두 마리는 길러진 것이 아니라 자라난 것으로, 마구간이 $GROW로 판매하는 한정 탈것입니다. 어디까지나 명예의 상징일 뿐, 같은 단계 안에서는 다른 모든 탈것과 정확히 같은 속도입니다.",
+      "whereHeading": "배우는 곳",
+      "whereBody": "{level}레벨에 도달하면 시작의 골짜기에 있는 블룸헤이븐 마구간을 찾아가세요. 마구간지기가 먼저 연습 코스에서 승마 수업을 해 주고, 판매하는 고삐는 두 단계를 모두 아우릅니다.",
+      "fromLevel": "{n} 레벨부터",
+      "ridingTier": "승마",
+      "swiftTier": "날쌘",
+      "exclusiveTag": "$GROW 한정"
     },
     "talentsPage": {
       "heading": "특성과 전문화",
@@ -5639,6 +5658,30 @@ export const ko_KR: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "선봉대 크롬"
+      },
+      "reins_swift_highfield_alpaca": {
+        "name": "날쌘 하이필드 알파카의 고삐"
+      },
+      "reins_swift_ironhide_bull": {
+        "name": "날쌘 무쇠가죽 황소의 고삐"
+      },
+      "reins_swift_thornback_boar": {
+        "name": "날쌘 가시등 멧돼지의 고삐"
+      },
+      "reins_elder_bloomstrider": {
+        "name": "원로 블룸스트라이더 고삐"
+      },
+      "verdant_wardrobe_crate": {
+        "name": "신록의 의상 상자"
+      },
+      "course_low_rail": {
+        "name": "낮은 가로대 장애물"
+      },
+      "course_hay_bales": {
+        "name": "건초 더미 장애물"
+      },
+      "course_timber_arch": {
+        "name": "나무 아치"
       }
     },
     "mobs": {
@@ -6013,6 +6056,32 @@ export const ko_KR: EnTranslations = {
       },
       "ysolei": {
         "name": "이솔레이, 익사한 달의 화신"
+      }
+    },
+    "mounts": {
+      "mount_alpaca": {
+        "name": "하이필드 알파카"
+      },
+      "mount_bull": {
+        "name": "무쇠가죽 황소"
+      },
+      "mount_boar": {
+        "name": "가시등 멧돼지"
+      },
+      "mount_bloomstrider": {
+        "name": "신록의 블룸스트라이더"
+      },
+      "mount_swift_alpaca": {
+        "name": "날쌘 하이필드 알파카"
+      },
+      "mount_swift_bull": {
+        "name": "날쌘 무쇠가죽 황소"
+      },
+      "mount_swift_boar": {
+        "name": "날쌘 가시등 멧돼지"
+      },
+      "mount_elder_bloomstrider": {
+        "name": "원로 블룸스트라이더"
       }
     },
     "npcs": {
@@ -6962,6 +7031,22 @@ export const ko_KR: EnTranslations = {
         "objectives": {
           "0": {
             "label": "모거 처치"
+          }
+        }
+      },
+      "q_riding_lessons": {
+        "title": "승마 수업",
+        "text": "타고 싶다고요, {className}? 그렇다면 길에 나서기 전에 먼저 마당부터 배워야 합니다. 제 연습 코스를 돌아 보세요. 낮은 가로대, 건초 더미, 그리고 마지막으로 나무 아치를 다시 통과하는 겁니다. 자, 가세요! 모든 장애물을 넘은 다음 아치를 지나 타고 돌아오세요.",
+        "completion": "손도 안정되고 자세도 안정적이군요. 되겠습니다. 수고했으니 이걸 받으세요. 첫 고삐를 사기에 충분할 겁니다. 성미가 맞는 탈것을 고르시고, 블룸스트라이더는 조심하세요. 그 녀석은 제 기수를 직접 고르니까요.",
+        "objectives": {
+          "0": {
+            "label": "낮은 가로대 통과"
+          },
+          "1": {
+            "label": "건초 더미 통과"
+          },
+          "2": {
+            "label": "나무 아치를 타고 통과"
           }
         }
       },

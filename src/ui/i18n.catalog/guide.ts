@@ -37,6 +37,7 @@ export const guideStrings = {
     quests: 'Quests',
     dungeons: 'Dungeons & Raids',
     delves: 'Delves',
+    mounts: 'Mounts',
     reference: 'Reference',
     controls: 'Controls',
     combat: 'Combat',
@@ -798,6 +799,32 @@ export const guideStrings = {
     whereHeading: 'Where to find one',
     whereBody:
       'The first delve, the Collapsed Reliquary, opens at Seedvault Hill in the starting valley of Bloomhaven Vale. Brother Halven keeps the board there, and he will send you down once you are ready.',
+  },
+
+  // Mounts: the stable roster page. The roster itself (names, the level gate, riding
+  // vs swift tier, the $GROW-exclusive flag) is generated from the sim MOUNT_DEFS;
+  // these are the explainer strings. Spoiler-safe: no speed bonuses and no copper or
+  // $GROW prices surface, only which mounts are the exclusives.
+  mountsPage: {
+    heading: 'Mounts',
+    intro:
+      'Mounts carry you across the realm in style. Learn to ride at the Bloomhaven stables, pick a companion whose temper suits you, and the roads get a great deal shorter.',
+    whatHeading: 'How riding works',
+    whatBody:
+      'Each mount is a one-time unlock: buy its reins at the stable, learn it, and it is yours for good. Summon it whenever you are out of combat and on dry land; taking a hit, starting a cast, or diving underwater puts you back on your feet.',
+    tiersHeading: 'Riding and swift riding',
+    tiersBody:
+      'The stable raises two stocks. Riding mounts are the first step, and swift mounts are the same steady stock raised faster. Within a tier every mount moves at the same pace, so the choice is temperament and looks, never speed.',
+    exclusiveHeading: 'The Bloomstriders',
+    exclusiveBody:
+      'Two mounts, the Verdant Bloomstrider and the Elder Bloomstrider, are grown rather than raised and are the stable exclusives bought with $GROW. They are prestige rides: within their tier they are exactly as fast as every other mount.',
+    whereHeading: 'Where to learn',
+    whereBody:
+      'Visit the Bloomhaven stables in the starting vale once you reach level {level}. The stablemaster will start you with riding lessons on the practice course, and the reins on offer cover both tiers.',
+    fromLevel: 'From level {n}',
+    ridingTier: 'Riding',
+    swiftTier: 'Swift',
+    exclusiveTag: '$GROW exclusive',
   },
 
   // Talents and Specializations reference.

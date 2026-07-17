@@ -5196,4 +5196,12 @@ export const pt_BR: Partial<Record<TranslationKey, string>> = {
   'entities.items.reins_ironhide_bull.name': 'Rédeas do touro Couro-de-Ferro',
   'entities.items.reins_thornback_boar.name': 'Rédeas do javali Dorso-Espinhoso',
   'entities.items.reins_verdant_bloomstrider.name': 'Rédeas do Andarilho-Florido Verdejante',
+  'entities.items.reins_swift_highfield_alpaca.name': 'Rédeas da alpaca veloz de Campoalto',
+  'entities.items.reins_swift_ironhide_bull.name': 'Rédeas do touro veloz Couro-de-Ferro',
+  'entities.items.reins_swift_thornback_boar.name': 'Rédeas do javali veloz Dorso-Espinhoso',
+  'entities.items.reins_elder_bloomstrider.name': 'Rédeas do Andarilho-Florido Ancião',
+  'entities.items.verdant_wardrobe_crate.name': 'Caixa de guarda-roupa verdejante',
+  'entities.items.course_low_rail.name': 'Salto da barra baixa',
+  'entities.items.course_hay_bales.name': 'Salto dos fardos de feno',
+  'entities.items.course_timber_arch.name': 'Arco de madeira',
 };

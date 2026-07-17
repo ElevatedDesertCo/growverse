@@ -5208,4 +5208,12 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'entities.items.reins_ironhide_bull.name': 'Redini del toro Pellediferro',
   'entities.items.reins_thornback_boar.name': 'Redini del cinghiale Dorsospino',
   'entities.items.reins_verdant_bloomstrider.name': 'Redini del Fiorapassi Verdeggiante',
+  'entities.items.reins_swift_highfield_alpaca.name': 'Redini dell’alpaca rapida di Campoalto',
+  'entities.items.reins_swift_ironhide_bull.name': 'Redini del toro rapido Pellediferro',
+  'entities.items.reins_swift_thornback_boar.name': 'Redini del cinghiale rapido Dorsospino',
+  'entities.items.reins_elder_bloomstrider.name': 'Redini del Fiorapassi Anziano',
+  'entities.items.verdant_wardrobe_crate.name': 'Cassa guardaroba verdeggiante',
+  'entities.items.course_low_rail.name': 'Salto della sbarra bassa',
+  'entities.items.course_hay_bales.name': 'Salto delle balle di fieno',
+  'entities.items.course_timber_arch.name': 'Arco di legno',
 };

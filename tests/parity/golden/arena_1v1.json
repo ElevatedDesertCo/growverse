@@ -14,7 +14,7 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 571,
+      "nextId": 574,
       "state": "5bc471b0",
       "events": "741638a5",
       "rng": {
@@ -28,9 +28,9 @@
     {
       "tick": 25,
       "time": 1.25,
-      "nextId": 573,
-      "state": "945b074b",
-      "events": "d5b4ed0f",
+      "nextId": 576,
+      "state": "7934c4bd",
+      "events": "8f04bf57",
       "rng": {
         "draws": 0,
         "digest": "811c9dc5"
@@ -39,9 +39,9 @@
     {
       "tick": 50,
       "time": 2.5,
-      "nextId": 573,
-      "state": "be43ddcf",
-      "events": "6f55deb4",
+      "nextId": 576,
+      "state": "3581b321",
+      "events": "00a3effe",
       "rng": {
         "draws": 44,
         "digest": "5b2173c7"
@@ -50,9 +50,9 @@
     {
       "tick": 75,
       "time": 3.75,
-      "nextId": 573,
-      "state": "2a02908f",
-      "events": "06d62dcc",
+      "nextId": 576,
+      "state": "adb5d4f1",
+      "events": "9fed539e",
       "rng": {
         "draws": 176,
         "digest": "7b91dd1c"
@@ -61,9 +61,9 @@
     {
       "tick": 100,
       "time": 5,
-      "nextId": 573,
-      "state": "c6ee3ebb",
-      "events": "9a37e990",
+      "nextId": 576,
+      "state": "d68395a5",
+      "events": "8f2f3db2",
       "rng": {
         "draws": 322,
         "digest": "767ef2ee"
@@ -72,9 +72,9 @@
     {
       "tick": 125,
       "time": 6.25,
-      "nextId": 573,
-      "state": "fdbf33be",
-      "events": "e922be1c",
+      "nextId": 576,
+      "state": "e14a3788",
+      "events": "bb9c0b71",
       "rng": {
         "draws": 470,
         "digest": "dde97206"
@@ -83,8 +83,8 @@
     {
       "tick": 142,
       "time": 7.1,
-      "nextId": 573,
-      "state": "132d3926",
+      "nextId": 576,
+      "state": "10c4efb8",
       "events": "741638a5",
       "rng": {
         "draws": 592,
@@ -106,7 +106,7 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 571,
+          "entityId": 574,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
@@ -174,7 +174,7 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 572,
+          "entityId": 575,
           "equipment": {
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
@@ -235,7 +235,7 @@
           "dodgeChance": 0.06,
           "fiveSecondRule": 106.1,
           "hp": 90,
-          "id": 571,
+          "id": 574,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -282,7 +282,7 @@
           "dodgeChance": 0.056,
           "facing": 3.141593,
           "fiveSecondRule": 106.1,
-          "id": 572,
+          "id": 575,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",

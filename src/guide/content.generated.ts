@@ -66,6 +66,14 @@ export interface GuideWarlockPet { id: string; name: string; model: string; tint
 export interface GuideCreature { name: string; min: number; max: number; rare: boolean; templateId: string; model: string; tint?: string; still?: string; }
 export interface GuideFamily { family: string; creatures: GuideCreature[]; }
 
+export interface GuideMount {
+  id: string;
+  name: string;
+  requiredLevel: number;
+  swift: boolean;
+  exclusive: boolean;
+}
+
 export interface GuideDelveKeeper { name: string; title: string; }
 export interface GuideDelveCompanion { name: string; role: string; }
 export interface GuideDelve {
@@ -1839,6 +1847,65 @@ export const GUIDE_DELVES: GuideDelve[] = [
       "Unstable Roof",
       "Cult Remnants"
     ]
+  }
+];
+
+export const GUIDE_MOUNTS: GuideMount[] = [
+  {
+    "id": "mount_alpaca",
+    "name": "Highfield Alpaca",
+    "requiredLevel": 20,
+    "swift": false,
+    "exclusive": false
+  },
+  {
+    "id": "mount_bull",
+    "name": "Ironhide Bull",
+    "requiredLevel": 20,
+    "swift": false,
+    "exclusive": false
+  },
+  {
+    "id": "mount_boar",
+    "name": "Thornback Boar",
+    "requiredLevel": 20,
+    "swift": false,
+    "exclusive": false
+  },
+  {
+    "id": "mount_bloomstrider",
+    "name": "Verdant Bloomstrider",
+    "requiredLevel": 20,
+    "swift": false,
+    "exclusive": true
+  },
+  {
+    "id": "mount_swift_alpaca",
+    "name": "Swift Highfield Alpaca",
+    "requiredLevel": 20,
+    "swift": true,
+    "exclusive": false
+  },
+  {
+    "id": "mount_swift_bull",
+    "name": "Swift Ironhide Bull",
+    "requiredLevel": 20,
+    "swift": true,
+    "exclusive": false
+  },
+  {
+    "id": "mount_swift_boar",
+    "name": "Swift Thornback Boar",
+    "requiredLevel": 20,
+    "swift": true,
+    "exclusive": false
+  },
+  {
+    "id": "mount_elder_bloomstrider",
+    "name": "Elder Bloomstrider",
+    "requiredLevel": 20,
+    "swift": true,
+    "exclusive": true
   }
 ];
 

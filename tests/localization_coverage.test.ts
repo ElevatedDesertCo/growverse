@@ -506,11 +506,13 @@ describe('i18n Localization Key Coverage', () => {
       };
     }
     if (entry.kind === 'quest') {
+      // $N and $C are both documented quest runtime substitutions (player name /
+      // class), so the request supplies both, mirroring the NPC branch.
       return {
         kind: 'quest',
         id: entry.id,
         field: entry.field as 'title' | 'text' | 'completion',
-        values: { playerName: 'Mira' },
+        values: { playerName: 'Mira', className: 'Mage', classNameLower: 'mage' },
       };
     }
     if (entry.kind === 'questObjective') {

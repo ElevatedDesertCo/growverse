@@ -141,6 +141,13 @@ export const GUIDE_ROUTES: GuideRoute[] = [
     descKey: 'guide.delvesPage.intro',
   },
   {
+    id: 'mounts',
+    sub: 'mounts',
+    navKey: 'guide.nav.mounts',
+    group: 'compendium',
+    descKey: 'guide.mountsPage.intro',
+  },
+  {
     id: 'arena',
     sub: 'arena',
     navKey: 'guide.nav.arena',

@@ -1158,6 +1158,9 @@ async function startGame(
           case 'leaderboard':
             hud.toggleLeaderboard();
             break;
+          case 'mounts':
+            hud.toggleMounts();
+            break;
           case 'discord':
             toggleDiscordPanel();
             break;
@@ -1286,6 +1289,9 @@ async function startGame(
         break;
       case 'leaderboard':
         hud.toggleLeaderboard();
+        break;
+      case 'mounts':
+        hud.toggleMounts();
         break;
       case 'discord':
         toggleDiscordPanel();

@@ -168,6 +168,8 @@ export const zh_TW: EnTranslations = {
       "dismissAria": "收起{name}",
       "errors": {
         "alreadyKnown": "你已經學會騎乘該坐騎。",
+        "alreadyHaveReins": "你已經擁有這副韁繩了。",
+        "fiestaBout": "嘉年華對局期間無法這麼做。",
         "notKnown": "你還不會騎乘該坐騎。",
         "notEnoughGrow": "你的$GROW不足。",
         "learnLevel": "需要達到{level}級才能學習騎術。",
@@ -1154,6 +1156,7 @@ export const zh_TW: EnTranslations = {
       "quests": "任務",
       "dungeons": "地城與團隊副本",
       "delves": "秘探",
+      "mounts": "坐騎",
       "reference": "參考資料",
       "controls": "操作按鍵",
       "combat": "戰鬥",
@@ -1717,6 +1720,22 @@ export const zh_TW: EnTranslations = {
       "marksBody": "通關秘探可賺取秘探印記，這是一種與你的錢幣分開存放的貨幣。在看守人處花用它們，以強化你的同伴，並取得在其他任何地方都找不到的裝備。",
       "whereHeading": "何處能找到",
       "whereBody": "第一座秘探「崩塌的聖物庫」位於東溪谷地起始山谷中的聖物庫山丘。哈爾文修士在那裡看管著看板，待你準備就緒，他便會送你下去。"
+    },
+    "mountsPage": {
+      "heading": "坐騎",
+      "intro": "坐騎載著你瀟灑地穿越大陸。到布魯姆海文馬廄學習騎術，挑一頭脾氣合你心意的夥伴，路途便會短上許多。",
+      "whatHeading": "騎術如何運作",
+      "whatBody": "每頭坐騎都是一次性解鎖：在馬廄買下牠的韁繩並學會騎乘，牠就永遠屬於你。只要你脫離戰鬥、身處旱地，隨時都能召喚；受到攻擊、開始施法或潛入水中都會讓你落地。",
+      "tiersHeading": "騎術與迅捷騎術",
+      "tiersBody": "馬廄養著兩批坐騎。騎術坐騎是入門之選，而迅捷坐騎則是同樣溫馴的坐騎養得更快。同一層級內的每頭坐騎速度完全相同，所以選擇只關乎性情與外觀，與速度無關。",
+      "exclusiveHeading": "綻放行者",
+      "exclusiveBody": "有兩頭坐騎，翠綠綻放行者與長老綻放行者，是長出來而非養出來的，也是馬廄以$GROW販售的專屬坐騎。牠們是身份的象徵：在各自層級內，速度與其他坐騎完全一致。",
+      "whereHeading": "在哪裡學習",
+      "whereBody": "達到{level}級後，前往起始山谷的布魯姆海文馬廄。馬廄長會先帶你在練習賽道上完成騎術課程，販售的韁繩則涵蓋兩個層級。",
+      "fromLevel": "從 {n} 級起",
+      "ridingTier": "騎術",
+      "swiftTier": "迅捷",
+      "exclusiveTag": "$GROW專屬"
     },
     "talentsPage": {
       "heading": "天賦與專精",
@@ -5639,6 +5658,30 @@ export const zh_TW: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "先鋒鉻銀"
+      },
+      "reins_swift_highfield_alpaca": {
+        "name": "迅捷高地草原羊駝韁繩"
+      },
+      "reins_swift_ironhide_bull": {
+        "name": "迅捷鐵皮公牛韁繩"
+      },
+      "reins_swift_thornback_boar": {
+        "name": "迅捷棘背野豬韁繩"
+      },
+      "reins_elder_bloomstrider": {
+        "name": "長老綻放行者韁繩"
+      },
+      "verdant_wardrobe_crate": {
+        "name": "翠綠衣櫥箱"
+      },
+      "course_low_rail": {
+        "name": "低欄障礙"
+      },
+      "course_hay_bales": {
+        "name": "乾草堆障礙"
+      },
+      "course_timber_arch": {
+        "name": "木拱門"
       }
     },
     "mobs": {
@@ -6013,6 +6056,32 @@ export const zh_TW: EnTranslations = {
       },
       "ysolei": {
         "name": "伊索蕾，溺月化身"
+      }
+    },
+    "mounts": {
+      "mount_alpaca": {
+        "name": "高地草原羊駝"
+      },
+      "mount_bull": {
+        "name": "鐵皮公牛"
+      },
+      "mount_boar": {
+        "name": "棘背野豬"
+      },
+      "mount_bloomstrider": {
+        "name": "翠綠綻放行者"
+      },
+      "mount_swift_alpaca": {
+        "name": "迅捷高地草原羊駝"
+      },
+      "mount_swift_bull": {
+        "name": "迅捷鐵皮公牛"
+      },
+      "mount_swift_boar": {
+        "name": "迅捷棘背野豬"
+      },
+      "mount_elder_bloomstrider": {
+        "name": "長老綻放行者"
       }
     },
     "npcs": {
@@ -6962,6 +7031,22 @@ export const zh_TW: EnTranslations = {
         "objectives": {
           "0": {
             "label": "擊敗莫格"
+          }
+        }
+      },
+      "q_riding_lessons": {
+        "title": "騎術課程",
+        "text": "想學騎術嗎，{className}？那就先學會院場，再談上路。走一遍我的練習賽道：先是低欄，然後是乾草堆，最後再穿回木拱門。去吧！跳過每一道障礙，然後騎著穿過拱門回來。",
+        "completion": "手穩，坐姿也穩。你行的。這份酬勞拿去：應該夠你買下第一副韁繩了。挑一頭脾氣合你心意的坐騎吧，另外當心綻放行者，那傢伙是會挑選騎手的。",
+        "objectives": {
+          "0": {
+            "label": "已越過低欄"
+          },
+          "1": {
+            "label": "已越過乾草堆"
+          },
+          "2": {
+            "label": "已騎行穿過木拱門"
           }
         }
       },

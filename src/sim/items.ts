@@ -233,13 +233,23 @@ export function buyItem(ctx: SimContext, npcId: number, itemId: string, pid?: nu
     return;
   }
   // A mount is a one-time unlock: refuse a repeat purchase before any payment
-  // (copper or $GROW) so a player can never pay twice for the same ride.
-  if (def.use?.type === 'learnMount' && meta.ownedMounts.has(def.use.mountId)) {
-    ctx.error(meta.entityId, 'You already know how to ride that mount.');
-    return;
+  // (copper or $GROW) so a player can never pay twice for the same ride, and
+  // refuse a second set of reins while an unused one still sits in the bags
+  // (reins are noTrade, so a duplicate would be dead weight).
+  if (def.use?.type === 'learnMount') {
+    if (meta.ownedMounts.has(def.use.mountId)) {
+      ctx.error(meta.entityId, 'You already know how to ride that mount.');
+      return;
+    }
+    if (ctx.countItem(itemId, meta.entityId) > 0) {
+      ctx.error(meta.entityId, 'You already have those reins.');
+      return;
+    }
   }
   // $GROW-priced stock settles against the grow balance, never copper. Handed
-  // over as a single unit; the server settles the debit via the grow_spend event.
+  // over as a single unit. Online, the server debits the ledger BEFORE calling
+  // buyItem and stages growCoins so this check decides the outcome; the
+  // grow_spend event is a client refresh signal, not a settle request.
   if (def.growPrice) {
     if (meta.growCoins < def.growPrice) {
       ctx.error(meta.entityId, "You don't have enough $GROW.");

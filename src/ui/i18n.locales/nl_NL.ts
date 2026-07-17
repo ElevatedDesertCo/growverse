@@ -5183,4 +5183,12 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'entities.items.reins_ironhide_bull.name': 'Teugels van de IJzerhuidstier',
   'entities.items.reins_thornback_boar.name': 'Teugels van het Doornrugzwijn',
   'entities.items.reins_verdant_bloomstrider.name': 'Teugels van de Groene Bloesemloper',
+  'entities.items.reins_swift_highfield_alpaca.name': 'Teugels van de snelle Hoogveld-alpaca',
+  'entities.items.reins_swift_ironhide_bull.name': 'Teugels van de snelle IJzerhuidstier',
+  'entities.items.reins_swift_thornback_boar.name': 'Teugels van het snelle Doornrugzwijn',
+  'entities.items.reins_elder_bloomstrider.name': 'Teugels van de Oude Bloesemloper',
+  'entities.items.verdant_wardrobe_crate.name': 'Groene garderobekist',
+  'entities.items.course_low_rail.name': 'Sprong over de lage balk',
+  'entities.items.course_hay_bales.name': 'Sprong over de hooibalen',
+  'entities.items.course_timber_arch.name': 'Houten boog',
 };

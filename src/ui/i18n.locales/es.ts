@@ -5223,4 +5223,12 @@ export const es: Partial<Record<TranslationKey, string>> = {
   'entities.items.reins_ironhide_bull.name': 'Riendas del toro Pielhierro',
   'entities.items.reins_thornback_boar.name': 'Riendas del jabalí Lomoespina',
   'entities.items.reins_verdant_bloomstrider.name': 'Riendas del Zancaflor Verdeante',
+  'entities.items.reins_swift_highfield_alpaca.name': 'Riendas de la alpaca veloz de Campoalto',
+  'entities.items.reins_swift_ironhide_bull.name': 'Riendas del toro veloz Pielhierro',
+  'entities.items.reins_swift_thornback_boar.name': 'Riendas del jabalí veloz Lomoespina',
+  'entities.items.reins_elder_bloomstrider.name': 'Riendas del Zancaflor Anciano',
+  'entities.items.verdant_wardrobe_crate.name': 'Baúl de vestuario verdeante',
+  'entities.items.course_low_rail.name': 'Salto de barra baja',
+  'entities.items.course_hay_bales.name': 'Salto de fardos de heno',
+  'entities.items.course_timber_arch.name': 'Arco de madera',
 };

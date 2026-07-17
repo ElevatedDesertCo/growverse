@@ -5127,4 +5127,12 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'entities.items.reins_ironhide_bull.name': 'Tyglar till Järnhudstjuren',
   'entities.items.reins_thornback_boar.name': 'Tyglar till Törnryggsvinet',
   'entities.items.reins_verdant_bloomstrider.name': 'Tyglar till den Grönskande Blomvandraren',
+  'entities.items.reins_swift_highfield_alpaca.name': 'Tyglar till den snabba Högfältsalpackan',
+  'entities.items.reins_swift_ironhide_bull.name': 'Tyglar till den snabba Järnhudstjuren',
+  'entities.items.reins_swift_thornback_boar.name': 'Tyglar till det snabba Törnryggsvinet',
+  'entities.items.reins_elder_bloomstrider.name': 'Tyglar till den Äldre Blomvandraren',
+  'entities.items.verdant_wardrobe_crate.name': 'Grönskande garderobskista',
+  'entities.items.course_low_rail.name': 'Hopp över låg bom',
+  'entities.items.course_hay_bales.name': 'Hopp över höbalar',
+  'entities.items.course_timber_arch.name': 'Träbåge',
 };

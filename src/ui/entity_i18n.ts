@@ -6,6 +6,7 @@ import {
   ITEM_SETS,
   ITEMS,
   MOBS,
+  MOUNTS,
   NPCS,
   QUESTS,
   ZONES,
@@ -21,12 +22,13 @@ import {
   tOptional,
 } from './i18n';
 
-export type EntityTranslationGroup = 'classAbility' | 'item' | 'itemSet' | 'world';
+export type EntityTranslationGroup = 'classAbility' | 'item' | 'itemSet' | 'mount' | 'world';
 export type EntityTranslationKind =
   | 'class'
   | 'ability'
   | 'item'
   | 'mob'
+  | 'mount'
   | 'npc'
   | 'quest'
   | 'questObjective'
@@ -60,6 +62,7 @@ export type EntityTranslationRequest =
       values?: InterpolationValues;
     }
   | { kind: 'mob'; id: string; field: 'name'; values?: InterpolationValues }
+  | { kind: 'mount'; id: string; field: 'name'; values?: InterpolationValues }
   | { kind: 'npc'; id: string; field: 'name' | 'title' | 'greeting'; values?: InterpolationValues }
   | {
       kind: 'quest';
@@ -197,6 +200,8 @@ function canonicalEntityText(request: EntityTranslationRequest): string {
     }
     case 'mob':
       return MOBS[request.id]?.name ?? request.id;
+    case 'mount':
+      return MOUNTS[request.id]?.name ?? request.id;
     case 'npc': {
       const npc = NPCS[request.id];
       if (!npc) return request.id;
@@ -256,6 +261,8 @@ export function entityTranslationKey(request: EntityTranslationRequest): string 
       return `entities.itemSets.${entityPathSegment(request.id)}.${request.field}`;
     case 'mob':
       return `entities.mobs.${entityPathSegment(request.id)}.name`;
+    case 'mount':
+      return `entities.mounts.${entityPathSegment(request.id)}.name`;
     case 'npc':
       return `entities.npcs.${entityPathSegment(request.id)}.${request.field}`;
     case 'quest':
@@ -287,7 +294,9 @@ function requestManifestEntry(request: EntityTranslationRequest): EntityTranslat
         ? 'itemSet'
         : request.kind === 'item'
           ? 'item'
-          : 'world';
+          : request.kind === 'mount'
+            ? 'mount'
+            : 'world';
   return entry(
     request.kind,
     id,
@@ -315,6 +324,12 @@ export function tEntity(request: EntityTranslationRequest): string {
 
 export function itemDisplayName(item: ItemDef): string {
   return tEntity({ kind: 'item', id: item.id, field: 'name' });
+}
+
+/** Localized mount display name (Mounts window rows, summon/dismiss aria
+ *  labels, the learned toast). Falls back to the English MountDef.name. */
+export function mountDisplayName(mountId: string): string {
+  return tEntity({ kind: 'mount', id: mountId, field: 'name' });
 }
 
 // Thin tEntity wrappers for the display helpers that several windows + painters each
@@ -409,6 +424,18 @@ export function entityTranslationManifest(): EntityTranslationManifestEntry[] {
         ),
       );
     }
+  }
+  for (const mount of Object.values(MOUNTS).sort(compareById)) {
+    entries.push(
+      entry(
+        'mount',
+        mount.id,
+        'name',
+        mount.name,
+        'mount',
+        entityTranslationKey({ kind: 'mount', id: mount.id, field: 'name' }),
+      ),
+    );
   }
   for (const mob of Object.values(MOBS).sort(compareById)) {
     entries.push(

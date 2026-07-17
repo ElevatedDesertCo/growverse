@@ -168,6 +168,8 @@ export const zh_CN: EnTranslations = {
       "dismissAria": "收起{name}",
       "errors": {
         "alreadyKnown": "你已经学会骑乘该坐骑。",
+        "alreadyHaveReins": "你已经拥有这副缰绳了。",
+        "fiestaBout": "嘉年华对局期间无法这么做。",
         "notKnown": "你还不会骑乘该坐骑。",
         "notEnoughGrow": "你的$GROW不足。",
         "learnLevel": "需要达到{level}级才能学习骑术。",
@@ -1154,6 +1156,7 @@ export const zh_CN: EnTranslations = {
       "quests": "任务",
       "dungeons": "地下城与团队副本",
       "delves": "探秘",
+      "mounts": "坐骑",
       "reference": "参考",
       "controls": "操作键",
       "combat": "战斗",
@@ -1717,6 +1720,22 @@ export const zh_CN: EnTranslations = {
       "marksBody": "完成探秘会获得探秘印记，这是一种与你的钱币分开存放的货币。在看守人处花费它们，即可强化你的同伴，并取得别处遍寻不见的装备。",
       "whereHeading": "在哪里找到探秘",
       "whereBody": "第一座探秘，坍塌的圣物库，位于东溪谷地起始山谷的圣物库山丘。哈尔文修士在那里看守面板，只要你准备好了，他便会送你下去。"
+    },
+    "mountsPage": {
+      "heading": "坐骑",
+      "intro": "坐骑载着你风驰电掣地穿越大陆。到布鲁姆海文马厩学习骑术，挑一头脾气合你心意的伙伴，路途便会短上许多。",
+      "whatHeading": "骑术如何运作",
+      "whatBody": "每头坐骑都是一次性解锁：在马厩买下它的缰绳并学会骑乘，它就永远属于你。只要你脱离战斗、身处旱地，随时都能召唤；受到攻击、开始施法或潜入水中都会让你落地。",
+      "tiersHeading": "骑术与迅捷骑术",
+      "tiersBody": "马厩养着两批坐骑。骑术坐骑是入门之选，而迅捷坐骑则是同样温驯的坐骑养得更快。同一层级内的每头坐骑速度完全相同，所以选择只关乎性情与外观，与速度无关。",
+      "exclusiveHeading": "绽放行者",
+      "exclusiveBody": "有两头坐骑，翠绿绽放行者与长老绽放行者，是长出来而非养出来的，也是马厩用$GROW出售的专属坐骑。它们是身份的象征：在各自层级内，速度与其他坐骑完全一致。",
+      "whereHeading": "在哪里学习",
+      "whereBody": "达到{level}级后，前往起始山谷的布鲁姆海文马厩。马厩长会先带你在练习赛道上完成骑术课程，出售的缰绳则涵盖两个层级。",
+      "fromLevel": "从 {n} 级起",
+      "ridingTier": "骑术",
+      "swiftTier": "迅捷",
+      "exclusiveTag": "$GROW专属"
     },
     "talentsPage": {
       "heading": "天赋与专精",
@@ -5639,6 +5658,30 @@ export const zh_CN: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "先锋铬银"
+      },
+      "reins_swift_highfield_alpaca": {
+        "name": "迅捷高地草原羊驼缰绳"
+      },
+      "reins_swift_ironhide_bull": {
+        "name": "迅捷铁皮公牛缰绳"
+      },
+      "reins_swift_thornback_boar": {
+        "name": "迅捷棘背野猪缰绳"
+      },
+      "reins_elder_bloomstrider": {
+        "name": "长老绽放行者缰绳"
+      },
+      "verdant_wardrobe_crate": {
+        "name": "翠绿衣橱箱"
+      },
+      "course_low_rail": {
+        "name": "低栏障碍"
+      },
+      "course_hay_bales": {
+        "name": "干草堆障碍"
+      },
+      "course_timber_arch": {
+        "name": "木拱门"
       }
     },
     "mobs": {
@@ -6013,6 +6056,32 @@ export const zh_CN: EnTranslations = {
       },
       "ysolei": {
         "name": "伊索蕾，溺月化身"
+      }
+    },
+    "mounts": {
+      "mount_alpaca": {
+        "name": "高地草原羊驼"
+      },
+      "mount_bull": {
+        "name": "铁皮公牛"
+      },
+      "mount_boar": {
+        "name": "棘背野猪"
+      },
+      "mount_bloomstrider": {
+        "name": "翠绿绽放行者"
+      },
+      "mount_swift_alpaca": {
+        "name": "迅捷高地草原羊驼"
+      },
+      "mount_swift_bull": {
+        "name": "迅捷铁皮公牛"
+      },
+      "mount_swift_boar": {
+        "name": "迅捷棘背野猪"
+      },
+      "mount_elder_bloomstrider": {
+        "name": "长老绽放行者"
       }
     },
     "npcs": {
@@ -6962,6 +7031,22 @@ export const zh_CN: EnTranslations = {
         "objectives": {
           "0": {
             "label": "击败莫格"
+          }
+        }
+      },
+      "q_riding_lessons": {
+        "title": "骑术课程",
+        "text": "想学骑术吗，{className}？那就先学会院场，再谈上路。走一遍我的练习赛道：先是低栏，然后是干草堆，最后再穿回木拱门。去吧！跳过每一道障碍，然后骑着穿过拱门回来。",
+        "completion": "手稳，坐姿也稳。你行的。这份酬劳拿去：应该够你买下第一副缰绳了。挑一头脾气合你心意的坐骑吧，另外当心绽放行者，那家伙是会挑选骑手的。",
+        "objectives": {
+          "0": {
+            "label": "已越过低栏"
+          },
+          "1": {
+            "label": "已越过干草堆"
+          },
+          "2": {
+            "label": "已骑行穿过木拱门"
           }
         }
       },

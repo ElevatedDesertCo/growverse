@@ -187,6 +187,13 @@ export const BIND_ACTIONS: BindAction[] = [
     defaults: ['KeyK'],
   },
   {
+    id: 'mounts',
+    label: 'Mounts',
+    category: 'Interface',
+    kind: 'edge',
+    defaults: ['KeyI'],
+  },
+  {
     id: 'discord',
     label: 'Discord',
     category: 'Interface',

@@ -1,4 +1,4 @@
-import { DELVES, DUNGEONS, MOBS, NPCS, QUESTS, ZONES } from '../sim/data';
+import { DELVES, DUNGEONS, MOBS, MOUNTS, NPCS, QUESTS, ZONES } from '../sim/data';
 
 // English world-entity names + narratives (mobs, NPCs, quests, zones, dungeons).
 //
@@ -230,6 +230,7 @@ const QUEST_IDS = [
   'q_nythraxis_bound_guardian',
   'q_nythraxis_scourges_end',
   'q_mogger',
+  'q_riding_lessons', // Bloomhaven stables riding course (mounts v1)
   // The Sluice (zone 1) beaver work-camp quests
   'q_sluice_welcome',
   'q_sluice_pilings',
@@ -243,6 +244,20 @@ const QUEST_IDS = [
   'q_hollowmere_crones',
   'q_hollowmere_sentinel',
   'q_hollowmere_pumpkin_king',
+] as const;
+
+// Mounts and Stables v1: the 8 stable mounts (riding tier, swift tier, and the
+// two $GROW-exclusive Bloomstriders). Display names surface in the Mounts
+// window rows, the summon/dismiss aria labels, and the learned toast.
+const MOUNT_IDS = [
+  'mount_alpaca',
+  'mount_bull',
+  'mount_boar',
+  'mount_bloomstrider',
+  'mount_swift_alpaca',
+  'mount_swift_bull',
+  'mount_swift_boar',
+  'mount_elder_bloomstrider',
 ] as const;
 
 const ZONE_IDS = ['eastbrook_vale', 'mirefen_marsh', 'thornpeak_heights', 'the_dam'] as const;
@@ -259,6 +274,7 @@ const DUNGEON_IDS = [
 const DELVE_IDS = ['collapsed_reliquary'] as const;
 
 type MobId = (typeof MOB_IDS)[number];
+type MountId = (typeof MOUNT_IDS)[number];
 type NpcId = (typeof NPC_IDS)[number];
 type QuestId = (typeof QUEST_IDS)[number];
 type ZoneId = (typeof ZONE_IDS)[number];
@@ -266,6 +282,7 @@ type DungeonId = (typeof DUNGEON_IDS)[number];
 type DelveId = (typeof DELVE_IDS)[number];
 
 type MobTranslations = Record<MobId, { name: string }>;
+type MountTranslations = Record<MountId, { name: string }>;
 type NpcTranslations = Record<NpcId, { name: string; title: string; greeting: string }>;
 type QuestTranslation = {
   title: string;
@@ -296,6 +313,7 @@ type WorldEntityTranslations = {
   };
   entities: {
     mobs: MobTranslations;
+    mounts: MountTranslations;
     npcs: NpcTranslations;
     quests: QuestTranslations;
     zones: ZoneTranslations;
@@ -323,6 +341,11 @@ function makeEnglishWorldEntities(): WorldEntityTranslations {
   const mobs = {} as MobTranslations;
   orderedValues(MOB_IDS, MOBS).forEach((mob) => {
     mobs[mob.id as MobId] = { name: mob.name };
+  });
+
+  const mounts = {} as MountTranslations;
+  orderedValues(MOUNT_IDS, MOUNTS).forEach((mount) => {
+    mounts[mount.id as MountId] = { name: mount.name };
   });
 
   const npcs = {} as NpcTranslations;
@@ -389,7 +412,7 @@ function makeEnglishWorldEntities(): WorldEntityTranslations {
       delveRewardChestInteract: 'Press F to claim spoils',
       delveSurfaceExitInteract: 'Press F to climb',
     },
-    entities: { mobs, npcs, quests, zones, dungeons, delves },
+    entities: { mobs, mounts, npcs, quests, zones, dungeons, delves },
   };
 }
 

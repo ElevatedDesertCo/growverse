@@ -5120,4 +5120,12 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'entities.items.reins_ironhide_bull.name': 'Demir Derili Boğa Dizginleri',
   'entities.items.reins_thornback_boar.name': 'Dikenli Sırt Yaban Domuzu Dizginleri',
   'entities.items.reins_verdant_bloomstrider.name': 'Yeşeren Çiçek Gezgini Dizginleri',
+  'entities.items.reins_swift_highfield_alpaca.name': 'Hızlı Highfield Alpakası Dizginleri',
+  'entities.items.reins_swift_ironhide_bull.name': 'Hızlı Demir Derili Boğa Dizginleri',
+  'entities.items.reins_swift_thornback_boar.name': 'Hızlı Dikenli Sırt Yaban Domuzu Dizginleri',
+  'entities.items.reins_elder_bloomstrider.name': 'Kadim Çiçek Gezgini Dizginleri',
+  'entities.items.verdant_wardrobe_crate.name': 'Yeşeren Gardırop Sandığı',
+  'entities.items.course_low_rail.name': 'Alçak Çıta Atlayışı',
+  'entities.items.course_hay_bales.name': 'Saman Balyası Atlayışı',
+  'entities.items.course_timber_arch.name': 'Ahşap Kemer',
 };

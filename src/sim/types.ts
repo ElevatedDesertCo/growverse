@@ -318,6 +318,10 @@ interface BaseItemDef {
   noVendorSell?: boolean;
   noDiscard?: boolean;
   noMarketList?: boolean;
+  // Soulbound-style: the item can never enter a player trade offer (quest items
+  // are always excluded; this extends the same rule to purchases that must stay
+  // personal, e.g. mount reins and the $GROW exclusives).
+  noTrade?: boolean;
   /** Shown when interacting with a ground quest object before the quest is active. */
   pickupDeny?: string;
   /** Shown when the quest is active but the collect count is already met. */

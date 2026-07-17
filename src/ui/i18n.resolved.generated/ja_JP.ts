@@ -168,6 +168,8 @@ export const ja_JP: EnTranslations = {
       "dismissAria": "{name}を解除",
       "errors": {
         "alreadyKnown": "そのマウントの騎乗はすでに習得済みです。",
+        "alreadyHaveReins": "その手綱はすでに持っています。",
+        "fiestaBout": "フィエスタの試合中にはできません。",
         "notKnown": "そのマウントの騎乗をまだ習得していません。",
         "notEnoughGrow": "$GROWが足りません。",
         "learnLevel": "騎乗を習得するにはレベル{level}が必要です。",
@@ -1154,6 +1156,7 @@ export const ja_JP: EnTranslations = {
       "quests": "クエスト",
       "dungeons": "ダンジョンとレイド",
       "delves": "デルヴ",
+      "mounts": "マウント",
       "reference": "リファレンス",
       "controls": "操作方法",
       "combat": "戦闘",
@@ -1717,6 +1720,22 @@ export const ja_JP: EnTranslations = {
       "marksBody": "デルヴを攻略するとデルヴの刻印が手に入ります。これは所持金とは別に管理される通貨です。番人のもとで使えば、仲間を強化したり、ほかでは手に入らない装備を入手したりできます。",
       "whereHeading": "どこにあるか",
       "whereBody": "最初のデルヴ「崩れた聖遺物庫」は、イーストブルックの谷の出発地点にある聖遺物庫の丘で開放されます。ボードを管理しているのはハルヴェン修道士で、準備が整えばあなたを下へ送り出してくれます。"
+    },
+    "mountsPage": {
+      "heading": "マウント",
+      "intro": "マウントは、あなたを乗せて颯爽と大地を駆けます。ブルームヘイヴンの厩舎で騎乗を習い、気性の合う相棒を選べば、道のりはずっと短くなります。",
+      "whatHeading": "騎乗の仕組み",
+      "whatBody": "マウントは一度きりの解放です。厩舎で手綱を買って習得すれば、ずっとあなたのものです。戦闘外で乾いた地面にいればいつでも召喚できます。攻撃を受ける、詠唱を始める、水に潜る、のいずれかで自分の足に戻ります。",
+      "tiersHeading": "騎乗と俊足の騎乗",
+      "tiersBody": "厩舎は二種の群れを育てています。騎乗マウントは最初の一歩、俊足マウントは同じ穏やかな群れを速く育てたものです。同じ段階の中ではどのマウントも同じ速さなので、選ぶ基準は気性と見た目であって、速さではありません。",
+      "exclusiveHeading": "ブルームストライダー",
+      "exclusiveBody": "翠緑のブルームストライダーと長老ブルームストライダーの2頭は、育てられたのではなく生い育ったもので、厩舎が$GROWで販売する限定マウントです。あくまで名誉の乗り物であり、同じ段階の中では他のどのマウントともまったく同じ速さです。",
+      "whereHeading": "習得できる場所",
+      "whereBody": "レベル{level}に達したら、始まりの谷にあるブルームヘイヴンの厩舎を訪れましょう。厩舎長がまず練習コースで騎乗レッスンをつけてくれます。売られている手綱は両方の段階をカバーしています。",
+      "fromLevel": "レベル{n}から",
+      "ridingTier": "騎乗",
+      "swiftTier": "俊足",
+      "exclusiveTag": "$GROW限定"
     },
     "talentsPage": {
       "heading": "タレントとスペシャライゼーション",
@@ -5639,6 +5658,30 @@ export const ja_JP: EnTranslations = {
       },
       "vanguard_chrome_armor_plate": {
         "name": "ヴァンガードクローム"
+      },
+      "reins_swift_highfield_alpaca": {
+        "name": "俊足のハイフィールド・アルパカの手綱"
+      },
+      "reins_swift_ironhide_bull": {
+        "name": "俊足のアイアンハイド・ブルの手綱"
+      },
+      "reins_swift_thornback_boar": {
+        "name": "俊足のソーンバック・ボアの手綱"
+      },
+      "reins_elder_bloomstrider": {
+        "name": "長老ブルームストライダーの手綱"
+      },
+      "verdant_wardrobe_crate": {
+        "name": "翠緑の衣装箱"
+      },
+      "course_low_rail": {
+        "name": "低い横木の障害"
+      },
+      "course_hay_bales": {
+        "name": "干し草の山の障害"
+      },
+      "course_timber_arch": {
+        "name": "木のアーチ"
       }
     },
     "mobs": {
@@ -6013,6 +6056,32 @@ export const ja_JP: EnTranslations = {
       },
       "ysolei": {
         "name": "イソレイ、溺月の化身"
+      }
+    },
+    "mounts": {
+      "mount_alpaca": {
+        "name": "ハイフィールド・アルパカ"
+      },
+      "mount_bull": {
+        "name": "アイアンハイド・ブル"
+      },
+      "mount_boar": {
+        "name": "ソーンバック・ボア"
+      },
+      "mount_bloomstrider": {
+        "name": "翠緑のブルームストライダー"
+      },
+      "mount_swift_alpaca": {
+        "name": "俊足のハイフィールド・アルパカ"
+      },
+      "mount_swift_bull": {
+        "name": "俊足のアイアンハイド・ブル"
+      },
+      "mount_swift_boar": {
+        "name": "俊足のソーンバック・ボア"
+      },
+      "mount_elder_bloomstrider": {
+        "name": "長老ブルームストライダー"
       }
     },
     "npcs": {
@@ -6962,6 +7031,22 @@ export const ja_JP: EnTranslations = {
         "objectives": {
           "0": {
             "label": "モガーを討伐"
+          }
+        }
+      },
+      "q_riding_lessons": {
+        "title": "騎乗レッスン",
+        "text": "乗りたいのですか、{className}？なら道に出る前に、まずこの庭で学ぶことです。私の練習コースを回ってきなさい。低い横木、干し草の山、そして最後に木のアーチをくぐって戻るのです。さあ！すべての障害を跳び越えたら、アーチを抜けて騎乗のまま戻ってきなさい。",
+        "completion": "手綱さばきも座りも安定していますね。合格です。これは骨折り賃に。最初の手綱を買うには十分なはずです。気性の合うマウントを選びなさい。ただしブルームストライダーには気をつけて。あれは乗り手を選ぶのですから。",
+        "objectives": {
+          "0": {
+            "label": "低い横木を越えた"
+          },
+          "1": {
+            "label": "干し草の山を越えた"
+          },
+          "2": {
+            "label": "木のアーチをくぐり抜けた"
           }
         }
       },

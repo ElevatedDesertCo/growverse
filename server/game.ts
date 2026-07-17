@@ -10,6 +10,7 @@ import {
   DUNGEONS,
   delveAt,
   dungeonAt,
+  ITEMS,
   isDelvePos,
   zoneAt,
 } from '../src/sim/data';
@@ -1042,7 +1043,6 @@ export class GameServer {
             lap('tick');
             this.routeEvents(events);
             this.detectActivity(events);
-            this.settleGrowSpends(events);
             lap('events');
             this.runAntibotTick();
             lap('antibot');
@@ -1562,9 +1562,14 @@ export class GameServer {
       list: [{ type: 'log', text: `${name} has entered Growverse.`, color: '#ffd100' }],
     });
     void this.initSocial(session);
-    // Seed the in-sim $GROW mirror from the authoritative account ledger
-    // (best-effort: a balance read must never affect joining the world; the
-    // mirror stays at its last-saved value until the read lands).
+    // Seed the in-sim $GROW mirror from the authoritative account ledger. Zero
+    // it first: the character save can carry a stale-high growCoins (spent
+    // elsewhere on the account), and the mirror must never show, let alone
+    // spend, money the ledger no longer holds while the async read is in
+    // flight. Purchases are debit-first (buyGrowItem) so this is defense in
+    // depth, not the safety line. Best-effort beyond that: a balance read must
+    // never affect joining the world.
+    this.setGrowCoins(session.pid, 0);
     void this.syncGrowBalance(session).catch((err) =>
       console.error('grow balance sync failed:', err),
     );
@@ -2349,8 +2354,17 @@ export class GameServer {
         }
         break;
       case 'buy':
-        if (typeof msg.npc === 'number' && typeof msg.item === 'string')
-          sim.buyItem(msg.npc, msg.item, pid);
+        if (typeof msg.npc === 'number' && typeof msg.item === 'string') {
+          const growPrice = ITEMS[msg.item]?.growPrice;
+          if (growPrice) {
+            // $GROW-priced stock is debit-first: the ledger pays before the sim
+            // grants anything (buyGrowItem), so a failed debit can never leave
+            // the player holding an unpaid item.
+            void this.buyGrowItem(session, msg.npc, msg.item, growPrice).catch(console.error);
+          } else {
+            sim.buyItem(msg.npc, msg.item, pid);
+          }
+        }
         break;
       case 'sell':
         if (typeof msg.item === 'string') {
@@ -3425,29 +3439,55 @@ export class GameServer {
     this.setGrowCoins(session.pid, balance);
   }
 
-  // Settle this tick's in-sim $GROW spends against the account ledger. The sim
-  // already granted the item and debited its meta.growCoins mirror; this only
-  // records the authoritative debit and resyncs the mirror to the real balance
-  // (they should agree; on a race the ledger wins). No gameplay resolves here.
-  private settleGrowSpends(events: SimEvent[]): void {
-    for (const ev of events) {
-      if (ev.type !== 'grow_spend') continue;
-      const session = this.clients.get(ev.pid);
-      if (!session) {
-        console.error(`grow_spend for pid ${ev.pid} has no live session; spend not settled`);
-        continue;
-      }
-      void debitGrow(session.accountId, ev.amount, `purchase:${ev.itemId}`)
-        .then(({ ok, balance }) => {
-          if (!ok) {
-            console.error(
-              `grow debit failed for account ${session.accountId} (amount ${ev.amount}, item ${ev.itemId}): balance changed underneath, resyncing mirror to ${balance}`,
-            );
-          }
-          if (this.clients.get(session.pid) !== session) return;
-          this.setGrowCoins(session.pid, balance);
-        })
-        .catch((err) => console.error('grow debit failed:', err));
+  // Debit-first $GROW purchase: the ledger debit lands BEFORE sim.buyItem runs,
+  // so the sim can never grant an item the ledger did not pay for. The mirror is
+  // staged so the sim's own deterministic checks (funds, vendor, range,
+  // duplicate reins) still decide the player-facing outcome; a sim refusal
+  // after a successful debit is refunded. The sim still emits grow_spend on a
+  // grant; it is forwarded to clients as a refresh signal and needs no
+  // server-side settle.
+  private async buyGrowItem(
+    session: ClientSession,
+    npcId: number,
+    itemId: string,
+    price: number,
+  ): Promise<void> {
+    const { ok, balance } = await debitGrow(session.accountId, price, `purchase:${itemId}`);
+    if (this.clients.get(session.pid) !== session) {
+      // Left the world between the command and the debit landing: the player
+      // never got anything, so a successful debit goes straight back.
+      if (ok) await creditGrow(session.accountId, price, `refund:${itemId} (left world)`, 'game');
+      return;
+    }
+    if (!ok) {
+      // Snap the mirror to the truth (now below the price), then let the sim
+      // produce its own deterministic "not enough $GROW" error for the player.
+      this.setGrowCoins(session.pid, balance);
+      this.sim.buyItem(npcId, itemId, session.pid);
+      this.syncAccountGrowMirrors(session.accountId, balance);
+      return;
+    }
+    // Stage the mirror so the sim's funds check passes and its debit lands
+    // exactly on the authoritative post-debit balance.
+    this.setGrowCoins(session.pid, balance + price);
+    this.sim.buyItem(npcId, itemId, session.pid);
+    let finalBalance = balance;
+    if (this.sim.meta(session.pid)?.growCoins !== balance) {
+      // The sim refused the purchase (range, unknown vendor, duplicate reins):
+      // nothing was granted, so the debit is returned to the ledger.
+      finalBalance = await creditGrow(session.accountId, price, `refund:${itemId}`, 'game');
+      this.setGrowCoins(session.pid, finalBalance);
+    }
+    this.syncAccountGrowMirrors(session.accountId, finalBalance);
+  }
+
+  // Overwrite the $GROW mirror for EVERY live session on the account: sibling
+  // characters share one ledger balance, so a spend or credit through one must
+  // show on all of them (and none may keep a stale-high mirror to spend from).
+  private syncAccountGrowMirrors(accountId: number, balance: number): void {
+    for (const live of this.clients.values()) {
+      if (live.accountId !== accountId) continue;
+      this.setGrowCoins(live.pid, balance);
     }
   }
 
@@ -3461,10 +3501,7 @@ export class GameServer {
     actor: string,
   ): Promise<number> {
     const balance = await creditGrow(accountId, amount, reason, actor);
-    for (const live of this.clients.values()) {
-      if (live.accountId !== accountId) continue;
-      this.setGrowCoins(live.pid, balance);
-    }
+    this.syncAccountGrowMirrors(accountId, balance);
     return balance;
   }
 

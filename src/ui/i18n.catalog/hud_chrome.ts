@@ -27,6 +27,8 @@ export const hudChromeStrings = {
     dismissAria: 'Dismiss {name}',
     errors: {
       alreadyKnown: 'You already know how to ride that mount.',
+      alreadyHaveReins: 'You already have those reins.',
+      fiestaBout: "You can't do that during a Fiesta bout.",
       notKnown: "You don't know how to ride that mount.",
       notEnoughGrow: "You don't have enough $GROW.",
       learnLevel: 'You must be level {level} to learn to ride.',

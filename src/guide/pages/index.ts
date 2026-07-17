@@ -18,6 +18,7 @@ import { glossary } from './glossary';
 import { home } from './home';
 import { howToPlay } from './how_to_play';
 import { models } from './models';
+import { mounts } from './mounts';
 import { progression } from './progression';
 import { quests } from './quests';
 import { social } from './social';
@@ -43,6 +44,7 @@ const PAGES: Record<string, GuidePage> = {
   quests,
   dungeons,
   delves,
+  mounts,
   arena,
   combat,
   stats,

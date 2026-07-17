@@ -411,6 +411,29 @@ export const BASE_ITEMS: Record<string, ItemDef> = {
     sellValue: 4,
     buyValue: 20,
   },
+  // Riding Lessons practice-course markers (interact objectives at the
+  // Bloomhaven stable yard; see zone1 q_riding_lessons).
+  course_low_rail: {
+    id: 'course_low_rail',
+    name: 'Low Rail Jump',
+    kind: 'quest',
+    sellValue: 0,
+    questId: 'q_riding_lessons',
+  },
+  course_hay_bales: {
+    id: 'course_hay_bales',
+    name: 'Hay Bale Jump',
+    kind: 'quest',
+    sellValue: 0,
+    questId: 'q_riding_lessons',
+  },
+  course_timber_arch: {
+    id: 'course_timber_arch',
+    name: 'Timber Arch',
+    kind: 'quest',
+    sellValue: 0,
+    questId: 'q_riding_lessons',
+  },
   // Cosmetic event reward: using it rolls a rarity rank (server-side) and opens
   // the skin-select overlay. See src/sim/content/skins.ts. Dev-grant for now.
   event_skin_token: {

@@ -901,6 +901,17 @@ export const en = {
       imperial_gold_armor_plate: { name: 'Imperial Gold' },
       vanguard_azure_armor_plate: { name: 'Vanguard Azure' },
       vanguard_chrome_armor_plate: { name: 'Vanguard Chrome' },
+      // Mounts and Stables v1: the swift-tier reins, the $GROW wardrobe crate, and
+      // the Riding Lessons practice-course markers (the riding-tier reins live in
+      // merge.ts MERGE_ITEM_IDS).
+      reins_swift_highfield_alpaca: { name: 'Reins of the Swift Highfield Alpaca' },
+      reins_swift_ironhide_bull: { name: 'Reins of the Swift Ironhide Bull' },
+      reins_swift_thornback_boar: { name: 'Reins of the Swift Thornback Boar' },
+      reins_elder_bloomstrider: { name: 'Reins of the Elder Bloomstrider' },
+      verdant_wardrobe_crate: { name: 'Verdant Wardrobe Crate' },
+      course_low_rail: { name: 'Low Rail Jump' },
+      course_hay_bales: { name: 'Hay Bale Jump' },
+      course_timber_arch: { name: 'Timber Arch' },
     },
     itemSets: itemSetEntityText,
     mobs: { ...worldNames.en.entities.mobs, ...mergeEntities.en.mobs, ...mergeExtra.en.mobs },
