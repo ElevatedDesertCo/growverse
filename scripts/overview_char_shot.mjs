@@ -17,7 +17,12 @@ fs.mkdirSync('tmp', { recursive: true });
 const browser = await puppeteer.launch({
   executablePath: EDGE,
   headless: 'new',
-  args: ['--no-sandbox', '--use-gl=angle', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
+  args: [
+    '--no-sandbox',
+    '--use-gl=angle',
+    '--use-angle=swiftshader',
+    '--enable-unsafe-swiftshader',
+  ],
 });
 const MOBILE = process.env.MOBILE === '1';
 const page = await browser.newPage();
@@ -28,7 +33,9 @@ await page.setViewport(
 );
 if (MOBILE) {
   const cdp = await page.target().createCDPSession();
-  await cdp.send('Emulation.setEmulatedMedia', { features: [{ name: 'pointer', value: 'coarse' }] });
+  await cdp.send('Emulation.setEmulatedMedia', {
+    features: [{ name: 'pointer', value: 'coarse' }],
+  });
 }
 
 const errors = [];

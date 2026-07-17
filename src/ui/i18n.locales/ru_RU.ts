@@ -108,7 +108,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.overview.commune': 'Репутация общины',
   'hudChrome.overview.sessions': 'Сеансы цветения',
   'hudChrome.overview.strains': 'Библиотека сортов',
-  'hudChrome.overview.noSessions': 'Нет активного сеанса цветения. Приготовьте настойку в алхимической лаборатории.',
+  'hudChrome.overview.noSessions':
+    'Нет активного сеанса цветения. Приготовьте настойку в алхимической лаборатории.',
   'character.sortBy': 'Сортировка',
   'character.sortByLabel': 'Сортировать персонажей',
   'character.sortMenuLabel': 'Параметры сортировки',
@@ -5335,7 +5336,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.garden.unlockLevel': 'Открывается на уровне {level}',
   'hudChrome.garden.open': 'Ухаживать за садом',
   'hudChrome.breeding.title': 'Генетика штаммов',
-  'hudChrome.breeding.hint': 'Скрестите два штамма, чтобы объединить их черты, или посадите один в саду.',
+  'hudChrome.breeding.hint':
+    'Скрестите два штамма, чтобы объединить их черты, или посадите один в саду.',
   'hudChrome.breeding.open': 'Вывести штаммы',
   'hudChrome.breeding.empty': 'Штаммов пока нет. Соберите Цветение, чтобы открыть первый штамм.',
   'hudChrome.breeding.landrace': 'Ландрас',
@@ -5347,7 +5349,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.breeding.plant': 'Посадить',
   'hudChrome.breeding.release': 'Отпустить',
   'hudChrome.breeding.breed': 'Скрестить',
-  'hudChrome.breeding.full': 'Библиотека штаммов заполнена. Отпустите штамм, чтобы освободить место.',
+  'hudChrome.breeding.full':
+    'Библиотека штаммов заполнена. Отпустите штамм, чтобы освободить место.',
   'hudChrome.reputation.tier.neutral': 'Нейтралитет',
   'hudChrome.reputation.tier.friendly': 'Дружелюбие',
   'hudChrome.reputation.tier.honored': 'Уважение',

@@ -108,7 +108,8 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.overview.commune': '공동체 평판',
   'hudChrome.overview.sessions': '블룸 세션',
   'hudChrome.overview.strains': '품종 라이브러리',
-  'hudChrome.overview.noSessions': '활성화된 블룸 세션이 없습니다. 연금술 실험실에서 강장제를 제조하세요.',
+  'hudChrome.overview.noSessions':
+    '활성화된 블룸 세션이 없습니다. 연금술 실험실에서 강장제를 제조하세요.',
   'character.sortBy': '정렬',
   'character.sortByLabel': '캐릭터 정렬',
   'character.sortMenuLabel': '정렬 옵션',

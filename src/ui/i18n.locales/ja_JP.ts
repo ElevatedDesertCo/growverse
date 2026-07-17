@@ -111,7 +111,8 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.overview.commune': 'コミューン評判',
   'hudChrome.overview.sessions': 'ブルームセッション',
   'hudChrome.overview.strains': '品種ライブラリ',
-  'hudChrome.overview.noSessions': '有効なブルームセッションはありません。錬金術ラボで強壮薬を調合しましょう。',
+  'hudChrome.overview.noSessions':
+    '有効なブルームセッションはありません。錬金術ラボで強壮薬を調合しましょう。',
   'character.sortBy': '並べ替え',
   'character.sortByLabel': 'キャラクターを並べ替え',
   'character.sortMenuLabel': '並べ替えオプション',
