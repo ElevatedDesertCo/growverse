@@ -2757,7 +2757,7 @@ export const es_ES: EnTranslations = {
   },
   "seo": {
     "title": "Growverse: The Portal Chronicles, un MMORPG de navegador gratuito",
-    "description": "Growverse es un MMORPG de navegador gratuito de fantasía cannábica. Explora un mundo conectado por portales, lucha contra criaturas, completa misiones, cultiva cepas mágicas y forja tu leyenda en un reino en constante evolución. Juega al instante, sin descargas.",
+    "description": "Growverse es un MMORPG de navegador gratuito de fantasía cannábica. Explora un mundo conectado por portales, combate criaturas, completa misiones, cultiva variedades mágicas y forja tu leyenda en un reino en constante evolución. Juega al instante, sin descargas.",
     "genre": "MMORPG",
     "playMode": "Multijugador",
     "applicationCategory": "Juego",
