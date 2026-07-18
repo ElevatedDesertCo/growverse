@@ -13,7 +13,7 @@ import type { AdminTranslations } from '../i18n.en';
 
 export const zh_TW: AdminTranslations = {
   "app.title": "Growverse - 管理後台",
-  "app.shortTitle": "沃克管理員",
+  "app.shortTitle": "Growverse 管理員",
   "auth.username": "使用者名稱",
   "auth.password": "密碼",
   "auth.signIn": "登入",

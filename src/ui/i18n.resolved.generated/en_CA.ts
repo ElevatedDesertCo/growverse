@@ -643,7 +643,7 @@ export const en_CA: EnTranslations = {
       "loggedOutPrompt": "Log in to manage your account.",
       "memberSince": "Member since {date}",
       "sectionSettings": "Account Settings",
-      "sectionWallet": "$WOC Wallet",
+      "sectionWallet": "Growverse Wallet",
       "sectionCharacters": "Characters",
       "sectionDanger": "Danger Zone",
       "changePassword": "Change Password",
@@ -1139,7 +1139,7 @@ export const en_CA: EnTranslations = {
   "guide": {
     "brand": "Growverse",
     "brandShort": "Growverse",
-    "tagline": "A classic-style MMO you play free in your browser.",
+    "tagline": "A cannabis-fantasy MMORPG you play free in your browser.",
     "skipToContent": "Skip to main content",
     "loading": "Loading...",
     "docTitle": "{page} - {brand}",
@@ -1193,7 +1193,7 @@ export const en_CA: EnTranslations = {
       "heading": "On this page"
     },
     "footer": {
-      "blurb": "An open-source, classic-style micro-MMO. Quest, group up, and explore a hand-built world, right in your browser.",
+      "blurb": "An open-source cannabis-fantasy MMORPG. Quest, group up, and explore a portal-connected world, right in your browser.",
       "playNow": "Play Now",
       "github": "Source on GitHub",
       "discord": "Join the Discord",
@@ -1217,7 +1217,7 @@ export const en_CA: EnTranslations = {
       "typeTerm": "Term"
     },
     "home": {
-      "eyebrow": "Classic-style browser MMO",
+      "eyebrow": "Cannabis-fantasy browser MMORPG",
       "title": "Growverse",
       "subtitle": "Quest, group up, and explore a hand-built world, free in your browser.",
       "ctaPlay": "Play Now",
@@ -2016,7 +2016,7 @@ export const en_CA: EnTranslations = {
   },
   "footer": {
     "copyright": "2026 Growverse",
-    "githubLink": "https://github.com/levy-street/world-of-claudecraft",
+    "githubLink": "https://github.com/ElevatedDesertCo/growverse",
     "githubLabel": "Open Source Project",
     "whitepaper": "Whitepaper",
     "terms": "Terms of Service",
@@ -2107,7 +2107,7 @@ export const en_CA: EnTranslations = {
     "twoFactorHint": "Enter the code from your authenticator app, or one of your recovery codes."
   },
   "wallet": {
-    "label": "$WOC Wallet",
+    "label": "Growverse Wallet",
     "connect": "Verify Wallet",
     "connectTitle": "Verify your Solana wallet",
     "connectAria": "Verify your Solana wallet",
@@ -2756,14 +2756,14 @@ export const en_CA: EnTranslations = {
     }
   },
   "seo": {
-    "title": "Growverse: Classic-Style Desert MMO",
-    "description": "Tend the bloom, hold back the Corruption. Growverse is a free classic-style browser MMO in a rift-torn desert world: nine classes, seven energies, one shared realm. Play instantly, no download.",
+    "title": "Growverse: The Portal Chronicles, a Free Browser MMORPG",
+    "description": "Growverse is a free cannabis-fantasy browser MMORPG. Explore a portal-connected world, battle creatures, complete quests, cultivate magical strains, and craft your legend in an evolving realm. Play instantly, no download.",
     "genre": "MMORPG",
     "playMode": "Multiplayer",
     "applicationCategory": "Game",
     "operatingSystem": "Web browser",
     "officialLabel": "Official Growverse website",
-    "officialBody": "Growverse is a free classic-style browser MMO set in a cosmic desert realm. Play instantly in your browser, explore the world solo, read the wiki, and follow project updates from this site."
+    "officialBody": "Growverse is a free cannabis-fantasy browser MMORPG set in a portal-connected world: battle creatures, complete quests, master professions, and cultivate magical strains. Play instantly in your browser, explore the world solo, read the wiki, and follow development updates from this site."
   },
   "a11y": {
     "goHome": "Go to homepage",

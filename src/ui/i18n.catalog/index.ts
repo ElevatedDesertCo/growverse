@@ -131,7 +131,7 @@ export const en = {
   },
   footer: {
     copyright: '2026 Growverse',
-    githubLink: 'https://github.com/levy-street/world-of-claudecraft',
+    githubLink: 'https://github.com/ElevatedDesertCo/growverse',
     githubLabel: 'Open Source Project',
     whitepaper: 'Whitepaper',
     terms: 'Terms of Service',
@@ -225,7 +225,7 @@ export const en = {
     twoFactorHint: 'Enter the code from your authenticator app, or one of your recovery codes.',
   },
   wallet: {
-    label: '$WOC Wallet',
+    label: 'Growverse Wallet',
     connect: 'Verify Wallet',
     connectTitle: 'Verify your Solana wallet',
     connectAria: 'Verify your Solana wallet',

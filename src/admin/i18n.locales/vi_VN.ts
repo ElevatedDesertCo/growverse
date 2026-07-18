@@ -14,7 +14,7 @@ export const vi_VN: Record<string, string> = {
   'usage.metric.githubLinkRateLimited': 'Yêu cầu liên kết GitHub bị giới hạn tần suất',
   'usage.metric.githubLinkRequest': 'Yêu cầu liên kết GitHub',
   'app.title': 'Growverse - Quản trị',
-  'app.shortTitle': 'Quản trị viên WoC',
+  'app.shortTitle': 'Quản trị viên Growverse',
   'auth.username': 'Tên đăng nhập',
   'auth.password': 'Mật khẩu',
   'auth.signIn': 'Đăng nhập',

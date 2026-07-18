@@ -8,7 +8,7 @@
 
 export const es_ES: Record<string, string> = {
   'app.title': 'Growverse - Administración',
-  'app.shortTitle': 'Administrador de WoC',
+  'app.shortTitle': 'Administrador de Growverse',
   'auth.username': 'Usuario',
   'auth.password': 'Contraseña',
   'auth.signIn': 'Iniciar sesión',

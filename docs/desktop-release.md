@@ -1,6 +1,6 @@
 # Desktop release runbook (Electron: website download + Steam)
 
-How to build, sign, publish, and verify the World of ClaudeCraft desktop app.
+How to build, sign, publish, and verify the Growverse desktop app.
 The longer companion explainer (what shipped, per-platform update/signing
 mechanics, step-by-step release walkthroughs) is `docs/desktop-ship-notes.md`.
 One codebase produces two distribution channels:
@@ -105,7 +105,7 @@ the nested Electron frameworks).
 - HARD DEPENDENCY: macOS auto-update does not apply unless the app is signed with a
   real Developer ID AND notarized. The updater consumes the ZIP target (which is why
   zip stays in the mac target list). Ship no public mac build without both.
-- Verify after a signed build: `codesign --verify --deep --strict "release/mac-universal/World of ClaudeCraft.app"`
+- Verify after a signed build: `codesign --verify --deep --strict "release/mac-universal/Growverse.app"`
   and `spctl -a -t exec -vv <app>` says "accepted, source=Notarized Developer ID".
 
 ## Windows: Azure Artifact Signing
@@ -179,7 +179,7 @@ Build: `npm run electron:build:steam` on each OS runner (signing env still appli
 mac; Steam mac builds must ALSO be Developer ID signed + notarized). Output layouts
 in `release-steam/`:
 
-- `mac-universal/World of ClaudeCraft.app` (one universal .app)
+- `mac-universal/Growverse.app` (one universal .app)
 - `win-unpacked/` (x64; Windows-on-ARM runs it via emulation)
 - `linux-unpacked/` (x64)
 
@@ -188,11 +188,11 @@ Depot layout (one app, three depots, one package):
 | Depot | Content root | OS filter |
 |---|---|---|
 | `<appid>1` | `win-unpacked/*` | Windows, 64-bit |
-| `<appid>2` | `World of ClaudeCraft.app` (the loose bundle) | macOS |
+| `<appid>2` | `Growverse.app` (the loose bundle) | macOS |
 | `<appid>3` | `linux-unpacked/*` | Linux, 64-bit |
 
-Launch options (one per OS): Windows `World of ClaudeCraft.exe`; macOS
-`World of ClaudeCraft.app` (app-bundle launch picks the best arch on Apple Silicon);
+Launch options (one per OS): Windows `Growverse.exe`; macOS
+`Growverse.app` (app-bundle launch picks the best arch on Apple Silicon);
 Linux `world-of-claudecraft` (the executable inside linux-unpacked).
 
 Rules that keep this working:

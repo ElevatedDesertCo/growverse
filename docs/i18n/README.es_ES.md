@@ -1,12 +1,12 @@
 <div align="center">
 
-# World of ClaudeCraft
+# Growverse
 
 **Completa misiones, forma grupos y haz incursiones en un mundo hecho a mano, gratis en tu navegador. De código abierto, web3 y en línea ahora mismo.**
 
 **Sitio web oficial: https://worldofclaudecraft.com/**
 
-[![CI](https://github.com/levy-street/world-of-claudecraft/actions/workflows/ci.yml/badge.svg)](https://github.com/levy-street/world-of-claudecraft/actions/workflows/ci.yml)
+[![CI](https://github.com/ElevatedDesertCo/growverse/actions/workflows/ci.yml/badge.svg)](https://github.com/ElevatedDesertCo/growverse/actions/workflows/ci.yml)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Three.js](https://img.shields.io/badge/Three.js-r165-000000?logo=threedotjs&logoColor=white)](https://threejs.org/)
 [![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)](https://vite.dev/)
@@ -22,13 +22,13 @@
 
 [Jugar ahora](https://worldofclaudecraft.com/) · [Aloja tu propio mundo](#host-your-own-world-one-command) · [Entrena un agente](#train-an-agent-headless-rl) · [Web3](#web3) · [Contribuir](CONTRIBUTING.es_ES.md) · [Discord](https://discord.gg/KSTJkrCq3)
 
-![Pantalla de título de World of ClaudeCraft](../../docs/screenshots/title-screen.jpg)
+![Pantalla de título de Growverse](../../docs/screenshots/title-screen.jpg)
 
 </div>
 
 ## Qué es esto
 
-World of ClaudeCraft es un MMO completo de la era clásica que puedes jugar ahora mismo en tu navegador, alojar tú mismo con un solo comando e incluso usar para entrenar agentes de IA que aprendan a jugar. Es gratis, de código abierto y está en línea en [worldofclaudecraft.com](https://worldofclaudecraft.com/).
+Growverse es un MMO completo de la era clásica que puedes jugar ahora mismo en tu navegador, alojar tú mismo con un solo comando e incluso usar para entrenar agentes de IA que aprendan a jugar. Es gratis, de código abierto y está en línea en [worldofclaudecraft.com](https://worldofclaudecraft.com/).
 
 Un mismo mundo compartido se ejecuta en tres lugares, todos a partir del mismo núcleo de juego:
 
@@ -154,7 +154,7 @@ El protocolo y los enlaces están documentados en `headless/CLAUDE.md` y `python
 
 ## Web3
 
-World of ClaudeCraft es nativo de web3 en torno a **$WOC**, nuestro token comunitario en Solana. Conecta una cartera de Solana, vincúlala a tu cuenta con una sola firma (sin custodia, sin transacción que aprobar) y tu saldo de $WOC en modo solo lectura aparecerá en el HUD junto a una insignia cosmética de nivel de poseedor.
+Growverse es nativo de web3 en torno a **$WOC**, nuestro token comunitario en Solana. Conecta una cartera de Solana, vincúlala a tu cuenta con una sola firma (sin custodia, sin transacción que aprobar) y tu saldo de $WOC en modo solo lectura aparecerá en el HUD junto a una insignia cosmética de nivel de poseedor.
 
 Es solo cosmético y no hace falta para jugar. No se gasta ni se gana nada dentro del juego, no hay pago por ganar y todo el juego funciona perfectamente sin conectar jamás una cartera.
 
@@ -303,13 +303,12 @@ Cada cadena visible para el jugador se resuelve a través de `t()`, y el juego s
 
 ## Contribuir
 
-Las contribuciones de todo tipo son bienvenidas: código, traducciones, informes de errores y documentación. Empieza con [CONTRIBUTING.md](CONTRIBUTING.es_ES.md) para la configuración, lee el [Código de conducta](../../CODE_OF_CONDUCT.md) y consulta [SECURITY.md](../../SECURITY.md) antes de informar de una vulnerabilidad. ¿Nuevo por aquí? Busca incidencias etiquetadas como [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue), abre una [incidencia](https://github.com/levy-street/world-of-claudecraft/issues/new/choose) o saluda en [Discord](https://discord.gg/KSTJkrCq3).
+Las contribuciones de todo tipo son bienvenidas: código, traducciones, informes de errores y documentación. Empieza con [CONTRIBUTING.md](CONTRIBUTING.es_ES.md) para la configuración, lee el [Código de conducta](../../CODE_OF_CONDUCT.md) y consulta [SECURITY.md](../../SECURITY.md) antes de informar de una vulnerabilidad. ¿Nuevo por aquí? Busca incidencias etiquetadas como [`good first issue`](https://github.com/ElevatedDesertCo/growverse/labels/good%20first%20issue), abre una [incidencia](https://github.com/ElevatedDesertCo/growverse/issues/new/choose) o saluda en [Discord](https://discord.gg/KSTJkrCq3).
 
 <div align="center">
 
-![World of Claude](../../worldofclaude.png)
+![Growverse](../../public/growverse-logo.png)
 
-![Comunidad de World of ClaudeCraft](../../woc_community.png)
 
 </div>
 

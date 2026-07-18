@@ -2102,7 +2102,7 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'footer.copyright': '2026 Growverse',
   'footer.discordLabel': 'Tham Gia Discord',
   'footer.githubLabel': 'Dự Án Mã Nguồn Mở',
-  'footer.githubLink': 'https://github.com/levy-street/world-of-claudecraft',
+  'footer.githubLink': 'https://github.com/ElevatedDesertCo/growverse',
   'footer.whitepaper': 'Sách trắng',
   'footer.privacy': 'Chính Sách Bảo Mật',
   'footer.terms': 'Điều Khoản Dịch Vụ',
@@ -2627,7 +2627,7 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'guide.faqPage.q8': 'Tôi có thể tự lưu trữ bản sao của riêng mình không?',
   'guide.faqPage.q9': 'Có PvP không?',
   'guide.footer.blurb':
-    'Một micro-MMO phong cách cổ điển, mã nguồn mở. Làm nhiệm vụ, lập nhóm, và khám phá một thế giới được dựng thủ công, ngay trong trình duyệt của bạn.',
+    'Một MMORPG fantasy cần sa mã nguồn mở. Làm nhiệm vụ, lập nhóm, và khám phá một thế giới được kết nối bằng những cánh cổng dịch chuyển, ngay trong trình duyệt của bạn.',
   'guide.footer.communityWiki': 'Wiki Cộng Đồng',
   'guide.footer.discord': 'Tham gia Discord',
   'guide.footer.github': 'Mã nguồn trên GitHub',
@@ -2772,7 +2772,7 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'guide.home.community.play': 'Chơi Ngay',
   'guide.home.ctaLearn': 'Cách Chơi',
   'guide.home.ctaPlay': 'Chơi Ngay',
-  'guide.home.eyebrow': 'MMO cổ điển trên trình duyệt',
+  'guide.home.eyebrow': 'MMORPG fantasy cần sa trên trình duyệt',
   'guide.home.faq.a1':
     'Có. Toàn bộ trò chơi miễn phí đến cấp tối đa, và nó là mã nguồn mở trên GitHub.',
   'guide.home.faq.a2':
@@ -3157,7 +3157,7 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'guide.tag.ranged': 'Tầm xa',
   'guide.tag.simple': 'Đơn giản',
   'guide.tag.solo': 'Hợp chơi đơn',
-  'guide.tagline': 'Một MMO phong cách cổ điển bạn chơi miễn phí ngay trên trình duyệt.',
+  'guide.tagline': 'Một MMORPG fantasy cần sa bạn chơi miễn phí ngay trên trình duyệt.',
   'guide.talentsPage.heading': 'Tài năng và chuyên môn hóa',
   'guide.talentsPage.howBody':
     'Tài năng mở ra ở cấp 10, và bạn tiếp tục kiếm điểm khi leo dần lên cấp tối đa. Bạn tiêu chúng trong bảng tài năng của lớp nhân vật, và có thể lưu nhiều hơn một bố cục để hoán đổi giữa các lối xây dựng.',
@@ -3827,7 +3827,7 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'hudChrome.account.sectionDanger': 'Vùng Nguy Hiểm',
   'hudChrome.account.sectionSecurity': 'Bảo Mật',
   'hudChrome.account.sectionSettings': 'Cài Đặt Tài Khoản',
-  'hudChrome.account.sectionWallet': 'Ví $WOC',
+  'hudChrome.account.sectionWallet': 'Ví Growverse',
   'hudChrome.account.title': 'Tài Khoản',
   'hudChrome.account.twoFactorBegin': 'Bắt Đầu Thiết Lập',
   'hudChrome.account.twoFactorBeginHint': 'Nhập mật khẩu của bạn để bắt đầu thiết lập.',
@@ -4614,14 +4614,14 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'realmTypes.rpPvp': 'RP-PvP',
   'seo.applicationCategory': 'Trò chơi',
   'seo.description':
-    'Bắt đầu cuộc phiêu lưu hoành tráng trong Growverse, một micro-MMO phong cách cổ điển chơi trực tiếp trên trình duyệt của bạn. Tham gia một máy chủ chung bền vững, lên cấp các lớp nhân vật và đánh bại kẻ thù!',
+    'Growverse là MMORPG miễn phí trên trình duyệt theo chủ đề fantasy cần sa. Khám phá thế giới được kết nối bằng những cánh cổng dịch chuyển, chiến đấu với quái vật, hoàn thành nhiệm vụ, trồng các giống cây phép thuật và tạo dựng huyền thoại của riêng bạn trong một thế giới không ngừng phát triển. Chơi ngay lập tức, không cần tải về.',
   'seo.genre': 'MMORPG',
   'seo.officialBody':
-    'worldofclaudecraft.com là trang MMO trên trình duyệt miễn phí chính thức cho máy chủ Claudemoon. Chơi trực tuyến với một nhân vật bền vững, khám phá đơn lẻ ngoại tuyến, đọc wiki và theo dõi các liên kết cộng đồng đã được xác minh từ trang này.',
+    'Growverse là MMORPG miễn phí trên trình duyệt theo chủ đề fantasy cần sa, lấy bối cảnh một thế giới được kết nối bằng những cánh cổng dịch chuyển: chiến đấu với quái vật, hoàn thành nhiệm vụ, tinh thông các nghề và trồng các giống cây phép thuật. Chơi ngay trên trình duyệt, khám phá thế giới một mình, đọc wiki và theo dõi các cập nhật phát triển từ trang này.',
   'seo.officialLabel': 'Trang web Growverse chính thức',
   'seo.operatingSystem': 'Trình duyệt web',
   'seo.playMode': 'Nhiều người chơi',
-  'seo.title': 'Growverse: MMO Web Phong Cách Cổ Điển',
+  'seo.title': 'Growverse: The Portal Chronicles, MMORPG Trình Duyệt Miễn Phí',
   'serverUnavailable.body':
     'Chúng tôi đang khởi động lại dịch vụ trò chơi và dự kiến Claudemoon sẽ trở lại trong giây lát. Trang này sẽ tự động tiếp tục kiểm tra.',
   'serverUnavailable.eyebrow': 'Bảo trì realm',
@@ -4811,7 +4811,7 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'wallet.holderTiers.worldbearer.name': 'Người Mang Thế Giới',
   'wallet.holderTiers.worldforger.flavor': 'Rèn nên một thế giới của riêng bạn: 9% nguồn cung.',
   'wallet.holderTiers.worldforger.name': 'Người Rèn Thế Giới',
-  'wallet.label': 'Ví $WOC',
+  'wallet.label': 'Ví Growverse',
   'wallet.linkFailed': 'Xác minh ví thất bại.',
   'wallet.linkTitle': 'Nhấn để ký và liên kết ví này với tài khoản của bạn.',
   'wallet.linkedDisconnectedAria':

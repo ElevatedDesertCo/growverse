@@ -643,7 +643,7 @@ export const id_ID: EnTranslations = {
       "loggedOutPrompt": "Masuk untuk mengelola akunmu.",
       "memberSince": "Anggota sejak {date}",
       "sectionSettings": "Pengaturan Akun",
-      "sectionWallet": "Dompet $WOC",
+      "sectionWallet": "Dompet Growverse",
       "sectionCharacters": "Karakter",
       "sectionDanger": "Zona Bahaya",
       "changePassword": "Ubah Kata Sandi",
@@ -1139,7 +1139,7 @@ export const id_ID: EnTranslations = {
   "guide": {
     "brand": "Growverse",
     "brandShort": "Growverse",
-    "tagline": "MMO bergaya klasik yang bisa kamu mainkan gratis di peramban.",
+    "tagline": "MMORPG fantasi cannabis yang bisa kamu mainkan gratis di peramban.",
     "skipToContent": "Lewati ke konten utama",
     "loading": "Memuat...",
     "docTitle": "{page} - {brand}",
@@ -1193,7 +1193,7 @@ export const id_ID: EnTranslations = {
       "heading": "Di halaman ini"
     },
     "footer": {
-      "blurb": "Mikro-MMO bergaya klasik dan bersumber terbuka. Jalani misi, bentuk kelompok, dan jelajahi dunia buatan tangan, langsung di perambanmu.",
+      "blurb": "MMORPG fantasi cannabis bersumber terbuka. Jalani misi, bentuk kelompok, dan jelajahi dunia yang terhubung lewat portal, langsung di perambanmu.",
       "playNow": "Main Sekarang",
       "github": "Sumber di GitHub",
       "discord": "Gabung Discord",
@@ -1217,7 +1217,7 @@ export const id_ID: EnTranslations = {
       "typeTerm": "Istilah"
     },
     "home": {
-      "eyebrow": "MMO browser bergaya klasik",
+      "eyebrow": "MMORPG browser fantasi cannabis",
       "title": "Growverse",
       "subtitle": "Berpetualang, bersatu, dan jelajahi dunia rakitan tangan, gratis di browser-mu.",
       "ctaPlay": "Main Sekarang",
@@ -2016,7 +2016,7 @@ export const id_ID: EnTranslations = {
   },
   "footer": {
     "copyright": "2026 Growverse",
-    "githubLink": "https://github.com/levy-street/world-of-claudecraft",
+    "githubLink": "https://github.com/ElevatedDesertCo/growverse",
     "githubLabel": "Proyek Sumber Terbuka",
     "whitepaper": "Whitepaper",
     "terms": "Ketentuan Layanan",
@@ -2107,7 +2107,7 @@ export const id_ID: EnTranslations = {
     "twoFactorHint": "Masukkan kode dari aplikasi autentikatormu, atau salah satu kode pemulihanmu."
   },
   "wallet": {
-    "label": "Dompet $WOC",
+    "label": "Dompet Growverse",
     "connect": "Verifikasi Dompet",
     "connectTitle": "Verifikasi dompet Solana Anda",
     "connectAria": "Verifikasi dompet Solana Anda",
@@ -2756,14 +2756,14 @@ export const id_ID: EnTranslations = {
     }
   },
   "seo": {
-    "title": "Growverse: MMO Web Bergaya Klasik",
-    "description": "Mulailah petualangan epik di Growverse, micro-MMO bergaya klasik yang dapat dimainkan langsung di peramban. Bergabunglah dengan realm bersama yang persisten, naikkan level kelas, dan kalahkan musuh!",
+    "title": "Growverse: The Portal Chronicles, MMORPG Peramban Gratis",
+    "description": "Growverse adalah MMORPG peramban gratis bertema fantasi cannabis. Jelajahi dunia yang terhubung lewat portal, lawan berbagai makhluk, selesaikan misi, tanam strain ajaib, dan ukir legendamu di realm yang terus berkembang. Main langsung, tanpa unduhan.",
     "genre": "MMORPG",
     "playMode": "Multipemain",
     "applicationCategory": "Permainan",
     "operatingSystem": "Peramban web",
     "officialLabel": "Situs resmi Growverse",
-    "officialBody": "worldofclaudecraft.com adalah MMO peramban gratis resmi untuk realm Claudemoon. Bermain daring dengan karakter yang persisten, jelajahi solo secara luring, baca wiki, dan ikuti tautan komunitas terverifikasi dari situs ini."
+    "officialBody": "Growverse adalah MMORPG peramban gratis bertema fantasi cannabis yang berlatar di dunia yang terhubung lewat portal: lawan berbagai makhluk, selesaikan misi, kuasai profesi, dan tanam strain ajaib. Main langsung di peramban, jelajahi dunia secara solo, baca wiki, dan ikuti kabar pengembangan dari situs ini."
   },
   "a11y": {
     "goHome": "Ke halaman utama",

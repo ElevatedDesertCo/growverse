@@ -15,7 +15,7 @@ export const nl_NL: Record<string, string> = {
   'usage.metric.githubLinkRateLimited': 'Beperkte GitHub-koppelingsverzoeken',
   'usage.metric.githubLinkRequest': 'GitHub-koppelingsverzoeken',
   'app.title': 'Growverse - Beheer',
-  'app.shortTitle': 'WoC-beheerder',
+  'app.shortTitle': 'Growverse-beheerder',
   'auth.username': 'Gebruikersnaam',
   'auth.password': 'Wachtwoord',
   'auth.signIn': 'Aanmelden',

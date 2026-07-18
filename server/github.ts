@@ -156,7 +156,7 @@ async function exchangeCodeForUser(
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded',
       Accept: 'application/json',
-      'User-Agent': 'world-of-claudecraft-server',
+      'User-Agent': 'growverse-server',
     },
     body: buildTokenRequestBody({
       clientId: cfg.clientId,
@@ -173,7 +173,7 @@ async function exchangeCodeForUser(
       Authorization: `Bearer ${token.accessToken}`,
       Accept: 'application/vnd.github+json',
       'X-GitHub-Api-Version': '2022-11-28',
-      'User-Agent': 'world-of-claudecraft-server',
+      'User-Agent': 'growverse-server',
     },
   });
   return parseGitHubUser(userJson);

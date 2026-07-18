@@ -643,7 +643,7 @@ export const de_DE: EnTranslations = {
       "loggedOutPrompt": "Meldet Euch an, um Euer Konto zu verwalten.",
       "memberSince": "Mitglied seit {date}",
       "sectionSettings": "Kontoeinstellungen",
-      "sectionWallet": "$WOC-Wallet",
+      "sectionWallet": "Growverse-Wallet",
       "sectionCharacters": "Charaktere",
       "sectionDanger": "Gefahrenzone",
       "changePassword": "Passwort ändern",
@@ -1139,7 +1139,7 @@ export const de_DE: EnTranslations = {
   "guide": {
     "brand": "Growverse",
     "brandShort": "Growverse",
-    "tagline": "Ein MMO im klassischen Stil, das du kostenlos in deinem Browser spielst.",
+    "tagline": "Ein Cannabis-Fantasy-MMORPG, das du kostenlos in deinem Browser spielst.",
     "skipToContent": "Zum Hauptinhalt springen",
     "loading": "Wird geladen...",
     "docTitle": "{page} - {brand}",
@@ -1193,7 +1193,7 @@ export const de_DE: EnTranslations = {
       "heading": "Auf dieser Seite"
     },
     "footer": {
-      "blurb": "Ein quelloffenes Mikro-MMO im klassischen Stil. Erfülle Quests, schließe dich mit anderen zusammen und erkunde eine handgebaute Welt, direkt in deinem Browser.",
+      "blurb": "Ein quelloffenes Cannabis-Fantasy-MMORPG. Erfülle Quests, schließe dich mit anderen zusammen und erkunde eine durch Portale verbundene Welt, direkt in deinem Browser.",
       "playNow": "Jetzt spielen",
       "github": "Quellcode auf GitHub",
       "discord": "Tritt dem Discord bei",
@@ -1217,7 +1217,7 @@ export const de_DE: EnTranslations = {
       "typeTerm": "Begriff"
     },
     "home": {
-      "eyebrow": "Browser-MMO im klassischen Stil",
+      "eyebrow": "Cannabis-Fantasy-Browser-MMORPG",
       "title": "Growverse",
       "subtitle": "Erfülle Quests, schließe dich mit anderen zusammen und erkunde eine handgebaute Welt, kostenlos in deinem Browser.",
       "ctaPlay": "Jetzt spielen",
@@ -2016,7 +2016,7 @@ export const de_DE: EnTranslations = {
   },
   "footer": {
     "copyright": "2026 Growverse",
-    "githubLink": "https://github.com/levy-street/world-of-claudecraft",
+    "githubLink": "https://github.com/ElevatedDesertCo/growverse",
     "githubLabel": "Open-Source-Projekt",
     "whitepaper": "Whitepaper",
     "terms": "Nutzungsbedingungen",
@@ -2107,7 +2107,7 @@ export const de_DE: EnTranslations = {
     "twoFactorHint": "Gib den Code aus deiner Authentifizierungs-App ein oder einen deiner Wiederherstellungscodes."
   },
   "wallet": {
-    "label": "$WOC-Wallet",
+    "label": "Growverse-Wallet",
     "connect": "Wallet verifizieren",
     "connectTitle": "Euer Solana-Wallet verifizieren",
     "connectAria": "Euer Solana-Wallet verifizieren",
@@ -2756,14 +2756,14 @@ export const de_DE: EnTranslations = {
     }
   },
   "seo": {
-    "title": "Growverse: Klassisches Web-MMO",
-    "description": "Begib dich in Growverse auf ein episches Abenteuer, ein Micro-MMO im klassischen Stil direkt im Browser. Betritt einen gemeinsamen Realm, steigere Klassen und besiege Gegner.",
+    "title": "Growverse: The Portal Chronicles, ein kostenloses Browser-MMORPG",
+    "description": "Growverse ist ein kostenloses Cannabis-Fantasy-Browser-MMORPG. Erkunde eine durch Portale verbundene Welt, bekämpfe Kreaturen, schließe Quests ab, züchte magische Sorten und schmiede deine Legende in einem sich ständig wandelnden Reich. Spiele sofort, ganz ohne Download.",
     "genre": "MMORPG",
     "playMode": "Mehrspieler",
     "applicationCategory": "Spiel",
     "operatingSystem": "Webbrowser",
     "officialLabel": "Offizielle Website von Growverse",
-    "officialBody": "worldofclaudecraft.com ist das offizielle kostenlose Browser-MMO für das Reich Claudemoon. Spiele online mit einem dauerhaften Charakter, erkunde solo offline, lies das Wiki und folge den verifizierten Community-Links auf dieser Website."
+    "officialBody": "Growverse ist ein kostenloses Cannabis-Fantasy-Browser-MMORPG in einer durch Portale verbundenen Welt: bekämpfe Kreaturen, schließe Quests ab, meistere Berufe und züchte magische Sorten. Spiele sofort im Browser, erkunde die Welt solo, lies das Wiki und verfolge Entwicklungs-Updates auf dieser Website."
   },
   "a11y": {
     "goHome": "Zur Startseite",

@@ -1,6 +1,6 @@
 # The QA gate
 
-World of ClaudeCraft is built entirely with Claude Code, by many contributors. To keep the
+Growverse is built entirely with Claude Code, by many contributors. To keep the
 quality bar high without slowing the edit loop, the project enforces it in layers. Each layer
 does exactly one job, at the cheapest moment it can, and nothing heavier than necessary runs on
 the inner loop.

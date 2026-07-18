@@ -4,9 +4,9 @@
 
 </div>
 
-# Berkontribusi ke World of ClaudeCraft
+# Berkontribusi ke Growverse
 
-Pertama-tama, terima kasih sudah berada di sini. World of ClaudeCraft dibangun
+Pertama-tama, terima kasih sudah berada di sini. Growverse dibangun
 oleh komunitas orang-orang yang mencintai MMO klasik, dan setiap kontribusi, besar
 atau kecil, membuatnya menjadi lebih baik. Memperbaiki salah ketik, menerjemahkan
 game, melaporkan bug, membangun sebuah dungeon yang benar-benar baru: semuanya
@@ -26,13 +26,13 @@ Ada tempat untuk semua orang di sini:
 
 - **Kode.** Memperbaiki bug, menambahkan fitur, atau meningkatkan performa. Isu
   yang berlabel
-  [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue)
-  dan [`help wanted`](https://github.com/levy-street/world-of-claudecraft/labels/help%20wanted)
+  [`good first issue`](https://github.com/ElevatedDesertCo/growverse/labels/good%20first%20issue)
+  dan [`help wanted`](https://github.com/ElevatedDesertCo/growverse/labels/help%20wanted)
   adalah tempat yang bagus untuk memulai.
 - **Terjemahan.** Bantu para pemain di seluruh dunia dengan meningkatkan atau
   melengkapi sebuah bahasa. Lihat [Menerjemahkan game](#translating-the-game) di
   bawah. Ini adalah salah satu cara termudah dan paling berdampak untuk memulai.
-- **Laporan bug dan ide fitur.** Buka sebuah [isu](https://github.com/levy-street/world-of-claudecraft/issues/new/choose).
+- **Laporan bug dan ide fitur.** Buka sebuah [isu](https://github.com/ElevatedDesertCo/growverse/issues/new/choose).
   Laporan bug yang jelas adalah kontribusi yang nyata.
 - **Dokumentasi.** Panduan seperti yang satu ini, README, dan dokumen desain di
   `docs/` selalu bisa ditingkatkan.
@@ -47,8 +47,8 @@ menjalankan Postgres.
 
 ```bash
 # 1. Fork the repo on GitHub, then clone your fork
-git clone https://github.com/<your-username>/world-of-claudecraft.git
-cd world-of-claudecraft
+git clone https://github.com/<your-username>/growverse.git
+cd growverse
 
 # 2. Install dependencies
 npm ci
@@ -149,7 +149,7 @@ darimu.
 
 ## Lokalisasi
 
-World of ClaudeCraft hadir dalam banyak bahasa, dan kami menjaganya tetap begitu
+Growverse hadir dalam banyak bahasa, dan kami menjaganya tetap begitu
 seiring game berkembang. Setiap string yang terlihat pemain diterjemahkan ke
 setiap locale yang didukung.
 
@@ -192,9 +192,9 @@ terasa seperti rumah bagi para pemain di mana pun.
 
 ## Melaporkan bug dan meminta fitur
 
-Mohon gunakan [templat isu](https://github.com/levy-street/world-of-claudecraft/issues/new/choose):
+Mohon gunakan [templat isu](https://github.com/ElevatedDesertCo/growverse/issues/new/choose):
 
-- **Laporan bug.** Cari [isu yang sudah ada](https://github.com/levy-street/world-of-claudecraft/issues)
+- **Laporan bug.** Cari [isu yang sudah ada](https://github.com/ElevatedDesertCo/growverse/issues)
   terlebih dahulu untuk menghindari duplikat, lalu sertakan langkah-langkah untuk
   mereproduksi, apa yang kamu harapkan, apa yang terjadi, dan lingkunganmu (offline
   atau online, browser, desktop atau mobile).
@@ -214,5 +214,5 @@ Dengan berkontribusi, kamu setuju bahwa kontribusimu akan dilisensikan di bawah
 
 ---
 
-Terima kasih telah berkontribusi ke World of ClaudeCraft. Kami tidak sabar untuk
+Terima kasih telah berkontribusi ke Growverse. Kami tidak sabar untuk
 melihat apa yang akan kamu bangun bersama kami.

@@ -4,9 +4,9 @@
 
 </div>
 
-# Участие в разработке World of ClaudeCraft
+# Участие в разработке Growverse
 
-Прежде всего спасибо, что вы здесь. World of ClaudeCraft создаётся сообществом
+Прежде всего спасибо, что вы здесь. Growverse создаётся сообществом
 людей, которые любят классические MMO, и каждый вклад, большой или маленький,
 делает игру лучше. Исправить опечатку, перевести игру, сообщить об ошибке,
 построить целое новое подземелье: всё это важно, и мы рады вам.
@@ -22,13 +22,13 @@
 Здесь найдётся дело для каждого:
 
 - **Код.** Исправьте ошибку, добавьте возможность или ускорьте работу. Задачи с
-  метками [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue)
-  и [`help wanted`](https://github.com/levy-street/world-of-claudecraft/labels/help%20wanted)
+  метками [`good first issue`](https://github.com/ElevatedDesertCo/growverse/labels/good%20first%20issue)
+  и [`help wanted`](https://github.com/ElevatedDesertCo/growverse/labels/help%20wanted)
   хорошо подходят для начала.
 - **Переводы.** Помогите игрокам по всему миру, улучшив или дополнив какой-нибудь
   язык. Смотрите раздел [Перевод игры](#translating-the-game) ниже. Это один из
   самых простых и при этом заметных способов начать.
-- **Сообщения об ошибках и идеи для новых возможностей.** Откройте [задачу](https://github.com/levy-street/world-of-claudecraft/issues/new/choose).
+- **Сообщения об ошибках и идеи для новых возможностей.** Откройте [задачу](https://github.com/ElevatedDesertCo/growverse/issues/new/choose).
   Понятное описание ошибки уже само по себе настоящий вклад.
 - **Документация.** Руководства вроде этого, README и проектные документы в
   `docs/` всегда можно сделать лучше.
@@ -43,8 +43,8 @@ Postgres.
 
 ```bash
 # 1. Сделайте форк репозитория на GitHub, затем клонируйте свой форк
-git clone https://github.com/<your-username>/world-of-claudecraft.git
-cd world-of-claudecraft
+git clone https://github.com/<your-username>/growverse.git
+cd growverse
 
 # 2. Установите зависимости
 npm ci
@@ -141,7 +141,7 @@ npm run build               # продакшен-сборка клиента
 
 ## Локализация
 
-World of ClaudeCraft выходит на множестве языков, и мы поддерживаем это по мере
+Growverse выходит на множестве языков, и мы поддерживаем это по мере
 роста игры. Каждая видимая игроку строка переведена на каждую поддерживаемую
 локаль.
 
@@ -181,9 +181,9 @@ World of ClaudeCraft выходит на множестве языков, и м�
 
 ## Сообщения об ошибках и запросы новых возможностей
 
-Пожалуйста, используйте [шаблоны задач](https://github.com/levy-street/world-of-claudecraft/issues/new/choose):
+Пожалуйста, используйте [шаблоны задач](https://github.com/ElevatedDesertCo/growverse/issues/new/choose):
 
-- **Сообщение об ошибке.** Сначала поищите среди [существующих задач](https://github.com/levy-street/world-of-claudecraft/issues),
+- **Сообщение об ошибке.** Сначала поищите среди [существующих задач](https://github.com/ElevatedDesertCo/growverse/issues),
   чтобы избежать дубликатов, затем приведите шаги для воспроизведения, что вы
   ожидали, что произошло, и опишите своё окружение (офлайн или онлайн, браузер,
   десктоп или мобильный).
@@ -203,5 +203,5 @@ World of ClaudeCraft выходит на множестве языков, и м�
 
 ---
 
-Спасибо, что участвуете в разработке World of ClaudeCraft. Нам не терпится
+Спасибо, что участвуете в разработке Growverse. Нам не терпится
 увидеть, что вы построите вместе с нами.

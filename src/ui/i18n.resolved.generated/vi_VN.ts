@@ -643,7 +643,7 @@ export const vi_VN: EnTranslations = {
       "loggedOutPrompt": "Đăng nhập để quản lý tài khoản của bạn.",
       "memberSince": "Thành viên từ {date}",
       "sectionSettings": "Cài Đặt Tài Khoản",
-      "sectionWallet": "Ví $WOC",
+      "sectionWallet": "Ví Growverse",
       "sectionCharacters": "Nhân Vật",
       "sectionDanger": "Vùng Nguy Hiểm",
       "changePassword": "Đổi Mật Khẩu",
@@ -1139,7 +1139,7 @@ export const vi_VN: EnTranslations = {
   "guide": {
     "brand": "Growverse",
     "brandShort": "Growverse",
-    "tagline": "Một MMO phong cách cổ điển bạn chơi miễn phí ngay trên trình duyệt.",
+    "tagline": "Một MMORPG fantasy cần sa bạn chơi miễn phí ngay trên trình duyệt.",
     "skipToContent": "Chuyển đến nội dung chính",
     "loading": "Đang tải...",
     "docTitle": "{page} - {brand}",
@@ -1193,7 +1193,7 @@ export const vi_VN: EnTranslations = {
       "heading": "Trên trang này"
     },
     "footer": {
-      "blurb": "Một micro-MMO phong cách cổ điển, mã nguồn mở. Làm nhiệm vụ, lập nhóm, và khám phá một thế giới được dựng thủ công, ngay trong trình duyệt của bạn.",
+      "blurb": "Một MMORPG fantasy cần sa mã nguồn mở. Làm nhiệm vụ, lập nhóm, và khám phá một thế giới được kết nối bằng những cánh cổng dịch chuyển, ngay trong trình duyệt của bạn.",
       "playNow": "Chơi Ngay",
       "github": "Mã nguồn trên GitHub",
       "discord": "Tham gia Discord",
@@ -1217,7 +1217,7 @@ export const vi_VN: EnTranslations = {
       "typeTerm": "Thuật Ngữ"
     },
     "home": {
-      "eyebrow": "MMO cổ điển trên trình duyệt",
+      "eyebrow": "MMORPG fantasy cần sa trên trình duyệt",
       "title": "Growverse",
       "subtitle": "Làm nhiệm vụ, hợp sức và khám phá một thế giới được dựng thủ công, miễn phí ngay trong trình duyệt của bạn.",
       "ctaPlay": "Chơi Ngay",
@@ -2016,7 +2016,7 @@ export const vi_VN: EnTranslations = {
   },
   "footer": {
     "copyright": "2026 Growverse",
-    "githubLink": "https://github.com/levy-street/world-of-claudecraft",
+    "githubLink": "https://github.com/ElevatedDesertCo/growverse",
     "githubLabel": "Dự Án Mã Nguồn Mở",
     "whitepaper": "Sách trắng",
     "terms": "Điều Khoản Dịch Vụ",
@@ -2107,7 +2107,7 @@ export const vi_VN: EnTranslations = {
     "twoFactorHint": "Nhập mã từ ứng dụng xác thực của bạn, hoặc một trong các mã khôi phục."
   },
   "wallet": {
-    "label": "Ví $WOC",
+    "label": "Ví Growverse",
     "connect": "Xác minh ví",
     "connectTitle": "Xác minh ví Solana của bạn",
     "connectAria": "Xác minh ví Solana của bạn",
@@ -2756,14 +2756,14 @@ export const vi_VN: EnTranslations = {
     }
   },
   "seo": {
-    "title": "Growverse: MMO Web Phong Cách Cổ Điển",
-    "description": "Bắt đầu cuộc phiêu lưu hoành tráng trong Growverse, một micro-MMO phong cách cổ điển chơi trực tiếp trên trình duyệt của bạn. Tham gia một máy chủ chung bền vững, lên cấp các lớp nhân vật và đánh bại kẻ thù!",
+    "title": "Growverse: The Portal Chronicles, MMORPG Trình Duyệt Miễn Phí",
+    "description": "Growverse là MMORPG miễn phí trên trình duyệt theo chủ đề fantasy cần sa. Khám phá thế giới được kết nối bằng những cánh cổng dịch chuyển, chiến đấu với quái vật, hoàn thành nhiệm vụ, trồng các giống cây phép thuật và tạo dựng huyền thoại của riêng bạn trong một thế giới không ngừng phát triển. Chơi ngay lập tức, không cần tải về.",
     "genre": "MMORPG",
     "playMode": "Nhiều người chơi",
     "applicationCategory": "Trò chơi",
     "operatingSystem": "Trình duyệt web",
     "officialLabel": "Trang web Growverse chính thức",
-    "officialBody": "worldofclaudecraft.com là trang MMO trên trình duyệt miễn phí chính thức cho máy chủ Claudemoon. Chơi trực tuyến với một nhân vật bền vững, khám phá đơn lẻ ngoại tuyến, đọc wiki và theo dõi các liên kết cộng đồng đã được xác minh từ trang này."
+    "officialBody": "Growverse là MMORPG miễn phí trên trình duyệt theo chủ đề fantasy cần sa, lấy bối cảnh một thế giới được kết nối bằng những cánh cổng dịch chuyển: chiến đấu với quái vật, hoàn thành nhiệm vụ, tinh thông các nghề và trồng các giống cây phép thuật. Chơi ngay trên trình duyệt, khám phá thế giới một mình, đọc wiki và theo dõi các cập nhật phát triển từ trang này."
   },
   "a11y": {
     "goHome": "Về trang chủ",

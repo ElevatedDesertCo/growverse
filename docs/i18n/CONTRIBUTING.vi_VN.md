@@ -4,9 +4,9 @@
 
 </div>
 
-# Đóng góp cho World of ClaudeCraft
+# Đóng góp cho Growverse
 
-Trước hết, cảm ơn bạn đã có mặt ở đây. World of ClaudeCraft được xây dựng bởi một
+Trước hết, cảm ơn bạn đã có mặt ở đây. Growverse được xây dựng bởi một
 cộng đồng những người yêu thích các tựa MMO cổ điển, và mọi đóng góp, dù lớn hay
 nhỏ, đều giúp trò chơi tốt hơn. Sửa một lỗi chính tả, dịch trò chơi, báo cáo một
 lỗi, dựng nên cả một hầm ngục mới: tất cả đều có giá trị, và bạn được chào đón ở
@@ -25,13 +25,13 @@ chúng tôi.
 
 - **Mã nguồn.** Sửa một lỗi, thêm một tính năng, hoặc cải thiện hiệu năng. Các vấn
   đề được gắn nhãn
-  [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue)
-  và [`help wanted`](https://github.com/levy-street/world-of-claudecraft/labels/help%20wanted)
+  [`good first issue`](https://github.com/ElevatedDesertCo/growverse/labels/good%20first%20issue)
+  và [`help wanted`](https://github.com/ElevatedDesertCo/growverse/labels/help%20wanted)
   là những điểm khởi đầu tốt.
 - **Bản dịch.** Hãy giúp người chơi trên khắp thế giới bằng cách cải thiện hoặc
   hoàn thiện một ngôn ngữ. Xem [Dịch trò chơi](#translating-the-game) bên dưới. Đây
   là một trong những cách khởi đầu dễ nhất và có tác động lớn nhất.
-- **Báo cáo lỗi và ý tưởng tính năng.** Hãy mở một [issue](https://github.com/levy-street/world-of-claudecraft/issues/new/choose).
+- **Báo cáo lỗi và ý tưởng tính năng.** Hãy mở một [issue](https://github.com/ElevatedDesertCo/growverse/issues/new/choose).
   Một báo cáo lỗi rõ ràng là một đóng góp thực sự.
 - **Tài liệu.** Các hướng dẫn như hướng dẫn này, README, và các tài liệu thiết kế
   trong `docs/` luôn có thể được cải thiện.
@@ -45,8 +45,8 @@ chơi, bạn cũng sẽ cần [Docker](https://www.docker.com/) để chạy Pos
 
 ```bash
 # 1. Fork the repo on GitHub, then clone your fork
-git clone https://github.com/<your-username>/world-of-claudecraft.git
-cd world-of-claudecraft
+git clone https://github.com/<your-username>/growverse.git
+cd growverse
 
 # 2. Install dependencies
 npm ci
@@ -146,7 +146,7 @@ cũng làm như vậy.
 
 ## Bản địa hóa
 
-World of ClaudeCraft được phát hành bằng nhiều ngôn ngữ, và chúng tôi duy trì điều
+Growverse được phát hành bằng nhiều ngôn ngữ, và chúng tôi duy trì điều
 đó khi trò chơi phát triển. Mọi chuỗi hiển thị với người chơi đều được dịch sang
 mọi locale được hỗ trợ.
 
@@ -186,9 +186,9 @@ bản dịch tốt khiến trò chơi cảm thấy như nhà đối với ngư�
 
 ## Báo cáo lỗi và yêu cầu tính năng
 
-Xin hãy sử dụng [các mẫu issue](https://github.com/levy-street/world-of-claudecraft/issues/new/choose):
+Xin hãy sử dụng [các mẫu issue](https://github.com/ElevatedDesertCo/growverse/issues/new/choose):
 
-- **Báo cáo lỗi.** Hãy tìm trong [các vấn đề hiện có](https://github.com/levy-street/world-of-claudecraft/issues)
+- **Báo cáo lỗi.** Hãy tìm trong [các vấn đề hiện có](https://github.com/ElevatedDesertCo/growverse/issues)
   trước để tránh trùng lặp, rồi kèm theo các bước tái hiện, điều bạn mong đợi, điều
   đã xảy ra, và môi trường của bạn (ngoại tuyến hay trực tuyến, trình duyệt, máy
   tính để bàn hay di động).
@@ -208,5 +208,5 @@ Khi đóng góp, bạn đồng ý rằng các đóng góp của bạn sẽ đư�
 
 ---
 
-Cảm ơn bạn đã đóng góp cho World of ClaudeCraft. Chúng tôi rất nóng lòng muốn thấy
+Cảm ơn bạn đã đóng góp cho Growverse. Chúng tôi rất nóng lòng muốn thấy
 những gì bạn sẽ xây dựng cùng chúng tôi.

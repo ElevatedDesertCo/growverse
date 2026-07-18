@@ -15,7 +15,7 @@ export const pt_BR: Record<string, string> = {
   'usage.metric.githubLinkRateLimited': 'Requisições de vínculo do GitHub limitadas',
   'usage.metric.githubLinkRequest': 'Requisições de vínculo do GitHub',
   'app.title': 'Growverse - Admin',
-  'app.shortTitle': 'Administrador do WoC',
+  'app.shortTitle': 'Administrador do Growverse',
   'auth.username': 'Usuário',
   'auth.password': 'Senha',
   'auth.signIn': 'Entrar',

@@ -24,7 +24,7 @@ const CHALLENGE_TTL_MINUTES = 10;
 
 function requestDomain(req: http.IncomingMessage): string {
   const host = (req.headers.host ?? '').split(':')[0];
-  return host || 'world-of-claudecraft';
+  return host || 'growverse';
 }
 
 // POST /api/wallet/link/challenge  { address }  → { nonce, message }

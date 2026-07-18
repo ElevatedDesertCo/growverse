@@ -643,7 +643,7 @@ export const tr_TR: EnTranslations = {
       "loggedOutPrompt": "Hesabınızı yönetmek için giriş yapın.",
       "memberSince": "Üyelik tarihi: {date}",
       "sectionSettings": "Hesap Ayarları",
-      "sectionWallet": "$WOC Cüzdanı",
+      "sectionWallet": "Growverse Cüzdanı",
       "sectionCharacters": "Karakterler",
       "sectionDanger": "Tehlikeli Bölge",
       "changePassword": "Parolayı Değiştir",
@@ -1139,7 +1139,7 @@ export const tr_TR: EnTranslations = {
   "guide": {
     "brand": "Growverse",
     "brandShort": "Growverse",
-    "tagline": "Tarayıcınızda ücretsiz oynayabileceğiniz klasik tarzda bir MMO.",
+    "tagline": "Tarayıcınızda ücretsiz oynayabileceğiniz kenevir temalı bir fantezi MMORPG.",
     "skipToContent": "Ana içeriğe geç",
     "loading": "Yükleniyor...",
     "docTitle": "{page} - {brand}",
@@ -1193,7 +1193,7 @@ export const tr_TR: EnTranslations = {
       "heading": "Bu sayfada"
     },
     "footer": {
-      "blurb": "Açık kaynaklı, klasik tarzda bir mikro MMO. Görev yapın, gruplaşın ve elle yapılmış bir dünyayı, tam da tarayıcınızda keşfedin.",
+      "blurb": "Açık kaynaklı, kenevir temalı bir fantezi MMORPG. Görev yapın, gruplaşın ve portallarla birbirine bağlı bir dünyayı, tam da tarayıcınızda keşfedin.",
       "playNow": "Şimdi Oyna",
       "github": "GitHub'daki Kaynak",
       "discord": "Discord'a Katıl",
@@ -1217,7 +1217,7 @@ export const tr_TR: EnTranslations = {
       "typeTerm": "Terim"
     },
     "home": {
-      "eyebrow": "Klasik tarz tarayıcı MMO'su",
+      "eyebrow": "Kenevir temalı fantezi tarayıcı MMORPG'si",
       "title": "Growverse",
       "subtitle": "Görev yap, grup kur ve elle kurulmuş bir dünyayı keşfet; tarayıcında ücretsiz.",
       "ctaPlay": "Şimdi Oyna",
@@ -2016,7 +2016,7 @@ export const tr_TR: EnTranslations = {
   },
   "footer": {
     "copyright": "2026 Growverse",
-    "githubLink": "https://github.com/levy-street/world-of-claudecraft",
+    "githubLink": "https://github.com/ElevatedDesertCo/growverse",
     "githubLabel": "Açık Kaynak Proje",
     "whitepaper": "Teknik Doküman",
     "terms": "Hizmet Koşulları",
@@ -2107,7 +2107,7 @@ export const tr_TR: EnTranslations = {
     "twoFactorHint": "Kimlik doğrulama uygulamandaki kodu ya da kurtarma kodlarından birini gir."
   },
   "wallet": {
-    "label": "$WOC Cüzdanı",
+    "label": "Growverse Cüzdanı",
     "connect": "Cüzdanı Doğrula",
     "connectTitle": "Solana cüzdanınızı doğrulayın",
     "connectAria": "Solana cüzdanınızı doğrulayın",
@@ -2756,14 +2756,14 @@ export const tr_TR: EnTranslations = {
     }
   },
   "seo": {
-    "title": "Growverse: Klasik Tarzı Web MMO'su",
-    "description": "Doğrudan tarayıcında oynanabilen klasik tarzı bir mikro MMO olan Growverse'ta destansı bir maceraya atıl. Kalıcı bir ortak diyara katıl, sınıfları geliştir ve düşmanları alt et!",
+    "title": "Growverse: The Portal Chronicles, ücretsiz bir tarayıcı MMORPG'si",
+    "description": "Growverse, kenevir temalı ücretsiz bir fantezi tarayıcı MMORPG'sidir. Portallarla birbirine bağlı bir dünyayı keşfet, yaratıklarla savaş, görevleri tamamla, büyülü türler yetiştir ve sürekli gelişen bir diyarda kendi efsaneni yaz. İndirmeden hemen oyna.",
     "genre": "MMORPG",
     "playMode": "Çok Oyunculu",
     "applicationCategory": "Oyun",
     "operatingSystem": "Web tarayıcısı",
     "officialLabel": "Resmi Growverse web sitesi",
-    "officialBody": "worldofclaudecraft.com, Claudemoon diyarının resmi ücretsiz tarayıcı MMO'sudur. Kalıcı bir karakterle çevrimiçi oyna, çevrimdışı tek başına keşfet, wiki'yi oku ve bu siteden doğrulanmış topluluk bağlantılarını takip et."
+    "officialBody": "Growverse, portallarla birbirine bağlı bir dünyada geçen, kenevir temalı ücretsiz bir fantezi tarayıcı MMORPG'sidir: yaratıklarla savaş, görevleri tamamla, mesleklerde ustalaş ve büyülü türler yetiştir. Tarayıcında hemen oyna, dünyayı tek başına keşfet, wiki'yi oku ve geliştirme güncellemelerini bu siteden takip et."
   },
   "a11y": {
     "goHome": "Ana sayfaya git",

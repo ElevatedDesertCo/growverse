@@ -643,7 +643,7 @@ export const ko_KR: EnTranslations = {
       "loggedOutPrompt": "계정을 관리하려면 로그인하세요.",
       "memberSince": "가입일: {date}",
       "sectionSettings": "계정 설정",
-      "sectionWallet": "$WOC 지갑",
+      "sectionWallet": "Growverse 지갑",
       "sectionCharacters": "캐릭터",
       "sectionDanger": "위험 구역",
       "changePassword": "비밀번호 변경",
@@ -1139,7 +1139,7 @@ export const ko_KR: EnTranslations = {
   "guide": {
     "brand": "Growverse",
     "brandShort": "Growverse",
-    "tagline": "브라우저에서 무료로 즐기는 클래식 스타일 MMO입니다.",
+    "tagline": "브라우저에서 무료로 즐기는 칸나비스 판타지 MMORPG입니다.",
     "skipToContent": "본문으로 건너뛰기",
     "loading": "불러오는 중...",
     "docTitle": "{page} - {brand}",
@@ -1193,7 +1193,7 @@ export const ko_KR: EnTranslations = {
       "heading": "이 페이지에서"
     },
     "footer": {
-      "blurb": "오픈 소스로 만든 클래식 스타일 마이크로 MMO입니다. 퀘스트를 수행하고, 파티를 맺고, 손수 빚은 세계를 브라우저에서 바로 탐험하세요.",
+      "blurb": "오픈 소스로 만든 칸나비스 판타지 MMORPG입니다. 퀘스트를 수행하고, 파티를 맺고, 포털로 이어진 세계를 브라우저에서 바로 탐험하세요.",
       "playNow": "지금 플레이",
       "github": "GitHub 소스 코드",
       "discord": "Discord 참여하기",
@@ -1217,7 +1217,7 @@ export const ko_KR: EnTranslations = {
       "typeTerm": "용어"
     },
     "home": {
-      "eyebrow": "클래식 스타일 브라우저 MMO",
+      "eyebrow": "칸나비스 판타지 브라우저 MMORPG",
       "title": "Growverse",
       "subtitle": "퀘스트를 수행하고, 파티를 맺고, 손수 빚은 세계를 브라우저에서 무료로 탐험하세요.",
       "ctaPlay": "지금 플레이",
@@ -2016,7 +2016,7 @@ export const ko_KR: EnTranslations = {
   },
   "footer": {
     "copyright": "2026 Growverse",
-    "githubLink": "https://github.com/levy-street/world-of-claudecraft",
+    "githubLink": "https://github.com/ElevatedDesertCo/growverse",
     "githubLabel": "오픈 소스 프로젝트",
     "whitepaper": "백서",
     "terms": "서비스 이용약관",
@@ -2107,7 +2107,7 @@ export const ko_KR: EnTranslations = {
     "twoFactorHint": "인증 앱에 표시된 코드 또는 복구 코드 중 하나를 입력하세요."
   },
   "wallet": {
-    "label": "$WOC 지갑",
+    "label": "Growverse 지갑",
     "connect": "지갑 인증",
     "connectTitle": "Solana 지갑 인증",
     "connectAria": "Solana 지갑 인증",
@@ -2756,14 +2756,14 @@ export const ko_KR: EnTranslations = {
     }
   },
   "seo": {
-    "title": "Growverse: 클래식 스타일 웹 MMO",
-    "description": "브라우저에서 바로 즐기는 클래식 스타일 마이크로 MMO, Growverse에서 장대한 모험을 시작하세요. 지속되는 공유 렐름에 접속해 직업을 성장시키고 적을 물리치세요.",
+    "title": "Growverse: The Portal Chronicles, 무료 브라우저 MMORPG",
+    "description": "Growverse는 칸나비스 판타지 세계관의 무료 브라우저 MMORPG입니다. 포털로 이어진 세계를 탐험하고, 괴물과 싸우고, 퀘스트를 완료하고, 마법의 품종을 재배하며, 끊임없이 진화하는 렐름에서 자신만의 전설을 만들어 보세요. 다운로드 없이 즉시 플레이할 수 있습니다.",
     "genre": "MMORPG",
     "playMode": "멀티플레이어",
     "applicationCategory": "게임",
     "operatingSystem": "웹 브라우저",
     "officialLabel": "Growverse 공식 웹사이트",
-    "officialBody": "worldofclaudecraft.com은 Claudemoon 렐름의 공식 무료 브라우저 MMO입니다. 지속 캐릭터로 온라인 플레이를 하거나, 오프라인에서 혼자 탐험하고, 위키를 읽고, 이 사이트에서 검증된 커뮤니티 링크를 확인하세요."
+    "officialBody": "Growverse는 포털로 이어진 세계를 배경으로 한 칸나비스 판타지 무료 브라우저 MMORPG입니다. 괴물과 싸우고, 퀘스트를 완료하고, 전문 기술을 연마하고, 마법의 품종을 재배하세요. 브라우저에서 즉시 플레이하고, 혼자서 세계를 탐험하고, 위키를 읽고, 이 사이트에서 개발 소식을 확인할 수 있습니다."
   },
   "a11y": {
     "goHome": "홈으로 이동",

@@ -643,7 +643,7 @@ export const ru_RU: EnTranslations = {
       "loggedOutPrompt": "Войдите, чтобы управлять аккаунтом.",
       "memberSince": "Дата регистрации: {date}",
       "sectionSettings": "Настройки аккаунта",
-      "sectionWallet": "Кошелёк $WOC",
+      "sectionWallet": "Кошелёк Growverse",
       "sectionCharacters": "Персонажи",
       "sectionDanger": "Опасная зона",
       "changePassword": "Сменить пароль",
@@ -1139,7 +1139,7 @@ export const ru_RU: EnTranslations = {
   "guide": {
     "brand": "Growverse",
     "brandShort": "Growverse",
-    "tagline": "Классическая MMO, в которую можно играть бесплатно прямо в браузере.",
+    "tagline": "MMORPG в жанре каннабис-фэнтези, в которую можно играть бесплатно прямо в браузере.",
     "skipToContent": "Перейти к основному содержимому",
     "loading": "Загрузка...",
     "docTitle": "{page} - {brand}",
@@ -1193,7 +1193,7 @@ export const ru_RU: EnTranslations = {
       "heading": "На этой странице"
     },
     "footer": {
-      "blurb": "Классическая мини-MMO с открытым исходным кодом. Выполняйте задания, объединяйтесь в группы и исследуйте созданный вручную мир прямо в браузере.",
+      "blurb": "MMORPG в жанре каннабис-фэнтези с открытым исходным кодом. Выполняйте задания, объединяйтесь в группы и исследуйте мир, связанный порталами, прямо в браузере.",
       "playNow": "Играть",
       "github": "Исходный код на GitHub",
       "discord": "Присоединиться к Discord",
@@ -1217,7 +1217,7 @@ export const ru_RU: EnTranslations = {
       "typeTerm": "Термин"
     },
     "home": {
-      "eyebrow": "Классическая браузерная MMO",
+      "eyebrow": "Браузерная MMORPG в жанре каннабис-фэнтези",
       "title": "Growverse",
       "subtitle": "Выполняйте задания, объединяйтесь в группы и исследуйте созданный вручную мир бесплатно прямо в браузере.",
       "ctaPlay": "Играть",
@@ -2016,7 +2016,7 @@ export const ru_RU: EnTranslations = {
   },
   "footer": {
     "copyright": "2026 Growverse",
-    "githubLink": "https://github.com/levy-street/world-of-claudecraft",
+    "githubLink": "https://github.com/ElevatedDesertCo/growverse",
     "githubLabel": "Проект с открытым исходным кодом",
     "whitepaper": "Белая книга",
     "terms": "Условия использования",
@@ -2107,7 +2107,7 @@ export const ru_RU: EnTranslations = {
     "twoFactorHint": "Введите код из приложения-аутентификатора или один из ваших кодов восстановления."
   },
   "wallet": {
-    "label": "Кошелек $WOC",
+    "label": "Кошелек Growverse",
     "connect": "Подтвердить кошелек",
     "connectTitle": "Подтвердить ваш кошелек Solana",
     "connectAria": "Подтвердить ваш кошелек Solana",
@@ -2756,14 +2756,14 @@ export const ru_RU: EnTranslations = {
     }
   },
   "seo": {
-    "title": "Growverse: веб-MMO в классическом стиле",
-    "description": "Отправьтесь в эпическое приключение в Growverse, микро-MMO в классическом стиле прямо в браузере. Присоединяйтесь к общему миру, развивайте классы и побеждайте врагов.",
+    "title": "Growverse: The Portal Chronicles, бесплатная браузерная MMORPG",
+    "description": "Growverse - бесплатная браузерная MMORPG в жанре каннабис-фэнтези. Исследуйте мир, связанный порталами, сражайтесь с существами, выполняйте задания, выращивайте волшебные сорта и создавайте свою легенду в постоянно развивающемся мире. Играйте сразу, без загрузки.",
     "genre": "MMORPG",
     "playMode": "Многопользовательская игра",
     "applicationCategory": "Игра",
     "operatingSystem": "Веб-браузер",
     "officialLabel": "Официальный сайт Growverse",
-    "officialBody": "worldofclaudecraft.com - официальная бесплатная браузерная MMO для мира Claudemoon. Играйте онлайн с постоянным персонажем, исследуйте мир в одиночку офлайн, читайте wiki и переходите по проверенным ссылкам сообщества с этого сайта."
+    "officialBody": "Growverse - бесплатная браузерная MMORPG в жанре каннабис-фэнтези, действие которой разворачивается в мире, связанном порталами: сражайтесь с существами, выполняйте задания, осваивайте профессии и выращивайте волшебные сорта. Играйте сразу в браузере, исследуйте мир в одиночку, читайте wiki и следите за новостями разработки на этом сайте."
   },
   "a11y": {
     "goHome": "Перейти на главную",

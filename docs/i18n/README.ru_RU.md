@@ -1,12 +1,12 @@
 <div align="center">
 
-# World of ClaudeCraft
+# Growverse
 
 **Выполняйте задания, собирайтесь в группы и штурмуйте вручную созданный мир, бесплатно прямо в браузере. Открытый исходный код, web3 и онлайн прямо сейчас.**
 
 **Официальный сайт: https://worldofclaudecraft.com/**
 
-[![CI](https://github.com/levy-street/world-of-claudecraft/actions/workflows/ci.yml/badge.svg)](https://github.com/levy-street/world-of-claudecraft/actions/workflows/ci.yml)
+[![CI](https://github.com/ElevatedDesertCo/growverse/actions/workflows/ci.yml/badge.svg)](https://github.com/ElevatedDesertCo/growverse/actions/workflows/ci.yml)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Three.js](https://img.shields.io/badge/Three.js-r165-000000?logo=threedotjs&logoColor=white)](https://threejs.org/)
 [![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)](https://vite.dev/)
@@ -22,13 +22,13 @@
 
 [Играть сейчас](https://worldofclaudecraft.com/) · [Разверните свой мир](#host-your-own-world-one-command) · [Обучите агента](#train-an-agent-headless-rl) · [Web3](#web3) · [Участие в разработке](CONTRIBUTING.ru_RU.md) · [Discord](https://discord.gg/KSTJkrCq3)
 
-![Титульный экран World of ClaudeCraft](../../docs/screenshots/title-screen.jpg)
+![Титульный экран Growverse](../../docs/screenshots/title-screen.jpg)
 
 </div>
 
 ## Что это такое
 
-World of ClaudeCraft — это полноценная MMO классической эпохи, в которую можно играть прямо сейчас в браузере, развернуть самостоятельно одной командой и даже обучать ИИ-агентов игре. Она бесплатна, имеет открытый исходный код и работает по адресу [worldofclaudecraft.com](https://worldofclaudecraft.com/).
+Growverse — это полноценная MMO классической эпохи, в которую можно играть прямо сейчас в браузере, развернуть самостоятельно одной командой и даже обучать ИИ-агентов игре. Она бесплатна, имеет открытый исходный код и работает по адресу [worldofclaudecraft.com](https://worldofclaudecraft.com/).
 
 Один общий мир работает в трёх местах, и всё из одного игрового ядра:
 
@@ -154,7 +154,7 @@ env.close()
 
 ## Web3
 
-World of ClaudeCraft является web3-native вокруг **$WOC**, нашего общественного токена на Solana. Подключите кошелёк Solana, привяжите его к своему аккаунту одной подписью (без передачи на хранение, без транзакции для подтверждения), и ваш баланс $WOC только для чтения появится в HUD рядом с косметическим значком уровня держателя.
+Growverse является web3-native вокруг **$WOC**, нашего общественного токена на Solana. Подключите кошелёк Solana, привяжите его к своему аккаунту одной подписью (без передачи на хранение, без транзакции для подтверждения), и ваш баланс $WOC только для чтения появится в HUD рядом с косметическим значком уровня держателя.
 
 Это исключительно косметика и не требуется для игры. Ничего не тратится и не зарабатывается в игре, нет pay-to-win, и вся игра прекрасно проходится без единого подключения кошелька.
 
@@ -303,13 +303,12 @@ node scripts/crypt_raid.mjs     # five bots clear the Hollow Crypt (ALLOW_DEV_CO
 
 ## Участие в разработке
 
-Приветствуется вклад любого рода: код, переводы, баг-репорты и документация. Начните с [CONTRIBUTING.ru_RU.md](CONTRIBUTING.ru_RU.md) для настройки, прочитайте [Кодекс поведения](../../CODE_OF_CONDUCT.md) и проверьте [SECURITY.md](../../SECURITY.md) перед сообщением об уязвимости. Впервые здесь? Ищите issue с меткой [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue), откройте [issue](https://github.com/levy-street/world-of-claudecraft/issues/new/choose) или поздоровайтесь в [Discord](https://discord.gg/KSTJkrCq3).
+Приветствуется вклад любого рода: код, переводы, баг-репорты и документация. Начните с [CONTRIBUTING.ru_RU.md](CONTRIBUTING.ru_RU.md) для настройки, прочитайте [Кодекс поведения](../../CODE_OF_CONDUCT.md) и проверьте [SECURITY.md](../../SECURITY.md) перед сообщением об уязвимости. Впервые здесь? Ищите issue с меткой [`good first issue`](https://github.com/ElevatedDesertCo/growverse/labels/good%20first%20issue), откройте [issue](https://github.com/ElevatedDesertCo/growverse/issues/new/choose) или поздоровайтесь в [Discord](https://discord.gg/KSTJkrCq3).
 
 <div align="center">
 
-![World of Claude](../../worldofclaude.png)
+![Growverse](../../public/growverse-logo.png)
 
-![Сообщество World of ClaudeCraft](../../woc_community.png)
 
 </div>
 

@@ -11,7 +11,7 @@
 
 export const en = {
   'app.title': 'Growverse - Admin',
-  'app.shortTitle': 'WoC Admin',
+  'app.shortTitle': 'Growverse Admin',
   'auth.username': 'Username',
   'auth.password': 'Password',
   'auth.signIn': 'Sign in',

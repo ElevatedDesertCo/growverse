@@ -14,9 +14,9 @@ export const fr_CA: Partial<Record<TranslationKey, string>> = {
   // Stat tooltips inherit the fr_FR base: none of these strings has a genuine
   // Quebec-specific form, so per the divergence-only policy fr_CA carries no
   // hudChrome.statInfo.* overrides.
-  'seo.title': 'Growverse: MMO Web de style classique',
+  'seo.title': 'Growverse: The Portal Chronicles, un MMORPG gratuit sur navigateur',
   'seo.description':
-    "Partez à l'aventure dans Growverse, un micro-MMO de style classique jouable directement dans votre navigateur. Rejoignez un royaume partagé, faites progresser vos classes et terrassez des ennemis.",
+    'Growverse est un MMORPG fantasy gratuit sur navigateur dans un univers cannabique. Explorez un monde relié par des portails, affrontez des créatures, accomplissez des quêtes, cultivez des variétés magiques et forgez votre légende dans un royaume en constante évolution. Jouez instantanément, sans téléchargement.',
   'seo.operatingSystem': 'Navigateur Web',
   'a11y.toggleMenu': 'Ouvrir ou fermer le menu',
   'loading.assetsFailed': 'Le chargement des ressources a échoué: rechargez la page. {error}',

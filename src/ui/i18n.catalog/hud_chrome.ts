@@ -697,7 +697,7 @@ export const hudChromeStrings = {
     loggedOutPrompt: 'Log in to manage your account.',
     memberSince: 'Member since {date}',
     sectionSettings: 'Account Settings',
-    sectionWallet: '$WOC Wallet',
+    sectionWallet: 'Growverse Wallet',
     sectionCharacters: 'Characters',
     sectionDanger: 'Danger Zone',
     // Change password

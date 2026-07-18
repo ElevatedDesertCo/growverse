@@ -2112,7 +2112,7 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'footer.copyright': '2026 Growverse',
   'footer.discordLabel': 'Word lid van de Discord',
   'footer.githubLabel': 'Opensourceproject',
-  'footer.githubLink': 'https://github.com/levy-street/world-of-claudecraft',
+  'footer.githubLink': 'https://github.com/ElevatedDesertCo/growverse',
   'footer.whitepaper': 'Whitepaper',
   'footer.privacy': 'Privacybeleid',
   'footer.terms': 'Servicevoorwaarden',
@@ -2646,7 +2646,7 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'guide.faqPage.q8': 'Kan ik mijn eigen kopie hosten?',
   'guide.faqPage.q9': 'Is er PvP?',
   'guide.footer.blurb':
-    'Een open-source micro-MMO in klassieke stijl. Vervul quests, vorm groepen en verken een handgemaakte wereld, direct in je browser.',
+    'Een open-source cannabis-fantasy MMORPG. Vervul quests, vorm groepen en verken een wereld die door portalen is verbonden, direct in je browser.',
   'guide.footer.communityWiki': 'Community-wiki',
   'guide.footer.discord': 'Word lid van de Discord',
   'guide.footer.github': 'Broncode op GitHub',
@@ -2789,7 +2789,7 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'guide.home.community.play': 'Speel nu',
   'guide.home.ctaLearn': 'Hoe te spelen',
   'guide.home.ctaPlay': 'Speel nu',
-  'guide.home.eyebrow': 'Klassieke MMO in je browser',
+  'guide.home.eyebrow': 'Cannabis-fantasy browser-MMORPG',
   'guide.home.faq.a1':
     'Ja. Het hele spel is gratis tot het maximale niveau, en het is open source op GitHub.',
   'guide.home.faq.a2':
@@ -3171,7 +3171,7 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'guide.tag.ranged': 'Afstand',
   'guide.tag.simple': 'Eenvoudig',
   'guide.tag.solo': 'Solovriendelijk',
-  'guide.tagline': 'Een MMO in klassieke stijl die je gratis in je browser speelt.',
+  'guide.tagline': 'Een cannabis-fantasy MMORPG die je gratis in je browser speelt.',
   'guide.talentsPage.heading': 'Talenten en specialisaties',
   'guide.talentsPage.howBody':
     'Talenten gaan open op niveau 10, en je blijft punten verdienen terwijl je richting het maximum klimt. Je besteedt ze in het talentpaneel van je klasse, en je kunt meer dan één indeling opslaan om tussen builds te wisselen.',
@@ -3847,7 +3847,7 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'hudChrome.account.sectionDanger': 'Gevarenzone',
   'hudChrome.account.sectionSecurity': 'Beveiliging',
   'hudChrome.account.sectionSettings': 'Accountinstellingen',
-  'hudChrome.account.sectionWallet': '$WOC Wallet',
+  'hudChrome.account.sectionWallet': 'Growverse Wallet',
   'hudChrome.account.title': 'Account',
   'hudChrome.account.twoFactorBegin': 'Instellen Starten',
   'hudChrome.account.twoFactorBeginHint': 'Voer je wachtwoord in om het instellen te starten.',
@@ -4643,14 +4643,14 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'realmTypes.rpPvp': 'RP-PvP',
   'seo.applicationCategory': 'Spel',
   'seo.description':
-    'Begin aan een episch avontuur in Growverse, een micro-MMO in klassieke stijl die je rechtstreeks in je browser kunt spelen. Sluit je aan bij een blijvende gedeelde realm, level je klassen op en versla vijanden!',
+    'Growverse is een gratis cannabis-fantasy browser-MMORPG. Verken een wereld die door portalen is verbonden, bevecht wezens, voltooi quests, kweek magische soorten en smeed je legende in een realm die blijft evolueren. Speel direct, zonder download.',
   'seo.genre': 'MMORPG',
   'seo.officialBody':
-    'worldofclaudecraft.com is de officiële gratis browser-MMO voor de Claudemoon-realm. Speel online met een blijvend personage, verken solo offline, lees de wiki en volg geverifieerde communitylinks vanaf deze site.',
+    'Growverse is een gratis cannabis-fantasy browser-MMORPG in een wereld die door portalen is verbonden: bevecht wezens, voltooi quests, beheers professies en kweek magische soorten. Speel direct in je browser, verken de wereld solo, lees de wiki en volg ontwikkelingsupdates vanaf deze site.',
   'seo.officialLabel': 'Officiële website van Growverse',
   'seo.operatingSystem': 'Webbrowser',
   'seo.playMode': 'Multiplayer',
-  'seo.title': 'Growverse: Web-MMO in Klassieke Stijl',
+  'seo.title': 'Growverse: The Portal Chronicles, een gratis browser-MMORPG',
   'serverUnavailable.body':
     'We herstarten de gameservice en verwachten dat Claudemoon binnenkort weer terug is. Deze pagina blijft automatisch controleren.',
   'serverUnavailable.eyebrow': 'Realmonderhoud',
@@ -4844,7 +4844,7 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'wallet.holderTiers.worldbearer.name': 'Werelddrager',
   'wallet.holderTiers.worldforger.flavor': 'Een eigen wereld smedend: 9% van de voorraad.',
   'wallet.holderTiers.worldforger.name': 'Wereldsmid',
-  'wallet.label': '$WOC-portemonnee',
+  'wallet.label': 'Growverse-portemonnee',
   'wallet.linkFailed': 'Portemonneeverificatie mislukt.',
   'wallet.linkTitle': 'Klik om te ondertekenen en deze portemonnee aan je account te koppelen.',
   'wallet.linkedDisconnectedAria':

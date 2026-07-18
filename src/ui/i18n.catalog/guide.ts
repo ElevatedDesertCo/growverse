@@ -13,7 +13,7 @@ export const guideStrings = {
   // Brand + shared chrome.
   brand: 'Growverse',
   brandShort: 'Growverse',
-  tagline: 'A classic-style MMO you play free in your browser.',
+  tagline: 'A cannabis-fantasy MMORPG you play free in your browser.',
   skipToContent: 'Skip to main content',
   loading: 'Loading...',
   // Browser tab title: "{page} - {brand}". Hyphen separator (not an en dash).
@@ -78,7 +78,7 @@ export const guideStrings = {
   // Footer.
   footer: {
     blurb:
-      'An open-source, classic-style micro-MMO. Quest, group up, and explore a hand-built world, right in your browser.',
+      'An open-source cannabis-fantasy MMORPG. Quest, group up, and explore a portal-connected world, right in your browser.',
     playNow: 'Play Now',
     github: 'Source on GitHub',
     discord: 'Join the Discord',
@@ -108,7 +108,7 @@ export const guideStrings = {
 
   // Home / overview landing.
   home: {
-    eyebrow: 'Classic-style browser MMO',
+    eyebrow: 'Cannabis-fantasy browser MMORPG',
     title: 'Growverse',
     subtitle: 'Quest, group up, and explore a hand-built world, free in your browser.',
     ctaPlay: 'Play Now',

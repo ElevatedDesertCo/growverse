@@ -4,9 +4,9 @@
 
 </div>
 
-# Mitwirken an World of ClaudeCraft
+# Mitwirken an Growverse
 
-Zuallererst: Danke, dass du hier bist. World of ClaudeCraft wird von einer
+Zuallererst: Danke, dass du hier bist. Growverse wird von einer
 Gemeinschaft von Menschen gebaut, die klassische MMOs lieben, und jeder Beitrag,
 ob groß oder klein, macht das Spiel besser. Einen Tippfehler beheben, das Spiel
 übersetzen, einen Fehler melden, einen ganz neuen Dungeon bauen: Alles zählt, und
@@ -25,15 +25,15 @@ Hier ist für jeden ein Platz:
 
 - **Code.** Behebe einen Fehler, füge eine Funktion hinzu oder verbessere die
   Performance. Issues mit den Labels
-  [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue)
-  und [`help wanted`](https://github.com/levy-street/world-of-claudecraft/labels/help%20wanted)
+  [`good first issue`](https://github.com/ElevatedDesertCo/growverse/labels/good%20first%20issue)
+  und [`help wanted`](https://github.com/ElevatedDesertCo/growverse/labels/help%20wanted)
   sind ein guter Einstieg.
 - **Übersetzungen.** Hilf Spielerinnen und Spielern auf der ganzen Welt, indem du
   eine Sprache verbesserst oder vervollständigst. Siehe weiter unten
   [Das Spiel übersetzen](#translating-the-game). Das ist einer der einfachsten und
   wirkungsvollsten Wege, um anzufangen.
 - **Fehlermeldungen und Ideen für Funktionen.** Eröffne ein
-  [Issue](https://github.com/levy-street/world-of-claudecraft/issues/new/choose).
+  [Issue](https://github.com/ElevatedDesertCo/growverse/issues/new/choose).
   Eine klare Fehlermeldung ist ein echter Beitrag.
 - **Dokumentation.** Leitfäden wie dieser, die README und die Design-Dokumente in
   `docs/` lassen sich immer verbessern.
@@ -48,8 +48,8 @@ auszuführen.
 
 ```bash
 # 1. Forke das Repo auf GitHub und klone anschließend deinen Fork
-git clone https://github.com/<your-username>/world-of-claudecraft.git
-cd world-of-claudecraft
+git clone https://github.com/<your-username>/growverse.git
+cd growverse
 
 # 2. Abhängigkeiten installieren
 npm ci
@@ -152,7 +152,7 @@ bitten dich um dasselbe.
 
 ## Lokalisierung
 
-World of ClaudeCraft erscheint in vielen Sprachen, und wir halten das so, während
+Growverse erscheint in vielen Sprachen, und wir halten das so, während
 das Spiel wächst. Jede spielersichtbare Zeichenkette wird in jede unterstützte
 Sprache übersetzt.
 
@@ -197,10 +197,10 @@ Spieler überall wie zu Hause anfühlen.
 ## Fehler melden und Funktionen vorschlagen
 
 Bitte verwende die
-[Issue-Vorlagen](https://github.com/levy-street/world-of-claudecraft/issues/new/choose):
+[Issue-Vorlagen](https://github.com/ElevatedDesertCo/growverse/issues/new/choose):
 
 - **Fehlermeldung.** Durchsuche zuerst die
-  [vorhandenen Issues](https://github.com/levy-street/world-of-claudecraft/issues),
+  [vorhandenen Issues](https://github.com/ElevatedDesertCo/growverse/issues),
   um Duplikate zu vermeiden, und gib dann die Schritte zur Reproduktion an, was du
   erwartet hast, was passiert ist und deine Umgebung (offline oder online,
   Browser, Desktop oder Handy).
@@ -221,5 +221,5 @@ auch das Projekt abdeckt.
 
 ---
 
-Danke, dass du an World of ClaudeCraft mitwirkst. Wir können es kaum erwarten, zu
+Danke, dass du an Growverse mitwirkst. Wir können es kaum erwarten, zu
 sehen, was du gemeinsam mit uns baust.

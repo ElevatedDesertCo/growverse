@@ -15,7 +15,7 @@ export const tr_TR: Record<string, string> = {
   'usage.metric.githubLinkRateLimited': 'GitHub bağlama kısıtlanmış istekleri',
   'usage.metric.githubLinkRequest': 'GitHub bağlama istekleri',
   'app.title': 'Growverse - Yönetici',
-  'app.shortTitle': 'WoC Yöneticisi',
+  'app.shortTitle': 'Growverse Yöneticisi',
   'auth.username': 'Kullanıcı adı',
   'auth.password': 'Parola',
   'auth.signIn': 'Giriş yap',

@@ -4,9 +4,9 @@
 
 </div>
 
-# Bijdragen aan World of ClaudeCraft
+# Bijdragen aan Growverse
 
-Allereerst bedankt dat je hier bent. World of ClaudeCraft wordt gebouwd door een
+Allereerst bedankt dat je hier bent. Growverse wordt gebouwd door een
 gemeenschap van mensen die houden van klassieke MMO's, en elke bijdrage, groot of
 klein, maakt het beter. Een typefout verbeteren, het spel vertalen, een bug
 melden, een hele nieuwe dungeon bouwen: het telt allemaal mee, en je bent hier
@@ -24,13 +24,13 @@ Er is hier voor iedereen een plek:
 
 - **Code.** Los een bug op, voeg een functie toe of verbeter de prestaties.
   Issues met het label
-  [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue)
-  en [`help wanted`](https://github.com/levy-street/world-of-claudecraft/labels/help%20wanted)
+  [`good first issue`](https://github.com/ElevatedDesertCo/growverse/labels/good%20first%20issue)
+  en [`help wanted`](https://github.com/ElevatedDesertCo/growverse/labels/help%20wanted)
   zijn goede plekken om te beginnen.
 - **Vertalingen.** Help spelers over de hele wereld door een taal te verbeteren of
   te voltooien. Zie [De game vertalen](#translating-the-game) hieronder. Dit is een
   van de gemakkelijkste en meest impactvolle manieren om te beginnen.
-- **Bugmeldingen en ideeën voor functies.** Open een [issue](https://github.com/levy-street/world-of-claudecraft/issues/new/choose).
+- **Bugmeldingen en ideeën voor functies.** Open een [issue](https://github.com/ElevatedDesertCo/growverse/issues/new/choose).
   Een duidelijke bugmelding is een echte bijdrage.
 - **Documentatie.** Gidsen zoals deze, de README en de ontwerpdocumenten in
   `docs/` kunnen altijd beter.
@@ -44,8 +44,8 @@ wil je ook [Docker](https://www.docker.com/) om Postgres te draaien.
 
 ```bash
 # 1. Fork the repo on GitHub, then clone your fork
-git clone https://github.com/<your-username>/world-of-claudecraft.git
-cd world-of-claudecraft
+git clone https://github.com/<your-username>/growverse.git
+cd growverse
 
 # 2. Install dependencies
 npm ci
@@ -142,7 +142,7 @@ vriendelijk en opbouwend te zijn in een review, en we vragen hetzelfde van jou.
 
 ## Lokalisatie
 
-World of ClaudeCraft wordt in veel talen uitgebracht, en dat houden we zo terwijl
+Growverse wordt in veel talen uitgebracht, en dat houden we zo terwijl
 het spel groeit. Elke voor spelers zichtbare string wordt vertaald naar elke
 ondersteunde locale.
 
@@ -183,9 +183,9 @@ voelen.
 
 ## Bugs melden en functies aanvragen
 
-Gebruik alsjeblieft de [issue-sjablonen](https://github.com/levy-street/world-of-claudecraft/issues/new/choose):
+Gebruik alsjeblieft de [issue-sjablonen](https://github.com/ElevatedDesertCo/growverse/issues/new/choose):
 
-- **Bugmelding.** Doorzoek eerst [bestaande issues](https://github.com/levy-street/world-of-claudecraft/issues)
+- **Bugmelding.** Doorzoek eerst [bestaande issues](https://github.com/ElevatedDesertCo/growverse/issues)
   om duplicaten te voorkomen, en vermeld dan de stappen om het te reproduceren, wat
   je verwachtte, wat er gebeurde en je omgeving (offline of online, browser,
   desktop of mobiel).
@@ -206,5 +206,5 @@ project dekt.
 
 ---
 
-Bedankt dat je bijdraagt aan World of ClaudeCraft. We kunnen niet wachten om te
+Bedankt dat je bijdraagt aan Growverse. We kunnen niet wachten om te
 zien wat je samen met ons bouwt.

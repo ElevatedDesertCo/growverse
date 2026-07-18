@@ -643,7 +643,7 @@ export const fr_FR: EnTranslations = {
       "loggedOutPrompt": "Connectez-vous pour gérer votre compte.",
       "memberSince": "Membre depuis {date}",
       "sectionSettings": "Paramètres du compte",
-      "sectionWallet": "Portefeuille $WOC",
+      "sectionWallet": "Portefeuille Growverse",
       "sectionCharacters": "Personnages",
       "sectionDanger": "Zone de danger",
       "changePassword": "Changer le mot de passe",
@@ -1139,7 +1139,7 @@ export const fr_FR: EnTranslations = {
   "guide": {
     "brand": "Growverse",
     "brandShort": "Growverse",
-    "tagline": "Un MMO de style classique auquel vous jouez gratuitement dans votre navigateur.",
+    "tagline": "Un MMORPG de fantasy cannabique auquel vous jouez gratuitement dans votre navigateur.",
     "skipToContent": "Aller au contenu principal",
     "loading": "Chargement...",
     "docTitle": "{page} - {brand}",
@@ -1193,7 +1193,7 @@ export const fr_FR: EnTranslations = {
       "heading": "Sur cette page"
     },
     "footer": {
-      "blurb": "Un micro-MMO open source de style classique. Partez en quête, formez un groupe et explorez un monde façonné à la main, directement dans votre navigateur.",
+      "blurb": "Un MMORPG open source de fantasy cannabique. Partez en quête, formez un groupe et explorez un monde relié par des portails, directement dans votre navigateur.",
       "playNow": "Jouer maintenant",
       "github": "Code source sur GitHub",
       "discord": "Rejoindre le Discord",
@@ -1217,7 +1217,7 @@ export const fr_FR: EnTranslations = {
       "typeTerm": "Terme"
     },
     "home": {
-      "eyebrow": "MMO de style classique sur navigateur",
+      "eyebrow": "MMORPG de fantasy cannabique sur navigateur",
       "title": "Growverse",
       "subtitle": "Partez en quête, formez un groupe et explorez un monde façonné à la main, gratuitement dans votre navigateur.",
       "ctaPlay": "Jouer maintenant",
@@ -2016,7 +2016,7 @@ export const fr_FR: EnTranslations = {
   },
   "footer": {
     "copyright": "2026 Growverse",
-    "githubLink": "https://github.com/levy-street/world-of-claudecraft",
+    "githubLink": "https://github.com/ElevatedDesertCo/growverse",
     "githubLabel": "Projet open source",
     "whitepaper": "Livre blanc",
     "terms": "Conditions d'utilisation",
@@ -2107,7 +2107,7 @@ export const fr_FR: EnTranslations = {
     "twoFactorHint": "Saisissez le code de votre application d'authentification, ou l'un de vos codes de récupération."
   },
   "wallet": {
-    "label": "Portefeuille $WOC",
+    "label": "Portefeuille Growverse",
     "connect": "Vérifier le portefeuille",
     "connectTitle": "Vérifiez votre portefeuille Solana",
     "connectAria": "Vérifiez votre portefeuille Solana",
@@ -2756,14 +2756,14 @@ export const fr_FR: EnTranslations = {
     }
   },
   "seo": {
-    "title": "Growverse: MMO web de style classique",
-    "description": "Partez pour une aventure épique dans Growverse, un micro-MMO au style classique jouable directement dans votre navigateur. Rejoignez un royaume persistant, progressez en classe et terrassez vos ennemis.",
+    "title": "Growverse: The Portal Chronicles, un MMORPG gratuit sur navigateur",
+    "description": "Growverse est un MMORPG fantasy gratuit sur navigateur dans un univers cannabique. Explorez un monde relié par des portails, affrontez des créatures, accomplissez des quêtes, cultivez des variétés magiques et forgez votre légende dans un royaume en constante évolution. Jouez instantanément, sans téléchargement.",
     "genre": "MMORPG",
     "playMode": "Multijoueur",
     "applicationCategory": "Jeu",
     "operatingSystem": "Navigateur web",
     "officialLabel": "Site officiel de Growverse",
-    "officialBody": "worldofclaudecraft.com est le MMO gratuit officiel sur navigateur du royaume Claudemoon. Jouez en ligne avec un personnage persistant, explorez en solo hors ligne, lisez le wiki et suivez les liens communautaires vérifiés depuis ce site."
+    "officialBody": "Growverse est un MMORPG fantasy gratuit sur navigateur dans un univers cannabique, situé dans un monde relié par des portails: affrontez des créatures, accomplissez des quêtes, maîtrisez des métiers et cultivez des variétés magiques. Jouez instantanément dans votre navigateur, explorez le monde en solo, lisez le wiki et suivez les actualités du développement depuis ce site."
   },
   "a11y": {
     "goHome": "Aller à l'accueil",

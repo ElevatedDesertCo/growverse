@@ -13,7 +13,7 @@ import type { AdminTranslations } from '../i18n.en';
 
 export const ja_JP: AdminTranslations = {
   "app.title": "Growverse - 管理",
-  "app.shortTitle": "WoC管理者",
+  "app.shortTitle": "Growverse管理者",
   "auth.username": "ユーザー名",
   "auth.password": "パスワード",
   "auth.signIn": "サインイン",

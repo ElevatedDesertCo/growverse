@@ -2094,7 +2094,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'footer.copyright': '2026 Growverse',
   'footer.discordLabel': 'Dołącz do Discorda',
   'footer.githubLabel': 'Projekt open source',
-  'footer.githubLink': 'https://github.com/levy-street/world-of-claudecraft',
+  'footer.githubLink': 'https://github.com/ElevatedDesertCo/growverse',
   'footer.whitepaper': 'Biała księga',
   'footer.privacy': 'Polityka prywatności',
   'footer.terms': 'Warunki korzystania z usługi',
@@ -2615,7 +2615,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'guide.faqPage.q8': 'Czy mogę hostować własną kopię?',
   'guide.faqPage.q9': 'Czy jest PvP?',
   'guide.footer.blurb':
-    'Otwartoźródłowe, klasyczne mikro-MMO. Wykonuj zadania, łącz się w grupy i eksploruj ręcznie zbudowany świat, prosto w przeglądarce.',
+    'Otwartoźródłowe MMORPG w klimacie konopnego fantasy. Wykonuj zadania, łącz się w grupy i eksploruj świat połączony portalami, prosto w przeglądarce.',
   'guide.footer.communityWiki': 'Wiki społeczności',
   'guide.footer.discord': 'Dołącz do Discorda',
   'guide.footer.github': 'Źródło na GitHubie',
@@ -2760,7 +2760,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'guide.home.community.play': 'Zagraj teraz',
   'guide.home.ctaLearn': 'Jak grać',
   'guide.home.ctaPlay': 'Zagraj teraz',
-  'guide.home.eyebrow': 'Klasyczne MMO w przeglądarce',
+  'guide.home.eyebrow': 'Przeglądarkowe MMORPG w klimacie konopnego fantasy',
   'guide.home.faq.a1':
     'Tak. Cała gra jest darmowa aż do maksymalnego poziomu, a jej kod źródłowy jest otwarty na GitHubie.',
   'guide.home.faq.a2':
@@ -3146,7 +3146,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'guide.tag.ranged': 'Dystans',
   'guide.tag.simple': 'Proste',
   'guide.tag.solo': 'Przyjazne dla samotników',
-  'guide.tagline': 'Klasyczne MMO, w które zagrasz za darmo w przeglądarce.',
+  'guide.tagline': 'MMORPG w klimacie konopnego fantasy, w które zagrasz za darmo w przeglądarce.',
   'guide.talentsPage.heading': 'Talenty i specjalizacje',
   'guide.talentsPage.howBody':
     'Talenty odblokowują się na 10. poziomie, a kolejne punkty zdobywasz w miarę wspinaczki ku maksimum. Wydajesz je w panelu talentów swojej klasy i możesz zapisać więcej niż jeden układ, aby przełączać się między buildami.',
@@ -3817,7 +3817,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'hudChrome.account.sectionDanger': 'Strefa zagrożenia',
   'hudChrome.account.sectionSecurity': 'Bezpieczeństwo',
   'hudChrome.account.sectionSettings': 'Ustawienia konta',
-  'hudChrome.account.sectionWallet': 'Portfel $WOC',
+  'hudChrome.account.sectionWallet': 'Portfel Growverse',
   'hudChrome.account.title': 'Konto',
   'hudChrome.account.twoFactorBegin': 'Rozpocznij konfigurację',
   'hudChrome.account.twoFactorBeginHint': 'Wpisz hasło, aby rozpocząć konfigurację.',
@@ -4613,14 +4613,14 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'realmTypes.rpPvp': 'RP-PvP',
   'seo.applicationCategory': 'Gra',
   'seo.description':
-    'Wyrusz na epicką przygodę w Growverse, klasycznym mikro-MMO grywalnym bezpośrednio w przeglądarce. Dołącz do trwałego wspólnego świata, rozwijaj klasy postaci i pokonuj wrogów!',
+    'Growverse to darmowe przeglądarkowe MMORPG w klimacie konopnego fantasy. Przemierzaj świat połączony portalami, walcz z potworami, wykonuj zadania, uprawiaj magiczne odmiany i twórz własną legendę w stale rozwijającym się świecie. Graj od razu, bez pobierania.',
   'seo.genre': 'MMORPG',
   'seo.officialBody':
-    'worldofclaudecraft.com to oficjalne, darmowe przeglądarkowe MMO dla świata Claudemoon. Graj online z trwałą postacią, eksploruj solo w trybie offline, czytaj wiki i śledź zweryfikowane linki społeczności z tej strony.',
+    'Growverse to darmowe przeglądarkowe MMORPG w klimacie konopnego fantasy, osadzone w świecie połączonym portalami: walcz z potworami, wykonuj zadania, opanuj profesje i uprawiaj magiczne odmiany. Graj od razu w przeglądarce, eksploruj świat solo, czytaj wiki i śledź aktualności z rozwoju gry na tej stronie.',
   'seo.officialLabel': 'Oficjalna strona Growverse',
   'seo.operatingSystem': 'Przeglądarka internetowa',
   'seo.playMode': 'Wieloosobowy',
-  'seo.title': 'Growverse: klasyczne przeglądarkowe MMO',
+  'seo.title': 'Growverse: The Portal Chronicles, darmowe przeglądarkowe MMORPG',
   'serverUnavailable.body':
     'Ponownie uruchamiamy usługę gry i spodziewamy się, że Claudemoon wkrótce wróci. Ta strona będzie automatycznie sprawdzać stan.',
   'serverUnavailable.eyebrow': 'Konserwacja świata',
@@ -4813,7 +4813,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'wallet.holderTiers.worldbearer.name': 'Dźwigacz Świata',
   'wallet.holderTiers.worldforger.flavor': 'Wykuwasz własny świat: 9% podaży.',
   'wallet.holderTiers.worldforger.name': 'Kowal Światów',
-  'wallet.label': 'Portfel $WOC',
+  'wallet.label': 'Portfel Growverse',
   'wallet.linkFailed': 'Weryfikacja portfela nie powiodła się.',
   'wallet.linkTitle': 'Kliknij, aby podpisać i powiązać ten portfel ze swoim kontem.',
   'wallet.linkedDisconnectedAria':

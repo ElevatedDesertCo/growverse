@@ -25,7 +25,7 @@ import { type GuideRoute, hrefFor } from './routes';
 // The site origin. Matches index.html's canonical/og:url host exactly.
 const ORIGIN = 'https://worldofclaudecraft.com';
 const LOGO = `${ORIGIN}/growverse_logo_square.webp`;
-const GITHUB_URL = 'https://github.com/levy-street/world-of-claudecraft';
+const GITHUB_URL = 'https://github.com/ElevatedDesertCo/growverse';
 const DISCORD_URL = 'https://discord.gg/KSTJkrCq3';
 
 // The newcomer FAQ on /guide/faq, kept in lockstep with pages/faq.ts so the FAQPage

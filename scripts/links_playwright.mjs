@@ -41,7 +41,7 @@ const EXPECTED_LINKS = [
   'https://www.tiktok.com/@worldofclaudecraft',
   'https://www.youtube.com/@WoGrowverse',
   'https://www.reddit.com/r/WorldofClaudecraft/',
-  'https://github.com/levy-street/world-of-claudecraft',
+  'https://github.com/ElevatedDesertCo/growverse',
 ];
 
 const problems = [];

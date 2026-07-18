@@ -643,7 +643,7 @@ export const pt_BR: EnTranslations = {
       "loggedOutPrompt": "Entre para gerenciar sua conta.",
       "memberSince": "Membro desde {date}",
       "sectionSettings": "Configurações da conta",
-      "sectionWallet": "Carteira $WOC",
+      "sectionWallet": "Carteira Growverse",
       "sectionCharacters": "Personagens",
       "sectionDanger": "Zona de perigo",
       "changePassword": "Alterar senha",
@@ -1139,7 +1139,7 @@ export const pt_BR: EnTranslations = {
   "guide": {
     "brand": "Growverse",
     "brandShort": "Growverse",
-    "tagline": "Um MMO estilo clássico que você joga de graça no seu navegador.",
+    "tagline": "Um MMORPG de fantasia canábica que você joga de graça no seu navegador.",
     "skipToContent": "Pular para o conteúdo principal",
     "loading": "Carregando...",
     "docTitle": "{page} - {brand}",
@@ -1193,7 +1193,7 @@ export const pt_BR: EnTranslations = {
       "heading": "Nesta página"
     },
     "footer": {
-      "blurb": "Um micro-MMO de código aberto e estilo clássico. Cumpra missões, forme grupo e explore um mundo feito à mão, direto no seu navegador.",
+      "blurb": "Um MMORPG de fantasia canábica e código aberto. Cumpra missões, forme grupo e explore um mundo conectado por portais, direto no seu navegador.",
       "playNow": "Jogar Agora",
       "github": "Código no GitHub",
       "discord": "Entre no Discord",
@@ -1217,7 +1217,7 @@ export const pt_BR: EnTranslations = {
       "typeTerm": "Termo"
     },
     "home": {
-      "eyebrow": "MMO de navegador estilo clássico",
+      "eyebrow": "MMORPG de navegador de fantasia canábica",
       "title": "Growverse",
       "subtitle": "Cumpra missões, forme grupo e explore um mundo feito à mão, de graça no seu navegador.",
       "ctaPlay": "Jogar Agora",
@@ -2016,7 +2016,7 @@ export const pt_BR: EnTranslations = {
   },
   "footer": {
     "copyright": "2026 Growverse",
-    "githubLink": "https://github.com/levy-street/world-of-claudecraft",
+    "githubLink": "https://github.com/ElevatedDesertCo/growverse",
     "githubLabel": "Projeto de código aberto",
     "whitepaper": "Whitepaper",
     "terms": "Termos de serviço",
@@ -2107,7 +2107,7 @@ export const pt_BR: EnTranslations = {
     "twoFactorHint": "Digite o código do seu app autenticador ou um dos seus códigos de recuperação."
   },
   "wallet": {
-    "label": "Carteira $WOC",
+    "label": "Carteira Growverse",
     "connect": "Verificar carteira",
     "connectTitle": "Verifique sua carteira Solana",
     "connectAria": "Verifique sua carteira Solana",
@@ -2756,14 +2756,14 @@ export const pt_BR: EnTranslations = {
     }
   },
   "seo": {
-    "title": "Growverse: MMO web em estilo clássico",
-    "description": "Embarque em uma aventura épica em Growverse, um micro-MMO de estilo clássico jogável diretamente no navegador. Entre em um reino compartilhado, evolua classes e derrote inimigos.",
+    "title": "Growverse: The Portal Chronicles, um MMORPG de navegador gratuito",
+    "description": "Growverse é um MMORPG de navegador gratuito de fantasia canábica. Explore um mundo conectado por portais, enfrente criaturas, complete missões, cultive variedades mágicas e forje sua lenda em um reino em constante evolução. Jogue na hora, sem download.",
     "genre": "MMORPG",
     "playMode": "Multijogador",
     "applicationCategory": "Jogo",
     "operatingSystem": "Navegador web",
     "officialLabel": "Site oficial de Growverse",
-    "officialBody": "worldofclaudecraft.com é o MMO de navegador gratuito oficial do reino Claudemoon. Jogue online com um personagem persistente, explore solo offline, leia a wiki e siga os links verificados da comunidade a partir deste site."
+    "officialBody": "Growverse é um MMORPG de navegador gratuito de fantasia canábica ambientado em um mundo conectado por portais: enfrente criaturas, complete missões, domine profissões e cultive variedades mágicas. Jogue na hora no navegador, explore o mundo sozinho, leia a wiki e acompanhe as novidades do desenvolvimento neste site."
   },
   "a11y": {
     "goHome": "Ir para a página inicial",

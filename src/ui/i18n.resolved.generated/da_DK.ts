@@ -643,7 +643,7 @@ export const da_DK: EnTranslations = {
       "loggedOutPrompt": "Log ind for at administrere din konto.",
       "memberSince": "Medlem siden {date}",
       "sectionSettings": "Kontoindstillinger",
-      "sectionWallet": "$WOC Wallet",
+      "sectionWallet": "Growverse Wallet",
       "sectionCharacters": "Figurer",
       "sectionDanger": "Farezone",
       "changePassword": "Skift adgangskode",
@@ -1139,7 +1139,7 @@ export const da_DK: EnTranslations = {
   "guide": {
     "brand": "Growverse",
     "brandShort": "Growverse",
-    "tagline": "En klassisk MMO, du spiller gratis i din browser.",
+    "tagline": "En cannabis-fantasy-MMORPG, du spiller gratis i din browser.",
     "skipToContent": "Spring til hovedindhold",
     "loading": "Indlæser...",
     "docTitle": "{page} - {brand}",
@@ -1193,7 +1193,7 @@ export const da_DK: EnTranslations = {
       "heading": "På denne side"
     },
     "footer": {
-      "blurb": "En open-source mikro-MMO i klassisk stil. Tag på eventyr, dann grupper og udforsk en håndbygget verden, direkte i din browser.",
+      "blurb": "En open-source cannabis-fantasy-MMORPG. Tag på quests, dann grupper og udforsk en portalforbundet verden, direkte i din browser.",
       "playNow": "Spil nu",
       "github": "Kildekode på GitHub",
       "discord": "Bliv en del af Discord",
@@ -1217,7 +1217,7 @@ export const da_DK: EnTranslations = {
       "typeTerm": "Begreb"
     },
     "home": {
-      "eyebrow": "Klassisk browser-MMO",
+      "eyebrow": "Cannabis-fantasy-browser-MMORPG",
       "title": "Growverse",
       "subtitle": "Tag på quest, slå jer sammen, og udforsk en håndbygget verden, gratis i din browser.",
       "ctaPlay": "Spil nu",
@@ -2016,7 +2016,7 @@ export const da_DK: EnTranslations = {
   },
   "footer": {
     "copyright": "2026 Growverse",
-    "githubLink": "https://github.com/levy-street/world-of-claudecraft",
+    "githubLink": "https://github.com/ElevatedDesertCo/growverse",
     "githubLabel": "Open Source-projekt",
     "whitepaper": "Whitepaper",
     "terms": "Servicevilkår",
@@ -2107,7 +2107,7 @@ export const da_DK: EnTranslations = {
     "twoFactorHint": "Indtast koden fra din autentificeringsapp eller en af dine gendannelseskoder."
   },
   "wallet": {
-    "label": "$WOC-pung",
+    "label": "Growverse-pung",
     "connect": "Verificer pung",
     "connectTitle": "Verificer din Solana-pung",
     "connectAria": "Verificer din Solana-pung",
@@ -2756,14 +2756,14 @@ export const da_DK: EnTranslations = {
     }
   },
   "seo": {
-    "title": "Growverse: Klassisk-inspireret web-MMO",
-    "description": "Begiv dig ud på et episk eventyr i Growverse, en klassisk-inspireret micro-MMO, der kan spilles direkte i din browser. Slut dig til et vedvarende delt rige, lev op dine klasser, og besejr fjender!",
+    "title": "Growverse: The Portal Chronicles, et gratis browser-MMORPG",
+    "description": "Growverse er et gratis cannabis-fantasy-browser-MMORPG. Udforsk en portalforbundet verden, bekæmp væsner, gennemfør quests, dyrk magiske sorter, og skab din legende i et rige i konstant udvikling. Spil med det samme, ingen download.",
     "genre": "MMORPG",
     "playMode": "Flerspiller",
     "applicationCategory": "Spil",
     "operatingSystem": "Webbrowser",
     "officialLabel": "Officiel Growverse-hjemmeside",
-    "officialBody": "worldofclaudecraft.com er den officielle gratis browser-MMO for Claudemoon-riget. Spil online med en vedvarende karakter, udforsk solo offline, læs wikien, og følg verificerede fællesskabslinks fra denne side."
+    "officialBody": "Growverse er et gratis cannabis-fantasy-browser-MMORPG i en portalforbundet verden: bekæmp væsner, gennemfør quests, mestr professioner, og dyrk magiske sorter. Spil med det samme i din browser, udforsk verdenen solo, læs wikien, og følg opdateringer om udviklingen fra denne side."
   },
   "a11y": {
     "goHome": "Gå til forsiden",

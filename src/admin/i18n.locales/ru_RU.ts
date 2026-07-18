@@ -14,7 +14,7 @@ export const ru_RU: Record<string, string> = {
   'usage.metric.githubLinkRateLimited': 'Ограниченные запросы привязки GitHub',
   'usage.metric.githubLinkRequest': 'Запросы привязки GitHub',
   'app.title': 'Growverse — Админ',
-  'app.shortTitle': 'Администратор WoC',
+  'app.shortTitle': 'Администратор Growverse',
   'auth.username': 'Имя пользователя',
   'auth.password': 'Пароль',
   'auth.signIn': 'Войти',

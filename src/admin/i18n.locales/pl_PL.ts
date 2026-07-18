@@ -14,7 +14,7 @@ export const pl_PL: Record<string, string> = {
   'usage.metric.githubLinkRateLimited': 'Ograniczone żądania połączenia z GitHub',
   'usage.metric.githubLinkRequest': 'Żądania połączenia z GitHub',
   'app.title': 'Growverse - Panel administratora',
-  'app.shortTitle': 'Administrator WOC',
+  'app.shortTitle': 'Administrator Growverse',
   'auth.username': 'Nazwa użytkownika',
   'auth.password': 'Hasło',
   'auth.signIn': 'Zaloguj się',

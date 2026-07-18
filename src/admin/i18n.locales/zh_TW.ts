@@ -14,7 +14,7 @@ export const zh_TW: Record<string, string> = {
   'usage.metric.githubLinkRateLimited': 'GitHub 連結遭限流的請求次數',
   'usage.metric.githubLinkRequest': 'GitHub 連結請求次數',
   'app.title': 'Growverse - 管理後台',
-  'app.shortTitle': '沃克管理員',
+  'app.shortTitle': 'Growverse 管理員',
   'auth.username': '使用者名稱',
   'auth.password': '密碼',
   'auth.signIn': '登入',

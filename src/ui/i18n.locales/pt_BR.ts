@@ -99,7 +99,7 @@ export const pt_BR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.unitFrame.targetLabel': 'Seu alvo',
   'seo.officialLabel': 'Site oficial de Growverse',
   'seo.officialBody':
-    'worldofclaudecraft.com é o MMO de navegador gratuito oficial do reino Claudemoon. Jogue online com um personagem persistente, explore solo offline, leia a wiki e siga os links verificados da comunidade a partir deste site.',
+    'Growverse é um MMORPG de navegador gratuito de fantasia canábica ambientado em um mundo conectado por portais: enfrente criaturas, complete missões, domine profissões e cultive variedades mágicas. Jogue na hora no navegador, explore o mundo sozinho, leia a wiki e acompanhe as novidades do desenvolvimento neste site.',
   'hudChrome.questShare.notShareable': 'Esta missão não pode ser compartilhada.',
   'hudChrome.questShare.notInSharerParty':
     'Você precisa estar no grupo de {name} para aceitar essa missão.',
@@ -455,7 +455,7 @@ export const pt_BR: Partial<Record<TranslationKey, string>> = {
   'stats.playersOnline': 'Jogadores online',
   'stats.realmName': 'Nome do reino',
   'footer.copyright': '2026 Growverse',
-  'footer.githubLink': 'https://github.com/levy-street/world-of-claudecraft',
+  'footer.githubLink': 'https://github.com/ElevatedDesertCo/growverse',
   'footer.githubLabel': 'Projeto de código aberto',
   'footer.whitepaper': 'Whitepaper',
   'footer.terms': 'Termos de serviço',
@@ -505,7 +505,7 @@ export const pt_BR: Partial<Record<TranslationKey, string>> = {
   'auth.enterWorld': 'Entrar no mundo',
   'auth.offlineCharacter': 'Personagem offline',
   'auth.create': 'Criar',
-  'wallet.label': 'Carteira $WOC',
+  'wallet.label': 'Carteira Growverse',
   'wallet.connect': 'Verificar carteira',
   'wallet.connectTitle': 'Verifique sua carteira Solana',
   'wallet.connectAria': 'Verifique sua carteira Solana',
@@ -705,9 +705,9 @@ export const pt_BR: Partial<Record<TranslationKey, string>> = {
   'controls.emoteWheel': 'Segurar roda de emotes',
   'controls.friends': 'Amigos e guilda',
   'controls.chat': 'Abrir chat',
-  'seo.title': 'Growverse: MMO web em estilo clássico',
+  'seo.title': 'Growverse: The Portal Chronicles, um MMORPG de navegador gratuito',
   'seo.description':
-    'Embarque em uma aventura épica em Growverse, um micro-MMO de estilo clássico jogável diretamente no navegador. Entre em um reino compartilhado, evolua classes e derrote inimigos.',
+    'Growverse é um MMORPG de navegador gratuito de fantasia canábica. Explore um mundo conectado por portais, enfrente criaturas, complete missões, cultive variedades mágicas e forje sua lenda em um reino em constante evolução. Jogue na hora, sem download.',
   'seo.genre': 'MMORPG',
   'seo.playMode': 'Multijogador',
   'seo.applicationCategory': 'Jogo',
@@ -3502,7 +3502,7 @@ export const pt_BR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.account.sectionCharacters': 'Personagens',
   'hudChrome.account.sectionDanger': 'Zona de perigo',
   'hudChrome.account.sectionSettings': 'Configurações da conta',
-  'hudChrome.account.sectionWallet': 'Carteira $WOC',
+  'hudChrome.account.sectionWallet': 'Carteira Growverse',
   'hudChrome.account.title': 'Conta',
   'hudChrome.account.walletSummary':
     'Verifique uma carteira Solana para exibir o destaque de titular no seu cartão de jogador.',
@@ -3757,7 +3757,7 @@ export const pt_BR: Partial<Record<TranslationKey, string>> = {
   'guide.faqPage.q7': 'Meu personagem será salvo?',
   'guide.faqPage.q8': 'Posso hospedar minha própria cópia?',
   'guide.footer.blurb':
-    'Um micro-MMO de código aberto e estilo clássico. Cumpra missões, forme grupo e explore um mundo feito à mão, direto no seu navegador.',
+    'Um MMORPG de fantasia canábica e código aberto. Cumpra missões, forme grupo e explore um mundo conectado por portais, direto no seu navegador.',
   'guide.footer.communityWiki': 'Wiki da Comunidade',
   'guide.footer.discord': 'Entre no Discord',
   'guide.footer.github': 'Código no GitHub',
@@ -3808,7 +3808,7 @@ export const pt_BR: Partial<Record<TranslationKey, string>> = {
   'guide.home.community.play': 'Jogar Agora',
   'guide.home.ctaLearn': 'Como Jogar',
   'guide.home.ctaPlay': 'Jogar Agora',
-  'guide.home.eyebrow': 'MMO de navegador estilo clássico',
+  'guide.home.eyebrow': 'MMORPG de navegador de fantasia canábica',
   'guide.home.faq.a1':
     'Sim. O jogo inteiro é gratuito até o nível máximo, e é de código aberto no GitHub.',
   'guide.home.faq.a2':
@@ -3957,7 +3957,7 @@ export const pt_BR: Partial<Record<TranslationKey, string>> = {
   'guide.role.healer': 'Curandeiro',
   'guide.role.tank': 'Tanque',
   'guide.skipToContent': 'Pular para o conteúdo principal',
-  'guide.tagline': 'Um MMO estilo clássico que você joga de graça no seu navegador.',
+  'guide.tagline': 'Um MMORPG de fantasia canábica que você joga de graça no seu navegador.',
   'guide.worldPage.heading': 'O mundo',
   'guide.worldPage.hub': 'Base de operações',
   'guide.worldPage.intro':

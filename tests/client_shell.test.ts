@@ -534,9 +534,9 @@ describe('client HTML shell', () => {
     expect(html).toContain('<link rel="canonical" href="https://worldofclaudecraft.com/" />');
     expect(html).toContain('<meta property="og:site_name" content="Growverse" />');
     expect(html).toContain('"alternateName": "Growverse"');
-    expect(html).toContain('"https://github.com/levy-street/world-of-claudecraft"');
+    expect(html).toContain('"https://github.com/ElevatedDesertCo/growverse"');
     expect(mainTs).toContain("alternateName: 'Growverse'");
-    expect(mainTs).toContain("'https://github.com/levy-street/world-of-claudecraft'");
+    expect(mainTs).toContain("'https://github.com/ElevatedDesertCo/growverse'");
     expect(robotsTxt.trim()).toBe(
       'User-agent: *\nAllow: /\n\nSitemap: https://worldofclaudecraft.com/sitemap.xml\nSitemap: https://worldofclaudecraft.com/sitemap-characters.xml',
     );

@@ -15,7 +15,7 @@ export const sv_SE: Record<string, string> = {
   'usage.metric.githubLinkRateLimited': 'Strypta GitHub-länkningsförfrågningar',
   'usage.metric.githubLinkRequest': 'GitHub-länkningsförfrågningar',
   'app.title': 'Growverse - Admin',
-  'app.shortTitle': 'WoC-admin',
+  'app.shortTitle': 'Growverse-admin',
   'auth.username': 'Användarnamn',
   'auth.password': 'Lösenord',
   'auth.signIn': 'Logga in',

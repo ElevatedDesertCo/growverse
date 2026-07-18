@@ -13,7 +13,7 @@ import type { AdminTranslations } from '../i18n.en';
 
 export const fr_FR: AdminTranslations = {
   "app.title": "Growverse - Admin",
-  "app.shortTitle": "Administrateur WoC",
+  "app.shortTitle": "Administrateur Growverse",
   "auth.username": "Nom d'utilisateur",
   "auth.password": "Mot de passe",
   "auth.signIn": "Se connecter",

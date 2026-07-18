@@ -4,9 +4,9 @@
 
 </div>
 
-# Bidrag til World of ClaudeCraft
+# Bidrag til Growverse
 
-Først og fremmest tak, fordi du er her. World of ClaudeCraft er bygget af et
+Først og fremmest tak, fordi du er her. Growverse er bygget af et
 fællesskab af mennesker, der elsker klassiske MMO'er, og hvert bidrag, stort
 eller lille, gør spillet bedre. At rette en tastefejl, oversætte spillet,
 rapportere en fejl, bygge et helt nyt dungeon: det tæller alt sammen, og du er
@@ -24,13 +24,13 @@ Der er plads til alle her:
 
 - **Kode.** Ret en fejl, tilføj en funktion, eller forbedr ydeevnen. Issues med
   mærkaten
-  [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue)
-  og [`help wanted`](https://github.com/levy-street/world-of-claudecraft/labels/help%20wanted)
+  [`good first issue`](https://github.com/ElevatedDesertCo/growverse/labels/good%20first%20issue)
+  og [`help wanted`](https://github.com/ElevatedDesertCo/growverse/labels/help%20wanted)
   er gode steder at starte.
 - **Oversættelser.** Hjælp spillere over hele verden ved at forbedre eller
   færdiggøre et sprog. Se [Oversæt spillet](#translating-the-game) nedenfor.
   Dette er en af de nemmeste og mest virkningsfulde måder at komme i gang på.
-- **Fejlrapporter og funktionsidéer.** Åbn et [issue](https://github.com/levy-street/world-of-claudecraft/issues/new/choose).
+- **Fejlrapporter og funktionsidéer.** Åbn et [issue](https://github.com/ElevatedDesertCo/growverse/issues/new/choose).
   En tydelig fejlrapport er et reelt bidrag.
 - **Dokumentation.** Guider som denne, README'en og designdokumenterne i
   `docs/` kan altid forbedres.
@@ -44,8 +44,8 @@ skal du også bruge [Docker](https://www.docker.com/) til at køre Postgres.
 
 ```bash
 # 1. Fork the repo on GitHub, then clone your fork
-git clone https://github.com/<your-username>/world-of-claudecraft.git
-cd world-of-claudecraft
+git clone https://github.com/<your-username>/growverse.git
+cd growverse
 
 # 2. Install dependencies
 npm ci
@@ -143,7 +143,7 @@ konstruktive i gennemgangen, og vi beder om det samme af dig.
 
 ## Lokalisering
 
-World of ClaudeCraft udgives på mange sprog, og vi holder det sådan, efterhånden
+Growverse udgives på mange sprog, og vi holder det sådan, efterhånden
 som spillet vokser. Hver spillersynlig streng oversættes til hver understøttet
 lokalitet.
 
@@ -182,9 +182,9 @@ oversættelser får spillet til at føles hjemligt for spillere overalt.
 
 ## Rapportér fejl og anmod om funktioner
 
-Brug venligst [issue-skabelonerne](https://github.com/levy-street/world-of-claudecraft/issues/new/choose):
+Brug venligst [issue-skabelonerne](https://github.com/ElevatedDesertCo/growverse/issues/new/choose):
 
-- **Fejlrapport.** Søg først i [eksisterende issues](https://github.com/levy-street/world-of-claudecraft/issues)
+- **Fejlrapport.** Søg først i [eksisterende issues](https://github.com/ElevatedDesertCo/growverse/issues)
   for at undgå dubletter, og inkludér derefter trin til at reproducere, hvad du
   forventede, hvad der skete, og dit miljø (offline eller online, browser,
   desktop eller mobil).
@@ -204,5 +204,5 @@ Ved at bidrage accepterer du, at dine bidrag licenseres under projektets
 
 ---
 
-Tak, fordi du bidrager til World of ClaudeCraft. Vi kan ikke vente med at se,
+Tak, fordi du bidrager til Growverse. Vi kan ikke vente med at se,
 hvad du bygger sammen med os.

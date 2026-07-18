@@ -2080,7 +2080,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'footer.copyright': '2026 Growverse',
   'footer.discordLabel': "Discord'a Katıl",
   'footer.githubLabel': 'Açık Kaynak Proje',
-  'footer.githubLink': 'https://github.com/levy-street/world-of-claudecraft',
+  'footer.githubLink': 'https://github.com/ElevatedDesertCo/growverse',
   'footer.whitepaper': 'Teknik Doküman',
   'footer.privacy': 'Gizlilik Politikası',
   'footer.terms': 'Hizmet Koşulları',
@@ -2596,7 +2596,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'guide.faqPage.q8': 'Kendi kopyamı barındırabilir miyim?',
   'guide.faqPage.q9': 'PvP var mı?',
   'guide.footer.blurb':
-    'Açık kaynaklı, klasik tarzda bir mikro MMO. Görev yapın, gruplaşın ve elle yapılmış bir dünyayı, tam da tarayıcınızda keşfedin.',
+    'Açık kaynaklı, kenevir temalı bir fantezi MMORPG. Görev yapın, gruplaşın ve portallarla birbirine bağlı bir dünyayı, tam da tarayıcınızda keşfedin.',
   'guide.footer.communityWiki': "Topluluk Wiki'si",
   'guide.footer.discord': "Discord'a Katıl",
   'guide.footer.github': "GitHub'daki Kaynak",
@@ -2739,7 +2739,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'guide.home.community.play': 'Şimdi Oyna',
   'guide.home.ctaLearn': 'Nasıl Oynanır',
   'guide.home.ctaPlay': 'Şimdi Oyna',
-  'guide.home.eyebrow': "Klasik tarz tarayıcı MMO'su",
+  'guide.home.eyebrow': "Kenevir temalı fantezi tarayıcı MMORPG'si",
   'guide.home.faq.a1':
     "Evet. Oyunun tamamı seviye sınırına kadar ücretsiz ve GitHub'da açık kaynak.",
   'guide.home.faq.a2':
@@ -3122,7 +3122,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'guide.tag.ranged': 'Menzilli',
   'guide.tag.simple': 'Basit',
   'guide.tag.solo': 'Tek başına oynanabilir',
-  'guide.tagline': 'Tarayıcınızda ücretsiz oynayabileceğiniz klasik tarzda bir MMO.',
+  'guide.tagline': 'Tarayıcınızda ücretsiz oynayabileceğiniz kenevir temalı bir fantezi MMORPG.',
   'guide.talentsPage.heading': 'Yetenekler ve uzmanlıklar',
   'guide.talentsPage.howBody':
     'Yetenekler 10. seviyede açılır ve seviye tavanına tırmandıkça puan kazanmaya devam edersiniz. Bunları sınıfınızın yetenek panelinde harcarsınız ve birden fazla düzeni kaydederek yapılarınız arasında geçiş yapabilirsiniz.',
@@ -3794,7 +3794,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.account.sectionDanger': 'Tehlikeli Bölge',
   'hudChrome.account.sectionSecurity': 'Güvenlik',
   'hudChrome.account.sectionSettings': 'Hesap Ayarları',
-  'hudChrome.account.sectionWallet': '$WOC Cüzdanı',
+  'hudChrome.account.sectionWallet': 'Growverse Cüzdanı',
   'hudChrome.account.title': 'Hesap',
   'hudChrome.account.twoFactorBegin': 'Kuruluma Başla',
   'hudChrome.account.twoFactorBeginHint': 'Kuruluma başlamak için parolanızı girin.',
@@ -4581,14 +4581,14 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'realmTypes.rpPvp': 'RP-PvP',
   'seo.applicationCategory': 'Oyun',
   'seo.description':
-    "Doğrudan tarayıcında oynanabilen klasik tarzı bir mikro MMO olan Growverse'ta destansı bir maceraya atıl. Kalıcı bir ortak diyara katıl, sınıfları geliştir ve düşmanları alt et!",
+    "Growverse, kenevir temalı ücretsiz bir fantezi tarayıcı MMORPG'sidir. Portallarla birbirine bağlı bir dünyayı keşfet, yaratıklarla savaş, görevleri tamamla, büyülü türler yetiştir ve sürekli gelişen bir diyarda kendi efsaneni yaz. İndirmeden hemen oyna.",
   'seo.genre': 'MMORPG',
   'seo.officialBody':
-    "worldofclaudecraft.com, Claudemoon diyarının resmi ücretsiz tarayıcı MMO'sudur. Kalıcı bir karakterle çevrimiçi oyna, çevrimdışı tek başına keşfet, wiki'yi oku ve bu siteden doğrulanmış topluluk bağlantılarını takip et.",
+    "Growverse, portallarla birbirine bağlı bir dünyada geçen, kenevir temalı ücretsiz bir fantezi tarayıcı MMORPG'sidir: yaratıklarla savaş, görevleri tamamla, mesleklerde ustalaş ve büyülü türler yetiştir. Tarayıcında hemen oyna, dünyayı tek başına keşfet, wiki'yi oku ve geliştirme güncellemelerini bu siteden takip et.",
   'seo.officialLabel': 'Resmi Growverse web sitesi',
   'seo.operatingSystem': 'Web tarayıcısı',
   'seo.playMode': 'Çok Oyunculu',
-  'seo.title': "Growverse: Klasik Tarzı Web MMO'su",
+  'seo.title': "Growverse: The Portal Chronicles, ücretsiz bir tarayıcı MMORPG'si",
   'serverUnavailable.body':
     "Oyun hizmetini yeniden başlatıyoruz ve Claudemoon'un kısa süre içinde geri döneceğini umuyoruz. Bu sayfa otomatik olarak denetlemeye devam edecek.",
   'serverUnavailable.eyebrow': 'Diyar bakımı',
@@ -4781,7 +4781,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'wallet.holderTiers.worldbearer.name': 'Dünya Taşıyıcı',
   'wallet.holderTiers.worldforger.flavor': "Kendine ait bir dünya döversin: arzın %9'u.",
   'wallet.holderTiers.worldforger.name': 'Dünya Döven',
-  'wallet.label': '$WOC Cüzdanı',
+  'wallet.label': 'Growverse Cüzdanı',
   'wallet.linkFailed': 'Cüzdan doğrulaması başarısız oldu.',
   'wallet.linkTitle': 'Bu cüzdanı imzalayıp hesabınıza bağlamak için tıklayın.',
   'wallet.linkedDisconnectedAria':

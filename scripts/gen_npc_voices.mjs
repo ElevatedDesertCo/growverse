@@ -88,7 +88,7 @@ async function designAndFinalize(p) {
   }
 
   const created = await api('/v1/text-to-voice', {
-    voice_name: `WoC ${p.name}`,
+    voice_name: `Growverse ${p.name}`,
     voice_description: p.voiceDescription,
     generated_voice_id: preview.generated_voice_id,
   });

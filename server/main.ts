@@ -310,7 +310,7 @@ async function getGuildLeaderboard(scope: 'realm' | 'global'): Promise<GuildLead
 // secret to the client; (3) we return only the small, sanitised subset the UI
 // needs. Same compute-once/serve-from-memory pattern as the leaderboard cache.
 // ---------------------------------------------------------------------------
-const GITHUB_REPO = process.env.GITHUB_REPO ?? 'levy-street/world-of-claudecraft';
+const GITHUB_REPO = process.env.GITHUB_REPO ?? 'ElevatedDesertCo/growverse';
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN ?? '';
 const RELEASES_TTL_MS = 15 * 60_000; // 15 min — releases change rarely
 const RELEASES_SIZE = 20;
@@ -338,7 +338,7 @@ async function refreshReleases(): Promise<ReleaseEntry[]> {
         headers: {
           Accept: 'application/vnd.github+json',
           'X-GitHub-Api-Version': '2022-11-28',
-          'User-Agent': 'world-of-claudecraft-server',
+          'User-Agent': 'growverse-server',
           ...(GITHUB_TOKEN ? { Authorization: `Bearer ${GITHUB_TOKEN}` } : {}),
         },
         signal: AbortSignal.timeout(8000),

@@ -16,7 +16,9 @@ await mkdir(outDir, { recursive: true });
 
 const css = await readFile('mediawiki/theme/Common.css', 'utf8');
 
-await writeFile(sourcePath, `
+await writeFile(
+  sourcePath,
+  `
 import { ABILITIES, CLASSES, DUNGEON_LIST, ITEMS, MOBS, NPCS, QUEST_ORDER, QUESTS, ZONES } from '../../src/sim/data';
 
 const css = ${JSON.stringify(css)};
@@ -107,12 +109,12 @@ add('Main Page', \`
 <div class="woc-hero">
 <div>
 <p class="woc-kicker">Community player encyclopedia</p>
-<h1>World of Claudecraft Wiki</h1>
-World of Claudecraft is a browser-playable, WoW-Classic-flavored micro-MMO with online persistence, offline play, deterministic simulation logic, and a launch-week community that quickly turned jokes, dungeon clears, level races, bug reports, and feature requests into game history.
+<h1>Growverse Wiki</h1>
+Growverse is a browser-playable cannabis-fantasy MMORPG with online persistence, offline play, deterministic simulation logic, and a community whose launch-week jokes, dungeon clears, level races, bug reports, and feature requests quickly became game history. Growverse began as a fork of World of ClaudeCraft; the historical pages below preserve that era.
 
 '''Start here:''' [[Quick Start]] · [[All Pages]] · [[Zones]] · [[Classes]] · [[Gameplay Systems]] · [[Community Lore]] · [[Development Timeline]]
 </div>
-<div class="woc-card"><div class="woc-crest">World of Claudecraft</div></div>
+<div class="woc-card"><div class="woc-crest">Growverse</div></div>
 </div>
 </div>
 \` + section('Featured portals', bullets([
@@ -277,7 +279,7 @@ const body = pages.map((page, index) => \`
       <id>\${index + 1}</id>
       <timestamp>\${now}</timestamp>
       <contributor><username>WikiAdmin</username><id>1</id></contributor>
-      <comment>Seed World of Claudecraft wiki content</comment>
+      <comment>Seed Growverse wiki content</comment>
       <model>wikitext</model>
       <format>text/x-wiki</format>
       <text xml:space="preserve" bytes="\${Buffer.byteLength(page.text)}">\${escXml(page.text)}</text>
@@ -287,7 +289,7 @@ const body = pages.map((page, index) => \`
 const xml = \`<?xml version="1.0" encoding="UTF-8"?>
 <mediawiki xmlns="http://www.mediawiki.org/xml/export-0.11/" version="0.11" xml:lang="en">
   <siteinfo>
-    <sitename>World of Claudecraft Wiki</sitename>
+    <sitename>Growverse Wiki</sitename>
     <dbname>mediawiki</dbname>
     <base>http://localhost:8080/wiki/index.php/Main_Page</base>
     <generator>MediaWiki seed</generator>
@@ -303,7 +305,8 @@ const xml = \`<?xml version="1.0" encoding="UTF-8"?>
 \`;
 
 console.log(xml);
-`);
+`,
+);
 
 await build({
   entryPoints: [sourcePath],

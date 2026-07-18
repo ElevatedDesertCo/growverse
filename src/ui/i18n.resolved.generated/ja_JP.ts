@@ -643,7 +643,7 @@ export const ja_JP: EnTranslations = {
       "loggedOutPrompt": "アカウントを管理するにはログインしてください。",
       "memberSince": "登録日：{date}",
       "sectionSettings": "アカウント設定",
-      "sectionWallet": "$WOC ウォレット",
+      "sectionWallet": "Growverse ウォレット",
       "sectionCharacters": "キャラクター",
       "sectionDanger": "危険な操作",
       "changePassword": "パスワードの変更",
@@ -1139,7 +1139,7 @@ export const ja_JP: EnTranslations = {
   "guide": {
     "brand": "Growverse",
     "brandShort": "Growverse",
-    "tagline": "ブラウザで無料で遊べる、クラシックスタイルのMMO。",
+    "tagline": "ブラウザで無料で遊べる、カンナビス・ファンタジーのMMORPG。",
     "skipToContent": "メインコンテンツへスキップ",
     "loading": "読み込み中...",
     "docTitle": "{page} - {brand}",
@@ -1193,7 +1193,7 @@ export const ja_JP: EnTranslations = {
       "heading": "このページの内容"
     },
     "footer": {
-      "blurb": "オープンソースの、クラシックスタイルなマイクロMMO。クエストをこなし、仲間と組み、手作りのワールドを冒険しよう。すべてブラウザで。",
+      "blurb": "オープンソースのカンナビス・ファンタジーMMORPG。クエストをこなし、仲間と組み、ポータルでつながる世界を冒険しよう。すべてブラウザで。",
       "playNow": "今すぐプレイ",
       "github": "GitHubのソース",
       "discord": "Discordに参加",
@@ -1217,7 +1217,7 @@ export const ja_JP: EnTranslations = {
       "typeTerm": "用語"
     },
     "home": {
-      "eyebrow": "クラシックスタイルのブラウザMMO",
+      "eyebrow": "カンナビス・ファンタジーのブラウザMMORPG",
       "title": "Growverse",
       "subtitle": "クエストをこなし、仲間と組み、手作りのワールドを冒険しよう。ブラウザで無料。",
       "ctaPlay": "今すぐプレイ",
@@ -2016,7 +2016,7 @@ export const ja_JP: EnTranslations = {
   },
   "footer": {
     "copyright": "2026 Growverse",
-    "githubLink": "https://github.com/levy-street/world-of-claudecraft",
+    "githubLink": "https://github.com/ElevatedDesertCo/growverse",
     "githubLabel": "オープンソースプロジェクト",
     "whitepaper": "ホワイトペーパー",
     "terms": "利用規約",
@@ -2107,7 +2107,7 @@ export const ja_JP: EnTranslations = {
     "twoFactorHint": "認証アプリに表示されたコード、またはリカバリーコードのいずれかを入力してください。"
   },
   "wallet": {
-    "label": "$WOC ウォレット",
+    "label": "Growverse ウォレット",
     "connect": "ウォレット認証",
     "connectTitle": "Solanaウォレットを認証",
     "connectAria": "Solanaウォレットを認証",
@@ -2756,14 +2756,14 @@ export const ja_JP: EnTranslations = {
     }
   },
   "seo": {
-    "title": "Growverse: クラシック風Web MMO",
-    "description": "ブラウザで直接遊べるクラシック風マイクロMMO、Growverse で壮大な冒険に出ましょう。永続的な共有レルムに参加し、クラスを育て、敵を倒してください。",
+    "title": "Growverse: The Portal Chronicles、無料ブラウザMMORPG",
+    "description": "Growverse はカンナビス・ファンタジーの無料ブラウザMMORPGです。ポータルでつながる世界を探索し、クリーチャーと戦い、クエストを達成し、魔法の品種を栽培して、進化し続けるレルムで自分の伝説を築きましょう。ダウンロード不要、すぐにプレイできます。",
     "genre": "MMORPG",
     "playMode": "マルチプレイヤー",
     "applicationCategory": "ゲーム",
     "operatingSystem": "Webブラウザ",
     "officialLabel": "Growverse 公式サイト",
-    "officialBody": "worldofclaudecraft.com は Claudemoon レルムの公式無料ブラウザMMOです。永続キャラクターでオンラインプレイし、オフラインでソロ探索し、wikiを読み、このサイトから確認済みのコミュニティリンクをたどれます。"
+    "officialBody": "Growverse はポータルでつながる世界を舞台にしたカンナビス・ファンタジーの無料ブラウザMMORPGです。クリーチャーと戦い、クエストを達成し、専門技能を極め、魔法の品種を栽培しましょう。ブラウザですぐにプレイし、ソロで世界を探索し、wikiを読み、このサイトから開発アップデートを追いかけられます。"
   },
   "a11y": {
     "goHome": "ホームへ移動",

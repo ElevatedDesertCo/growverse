@@ -15,7 +15,7 @@ export const id_ID: Record<string, string> = {
   'usage.metric.githubLinkRateLimited': 'Permintaan tautan GitHub yang dibatasi',
   'usage.metric.githubLinkRequest': 'Permintaan tautan GitHub',
   'app.title': 'Growverse - Admin',
-  'app.shortTitle': 'Admin WoC',
+  'app.shortTitle': 'Admin Growverse',
   'auth.username': 'Nama pengguna',
   'auth.password': 'Kata sandi',
   'auth.signIn': 'Masuk',

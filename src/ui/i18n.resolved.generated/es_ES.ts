@@ -643,7 +643,7 @@ export const es_ES: EnTranslations = {
       "loggedOutPrompt": "Inicia sesión para gestionar tu cuenta.",
       "memberSince": "Miembro desde {date}",
       "sectionSettings": "Ajustes de Cuenta",
-      "sectionWallet": "Cartera $WOC",
+      "sectionWallet": "Cartera Growverse",
       "sectionCharacters": "Personajes",
       "sectionDanger": "Zona de Peligro",
       "changePassword": "Cambiar Contraseña",
@@ -1139,7 +1139,7 @@ export const es_ES: EnTranslations = {
   "guide": {
     "brand": "Growverse",
     "brandShort": "Growverse",
-    "tagline": "Un MMO de estilo clásico que juegas gratis en tu navegador.",
+    "tagline": "Un MMORPG de fantasía cannábica que juegas gratis en tu navegador.",
     "skipToContent": "Saltar al contenido principal",
     "loading": "Cargando...",
     "docTitle": "{page} - {brand}",
@@ -1193,7 +1193,7 @@ export const es_ES: EnTranslations = {
       "heading": "En esta página"
     },
     "footer": {
-      "blurb": "Un micro-MMO de estilo clásico y código abierto. Haz misiones, forma grupo y explora un mundo hecho a mano, directamente en tu navegador.",
+      "blurb": "Un MMORPG de fantasía cannábica y código abierto. Haz misiones, forma grupo y explora un mundo conectado por portales, directamente en tu navegador.",
       "playNow": "Jugar ahora",
       "github": "Código en GitHub",
       "discord": "Únete al Discord",
@@ -1217,7 +1217,7 @@ export const es_ES: EnTranslations = {
       "typeTerm": "Término"
     },
     "home": {
-      "eyebrow": "MMO de navegador de estilo clásico",
+      "eyebrow": "MMORPG de navegador de fantasía cannábica",
       "title": "Growverse",
       "subtitle": "Haz misiones, forma grupo y explora un mundo hecho a mano, gratis en tu navegador.",
       "ctaPlay": "Jugar ahora",
@@ -2016,7 +2016,7 @@ export const es_ES: EnTranslations = {
   },
   "footer": {
     "copyright": "2026 Growverse",
-    "githubLink": "https://github.com/levy-street/world-of-claudecraft",
+    "githubLink": "https://github.com/ElevatedDesertCo/growverse",
     "githubLabel": "Proyecto de código abierto",
     "whitepaper": "Libro blanco",
     "terms": "Términos de servicio",
@@ -2107,7 +2107,7 @@ export const es_ES: EnTranslations = {
     "twoFactorHint": "Introduce el código de tu app de autenticación, o uno de tus códigos de recuperación."
   },
   "wallet": {
-    "label": "Cartera $WOC",
+    "label": "Cartera Growverse",
     "connect": "Verificar cartera",
     "connectTitle": "Verifica tu cartera de Solana",
     "connectAria": "Verifica tu cartera de Solana",
@@ -2756,14 +2756,14 @@ export const es_ES: EnTranslations = {
     }
   },
   "seo": {
-    "title": "Growverse: MMO web de estilo clásico",
-    "description": "Emprende una aventura épica en Growverse, un micro-MMO de estilo clásico jugable directamente en el navegador. Únete a un reino compartido, sube clases de nivel y derrota enemigos.",
+    "title": "Growverse: The Portal Chronicles, un MMORPG de navegador gratuito",
+    "description": "Growverse es un MMORPG de navegador gratuito de fantasía cannábica. Explora un mundo conectado por portales, lucha contra criaturas, completa misiones, cultiva cepas mágicas y forja tu leyenda en un reino en constante evolución. Juega al instante, sin descargas.",
     "genre": "MMORPG",
     "playMode": "Multijugador",
     "applicationCategory": "Juego",
     "operatingSystem": "Navegador web",
     "officialLabel": "Sitio web oficial de Growverse",
-    "officialBody": "worldofclaudecraft.com es el MMO de navegador gratuito oficial del reino Claudemoon. Juega en línea con un personaje persistente, explora en solitario sin conexión, lee la wiki y sigue los enlaces comunitarios verificados desde este sitio."
+    "officialBody": "Growverse es un MMORPG de navegador gratuito de fantasía cannábica ambientado en un mundo conectado por portales: lucha contra criaturas, completa misiones, domina profesiones y cultiva cepas mágicas. Juega al instante en tu navegador, explora el mundo en solitario, lee la wiki y sigue las novedades del desarrollo desde este sitio."
   },
   "a11y": {
     "goHome": "Ir a la página de inicio",

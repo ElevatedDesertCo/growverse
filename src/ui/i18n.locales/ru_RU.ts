@@ -79,7 +79,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.unitFrame.targetLabel': 'Ваша цель',
   'seo.officialLabel': 'Официальный сайт Growverse',
   'seo.officialBody':
-    'worldofclaudecraft.com - официальная бесплатная браузерная MMO для мира Claudemoon. Играйте онлайн с постоянным персонажем, исследуйте мир в одиночку офлайн, читайте wiki и переходите по проверенным ссылкам сообщества с этого сайта.',
+    'Growverse - бесплатная браузерная MMORPG в жанре каннабис-фэнтези, действие которой разворачивается в мире, связанном порталами: сражайтесь с существами, выполняйте задания, осваивайте профессии и выращивайте волшебные сорта. Играйте сразу в браузере, исследуйте мир в одиночку, читайте wiki и следите за новостями разработки на этом сайте.',
   'hudChrome.questShare.notShareable': 'Этим заданием нельзя поделиться.',
   'hudChrome.questShare.notInSharerParty':
     'Вы должны состоять в группе игрока {name}, чтобы принять это задание.',
@@ -497,7 +497,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'stats.playersOnline': 'Игроков в сети',
   'stats.realmName': 'Название игрового мира',
   'footer.copyright': '2026 Growverse',
-  'footer.githubLink': 'https://github.com/levy-street/world-of-claudecraft',
+  'footer.githubLink': 'https://github.com/ElevatedDesertCo/growverse',
   'footer.githubLabel': 'Проект с открытым исходным кодом',
   'footer.whitepaper': 'Белая книга',
   'footer.terms': 'Условия использования',
@@ -551,7 +551,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'auth.twoFactorPlaceholder': '6-значный код или код восстановления',
   'auth.twoFactorHint':
     'Введите код из приложения-аутентификатора или один из ваших кодов восстановления.',
-  'wallet.label': 'Кошелек $WOC',
+  'wallet.label': 'Кошелек Growverse',
   'wallet.connect': 'Подтвердить кошелек',
   'wallet.connectTitle': 'Подтвердить ваш кошелек Solana',
   'wallet.connectAria': 'Подтвердить ваш кошелек Solana',
@@ -751,9 +751,9 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'controls.emoteWheel': 'Удерживать колесо эмоций',
   'controls.friends': 'Друзья и гильдия',
   'controls.chat': 'Открыть чат',
-  'seo.title': 'Growverse: веб-MMO в классическом стиле',
+  'seo.title': 'Growverse: The Portal Chronicles, бесплатная браузерная MMORPG',
   'seo.description':
-    'Отправьтесь в эпическое приключение в Growverse, микро-MMO в классическом стиле прямо в браузере. Присоединяйтесь к общему миру, развивайте классы и побеждайте врагов.',
+    'Growverse - бесплатная браузерная MMORPG в жанре каннабис-фэнтези. Исследуйте мир, связанный порталами, сражайтесь с существами, выполняйте задания, выращивайте волшебные сорта и создавайте свою легенду в постоянно развивающемся мире. Играйте сразу, без загрузки.',
   'seo.genre': 'MMORPG',
   'seo.playMode': 'Многопользовательская игра',
   'seo.applicationCategory': 'Игра',
@@ -3668,7 +3668,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.account.loggedOutPrompt': 'Войдите, чтобы управлять аккаунтом.',
   'hudChrome.account.memberSince': 'Дата регистрации: {date}',
   'hudChrome.account.sectionSettings': 'Настройки аккаунта',
-  'hudChrome.account.sectionWallet': 'Кошелёк $WOC',
+  'hudChrome.account.sectionWallet': 'Кошелёк Growverse',
   'hudChrome.account.sectionCharacters': 'Персонажи',
   'hudChrome.account.sectionDanger': 'Опасная зона',
   'hudChrome.account.changePassword': 'Сменить пароль',
@@ -3775,7 +3775,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   // Guide (/guide) localization.
   'guide.brand': 'Growverse',
   'guide.brandShort': 'Growverse',
-  'guide.tagline': 'Классическая MMO, в которую можно играть бесплатно прямо в браузере.',
+  'guide.tagline': 'MMORPG в жанре каннабис-фэнтези, в которую можно играть бесплатно прямо в браузере.',
   'guide.skipToContent': 'Перейти к основному содержимому',
   'guide.loading': 'Загрузка...',
   'guide.controls.targetFriendly': 'Ближайший союзник',
@@ -3839,7 +3839,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'guide.groups.compendium': 'Компендиум',
   'guide.groups.reference': 'Справочник',
   'guide.footer.blurb':
-    'Классическая мини-MMO с открытым исходным кодом. Выполняйте задания, объединяйтесь в группы и исследуйте созданный вручную мир прямо в браузере.',
+    'MMORPG в жанре каннабис-фэнтези с открытым исходным кодом. Выполняйте задания, объединяйтесь в группы и исследуйте мир, связанный порталами, прямо в браузере.',
   'guide.footer.playNow': 'Играть',
   'guide.footer.github': 'Исходный код на GitHub',
   'guide.footer.discord': 'Присоединиться к Discord',
@@ -3847,7 +3847,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'guide.footer.rights': 'Growverse',
   'guide.language.label': 'Язык',
   'guide.language.select': 'Выберите язык',
-  'guide.home.eyebrow': 'Классическая браузерная MMO',
+  'guide.home.eyebrow': 'Браузерная MMORPG в жанре каннабис-фэнтези',
   'guide.home.title': 'Growverse',
   'guide.home.subtitle':
     'Выполняйте задания, объединяйтесь в группы и исследуйте созданный вручную мир бесплатно прямо в браузере.',

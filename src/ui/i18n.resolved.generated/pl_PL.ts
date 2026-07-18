@@ -643,7 +643,7 @@ export const pl_PL: EnTranslations = {
       "loggedOutPrompt": "Zaloguj się, aby zarządzać kontem.",
       "memberSince": "Członek od {date}",
       "sectionSettings": "Ustawienia konta",
-      "sectionWallet": "Portfel $WOC",
+      "sectionWallet": "Portfel Growverse",
       "sectionCharacters": "Postacie",
       "sectionDanger": "Strefa zagrożenia",
       "changePassword": "Zmień hasło",
@@ -1139,7 +1139,7 @@ export const pl_PL: EnTranslations = {
   "guide": {
     "brand": "Growverse",
     "brandShort": "Growverse",
-    "tagline": "Klasyczne MMO, w które zagrasz za darmo w przeglądarce.",
+    "tagline": "MMORPG w klimacie konopnego fantasy, w które zagrasz za darmo w przeglądarce.",
     "skipToContent": "Przejdź do treści głównej",
     "loading": "Ładowanie...",
     "docTitle": "{page} - {brand}",
@@ -1193,7 +1193,7 @@ export const pl_PL: EnTranslations = {
       "heading": "Na tej stronie"
     },
     "footer": {
-      "blurb": "Otwartoźródłowe, klasyczne mikro-MMO. Wykonuj zadania, łącz się w grupy i eksploruj ręcznie zbudowany świat, prosto w przeglądarce.",
+      "blurb": "Otwartoźródłowe MMORPG w klimacie konopnego fantasy. Wykonuj zadania, łącz się w grupy i eksploruj świat połączony portalami, prosto w przeglądarce.",
       "playNow": "Zagraj teraz",
       "github": "Źródło na GitHubie",
       "discord": "Dołącz do Discorda",
@@ -1217,7 +1217,7 @@ export const pl_PL: EnTranslations = {
       "typeTerm": "Termin"
     },
     "home": {
-      "eyebrow": "Klasyczne MMO w przeglądarce",
+      "eyebrow": "Przeglądarkowe MMORPG w klimacie konopnego fantasy",
       "title": "Growverse",
       "subtitle": "Wykonuj zadania, zbieraj drużynę i odkrywaj ręcznie tworzony świat, za darmo w przeglądarce.",
       "ctaPlay": "Zagraj teraz",
@@ -2016,7 +2016,7 @@ export const pl_PL: EnTranslations = {
   },
   "footer": {
     "copyright": "2026 Growverse",
-    "githubLink": "https://github.com/levy-street/world-of-claudecraft",
+    "githubLink": "https://github.com/ElevatedDesertCo/growverse",
     "githubLabel": "Projekt open source",
     "whitepaper": "Biała księga",
     "terms": "Warunki korzystania z usługi",
@@ -2107,7 +2107,7 @@ export const pl_PL: EnTranslations = {
     "twoFactorHint": "Wprowadź kod z aplikacji uwierzytelniającej lub jeden z kodów odzyskiwania."
   },
   "wallet": {
-    "label": "Portfel $WOC",
+    "label": "Portfel Growverse",
     "connect": "Zweryfikuj portfel",
     "connectTitle": "Zweryfikuj swój portfel Solana",
     "connectAria": "Zweryfikuj swój portfel Solana",
@@ -2756,14 +2756,14 @@ export const pl_PL: EnTranslations = {
     }
   },
   "seo": {
-    "title": "Growverse: klasyczne przeglądarkowe MMO",
-    "description": "Wyrusz na epicką przygodę w Growverse, klasycznym mikro-MMO grywalnym bezpośrednio w przeglądarce. Dołącz do trwałego wspólnego świata, rozwijaj klasy postaci i pokonuj wrogów!",
+    "title": "Growverse: The Portal Chronicles, darmowe przeglądarkowe MMORPG",
+    "description": "Growverse to darmowe przeglądarkowe MMORPG w klimacie konopnego fantasy. Przemierzaj świat połączony portalami, walcz z potworami, wykonuj zadania, uprawiaj magiczne odmiany i twórz własną legendę w stale rozwijającym się świecie. Graj od razu, bez pobierania.",
     "genre": "MMORPG",
     "playMode": "Wieloosobowy",
     "applicationCategory": "Gra",
     "operatingSystem": "Przeglądarka internetowa",
     "officialLabel": "Oficjalna strona Growverse",
-    "officialBody": "worldofclaudecraft.com to oficjalne, darmowe przeglądarkowe MMO dla świata Claudemoon. Graj online z trwałą postacią, eksploruj solo w trybie offline, czytaj wiki i śledź zweryfikowane linki społeczności z tej strony."
+    "officialBody": "Growverse to darmowe przeglądarkowe MMORPG w klimacie konopnego fantasy, osadzone w świecie połączonym portalami: walcz z potworami, wykonuj zadania, opanuj profesje i uprawiaj magiczne odmiany. Graj od razu w przeglądarce, eksploruj świat solo, czytaj wiki i śledź aktualności z rozwoju gry na tej stronie."
   },
   "a11y": {
     "goHome": "Przejdź do strony głównej",

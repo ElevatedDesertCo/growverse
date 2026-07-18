@@ -4,9 +4,9 @@
 
 </div>
 
-# 為 World of ClaudeCraft 做出貢獻
+# 為 Growverse 做出貢獻
 
-首先，謝謝你來到這裡。World of ClaudeCraft 是由一群熱愛經典 MMO 的人共同打造的，每一份貢獻，無論大小，都讓它變得更好。修正一個錯字、翻譯遊戲、回報一個錯誤、打造一整座全新的地城：這些全都很有意義，我們很歡迎你。
+首先，謝謝你來到這裡。Growverse 是由一群熱愛經典 MMO 的人共同打造的，每一份貢獻，無論大小，都讓它變得更好。修正一個錯字、翻譯遊戲、回報一個錯誤、打造一整座全新的地城：這些全都很有意義，我們很歡迎你。
 
 這份指南會協助你完成環境設定，並讓你的第一次貢獻順利進行。你不需要是專家。如果有任何不清楚的地方，歡迎到 [Discord](https://discord.gg/KSTJkrCq3) 提問，會有人很樂意幫你。
 
@@ -17,11 +17,11 @@
 這裡有適合每一個人的位置：
 
 - **程式碼。** 修正錯誤、新增功能，或改善效能。標記為
-  [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue)
-  和 [`help wanted`](https://github.com/levy-street/world-of-claudecraft/labels/help%20wanted)
+  [`good first issue`](https://github.com/ElevatedDesertCo/growverse/labels/good%20first%20issue)
+  和 [`help wanted`](https://github.com/ElevatedDesertCo/growverse/labels/help%20wanted)
   的議題是不錯的起點。
 - **翻譯。** 透過改善或補完某個語言，幫助世界各地的玩家。請參考下方的[翻譯遊戲](#translating-the-game)。這是入門最容易、影響也最大的方式之一。
-- **錯誤回報與功能點子。** 開一個[議題](https://github.com/levy-street/world-of-claudecraft/issues/new/choose)。
+- **錯誤回報與功能點子。** 開一個[議題](https://github.com/ElevatedDesertCo/growverse/issues/new/choose)。
   一份清楚的錯誤回報就是實實在在的貢獻。
 - **文件。** 像這份一樣的指南、README，以及 `docs/` 裡的設計文件，永遠都有改善的空間。
 - **遊玩測試與意見回饋。** 玩玩看這款遊戲，告訴我們哪裡感覺不對勁，並在 Discord 上分享你的想法。
@@ -32,8 +32,8 @@
 
 ```bash
 # 1. 在 GitHub 上 fork 這個 repo，然後 clone 你的 fork
-git clone https://github.com/<your-username>/world-of-claudecraft.git
-cd world-of-claudecraft
+git clone https://github.com/<your-username>/growverse.git
+cd growverse
 
 # 2. 安裝相依套件
 npm ci
@@ -100,7 +100,7 @@ CI 跑出綠燈，加上一份完整的檢查清單，就是我們合併前所�
 
 ## 在地化
 
-World of ClaudeCraft 以多種語言發行，而且我們會在遊戲持續成長的同時維持這一點。每一段玩家可見的字串，都會翻譯成每一個支援的語系。
+Growverse 以多種語言發行，而且我們會在遊戲持續成長的同時維持這一點。每一段玩家可見的字串，都會翻譯成每一個支援的語系。
 
 - 所有面向使用者的文字都是定義在 [`src/ui/i18n.ts`](../../src/ui/i18n.ts) 中的 `t()` key。先把新字串加入 `en` 語系，接著在 `supportedLanguages` 裡的每一個其他語系都提供真正的翻譯。不要留英文佔位字串，也不要留 `// TODO`。
 - 數字、金錢、日期、單位與百分比都要透過格式化工具處理（`formatNumber`、`formatMoney`、`formatDateTime`、`Intl`），而不是手動拼接字串。
@@ -122,9 +122,9 @@ World of ClaudeCraft 以多種語言發行，而且我們會在遊戲持續成�
 
 ## 回報錯誤與提出功能需求
 
-請使用[議題範本](https://github.com/levy-street/world-of-claudecraft/issues/new/choose)：
+請使用[議題範本](https://github.com/ElevatedDesertCo/growverse/issues/new/choose)：
 
-- **錯誤回報。** 請先搜尋[既有的議題](https://github.com/levy-street/world-of-claudecraft/issues)以避免重複，接著附上重現步驟、你預期的結果、實際發生的狀況，以及你的環境（離線或線上、瀏覽器、桌機或行動裝置）。
+- **錯誤回報。** 請先搜尋[既有的議題](https://github.com/ElevatedDesertCo/growverse/issues)以避免重複，接著附上重現步驟、你預期的結果、實際發生的狀況，以及你的環境（離線或線上、瀏覽器、桌機或行動裝置）。
 - **功能需求。** 請描述你想解決的問題，而不只是解決方案。脈絡能幫助我們設計出對的東西。
 
 ## 取得協助
@@ -137,4 +137,4 @@ World of ClaudeCraft 以多種語言發行，而且我們會在遊戲持續成�
 
 ---
 
-謝謝你為 World of ClaudeCraft 做出貢獻。我們迫不及待想看看你和我們一起打造出什麼。
+謝謝你為 Growverse 做出貢獻。我們迫不及待想看看你和我們一起打造出什麼。

@@ -24,7 +24,7 @@ import { LEADERBOARD_MAX } from '../src/sim/leaderboard_page';
 import type { DevLeaderboardEntry } from '../src/world_api';
 import { recordUsageCacheEvent, recordUsageMetric, setUsageCacheSize } from './provider_usage';
 
-const GITHUB_REPO = process.env.GITHUB_REPO ?? 'levy-street/world-of-claudecraft';
+const GITHUB_REPO = process.env.GITHUB_REPO ?? 'ElevatedDesertCo/growverse';
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN ?? '';
 const GITHUB_API_HOST = 'api.github.com';
 const PULLS_URL = `https://${GITHUB_API_HOST}/repos/${GITHUB_REPO}/pulls`;
@@ -139,7 +139,7 @@ function githubHeaders(): Record<string, string> {
   return {
     Accept: 'application/vnd.github+json',
     'X-GitHub-Api-Version': '2022-11-28',
-    'User-Agent': 'world-of-claudecraft-server',
+    'User-Agent': 'growverse-server',
     ...(GITHUB_TOKEN ? { Authorization: `Bearer ${GITHUB_TOKEN}` } : {}),
   };
 }

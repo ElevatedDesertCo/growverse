@@ -2085,7 +2085,7 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'footer.copyright': '2026 Growverse',
   'footer.discordLabel': 'Gå med i Discord',
   'footer.githubLabel': 'Projekt med öppen källkod',
-  'footer.githubLink': 'https://github.com/levy-street/world-of-claudecraft',
+  'footer.githubLink': 'https://github.com/ElevatedDesertCo/growverse',
   'footer.whitepaper': 'Whitepaper',
   'footer.privacy': 'Integritetspolicy',
   'footer.terms': 'Användarvillkor',
@@ -2609,7 +2609,7 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'guide.faqPage.q8': 'Kan jag driva min egen kopia?',
   'guide.faqPage.q9': 'Finns det PvP?',
   'guide.footer.blurb':
-    'En klassiskt inspirerad mikro-MMO med öppen källkod. Lös uppdrag, gruppera dig och utforska en handbyggd värld, direkt i din webbläsare.',
+    'En cannabis-fantasy-MMORPG med öppen källkod. Lös uppdrag, gruppera dig och utforska en värld sammanlänkad av portaler, direkt i din webbläsare.',
   'guide.footer.communityWiki': 'Community-wiki',
   'guide.footer.discord': 'Gå med i Discord',
   'guide.footer.github': 'Källkod på GitHub',
@@ -2753,7 +2753,7 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'guide.home.community.play': 'Spela nu',
   'guide.home.ctaLearn': 'Så spelar du',
   'guide.home.ctaPlay': 'Spela nu',
-  'guide.home.eyebrow': 'Klassiskt MMO i webbläsaren',
+  'guide.home.eyebrow': 'Cannabis-fantasy-MMORPG i webbläsaren',
   'guide.home.faq.a1':
     'Ja. Hela spelet är gratis upp till nivåtaket, och det är öppen källkod på GitHub.',
   'guide.home.faq.a2':
@@ -3130,7 +3130,7 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'guide.tag.ranged': 'Avstånd',
   'guide.tag.simple': 'Enkel',
   'guide.tag.solo': 'Solovänlig',
-  'guide.tagline': 'En klassisk MMO du spelar gratis i din webbläsare.',
+  'guide.tagline': 'En cannabis-fantasy-MMORPG du spelar gratis i din webbläsare.',
   'guide.talentsPage.heading': 'Talanger och specialiseringar',
   'guide.talentsPage.howBody':
     'Talanger låses upp vid nivå 10, och du fortsätter tjäna poäng medan du klättrar mot maxnivån. Du spenderar dem i din klass talangpanel, och du kan spara fler än en uppsättning för att växla mellan byggen.',
@@ -3802,7 +3802,7 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'hudChrome.account.sectionDanger': 'Farozon',
   'hudChrome.account.sectionSecurity': 'Säkerhet',
   'hudChrome.account.sectionSettings': 'Kontoinställningar',
-  'hudChrome.account.sectionWallet': '$WOC-plånbok',
+  'hudChrome.account.sectionWallet': 'Growverse-plånbok',
   'hudChrome.account.title': 'Konto',
   'hudChrome.account.twoFactorBegin': 'Påbörja inställning',
   'hudChrome.account.twoFactorBeginHint': 'Ange ditt lösenord för att påbörja inställningen.',
@@ -4592,14 +4592,14 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'realmTypes.rpPvp': 'RP-PvP',
   'seo.applicationCategory': 'Spel',
   'seo.description':
-    'Ge dig ut på ett episkt äventyr i Growverse, en klassiskt inspirerad mikro-MMO som du spelar direkt i din webbläsare. Anslut till en beständig delad värld, höj nivå på klasser och besegra fiender!',
+    'Growverse är ett gratis webbläsar-MMORPG i cannabis-fantasy-stil. Utforska en värld sammanlänkad av portaler, strid mot varelser, slutför uppdrag, odla magiska sorter och skapa din legend i ett rike i ständig utveckling. Spela direkt, ingen nedladdning.',
   'seo.genre': 'MMORPG',
   'seo.officialBody':
-    'worldofclaudecraft.com är den officiella gratis webbläsar-MMO:n för Claudemoon-världen. Spela online med en beständig karaktär, utforska solo offline, läs wikin och följ verifierade gemenskapslänkar från den här webbplatsen.',
+    'Growverse är ett gratis webbläsar-MMORPG i cannabis-fantasy-stil som utspelar sig i en värld sammanlänkad av portaler: strid mot varelser, slutför uppdrag, bemästra yrken och odla magiska sorter. Spela direkt i webbläsaren, utforska världen solo, läs wikin och följ uppdateringar om utvecklingen från den här webbplatsen.',
   'seo.officialLabel': 'Officiell webbplats för Growverse',
   'seo.operatingSystem': 'Webbläsare',
   'seo.playMode': 'Flerspelarläge',
-  'seo.title': 'Growverse: Klassiskt inspirerad webb-MMO',
+  'seo.title': 'Growverse: The Portal Chronicles, ett gratis webbläsar-MMORPG',
   'serverUnavailable.body':
     'Vi startar om speltjänsten och förväntar oss att Claudemoon är tillbaka inom kort. Den här sidan fortsätter att kontrollera automatiskt.',
   'serverUnavailable.eyebrow': 'Rikesunderhåll',
@@ -4791,7 +4791,7 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'wallet.holderTiers.worldbearer.name': 'Världsbärare',
   'wallet.holderTiers.worldforger.flavor': 'Smider en egen värld: 9 % av tillgången.',
   'wallet.holderTiers.worldforger.name': 'Världssmidare',
-  'wallet.label': '$WOC-plånbok',
+  'wallet.label': 'Growverse-plånbok',
   'wallet.linkFailed': 'Plånboksverifieringen misslyckades.',
   'wallet.linkTitle': 'Klicka för att signera och länka den här plånboken till ditt konto.',
   'wallet.linkedDisconnectedAria':

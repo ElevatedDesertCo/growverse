@@ -82,7 +82,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.unitFrame.targetLabel': 'あなたのターゲット',
   'seo.officialLabel': 'Growverse 公式サイト',
   'seo.officialBody':
-    'worldofclaudecraft.com は Claudemoon レルムの公式無料ブラウザMMOです。永続キャラクターでオンラインプレイし、オフラインでソロ探索し、wikiを読み、このサイトから確認済みのコミュニティリンクをたどれます。',
+    'Growverse はポータルでつながる世界を舞台にしたカンナビス・ファンタジーの無料ブラウザMMORPGです。クリーチャーと戦い、クエストを達成し、専門技能を極め、魔法の品種を栽培しましょう。ブラウザですぐにプレイし、ソロで世界を探索し、wikiを読み、このサイトから開発アップデートを追いかけられます。',
   'hudChrome.questShare.notShareable': 'このクエストは共有できません。',
   'hudChrome.questShare.notInSharerParty':
     '{name} のパーティに参加していないと、このクエストを受諾できません。',
@@ -487,7 +487,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'stats.playersOnline': 'オンラインプレイヤー数',
   'stats.realmName': 'レルム名',
   'footer.copyright': '2026 Growverse',
-  'footer.githubLink': 'https://github.com/levy-street/world-of-claudecraft',
+  'footer.githubLink': 'https://github.com/ElevatedDesertCo/growverse',
   'footer.githubLabel': 'オープンソースプロジェクト',
   'footer.whitepaper': 'ホワイトペーパー',
   'footer.terms': '利用規約',
@@ -541,7 +541,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'auth.twoFactorPlaceholder': '6桁のコードまたはリカバリーコード',
   'auth.twoFactorHint':
     '認証アプリに表示されたコード、またはリカバリーコードのいずれかを入力してください。',
-  'wallet.label': '$WOC ウォレット',
+  'wallet.label': 'Growverse ウォレット',
   'wallet.connect': 'ウォレット認証',
   'wallet.connectTitle': 'Solanaウォレットを認証',
   'wallet.connectAria': 'Solanaウォレットを認証',
@@ -737,9 +737,9 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'controls.emoteWheel': 'エモートホイールを長押し',
   'controls.friends': 'フレンド & ギルド',
   'controls.chat': 'チャットを開く',
-  'seo.title': 'Growverse: クラシック風Web MMO',
+  'seo.title': 'Growverse: The Portal Chronicles、無料ブラウザMMORPG',
   'seo.description':
-    'ブラウザで直接遊べるクラシック風マイクロMMO、Growverse で壮大な冒険に出ましょう。永続的な共有レルムに参加し、クラスを育て、敵を倒してください。',
+    'Growverse はカンナビス・ファンタジーの無料ブラウザMMORPGです。ポータルでつながる世界を探索し、クリーチャーと戦い、クエストを達成し、魔法の品種を栽培して、進化し続けるレルムで自分の伝説を築きましょう。ダウンロード不要、すぐにプレイできます。',
   'seo.genre': 'MMORPG',
   'seo.playMode': 'マルチプレイヤー',
   'seo.applicationCategory': 'ゲーム',
@@ -3620,7 +3620,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.account.loggedOutPrompt': 'アカウントを管理するにはログインしてください。',
   'hudChrome.account.memberSince': '登録日：{date}',
   'hudChrome.account.sectionSettings': 'アカウント設定',
-  'hudChrome.account.sectionWallet': '$WOC ウォレット',
+  'hudChrome.account.sectionWallet': 'Growverse ウォレット',
   'hudChrome.account.sectionCharacters': 'キャラクター',
   'hudChrome.account.sectionDanger': '危険な操作',
   'hudChrome.account.changePassword': 'パスワードの変更',
@@ -3726,7 +3726,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   // Guide (/guide) localization.
   'guide.brand': 'Growverse',
   'guide.brandShort': 'Growverse',
-  'guide.tagline': 'ブラウザで無料で遊べる、クラシックスタイルのMMO。',
+  'guide.tagline': 'ブラウザで無料で遊べる、カンナビス・ファンタジーのMMORPG。',
   'guide.skipToContent': 'メインコンテンツへスキップ',
   'guide.loading': '読み込み中...',
   'guide.controls.targetFriendly': '最も近い友好的な対象をターゲット',
@@ -3790,7 +3790,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'guide.groups.compendium': 'コンペンディウム',
   'guide.groups.reference': 'リファレンス',
   'guide.footer.blurb':
-    'オープンソースの、クラシックスタイルなマイクロMMO。クエストをこなし、仲間と組み、手作りのワールドを冒険しよう。すべてブラウザで。',
+    'オープンソースのカンナビス・ファンタジーMMORPG。クエストをこなし、仲間と組み、ポータルでつながる世界を冒険しよう。すべてブラウザで。',
   'guide.footer.playNow': '今すぐプレイ',
   'guide.footer.github': 'GitHubのソース',
   'guide.footer.discord': 'Discordに参加',
@@ -3798,7 +3798,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'guide.footer.rights': 'Growverse',
   'guide.language.label': '言語',
   'guide.language.select': '言語を選択',
-  'guide.home.eyebrow': 'クラシックスタイルのブラウザMMO',
+  'guide.home.eyebrow': 'カンナビス・ファンタジーのブラウザMMORPG',
   'guide.home.title': 'Growverse',
   'guide.home.subtitle':
     'クエストをこなし、仲間と組み、手作りのワールドを冒険しよう。ブラウザで無料。',

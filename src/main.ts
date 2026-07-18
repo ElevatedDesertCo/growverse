@@ -3515,7 +3515,7 @@ function setupSecuritySection(): void {
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'woc-recovery-codes.txt';
+    a.download = 'growverse-recovery-codes.txt';
     a.click();
     URL.revokeObjectURL(url);
   });
@@ -3546,7 +3546,7 @@ function setupSecuritySection(): void {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'woc-account-export.json';
+      a.download = 'growverse-account-export.json';
       a.click();
       URL.revokeObjectURL(url);
       setAccountFieldMsg('#account-export-msg', t('hudChrome.account.exportDone'), true);
@@ -4317,7 +4317,7 @@ function updateSeoMetadata(lang: SupportedLanguage): void {
   const jsonLd = document.getElementById('structured-data') as HTMLScriptElement | null;
   if (jsonLd) {
     const sameAs = [
-      'https://github.com/levy-street/world-of-claudecraft',
+      'https://github.com/ElevatedDesertCo/growverse',
       'https://discord.gg/KSTJkrCq3',
       'https://www.youtube.com/@WoGrowverse',
       'https://x.com/WoGrowverse',

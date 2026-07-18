@@ -643,7 +643,7 @@ export const it_IT: EnTranslations = {
       "loggedOutPrompt": "Accedi per gestire il tuo account.",
       "memberSince": "Membro dal {date}",
       "sectionSettings": "Impostazioni account",
-      "sectionWallet": "Portafoglio $WOC",
+      "sectionWallet": "Portafoglio Growverse",
       "sectionCharacters": "Personaggi",
       "sectionDanger": "Zona pericolosa",
       "changePassword": "Cambia password",
@@ -1139,7 +1139,7 @@ export const it_IT: EnTranslations = {
   "guide": {
     "brand": "Growverse",
     "brandShort": "Growverse",
-    "tagline": "Un MMO in stile classico che giochi gratis nel tuo browser.",
+    "tagline": "Un MMORPG fantasy a tema cannabis che giochi gratis nel tuo browser.",
     "skipToContent": "Vai al contenuto principale",
     "loading": "Caricamento in corso...",
     "docTitle": "{page} - {brand}",
@@ -1193,7 +1193,7 @@ export const it_IT: EnTranslations = {
       "heading": "In questa pagina"
     },
     "footer": {
-      "blurb": "Un micro-MMO open source in stile classico. Affronta missioni, raggruppati ed esplora un mondo costruito a mano, direttamente nel tuo browser.",
+      "blurb": "Un MMORPG fantasy open source a tema cannabis. Affronta missioni, raggruppati ed esplora un mondo collegato da portali, direttamente nel tuo browser.",
       "playNow": "Gioca Ora",
       "github": "Sorgente su GitHub",
       "discord": "Unisciti al Discord",
@@ -1217,7 +1217,7 @@ export const it_IT: EnTranslations = {
       "typeTerm": "Termine"
     },
     "home": {
-      "eyebrow": "MMO da browser in stile classico",
+      "eyebrow": "MMORPG fantasy da browser a tema cannabis",
       "title": "Growverse",
       "subtitle": "Affronta missioni, raggruppati ed esplora un mondo costruito a mano, gratis nel tuo browser.",
       "ctaPlay": "Gioca Ora",
@@ -2016,7 +2016,7 @@ export const it_IT: EnTranslations = {
   },
   "footer": {
     "copyright": "2026 Growverse",
-    "githubLink": "https://github.com/levy-street/world-of-claudecraft",
+    "githubLink": "https://github.com/ElevatedDesertCo/growverse",
     "githubLabel": "Progetto open source",
     "whitepaper": "Libro bianco",
     "terms": "Termini di servizio",
@@ -2107,7 +2107,7 @@ export const it_IT: EnTranslations = {
     "twoFactorHint": "Inserisci il codice della tua app di autenticazione, oppure uno dei tuoi codici di recupero."
   },
   "wallet": {
-    "label": "Portafoglio $WOC",
+    "label": "Portafoglio Growverse",
     "connect": "Verifica portafoglio",
     "connectTitle": "Verifica il tuo portafoglio Solana",
     "connectAria": "Verifica il tuo portafoglio Solana",
@@ -2756,14 +2756,14 @@ export const it_IT: EnTranslations = {
     }
   },
   "seo": {
-    "title": "Growverse: MMO web in stile classico",
-    "description": "Parti per un'avventura epica in Growverse, un micro-MMO in stile classico giocabile direttamente dal browser. Entra in un reame condiviso, fai crescere le classi e sconfiggi i nemici.",
+    "title": "Growverse: The Portal Chronicles, un MMORPG gratuito per browser",
+    "description": "Growverse è un MMORPG fantasy gratuito per browser a tema cannabis. Esplora un mondo collegato da portali, combatti creature, completa missioni, coltiva varietà magiche e forgia la tua leggenda in un reame in continua evoluzione. Gioca subito, senza download.",
     "genre": "MMORPG",
     "playMode": "Multigiocatore",
     "applicationCategory": "Gioco",
     "operatingSystem": "Browser web",
     "officialLabel": "Sito ufficiale di Growverse",
-    "officialBody": "worldofclaudecraft.com è l'MMO gratuito ufficiale da browser del reame Claudemoon. Gioca online con un personaggio persistente, esplora offline in solitaria, leggi il wiki e segui i link della community verificati da questo sito."
+    "officialBody": "Growverse è un MMORPG fantasy gratuito per browser a tema cannabis, ambientato in un mondo collegato da portali: combatti creature, completa missioni, padroneggia le professioni e coltiva varietà magiche. Gioca subito nel browser, esplora il mondo in solitaria, leggi il wiki e segui gli aggiornamenti sullo sviluppo da questo sito."
   },
   "a11y": {
     "goHome": "Vai alla pagina iniziale",

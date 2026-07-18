@@ -1,5 +1,7 @@
 # Electron desktop app: deep audit and upgrade plan
 
+> NOTE (2026-07): historical audit of the World of ClaudeCraft era desktop build. Identifiers it documents (appId `com.worldofclaudecraft.desktop`, `app://worldofclaudecraft`, the legacy update feed) partly predate the Growverse rebrand; `package.json` is the current source of truth.
+
 Research date: 2026-07-01. Branch: `feature/electron-steam-desktop`.
 Scope: the Electron/Steam desktop wrapper (`electron/main.cjs`, `electron/preload.cjs`,
 `scripts/electron-dev.mjs`, `scripts/electron-build.mjs`, and the `build` block in

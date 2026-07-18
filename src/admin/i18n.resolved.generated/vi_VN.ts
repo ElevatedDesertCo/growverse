@@ -13,7 +13,7 @@ import type { AdminTranslations } from '../i18n.en';
 
 export const vi_VN: AdminTranslations = {
   "app.title": "Growverse - Quản trị",
-  "app.shortTitle": "Quản trị viên WoC",
+  "app.shortTitle": "Quản trị viên Growverse",
   "auth.username": "Tên đăng nhập",
   "auth.password": "Mật khẩu",
   "auth.signIn": "Đăng nhập",

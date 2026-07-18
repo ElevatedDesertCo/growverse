@@ -14,7 +14,7 @@ export const da_DK: Record<string, string> = {
   'usage.metric.githubLinkRateLimited': 'Begrænsede GitHub-tilknytningsanmodninger',
   'usage.metric.githubLinkRequest': 'GitHub-tilknytningsanmodninger',
   'app.title': 'Growverse - Admin',
-  'app.shortTitle': 'WoC-administration',
+  'app.shortTitle': 'Growverse-administration',
   'auth.username': 'Brugernavn',
   'auth.password': 'Adgangskode',
   'auth.signIn': 'Log ind',

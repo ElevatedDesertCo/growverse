@@ -101,7 +101,7 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'hudChrome.unitFrame.targetLabel': 'Euer Ziel',
   'seo.officialLabel': 'Offizielle Website von Growverse',
   'seo.officialBody':
-    'worldofclaudecraft.com ist das offizielle kostenlose Browser-MMO für das Reich Claudemoon. Spiele online mit einem dauerhaften Charakter, erkunde solo offline, lies das Wiki und folge den verifizierten Community-Links auf dieser Website.',
+    'Growverse ist ein kostenloses Cannabis-Fantasy-Browser-MMORPG in einer durch Portale verbundenen Welt: bekämpfe Kreaturen, schließe Quests ab, meistere Berufe und züchte magische Sorten. Spiele sofort im Browser, erkunde die Welt solo, lies das Wiki und verfolge Entwicklungs-Updates auf dieser Website.',
   'hudChrome.questShare.notShareable': 'Diese Quest kann nicht geteilt werden.',
   'hudChrome.questShare.notInSharerParty':
     'Ihr müsst in der Gruppe von {name} sein, um diese Quest anzunehmen.',
@@ -459,7 +459,7 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'stats.playersOnline': 'Spieler online',
   'stats.realmName': 'Realmname',
   'footer.copyright': '2026 Growverse',
-  'footer.githubLink': 'https://github.com/levy-street/world-of-claudecraft',
+  'footer.githubLink': 'https://github.com/ElevatedDesertCo/growverse',
   'footer.githubLabel': 'Open-Source-Projekt',
   'footer.whitepaper': 'Whitepaper',
   'footer.terms': 'Nutzungsbedingungen',
@@ -508,7 +508,7 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'auth.enterWorld': 'Welt betreten',
   'auth.offlineCharacter': 'Offline-Charakter',
   'auth.create': 'Erstellen',
-  'wallet.label': '$WOC-Wallet',
+  'wallet.label': 'Growverse-Wallet',
   'wallet.connect': 'Wallet verifizieren',
   'wallet.connectTitle': 'Euer Solana-Wallet verifizieren',
   'wallet.connectAria': 'Euer Solana-Wallet verifizieren',
@@ -707,9 +707,9 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'controls.emoteWheel': 'Emote-Rad gedrückt halten',
   'controls.friends': 'Freunde und Gilde',
   'controls.chat': 'Chat öffnen',
-  'seo.title': 'Growverse: Klassisches Web-MMO',
+  'seo.title': 'Growverse: The Portal Chronicles, ein kostenloses Browser-MMORPG',
   'seo.description':
-    'Begib dich in Growverse auf ein episches Abenteuer, ein Micro-MMO im klassischen Stil direkt im Browser. Betritt einen gemeinsamen Realm, steigere Klassen und besiege Gegner.',
+    'Growverse ist ein kostenloses Cannabis-Fantasy-Browser-MMORPG. Erkunde eine durch Portale verbundene Welt, bekämpfe Kreaturen, schließe Quests ab, züchte magische Sorten und schmiede deine Legende in einem sich ständig wandelnden Reich. Spiele sofort, ganz ohne Download.',
   'seo.genre': 'MMORPG',
   'seo.playMode': 'Mehrspieler',
   'seo.applicationCategory': 'Spiel',
@@ -3527,7 +3527,7 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'hudChrome.account.sectionCharacters': 'Charaktere',
   'hudChrome.account.sectionDanger': 'Gefahrenzone',
   'hudChrome.account.sectionSettings': 'Kontoeinstellungen',
-  'hudChrome.account.sectionWallet': '$WOC-Wallet',
+  'hudChrome.account.sectionWallet': 'Growverse-Wallet',
   'hudChrome.account.title': 'Konto',
   'hudChrome.account.walletSummary':
     'Verifiziert ein Solana-Wallet, um Inhaber-Flair auf Eurer Spielerkarte anzuzeigen.',
@@ -3784,7 +3784,7 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'guide.faqPage.q7': 'Wird mein Charakter gespeichert?',
   'guide.faqPage.q8': 'Kann ich meine eigene Kopie hosten?',
   'guide.footer.blurb':
-    'Ein quelloffenes Mikro-MMO im klassischen Stil. Erfülle Quests, schließe dich mit anderen zusammen und erkunde eine handgebaute Welt, direkt in deinem Browser.',
+    'Ein quelloffenes Cannabis-Fantasy-MMORPG. Erfülle Quests, schließe dich mit anderen zusammen und erkunde eine durch Portale verbundene Welt, direkt in deinem Browser.',
   'guide.footer.communityWiki': 'Community-Wiki',
   'guide.footer.discord': 'Tritt dem Discord bei',
   'guide.footer.github': 'Quellcode auf GitHub',
@@ -3836,7 +3836,7 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'guide.home.community.play': 'Jetzt spielen',
   'guide.home.ctaLearn': 'So wird gespielt',
   'guide.home.ctaPlay': 'Jetzt spielen',
-  'guide.home.eyebrow': 'Browser-MMO im klassischen Stil',
+  'guide.home.eyebrow': 'Cannabis-Fantasy-Browser-MMORPG',
   'guide.home.faq.a1':
     'Ja. Das ganze Spiel ist bis zur Höchststufe kostenlos, und es ist Open Source auf GitHub.',
   'guide.home.faq.a2':
@@ -3986,7 +3986,7 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'guide.role.healer': 'Heiler',
   'guide.role.tank': 'Tank',
   'guide.skipToContent': 'Zum Hauptinhalt springen',
-  'guide.tagline': 'Ein MMO im klassischen Stil, das du kostenlos in deinem Browser spielst.',
+  'guide.tagline': 'Ein Cannabis-Fantasy-MMORPG, das du kostenlos in deinem Browser spielst.',
   'guide.worldPage.heading': 'Die Welt',
   'guide.worldPage.hub': 'Heimatbasis',
   'guide.worldPage.intro':

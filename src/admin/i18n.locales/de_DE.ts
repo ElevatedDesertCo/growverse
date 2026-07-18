@@ -14,7 +14,7 @@ export const de_DE: Record<string, string> = {
   'usage.metric.githubLinkRateLimited': 'GitHub-Verknüpfung: gedrosselte Anfragen',
   'usage.metric.githubLinkRequest': 'GitHub-Verknüpfungsanfragen',
   'app.title': 'Growverse - Admin',
-  'app.shortTitle': 'WoC-Administrator',
+  'app.shortTitle': 'Growverse-Administrator',
   'auth.username': 'Benutzername',
   'auth.password': 'Passwort',
   'auth.signIn': 'Anmelden',

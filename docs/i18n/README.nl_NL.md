@@ -1,12 +1,12 @@
 <div align="center">
 
-# World of ClaudeCraft
+# Growverse
 
 **Volbreng quests, vorm een groep en raid een handgemaakte wereld, gratis in je browser. Open source, web3 en nu meteen online.**
 
 **Officiële website: https://worldofclaudecraft.com/**
 
-[![CI](https://github.com/levy-street/world-of-claudecraft/actions/workflows/ci.yml/badge.svg)](https://github.com/levy-street/world-of-claudecraft/actions/workflows/ci.yml)
+[![CI](https://github.com/ElevatedDesertCo/growverse/actions/workflows/ci.yml/badge.svg)](https://github.com/ElevatedDesertCo/growverse/actions/workflows/ci.yml)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Three.js](https://img.shields.io/badge/Three.js-r165-000000?logo=threedotjs&logoColor=white)](https://threejs.org/)
 [![Vite](https://img.shields.io/badge/Vite-8-646CFF?logo=vite&logoColor=white)](https://vite.dev/)
@@ -22,13 +22,13 @@
 
 [Speel nu](https://worldofclaudecraft.com/) · [Host je eigen wereld](#host-your-own-world-one-command) · [Train een agent](#train-an-agent-headless-rl) · [Web3](#web3) · [Bijdragen](CONTRIBUTING.nl_NL.md) · [Discord](https://discord.gg/KSTJkrCq3)
 
-![World of ClaudeCraft titelscherm](../../docs/screenshots/title-screen.jpg)
+![Growverse titelscherm](../../docs/screenshots/title-screen.jpg)
 
 </div>
 
 ## Wat dit is
 
-World of ClaudeCraft is een complete MMO uit het klassieke tijdperk die je nu meteen in je browser kunt spelen, zelf met één commando kunt hosten en zelfs door AI-agents kunt laten spelen. Het is gratis, open source en live op [worldofclaudecraft.com](https://worldofclaudecraft.com/).
+Growverse is een complete MMO uit het klassieke tijdperk die je nu meteen in je browser kunt spelen, zelf met één commando kunt hosten en zelfs door AI-agents kunt laten spelen. Het is gratis, open source en live op [worldofclaudecraft.com](https://worldofclaudecraft.com/).
 
 Eén gedeelde wereld draait op drie plekken, allemaal vanuit dezelfde game-core:
 
@@ -154,7 +154,7 @@ Het protocol en de bindings staan beschreven in `headless/CLAUDE.md` en `python/
 
 ## Web3
 
-World of ClaudeCraft is web3-native rond **$WOC**, onze community-token op Solana. Verbind een Solana-wallet, koppel hem met één handtekening aan je account (non-custodial, geen transactie om goed te keuren), en je alleen-lezen $WOC-saldo verschijnt in de HUD naast een cosmetische holder-tier-badge.
+Growverse is web3-native rond **$WOC**, onze community-token op Solana. Verbind een Solana-wallet, koppel hem met één handtekening aan je account (non-custodial, geen transactie om goed te keuren), en je alleen-lezen $WOC-saldo verschijnt in de HUD naast een cosmetische holder-tier-badge.
 
 Het is puur cosmetisch en niet nodig om te spelen. Er wordt niets uitgegeven of verdiend in de game, er is geen pay-to-win, en de hele game speelt prima zonder ooit een wallet te verbinden.
 
@@ -303,13 +303,12 @@ Elke voor de speler zichtbare string wordt opgelost via `t()`, en de game wordt 
 
 ## Bijdragen
 
-Bijdragen van elke soort zijn welkom: code, vertalingen, bugrapporten en documentatie. Begin met [CONTRIBUTING.nl_NL.md](CONTRIBUTING.nl_NL.md) voor de setup, lees de [Code of Conduct](../../CODE_OF_CONDUCT.md), en bekijk [SECURITY.md](../../SECURITY.md) voordat je een kwetsbaarheid meldt. Nieuw hier? Zoek naar issues met het label [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue), open een [issue](https://github.com/levy-street/world-of-claudecraft/issues/new/choose), of zeg hallo op [Discord](https://discord.gg/KSTJkrCq3).
+Bijdragen van elke soort zijn welkom: code, vertalingen, bugrapporten en documentatie. Begin met [CONTRIBUTING.nl_NL.md](CONTRIBUTING.nl_NL.md) voor de setup, lees de [Code of Conduct](../../CODE_OF_CONDUCT.md), en bekijk [SECURITY.md](../../SECURITY.md) voordat je een kwetsbaarheid meldt. Nieuw hier? Zoek naar issues met het label [`good first issue`](https://github.com/ElevatedDesertCo/growverse/labels/good%20first%20issue), open een [issue](https://github.com/ElevatedDesertCo/growverse/issues/new/choose), of zeg hallo op [Discord](https://discord.gg/KSTJkrCq3).
 
 <div align="center">
 
-![World of Claude](../../worldofclaude.png)
+![Growverse](../../public/growverse-logo.png)
 
-![World of ClaudeCraft community](../../woc_community.png)
 
 </div>
 

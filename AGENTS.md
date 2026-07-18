@@ -1,7 +1,7 @@
 # AGENTS.md
 
-Any non-Claude coding agent (Codex and similar) treats this file as the entry point for World
-of ClaudeCraft. **The root `CLAUDE.md` and the per-directory `CLAUDE.md` files are the canonical
+Any non-Claude coding agent (Codex and similar) treats this file as the entry point for
+Growverse. **The root `CLAUDE.md` and the per-directory `CLAUDE.md` files are the canonical
 source of truth.** Read the root `CLAUDE.md` in full, and the local `CLAUDE.md` when you open
 files in a directory (`src/sim/`, `src/render/`, `src/ui/`, `server/`, ...). They own the
 architecture, the hard invariants (sim purity and determinism, graphics fairness, i18n,

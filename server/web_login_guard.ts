@@ -9,6 +9,9 @@ export const NATIVE_APP_ORIGINS = new Set([
 
 export const DESKTOP_APP_ORIGINS = new Set([
   'app://growverse',
+  // Shipped desktop builds still serve from the legacy app origin (electron/main.cjs
+  // APP_ORIGIN); keep allowing it or packaged clients lose login + CORS.
+  'app://worldofclaudecraft',
   'http://127.0.0.1:5173',
   'http://localhost:5173',
 ]);

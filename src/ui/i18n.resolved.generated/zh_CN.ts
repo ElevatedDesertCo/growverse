@@ -643,7 +643,7 @@ export const zh_CN: EnTranslations = {
       "loggedOutPrompt": "登录以管理您的账户。",
       "memberSince": "注册于 {date}",
       "sectionSettings": "账户设置",
-      "sectionWallet": "$WOC 钱包",
+      "sectionWallet": "Growverse 钱包",
       "sectionCharacters": "角色",
       "sectionDanger": "危险区域",
       "changePassword": "修改密码",
@@ -1139,7 +1139,7 @@ export const zh_CN: EnTranslations = {
   "guide": {
     "brand": "Growverse",
     "brandShort": "Growverse",
-    "tagline": "一款可在浏览器中免费畅玩的经典风格 MMO。",
+    "tagline": "一款可在浏览器中免费畅玩的大麻奇幻题材 MMORPG。",
     "skipToContent": "跳至正文",
     "loading": "加载中……",
     "docTitle": "{page} | {brand}",
@@ -1193,7 +1193,7 @@ export const zh_CN: EnTranslations = {
       "heading": "本页内容"
     },
     "footer": {
-      "blurb": "一款开源的经典风格微型 MMO。在你的浏览器中接受任务、组队、探索一个纯手工打造的世界。",
+      "blurb": "一款开源的大麻奇幻题材 MMORPG。在你的浏览器中接受任务、组队、探索一个由传送门相连的世界。",
       "playNow": "立即游玩",
       "github": "GitHub 上的源代码",
       "discord": "加入 Discord",
@@ -1217,7 +1217,7 @@ export const zh_CN: EnTranslations = {
       "typeTerm": "术语"
     },
     "home": {
-      "eyebrow": "经典风格浏览器 MMO",
+      "eyebrow": "大麻奇幻题材浏览器 MMORPG",
       "title": "Growverse",
       "subtitle": "在你的浏览器中免费接受任务、组队、探索一个纯手工打造的世界。",
       "ctaPlay": "立即游玩",
@@ -2016,7 +2016,7 @@ export const zh_CN: EnTranslations = {
   },
   "footer": {
     "copyright": "2026 Growverse",
-    "githubLink": "https://github.com/levy-street/world-of-claudecraft",
+    "githubLink": "https://github.com/ElevatedDesertCo/growverse",
     "githubLabel": "开源项目",
     "whitepaper": "白皮书",
     "terms": "服务条款",
@@ -2107,7 +2107,7 @@ export const zh_CN: EnTranslations = {
     "twoFactorHint": "请输入身份验证器应用中的验证码，或一个恢复码。"
   },
   "wallet": {
-    "label": "$WOC 钱包",
+    "label": "Growverse 钱包",
     "connect": "验证钱包",
     "connectTitle": "验证你的 Solana 钱包",
     "connectAria": "验证你的 Solana 钱包",
@@ -2756,14 +2756,14 @@ export const zh_CN: EnTranslations = {
     }
   },
   "seo": {
-    "title": "Growverse：经典风格网页 MMO",
-    "description": "在 Growverse 展开史诗冒险。这是一款可直接在浏览器中游玩的经典风格微型 MMO。加入持续共享的服务器，提升职业等级，击败敌人。",
+    "title": "Growverse: The Portal Chronicles，免费浏览器 MMORPG",
+    "description": "Growverse 是一款免费的大麻奇幻题材浏览器 MMORPG。探索由传送门相连的世界，与怪物战斗，完成任务，培育魔法品种，在不断演变的国度中铸就你的传奇。无需下载，即点即玩。",
     "genre": "MMORPG",
     "playMode": "多人游戏",
     "applicationCategory": "游戏",
     "operatingSystem": "网页浏览器",
     "officialLabel": "Growverse 官方网站",
-    "officialBody": "worldofclaudecraft.com 是 Claudemoon 服务器的官方免费浏览器 MMO。你可以用持久角色在线游玩，也可以离线单人探索，阅读 wiki，并从本站访问已验证的社区链接。"
+    "officialBody": "Growverse 是一款免费的大麻奇幻题材浏览器 MMORPG，故事发生在一个由传送门相连的世界：与怪物战斗，完成任务，精通专业技能，培育魔法品种。在浏览器中即刻游玩，单人探索世界，阅读 wiki，并在本站关注开发动态。"
   },
   "a11y": {
     "goHome": "前往主页",

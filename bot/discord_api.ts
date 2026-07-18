@@ -19,7 +19,7 @@ export class DiscordApi {
       headers: {
         Authorization: `Bot ${this.token}`,
         'Content-Type': 'application/json',
-        'User-Agent': 'WorldOfGrowverseBot (https://worldofclaudecraft.com, 1.0)',
+        'User-Agent': 'GrowverseBot (https://worldofclaudecraft.com, 1.0)',
       },
       body: body === undefined ? undefined : JSON.stringify(body),
     });

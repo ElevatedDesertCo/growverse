@@ -60,7 +60,7 @@ export const es_ES: Partial<Record<TranslationKey, string>> = {
   'controls.friends': 'Amigos y hermandad',
   'controls.chat': 'Abrir chat',
   'seo.description':
-    'Emprende una aventura épica en Growverse, un micro-MMO de estilo clásico jugable directamente en el navegador. Únete a un reino compartido, sube clases de nivel y derrota enemigos.',
+    'Growverse es un MMORPG de navegador gratuito de fantasía cannábica. Explora un mundo conectado por portales, lucha contra criaturas, completa misiones, cultiva cepas mágicas y forja tu leyenda en un reino en constante evolución. Juega al instante, sin descargas.',
   'a11y.goHome': 'Ir a la página de inicio',
   'a11y.characterActions': 'Acciones del personaje',
   'a11y.githubProject': 'Abrir el proyecto Growverse en GitHub',

@@ -53,10 +53,11 @@ function consoleShim() {
 // Initialize the shell logger. Returns { log, filePath } where filePath is
 // null when only the console shim is available. The file transport rotates at
 // 5 MB (electron-log keeps one .old archive next to it); locations follow
-// app.name, which is the package NAME (verified on a packaged build):
-//   macOS   ~/Library/Logs/world-of-claudecraft/main.log
-//   Windows %USERPROFILE%\AppData\Roaming\world-of-claudecraft\logs\main.log
-//   Linux   ~/.config/world-of-claudecraft/logs/main.log
+// app.name, which is the package NAME (now "growverse"; builds packaged before
+// the rename logged under "world-of-claudecraft" directories):
+//   macOS   ~/Library/Logs/growverse/main.log
+//   Windows %USERPROFILE%\AppData\Roaming\growverse\logs\main.log
+//   Linux   ~/.config/growverse/logs/main.log
 function initLogging({ isPackaged }) {
   const log = loadElectronLog({ isPackaged });
   if (!log) return { log: consoleShim(), filePath: null };

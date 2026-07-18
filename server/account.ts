@@ -243,7 +243,7 @@ export async function handleAccountExport(
   if (acct) emailDataExport(acct);
   res.writeHead(200, {
     'content-type': 'application/json',
-    'content-disposition': 'attachment; filename="woc-account-export.json"',
+    'content-disposition': 'attachment; filename="growverse-account-export.json"',
   });
   return void res.end(JSON.stringify(bundle, null, 2));
 }

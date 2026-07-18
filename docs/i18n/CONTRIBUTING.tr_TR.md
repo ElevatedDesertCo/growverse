@@ -4,9 +4,9 @@
 
 </div>
 
-# World of ClaudeCraft'a Katkıda Bulunma
+# Growverse'a Katkıda Bulunma
 
-Öncelikle, burada olduğunuz için teşekkür ederiz. World of ClaudeCraft, klasik
+Öncelikle, burada olduğunuz için teşekkür ederiz. Growverse, klasik
 MMO'ları seven insanlardan oluşan bir topluluk tarafından geliştiriliyor ve
 büyük olsun küçük olsun her katkı onu daha iyi hale getiriyor. Bir yazım
 hatasını düzeltmek, oyunu çevirmek, bir hata bildirmek, baştan sona yepyeni bir
@@ -25,13 +25,13 @@ etmiş olursunuz.
 Burada herkes için bir yer var:
 
 - **Kod.** Bir hatayı düzeltin, bir özellik ekleyin veya performansı iyileştirin.
-  [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue)
-  ve [`help wanted`](https://github.com/levy-street/world-of-claudecraft/labels/help%20wanted)
+  [`good first issue`](https://github.com/ElevatedDesertCo/growverse/labels/good%20first%20issue)
+  ve [`help wanted`](https://github.com/ElevatedDesertCo/growverse/labels/help%20wanted)
   etiketli sorunlar başlamak için iyi yerlerdir.
 - **Çeviriler.** Bir dili iyileştirerek veya tamamlayarak dünyanın dört bir
   yanındaki oyunculara yardım edin. Aşağıdaki [Oyunu çevirme](#translating-the-game)
   bölümüne bakın. Bu, başlamanın en kolay ve en etkili yollarından biridir.
-- **Hata bildirimleri ve özellik fikirleri.** Bir [sorun](https://github.com/levy-street/world-of-claudecraft/issues/new/choose)
+- **Hata bildirimleri ve özellik fikirleri.** Bir [sorun](https://github.com/ElevatedDesertCo/growverse/issues/new/choose)
   açın. Net bir hata bildirimi gerçek bir katkıdır.
 - **Belgeler.** Bunun gibi rehberler, README ve `docs/` içindeki tasarım belgeleri
   her zaman iyileştirilebilir.
@@ -45,8 +45,8 @@ Postgres çalıştırmak üzere ayrıca [Docker](https://www.docker.com/) isteye
 
 ```bash
 # 1. Fork the repo on GitHub, then clone your fork
-git clone https://github.com/<your-username>/world-of-claudecraft.git
-cd world-of-claudecraft
+git clone https://github.com/<your-username>/growverse.git
+cd growverse
 
 # 2. Install dependencies
 npm ci
@@ -146,7 +146,7 @@ yapıcı olmayı amaçlıyoruz ve aynısını sizden de rica ediyoruz.
 
 ## Yerelleştirme
 
-World of ClaudeCraft birçok dilde sunuluyor ve oyun büyüdükçe bunu böyle
+Growverse birçok dilde sunuluyor ve oyun büyüdükçe bunu böyle
 sürdürüyoruz. Oyuncuya görünen her dizge, desteklenen her yerel ayara çevrilir.
 
 - Kullanıcıya yönelik tüm metinler [`src/ui/i18n.ts`](../../src/ui/i18n.ts)
@@ -186,10 +186,10 @@ yardımcı olacağız. Anadili olan ve akıcı konuşanlar özellikle hoş karş
 
 ## Hata bildirme ve özellik isteme
 
-Lütfen [sorun şablonlarını](https://github.com/levy-street/world-of-claudecraft/issues/new/choose)
+Lütfen [sorun şablonlarını](https://github.com/ElevatedDesertCo/growverse/issues/new/choose)
 kullanın:
 
-- **Hata bildirimi.** Yinelenmeleri önlemek için önce [mevcut sorunları](https://github.com/levy-street/world-of-claudecraft/issues)
+- **Hata bildirimi.** Yinelenmeleri önlemek için önce [mevcut sorunları](https://github.com/ElevatedDesertCo/growverse/issues)
   arayın, ardından yeniden oluşturma adımlarını, ne beklediğinizi, ne olduğunu ve
   ortamınızı (çevrimdışı veya çevrimiçi, tarayıcı, masaüstü veya mobil) ekleyin.
 - **Özellik isteği.** Yalnızca çözümü değil, çözmeye çalıştığınız sorunu açıklayın.
@@ -208,5 +208,5 @@ Katkıda bulunarak, katkılarınızın, projeyi kapsayan lisansın aynısı olan
 
 ---
 
-World of ClaudeCraft'a katkıda bulunduğunuz için teşekkür ederiz. Bizimle birlikte
+Growverse'a katkıda bulunduğunuz için teşekkür ederiz. Bizimle birlikte
 ne inşa edeceğinizi görmek için sabırsızlanıyoruz.

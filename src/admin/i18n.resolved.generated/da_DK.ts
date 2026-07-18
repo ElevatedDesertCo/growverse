@@ -13,7 +13,7 @@ import type { AdminTranslations } from '../i18n.en';
 
 export const da_DK: AdminTranslations = {
   "app.title": "Growverse - Admin",
-  "app.shortTitle": "WoC-administration",
+  "app.shortTitle": "Growverse-administration",
   "auth.username": "Brugernavn",
   "auth.password": "Adgangskode",
   "auth.signIn": "Log ind",

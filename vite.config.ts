@@ -127,7 +127,11 @@ function staticPageAliasPlugin() {
       next();
     });
   };
-  return { name: 'woc-static-page-alias', configureServer: attach, configurePreviewServer: attach };
+  return {
+    name: 'growverse-static-page-alias',
+    configureServer: attach,
+    configurePreviewServer: attach,
+  };
 }
 
 // Phase 4 (i18n Lazy Locales): after the production build, resolve each lazy locale
@@ -140,7 +144,7 @@ function i18nModulepreloadPlugin() {
   let outDir = path.resolve(root, 'dist');
   let base = '/';
   return {
-    name: 'woc-i18n-modulepreload',
+    name: 'growverse-i18n-modulepreload',
     apply: 'build' as const,
     configResolved(cfg: { root: string; base: string; build: { outDir: string } }) {
       base = cfg.base || '/';
@@ -192,7 +196,7 @@ function musicEditorSavePlugin() {
     return Math.round(v * p) / p;
   };
   return {
-    name: 'woc-music-editor-save',
+    name: 'growverse-music-editor-save',
     configureServer(server: {
       middlewares: {
         use: (

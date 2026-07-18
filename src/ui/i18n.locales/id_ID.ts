@@ -2116,7 +2116,7 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'footer.copyright': '2026 Growverse',
   'footer.discordLabel': 'Gabung Discord',
   'footer.githubLabel': 'Proyek Sumber Terbuka',
-  'footer.githubLink': 'https://github.com/levy-street/world-of-claudecraft',
+  'footer.githubLink': 'https://github.com/ElevatedDesertCo/growverse',
   'footer.whitepaper': 'Whitepaper',
   'footer.privacy': 'Kebijakan Privasi',
   'footer.terms': 'Ketentuan Layanan',
@@ -2650,7 +2650,7 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'guide.faqPage.q8': 'Bisakah saya menjalankan salinan saya sendiri?',
   'guide.faqPage.q9': 'Apakah ada PvP?',
   'guide.footer.blurb':
-    'Mikro-MMO bergaya klasik dan bersumber terbuka. Jalani misi, bentuk kelompok, dan jelajahi dunia buatan tangan, langsung di perambanmu.',
+    'MMORPG fantasi cannabis bersumber terbuka. Jalani misi, bentuk kelompok, dan jelajahi dunia yang terhubung lewat portal, langsung di perambanmu.',
   'guide.footer.communityWiki': 'Wiki Komunitas',
   'guide.footer.discord': 'Gabung Discord',
   'guide.footer.github': 'Sumber di GitHub',
@@ -2795,7 +2795,7 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'guide.home.community.play': 'Main Sekarang',
   'guide.home.ctaLearn': 'Cara Bermain',
   'guide.home.ctaPlay': 'Main Sekarang',
-  'guide.home.eyebrow': 'MMO browser bergaya klasik',
+  'guide.home.eyebrow': 'MMORPG browser fantasi cannabis',
   'guide.home.faq.a1':
     'Ya. Seluruh permainan gratis hingga batas level, dan ini sumber terbuka di GitHub.',
   'guide.home.faq.a2':
@@ -3179,7 +3179,7 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'guide.tag.ranged': 'Jarak jauh',
   'guide.tag.simple': 'Sederhana',
   'guide.tag.solo': 'Cocok untuk solo',
-  'guide.tagline': 'MMO bergaya klasik yang bisa kamu mainkan gratis di peramban.',
+  'guide.tagline': 'MMORPG fantasi cannabis yang bisa kamu mainkan gratis di peramban.',
   'guide.talentsPage.heading': 'Bakat dan spesialisasi',
   'guide.talentsPage.howBody':
     'Bakat terbuka pada level 10, dan kamu terus mengumpulkan poin saat menanjak menuju batas tertinggi. Kamu membelanjakannya di panel bakat kelasmu, dan kamu bisa menyimpan lebih dari satu susunan untuk berganti antar-bangun.',
@@ -3853,7 +3853,7 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'hudChrome.account.sectionDanger': 'Zona Bahaya',
   'hudChrome.account.sectionSecurity': 'Keamanan',
   'hudChrome.account.sectionSettings': 'Pengaturan Akun',
-  'hudChrome.account.sectionWallet': 'Dompet $WOC',
+  'hudChrome.account.sectionWallet': 'Dompet Growverse',
   'hudChrome.account.title': 'Akun',
   'hudChrome.account.twoFactorBegin': 'Mulai Pengaturan',
   'hudChrome.account.twoFactorBeginHint': 'Masukkan kata sandimu untuk memulai pengaturan.',
@@ -4647,14 +4647,14 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'realmTypes.rpPvp': 'RP-PvP',
   'seo.applicationCategory': 'Permainan',
   'seo.description':
-    'Mulailah petualangan epik di Growverse, micro-MMO bergaya klasik yang dapat dimainkan langsung di peramban. Bergabunglah dengan realm bersama yang persisten, naikkan level kelas, dan kalahkan musuh!',
+    'Growverse adalah MMORPG peramban gratis bertema fantasi cannabis. Jelajahi dunia yang terhubung lewat portal, lawan berbagai makhluk, selesaikan misi, tanam strain ajaib, dan ukir legendamu di realm yang terus berkembang. Main langsung, tanpa unduhan.',
   'seo.genre': 'MMORPG',
   'seo.officialBody':
-    'worldofclaudecraft.com adalah MMO peramban gratis resmi untuk realm Claudemoon. Bermain daring dengan karakter yang persisten, jelajahi solo secara luring, baca wiki, dan ikuti tautan komunitas terverifikasi dari situs ini.',
+    'Growverse adalah MMORPG peramban gratis bertema fantasi cannabis yang berlatar di dunia yang terhubung lewat portal: lawan berbagai makhluk, selesaikan misi, kuasai profesi, dan tanam strain ajaib. Main langsung di peramban, jelajahi dunia secara solo, baca wiki, dan ikuti kabar pengembangan dari situs ini.',
   'seo.officialLabel': 'Situs resmi Growverse',
   'seo.operatingSystem': 'Peramban web',
   'seo.playMode': 'Multipemain',
-  'seo.title': 'Growverse: MMO Web Bergaya Klasik',
+  'seo.title': 'Growverse: The Portal Chronicles, MMORPG Peramban Gratis',
   'serverUnavailable.body':
     'Kami sedang memulai ulang layanan game dan memperkirakan Claudemoon akan kembali sebentar lagi. Halaman ini akan terus memeriksa secara otomatis.',
   'serverUnavailable.eyebrow': 'Pemeliharaan realm',
@@ -4848,7 +4848,7 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'wallet.holderTiers.worldbearer.name': 'Pemikul Dunia',
   'wallet.holderTiers.worldforger.flavor': 'Menempa dunia milikmu sendiri: 9% dari pasokan.',
   'wallet.holderTiers.worldforger.name': 'Penempa Dunia',
-  'wallet.label': 'Dompet $WOC',
+  'wallet.label': 'Dompet Growverse',
   'wallet.linkFailed': 'Verifikasi dompet gagal.',
   'wallet.linkTitle': 'Klik untuk menandatangani dan menautkan dompet ini ke akun Anda.',
   'wallet.linkedDisconnectedAria':

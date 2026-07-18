@@ -4,9 +4,9 @@
 
 </div>
 
-# World of ClaudeCraft에 기여하기
+# Growverse에 기여하기
 
-먼저, 이곳을 찾아 주셔서 감사합니다. World of ClaudeCraft는 클래식 MMO를 사랑하는 사람들의 커뮤니티가 함께 만들어 가는 게임이며, 크고 작은 모든 기여가 게임을 더 나아지게 합니다. 오타를 고치는 일, 게임을 번역하는 일, 버그를 제보하는 일, 완전히 새로운 던전을 만드는 일까지 전부 소중하며, 여러분을 진심으로 환영합니다.
+먼저, 이곳을 찾아 주셔서 감사합니다. Growverse는 클래식 MMO를 사랑하는 사람들의 커뮤니티가 함께 만들어 가는 게임이며, 크고 작은 모든 기여가 게임을 더 나아지게 합니다. 오타를 고치는 일, 게임을 번역하는 일, 버그를 제보하는 일, 완전히 새로운 던전을 만드는 일까지 전부 소중하며, 여러분을 진심으로 환영합니다.
 
 이 가이드는 개발 환경을 갖추고 첫 기여를 매끄럽게 시작하도록 도와줍니다. 전문가일 필요는 없습니다. 무엇이든 명확하지 않은 점이 있으면 [Discord](https://discord.gg/KSTJkrCq3)에 물어보세요. 누군가 기꺼이 도와줄 것입니다.
 
@@ -17,11 +17,11 @@
 이곳에는 누구에게나 자리가 있습니다.
 
 - **코드.** 버그를 고치거나, 기능을 추가하거나, 성능을 개선하세요.
-  [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue)
-  와 [`help wanted`](https://github.com/levy-street/world-of-claudecraft/labels/help%20wanted)
+  [`good first issue`](https://github.com/ElevatedDesertCo/growverse/labels/good%20first%20issue)
+  와 [`help wanted`](https://github.com/ElevatedDesertCo/growverse/labels/help%20wanted)
   라벨이 붙은 이슈가 시작하기에 좋습니다.
 - **번역.** 언어를 개선하거나 완성해서 전 세계의 플레이어를 도와주세요. 아래의 [게임 번역하기](#translating-the-game)를 참고하세요. 시작하기 가장 쉬우면서도 영향력이 큰 방법 중 하나입니다.
-- **버그 제보와 기능 제안.** [이슈](https://github.com/levy-street/world-of-claudecraft/issues/new/choose)를 열어 주세요. 명확한 버그 제보 하나도 진짜 기여입니다.
+- **버그 제보와 기능 제안.** [이슈](https://github.com/ElevatedDesertCo/growverse/issues/new/choose)를 열어 주세요. 명확한 버그 제보 하나도 진짜 기여입니다.
 - **문서.** 이 가이드를 비롯해 README, 그리고 `docs/`에 있는 설계 문서는 언제든 더 좋아질 수 있습니다.
 - **플레이테스트와 피드백.** 게임을 직접 해 보고, 어색하게 느껴지는 점을 알려 주고, Discord에서 아이디어를 나눠 주세요.
 
@@ -31,8 +31,8 @@
 
 ```bash
 # 1. GitHub에서 저장소를 포크한 다음, 포크한 저장소를 클론합니다
-git clone https://github.com/<your-username>/world-of-claudecraft.git
-cd world-of-claudecraft
+git clone https://github.com/<your-username>/growverse.git
+cd growverse
 
 # 2. 의존성을 설치합니다
 npm ci
@@ -99,7 +99,7 @@ npm run build               # 프로덕션 클라이언트 빌드
 
 ## 현지화
 
-World of ClaudeCraft는 여러 언어로 제공되며, 게임이 성장하는 동안에도 계속 그렇게 유지합니다. 플레이어에게 보이는 모든 문자열은 지원하는 모든 로케일로 번역됩니다.
+Growverse는 여러 언어로 제공되며, 게임이 성장하는 동안에도 계속 그렇게 유지합니다. 플레이어에게 보이는 모든 문자열은 지원하는 모든 로케일로 번역됩니다.
 
 - 사용자에게 보이는 모든 텍스트는 [`src/ui/i18n.ts`](../../src/ui/i18n.ts)에 정의된 `t()` 키입니다. 새 문자열은 먼저 `en` 로케일에 추가한 다음, `supportedLanguages`의 나머지 모든 로케일에 실제 번역을 제공하세요. 영어 자리표시자나 `// TODO`는 안 됩니다.
 - 숫자, 화폐, 날짜, 단위, 백분율은 문자열을 직접 조립하지 말고 포매터(`formatNumber`, `formatMoney`, `formatDateTime`, `Intl`)를 거치게 하세요.
@@ -121,9 +121,9 @@ World of ClaudeCraft는 여러 언어로 제공되며, 게임이 성장하는 �
 
 ## 버그 제보와 기능 요청
 
-[이슈 템플릿](https://github.com/levy-street/world-of-claudecraft/issues/new/choose)을 사용해 주세요.
+[이슈 템플릿](https://github.com/ElevatedDesertCo/growverse/issues/new/choose)을 사용해 주세요.
 
-- **버그 제보.** 중복을 피하기 위해 먼저 [기존 이슈](https://github.com/levy-street/world-of-claudecraft/issues)를 검색한 다음, 재현 단계, 기대한 결과, 실제로 일어난 일, 그리고 사용 환경(오프라인 또는 온라인, 브라우저, 데스크톱 또는 모바일)을 함께 적어 주세요.
+- **버그 제보.** 중복을 피하기 위해 먼저 [기존 이슈](https://github.com/ElevatedDesertCo/growverse/issues)를 검색한 다음, 재현 단계, 기대한 결과, 실제로 일어난 일, 그리고 사용 환경(오프라인 또는 온라인, 브라우저, 데스크톱 또는 모바일)을 함께 적어 주세요.
 - **기능 요청.** 해결책만이 아니라 풀고자 하는 문제를 설명해 주세요. 맥락이 있으면 저희가 알맞은 것을 설계하는 데 도움이 됩니다.
 
 ## 도움받기
@@ -136,4 +136,4 @@ World of ClaudeCraft는 여러 언어로 제공되며, 게임이 성장하는 �
 
 ---
 
-World of ClaudeCraft에 기여해 주셔서 감사합니다. 여러분이 저희와 함께 만들어 갈 것을 어서 보고 싶습니다.
+Growverse에 기여해 주셔서 감사합니다. 여러분이 저희와 함께 만들어 갈 것을 어서 보고 싶습니다.

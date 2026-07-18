@@ -14,7 +14,7 @@ export const ja_JP: Record<string, string> = {
   'usage.metric.githubLinkRateLimited': 'GitHubリンクのレート制限リクエスト',
   'usage.metric.githubLinkRequest': 'GitHubリンクのリクエスト',
   'app.title': 'Growverse - 管理',
-  'app.shortTitle': 'WoC管理者',
+  'app.shortTitle': 'Growverse管理者',
   'auth.username': 'ユーザー名',
   'auth.password': 'パスワード',
   'auth.signIn': 'サインイン',

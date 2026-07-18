@@ -4,9 +4,9 @@
 
 </div>
 
-# Contribuire a World of ClaudeCraft
+# Contribuire a Growverse
 
-Prima di tutto, grazie di essere qui. World of ClaudeCraft è costruito da una
+Prima di tutto, grazie di essere qui. Growverse è costruito da una
 comunità di persone che amano gli MMO classici, e ogni contributo, grande o
 piccolo, lo rende migliore. Correggere un refuso, tradurre il gioco, segnalare un
 bug, creare un dungeon completamente nuovo: tutto conta, e qui sei il benvenuto.
@@ -23,14 +23,14 @@ C'è posto per tutti, qui:
 
 - **Codice.** Correggi un bug, aggiungi una funzionalità o migliora le prestazioni.
   Le issue etichettate
-  [`good first issue`](https://github.com/levy-street/world-of-claudecraft/labels/good%20first%20issue)
-  e [`help wanted`](https://github.com/levy-street/world-of-claudecraft/labels/help%20wanted)
+  [`good first issue`](https://github.com/ElevatedDesertCo/growverse/labels/good%20first%20issue)
+  e [`help wanted`](https://github.com/ElevatedDesertCo/growverse/labels/help%20wanted)
   sono buoni punti di partenza.
 - **Traduzioni.** Aiuta i giocatori di tutto il mondo migliorando o completando una
   lingua. Vedi [Tradurre il gioco](#translating-the-game) più avanti. È uno dei
   modi più semplici e di maggiore impatto per iniziare.
 - **Segnalazioni di bug e idee per nuove funzionalità.** Apri una
-  [issue](https://github.com/levy-street/world-of-claudecraft/issues/new/choose).
+  [issue](https://github.com/ElevatedDesertCo/growverse/issues/new/choose).
   Una segnalazione di bug chiara è un vero contributo.
 - **Documentazione.** Guide come questa, il README e i documenti di design in
   `docs/` possono sempre essere migliorati.
@@ -44,8 +44,8 @@ ti servirà anche [Docker](https://www.docker.com/) per eseguire Postgres.
 
 ```bash
 # 1. Fai il fork del repository su GitHub, poi clona il tuo fork
-git clone https://github.com/<your-username>/world-of-claudecraft.git
-cd world-of-claudecraft
+git clone https://github.com/<your-username>/growverse.git
+cd growverse
 
 # 2. Installa le dipendenze
 npm ci
@@ -144,7 +144,7 @@ e chiediamo lo stesso a te.
 
 ## Localizzazione
 
-World of ClaudeCraft è distribuito in molte lingue, e lo manteniamo tale man mano
+Growverse è distribuito in molte lingue, e lo manteniamo tale man mano
 che il gioco cresce. Ogni stringa visibile ai giocatori è tradotta in ogni lingua
 supportata.
 
@@ -184,10 +184,10 @@ ogni parte del mondo.
 
 ## Segnalare bug e richiedere funzionalità
 
-Per favore usa i [modelli di issue](https://github.com/levy-street/world-of-claudecraft/issues/new/choose):
+Per favore usa i [modelli di issue](https://github.com/ElevatedDesertCo/growverse/issues/new/choose):
 
 - **Segnalazione di bug.** Cerca prima tra le
-  [issue esistenti](https://github.com/levy-street/world-of-claudecraft/issues) per
+  [issue esistenti](https://github.com/ElevatedDesertCo/growverse/issues) per
   evitare duplicati, poi includi i passi per riprodurre il problema, cosa ti
   aspettavi, cosa è successo e il tuo ambiente (offline o online, browser, desktop o
   mobile).
@@ -208,5 +208,5 @@ Contribuendo, accetti che i tuoi contributi siano rilasciati sotto la
 
 ---
 
-Grazie per aver contribuito a World of ClaudeCraft. Non vediamo l'ora di scoprire
+Grazie per aver contribuito a Growverse. Non vediamo l'ora di scoprire
 cosa costruirai insieme a noi.
