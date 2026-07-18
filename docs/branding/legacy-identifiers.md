@@ -8,11 +8,16 @@ a compatibility contract with deployed clients, live databases, app stores, or
 on-chain assets. Do not rename any of them without the migration noted in its
 row. Player-visible text must never surface these identifiers directly.
 
-## Domains and URLs (blocked on a Growverse domain that does not exist yet)
+## Domains and URLs
+
+The STATIC SITE origin (canonical/hreflang/OG/JSON-LD, sitemap, robots,
+llms.txt, share links) was cut over to `https://growverse.vercel.app` in the
+2026-07 sweep. The identifiers below still use the legacy domain:
 
 | Identifier | Where | Why retained |
 |---|---|---|
-| `https://worldofclaudecraft.com` | canonical/hreflang/OG/JSON-LD in `index.html`, `play.html`, `guide.html`, `public/*.html`, `public/robots.txt`, `public/sitemap.xml`, `public/llms.txt`, `src/guide/head.ts`, `src/main.ts` (`SITE_URL`), `scripts/build_sitemap.mjs`, `scripts/seo_audit.mjs`, `.env.example`, `bot/config.ts` | It is the live production origin. There is no Growverse domain in the repo or DNS evidence of one. Cutting over is a coordinated migration (DNS, TLS, redirects, sitemap resubmission, OAuth callback URLs, native attestation origins, Electron update feed), not a rename. |
+| `https://worldofclaudecraft.com` as GAME SERVER / API origin | `electron/main.cjs`, `electron/desktop_config.cjs`, `scripts/electron-build.mjs`, `scripts/electron-dev.mjs`, `package.json` `build:native` (`VITE_API_ORIGIN` default), `bot/config.ts` (`PUBLIC_GAME_URL` default), `.env.example` examples (`PUBLIC_ORIGIN`, OAuth callbacks, MediaWiki), server tests | The authoritative game server (accounts, WS, OAuth callbacks, native attestation) is not hosted on Vercel; shipped desktop/native builds call this origin. Changes here require the server deployment to move first. |
+| Legal body text naming `worldofclaudecraft.com` as "the Site" | `public/privacy.html`, `public/terms.html`, `PRIVACY_POLICY.md`, `TERMS_AND_CONDITIONS.md` | Contractual scope inside the old operator's legal documents; awaiting the owner's replacement policies (head SEO metadata on those pages does use the new origin). |
 | `https://updates.worldofclaudecraft.com/desktop` | `package.json` `build.publish.url` | Every installed desktop build polls this feed. The old feed must keep serving (or redirect) or shipped installs never see another update. |
 | `worldofclaudecraft://desktop-login` | `package.json` `build.protocols`, `electron/main.cjs`, `src/main.ts` | OS-registered deep-link protocol of installed desktop builds; the web login flow redirects to it. Add `growverse://` alongside in a future release rather than swapping. |
 | `app://worldofclaudecraft` | `electron/main.cjs` (`APP_ORIGIN`), allowed in `server/web_login_guard.ts` | The packaged shell's serving origin. Changing it wipes desktop users' origin-scoped storage (session, settings) and breaks CORS for already-shipped builds. The server allowlist now accepts both this and `app://growverse`. |
@@ -78,9 +83,16 @@ the same low-churn reason (never rendered as text).
 
 ## Needs an owner decision (see the branding-sweep report)
 
-- Public contact email `woc@levystreet.com` (press/support/legal pages).
-- Instagram/TikTok handles `@worldofclaudecraft`; Discord invite
-  `discord.gg/KSTJkrCq3`; GitHub Sponsors link `github.com/sponsors/levy-street`.
+- Social handle URLs (Instagram/TikTok `@worldofclaudecraft`, X/YouTube
+  `WoGrowverse`, Reddit `r/WorldofGrowverse`): swap each as the account is
+  renamed or created under the Growverse name.
+- Discord invite `discord.gg/KSTJkrCq3`: replace with the owner's server
+  invite once provided.
+- Donate links `github.com/sponsors/levy-street`: replace once the owner's
+  GitHub Sponsors (or other) page exists.
+- Legal contact `tony@levystreet.com` inside privacy/terms: replaced when the
+  owner ships their own policies (press/support/data-deletion already use
+  `info@elevateddesertco.com`).
 - `public/World-of-Growverse-Whitepaper-v1.0.pdf` filename and contents.
-- Realm name `Claudemoon`, Discord role prefix `WoC`, and the eventual
-  Growverse domain cutover (which unlocks the whole Domains table above).
+- Realm name `Claudemoon`, Discord role prefix `WoC`, wiki logo art, and any
+  future custom domain replacing `growverse.vercel.app`.
