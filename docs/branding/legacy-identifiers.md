@@ -84,12 +84,13 @@ the same low-churn reason (never rendered as text).
 ## Needs an owner decision (see the branding-sweep report)
 
 - Social handle URLs (Instagram/TikTok `@worldofclaudecraft`, X/YouTube
-  `WoGrowverse`, Reddit `r/WorldofGrowverse`): swap each as the account is
-  renamed or created under the Growverse name.
-- Discord invite `discord.gg/KSTJkrCq3`: replace with the owner's server
-  invite once provided.
-- Donate links `github.com/sponsors/levy-street`: replace once the owner's
-  GitHub Sponsors (or other) page exists.
+  `WoGrowverse`, Reddit `r/WorldofGrowverse`): the owner has no Growverse
+  accounts yet; swap each as the account is renamed or created.
+- Discord invite `discord.gg/KSTJkrCq3`: CONFIRMED by the owner (2026-07) as
+  the correct Growverse community server; no longer pending.
+- Donate links now point at `github.com/sponsors/ElevatedDesertCo` (plus
+  `.github/FUNDING.yml`); the URL redirects to the profile until the owner
+  completes GitHub Sponsors Stripe onboarding.
 - Legal contact `tony@levystreet.com` inside privacy/terms: replaced when the
   owner ships their own policies (press/support/data-deletion already use
   `info@elevateddesertco.com`).
