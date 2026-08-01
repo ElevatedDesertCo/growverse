@@ -33,6 +33,7 @@ import { groundHeight, WATER_LEVEL, zoneBiomeAt } from '../sim/world';
 import { attachAvatarFallback } from '../ui/avatar_fallback';
 import { tEntity } from '../ui/entity_i18n';
 import type { IWorld } from '../world_api';
+import { AbilityVfx, AbilityVfxFx } from './ability_vfx';
 import { isVisuallyDead } from './anim_state';
 import { AOE_RING_LIFETIME, aoeRingAnim } from './aoe_ring';
 import type { SpatialAudioSink, Surface } from './audio_sink';
@@ -889,6 +890,8 @@ export class Renderer {
   // gate a freshly-streamed view's draw on readiness instead of stalling the frame.
   private asyncCompileSupported = false;
   vfx: Vfx;
+  private abilityVfx: AbilityVfx;
+  private abilityVfxFx: AbilityVfxFx;
   private weather: Weather;
   private weatherOn = true;
   private audioSink: SpatialAudioSink | null = null;
@@ -1412,14 +1415,45 @@ export class Renderer {
     }
 
     // particle system: projectiles, impacts, heal glows, ambience
-    this.vfx = new Vfx(this.scene, (id, frac) => {
+    const vfxAnchor = (id: number, frac: number) => {
       const v = this.views.get(id);
       if (!v) return null;
       const e = this.sim.entities.get(id);
       const h = v.height * (e?.scale ?? 1) * frac;
       return new THREE.Vector3(v.group.position.x, v.group.position.y + h, v.group.position.z);
-    });
+    };
+    this.vfx = new Vfx(this.scene, vfxAnchor);
     this.vfx.setViewportScale(this.webgl.domElement.clientHeight * this.webgl.getPixelRatio(), 60);
+
+    // Per-ability authored spell VFX. The engine (pooled ribbons/rings/decals/
+    // shells) sits alongside the generic particle cloud; the painter claims the
+    // events it has a spec for and leaves the rest to the school-colored arm
+    // below in handleEvent. Optional deps this fork cannot satisfy yet
+    // (lightPulse, setAuraGlow, animHold, bodyLean, abilityAudio) are omitted:
+    // the painter no-ops each one.
+    this.abilityVfxFx = new AbilityVfxFx(this.scene, this.camera, vfxAnchor, (x, z) =>
+      groundHeight(x, z, this.sim.cfg.seed),
+    );
+    this.abilityVfxFx.setViewportScale(
+      this.webgl.domElement.clientHeight * this.webgl.getPixelRatio(),
+      60,
+    );
+    this.abilityVfx = new AbilityVfx({
+      vfx: this.vfx,
+      fx: this.abilityVfxFx,
+      anchor: vfxAnchor,
+      spawnAoeRing: (x, z, radius, school, colorHex) =>
+        this.spawnAoeRing(x, z, radius, school, colorHex),
+      triggerAttack: (id) => this.triggerAttack(id),
+      isMob: (id) => this.sim.entities.get(id)?.kind === 'mob',
+      castingAbilityOf: (id) => this.sim.entities.get(id)?.castingAbility ?? null,
+      localPlayerId: () => this.sim.player.id,
+      isInstantAbility: (abilityId) => {
+        const def = ABILITIES[abilityId];
+        return !def || (def.castTime <= 0 && !def.channel);
+      },
+      addShake: (amount) => this.addShake(amount),
+    });
 
     // ambient precipitation: biome-driven snow/rain that rides with the camera
     this.weather = new Weather(this.scene, this.lowGfx);
@@ -1599,6 +1633,7 @@ export class Renderer {
     this.foliage.setGrassQuality(state.levels.grass);
     this.foliage.setModelQuality(state.levels.foliage);
     this.vfx.setQuality(state.levels.vfx);
+    this.abilityVfx.setQuality(state.levels.vfx);
     this.effectivePointLights = Math.max(1, Math.round(GFX.maxPointLights * state.levels.lighting));
     if (Math.abs(previousScale - this.effectiveRenderScale) >= 0.001) this.applyResolution();
   }
@@ -2768,6 +2803,7 @@ export class Renderer {
       }
     } finally {
       this.vfx.clear();
+      this.abilityVfxFx.clear();
       if (doorPrewarmGroup) this.scene.remove(doorPrewarmGroup);
       if (interiorPrewarmGroup) this.scene.remove(interiorPrewarmGroup);
       if (entityPrewarmGroup) this.scene.remove(entityPrewarmGroup);
@@ -2826,6 +2862,9 @@ export class Renderer {
   handleEvent(ev: SimEvent): void {
     switch (ev.type) {
       case 'spellfx':
+        // the authored per-ability arm gets first refusal; unspec'd abilities
+        // fall through to the generic school-colored effect below
+        if (this.abilityVfx.handleSpellfx(ev)) break;
         if (ev.fx === 'projectile') this.vfx.projectile(ev.sourceId, ev.targetId, ev.school);
         else if (ev.fx === 'beam') this.vfx.beam(ev.sourceId, ev.targetId, ev.school);
         else if (ev.fx === 'tick') this.vfx.tick(ev.targetId, ev.school);
@@ -2837,6 +2876,7 @@ export class Renderer {
         // spot. A 'nova' aim is the heavier detonation; 'burst' the lighter one.
         // A radius-carrying event also flashes the AoE ring so the blast AREA
         // reads, not just its center.
+        if (this.abilityVfx.handleSpellfxAt(ev)) break;
         const gy = groundHeight(ev.x, ev.z, this.sim.cfg.seed);
         const at = new THREE.Vector3(ev.x, gy + 0.4, ev.z);
         this.vfx.burst(at, ev.school, ev.fx === 'nova' ? 34 : 22, ev.fx === 'nova' ? 1.4 : 1);
@@ -2844,6 +2884,9 @@ export class Renderer {
         break;
       }
       case 'damage':
+        // impact-side authored effects (crit stacks, dot ticks); additive, so
+        // it does not suppress the flinch/spark path below
+        this.abilityVfx.onDamage(ev);
         // every melee/ranged swing animates the attacker for all to see
         if (ev.school === 'physical' && ev.sourceId !== -1) this.triggerAttack(ev.sourceId);
         if (ev.kind === 'hit' && ev.amount > 0) {
@@ -4361,6 +4404,9 @@ export class Renderer {
         }
       }
 
+      // per-ability windup orb + buff-orbit bands (spec-driven; no-op for
+      // entities with no spec'd cast or aura)
+      this.abilityVfx.syncEntity(e);
       if (st.casting) {
         this.vfx.castSparkle(
           e.id,
@@ -4527,6 +4573,7 @@ export class Renderer {
     this.waterView.update(this.time);
     worldStart = markWorldPhase('water', worldStart);
     this.vfx.update(dt);
+    this.abilityVfx.update(dt);
     this.updateFiestaRing(dt);
     this.updateFiestaPowerups(dt);
     this.tickFiestaGlows(dt);
@@ -5136,7 +5183,7 @@ export class Renderer {
 
   // Flash a school-colored AoE ring on the terrain at a ground-targeted blast's
   // landing spot, sized to the blast radius (see aoe_ring.ts for the curves).
-  spawnAoeRing(x: number, z: number, radius: number, school: string): void {
+  spawnAoeRing(x: number, z: number, radius: number, school: string, colorHex?: number): void {
     if (this.aoeRings.length === 0) return;
     const slot = this.aoeRings[this.aoeRingNext];
     this.aoeRingNext = (this.aoeRingNext + 1) % this.aoeRings.length;
@@ -5144,7 +5191,7 @@ export class Renderer {
     slot.ring.position.set(x, y, z);
     slot.radius = radius;
     slot.elapsed = 0;
-    slot.mat.color.setHex(SCHOOL_COLORS[school] ?? 0xffffff);
+    slot.mat.color.setHex(colorHex ?? SCHOOL_COLORS[school] ?? 0xffffff);
     if (!this.lowGfx) slot.mat.color.multiplyScalar(SELECTION_RING_BOOST);
     slot.ring.visible = true;
   }

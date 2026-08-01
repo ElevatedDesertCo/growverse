@@ -472,6 +472,8 @@ export function runEffects(
             school: ability.school,
             fx: 'nova',
             radius: eff.radius,
+            ability: ability.id,
+            sourceId: p.id,
           });
         } else {
           ctx.emit({
@@ -480,6 +482,7 @@ export function runEffects(
             targetId: p.id,
             school: ability.school,
             fx: 'nova',
+            ability: ability.id,
           });
         }
         const aoeSpBonus = directHitBonus(
@@ -536,6 +539,8 @@ export function runEffects(
             school: ability.school,
             fx: 'nova',
             radius: eff.radius,
+            ability: ability.id,
+            sourceId: p.id,
           });
         } else {
           ctx.emit({
@@ -544,6 +549,7 @@ export function runEffects(
             targetId: p.id,
             school: ability.school,
             fx: 'nova',
+            ability: ability.id,
           });
         }
         ctx.pulseGroundAoE(groundEffect, threatOpts, true);
@@ -593,6 +599,7 @@ export function runEffects(
           targetId: p.id,
           school: ability.school,
           fx: 'nova',
+          ability: ability.id,
         });
         const aoeRootSp = directHitBonus(
           abilityScalingPower(p, ability),

@@ -2098,6 +2098,12 @@ export type SimEvent = { pid?: number } & (
       targetId: number;
       school: string;
       fx: 'projectile' | 'beam' | 'tick' | 'nova';
+      // The stable ability id behind the cue, when one is in scope. Purely a
+      // presentation hint: the renderer's authored per-ability VFX arm keys its
+      // specs off it and falls back to the generic school-colored effect when it
+      // is absent (boss-script cues, auto-attacks). Never player-facing text, so
+      // it does not make the sim language-aware.
+      ability?: string;
     }
   // visual-only cue anchored to a WORLD POINT rather than an entity: a
   // ground-targeted spell's impact (the burst/nova lands where it was aimed, not
@@ -2111,6 +2117,12 @@ export type SimEvent = { pid?: number } & (
       // blast radius in yards; when set the renderer flashes a terrain-draped
       // AoE ring of this size under the burst so the impact area reads clearly
       radius?: number;
+      // See the note on the 'spellfx' variant: a presentation-only ability hint
+      // for the authored per-ability VFX arm.
+      ability?: string;
+      // The caster, when known. The authored arm anchors a ground blast's
+      // release ceremony on them; absent for unowned world cues.
+      sourceId?: number;
     }
   // entityId (when set) anchors the log to that entity so the server only
   // delivers it to nearby players; anchorless logs broadcast server-wide
