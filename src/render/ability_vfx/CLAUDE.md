@@ -43,3 +43,30 @@ asserts every spec'd ability clears its per-archetype primitive bar in the
 real client via the dev-only `window.__game.abilityVfxStats` hook. All
 materials are additive with depth-write off; no new post-processing: HDR
 multipliers ride the existing composer bloom exactly like `../vfx.ts`.
+
+## Growverse divergences from upstream (read before re-syncing)
+
+This subsystem was ported from `levy-street/world-of-claudecraft`. Files are
+otherwise straight copies, so a future re-sync is a file copy plus re-applying
+these. Every divergence is marked with a `Growverse divergence:` comment at its
+site.
+
+- `painter.ts` drops two upstream checks the fork's sim cannot answer: abilities
+  here carry no `passive` flag, and `targetType` has no `'any'` member.
+- `../characters/weapon_attack_style_core.ts` keeps only `attackAbilityId` and
+  `isSpinAttackAbility`. Upstream's `weaponAttackStyle` is omitted: Growverse
+  weapons have no `hand` field, so there is no two-hand vs dual-wield to read.
+- The spec tables are pruned to this fork's spellbook (157 abilities + 2 pet
+  commands, vs upstream's 296 rows). Porting an ability from upstream means
+  bringing its spec row back verbatim from upstream's table.
+- `commanding_shout` and `rend` are Growverse originals with no upstream spec;
+  both are authored locally and marked as such in `../ability_vfx_specs.ts`.
+- Deps the fork cannot satisfy yet are simply not passed, and the painter
+  no-ops each: `lightPulse` (no `pulseAt` on the renderer), `setAuraGlow`,
+  `playShoutAnim`, `isMidOneShot`, `hasGestureClip`, `animHold`, `bodyLean`,
+  `screenFlash`, `screenImpact`, `abilityAudio`. Wiring any of them is additive:
+  add the capability to `CharacterVisual` / `Renderer`, then pass the dep.
+- Upstream's `tests/ability_vfx_selfcast_fallthrough.test.ts` is not ported: it
+  covers a `selfCast` spellfx variant this fork's `SimEvent` does not have.
+- `scripts/ability_vfx_probe.mjs` is NOT ported yet, so the per-archetype
+  primitive bar is currently unverified in a real browser here.
