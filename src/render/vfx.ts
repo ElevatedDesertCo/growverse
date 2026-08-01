@@ -30,7 +30,10 @@ const projectileColorCache = new Map<
   { base: THREE.Color; core: THREE.Color; trail: THREE.Color }
 >();
 let projectileColorComposer: boolean | null = null;
-function projectileSchoolColors(school: string): {
+function projectileSchoolColors(
+  school: string,
+  colorOverride?: number,
+): {
   base: THREE.Color;
   core: THREE.Color;
   trail: THREE.Color;
@@ -39,15 +42,16 @@ function projectileSchoolColors(school: string): {
     projectileColorCache.clear();
     projectileColorComposer = GFX.composer;
   }
-  let c = projectileColorCache.get(school);
+  const key = colorOverride === undefined ? school : `c:${colorOverride}`;
+  let c = projectileColorCache.get(key);
   if (!c) {
-    const base = new THREE.Color(SCHOOL_COLORS[school] ?? 0xffffff);
+    const base = new THREE.Color(colorOverride ?? SCHOOL_COLORS[school] ?? 0xffffff);
     c = {
       base,
       core: base.clone().multiplyScalar(hdr(2.5)),
       trail: base.clone().multiplyScalar(hdr(1.4)),
     };
-    projectileColorCache.set(school, c);
+    projectileColorCache.set(key, c);
   }
   return c;
 }
@@ -171,6 +175,12 @@ interface Projectile {
   ttl: number;
   coreSprite: number;
   trailSprite: number;
+  // When set, the flying head renders as a short jagged electric bolt streak
+  // (a lightning "bolt-shaped" projectile) instead of a smooth glowing comet.
+  lightning?: boolean;
+  // Visual heft multiplier (Pyroblast's heavyBolt = 2): scales the comet core,
+  // trail and impact flash; mechanics and speed are untouched.
+  scale?: number;
 }
 
 // fire reads as flame tongues; everything else as sparkling magic
@@ -373,10 +383,10 @@ export class Vfx {
   // High-level effects
   // ---------------------------------------------------------------------
 
-  projectile(sourceId: number, targetId: number, school: string): void {
+  projectile(sourceId: number, targetId: number, school: string, scale = 1, color?: number): void {
     const from = this.anchor(sourceId, 0.62);
     if (!from) return;
-    const colors = projectileSchoolColors(school);
+    const colors = projectileSchoolColors(school, color);
     const sprites = projectileSprites(school);
     this.projectiles.push({
       pos: from.clone(),
@@ -388,14 +398,42 @@ export class Vfx {
       ttl: 3,
       coreSprite: sprites.core,
       trailSprite: sprites.trail,
+      scale,
     });
   }
 
-  beam(sourceId: number, targetId: number, school: string): void {
+  // A bolt-shaped electric projectile: same homing flight as `projectile`, but
+  // the head draws as a jagged streak in the update loop (see `pr.lightning`).
+  lightningProjectile(sourceId: number, targetId: number, color?: number): void {
+    const from = this.anchor(sourceId, 0.62);
+    if (!from) return;
+    // A color override tints the bolt per ability: the head stays pushed toward
+    // white so it still reads as a hot electric core.
+    const head =
+      color === undefined
+        ? new THREE.Color(0xeaf6ff)
+        : new THREE.Color(color).lerp(new THREE.Color(0xffffff), 0.6);
+    this.projectiles.push({
+      pos: from.clone(),
+      targetId,
+      color: new THREE.Color(color ?? 0x66b8ff).multiplyScalar(hdr(1.7)), // electric blue (impact tint)
+      coreColor: head.multiplyScalar(hdr(3.0)), // hot white-blue head
+      trailColor: new THREE.Color(color ?? 0x3f9bff).multiplyScalar(hdr(1.9)), // crackle
+      speed: 26,
+      ttl: 3,
+      coreSprite: SPR.glowCore,
+      trailSprite: SPR.sparkle,
+      lightning: true,
+    });
+  }
+
+  beam(sourceId: number, targetId: number, school: string, colorOverride?: number): void {
     const from = this.anchor(sourceId, 0.62);
     const to = this.anchor(targetId, 0.55);
     if (!from || !to) return;
-    const color = new THREE.Color(SCHOOL_COLORS[school] ?? 0xffffff).multiplyScalar(hdr(1.9));
+    const color = new THREE.Color(
+      colorOverride ?? SCHOOL_COLORS[school] ?? 0xffffff,
+    ).multiplyScalar(hdr(1.9));
     const dir = to.clone().sub(from);
     const len = dir.length();
     if (len <= 0.001) return;
@@ -412,8 +450,8 @@ export class Vfx {
     this.spawn(to.x, to.y, to.z, 0, 0.2, 0, color, 0.9, 0.2, 0, SPR.magicRune);
   }
 
-  burst(at: THREE.Vector3, school: string, count = 18, power = 1): void {
-    const c = new THREE.Color(SCHOOL_COLORS[school] ?? 0xffffff).multiplyScalar(hdr(1.6));
+  burst(at: THREE.Vector3, school: string, count = 18, power = 1, color?: number): void {
+    const c = new THREE.Color(color ?? SCHOOL_COLORS[school] ?? 0xffffff).multiplyScalar(hdr(1.6));
     const isFire = school === 'fire';
     const scaledCount = this.scaledCount(count);
     for (let i = 0; i < scaledCount; i++) {
@@ -446,15 +484,15 @@ export class Vfx {
     }
   }
 
-  tick(targetId: number, school: string): void {
+  tick(targetId: number, school: string, color?: number): void {
     const at = this.anchor(targetId, 0.55);
-    if (at) this.burst(at, school, 7, 0.6);
+    if (at) this.burst(at, school, 7, 0.6, color);
   }
 
-  nova(centerId: number, school: string): void {
+  nova(centerId: number, school: string, color?: number): void {
     const at = this.anchor(centerId, 0.12);
     if (!at) return;
-    const c = new THREE.Color(SCHOOL_COLORS[school] ?? 0xffffff).multiplyScalar(hdr(1.6));
+    const c = new THREE.Color(color ?? SCHOOL_COLORS[school] ?? 0xffffff).multiplyScalar(hdr(1.6));
     // one expanding rune ring at the centre sells the shockwave
     this.spawn(at.x, at.y + 0.3, at.z, 0, 0.3, 0, c, 1.5, 0.4, 0, SPR.ring, 0);
     const count = this.scaledCount(34);
@@ -475,6 +513,38 @@ export class Vfx {
         i % 4 === 0 ? SPR.magicRune : SPR.sparkle,
       );
     }
+  }
+
+  // A war-cry shockwave: a ground ring plus a flame-and-spark skirt thrown
+  // outward at ankle height, capped by a flash above the caster's head. Takes
+  // an explicit color because shouts are ability-tinted, not school-tinted.
+  shoutwave(centerId: number, colorHex: number): void {
+    const at = this.anchor(centerId, 0.12);
+    if (!at) return;
+    const bright = new THREE.Color(colorHex).multiplyScalar(hdr(1.7));
+    const dim = new THREE.Color(colorHex).multiplyScalar(hdr(0.9));
+    this.spawn(at.x, at.y + 0.25, at.z, 0, 0.25, 0, bright, 2, 0.45, 0, SPR.ring, 0);
+    const count = this.scaledCount(52);
+    for (let i = 0; i < count; i++) {
+      const angle = (i / count) * Math.PI * 2 + Math.random() * 0.12;
+      const speed = 9.5 + Math.random() * 2;
+      const flame = i % 3 === 0;
+      this.spawn(
+        at.x + Math.sin(angle) * 0.5,
+        at.y + 0.15,
+        at.z + Math.cos(angle) * 0.5,
+        Math.sin(angle) * speed,
+        flame ? 1.4 + Math.random() * 0.8 : 0.35,
+        Math.cos(angle) * speed,
+        flame ? bright : dim,
+        flame ? 0.85 : 0.55,
+        0.8,
+        flame ? -1.5 : 3,
+        flame ? SPR.flame : SPR.sparkle,
+      );
+    }
+    this.spawn(at.x, at.y + 1.25, at.z, 0, 2.4, 0, bright, 1.5, 0.4, 0, SPR.flash, 0);
+    this.spawn(at.x, at.y + 1, at.z, 0, 1.2, 0, dim, 1.1, 0.5, 0, SPR.firePuff);
   }
 
   healGlow(targetId: number): void {
@@ -651,7 +721,20 @@ export class Vfx {
       if (dist <= Math.max(0.7, step)) {
         // impact: school-tinted cross-flash + burst that survives a 30fps frame
         this.tmpColor.copy(pr.color).multiplyScalar(hdr(1.6));
-        this.spawn(target.x, target.y, target.z, 0, 0.5, 0, this.tmpColor, 1.1, 0.22, 0, SPR.flash);
+        const sc = pr.scale ?? 1;
+        this.spawn(
+          target.x,
+          target.y,
+          target.z,
+          0,
+          0.5,
+          0,
+          this.tmpColor,
+          1.1 * sc,
+          0.22,
+          0,
+          SPR.flash,
+        );
         for (let k = 0; k < this.scaledCount(22); k++) {
           const a = Math.random() * Math.PI * 2;
           const sp = 2.5 + Math.random() * 4;
@@ -672,24 +755,89 @@ export class Vfx {
         this.projectiles.splice(i, 1);
         continue;
       }
+      const ux = dir.x / dist; // unit travel direction (before the step scale below)
+      const uy = dir.y / dist;
+      const uz = dir.z / dist;
       dir.multiplyScalar(step / dist);
       pr.pos.add(dir);
-      // bright HDR core (blooms into a comet) + sparkling trail
-      this.spawn(pr.pos.x, pr.pos.y, pr.pos.z, 0, 0, 0, pr.coreColor, 1.0, 0.12, 0, pr.coreSprite);
-      if (Math.random() < 0.35 + 0.65 * this.quality) {
+      if (pr.lightning) {
+        // The flying head is a short jagged electric streak trailing back along
+        // the travel direction: a few segments, each kicked perpendicular for the
+        // zig-zag, so it reads as a lightning bolt shape rather than a round comet.
+        const ph = Math.hypot(ux, uz) || 1;
+        const perpX = -uz / ph;
+        const perpZ = ux / ph;
+        let lat = 0;
+        let vy = 0;
+        for (let s = 0; s < 5; s++) {
+          lat = lat * 0.45 + (Math.random() - 0.5) * 0.75;
+          vy = vy * 0.45 + (Math.random() - 0.5) * 0.55;
+          const back = s * 0.55;
+          const x = pr.pos.x - ux * back + perpX * lat;
+          const y = pr.pos.y - uy * back + vy;
+          const z = pr.pos.z - uz * back + perpZ * lat;
+          const head = s === 0;
+          this.spawn(
+            x,
+            y,
+            z,
+            0,
+            0,
+            0,
+            head ? pr.coreColor : pr.color,
+            head ? 0.5 : 0.36,
+            0.13,
+            0,
+            SPR.glowCore,
+          );
+          this.spawn(x, y, z, 0, 0, 0, pr.trailColor, head ? 0.7 : 0.5, 0.15, 0, SPR.glowSoft);
+        }
+        // an occasional crackle spark flung off the head
+        if (Math.random() < 0.6) {
+          this.spawn(
+            pr.pos.x + (Math.random() - 0.5) * 0.3,
+            pr.pos.y + (Math.random() - 0.5) * 0.3,
+            pr.pos.z + (Math.random() - 0.5) * 0.3,
+            (Math.random() - 0.5) * 1.4,
+            0.3,
+            (Math.random() - 0.5) * 1.4,
+            pr.trailColor,
+            0.22,
+            0.3,
+            1.5,
+            SPR.sparkle,
+          );
+        }
+      } else {
+        // bright HDR core (blooms into a comet) + sparkling trail
         this.spawn(
-          pr.pos.x + (Math.random() - 0.5) * 0.25,
-          pr.pos.y + (Math.random() - 0.5) * 0.25,
-          pr.pos.z + (Math.random() - 0.5) * 0.25,
-          (Math.random() - 0.5) * 0.8,
-          0.4,
-          (Math.random() - 0.5) * 0.8,
-          pr.trailColor,
-          0.32,
-          0.6,
-          1.5,
-          pr.trailSprite,
+          pr.pos.x,
+          pr.pos.y,
+          pr.pos.z,
+          0,
+          0,
+          0,
+          pr.coreColor,
+          1.0 * (pr.scale ?? 1),
+          0.12,
+          0,
+          pr.coreSprite,
         );
+        if (Math.random() < 0.35 + 0.65 * this.quality) {
+          this.spawn(
+            pr.pos.x + (Math.random() - 0.5) * 0.25,
+            pr.pos.y + (Math.random() - 0.5) * 0.25,
+            pr.pos.z + (Math.random() - 0.5) * 0.25,
+            (Math.random() - 0.5) * 0.8,
+            0.4,
+            (Math.random() - 0.5) * 0.8,
+            pr.trailColor,
+            0.32 * (pr.scale ?? 1),
+            0.6,
+            1.5,
+            pr.trailSprite,
+          );
+        }
       }
     }
 
