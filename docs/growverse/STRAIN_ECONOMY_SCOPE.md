@@ -1,207 +1,251 @@
-# Scope: the graded strain economy
+# Design: the Growverse strain economy
 
-**Goal.** Make cultivated Bloom worth money to someone other than the grower, so
-genetics produce a price signal instead of a private stat buff.
+**Goal.** A player-driven economy where growers breed named genetics, grade their
+harvests, and sell, barter, and swap cuts with other players, with quest demand
+underneath it so the market has buyers who do not grow.
 
-**Status.** Scoping only. Nothing here is built.
+**Status.** Design. Phase 1 is buildable as specified; later phases are sketched.
 
 ---
 
-## 1. The problem, precisely
+## 0. What already exists (checked, not assumed)
 
-The cultivation loop already works end to end: craft a seed, plant it in one of
-`GARDEN_PLOT_COUNT` plots, wait out `growSeconds`, harvest, press the Bloom into
-tonics. Breeding works too: `src/sim/genetics.ts` carries dominant/recessive
-alleles across three traits (`potency`, `vigor`, `yield`) at tiers 0 to 3, and
-`breedGenotype` segregates them properly.
+More of this is built than it looks from outside the code.
 
-The gap is in one line of `harvestPlot` (`src/sim/cultivation.ts:215`):
+| Piece | State | Where |
+|---|---|---|
+| Cultivation loop | **Works.** Seed, plot, timer, harvest, press into tonics | `src/sim/cultivation.ts` (290 lines) |
+| Genetics | **Works.** Dominant/recessive alleles, 3 traits, tiers 0 to 3, proper segregation | `src/sim/genetics.ts` (140 lines) |
+| Sessions (tonics) | **Works.** Spark vs edible onset, couch-lock tradeoff | `src/sim/sessions.ts` |
+| Auction market | **Works.** search / list / buy / cancel / collect, 5% merchant cut as a gold sink | `src/sim/market.ts` |
+| **Player barter** | **Already works.** `tradeSetOffer(items, copper)` on both sides, so item-for-item at 0 copper is a legal trade today | `src/sim/social/trade.ts` |
+| **Quest collect objectives** | **Already works.** `{type:'collect', itemId, count}` | `src/sim/types.ts:1619` |
+| Grower reputation | Exists (Baked Beaver faction), hooked at end of harvest | `src/sim/content/reputation.ts` |
+
+**So the plumbing for "sell, trade, barter" is mostly done.** What is missing is
+not transaction machinery. It is three things: nothing to differentiate one
+grower's product from another's, no identity for what you bred, and no buyer who
+is not also a grower.
+
+---
+
+## 1. The three real gaps
+
+### Gap 1: every harvest is the same item
+
+`harvestPlot` (`src/sim/cultivation.ts:215`) grants flat `bloom_extract` regardless
+of strain. Genetics changes only quantity (`yieldBonus`) and speed
+(`growTimeFactor`). A carefully bred Prime cross and a starter Common seed produce
+the **identical tradeable good**, so a buyer has no reason to prefer yours.
+
+Worse: `bloom_extract` is also a herbalism gathering drop from the vale's flower
+patches. Cultivated Bloom competes with Bloom you can pick for free, with no seed
+cost, no timer, and no garden slot. **Gathering currently dominates growing.**
+
+### Gap 2: what you breed has no name
+
+`breed()` (`src/sim/genetics.ts:104`) does this:
 
 ```ts
-for (const y of def.yields) ctx.addItem(y.itemId, y.count, meta.entityId);
+return { id: newId, baseId: a.baseId, name: a.name, genotype, landrace: ... };
 ```
 
-Every harvest, from every strain, grants the same fungible `bloom_extract`.
-Genetics currently changes only **how much** you get:
+A cross inherits parent A's name. You cannot name what you made. This is the
+single largest missing piece for the fantasy: strain culture is *entirely* about
+named genetics and breeder credit. A market where every seller lists "Common
+Bloom" has no brands, no reputation, and nothing to be proud of.
 
-- `yieldBonus(expressTrait(g, 'yield'))` adds extra units of the bulk yield
-- `dropsEssence(expressTrait(g, 'potency'))` adds an essence on a potent strain
-- `growTimeFactor(expressTrait(g, 'vigor'))` shortens the timer
+### Gap 3: everyone who wants Bloom can grow Bloom
 
-So a carefully bred Prime cross and a starter Common seed produce **the identical
-tradeable good**. A buyer has no reason to prefer yours, and therefore no reason
-to pay for it. The breeding system has no economic consumer.
-
-**A second problem that makes this worse.** `bloom_extract` is also a herbalism
-gathering drop from the vale's flower patches (`src/sim/content/gathering.ts`,
-consumed by the alchemy recipes at `src/sim/content/crafting.ts:660+`). Cultivated
-Bloom competes directly with Bloom you can pick off the ground for free. Right now
-gathering strictly dominates: same item, no seed cost, no timer, no garden slot.
-
-**What already works and needs no changes.** The market is complete:
-`market_search`, `market_list`, `market_buy`, `market_cancel`, `market_collect`
-are live on `IWorld`, listings are `{itemId, count, price}`, and items carry a
-`sellValue` vendor anchor. Players can already trade Bloom. It is just not worth
-trading.
+Tonics buff the drinker. If the only consumer of Bloom is a grower, the market
+clears at zero. **This is the load-bearing risk of the whole design**, and the fix
+is not economy plumbing.
 
 ---
 
-## 2. Why not item instances
+## 2. The design
 
-The obvious fix is per-copy item data: attach the genotype to the harvested stack.
-The fork cannot do this today. `InvSlot` is `{itemId, count}` with no payload, and
-`MarketListing` is `{itemId, count, price}`.
+### 2a. Grades: one trait, one job
 
-Upstream solved it for Professions 2.0 with `ItemInstancePayload`
-(`signer`, `rolled.stats`, `masterwork`, `enchant`, `craftedRecipeId`, `boundTo`)
-plus `item_instance_merge.ts` and `item_instance_transfer.ts`. It is good code.
-
-**It is also 44 files across sim, net, server, and UI**, and it drags in bank,
-mail, trade, vendor unbind, enchanting, and masterwork. That is a professions
-migration wearing an economy hat. Not step one.
-
-**Item ids are the cheap path.** Distinct ids per grade are ordinary stackable
-items, so the existing market, bags, bank, trade, mail, and vendor all handle them
-for free, with zero new architecture. Classic MMOs ship consumable tiers exactly
-this way. The cost is item-table rows and a loss of per-copy identity (you cannot
-tell WHOSE Prime Bloom this is), which is Phase 2's problem, not Phase 1's.
-
----
-
-## 3. The design
-
-**One trait, one job.** The three genetics traits already map cleanly onto the
-three economic axes, and only one of them is currently unused as an axis:
+The three genetics traits map onto the three economic axes, and one sits unused:
 
 | Trait | Governs | Status |
 |---|---|---|
-| `vigor` | grow **time** | already implemented (`growTimeFactor`) |
-| `yield` | harvest **quantity** | already implemented (`yieldBonus`) |
-| `potency` | harvest **grade** | **this is the change** |
+| `vigor` | grow **time** | implemented (`growTimeFactor`) |
+| `yield` | harvest **quantity** | implemented (`yieldBonus`) |
+| `potency` | harvest **grade** | **only flips a binary essence drop today** |
 
-Today `potency` only flips a binary essence drop. Promoting it to the quality axis
-gives each trait a distinct economic meaning and makes breeding decisions real:
-breed for speed, for volume, or for grade, and the market prices the difference.
+Promote `potency` to the quality axis. Four grades keyed off the expressed tier:
 
-**The grade ladder.** Four grades keyed off the expressed potency tier (0 to 3):
+| Source | Grade |
+|---|---|
+| Herbalism gathering (picked) | `bloom_extract` |
+| Cultivated, potency 0 to 1 | `bloom_extract` |
+| Cultivated, potency 2 | `bloom_extract_fine` |
+| Cultivated, potency 3 | `bloom_extract_prime` |
 
-| Potency tier | Grade item | Source |
-|---|---|---|
-| n/a | `bloom_extract` | herbalism gathering (unchanged) |
-| 0 to 1 | `bloom_extract` | a Common cultivated harvest |
-| 2 | `bloom_extract_fine` | a bred strain |
-| 3 | `bloom_extract_prime` | a well-bred strain |
+This fixes Gap 1 and the gathering-dominates problem in one move: picked Bloom is
+the floor, and everything above it is cultivation-only. Distinct item ids mean the
+existing market, bags, bank, trade, and mail handle grades **for free**.
 
-This also fixes the gathering-dominates problem: picked Bloom stays the base
-grade, and the grades above it are cultivation-only. Gathering keeps feeding the
-low-end recipes; breeding owns the top of the ladder.
+*Why not per-copy item data:* upstream solved that with `ItemInstancePayload`, but
+it is 44 files and drags in bank, mail, vendor unbind, enchanting, and masterwork.
+That is a professions migration wearing an economy hat. Item ids get the price
+signal now; per-copy provenance is Phase 3.
 
-**The demand side is the load-bearing half.** Grades are worthless if nobody needs
-them. The tonic recipes must give a non-grower a reason to buy:
+### 2b. Quest demand: the buyers who do not grow
 
-- Higher grades produce **stronger or longer** Session tonics, not just cheaper
-  ones. `src/sim/sessions.ts` already models `onset` (spark vs edible) and
-  `couchLock`, so grade can scale buff magnitude and duration against that
-  existing tradeoff.
-- At least one desirable tonic should be **grade-gated**, not merely
-  grade-improved: a recipe that cannot be made from picked Bloom at all.
+`collect` objectives already exist, so "bring the Baked Beaver 12 Fine Bloom" is a
+**content row, not a feature**. And the important property is one that looks like a
+loophole and is actually the point:
 
-Without this, everyone grows their own and the market stays empty. **This is the
-part most likely to be got wrong, and it is a balance question, not a code
-question.**
+> A collect objective can be satisfied by **buying** the item.
 
----
+That is the demand engine. A player who does not want to farm buys from one who
+does, to finish the quest. Quest turn-ins remove the item from circulation, so
+every quest is both a demand source and a supply sink. This is the cleanest
+available answer to Gap 3, and it costs almost nothing to build.
 
-## 4. Phase 1 scope (the buildable unit)
+Two objective flavors, and they serve different jobs:
 
-Deliberately small. Every piece is inside code the fork already owns.
+- **`collect` (exists).** Satisfiable by purchase. Use for the *bulk* of strain
+  quests. This is what makes the market liquid.
+- **`cultivate` (new, small).** Requires harvesting it yourself, tracked at
+  `harvestPlot`. Use sparingly, for the grower-identity quest line where buying
+  your way through would defeat the point.
 
-**Content (`src/sim/content/`)**
-- `items.ts`: two new item rows, `bloom_extract_fine` and `bloom_extract_prime`,
-  with ascending `sellValue` (the vendor floor that anchors market pricing).
-- `crafting.ts`: grade-aware tonic recipes, including one grade-gated recipe.
-- `cultivation.ts`: no change (`PLANTS` keeps declaring the base yield).
+Ship `collect` quests first. Add `cultivate` only where a quest genuinely must
+mean "you grew this."
 
-**Sim (`src/sim/`)**
-- `genetics.ts`: one new pure function, `harvestGrade(potencyTier): string`,
-  returning the graded item id. Deterministic, no rng, unit-testable directly.
-- `cultivation.ts`: `harvestPlot` routes the bulk yield through `harvestGrade`
-  when the plot has a strain. Roughly 10 lines. The `yieldBonus` and essence
-  arms are untouched.
-- `sessions.ts`: no change if grade scales through recipe outputs (preferred).
+### 2c. Named genetics: the branding layer
 
-**i18n (`src/ui/i18n.catalog/`)**
-- English names and tooltips for the two new items, English-only per the
-  contributor rule.
-- `src/ui/sim_i18n.ts`: the harvest notice already interpolates the strain name,
-  so it should need no new rule. **Verify against the S3 guard**
-  (`tests/localization_fixes.test.ts`), do not assume.
+The mechanic that makes this Growverse and not a generic auction house.
 
-**Tests (`tests/`)**
-- `genetics.test.ts`: extend for `harvestGrade` across all four tiers.
-- `cultivation.test.ts`: a bred high-potency strain harvests the graded item; a
-  Common strain and a gathered node both still produce base `bloom_extract`.
-- The parity gate will move again (harvest grants a different item id). Same
-  drill as the VFX port: measure the drift field by field first, confirm only
-  `frames[].events` changed, then remint as its own commit.
+- When a cross is bred, the player **names it**. The name persists on the `Strain`
+  in their library and travels with anything descended from it.
+- The strain carries **breeder attribution**: the character who first bred that
+  cross. A strain that spreads carries your name with it.
+- Named strains are what get talked about, sought out, and paid a premium for.
+  Reputation attaches to a grower, not just to a stat line.
 
-**Explicitly NOT in Phase 1**
-- No item-instance layer, no per-copy provenance, no "grown by <player>".
-- No market code changes at all. Graded items list and sell as ordinary stacks.
-- No new UI window. Grades are items; bags and the market view render them already.
-- No risk, heat, territory, or spoilage mechanic. See Phase 3.
+Cost: a `name` field the player sets (already on `Strain`, just never player-set),
+a `breeder` field, validation, and a moderation path. **Player-authored text is a
+moderation surface** and must go through whatever the existing name filter is, not
+around it.
 
-**Rough size:** two content tables, one pure function, ~10 lines in `harvestPlot`,
-i18n rows, three test files, one golden remint. Comparable to a day of work, and
-the balance pass afterwards will take longer than the code.
+### 2d. Cut swapping: barter that is actually about genetics
 
----
+Barter already works mechanically. What is missing is the thing worth bartering.
 
-## 5. Open decisions (these need your call)
+Real grower trade is not mostly product for cash. It is **genetics for genetics**:
+you trade a cut of your mother plant for a cut of theirs. That maps directly onto
+the strain library you already have, and it is a genuinely different economy from
+every other MMO, which trade only finished goods.
 
-1. **How many grades?** Four (base plus two cultivated tiers) is proposed, matching
-   the existing 0 to 3 potency tiers with the bottom two collapsed. Five would need
-   a wider potency range in `genetics.ts`.
-2. **Do grades gate recipes or scale them?** Recommendation: mostly scale, with at
-   least one gated recipe so high grades have inelastic demand. Pure scaling risks
-   a market where nobody bothers.
-3. **Does the vendor buy graded Bloom?** A vendor `sellValue` floor stops player
-   prices collapsing to zero, but it also caps how interesting the market gets. A
-   low floor is probably right.
-4. **Does the Baked Beaver reputation track cultivation grade?** There is already a
-   cultivation reputation hook at the end of `harvestPlot`. Grade could feed it,
-   which gives solo players a reason to grow high-potency even with no buyer.
+- A **Cut** is a tradeable item that carries a strain: taking a cut from a library
+  strain mints one, and using a Cut adds that strain to your library.
+- Cuts trade through the existing barter path with zero gold, and through the
+  market as listings.
+- The `MAX_STRAINS = 12` library cap is the natural throttle: a full library means
+  choosing what to keep, which is exactly the real tension.
+
+This is the highest-differentiation mechanic in the document. It needs the named
+genetics of 2c to matter, so it lands after them.
+
+### 2e. Bulk lots
+
+Real trade is denominated in size, with volume discounts. Model it simply: a
+listing carries a unit count and the market view shows **price per unit** next to
+the total, so a buyer can compare a small lot against a bulk one. Bulk sellers
+naturally undercut per unit. No new mechanics, just a derived column and the
+listing sizes players choose.
+
+Defer anything resembling credit, fronting, or consignment. It creates debt state,
+collections, and a scam surface, for little play value.
 
 ---
 
-## 6. Risks worth naming now
+## 3. Build order
 
-- **The demand problem is the real problem.** Everything here is easy except
-  making a non-grower want to buy. If Phase 1 ships and the market stays empty,
-  the answer is recipe design, not more economy plumbing.
-- **Gathering still competes.** The grade ladder pushes picked Bloom to the bottom,
-  but if the low-grade recipes stay the ones people actually use, cultivation
-  remains optional. Watch which recipes get used, not which get added.
-- **Low population breaks player economies.** A market needs enough sellers to be
-  liquid. Below some concurrency the whole system reads as broken. Graded items at
-  least still function as a solo progression ladder when nobody is online, which is
-  a deliberate property of this design and a reason to prefer it over a pure
+Each phase is independently shippable and useful on its own.
+
+| # | Phase | What it unlocks | Rough size |
+|---|---|---|---|
+| 1 | **Grades** | Quality becomes visible and priceable; cultivation stops losing to gathering | ~1 day |
+| 2 | **Quest demand** | Buyers who do not grow; supply sink; market liquidity | ~1 to 2 days |
+| 3 | **Named genetics + breeder credit** | Brands, reputation, the thing worth being known for | ~2 to 3 days |
+| 4 | **Cut swapping** | Genetics-for-genetics barter; the differentiated economy | ~3 days |
+| 5 | **Bulk pricing view** | Volume trade reads correctly | ~half day |
+
+**Phases 1 and 2 are the pair that matters.** Grades without quest demand is a
+market with sellers and no buyers. Quest demand without grades is a market where
+every unit is interchangeable. Ship them together or back to back.
+
+---
+
+## 4. Phase 1 in detail (buildable as written)
+
+**Content**
+- `content/items.ts`: `bloom_extract_fine`, `bloom_extract_prime`, ascending
+  `sellValue` (the vendor floor that keeps player prices off zero).
+- `content/crafting.ts`: grade-aware tonic recipes, including one grade-gated
+  recipe that picked Bloom cannot make.
+
+**Sim**
+- `genetics.ts`: one pure function `harvestGrade(potencyTier): string`.
+  Deterministic, no rng, unit-testable directly.
+- `cultivation.ts`: `harvestPlot` routes the bulk yield through `harvestGrade` when
+  the plot carries a strain. ~10 lines. `yieldBonus` and the essence arm untouched.
+
+**i18n**
+- English names and tooltips for the two items, English-only per the contributor
+  rule. Verify the harvest notice against the S3 guard
+  (`tests/localization_fixes.test.ts`) rather than assuming it still matches.
+
+**Tests**
+- `harvestGrade` across all four tiers.
+- A high-potency strain harvests the graded item; a Common strain and a gathered
+  node both still yield base `bloom_extract`.
+- The parity gate will move (harvest grants a different item id). Same drill as the
+  VFX port: measure the drift field by field, confirm only `frames[].events`
+  changed, remint as its own commit.
+
+**Explicitly not in Phase 1:** no item-instance layer, no market code changes, no
+new UI window, no risk or spoilage mechanic.
+
+---
+
+## 5. Decisions needed
+
+1. **Grade count.** Four (base + two cultivated) matches the existing 0 to 3
+   potency range. Five needs a wider range in `genetics.ts`.
+2. **Gate or scale.** Recommendation: mostly scale buff strength and duration with
+   grade, plus at least one hard-gated recipe. Pure scaling risks an empty market.
+3. **Vendor floor on graded Bloom.** Recommendation: low but non-zero. It stops a
+   price collapse without capping the interesting range.
+4. **Do quests mostly `collect` or `cultivate`?** Recommendation: `collect` for the
+   bulk (it is what makes the market work), `cultivate` only for a grower-identity
+   line.
+5. **Strain name moderation.** Player-authored names need a filter and a report
+   path. Which existing moderation surface should they route through?
+
+---
+
+## 6. Risks
+
+- **Demand is the whole ballgame.** If Phase 2 quests do not create real pull,
+  everything above is a well-built market nobody uses. Watch which recipes and
+  quests actually get used, not how many exist.
+- **Low population breaks player economies.** A market needs sellers to be liquid.
+  Grades still work as a solo progression ladder when nobody is online, which is a
+  deliberate property of this design and a reason to prefer it over a pure
   auction-house feature.
-- **Farmability.** Grades come from breeding, which is time-gated by plots and
-  `MAX_STRAINS = 12`. That is a natural throttle. If plots or the library cap are
-  ever raised, revisit.
-- **The parity gate will go red.** Expected and benign, same as the VFX port, but
-  it must be measured rather than assumed before reminting.
-
----
-
-## 7. Phases beyond this
-
-- **Phase 2, provenance.** "Prime Bloom, grown by <player>" as a tradeable identity.
-  Either a narrow cultivation-only instance model, or upstream's
-  `ItemInstancePayload` if professions are being ported anyway. Only worth doing
-  once Phase 1 proves people trade at all.
-- **Phase 3, risk.** Contested grow sites, spoilage, or an enforcement/heat
-  mechanic. This is where the loop starts to resemble what made the recent
-  crime-sim titles sell, and it is the most differentiated thing on this list.
-  It is also the most speculative. Do not scope it until Phase 1 has data.
+- **Player-authored strain names are a moderation surface.** Do not ship 2c without
+  a filter.
+- **Farmability.** Grades come from breeding, throttled by plot count and
+  `MAX_STRAINS = 12`. If either is raised, revisit whether high grades stay scarce.
+- **Quest-driven demand can be farmed too.** If a quest is repeatable and its
+  reward exceeds the market price of its inputs, it becomes a gold faucet. Keep
+  strain quests non-repeatable, or price rewards below input cost.
+- **The parity gate will go red** on Phase 1. Expected and benign, but measure
+  before reminting.
