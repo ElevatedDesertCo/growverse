@@ -5164,6 +5164,33 @@ export const vi_VN: EnTranslations = {
       "verdant_draught": {
         "name": "Thuốc Xanh Tươi"
       },
+      "bud_common": {
+        "name": "Búp thường"
+      },
+      "bud_fine": {
+        "name": "Búp hảo hạng"
+      },
+      "bud_prime": {
+        "name": "Búp thượng hạng"
+      },
+      "cured_flower_fine": {
+        "name": "Hoa sấy hảo hạng"
+      },
+      "cured_flower_prime": {
+        "name": "Hoa sấy thượng hạng"
+      },
+      "pressed_resin_fine": {
+        "name": "Nhựa ép hảo hạng"
+      },
+      "pressed_resin_prime": {
+        "name": "Nhựa ép thượng hạng"
+      },
+      "infused_lozenge_fine": {
+        "name": "Viên ngậm ủ hảo hạng"
+      },
+      "infused_lozenge_prime": {
+        "name": "Viên ngậm ủ thượng hạng"
+      },
       "bristleback_maul": {
         "name": "Vồ Lưng Gai"
       },
@@ -6215,6 +6242,36 @@ export const vi_VN: EnTranslations = {
       }
     },
     "quests": {
+      "q_first_harvest": {
+        "title": "A First Harvest",
+        "text": "Every grower starts the same way: a bed, a seed, and the patience to leave it be. Plant something, let it finish, and bring me what comes off it. I want to see how you handle a crop before I trust you with better stock.",
+        "completion": "Look at that. Trimmed clean and not a bit of it rushed. You have the hands for this work.",
+        "objectives": {
+          "0": {
+            "label": "Common Bud"
+          }
+        }
+      },
+      "q_fine_supply": {
+        "title": "Something Finer",
+        "text": "Common stock keeps the lamps lit, but it does not win anyone over. I need finer material, and I do not much care how you come by it. Breed for it yourself if you have the patience, or buy it off someone who did. A grower with coin is still a grower.",
+        "completion": "Now that is worth curing properly. Whoever raised this knew what they were doing, and if that was you, all the better.",
+        "objectives": {
+          "0": {
+            "label": "Fine Bud"
+          }
+        }
+      },
+      "q_prime_order": {
+        "title": "The Cultivator's Order",
+        "text": "I have a standing order I have never once been able to fill: prime material, and nothing under it. That takes a strain bred right the whole way up, which means either years of your own crosses or a good relationship with someone who has already done it. Either way, fill it and the Lodge will know your name.",
+        "completion": "Six of prime. I have waited a long season for this. The Lodge owes you, and so do I.",
+        "objectives": {
+          "0": {
+            "label": "Prime Bud"
+          }
+        }
+      },
       "q_wolves": {
         "title": "Sói Trước Cửa",
         "text": "Lũ sói rừng ngày càng hung hăng, chực vồ lữ khách trên con đường phía bắc. Hãy thưa bớt số lượng chúng, {playerName}. Hạ 8 con Sói Rừng và Đông Khê sẽ dễ thở hơn.",

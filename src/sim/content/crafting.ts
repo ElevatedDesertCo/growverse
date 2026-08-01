@@ -261,6 +261,39 @@ export const CRAFT_ITEMS: Record<string, ItemDef> = {
     quality: 'common',
     sellValue: 3,
   },
+
+  // --- Buds: what a CULTIVATED plant yields (cultivation.ts harvestPlot) ---------
+  // Deliberately distinct from Bloom Extract above, which stays the FORAGED material
+  // pressed from the vale's flower patches. Splitting them stops a grown harvest and a
+  // picked flower being the same tradeable good, which is what let foraging (no seed,
+  // no timer, no plot) dominate growing.
+  //
+  // The grade a harvest yields comes from the strain's expressed POTENCY tier
+  // (genetics.ts budGrade). Yield tier still governs QUANTITY and vigor tier still
+  // governs grow TIME, so each of the three genetics traits now owns one lever.
+  // sellValue is the vendor floor that keeps player market prices off zero; it is set
+  // low on purpose so player pricing, not the vendor, sets the interesting range.
+  bud_common: {
+    id: 'bud_common',
+    name: 'Common Bud',
+    kind: 'junk',
+    quality: 'common',
+    sellValue: 4,
+  },
+  bud_fine: {
+    id: 'bud_fine',
+    name: 'Fine Bud',
+    kind: 'junk',
+    quality: 'uncommon',
+    sellValue: 9,
+  },
+  bud_prime: {
+    id: 'bud_prime',
+    name: 'Prime Bud',
+    kind: 'junk',
+    quality: 'rare',
+    sellValue: 18,
+  },
   // Colored petals harvested from the vale's tinted flower patches. Purple petals
   // are the Alchemist's potion reagent; golden petals are pressed into a growth
   // booster at the Grow Station. Each color is its own harvest node (gathering.ts).
@@ -363,6 +396,87 @@ export const CRAFT_ITEMS: Record<string, ItemDef> = {
     },
     sellValue: 45,
   },
+
+  // --- Processed Sessions: the second axis (grade x process) ---------------------
+  // The four tonics above are the ENTRY tier: brewed from common buds, differentiated
+  // by PROFILE (restful / lively / balanced / edible). The nine outcomes below come
+  // from crossing bud GRADE with the PROCESS applied to it, so what you grew and what
+  // you did with it both matter:
+  //
+  //   Cure   - instant, moderate duration, no tradeoff. The dependable session.
+  //   Press  - instant, SHORT, strongest per second. A burst before a hard pull.
+  //   Infuse - delayed onset, LONGEST, carries couch-lock. Set it up in advance.
+  //
+  // Each is gated STRUCTURALLY by its input: a prime product cannot be made from
+  // anything but prime buds, which means breeding potency to tier 3. No separate
+  // level or reputation gate is needed, the genetics are the gate.
+  //
+  // Values scale from the entry tier's exemplars (balanced tonic: allstats 4 / 600s;
+  // slow-bloom lozenge: allstats 7 / 1200s). Press trades duration for magnitude and
+  // Infuse trades onset for duration, so no line strictly dominates another.
+  // BALANCE: these are first-pass numbers and want a tuning pass against real play.
+  cured_flower_fine: {
+    id: 'cured_flower_fine',
+    name: 'Fine Cured Flower',
+    kind: 'elixir',
+    quality: 'uncommon',
+    elixir: { aura: 'Cured Bloom', kind: 'buff_allstats', value: 6, duration: 600 },
+    sellValue: 30,
+  },
+  cured_flower_prime: {
+    id: 'cured_flower_prime',
+    name: 'Prime Cured Flower',
+    kind: 'elixir',
+    quality: 'rare',
+    elixir: { aura: 'Cured Bloom', kind: 'buff_allstats', value: 8, duration: 720 },
+    sellValue: 60,
+  },
+  pressed_resin_fine: {
+    id: 'pressed_resin_fine',
+    name: 'Fine Pressed Resin',
+    kind: 'elixir',
+    quality: 'uncommon',
+    elixir: { aura: 'Pressed Bloom', kind: 'buff_allstats', value: 8, duration: 300 },
+    sellValue: 35,
+  },
+  pressed_resin_prime: {
+    id: 'pressed_resin_prime',
+    name: 'Prime Pressed Resin',
+    kind: 'elixir',
+    quality: 'rare',
+    elixir: { aura: 'Pressed Bloom', kind: 'buff_allstats', value: 10, duration: 360 },
+    sellValue: 70,
+  },
+  infused_lozenge_fine: {
+    id: 'infused_lozenge_fine',
+    name: 'Fine Infused Lozenge',
+    kind: 'elixir',
+    quality: 'uncommon',
+    elixir: {
+      aura: 'Infused Bloom',
+      kind: 'buff_allstats',
+      value: 7,
+      duration: 1500,
+      onset: 12,
+      couchLock: 0.9,
+    },
+    sellValue: 40,
+  },
+  infused_lozenge_prime: {
+    id: 'infused_lozenge_prime',
+    name: 'Prime Infused Lozenge',
+    kind: 'elixir',
+    quality: 'rare',
+    elixir: {
+      aura: 'Infused Bloom',
+      kind: 'buff_allstats',
+      value: 9,
+      duration: 1800,
+      onset: 15,
+      couchLock: 0.9,
+    },
+    sellValue: 80,
+  },
 };
 
 // The reagents the Cultivator sells, so the grow loop is self-contained (buy
@@ -389,7 +503,7 @@ export const CRAFT_NPCS: Record<string, NpcDef> = {
     pos: { x: 60, z: 50 },
     facing: 0,
     color: 0x4e9a2f,
-    questIds: [],
+    questIds: ['q_first_harvest', 'q_fine_supply', 'q_prime_order'],
     vendorItems: CULTIVATOR_STOCK,
     crafting: 'grow',
     greeting:
@@ -704,7 +818,7 @@ export const CRAFT_RECIPES: CraftRecipe[] = [
     id: 'alchemy_restful_bloom_tonic',
     station: 'alchemy',
     category: 'consumable',
-    inputs: [{ itemId: 'bloom_extract', count: 3 }],
+    inputs: [{ itemId: 'bud_common', count: 3 }],
     copperCost: 15,
     output: { itemId: 'restful_bloom_tonic', count: 1 },
   },
@@ -712,7 +826,7 @@ export const CRAFT_RECIPES: CraftRecipe[] = [
     id: 'alchemy_lively_bloom_tonic',
     station: 'alchemy',
     category: 'consumable',
-    inputs: [{ itemId: 'bloom_extract', count: 3 }],
+    inputs: [{ itemId: 'bud_common', count: 3 }],
     copperCost: 15,
     output: { itemId: 'lively_bloom_tonic', count: 1 },
   },
@@ -720,7 +834,7 @@ export const CRAFT_RECIPES: CraftRecipe[] = [
     id: 'alchemy_balanced_bloom_tonic',
     station: 'alchemy',
     category: 'consumable',
-    inputs: [{ itemId: 'bloom_extract', count: 3 }],
+    inputs: [{ itemId: 'bud_common', count: 3 }],
     copperCost: 15,
     output: { itemId: 'balanced_bloom_tonic', count: 1 },
   },
@@ -728,10 +842,70 @@ export const CRAFT_RECIPES: CraftRecipe[] = [
     id: 'alchemy_slow_bloom_lozenge',
     station: 'alchemy',
     category: 'consumable',
-    inputs: [{ itemId: 'bloom_extract', count: 5 }],
+    inputs: [{ itemId: 'bud_common', count: 5 }],
     copperCost: 40,
     requiredLevel: 8,
     output: { itemId: 'slow_bloom_lozenge', count: 1 },
+  },
+  // The graded process line. Each recipe is gated by its INPUT grade: fine products
+  // need fine buds, prime products need prime buds, and prime buds only come from a
+  // strain bred to potency tier 3. That structural gate is what gives high-grade buds
+  // inelastic demand, and therefore a price, on the player market.
+  {
+    id: 'alchemy_cured_flower_fine',
+    station: 'alchemy',
+    category: 'consumable',
+    inputs: [{ itemId: 'bud_fine', count: 3 }],
+    copperCost: 25,
+    output: { itemId: 'cured_flower_fine', count: 1 },
+  },
+  {
+    id: 'alchemy_cured_flower_prime',
+    station: 'alchemy',
+    category: 'consumable',
+    inputs: [{ itemId: 'bud_prime', count: 3 }],
+    copperCost: 50,
+    output: { itemId: 'cured_flower_prime', count: 1 },
+  },
+  {
+    id: 'alchemy_pressed_resin_fine',
+    station: 'alchemy',
+    category: 'consumable',
+    inputs: [{ itemId: 'bud_fine', count: 4 }],
+    copperCost: 30,
+    output: { itemId: 'pressed_resin_fine', count: 1 },
+  },
+  {
+    id: 'alchemy_pressed_resin_prime',
+    station: 'alchemy',
+    category: 'consumable',
+    inputs: [{ itemId: 'bud_prime', count: 4 }],
+    copperCost: 60,
+    output: { itemId: 'pressed_resin_prime', count: 1 },
+  },
+  {
+    id: 'alchemy_infused_lozenge_fine',
+    station: 'alchemy',
+    category: 'consumable',
+    inputs: [
+      { itemId: 'bud_fine', count: 4 },
+      { itemId: 'bloom_essence', count: 1 },
+    ],
+    copperCost: 45,
+    requiredLevel: 8,
+    output: { itemId: 'infused_lozenge_fine', count: 1 },
+  },
+  {
+    id: 'alchemy_infused_lozenge_prime',
+    station: 'alchemy',
+    category: 'consumable',
+    inputs: [
+      { itemId: 'bud_prime', count: 4 },
+      { itemId: 'bloom_essence', count: 2 },
+    ],
+    copperCost: 90,
+    requiredLevel: 8,
+    output: { itemId: 'infused_lozenge_prime', count: 1 },
   },
   // Purple petals (harvested from the vale's purple flower patch) brew straight
   // into restorative draughts, the Alchemist's potion line.

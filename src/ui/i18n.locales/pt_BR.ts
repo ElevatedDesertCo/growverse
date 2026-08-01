@@ -5197,4 +5197,13 @@ export const pt_BR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Agora não',
   'hudChrome.nativeUpdate.title': 'Atualização disponível',
   'hudChrome.nativeUpdate.update': 'Atualizar',
+  'entities.items.bud_common.name': 'Botão comum',
+  'entities.items.bud_fine.name': 'Botão fino',
+  'entities.items.bud_prime.name': 'Botão supremo',
+  'entities.items.cured_flower_fine.name': 'Flor curada fina',
+  'entities.items.cured_flower_prime.name': 'Flor curada suprema',
+  'entities.items.pressed_resin_fine.name': 'Resina prensada fina',
+  'entities.items.pressed_resin_prime.name': 'Resina prensada suprema',
+  'entities.items.infused_lozenge_fine.name': 'Pastilha infundida fina',
+  'entities.items.infused_lozenge_prime.name': 'Pastilha infundida suprema',
 };

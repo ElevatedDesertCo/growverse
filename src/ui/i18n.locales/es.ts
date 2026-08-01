@@ -5224,4 +5224,13 @@ export const es: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Ahora no',
   'hudChrome.nativeUpdate.title': 'Actualización disponible',
   'hudChrome.nativeUpdate.update': 'Actualizar',
+  'entities.items.bud_common.name': 'Cogollo común',
+  'entities.items.bud_fine.name': 'Cogollo selecto',
+  'entities.items.bud_prime.name': 'Cogollo supremo',
+  'entities.items.cured_flower_fine.name': 'Flor curada selecta',
+  'entities.items.cured_flower_prime.name': 'Flor curada suprema',
+  'entities.items.pressed_resin_fine.name': 'Resina prensada selecta',
+  'entities.items.pressed_resin_prime.name': 'Resina prensada suprema',
+  'entities.items.infused_lozenge_fine.name': 'Pastilla infusionada selecta',
+  'entities.items.infused_lozenge_prime.name': 'Pastilla infusionada suprema',
 };

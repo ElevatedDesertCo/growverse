@@ -5121,4 +5121,13 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Şimdi Değil',
   'hudChrome.nativeUpdate.title': 'Güncelleme Mevcut',
   'hudChrome.nativeUpdate.update': 'Güncelle',
+  'entities.items.bud_common.name': 'Sıradan tomurcuk',
+  'entities.items.bud_fine.name': 'İyi tomurcuk',
+  'entities.items.bud_prime.name': 'Birinci sınıf tomurcuk',
+  'entities.items.cured_flower_fine.name': 'İyi kurutulmuş çiçek',
+  'entities.items.cured_flower_prime.name': 'Birinci sınıf kurutulmuş çiçek',
+  'entities.items.pressed_resin_fine.name': 'İyi preslenmiş reçine',
+  'entities.items.pressed_resin_prime.name': 'Birinci sınıf preslenmiş reçine',
+  'entities.items.infused_lozenge_fine.name': 'İyi infüze pastil',
+  'entities.items.infused_lozenge_prime.name': 'Birinci sınıf infüze pastil',
 };

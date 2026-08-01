@@ -9,6 +9,7 @@ import { PLANTS } from '../src/sim/data';
 import {
   breed,
   breedGenotype,
+  budGrade,
   dropsEssence,
   expressTrait,
   growTimeFactor,
@@ -261,29 +262,33 @@ describe('genetics: planting a strain (the payoff)', () => {
     expect(plotOf(sim, 0).seedItemId).toBeNull();
   });
 
-  it('a high-yield, high-potency strain harvests extra Extract plus Essence', () => {
+  it('a high-yield, high-potency strain harvests extra PRIME buds plus Essence', () => {
     const sim = makeSim();
-    const baseExtract = PLANTS.common_seed.yields[0].count;
+    const baseYield = PLANTS.common_seed.yields[0].count;
     const id = injectStrain(sim, 'common_bloom', g([3, 3], [0, 0], [2, 2])); // potency3, yield2
     sim.addItem('common_seed', 1);
     sim.plantStrain(0, id);
     forceReady(sim, 0);
     sim.harvestPlot(0);
-    // base yield + yieldBonus(2) extra units of the bulk item...
-    expect(sim.countItem('bloom_extract')).toBe(baseExtract + yieldBonus(2));
+    // potency 3 upgrades the bulk yield's GRADE, so nothing lands as a common bud...
+    expect(sim.countItem('bud_common')).toBe(0);
+    // ...and the whole harvest, base yield + yieldBonus(2) extra units, is prime.
+    expect(sim.countItem('bud_prime')).toBe(baseYield + yieldBonus(2));
     // ...and potency >= 2 also drops one essence.
     expect(sim.countItem('bloom_essence')).toBe(1);
   });
 
   it('a low-potency, low-yield strain harvests only the base yield (no essence)', () => {
     const sim = makeSim();
-    const baseExtract = PLANTS.common_seed.yields[0].count;
+    const baseYield = PLANTS.common_seed.yields[0].count;
     const id = injectStrain(sim, 'common_bloom', g([1, 0], [1, 0], [0, 0])); // potency1, yield0
     sim.addItem('common_seed', 1);
     sim.plantStrain(0, id);
     forceReady(sim, 0);
     sim.harvestPlot(0);
-    expect(sim.countItem('bloom_extract')).toBe(baseExtract);
+    expect(sim.countItem('bud_common')).toBe(baseYield);
+    expect(sim.countItem('bud_fine')).toBe(0);
+    expect(sim.countItem('bud_prime')).toBe(0);
     expect(sim.countItem('bloom_essence')).toBe(0);
   });
 
@@ -299,5 +304,63 @@ describe('genetics: planting a strain (the payoff)', () => {
     expect(reloaded.plots[0].seedItemId).toBe('common_seed');
     expect(reloaded.plots[0].strainId).toBe(id);
     expect(reloaded.plots[0].growSeconds).toBeCloseTo(grow, 5);
+  });
+});
+
+// Bud grades: the economic axis. Potency decides WHICH bud a harvest yields, which is
+// what lets one grower's product out-price another's on the market. The bottom two
+// tiers deliberately collapse into the common grade so the better grades have to be
+// earned by breeding rather than handed out by a starter seed.
+describe('budGrade: potency drives harvest grade', () => {
+  it('maps every legal potency tier onto a grade', () => {
+    expect(budGrade(0)).toBe('bud_common');
+    expect(budGrade(1)).toBe('bud_common');
+    expect(budGrade(2)).toBe('bud_fine');
+    expect(budGrade(3)).toBe('bud_prime');
+  });
+
+  it('clamps outside the legal tier band rather than returning undefined', () => {
+    expect(budGrade(-1)).toBe('bud_common');
+    expect(budGrade(GENE_MAX + 5)).toBe('bud_prime');
+  });
+
+  it('is pure: the same tier always gives the same grade', () => {
+    for (let t = 0; t <= GENE_MAX; t++) expect(budGrade(t)).toBe(budGrade(t));
+  });
+});
+
+describe('harvest grade over a live Sim', () => {
+  it('a mid-potency strain harvests FINE buds, not common or prime', () => {
+    const sim = makeSim();
+    const baseYield = PLANTS.common_seed.yields[0].count;
+    const id = injectStrain(sim, 'common_bloom', g([2, 1], [0, 0], [0, 0])); // potency 2
+    sim.addItem('common_seed', 1);
+    sim.plantStrain(0, id);
+    forceReady(sim, 0);
+    sim.harvestPlot(0);
+    expect(sim.countItem('bud_fine')).toBe(baseYield);
+    expect(sim.countItem('bud_common')).toBe(0);
+    expect(sim.countItem('bud_prime')).toBe(0);
+  });
+
+  it('a plain crafted seed with no strain still yields the declared base grade', () => {
+    const sim = makeSim();
+    sim.addItem('common_seed', 1);
+    sim.plantSeed(0, 'common_seed');
+    forceReady(sim, 0);
+    sim.harvestPlot(0);
+    expect(sim.countItem('bud_common')).toBe(PLANTS.common_seed.yields[0].count);
+    expect(sim.countItem('bud_fine')).toBe(0);
+    expect(sim.countItem('bud_prime')).toBe(0);
+  });
+
+  it('never yields the foraged bloom_extract: growing and picking are separate tracks', () => {
+    const sim = makeSim();
+    const id = injectStrain(sim, 'common_bloom', g([3, 3], [3, 3], [3, 3]));
+    sim.addItem('common_seed', 1);
+    sim.plantStrain(0, id);
+    forceReady(sim, 0);
+    sim.harvestPlot(0);
+    expect(sim.countItem('bloom_extract')).toBe(0);
   });
 });

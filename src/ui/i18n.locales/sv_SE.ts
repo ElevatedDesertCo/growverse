@@ -5128,4 +5128,13 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Inte nu',
   'hudChrome.nativeUpdate.title': 'Uppdatering tillgänglig',
   'hudChrome.nativeUpdate.update': 'Uppdatera',
+  'entities.items.bud_common.name': 'Vanlig knopp',
+  'entities.items.bud_fine.name': 'Fin knopp',
+  'entities.items.bud_prime.name': 'Förstklassig knopp',
+  'entities.items.cured_flower_fine.name': 'Fin torkad blomma',
+  'entities.items.cured_flower_prime.name': 'Förstklassig torkad blomma',
+  'entities.items.pressed_resin_fine.name': 'Fin pressad kåda',
+  'entities.items.pressed_resin_prime.name': 'Förstklassig pressad kåda',
+  'entities.items.infused_lozenge_fine.name': 'Fin infunderad pastill',
+  'entities.items.infused_lozenge_prime.name': 'Förstklassig infunderad pastill',
 };

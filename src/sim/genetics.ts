@@ -138,3 +138,22 @@ export const POTENCY_ESSENCE_TIER = 2;
 export function dropsEssence(potencyTier: number): boolean {
   return potencyTier >= POTENCY_ESSENCE_TIER;
 }
+
+// Potency also sets the GRADE of bud a harvest yields, which is what makes one grower's
+// product worth more than another's on the market. The bottom two tiers collapse into
+// the common grade so that a starter seed and a barely-bred cross read the same: the
+// grades above it have to be EARNED by breeding, or they carry no price signal.
+//
+// Quantity (yieldBonus) and grow time (growTimeFactor) stay separate axes, so breeding
+// is a real three-way choice: faster, more, or better.
+export const BUD_GRADES = ['bud_common', 'bud_fine', 'bud_prime'] as const;
+export type BudGrade = (typeof BUD_GRADES)[number];
+
+export const POTENCY_FINE_TIER = 2;
+export const POTENCY_PRIME_TIER = 3;
+
+export function budGrade(potencyTier: number): BudGrade {
+  if (potencyTier >= POTENCY_PRIME_TIER) return 'bud_prime';
+  if (potencyTier >= POTENCY_FINE_TIER) return 'bud_fine';
+  return 'bud_common';
+}

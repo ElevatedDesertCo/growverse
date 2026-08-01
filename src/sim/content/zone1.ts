@@ -1105,11 +1105,66 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
     },
     requiresQuest: 'q_sluice_welcome',
   },
+
+  // --- Marlow's supply ladder: the demand side of the bud economy ----------------
+  // These are `collect` objectives on purpose, which means they can be satisfied by
+  // BUYING the buds instead of growing them. That is the point, not a loophole: it
+  // gives a player who does not farm a reason to buy from one who does, and the
+  // turn-in destroys the buds, so each quest is a demand source AND a supply sink.
+  // Non-repeatable, and copper rewards stay modest so the ladder can never become a
+  // gold faucet by out-paying the market value of its own inputs.
+  q_first_harvest: {
+    id: 'q_first_harvest',
+    name: 'A First Harvest',
+    giverNpcId: 'cultivator_marlow',
+    turnInNpcId: 'cultivator_marlow',
+    text: 'Every grower starts the same way: a bed, a seed, and the patience to leave it be. Plant something, let it finish, and bring me what comes off it. I want to see how you handle a crop before I trust you with better stock.',
+    completionText:
+      'Look at that. Trimmed clean and not a bit of it rushed. You have the hands for this work.',
+    objectives: [{ type: 'collect', itemId: 'bud_common', count: 5, label: 'Common Bud' }],
+    xpReward: 250,
+    copperReward: 60,
+    itemRewards: {},
+    minLevel: 3,
+  },
+  q_fine_supply: {
+    id: 'q_fine_supply',
+    name: 'Something Finer',
+    giverNpcId: 'cultivator_marlow',
+    turnInNpcId: 'cultivator_marlow',
+    text: 'Common stock keeps the lamps lit, but it does not win anyone over. I need finer material, and I do not much care how you come by it. Breed for it yourself if you have the patience, or buy it off someone who did. A grower with coin is still a grower.',
+    completionText:
+      'Now that is worth curing properly. Whoever raised this knew what they were doing, and if that was you, all the better.',
+    objectives: [{ type: 'collect', itemId: 'bud_fine', count: 8, label: 'Fine Bud' }],
+    xpReward: 600,
+    copperReward: 180,
+    itemRewards: {},
+    requiresQuest: 'q_first_harvest',
+    minLevel: 6,
+  },
+  q_prime_order: {
+    id: 'q_prime_order',
+    name: "The Cultivator's Order",
+    giverNpcId: 'cultivator_marlow',
+    turnInNpcId: 'cultivator_marlow',
+    text: 'I have a standing order I have never once been able to fill: prime material, and nothing under it. That takes a strain bred right the whole way up, which means either years of your own crosses or a good relationship with someone who has already done it. Either way, fill it and the Lodge will know your name.',
+    completionText:
+      'Six of prime. I have waited a long season for this. The Lodge owes you, and so do I.',
+    objectives: [{ type: 'collect', itemId: 'bud_prime', count: 6, label: 'Prime Bud' }],
+    xpReward: 1400,
+    copperReward: 400,
+    itemRewards: {},
+    requiresQuest: 'q_fine_supply',
+    minLevel: 10,
+  },
 };
 
 export const ZONE1_QUEST_ORDER = [
   'q_sluice_welcome',
   'q_sluice_pilings',
+  'q_first_harvest',
+  'q_fine_supply',
+  'q_prime_order',
   'q_wolves',
   'q_boars',
   'q_spiders',
