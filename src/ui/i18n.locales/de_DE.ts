@@ -5241,4 +5241,13 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Jetzt nicht',
   'hudChrome.nativeUpdate.title': 'Update verfügbar',
   'hudChrome.nativeUpdate.update': 'Aktualisieren',
+  'entities.items.bud_common.name': 'Gewöhnliche Blüte',
+  'entities.items.bud_fine.name': 'Feine Blüte',
+  'entities.items.bud_prime.name': 'Erlesene Blüte',
+  'entities.items.cured_flower_fine.name': 'Feine getrocknete Blüte',
+  'entities.items.cured_flower_prime.name': 'Erlesene getrocknete Blüte',
+  'entities.items.pressed_resin_fine.name': 'Feines gepresstes Harz',
+  'entities.items.pressed_resin_prime.name': 'Erlesenes gepresstes Harz',
+  'entities.items.infused_lozenge_fine.name': 'Feine aufgegossene Pastille',
+  'entities.items.infused_lozenge_prime.name': 'Erlesene aufgegossene Pastille',
 };

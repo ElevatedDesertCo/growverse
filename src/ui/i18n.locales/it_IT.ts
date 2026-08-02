@@ -5209,4 +5209,13 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Non ora',
   'hudChrome.nativeUpdate.title': 'Aggiornamento disponibile',
   'hudChrome.nativeUpdate.update': 'Aggiorna',
+  'entities.items.bud_common.name': 'Cima comune',
+  'entities.items.bud_fine.name': 'Cima pregiata',
+  'entities.items.bud_prime.name': 'Cima suprema',
+  'entities.items.cured_flower_fine.name': 'Fiore essiccato pregiato',
+  'entities.items.cured_flower_prime.name': 'Fiore essiccato supremo',
+  'entities.items.pressed_resin_fine.name': 'Resina pressata pregiata',
+  'entities.items.pressed_resin_prime.name': 'Resina pressata suprema',
+  'entities.items.infused_lozenge_fine.name': 'Pastiglia infusa pregiata',
+  'entities.items.infused_lozenge_prime.name': 'Pastiglia infusa suprema',
 };

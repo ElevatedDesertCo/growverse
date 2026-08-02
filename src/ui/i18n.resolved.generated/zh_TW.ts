@@ -5164,6 +5164,33 @@ export const zh_TW: EnTranslations = {
       "verdant_draught": {
         "name": "翠綠藥劑"
       },
+      "bud_common": {
+        "name": "普通花苞"
+      },
+      "bud_fine": {
+        "name": "優質花苞"
+      },
+      "bud_prime": {
+        "name": "極品花苞"
+      },
+      "cured_flower_fine": {
+        "name": "優質熟化花"
+      },
+      "cured_flower_prime": {
+        "name": "極品熟化花"
+      },
+      "pressed_resin_fine": {
+        "name": "優質壓製樹脂"
+      },
+      "pressed_resin_prime": {
+        "name": "極品壓製樹脂"
+      },
+      "infused_lozenge_fine": {
+        "name": "優質浸製含片"
+      },
+      "infused_lozenge_prime": {
+        "name": "極品浸製含片"
+      },
       "bristleback_maul": {
         "name": "硬鬃重槌"
       },
@@ -6215,6 +6242,36 @@ export const zh_TW: EnTranslations = {
       }
     },
     "quests": {
+      "q_first_harvest": {
+        "title": "初次收成",
+        "text": "每個種植者都是這樣起步的：一畦土、一粒種，以及靜待其成的耐心。種下些什麼，讓它長足時候，再把收成帶來給我。在我把更好的種源交給你之前，我要先看看你怎麼侍弄一茬莊稼。",
+        "completion": "瞧瞧這個。修剪得乾淨俐落，沒有一處是趕工出來的。你有做這行的手藝。",
+        "objectives": {
+          "0": {
+            "label": "普通花苞"
+          }
+        }
+      },
+      "q_fine_supply": {
+        "title": "更上一層",
+        "text": "普通貨色夠點燈過日子，卻打動不了任何人。我需要更優質的料子，至於你從哪兒弄來的，我不太在意。有耐心就自己育出來，沒有就從育出來的人手裡買。手裡有錢的種植者，也還是種植者。",
+        "completion": "這才值得好好熟化。養出這貨色的人是懂行的——若那人就是你，那就更好了。",
+        "objectives": {
+          "0": {
+            "label": "優質花苞"
+          }
+        }
+      },
+      "q_prime_order": {
+        "title": "園丁的訂單",
+        "text": "我有一份長期訂單，卻從來沒能交付過一次：只要極品料，差一點都不行。那得有一株從頭到尾都育對了的品系，要麼你自己花上幾年做雜交，要麼跟已經做成的人搞好關係。無論走哪條路，只要你交得出來，整個營地都會記住你的名字。",
+        "completion": "六份極品。這一季我等了很久。營地欠你一份人情，我也是。",
+        "objectives": {
+          "0": {
+            "label": "極品花苞"
+          }
+        }
+      },
       "q_wolves": {
         "title": "門前群狼",
         "text": "森林狼已敢撲咬北路旅人，{playerName}。擊敗8隻森林狼，讓東溪能鬆一口氣。",

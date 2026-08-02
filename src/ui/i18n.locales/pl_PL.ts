@@ -5154,4 +5154,13 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Nie teraz',
   'hudChrome.nativeUpdate.title': 'Dostępna aktualizacja',
   'hudChrome.nativeUpdate.update': 'Aktualizuj',
+  'entities.items.bud_common.name': 'Zwykły pąk',
+  'entities.items.bud_fine.name': 'Dobry pąk',
+  'entities.items.bud_prime.name': 'Wyborny pąk',
+  'entities.items.cured_flower_fine.name': 'Dobry suszony kwiat',
+  'entities.items.cured_flower_prime.name': 'Wyborny suszony kwiat',
+  'entities.items.pressed_resin_fine.name': 'Dobra prasowana żywica',
+  'entities.items.pressed_resin_prime.name': 'Wyborna prasowana żywica',
+  'entities.items.infused_lozenge_fine.name': 'Dobra naparzana pastylka',
+  'entities.items.infused_lozenge_prime.name': 'Wyborna naparzana pastylka',
 };

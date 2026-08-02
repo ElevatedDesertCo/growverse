@@ -5191,4 +5191,13 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Jangan sekarang',
   'hudChrome.nativeUpdate.title': 'Pembaruan Tersedia',
   'hudChrome.nativeUpdate.update': 'Perbarui',
+  'entities.items.bud_common.name': 'Kuncup biasa',
+  'entities.items.bud_fine.name': 'Kuncup halus',
+  'entities.items.bud_prime.name': 'Kuncup utama',
+  'entities.items.cured_flower_fine.name': 'Bunga kering halus',
+  'entities.items.cured_flower_prime.name': 'Bunga kering utama',
+  'entities.items.pressed_resin_fine.name': 'Resin pres halus',
+  'entities.items.pressed_resin_prime.name': 'Resin pres utama',
+  'entities.items.infused_lozenge_fine.name': 'Pastil infus halus',
+  'entities.items.infused_lozenge_prime.name': 'Pastil infus utama',
 };

@@ -5184,4 +5184,13 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Niet nu',
   'hudChrome.nativeUpdate.title': 'Update beschikbaar',
   'hudChrome.nativeUpdate.update': 'Bijwerken',
+  'entities.items.bud_common.name': 'Gewone knop',
+  'entities.items.bud_fine.name': 'Fijne knop',
+  'entities.items.bud_prime.name': 'Superieure knop',
+  'entities.items.cured_flower_fine.name': 'Fijne gedroogde bloem',
+  'entities.items.cured_flower_prime.name': 'Superieure gedroogde bloem',
+  'entities.items.pressed_resin_fine.name': 'Fijne geperste hars',
+  'entities.items.pressed_resin_prime.name': 'Superieure geperste hars',
+  'entities.items.infused_lozenge_fine.name': 'Fijne geïnfuseerde pastille',
+  'entities.items.infused_lozenge_prime.name': 'Superieure geïnfuseerde pastille',
 };

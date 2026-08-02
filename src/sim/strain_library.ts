@@ -18,9 +18,11 @@ import { awardReputation, REP_PER_BREED, REP_PER_LANDRACE } from './reputation';
 import type { SimContext } from './sim_context';
 import { type Genotype, MAX_STRAINS, type Strain, type StrainView } from './types';
 
-// Breeding consumes harvested Bloom material, tying the mechanic back into cultivation
-// output (a real sink, reachable from the garden loop) rather than being free.
-export const BREED_COST_ITEM = 'bloom_extract';
+// Breeding consumes harvested buds, tying the mechanic back into cultivation output (a
+// real sink, reachable from the garden loop) rather than being free. Buds rather than
+// the foraged bloom_extract: you breed from your own harvest, not from picked flowers,
+// which also keeps the two materials on separate economic tracks.
+export const BREED_COST_ITEM = 'bud_common';
 export const BREED_COST_COUNT = 2;
 
 // A fresh, empty library (character create + load default).

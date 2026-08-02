@@ -528,6 +528,8 @@ function applyChannelTick(ctx: SimContext, p: Entity, res: ResolvedAbility): voi
       school: res.def.school,
       fx: 'nova',
       radius,
+      ability: res.def.id,
+      sourceId: p.id,
     });
     const channelSp = channelTickBonus(abilityScalingPower(p, res.def), res.def);
     for (const eff of res.effects) {
@@ -566,6 +568,7 @@ function applyChannelTick(ctx: SimContext, p: Entity, res: ResolvedAbility): voi
     targetId: target.id,
     school: res.def.school,
     fx: 'projectile',
+    ability: res.def.id,
   });
   // Each channel bolt (e.g. Arcane Missiles) deals its damage on arrival, not on the
   // tick it is fired; a target that dies mid-flight fizzles it (the drain's guard).
@@ -691,6 +694,7 @@ function applyAbility(ctx: SimContext, p: Entity, meta: PlayerMeta, res: Resolve
       targetId: target.id,
       school: ability.school,
       fx: 'projectile',
+      ability: ability.id,
     });
     // The bolt is now in flight: its hit roll and effects resolve when it reaches the
     // target (projectile_travel), not this tick. A target that dies before impact

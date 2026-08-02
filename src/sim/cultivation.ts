@@ -16,7 +16,7 @@
 // are English source, emitted from this module (localized at the client boundary).
 
 import { BASE_STRAINS, PLANTS } from './data';
-import { dropsEssence, expressTrait, growTimeFactor, yieldBonus } from './genetics';
+import { budGrade, dropsEssence, expressTrait, growTimeFactor, yieldBonus } from './genetics';
 import { awardReputation, REP_PER_HARVEST } from './reputation';
 import type { SimContext } from './sim_context';
 import { registerBaseStrain } from './strain_library';
@@ -210,12 +210,19 @@ export function harvestPlot(ctx: SimContext, plotIndex: number, pid?: number): v
     ctx.error(meta.entityId, 'That plant is not ready to harvest yet.');
     return;
   }
-  // Base yields from the plant, then the strain bonuses: yield tier adds whole extra
-  // units of the first (bulk) yield, and a potent strain also drops concentrated essence.
-  for (const y of def.yields) ctx.addItem(y.itemId, y.count, meta.entityId);
+  // Base yields from the plant, then the strain bonuses. A planted strain drives all
+  // three levers at harvest: potency upgrades the bulk yield's GRADE, yield tier adds
+  // whole extra units of it, and a potent strain also drops concentrated essence.
+  // (Vigor already applied at plant time, through growTimeFactor.)
   const strain = plot.strainId ? meta.strains.find((s) => s.id === plot.strainId) : undefined;
+  const baseBulkId = def.yields[0]?.itemId;
+  // Only the bulk yield is graded; any secondary yields the plant declares pass through
+  // untouched. Without a strain (a plain crafted seed) the declared base grade stands.
+  const bulkId = strain ? budGrade(expressTrait(strain.genotype, 'potency')) : baseBulkId;
+  for (const y of def.yields) {
+    ctx.addItem(y.itemId === baseBulkId && bulkId ? bulkId : y.itemId, y.count, meta.entityId);
+  }
   if (strain) {
-    const bulkId = def.yields[0]?.itemId;
     const bonus = yieldBonus(expressTrait(strain.genotype, 'yield'));
     if (bulkId && bonus > 0) ctx.addItem(bulkId, bonus, meta.entityId);
     if (dropsEssence(expressTrait(strain.genotype, 'potency'))) {
@@ -231,7 +238,9 @@ export function harvestPlot(ctx: SimContext, plotIndex: number, pid?: number): v
   // Structured gather popup (item icon + localized name), alongside addItem's "You
   // receive" loot lines and the harvest log line, so a harvest reads as a real gather
   // with a floating popup and icon, exactly like the flower-patch nodes (harvest.ts).
-  const gatherId = def.yields[0]?.itemId;
+  // The popup shows what actually landed in the bags, so a Prime harvest reads as Prime
+  // rather than as the plant's declared base grade.
+  const gatherId = bulkId ?? def.yields[0]?.itemId;
   if (gatherId) ctx.emit({ type: 'harvestGather', itemId: gatherId, pid: meta.entityId });
   ctx.notice(meta.entityId, `You harvest ${name}.`);
   // Genetics: harvesting a base seed discovers its strain in the library (once per

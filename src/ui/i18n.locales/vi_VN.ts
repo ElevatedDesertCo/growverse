@@ -5145,4 +5145,13 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.update': 'Cập Nhật',
   'errors.api.desktopCodeInvalid':
     'Mã đăng nhập máy tính không hợp lệ hoặc đã hết hạn. Vui lòng thử lại.',
+  'entities.items.bud_common.name': 'Búp thường',
+  'entities.items.bud_fine.name': 'Búp hảo hạng',
+  'entities.items.bud_prime.name': 'Búp thượng hạng',
+  'entities.items.cured_flower_fine.name': 'Hoa sấy hảo hạng',
+  'entities.items.cured_flower_prime.name': 'Hoa sấy thượng hạng',
+  'entities.items.pressed_resin_fine.name': 'Nhựa ép hảo hạng',
+  'entities.items.pressed_resin_prime.name': 'Nhựa ép thượng hạng',
+  'entities.items.infused_lozenge_fine.name': 'Viên ngậm ủ hảo hạng',
+  'entities.items.infused_lozenge_prime.name': 'Viên ngậm ủ thượng hạng',
 };

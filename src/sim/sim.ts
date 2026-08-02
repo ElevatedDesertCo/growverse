@@ -3211,6 +3211,7 @@ export class Sim {
       targetId: source.id,
       school: effect.school,
       fx: 'tick',
+      ability: effect.ability,
     });
     for (const target of this.hostilesInRadius(source, effect.pos, effect.radius)) {
       if (!this.hasLineOfSight(source, target)) continue;

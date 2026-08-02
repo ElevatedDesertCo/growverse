@@ -158,6 +158,9 @@ const NPC_IDS = [
 ] as const;
 
 const QUEST_IDS = [
+  'q_first_harvest',
+  'q_fine_supply',
+  'q_prime_order',
   'q_wolves',
   'q_greyjaw',
   'q_boars',

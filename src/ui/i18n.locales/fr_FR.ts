@@ -5256,4 +5256,13 @@ export const fr_FR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.notNow': 'Pas maintenant',
   'hudChrome.nativeUpdate.title': 'Mise à jour disponible',
   'hudChrome.nativeUpdate.update': 'Mettre à jour',
+  'entities.items.bud_common.name': 'Bourgeon commun',
+  'entities.items.bud_fine.name': 'Bourgeon raffiné',
+  'entities.items.bud_prime.name': 'Bourgeon suprême',
+  'entities.items.cured_flower_fine.name': 'Fleur séchée raffinée',
+  'entities.items.cured_flower_prime.name': 'Fleur séchée suprême',
+  'entities.items.pressed_resin_fine.name': 'Résine pressée raffinée',
+  'entities.items.pressed_resin_prime.name': 'Résine pressée suprême',
+  'entities.items.infused_lozenge_fine.name': 'Pastille infusée raffinée',
+  'entities.items.infused_lozenge_prime.name': 'Pastille infusée suprême',
 };

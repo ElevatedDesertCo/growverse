@@ -5115,4 +5115,13 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.update': 'Opdater',
   'errors.api.desktopCodeInvalid':
     'Desktop-loginkoden er ugyldig eller udløbet. Prøv venligst igen.',
+  'entities.items.bud_common.name': 'Almindelig knop',
+  'entities.items.bud_fine.name': 'Fin knop',
+  'entities.items.bud_prime.name': 'Førsteklasses knop',
+  'entities.items.cured_flower_fine.name': 'Fin tørret blomst',
+  'entities.items.cured_flower_prime.name': 'Førsteklasses tørret blomst',
+  'entities.items.pressed_resin_fine.name': 'Fin presset harpiks',
+  'entities.items.pressed_resin_prime.name': 'Førsteklasses presset harpiks',
+  'entities.items.infused_lozenge_fine.name': 'Fin infunderet pastil',
+  'entities.items.infused_lozenge_prime.name': 'Førsteklasses infunderet pastil',
 };

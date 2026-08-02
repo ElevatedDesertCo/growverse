@@ -138,6 +138,7 @@ export function updateAuras(ctx: SimContext, e: Entity): void {
             targetId: e.id,
             school: a.school,
             fx: 'tick',
+            ability: a.id,
           });
           ctx.dealDamage(
             ctx.entities.get(a.sourceId) ?? null,

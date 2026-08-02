@@ -68,7 +68,7 @@ describe('cultivation', () => {
     expect(sim.plots[1].seedItemId).toBeNull();
   });
 
-  it('a plant matures over its growSeconds and yields Bloom on harvest', () => {
+  it('a plant matures over its growSeconds and yields buds on harvest', () => {
     const grow = PLANTS.common_seed.growSeconds;
     sim.addItem('common_seed', 1);
     sim.plantSeed(0, 'common_seed');
@@ -76,13 +76,13 @@ describe('cultivation', () => {
     tickSeconds(sim, grow - 2);
     expect(plotStage(sim.plots[0], (sim as unknown as { time: number }).time)).toBe('growing');
     sim.harvestPlot(0);
-    expect(sim.countItem('bloom_extract')).toBe(0);
+    expect(sim.countItem('bud_common')).toBe(0);
     expect(sim.plots[0].seedItemId).toBe('common_seed');
     // Past ready: harvest grants the yield and empties the plot.
     tickSeconds(sim, 4);
     expect(plotStage(sim.plots[0], (sim as unknown as { time: number }).time)).toBe('ready');
     sim.harvestPlot(0);
-    expect(sim.countItem('bloom_extract')).toBe(PLANTS.common_seed.yields[0].count);
+    expect(sim.countItem('bud_common')).toBe(PLANTS.common_seed.yields[0].count);
     expect(sim.plots[0].seedItemId).toBeNull();
   });
 
@@ -146,7 +146,7 @@ describe('cultivation', () => {
       s.plantSeed(0, 'common_seed');
       tickSeconds(s, PLANTS.common_seed.growSeconds + 1);
       s.harvestPlot(0);
-      return s.countItem('bloom_extract');
+      return s.countItem('bud_common');
     };
     expect(run()).toBe(run());
   });

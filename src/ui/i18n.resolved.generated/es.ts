@@ -5164,6 +5164,33 @@ export const es: EnTranslations = {
       "verdant_draught": {
         "name": "Brebaje Verdante"
       },
+      "bud_common": {
+        "name": "Cogollo común"
+      },
+      "bud_fine": {
+        "name": "Cogollo selecto"
+      },
+      "bud_prime": {
+        "name": "Cogollo supremo"
+      },
+      "cured_flower_fine": {
+        "name": "Flor curada selecta"
+      },
+      "cured_flower_prime": {
+        "name": "Flor curada suprema"
+      },
+      "pressed_resin_fine": {
+        "name": "Resina prensada selecta"
+      },
+      "pressed_resin_prime": {
+        "name": "Resina prensada suprema"
+      },
+      "infused_lozenge_fine": {
+        "name": "Pastilla infusionada selecta"
+      },
+      "infused_lozenge_prime": {
+        "name": "Pastilla infusionada suprema"
+      },
       "bristleback_maul": {
         "name": "Maza Bristleback"
       },
@@ -6215,6 +6242,36 @@ export const es: EnTranslations = {
       }
     },
     "quests": {
+      "q_first_harvest": {
+        "title": "A First Harvest",
+        "text": "Every grower starts the same way: a bed, a seed, and the patience to leave it be. Plant something, let it finish, and bring me what comes off it. I want to see how you handle a crop before I trust you with better stock.",
+        "completion": "Look at that. Trimmed clean and not a bit of it rushed. You have the hands for this work.",
+        "objectives": {
+          "0": {
+            "label": "Common Bud"
+          }
+        }
+      },
+      "q_fine_supply": {
+        "title": "Something Finer",
+        "text": "Common stock keeps the lamps lit, but it does not win anyone over. I need finer material, and I do not much care how you come by it. Breed for it yourself if you have the patience, or buy it off someone who did. A grower with coin is still a grower.",
+        "completion": "Now that is worth curing properly. Whoever raised this knew what they were doing, and if that was you, all the better.",
+        "objectives": {
+          "0": {
+            "label": "Fine Bud"
+          }
+        }
+      },
+      "q_prime_order": {
+        "title": "The Cultivator's Order",
+        "text": "I have a standing order I have never once been able to fill: prime material, and nothing under it. That takes a strain bred right the whole way up, which means either years of your own crosses or a good relationship with someone who has already done it. Either way, fill it and the Lodge will know your name.",
+        "completion": "Six of prime. I have waited a long season for this. The Lodge owes you, and so do I.",
+        "objectives": {
+          "0": {
+            "label": "Prime Bud"
+          }
+        }
+      },
       "q_wolves": {
         "title": "Lobos a la puerta",
         "text": "Los lobos del bosque se atreven ya con el camino norte, {playerName}. Abate 8 antes de que otra carreta desaparezca entre los pinos.",
