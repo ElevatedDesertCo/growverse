@@ -14,6 +14,7 @@ import {
   expressTrait,
   growTimeFactor,
   isLandrace,
+  refineGenotype,
   strainView,
   VIGOR_MIN_FACTOR,
   yieldBonus,
@@ -476,5 +477,153 @@ describe('harvest grade over a live Sim', () => {
     forceReady(sim, 0);
     sim.harvestPlot(0);
     expect(sim.countItem('bloom_extract')).toBe(0);
+  });
+});
+
+// Refining: fold a donor strain into a target. The answer to the MAX_STRAINS dead end,
+// and the answer to the tension mastery created (breeding better genetics used to mean
+// abandoning the record you had built on the strain you knew).
+describe('genetics: refineGenotype (the pure math)', () => {
+  it('never lowers any expressed trait', () => {
+    const target = g([3, 1], [2, 0], [1, 1]);
+    const donor = g([0, 0], [0, 0], [0, 0]); // strictly worse everywhere
+    const out = refineGenotype(target, donor);
+    for (const t of STRAIN_TRAITS) {
+      expect(expressTrait(out, t), t).toBeGreaterThanOrEqual(expressTrait(target, t));
+    }
+  });
+
+  it('raises the expressed trait when the donor is stronger', () => {
+    const target = g([1, 1], [1, 1], [1, 1]);
+    const donor = g([4, 0], [3, 0], [2, 0]);
+    const out = refineGenotype(target, donor);
+    expect(expressTrait(out, 'potency')).toBe(4);
+    expect(expressTrait(out, 'vigor')).toBe(3);
+    expect(expressTrait(out, 'yield')).toBe(2);
+  });
+
+  it('overwrites the WEAKER allele, so a strong donor cannot displace a stronger target', () => {
+    // Target expresses 4 (hidden 1); donor expresses 3. The 1 is replaced, the 4 survives.
+    const out = refineGenotype(g([4, 1], [0, 0], [0, 0]), g([3, 3], [0, 0], [0, 0]));
+    expect([...out.potency].sort((a, b) => a - b)).toEqual([3, 4]);
+    expect(expressTrait(out, 'potency')).toBe(4);
+  });
+
+  it('lifts the hidden recessive even when the expressed tier does not move', () => {
+    const target = g([4, 0], [0, 0], [0, 0]);
+    const out = refineGenotype(target, g([2, 2], [0, 0], [0, 0]));
+    expect(expressTrait(out, 'potency')).toBe(4); // unchanged
+    expect([...out.potency].sort((a, b) => a - b)).toEqual([2, 4]); // but the pair improved
+  });
+
+  it('does not mutate the inputs', () => {
+    const target = g([1, 1], [1, 1], [1, 1]);
+    const donor = g([4, 4], [4, 4], [4, 4]);
+    refineGenotype(target, donor);
+    expect(target.potency).toEqual([1, 1]);
+    expect(donor.potency).toEqual([4, 4]);
+  });
+});
+
+describe('strain library: refining over a Sim', () => {
+  const twoStrains = (sim: Sim): [string, string] => {
+    growAndHarvest(sim, 'common_seed', 0);
+    growAndHarvest(sim, 'enriched_seed', 1);
+    return [sim.strains[0].id, sim.strains[1].id];
+  };
+
+  it('consumes the donor and the cost, freeing a slot rather than needing one', () => {
+    const sim = makeSim();
+    const [target, donor] = twoStrains(sim);
+    sim.addItem(BREED_COST_ITEM, BREED_COST_COUNT);
+    standAtChamber(sim);
+    // Make the donor strictly better so the refine has something to add.
+    const strains = (sim as unknown as { primary: { strains: Strain[] } }).primary.strains;
+    strains[0].genotype = { potency: [0, 0], vigor: [0, 0], yield: [0, 0] };
+    strains[1].genotype = { potency: [4, 4], vigor: [4, 4], yield: [4, 4] };
+
+    sim.refineStrain(target, donor);
+    expect(sim.strains).toHaveLength(1); // donor gone: the library got SMALLER
+    expect(sim.strains[0].id).toBe(target); // and it is still the target strain
+    expect(sim.countItem(BREED_COST_ITEM)).toBe(0);
+    expect(sim.strains[0].potency).toBe(4);
+  });
+
+  it('keeps the target identity and its mastery', () => {
+    const sim = makeSim();
+    const [target, donor] = twoStrains(sim);
+    sim.addItem(BREED_COST_ITEM, BREED_COST_COUNT);
+    standAtChamber(sim);
+    const strains = (sim as unknown as { primary: { strains: Strain[] } }).primary.strains;
+    const name = strains[0].name;
+    strains[0].mastery = 42;
+    strains[0].genotype = { potency: [0, 0], vigor: [0, 0], yield: [0, 0] };
+    strains[1].genotype = { potency: [4, 4], vigor: [4, 4], yield: [4, 4] };
+
+    sim.refineStrain(target, donor);
+    expect(sim.strains[0].name).toBe(name);
+    // Mastery is the point: improving the strain you KNOW, not starting over on a new one.
+    expect(sim.strains[0].mastery).toBe(42);
+  });
+
+  it('refuses a donor that adds nothing, and charges nothing for the refusal', () => {
+    const sim = makeSim();
+    const [target, donor] = twoStrains(sim);
+    sim.addItem(BREED_COST_ITEM, BREED_COST_COUNT);
+    standAtChamber(sim);
+    const strains = (sim as unknown as { primary: { strains: Strain[] } }).primary.strains;
+    strains[0].genotype = { potency: [4, 4], vigor: [4, 4], yield: [4, 4] };
+    strains[1].genotype = { potency: [1, 1], vigor: [1, 1], yield: [1, 1] };
+
+    sim.refineStrain(target, donor);
+    expect(sim.strains).toHaveLength(2); // donor kept
+    expect(sim.countItem(BREED_COST_ITEM)).toBe(BREED_COST_COUNT); // cost untouched
+  });
+
+  it('works with a FULL library, which is the whole point', () => {
+    const sim = makeSim();
+    const [target, donor] = twoStrains(sim);
+    const strains = (sim as unknown as { primary: { strains: Strain[] } }).primary.strains;
+    strains[0].genotype = { potency: [0, 0], vigor: [0, 0], yield: [0, 0] };
+    strains[1].genotype = { potency: [4, 4], vigor: [4, 4], yield: [4, 4] };
+    // Pad to capacity: a cross would be rejected here, a refine must not be.
+    while (strains.length < MAX_STRAINS) {
+      strains.push({ ...strains[1], id: `pad${strains.length}`, mastery: 0 });
+    }
+    expect(strains).toHaveLength(MAX_STRAINS);
+    sim.addItem(BREED_COST_ITEM, BREED_COST_COUNT * 2);
+    standAtChamber(sim);
+
+    sim.breedStrains(target, donor);
+    expect(sim.strains).toHaveLength(MAX_STRAINS); // cross rejected: no room
+
+    sim.refineStrain(target, donor);
+    expect(sim.strains).toHaveLength(MAX_STRAINS - 1); // refine made room
+  });
+
+  it('recomputes landrace, so refining is a legitimate way to reach one', () => {
+    const sim = makeSim();
+    const [target, donor] = twoStrains(sim);
+    sim.addItem(BREED_COST_ITEM, BREED_COST_COUNT);
+    standAtChamber(sim);
+    const strains = (sim as unknown as { primary: { strains: Strain[] } }).primary.strains;
+    strains[0].genotype = { potency: [GENE_MAX, 0], vigor: [GENE_MAX, 0], yield: [0, 0] };
+    strains[0].landrace = false;
+    strains[1].genotype = { potency: [0, 0], vigor: [0, 0], yield: [GENE_MAX, GENE_MAX] };
+
+    sim.refineStrain(target, donor);
+    expect(sim.strains[0].landrace).toBe(true);
+  });
+
+  it('is rejected away from the Breeding Chamber', () => {
+    const sim = makeSim();
+    const [target, donor] = twoStrains(sim);
+    sim.addItem(BREED_COST_ITEM, BREED_COST_COUNT);
+    sim.player.pos.x = 0;
+    sim.player.pos.z = 0;
+    const strains = (sim as unknown as { primary: { strains: Strain[] } }).primary.strains;
+    strains[1].genotype = { potency: [4, 4], vigor: [4, 4], yield: [4, 4] };
+    sim.refineStrain(target, donor);
+    expect(sim.strains).toHaveLength(2);
   });
 });

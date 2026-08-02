@@ -7,6 +7,9 @@ export const BASE_NEW = {
     'garden.alreadyTended': 'Du har allerede passet den plante for nu.',
     'garden.needEpicBuds':
       'Du skal bruge to Episke knopper for at krydse stammer. Pas en afgrøde for at tjene en.',
+    'garden.refine': 'Du forfiner {target} med {donor}.',
+    'garden.refineNothing': 'Den stamme har intet at tilføje. Vælg en stærkere donor.',
+    'garden.refinePickDifferent': 'Vælg en anden stamme at forfine med.',
     'aura.acidSpit': 'Syrespyt',
     'aura.blindingPowder': 'Blændende Pulver',
     'aura.bogRot': 'Sumpråd',
@@ -153,6 +156,9 @@ export const BASE_NEW = {
     'garden.alreadyTended': 'Kamu sudah merawat tanaman itu untuk saat ini.',
     'garden.needEpicBuds':
       'Kamu butuh dua Kuncup Epik untuk menyilangkan galur. Rawat tanaman untuk mendapatkannya.',
+    'garden.refine': 'Kamu memurnikan {target} dengan {donor}.',
+    'garden.refineNothing': 'Galur itu tidak menambah apa pun. Pilih donor yang lebih kuat.',
+    'garden.refinePickDifferent': 'Pilih galur lain untuk pemurnian.',
     'aura.acidSpit': 'Ludah Asam',
     'aura.blindingPowder': 'Serbuk Pembutaan',
     'aura.bogRot': 'Busuk Rawa',
@@ -299,6 +305,9 @@ export const BASE_NEW = {
     'garden.alreadyTended': 'Je hebt die plant voorlopig al verzorgd.',
     'garden.needEpicBuds':
       'Je hebt twee Epische knoppen nodig om soorten te kruisen. Verzorg een gewas om er een te verdienen.',
+    'garden.refine': 'Je verfijnt {target} met {donor}.',
+    'garden.refineNothing': 'Die soort voegt niets toe. Kies een sterkere donor.',
+    'garden.refinePickDifferent': 'Kies een andere soort om mee te verfijnen.',
     'aura.acidSpit': 'Zuurspuug',
     'aura.blindingPowder': 'Verblindend Poeder',
     'aura.bogRot': 'Moerasrot',
@@ -445,6 +454,9 @@ export const BASE_NEW = {
     'garden.alreadyTended': 'Na razie już doglądałeś tej rośliny.',
     'garden.needEpicBuds':
       'Potrzebujesz dwóch Epickich pąków, aby skrzyżować odmiany. Doglądaj uprawy, aby zdobyć jeden.',
+    'garden.refine': 'Uszlachetniasz {target} przy pomocy {donor}.',
+    'garden.refineNothing': 'Ta odmiana nic nie wnosi. Wybierz silniejszego dawcę.',
+    'garden.refinePickDifferent': 'Wybierz inną odmianę do uszlachetnienia.',
     'aura.acidSpit': 'Plwocina kwasu',
     'aura.blindingPowder': 'Oślepiający proszek',
     'aura.bogRot': 'Bagienna zgnilizna',
@@ -591,6 +603,9 @@ export const BASE_NEW = {
     'garden.alreadyTended': 'Du har redan skött den plantan för tillfället.',
     'garden.needEpicBuds':
       'Du behöver två Episka knoppar för att korsa sorter. Sköt en gröda för att tjäna en.',
+    'garden.refine': 'Du förädlar {target} med {donor}.',
+    'garden.refineNothing': 'Den sorten tillför inget. Välj en starkare givare.',
+    'garden.refinePickDifferent': 'Välj en annan sort att förädla med.',
     'aura.acidSpit': 'Syraspott',
     'aura.blindingPowder': 'Förblindande pulver',
     'aura.bogRot': 'Myrröta',
@@ -737,6 +752,9 @@ export const BASE_NEW = {
     'garden.alreadyTended': 'O bitkiye şimdilik zaten baktın.',
     'garden.needEpicBuds':
       'Türleri melezlemek için iki Epik Tomurcuk gerekir. Bir mahsule bakarak kazanabilirsin.',
+    'garden.refine': '{donor} ile {target} türünü geliştirdin.',
+    'garden.refineNothing': 'O tür bir şey katmıyor. Daha güçlü bir verici seç.',
+    'garden.refinePickDifferent': 'Geliştirmek için farklı bir tür seç.',
     'aura.acidSpit': 'Asit Tükürüğü',
     'aura.blindingPowder': 'Kör Edici Toz',
     'aura.bogRot': 'Bataklık Çürümesi',
@@ -882,6 +900,9 @@ export const BASE_NEW = {
     'garden.alreadyTended': 'Bạn đã chăm sóc cây đó rồi, hãy đợi thêm.',
     'garden.needEpicBuds':
       'Bạn cần hai Nụ sử thi để lai giống. Hãy chăm sóc một vụ mùa để nhận một nụ.',
+    'garden.refine': 'Bạn tinh luyện {target} bằng {donor}.',
+    'garden.refineNothing': 'Giống đó không bổ sung được gì. Hãy chọn giống cho mạnh hơn.',
+    'garden.refinePickDifferent': 'Hãy chọn một giống khác để tinh luyện.',
     'aura.acidSpit': 'Phun Axit',
     'aura.blindingPowder': 'Bột Làm Mù',
     'aura.bogRot': 'Thối Rữa Đầm Lầy',

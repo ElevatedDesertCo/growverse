@@ -5269,6 +5269,9 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.breeding.cost': '交配費用：エピックな花蕾 {count} 個（所持 {held} 個）',
   'hudChrome.breeding.needEpicBuds':
     '作物の世話をすればエピックな花蕾が手に入る。完璧に育てれば必ず一つ落ちる。',
+  'hudChrome.breeding.refine': '精錬',
+  'hudChrome.breeding.refineHint': '二つ目の品種を一つ目に取り込み、強化して枠を一つ空ける。',
+  'hudChrome.breeding.fullRefine': '品種ライブラリが満杯だ。精錬するか一つ手放して空きを作れ。',
   'hudChrome.breeding.mastery': '熟練',
   'hudChrome.breeding.masteryAria': '{strain} の熟練：{max} 中 {mastery}',
   'hudChrome.reputation.tier.neutral': '中立',

@@ -51,6 +51,10 @@ export interface BreedingView {
   selectedB: string | null;
   /** Two distinct owned strains are picked and the library has room: Breed is enabled. */
   canBreed: boolean;
+  /** Two distinct owned strains are picked and the cost is payable: Refine is enabled.
+   *  Unlike Breed it does NOT need a free slot, because refining consumes the donor, which
+   *  is exactly why a full library still has something it can do. */
+  canRefine: boolean;
   /** The plot a Plant action would sow into, or null when the garden is full. */
   firstEmptyPlot: number | null;
   /** The library is at MAX_STRAINS: a cross would have nowhere to land. */
@@ -113,6 +117,7 @@ export function buildBreedingView(
     selectedA: a,
     selectedB: b,
     canBreed: a !== null && b !== null && a !== b && !atCapacity && !cannotAfford,
+    canRefine: a !== null && b !== null && a !== b && !cannotAfford,
     firstEmptyPlot: emptyIndex >= 0 ? emptyIndex : null,
     atCapacity,
     count: strains.length,

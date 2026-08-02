@@ -19,6 +19,7 @@ export interface BreedingWindowDeps extends PainterHostPresentation {
   hideTooltip(): void;
   onPickParent(strainId: string, slot: 'a' | 'b'): void;
   onBreed(): void;
+  onRefine(): void;
   onPlant(strainId: string): void;
   onRelease(strainId: string): void;
   onClose(): void;
@@ -164,8 +165,11 @@ export function renderBreedingWindow(
     count: formatNumber(view.breedCost, { maximumFractionDigits: 0 }),
     held: formatNumber(view.epicBuds, { maximumFractionDigits: 0 }),
   });
+  // At capacity the note points at Refine rather than only saying "release something":
+  // folding the second pick into the first frees the slot AND improves a strain, which
+  // is a strictly better answer than throwing one away.
   const note = view.atCapacity
-    ? t('hudChrome.breeding.full')
+    ? t('hudChrome.breeding.fullRefine')
     : view.cannotAfford
       ? t('hudChrome.breeding.needEpicBuds')
       : '';
@@ -178,7 +182,16 @@ export function renderBreedingWindow(
   breed.disabled = !view.canBreed;
   breed.textContent = t('hudChrome.breeding.breed');
   breed.addEventListener('click', () => deps.onBreed());
-  footer.appendChild(breed);
+  // Refine: same two picks, a different verb. A (the first pick) is the strain that is
+  // kept and improved; B is folded into it and consumed.
+  const refine = document.createElement('button');
+  refine.type = 'button';
+  refine.className = 'breeding-action breeding-refine';
+  refine.disabled = !view.canRefine;
+  refine.textContent = t('hudChrome.breeding.refine');
+  refine.title = t('hudChrome.breeding.refineHint');
+  refine.addEventListener('click', () => deps.onRefine());
+  footer.append(breed, refine);
   el.appendChild(footer);
 
   el.querySelector('[data-close]')?.addEventListener('click', () => deps.onClose());

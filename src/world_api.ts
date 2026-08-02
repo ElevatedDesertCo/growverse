@@ -302,6 +302,7 @@ export const COMMAND_NAMES = [
   'harvest_plot',
   'plant_strain',
   'breed_strains',
+  'refine_strain',
   'release_strain',
   'telemetry',
 ] as const;

@@ -9185,6 +9185,15 @@ export class Hud {
         this.renderBreeding();
         refreshBags();
       },
+      onRefine: () => {
+        // A is the strain kept and improved, B the donor folded into it and consumed.
+        if (this.breedingSelectedA && this.breedingSelectedB) {
+          this.sim.refineStrain(this.breedingSelectedA, this.breedingSelectedB);
+          this.breedingSelectedB = null;
+        }
+        this.renderBreeding();
+        refreshBags();
+      },
       onPlant: (strainId) => {
         const plot = this.sim.garden.findIndex((p) => p.stage === 'empty');
         if (plot >= 0) this.sim.plantStrain(plot, strainId);

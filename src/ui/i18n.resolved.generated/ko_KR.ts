@@ -1138,7 +1138,10 @@ export const ko_KR: EnTranslations = {
       "needEpicBuds": "작물을 돌보면 영웅 꽃봉오리를 얻습니다. 완벽하게 기르면 반드시 하나 나옵니다.",
       "mastery": "숙련도",
       "masteryAria": "{strain} 숙련도: {max} 중 {mastery}",
-      "full": "품종 보관함이 가득 찼습니다. 품종을 방출해 공간을 만드세요."
+      "full": "품종 보관함이 가득 찼습니다. 품종을 방출해 공간을 만드세요.",
+      "refine": "정제",
+      "refineHint": "두 번째 품종을 첫 번째에 접어 넣어 강화하고 슬롯을 하나 비웁니다.",
+      "fullRefine": "품종 보관함이 가득 찼습니다. 정제하거나 하나를 방출해 자리를 비우세요."
     },
     "reputation": {
       "tier": {

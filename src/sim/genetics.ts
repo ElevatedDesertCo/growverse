@@ -131,6 +131,29 @@ export function breed(rng: Rng, a: Strain, b: Strain, newId: string, breeder?: s
   };
 }
 
+// Fold a donor strain's genetics into a target's, returning the improved genotype. Per
+// trait, the target's WEAKER allele is replaced by the donor's STRONGER one when that is
+// an upgrade, so the result is never worse than the target on any trait and the pair the
+// target carries into future crosses gets better too, not just its expressed tier.
+//
+// Deterministic (no rng): refining is a deliberate, expensive action, and a guaranteed
+// improvement is what makes it worth spending the cost on. It also keeps the cultivation
+// slice's rng footprint to the single Epic Bud roll.
+//
+// Why the weaker slot rather than the stronger: expression takes the higher allele, so
+// overwriting the higher one could LOWER the phenotype, and overwriting the lower one can
+// only raise it (or leave it alone). That is the whole invariant, in one line.
+export function refineGenotype(target: Genotype, donor: Genotype): Genotype {
+  const out = cloneGenotype(target);
+  for (const trait of STRAIN_TRAITS) {
+    const [t0, t1] = out[trait];
+    const weakIndex = t0 <= t1 ? 0 : 1;
+    const donorBest = expressTrait(donor, trait);
+    if (donorBest > out[trait][weakIndex]) out[trait][weakIndex] = donorBest;
+  }
+  return out;
+}
+
 // ---- Phenotype -> gameplay curves -------------------------------------------------
 // These map an expressed trait tier (0..GENE_MAX) onto the cultivation payoff. Kept here
 // so the tuning lives with the genetics and both plant-time (grow speed) and harvest-time

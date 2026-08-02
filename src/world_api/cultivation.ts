@@ -27,6 +27,12 @@ export interface IWorldCultivation {
   // Cross two owned strains into a new library strain (consumes two Epic Buds, which drop
   // from a well-tended crop). Server re-validates ownership, the library cap, and the cost.
   breedStrains(strainIdA: string, strainIdB: string): void;
+  // Fold a donor strain into a target, consuming the donor and improving the target's
+  // genetics without touching its name, lineage, breeder credit, or mastery. Costs the
+  // same two Epic Buds a cross does and FREES a library slot instead of needing one, so a
+  // full library has somewhere to go. Server re-validates ownership, the cost, and that
+  // the donor actually adds something.
+  refineStrain(targetStrainId: string, donorStrainId: string): void;
   // Release a strain from the library to free a slot.
   releaseStrain(strainId: string): void;
 }

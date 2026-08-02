@@ -1270,6 +1270,11 @@ export const hudChromeStrings = {
     mastery: 'Mastery',
     masteryAria: '{strain} mastery: {mastery} of {max}',
     full: 'Your strain library is full. Release a strain to make room.',
+    // Refine: fold the second pick into the first. The hint spells out which pick
+    // survives, because getting that backwards costs a strain.
+    refine: 'Refine',
+    refineHint: 'Fold the second strain into the first, improving it and freeing a slot.',
+    fullRefine: 'Your strain library is full. Refine or release a strain to make room.',
   },
   // Commune reputation: the standing tier names shown on the breeding header.
   reputation: {

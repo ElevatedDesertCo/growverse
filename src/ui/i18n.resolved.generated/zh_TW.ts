@@ -1138,7 +1138,10 @@ export const zh_TW: EnTranslations = {
       "needEpicBuds": "照料作物即可獲得史詩花苞。完美的一輪種植必定掉落一枚。",
       "mastery": "精通",
       "masteryAria": "{strain} 精通：{mastery} / {max}",
-      "full": "你的品系庫已滿。釋放一個品系以騰出空間。"
+      "full": "你的品系庫已滿。釋放一個品系以騰出空間。",
+      "refine": "精煉",
+      "refineHint": "把第二個品系併入第一個，提升它並騰出一個槽位。",
+      "fullRefine": "你的品系庫已滿。精煉或釋放一個品系以騰出空間。"
     },
     "reputation": {
       "tier": {

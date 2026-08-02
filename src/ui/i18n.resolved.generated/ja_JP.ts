@@ -1138,7 +1138,10 @@ export const ja_JP: EnTranslations = {
       "needEpicBuds": "作物の世話をすればエピックな花蕾が手に入る。完璧に育てれば必ず一つ落ちる。",
       "mastery": "熟練",
       "masteryAria": "{strain} の熟練：{max} 中 {mastery}",
-      "full": "品種ライブラリが満杯です。品種を手放して空きを作りましょう。"
+      "full": "品種ライブラリが満杯です。品種を手放して空きを作りましょう。",
+      "refine": "精錬",
+      "refineHint": "二つ目の品種を一つ目に取り込み、強化して枠を一つ空ける。",
+      "fullRefine": "品種ライブラリが満杯だ。精錬するか一つ手放して空きを作れ。"
     },
     "reputation": {
       "tier": {

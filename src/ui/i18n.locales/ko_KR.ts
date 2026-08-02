@@ -5277,6 +5277,11 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.breeding.cost': '교배 비용: 영웅 꽃봉오리 {count}개 (보유 {held}개)',
   'hudChrome.breeding.needEpicBuds':
     '작물을 돌보면 영웅 꽃봉오리를 얻습니다. 완벽하게 기르면 반드시 하나 나옵니다.',
+  'hudChrome.breeding.refine': '정제',
+  'hudChrome.breeding.refineHint':
+    '두 번째 품종을 첫 번째에 접어 넣어 강화하고 슬롯을 하나 비웁니다.',
+  'hudChrome.breeding.fullRefine':
+    '품종 보관함이 가득 찼습니다. 정제하거나 하나를 방출해 자리를 비우세요.',
   'hudChrome.breeding.mastery': '숙련도',
   'hudChrome.breeding.masteryAria': '{strain} 숙련도: {max} 중 {mastery}',
   'hudChrome.reputation.tier.neutral': '중립',

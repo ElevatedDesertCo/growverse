@@ -2389,6 +2389,11 @@ export class GameServer {
           sim.breedStrains(msg.a, msg.b, pid);
         }
         break;
+      case 'refine_strain':
+        if (typeof msg.a === 'string' && typeof msg.b === 'string') {
+          sim.refineStrain(msg.a, msg.b, pid);
+        }
+        break;
       case 'release_strain':
         if (typeof msg.strain === 'string') sim.releaseStrain(msg.strain, pid);
         break;

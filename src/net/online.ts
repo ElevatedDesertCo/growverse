@@ -1831,6 +1831,9 @@ export class ClientWorld implements IWorld {
   breedStrains(strainIdA: string, strainIdB: string): void {
     this.cmd({ cmd: 'breed_strains', a: strainIdA, b: strainIdB });
   }
+  refineStrain(targetStrainId: string, donorStrainId: string): void {
+    this.cmd({ cmd: 'refine_strain', a: targetStrainId, b: donorStrainId });
+  }
   releaseStrain(strainId: string): void {
     this.cmd({ cmd: 'release_strain', strain: strainId });
   }

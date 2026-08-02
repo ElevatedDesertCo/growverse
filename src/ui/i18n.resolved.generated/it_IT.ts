@@ -1138,7 +1138,10 @@ export const it_IT: EnTranslations = {
       "needEpicBuds": "Tend a crop to earn an Epic Bud. A perfect grow always drops one.",
       "mastery": "Mastery",
       "masteryAria": "{strain} mastery: {mastery} of {max}",
-      "full": "Your strain library is full. Release a strain to make room."
+      "full": "Your strain library is full. Release a strain to make room.",
+      "refine": "Refine",
+      "refineHint": "Fold the second strain into the first, improving it and freeing a slot.",
+      "fullRefine": "Your strain library is full. Refine or release a strain to make room."
     },
     "reputation": {
       "tier": {

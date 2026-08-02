@@ -219,6 +219,7 @@ import * as tradeMod from './social/trade';
 import {
   breedStrains,
   emptyStrains,
+  refineStrain,
   releaseStrain,
   restoreStrains,
   type SavedStrain,
@@ -4719,6 +4720,10 @@ export class Sim {
   // strain_library.ts); the library is per-player PlayerMeta state, persisted in the save.
   breedStrains(strainIdA: string, strainIdB: string, pid?: number): void {
     breedStrains(this.ctx, strainIdA, strainIdB, pid);
+  }
+
+  refineStrain(targetStrainId: string, donorStrainId: string, pid?: number): void {
+    refineStrain(this.ctx, targetStrainId, donorStrainId, pid);
   }
 
   releaseStrain(strainId: string, pid?: number): void {

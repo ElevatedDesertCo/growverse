@@ -5382,6 +5382,11 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.breeding.cost': 'Стоимость скрещивания: Эпических бутонов {count} (у вас {held})',
   'hudChrome.breeding.needEpicBuds':
     'Ухаживайте за посевом, чтобы получить Эпический бутон. Идеальный урожай всегда даёт один.',
+  'hudChrome.breeding.refine': 'Улучшить',
+  'hudChrome.breeding.refineHint':
+    'Вложите второй штамм в первый: он станет лучше, а слот освободится.',
+  'hudChrome.breeding.fullRefine':
+    'Библиотека штаммов заполнена. Улучшите или отпустите штамм, чтобы освободить место.',
   'hudChrome.breeding.mastery': 'Мастерство',
   'hudChrome.breeding.masteryAria': 'Мастерство {strain}: {mastery} из {max}',
   'hudChrome.reputation.tier.neutral': 'Нейтралитет',
