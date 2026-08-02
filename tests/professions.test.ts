@@ -16,6 +16,8 @@ import {
 } from '../src/sim/professions';
 import { Sim } from '../src/sim/sim';
 import {
+  BREED_COST_COUNT,
+  BREED_COST_ITEM,
   type Entity,
   FRESH_HARVEST_WINDOW,
   PROFESSION_IDS,
@@ -310,7 +312,7 @@ describe('breeding: trained by landing a cross', () => {
       sim.plots[0].plantedAt = -100000;
       sim.harvestPlot(0);
     }
-    sim.addItem('bud_common', 40);
+    sim.addItem(BREED_COST_ITEM, BREED_COST_COUNT * 4);
     return meta;
   };
 

@@ -5155,6 +5155,7 @@ export const pl_PL: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.title': 'Dostępna aktualizacja',
   'hudChrome.nativeUpdate.update': 'Aktualizuj',
   'entities.items.bud_common.name': 'Zwykły pąk',
+  'entities.items.epic_bud.name': 'Epicki pąk',
   'entities.items.vale_hash.name': 'Haszysz z doliny',
   'entities.items.golden_shatter.name': 'Złoty shatter',
   'entities.items.live_resin.name': 'Świeża żywica',

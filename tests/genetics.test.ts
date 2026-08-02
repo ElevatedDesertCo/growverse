@@ -192,12 +192,16 @@ describe('strain library: discovery + breeding over a Sim', () => {
     expect(sim.strains.filter((s) => s.baseId === 'common_bloom')).toHaveLength(1);
   });
 
-  it('crossing two owned strains consumes Bloom Extract and adds a new strain', () => {
+  it('crossing two owned strains consumes Epic Buds and adds a new strain', () => {
     const sim = makeSim();
     growAndHarvest(sim, 'common_seed', 0);
     growAndHarvest(sim, 'enriched_seed', 1);
     expect(sim.strains).toHaveLength(2);
     const [a, b] = sim.strains;
+    // A cross is paid in Epic Buds, which come off a WELL-GROWN crop rather than any
+    // crop, so an untended harvest leaves the bags empty. Granted here so the test is
+    // about the cross; the earning path is covered in cultivation.test.ts.
+    sim.addItem(BREED_COST_ITEM, BREED_COST_COUNT);
     const before = sim.countItem(BREED_COST_ITEM);
     expect(before).toBeGreaterThanOrEqual(BREED_COST_COUNT);
     standAtChamber(sim);
@@ -206,7 +210,7 @@ describe('strain library: discovery + breeding over a Sim', () => {
     expect(sim.countItem(BREED_COST_ITEM)).toBe(before - BREED_COST_COUNT);
   });
 
-  it('rejects a cross without enough Bloom Extract or with the same strain twice', () => {
+  it('rejects a cross without enough Epic Buds or with the same strain twice', () => {
     const sim = makeSim();
     growAndHarvest(sim, 'common_seed', 0);
     growAndHarvest(sim, 'enriched_seed', 1);

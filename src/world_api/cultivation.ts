@@ -24,8 +24,8 @@ export interface IWorldCultivation {
   // Harvest a matured plot for its Bloom yield; a no-op the server rejects if the plot
   // is empty or still growing.
   harvestPlot(plotIndex: number): void;
-  // Cross two owned strains into a new library strain (consumes Bloom Extract). Server
-  // re-validates ownership, the library cap, and the cost.
+  // Cross two owned strains into a new library strain (consumes two Epic Buds, which drop
+  // from a well-tended crop). Server re-validates ownership, the library cap, and the cost.
   breedStrains(strainIdA: string, strainIdB: string): void;
   // Release a strain from the library to free a slot.
   releaseStrain(strainId: string): void;

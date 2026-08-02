@@ -5210,6 +5210,7 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.title': 'Aggiornamento disponibile',
   'hudChrome.nativeUpdate.update': 'Aggiorna',
   'entities.items.bud_common.name': 'Cima comune',
+  'entities.items.epic_bud.name': 'Cima epica',
   'entities.items.vale_hash.name': 'Hashish della valle',
   'entities.items.golden_shatter.name': 'Ambra frantumata',
   'entities.items.live_resin.name': 'Resina viva',

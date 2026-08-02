@@ -5274,6 +5274,9 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.breeding.release': '방출',
   'hudChrome.breeding.breed': '교배',
   'hudChrome.breeding.full': '품종 보관함이 가득 찼습니다. 품종을 방출해 공간을 만드세요.',
+  'hudChrome.breeding.cost': '교배 비용: 영웅 꽃봉오리 {count}개 (보유 {held}개)',
+  'hudChrome.breeding.needEpicBuds':
+    '작물을 돌보면 영웅 꽃봉오리를 얻습니다. 완벽하게 기르면 반드시 하나 나옵니다.',
   'hudChrome.breeding.mastery': '숙련도',
   'hudChrome.breeding.masteryAria': '{strain} 숙련도: {max} 중 {mastery}',
   'hudChrome.reputation.tier.neutral': '중립',
@@ -5381,6 +5384,7 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.cook_cobb.greeting':
     '거울 호수는 인내심 있는 낚싯줄에 훌륭한 송어를 내어 준답니다. 낚싯대를 챙겨 잡은 것을 내 모닥불로 가져오세요.',
   'entities.items.bud_common.name': '평범한 꽃봉오리',
+  'entities.items.epic_bud.name': '영웅 꽃봉오리',
   'entities.items.vale_hash.name': '계곡 해시시',
   'entities.items.golden_shatter.name': '황금 셰터',
   'entities.items.live_resin.name': '생수지',

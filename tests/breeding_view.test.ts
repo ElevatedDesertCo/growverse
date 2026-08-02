@@ -4,7 +4,7 @@
 
 import { describe, expect, it } from 'vitest';
 import type { PlotView, ReputationView, StrainView } from '../src/sim/types';
-import { MAX_STRAINS } from '../src/sim/types';
+import { BREED_COST_COUNT, MAX_STRAINS } from '../src/sim/types';
 import { buildBreedingView } from '../src/ui/breeding_view';
 
 const strain = (
@@ -81,6 +81,7 @@ describe('buildBreedingView', () => {
       [emptyPlot()],
       'a',
       'b',
+      BREED_COST_COUNT, // the Epic Buds a cross costs: without them Breed stays disabled
     );
     expect(view.strains[0].selectedAs).toBe('a');
     expect(view.strains[1].selectedAs).toBe('b');

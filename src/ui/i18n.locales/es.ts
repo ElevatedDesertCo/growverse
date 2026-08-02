@@ -5225,6 +5225,7 @@ export const es: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.title': 'Actualización disponible',
   'hudChrome.nativeUpdate.update': 'Actualizar',
   'entities.items.bud_common.name': 'Cogollo común',
+  'entities.items.epic_bud.name': 'Cogollo épico',
   'entities.items.vale_hash.name': 'Hachís del valle',
   'entities.items.golden_shatter.name': 'Ámbar quebradizo',
   'entities.items.live_resin.name': 'Resina viva',

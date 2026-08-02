@@ -5122,6 +5122,7 @@ export const tr_TR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.title': 'Güncelleme Mevcut',
   'hudChrome.nativeUpdate.update': 'Güncelle',
   'entities.items.bud_common.name': 'Sıradan tomurcuk',
+  'entities.items.epic_bud.name': 'Epik Tomurcuk',
   'entities.items.vale_hash.name': 'Vadi Haşhaşı',
   'entities.items.golden_shatter.name': 'Altın Shatter',
   'entities.items.live_resin.name': 'Taze Reçine',

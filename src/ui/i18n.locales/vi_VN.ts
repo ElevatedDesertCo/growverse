@@ -5146,6 +5146,7 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'errors.api.desktopCodeInvalid':
     'Mã đăng nhập máy tính không hợp lệ hoặc đã hết hạn. Vui lòng thử lại.',
   'entities.items.bud_common.name': 'Búp thường',
+  'entities.items.epic_bud.name': 'Nụ sử thi',
   'entities.items.vale_hash.name': 'Hash thung lũng',
   'entities.items.golden_shatter.name': 'Hổ phách vàng',
   'entities.items.live_resin.name': 'Nhựa tươi',

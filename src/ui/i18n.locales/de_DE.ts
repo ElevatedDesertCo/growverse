@@ -5242,6 +5242,7 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.title': 'Update verfügbar',
   'hudChrome.nativeUpdate.update': 'Aktualisieren',
   'entities.items.bud_common.name': 'Gewöhnliche Blüte',
+  'entities.items.epic_bud.name': 'Epische Blüte',
   'entities.items.vale_hash.name': 'Talhaschisch',
   'entities.items.golden_shatter.name': 'Goldener Splitter',
   'entities.items.live_resin.name': 'Frischharz',

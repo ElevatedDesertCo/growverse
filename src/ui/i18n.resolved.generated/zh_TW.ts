@@ -1134,6 +1134,8 @@ export const zh_TW: EnTranslations = {
       "breed": "雜交",
       "lineage": "{a} x {b}",
       "bredBy": "Bred by {name}",
+      "cost": "雜交花費：{count} 枚史詩花苞（你有 {held} 枚）",
+      "needEpicBuds": "照料作物即可獲得史詩花苞。完美的一輪種植必定掉落一枚。",
       "mastery": "精通",
       "masteryAria": "{strain} 精通：{mastery} / {max}",
       "full": "你的品系庫已滿。釋放一個品系以騰出空間。"
@@ -5232,6 +5234,9 @@ export const zh_TW: EnTranslations = {
       },
       "bloom_diamonds": {
         "name": "花晶鑽石"
+      },
+      "epic_bud": {
+        "name": "史詩花苞"
       },
       "bristleback_maul": {
         "name": "硬鬃重槌"

@@ -154,12 +154,24 @@ export function renderBreedingWindow(
   }
   el.appendChild(list);
 
-  // Footer: the cross action + capacity note.
+  // Footer: the cross action, its Epic Bud cost, and whichever note is blocking. The
+  // cost is always shown (not only when short) so a player learns what a cross takes
+  // before they are stopped by it; the shortfall note explains how to earn one, because
+  // the answer is "grow better", not "grow more".
   const footer = document.createElement('div');
   footer.className = 'breeding-footer';
-  if (view.atCapacity) {
-    footer.innerHTML = `<span class="breeding-note">${esc(t('hudChrome.breeding.full'))}</span>`;
-  }
+  const cost = t('hudChrome.breeding.cost', {
+    count: formatNumber(view.breedCost, { maximumFractionDigits: 0 }),
+    held: formatNumber(view.epicBuds, { maximumFractionDigits: 0 }),
+  });
+  const note = view.atCapacity
+    ? t('hudChrome.breeding.full')
+    : view.cannotAfford
+      ? t('hudChrome.breeding.needEpicBuds')
+      : '';
+  footer.innerHTML =
+    `<span class="breeding-cost${view.cannotAfford ? ' breeding-cost-short' : ''}">${esc(cost)}</span>` +
+    (note ? `<span class="breeding-note">${esc(note)}</span>` : '');
   const breed = document.createElement('button');
   breed.type = 'button';
   breed.className = 'breeding-action breeding-breed';

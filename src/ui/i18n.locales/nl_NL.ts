@@ -5185,6 +5185,7 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.title': 'Update beschikbaar',
   'hudChrome.nativeUpdate.update': 'Bijwerken',
   'entities.items.bud_common.name': 'Gewone knop',
+  'entities.items.epic_bud.name': 'Epische knop',
   'entities.items.vale_hash.name': 'Dalhasj',
   'entities.items.golden_shatter.name': 'Gouden shatter',
   'entities.items.live_resin.name': 'Verse hars',

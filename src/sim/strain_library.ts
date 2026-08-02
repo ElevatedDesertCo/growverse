@@ -18,6 +18,8 @@ import { trainProfession } from './professions';
 import { awardReputation, REP_PER_BREED, REP_PER_LANDRACE } from './reputation';
 import type { SimContext } from './sim_context';
 import {
+  BREED_COST_COUNT,
+  BREED_COST_ITEM,
   dist2d,
   type Entity,
   type Genotype,
@@ -28,12 +30,18 @@ import {
   type StrainView,
 } from './types';
 
-// Breeding consumes harvested buds, tying the mechanic back into cultivation output (a
-// real sink, reachable from the garden loop) rather than being free. Buds rather than
-// the foraged bloom_extract: you breed from your own harvest, not from picked flowers,
-// which also keeps the two materials on separate economic tracks.
-export const BREED_COST_ITEM = 'bud_common';
-export const BREED_COST_COUNT = 2;
+// Breeding costs two EPIC Buds, a mother and a father. Epic Buds are not a grade of the
+// bulk crop: they drop from how well a crop was GROWN (the tend record plus the grower's
+// mastery of that strain, see cultivation.ts), and a perfect grow guarantees one.
+//
+// This is the point of the gate. The cost used to be two Common Buds, which any amount
+// of planting produced, so the breeding economy was a function of grow VOLUME. Tying it
+// to Epic Buds makes it a function of grow SKILL instead: a grower who tends well breeds
+// often, and a grower who does not has to buy the difference from one who does, which is
+// what gives the player market something worth trading.
+// Re-exported (the values live with the other tuning constants in types.ts) so the
+// existing importers here and in tests keep resolving them from the owning system.
+export { BREED_COST_COUNT, BREED_COST_ITEM };
 
 // A fresh, empty library (character create + load default).
 export function emptyStrains(): Strain[] {
@@ -107,9 +115,9 @@ export function breedStrains(ctx: SimContext, idA: string, idB: string, pid?: nu
     return;
   }
   if (ctx.countItem(BREED_COST_ITEM, meta.entityId) < BREED_COST_COUNT) {
-    // Says buds, not extract: the cost moved to cultivation output when growing
-    // and foraging were split, and this line was left describing the old item.
-    ctx.error(meta.entityId, 'You need more Common Buds to cross strains.');
+    // Names the real cost AND how to get one, because the answer is not "grow more", it
+    // is "grow better": an Epic Bud comes off a well-tended crop, not a bigger one.
+    ctx.error(meta.entityId, 'You need two Epic Buds to cross strains. Tend a crop to earn one.');
     return;
   }
   ctx.removeItem(BREED_COST_ITEM, BREED_COST_COUNT, meta.entityId);

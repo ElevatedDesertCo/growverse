@@ -5192,6 +5192,7 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.title': 'Pembaruan Tersedia',
   'hudChrome.nativeUpdate.update': 'Perbarui',
   'entities.items.bud_common.name': 'Kuncup biasa',
+  'entities.items.epic_bud.name': 'Kuncup Epik',
   'entities.items.vale_hash.name': 'Hasyis Lembah',
   'entities.items.golden_shatter.name': 'Serpih Emas',
   'entities.items.live_resin.name': 'Resin Segar',

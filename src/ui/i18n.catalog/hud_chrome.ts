@@ -1261,6 +1261,11 @@ export const hudChromeStrings = {
     // verbatim in every locale, so the line needs no translatable words.
     lineage: '{a} x {b}',
     bredBy: 'Bred by {name}',
+    // The Epic Bud gate on a cross: the cost line is always shown so the requirement is
+    // learned before it blocks anything, and the shortfall note says how to earn one
+    // (tend a crop), because the answer is not to grow more.
+    cost: 'Cross cost: {count} Epic Buds (you have {held})',
+    needEpicBuds: 'Tend a crop to earn an Epic Bud. A perfect grow always drops one.',
     // Per-strain mastery: the grower's own record with a strain, not an inherited trait.
     mastery: 'Mastery',
     masteryAria: '{strain} mastery: {mastery} of {max}',

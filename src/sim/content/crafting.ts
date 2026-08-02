@@ -294,6 +294,24 @@ export const CRAFT_ITEMS: Record<string, ItemDef> = {
     quality: 'rare',
     sellValue: 18,
   },
+  // The Epic Bud: the breeding input, and the one harvest yield that is NOT a grade of
+  // the bulk crop. It does not come from the strain's potency at all; it comes from how
+  // well the crop was GROWN (tended, and the grower's mastery of that strain), and a
+  // perfect grow guarantees one. That is what ties the breeding economy to grow SKILL
+  // instead of grow VOLUME: before this, two Common Buds bought a cross, so anyone who
+  // planted enough could breed without ever getting better at growing.
+  //
+  // Epic quality both for the name colour and so the junk sweep (poor only) never eats
+  // one. sellValue is high because it is genuinely scarce, but the real price is set by
+  // players on the market: this is the thing a grower who tends well has and a grower
+  // who does not has to buy.
+  epic_bud: {
+    id: 'epic_bud',
+    name: 'Epic Bud',
+    kind: 'junk',
+    quality: 'epic',
+    sellValue: 120,
+  },
   // Colored petals harvested from the vale's tinted flower patches. Purple petals
   // are the Alchemist's potion reagent; golden petals are pressed into a growth
   // booster at the Grow Station. Each color is its own harvest node (gathering.ts).

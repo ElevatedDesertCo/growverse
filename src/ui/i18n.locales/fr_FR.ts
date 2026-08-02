@@ -5257,6 +5257,7 @@ export const fr_FR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.title': 'Mise à jour disponible',
   'hudChrome.nativeUpdate.update': 'Mettre à jour',
   'entities.items.bud_common.name': 'Bourgeon commun',
+  'entities.items.epic_bud.name': 'Bourgeon épique',
   'entities.items.vale_hash.name': 'Haschich du val',
   'entities.items.golden_shatter.name': "Ambre d'or",
   'entities.items.live_resin.name': 'Résine vivante',

@@ -5,6 +5,8 @@ export const BASE_NEW = {
     'garden.tend': 'Du passer {name}.',
     'garden.finished': 'Den plante er færdig. Høst den.',
     'garden.alreadyTended': 'Du har allerede passet den plante for nu.',
+    'garden.needEpicBuds':
+      'Du skal bruge to Episke knopper for at krydse stammer. Pas en afgrøde for at tjene en.',
     'aura.acidSpit': 'Syrespyt',
     'aura.blindingPowder': 'Blændende Pulver',
     'aura.bogRot': 'Sumpråd',
@@ -149,6 +151,8 @@ export const BASE_NEW = {
     'garden.tend': 'Kamu merawat {name}.',
     'garden.finished': 'Tanaman itu sudah matang. Panenlah.',
     'garden.alreadyTended': 'Kamu sudah merawat tanaman itu untuk saat ini.',
+    'garden.needEpicBuds':
+      'Kamu butuh dua Kuncup Epik untuk menyilangkan galur. Rawat tanaman untuk mendapatkannya.',
     'aura.acidSpit': 'Ludah Asam',
     'aura.blindingPowder': 'Serbuk Pembutaan',
     'aura.bogRot': 'Busuk Rawa',
@@ -293,6 +297,8 @@ export const BASE_NEW = {
     'garden.tend': 'Je verzorgt {name}.',
     'garden.finished': 'Die plant is klaar. Oogst hem.',
     'garden.alreadyTended': 'Je hebt die plant voorlopig al verzorgd.',
+    'garden.needEpicBuds':
+      'Je hebt twee Epische knoppen nodig om soorten te kruisen. Verzorg een gewas om er een te verdienen.',
     'aura.acidSpit': 'Zuurspuug',
     'aura.blindingPowder': 'Verblindend Poeder',
     'aura.bogRot': 'Moerasrot',
@@ -437,6 +443,8 @@ export const BASE_NEW = {
     'garden.tend': 'Doglądasz {name}.',
     'garden.finished': 'Ta roślina jest gotowa. Zbierz ją.',
     'garden.alreadyTended': 'Na razie już doglądałeś tej rośliny.',
+    'garden.needEpicBuds':
+      'Potrzebujesz dwóch Epickich pąków, aby skrzyżować odmiany. Doglądaj uprawy, aby zdobyć jeden.',
     'aura.acidSpit': 'Plwocina kwasu',
     'aura.blindingPowder': 'Oślepiający proszek',
     'aura.bogRot': 'Bagienna zgnilizna',
@@ -581,6 +589,8 @@ export const BASE_NEW = {
     'garden.tend': 'Du sköter {name}.',
     'garden.finished': 'Den plantan är färdig. Skörda den.',
     'garden.alreadyTended': 'Du har redan skött den plantan för tillfället.',
+    'garden.needEpicBuds':
+      'Du behöver två Episka knoppar för att korsa sorter. Sköt en gröda för att tjäna en.',
     'aura.acidSpit': 'Syraspott',
     'aura.blindingPowder': 'Förblindande pulver',
     'aura.bogRot': 'Myrröta',
@@ -725,6 +735,8 @@ export const BASE_NEW = {
     'garden.tend': '{name} bitkisine baktın.',
     'garden.finished': 'O bitki olgunlaştı. Hasat et.',
     'garden.alreadyTended': 'O bitkiye şimdilik zaten baktın.',
+    'garden.needEpicBuds':
+      'Türleri melezlemek için iki Epik Tomurcuk gerekir. Bir mahsule bakarak kazanabilirsin.',
     'aura.acidSpit': 'Asit Tükürüğü',
     'aura.blindingPowder': 'Kör Edici Toz',
     'aura.bogRot': 'Bataklık Çürümesi',
@@ -868,6 +880,8 @@ export const BASE_NEW = {
     'garden.tend': 'Bạn chăm sóc {name}.',
     'garden.finished': 'Cây đó đã chín. Hãy thu hoạch.',
     'garden.alreadyTended': 'Bạn đã chăm sóc cây đó rồi, hãy đợi thêm.',
+    'garden.needEpicBuds':
+      'Bạn cần hai Nụ sử thi để lai giống. Hãy chăm sóc một vụ mùa để nhận một nụ.',
     'aura.acidSpit': 'Phun Axit',
     'aura.blindingPowder': 'Bột Làm Mù',
     'aura.bogRot': 'Thối Rữa Đầm Lầy',

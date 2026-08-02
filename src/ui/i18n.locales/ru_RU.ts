@@ -5379,6 +5379,9 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.breeding.breed': 'Скрестить',
   'hudChrome.breeding.full':
     'Библиотека штаммов заполнена. Отпустите штамм, чтобы освободить место.',
+  'hudChrome.breeding.cost': 'Стоимость скрещивания: Эпических бутонов {count} (у вас {held})',
+  'hudChrome.breeding.needEpicBuds':
+    'Ухаживайте за посевом, чтобы получить Эпический бутон. Идеальный урожай всегда даёт один.',
   'hudChrome.breeding.mastery': 'Мастерство',
   'hudChrome.breeding.masteryAria': 'Мастерство {strain}: {mastery} из {max}',
   'hudChrome.reputation.tier.neutral': 'Нейтралитет',
@@ -5487,6 +5490,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.cook_cobb.greeting':
     'Зеркальное озеро дарит отменную форель терпеливой удочке. Возьми снасть и неси улов к моему костру.',
   'entities.items.bud_common.name': 'Обычный бутон',
+  'entities.items.epic_bud.name': 'Эпический бутон',
   'entities.items.vale_hash.name': 'Долинный гашиш',
   'entities.items.golden_shatter.name': 'Золотой шаттер',
   'entities.items.live_resin.name': 'Живая смола',

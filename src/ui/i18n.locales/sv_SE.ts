@@ -5129,6 +5129,7 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'hudChrome.nativeUpdate.title': 'Uppdatering tillgänglig',
   'hudChrome.nativeUpdate.update': 'Uppdatera',
   'entities.items.bud_common.name': 'Vanlig knopp',
+  'entities.items.epic_bud.name': 'Episk knopp',
   'entities.items.vale_hash.name': 'Dalhaschisch',
   'entities.items.golden_shatter.name': 'Gyllene shatter',
   'entities.items.live_resin.name': 'Färsk kåda',

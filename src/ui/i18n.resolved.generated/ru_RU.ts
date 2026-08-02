@@ -1134,6 +1134,8 @@ export const ru_RU: EnTranslations = {
       "breed": "Скрестить",
       "lineage": "{a} x {b}",
       "bredBy": "Bred by {name}",
+      "cost": "Стоимость скрещивания: Эпических бутонов {count} (у вас {held})",
+      "needEpicBuds": "Ухаживайте за посевом, чтобы получить Эпический бутон. Идеальный урожай всегда даёт один.",
       "mastery": "Мастерство",
       "masteryAria": "Мастерство {strain}: {mastery} из {max}",
       "full": "Библиотека штаммов заполнена. Отпустите штамм, чтобы освободить место."
@@ -5232,6 +5234,9 @@ export const ru_RU: EnTranslations = {
       },
       "bloom_diamonds": {
         "name": "Алмазы цветения"
+      },
+      "epic_bud": {
+        "name": "Эпический бутон"
       },
       "bristleback_maul": {
         "name": "Кувалда Щетиноспина"

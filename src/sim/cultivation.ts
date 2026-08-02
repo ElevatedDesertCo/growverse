@@ -2,8 +2,11 @@
 // (PlayerMeta.plots); planting a crafted seed in an empty plot starts it growing, and
 // once it matures over the seed's PlantDef.growSeconds it can be harvested for Bloom
 // material (which feeds Sessions + alchemy). Growth is purely time-derived from the sim
-// clock (plantedAt vs ctx.time), so there is no per-tick loop and this slice draws NO
-// rng: stage/progress are pure reads and plant/harvest are deterministic state edits.
+// clock (plantedAt vs ctx.time), so there is no per-tick loop: stage/progress are pure
+// reads and plant/tend/harvest are deterministic state edits. The ONE rng draw in the
+// slice is the Epic Bud roll at harvest, and it is skipped entirely on both certain
+// outcomes (a perfect grow always drops one; an untended unmastered grow never does), so
+// the shared stream is untouched for anyone who does not tend.
 //
 // Persistence rebases time: serialize stores `grown` (elapsed sim-seconds) rather than
 // an absolute plant time, and restore sets plantedAt = now - grown, so a plant resumes
@@ -22,6 +25,8 @@ import { awardReputation, REP_PER_HARVEST } from './reputation';
 import type { SimContext } from './sim_context';
 import { registerBaseStrain } from './strain_library';
 import {
+  EPIC_BUD_ITEM,
+  epicBudChance,
   GARDEN_PLOT_COUNT,
   gardenPlotUnlockLevel,
   MASTERY_PER_HARVEST_MAX,
@@ -329,6 +334,15 @@ export function harvestPlot(ctx: SimContext, plotIndex: number, pid?: number): v
   const baseBulk = def.yields.find((y) => y.itemId === baseBulkId)?.count ?? 0;
   const careBonus = Math.round(baseBulk * (tendFrac + masteryFrac));
   if (bulkId && careBonus > 0) ctx.addItem(bulkId, careBonus, meta.entityId);
+  // The Epic Bud: the breeding input, dropped by how well this crop was GROWN rather
+  // than by what was planted. A perfect grow guarantees one and an untended grow of an
+  // unmastered strain has no chance at all, so BOTH ends resolve without touching the
+  // rng; only the in-between actually rolls. Keeping the draw off the certain outcomes
+  // is deliberate: it means adding this never perturbs the shared stream for a player
+  // who does not tend, which is exactly the pre-tending behaviour.
+  const epicChance = epicBudChance(plot.tends, strain?.mastery ?? 0);
+  const gotEpic = epicChance >= 1 ? true : epicChance <= 0 ? false : ctx.rng.chance(epicChance);
+  if (gotEpic) ctx.addItem(EPIC_BUD_ITEM, 1, meta.entityId);
   // Mastery is per-strain and never decays, so only a strain planting earns it. The gain
   // interpolates from an untended grow to a perfect one: tending masters a strain five
   // times faster than volume alone, which is the whole point of it being a SKILL record.

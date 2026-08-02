@@ -1134,6 +1134,8 @@ export const tr_TR: EnTranslations = {
       "breed": "Cross",
       "lineage": "{a} x {b}",
       "bredBy": "Bred by {name}",
+      "cost": "Cross cost: {count} Epic Buds (you have {held})",
+      "needEpicBuds": "Tend a crop to earn an Epic Bud. A perfect grow always drops one.",
       "mastery": "Mastery",
       "masteryAria": "{strain} mastery: {mastery} of {max}",
       "full": "Your strain library is full. Release a strain to make room."
@@ -5232,6 +5234,9 @@ export const tr_TR: EnTranslations = {
       },
       "bloom_diamonds": {
         "name": "Çiçek Elmasları"
+      },
+      "epic_bud": {
+        "name": "Epik Tomurcuk"
       },
       "bristleback_maul": {
         "name": "Dikensırt Balyozu"

@@ -1134,6 +1134,8 @@ export const en_XA: EnTranslations = {
       "breed": "[Çŕóšš]",
       "lineage": "[{a} ẋ {b}]",
       "bredBy": "[Ɓŕéð ƀý {name}]",
+      "cost": "[Çŕóšš çóšţ: {count} Éþíç Ɓúðš (ýóú ĥáʋé {held})]",
+      "needEpicBuds": "[Ţéñð á çŕóþ ţó éáŕñ áñ Éþíç Ɓúð. Á þéŕƒéçţ ĝŕóŵ áļŵáýš ðŕóþš óñé.]",
       "mastery": "[Ɱášţéŕý]",
       "masteryAria": "[{strain} ɱášţéŕý: {mastery} óƒ {max}]",
       "full": "[Ýóúŕ šţŕáíñ ļíƀŕáŕý íš ƒúļļ. Ŕéļéášé á šţŕáíñ ţó ɱáķé ŕóóɱ.]"
@@ -5232,6 +5234,9 @@ export const en_XA: EnTranslations = {
       },
       "bloom_diamonds": {
         "name": "[Ɓļóóɱ Ðíáɱóñðš]"
+      },
+      "epic_bud": {
+        "name": "[Éþíç Ɓúð]"
       },
       "bristleback_maul": {
         "name": "[Ɓŕíšţļéƀáçķ Ɱáúļ]"

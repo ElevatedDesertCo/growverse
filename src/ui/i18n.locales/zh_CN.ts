@@ -5003,6 +5003,8 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'hudChrome.breeding.release': '释放',
   'hudChrome.breeding.breed': '杂交',
   'hudChrome.breeding.full': '你的品系库已满。释放一个品系以腾出空间。',
+  'hudChrome.breeding.cost': '杂交花费：{count} 枚史诗花苞（你有 {held} 枚）',
+  'hudChrome.breeding.needEpicBuds': '照料作物即可获得史诗花苞。完美的一轮种植必定掉落一枚。',
   'hudChrome.breeding.mastery': '精通',
   'hudChrome.breeding.masteryAria': '{strain} 精通：{mastery} / {max}',
   'hudChrome.reputation.tier.neutral': '中立',
@@ -5109,6 +5111,7 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.cook_cobb.greeting':
     '只要有耐心垂钓，明镜湖便会赏你一尾上好的鳟鱼。拿上钓竿，把渔获带回我的篝火旁吧。',
   'entities.items.bud_common.name': '普通花苞',
+  'entities.items.epic_bud.name': '史诗花苞',
   'entities.items.vale_hash.name': '山谷大麻脂',
   'entities.items.golden_shatter.name': '黄金脆片',
   'entities.items.live_resin.name': '鲜活树脂',

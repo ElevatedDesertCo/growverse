@@ -5266,6 +5266,9 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.breeding.release': '手放す',
   'hudChrome.breeding.breed': '交配',
   'hudChrome.breeding.full': '品種ライブラリが満杯です。品種を手放して空きを作りましょう。',
+  'hudChrome.breeding.cost': '交配費用：エピックな花蕾 {count} 個（所持 {held} 個）',
+  'hudChrome.breeding.needEpicBuds':
+    '作物の世話をすればエピックな花蕾が手に入る。完璧に育てれば必ず一つ落ちる。',
   'hudChrome.breeding.mastery': '熟練',
   'hudChrome.breeding.masteryAria': '{strain} の熟練：{max} 中 {mastery}',
   'hudChrome.reputation.tier.neutral': '中立',
@@ -5374,6 +5377,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.cook_cobb.greeting':
     'ミラー湖は、辛抱強く糸を垂らせば見事なマスを恵んでくれる。竿を手に取って、釣った魚を私のかまどまで持ってきておくれ。',
   'entities.items.bud_common.name': '並の花芽',
+  'entities.items.epic_bud.name': 'エピックな花蕾',
   'entities.items.vale_hash.name': '谷のハシシュ',
   'entities.items.golden_shatter.name': '黄金のシャッター',
   'entities.items.live_resin.name': '生樹脂',

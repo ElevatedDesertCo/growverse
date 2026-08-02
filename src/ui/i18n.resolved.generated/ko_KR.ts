@@ -1134,6 +1134,8 @@ export const ko_KR: EnTranslations = {
       "breed": "교배",
       "lineage": "{a} x {b}",
       "bredBy": "Bred by {name}",
+      "cost": "교배 비용: 영웅 꽃봉오리 {count}개 (보유 {held}개)",
+      "needEpicBuds": "작물을 돌보면 영웅 꽃봉오리를 얻습니다. 완벽하게 기르면 반드시 하나 나옵니다.",
       "mastery": "숙련도",
       "masteryAria": "{strain} 숙련도: {max} 중 {mastery}",
       "full": "품종 보관함이 가득 찼습니다. 품종을 방출해 공간을 만드세요."
@@ -5232,6 +5234,9 @@ export const ko_KR: EnTranslations = {
       },
       "bloom_diamonds": {
         "name": "개화 다이아몬드"
+      },
+      "epic_bud": {
+        "name": "영웅 꽃봉오리"
       },
       "bristleback_maul": {
         "name": "뻣센등뼈 철퇴"

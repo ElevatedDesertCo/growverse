@@ -1134,6 +1134,8 @@ export const ja_JP: EnTranslations = {
       "breed": "交配",
       "lineage": "{a} x {b}",
       "bredBy": "Bred by {name}",
+      "cost": "交配費用：エピックな花蕾 {count} 個（所持 {held} 個）",
+      "needEpicBuds": "作物の世話をすればエピックな花蕾が手に入る。完璧に育てれば必ず一つ落ちる。",
       "mastery": "熟練",
       "masteryAria": "{strain} の熟練：{max} 中 {mastery}",
       "full": "品種ライブラリが満杯です。品種を手放して空きを作りましょう。"
@@ -5232,6 +5234,9 @@ export const ja_JP: EnTranslations = {
       },
       "bloom_diamonds": {
         "name": "開花のダイヤモンド"
+      },
+      "epic_bud": {
+        "name": "エピックな花蕾"
       },
       "bristleback_maul": {
         "name": "ブリストルバックの大槌"

@@ -5116,6 +5116,7 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'errors.api.desktopCodeInvalid':
     'Desktop-loginkoden er ugyldig eller udløbet. Prøv venligst igen.',
   'entities.items.bud_common.name': 'Almindelig knop',
+  'entities.items.epic_bud.name': 'Episk knop',
   'entities.items.vale_hash.name': 'Dalhash',
   'entities.items.golden_shatter.name': 'Gylden shatter',
   'entities.items.live_resin.name': 'Frisk harpiks',

@@ -81,6 +81,7 @@ import type {
 } from '../sim/types';
 import {
   type AbilityEffect,
+  BREED_COST_ITEM,
   CONSUME_DURATION,
   canPrestige,
   dist2d,
@@ -9118,13 +9119,22 @@ export class Hud {
     return el;
   }
 
+  // How many of an item the player is carrying, off the IWorld inventory read (identical
+  // in both worlds). Used by the breeding footer's Epic Bud cost line.
+  private heldCount(itemId: string): number {
+    return this.sim.inventory.reduce((n, s) => (s.itemId === itemId ? n + s.count : n), 0);
+  }
+
   private breedingSignature(): string {
     const strains = this.sim.strains
-      .map((s) => `${s.id}:${s.potency}${s.vigor}${s.yield}${s.landrace ? 'L' : ''}`)
+      .map((s) => `${s.id}:${s.potency}${s.vigor}${s.yield}${s.landrace ? 'L' : ''}:${s.mastery}`)
       .join('|');
     const rep = this.sim.reputation.map((r) => `${r.factionId}:${r.points}`).join(',');
     const garden = this.sim.garden.map((p) => p.stage).join('');
-    return `${strains};${rep};${garden};${this.breedingSelectedA ?? ''};${this.breedingSelectedB ?? ''}`;
+    // The Epic Bud count is in the signature too, so the footer's cost line and the Breed
+    // button re-resolve the moment a harvest drops one (or a cross spends two).
+    const epic = this.heldCount(BREED_COST_ITEM);
+    return `${strains};${rep};${garden};${epic};${this.breedingSelectedA ?? ''};${this.breedingSelectedB ?? ''}`;
   }
 
   openBreeding(): void {
@@ -9146,6 +9156,7 @@ export class Hud {
       this.sim.garden,
       this.breedingSelectedA,
       this.breedingSelectedB,
+      this.heldCount(BREED_COST_ITEM),
     );
     const refreshBags = () => {
       if ($('#bags').style.display !== 'none') this.renderBags();

@@ -13,6 +13,7 @@
 // re-validates breed/plant/release, so this is purely presentational.
 
 import {
+  BREED_COST_COUNT,
   MAX_STRAINS,
   type PlotView,
   type ReputationView,
@@ -56,6 +57,15 @@ export interface BreedingView {
   atCapacity: boolean;
   /** Library size, for the header count. */
   count: number;
+  /** The Epic Buds a cross costs, and how many the player is carrying. Surfaced because
+   *  the answer to "why can I not breed" is not "grow more", it is "grow better": an
+   *  Epic Bud comes off a well-tended crop. A gate the player cannot see is just a bug
+   *  report. */
+  breedCost: number;
+  epicBuds: number;
+  /** The player cannot pay the Epic Bud cost. Distinct from atCapacity so the footer can
+   *  say which of the two is blocking. */
+  cannotAfford: boolean;
 }
 
 /**
@@ -73,6 +83,7 @@ export function buildBreedingView(
   garden: readonly PlotView[],
   selectedA: string | null,
   selectedB: string | null,
+  epicBuds = 0,
 ): BreedingView {
   const owns = (id: string | null): boolean => id !== null && strains.some((s) => s.id === id);
   const a = owns(selectedA) ? selectedA : null;
@@ -94,15 +105,19 @@ export function buildBreedingView(
         ? Math.round(Math.min(1, Math.max(0, s.mastery / STRAIN_MASTERY_MAX)) * 100)
         : 0,
   }));
+  const cannotAfford = epicBuds < BREED_COST_COUNT;
   const emptyIndex = garden.findIndex((p) => p.stage === 'empty');
   return {
     strains: rows,
     reputation: [...reputation],
     selectedA: a,
     selectedB: b,
-    canBreed: a !== null && b !== null && a !== b && !atCapacity,
+    canBreed: a !== null && b !== null && a !== b && !atCapacity && !cannotAfford,
     firstEmptyPlot: emptyIndex >= 0 ? emptyIndex : null,
     atCapacity,
     count: strains.length,
+    breedCost: BREED_COST_COUNT,
+    epicBuds,
+    cannotAfford,
   };
 }

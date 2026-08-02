@@ -1272,6 +1272,42 @@ export const MASTERY_PER_HARVEST_MAX = 5;
 // additively with TEND_YIELD_BONUS, so a perfectly tended fully-mastered strain yields
 // +80% bulk over its untended, unmastered self.
 export const MASTERY_YIELD_BONUS = 0.3;
+
+// ---- Epic Buds: the breeding input ---------------------------------------------------
+// Breeding used to cost two Common Buds, which meant anyone who planted enough could
+// cross without ever getting better at growing. The cost is now two EPIC Buds, and an
+// Epic Bud is not a grade of the bulk crop: it drops from how well the crop was GROWN.
+// That makes the breeding economy a function of grow SKILL rather than grow VOLUME, and
+// it is the natural consumer of the tend record and per-strain mastery above.
+//
+// A PERFECT grow (every window caught) guarantees one, which is the whole promise: tend
+// properly and you can always breed. Everything short of perfect is a chance, so a
+// careless grower still gets there eventually, just slower. Consistent with the
+// bonus-only rule: an untended grow of an unmastered strain has a zero chance, which is
+// exactly what it had before Epic Buds existed, so nothing was taken away.
+export const EPIC_BUD_ITEM = 'epic_bud';
+// A cross costs two of them, a mother and a father.
+export const BREED_COST_ITEM = EPIC_BUD_ITEM;
+export const BREED_COST_COUNT = 2;
+// Chance contributed per caught tend window. At TENDS_PER_GROW windows this reaches 1
+// on its own, so a perfect grow needs no luck (and draws no rng).
+export const EPIC_BUD_CHANCE_PER_TEND = 1 / TENDS_PER_GROW;
+// Extra chance at STRAIN_MASTERY_MAX, scaled linearly by current mastery, so a strain you
+// know well pays off even on a grow you could not be there for. Added to the tend
+// contribution and clamped, never a second roll.
+export const EPIC_BUD_CHANCE_AT_MAX_MASTERY = 0.25;
+
+// The Epic Bud drop chance for one harvest, 0..1. Pure: the caller decides whether to
+// draw. Exactly 1 on a perfect grow and exactly 0 on an untended grow of an unmastered
+// strain, which is what lets both ends skip the rng entirely.
+export function epicBudChance(tends: number, mastery: number): number {
+  const caught = tends < 0 ? 0 : tends > TENDS_PER_GROW ? TENDS_PER_GROW : tends;
+  const mast = mastery < 0 ? 0 : mastery > STRAIN_MASTERY_MAX ? STRAIN_MASTERY_MAX : mastery;
+  const c =
+    caught * EPIC_BUD_CHANCE_PER_TEND +
+    (STRAIN_MASTERY_MAX > 0 ? (mast / STRAIN_MASTERY_MAX) * EPIC_BUD_CHANCE_AT_MAX_MASTERY : 0);
+  return c < 0 ? 0 : c > 1 ? 1 : c;
+}
 export interface PlantYield {
   itemId: string;
   count: number;

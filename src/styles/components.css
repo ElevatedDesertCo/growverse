@@ -3377,6 +3377,15 @@
     flex-wrap: wrap;
     gap: 6px;
   }
+  /* The Epic Bud cost line in the breeding footer: quiet when affordable, warm when
+     short, so the gate reads as information rather than an error. */
+  .breeding-cost {
+    font-size: 11px;
+    color: #a89c78;
+  }
+  .breeding-cost-short {
+    color: #e6c65a;
+  }
   .breeding-footer {
     display: flex;
     align-items: center;
