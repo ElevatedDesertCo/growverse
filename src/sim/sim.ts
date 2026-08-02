@@ -78,6 +78,7 @@ import { applyCooldowns, type SavedCooldowns, serializeCooldowns } from './coold
 import * as crafting from './crafting';
 import * as cultivation from './cultivation';
 import { emptyPlots, restorePlots, serializePlots } from './cultivation';
+import * as cup from './cup';
 import type { DelveShopGate, DelveShopOffer } from './data';
 import {
   abilitiesKnownAt,
@@ -298,6 +299,8 @@ import {
   angleTo,
   armorReduction,
   type CrowdControlDrCategory,
+  type CupEntry,
+  type CupStanding,
   DELVE_COMPANION_HEAL_INTERVAL,
   type DelveDef,
   type DelveModuleDef,
@@ -705,6 +708,10 @@ export interface PlayerMeta {
   // stamp (the plots store elapsed time for exactly that reason), and a player who just
   // logged in was not standing at the field when the crop came in.
   lastHarvestAt: number | null;
+  // Best Vale Cup score this character has ever posted. The season board itself is Sim
+  // state and clears every season; this is the one part that outlives it, which is what a
+  // returning grower is measured against. Persisted in CharacterState.
+  cupBest: number;
   copper: number;
   equipment: PlayerEquipment;
   xp: number;
@@ -845,6 +852,8 @@ export interface CharacterState {
   reputation?: SavedReputation;
   // Gathering-profession skills. Optional so pre-professions saves load cleanly (default 0).
   professions?: ProfessionSkills;
+  // Best Vale Cup score ever posted. Optional so a pre-Cup save loads at 0.
+  cupBest?: number;
   questLog: { questId: string; counts: number[]; state: 'active' | 'ready' | 'done' }[];
   questsDone: string[];
   // Persistent quest branch flags. Optional so pre-Phase-D saves load cleanly (default []).
@@ -996,6 +1005,10 @@ export class Sim {
   instances: InstanceSlot[] = [];
   // delve instances (separate slot pool from dungeons)
   delveRuns: DelveRun[] = [];
+  // The Vale Cup's board for the running season. Sim state (like the Market book), not
+  // per-player: every grower in this world competes on one board. Cleared when the clock
+  // crosses a season boundary. See src/sim/cup.ts.
+  cupEntries: CupEntry[] = [];
   private delvePetStash = new Map<number, PetState>();
   // Real-world UTC day ('YYYY-MM-DD') for the delve daily reset (FR-5.1). The sim
   // core must stay deterministic, so it never reads the wall clock itself: the host
@@ -1315,6 +1328,7 @@ export class Sim {
       reputation: emptyReputation(),
       professions: emptyProfessions(),
       lastHarvestAt: null,
+      cupBest: 0,
       copper: 0,
       equipment: { mainhand: classDef.startWeapon, chest: classDef.startChest },
       xp: 0,
@@ -1383,6 +1397,7 @@ export class Sim {
       meta.strainSeq = s.strainSeq ?? 0;
       meta.reputation = restoreReputation(s.reputation);
       meta.professions = restoreProfessions(s.professions);
+      meta.cupBest = Math.max(0, s.cupBest ?? 0);
       for (const q of s.questLog) {
         if (q.state !== 'done')
           meta.questLog.set(q.questId, {
@@ -1597,6 +1612,7 @@ export class Sim {
       strainSeq: meta.strainSeq,
       reputation: serializeReputation(meta.reputation),
       professions: serializeProfessions(meta.professions),
+      cupBest: meta.cupBest,
       questLog: [...meta.questLog.values()].map((q) => ({
         questId: q.questId,
         counts: [...q.counts],
@@ -2163,6 +2179,9 @@ export class Sim {
       // instance is constructed after this host literal, so the getter reads it lazily).
       get devCommands() {
         return sim.devCommands;
+      },
+      get cupEntries() {
+        return sim.cupEntries;
       },
       get marketListings() {
         return sim.marketListings;
@@ -4720,6 +4739,27 @@ export class Sim {
   // strain_library.ts); the library is per-player PlayerMeta state, persisted in the save.
   breedStrains(strainIdA: string, strainIdB: string, pid?: number): void {
     breedStrains(this.ctx, strainIdA, strainIdB, pid);
+  }
+
+  // --- The Vale Cup (IWorld facade + server dispatch) ---
+  enterCup(strainId: string, budItemId: string, pid?: number): void {
+    cup.enterCup(this.ctx, strainId, budItemId, pid);
+  }
+
+  get cupStandings(): CupStanding[] {
+    return cup.cupStandings(this.cupEntries, this.time);
+  }
+
+  get cupSeason(): number {
+    return cup.cupSeasonAt(this.time);
+  }
+
+  get cupSecondsRemaining(): number {
+    return cup.cupSeasonRemaining(this.time);
+  }
+
+  get cupBest(): number {
+    return this.primary.cupBest;
   }
 
   refineStrain(targetStrainId: string, donorStrainId: string, pid?: number): void {

@@ -1102,6 +1102,23 @@ export const ja_JP: EnTranslations = {
         "budsNotFresh": "その花蕾はもう乾いている。生樹脂は収穫の直後に抽出しろ。"
       }
     },
+    "cup": {
+      "title": "ヴェイル・カップ",
+      "open": "ヴェイル・カップに出品",
+      "hint": "遺伝、持ち込む品級、そして株をどれだけ知っているかで審査される。",
+      "season": "第 {season} シーズン",
+      "remainingHours": "残り {hours} 時間 {minutes} 分",
+      "remainingMinutes": "残り {minutes} 分",
+      "best": "自己最高得点：{score}",
+      "emptyBoard": "今季はまだ出品がない。板を開くのは君だ。",
+      "gradeLabel": "花蕾の品級",
+      "strainLabel": "品種",
+      "noBuds": "出品できる花蕾がない。まず収穫しろ。",
+      "noStrains": "品種がまだない。収穫すれば一つ見つかる。",
+      "projected": "{score} 点",
+      "enter": "出品（花蕾 {count} 個、{score} 点）",
+      "posted": "{strain} が {score} 点で board に載り、順位は {rank} 位。"
+    },
     "garden": {
       "title": "菜園",
       "hint": "区画に種をまき、ブルームを収穫しましょう。",
@@ -6234,6 +6251,11 @@ export const ja_JP: EnTranslations = {
         "name": "レル",
         "title": "抽出師",
         "greeting": "花は始まりであって終わりではない、{className}。花蕾を持ってこい。ハシシュにもシャッターにもダイヤモンドにも洗い上げてやる。苗床から摘みたてで濡れたままなら、もっといいものが作れる。"
+      },
+      "cup_steward_wilder": {
+        "name": "ワイルダー",
+        "title": "ヴェイル・カップ世話役",
+        "greeting": "カップは開いている、{className}。品種一つと、そこから採れた花蕾を十個持ってこい。板に名前を載せてやる。審査は遺伝、持ち込んだ品級、そして株をどれだけ知っているか。三つ揃わなければ、ただ出しただけだ。"
       },
       "banker_thistle": {
         "name": "金庫番シスル",

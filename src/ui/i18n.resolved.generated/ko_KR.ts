@@ -1102,6 +1102,23 @@ export const ko_KR: EnTranslations = {
         "budsNotFresh": "그 꽃봉오리는 이미 말랐습니다. 생수지는 수확 직후에 추출해야 합니다."
       }
     },
+    "cup": {
+      "title": "밸리 컵",
+      "open": "밸리 컵에 출품",
+      "hint": "유전, 가져온 등급, 그리고 그 식물을 얼마나 잘 아는지로 심사합니다.",
+      "season": "{season} 시즌",
+      "remainingHours": "{hours}시간 {minutes}분 남음",
+      "remainingMinutes": "{minutes}분 남음",
+      "best": "내 최고 점수: {score}",
+      "emptyBoard": "이번 시즌 출품이 아직 없습니다. 순위표를 여는 건 당신입니다.",
+      "gradeLabel": "꽃봉오리 등급",
+      "strainLabel": "품종",
+      "noBuds": "출품할 꽃봉오리가 없습니다. 먼저 수확하세요.",
+      "noStrains": "품종이 아직 없습니다. 수확하면 하나 발견합니다.",
+      "projected": "{score}점",
+      "enter": "출품 (꽃봉오리 {count}개, {score}점)",
+      "posted": "{strain}이(가) {score}점으로 {rank}위에 올랐습니다."
+    },
     "garden": {
       "title": "정원",
       "hint": "밭에 씨앗을 심고 블룸을 수확하세요.",
@@ -6234,6 +6251,11 @@ export const ko_KR: EnTranslations = {
         "name": "렐",
         "title": "추출사",
         "greeting": "꽃은 시작일 뿐 끝이 아닙니다, {className}. 꽃봉오리를 가져오시면 해시시든 셰터든 다이아몬드든 씻어 드리지요. 밭에서 갓 딴 젖은 것이라면 더 좋은 걸 만들 수 있습니다."
+      },
+      "cup_steward_wilder": {
+        "name": "와일더",
+        "title": "밸리 컵 관리인",
+        "greeting": "컵이 열렸습니다, {className}. 품종 하나와 거기서 딴 꽃봉오리 열 개를 가져오시면 순위표에 이름을 올려 드리지요. 심사는 유전, 가져온 등급, 그리고 그 식물을 얼마나 아는지. 셋 다 아니면 그냥 출품일 뿐입니다."
       },
       "banker_thistle": {
         "name": "금고지기 시슬",

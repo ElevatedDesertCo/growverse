@@ -1102,6 +1102,23 @@ export const zh_CN: EnTranslations = {
         "budsNotFresh": "这些花苞已经干了。鲜活树脂要在收获后立刻萃取。"
       }
     },
+    "cup": {
+      "title": "山谷杯",
+      "open": "参加山谷杯",
+      "hint": "评审看的是基因、你带来的品级，以及你对这株植物的了解。",
+      "season": "第 {season} 赛季",
+      "remainingHours": "剩余 {hours} 小时 {minutes} 分",
+      "remainingMinutes": "剩余 {minutes} 分",
+      "best": "你的最高分：{score}",
+      "emptyBoard": "本赛季还没有参赛作品。榜单由你来开启。",
+      "gradeLabel": "花苞品级",
+      "strainLabel": "品系",
+      "noBuds": "没有可参赛的花苞。先去收获一季。",
+      "noStrains": "还没有品系。收获一季即可发现一个。",
+      "projected": "得分 {score}",
+      "enter": "参赛（{count} 枚花苞，得分 {score}）",
+      "posted": "{strain} 已上榜，得分 {score}，排名第 {rank}。"
+    },
     "garden": {
       "title": "花园",
       "hint": "在地块中种下种子，收获绽放。",
@@ -6234,6 +6251,11 @@ export const zh_CN: EnTranslations = {
         "name": "雷尔",
         "title": "萃取师",
         "greeting": "花只是起点，{className}，不是终点。把花苞带来，我能洗成大麻脂、脆片或钻石。要是刚从苗床上摘下、还带着水汽，我们能做出更好的东西。"
+      },
+      "cup_steward_wilder": {
+        "name": "怀尔德",
+        "title": "山谷杯司仪",
+        "greeting": "山谷杯开赛了，{className}。带一个品系和十枚花苞来，我就把你的名字写上榜。评的是基因、你带来的品级，还有你对这株植物有多熟。三样齐全，不然你只是来凑数的。"
       },
       "banker_thistle": {
         "name": "金库管理员西斯尔",

@@ -1221,6 +1221,25 @@ export const hudChromeStrings = {
       budsNotFresh: 'Those buds have dried. Extract live resin right after a harvest.',
     },
   },
+  // The Vale Cup: the commune's recurring growing competition. The board is public and
+  // carries grower + strain names verbatim (proper nouns), so only the chrome is keyed.
+  cup: {
+    title: 'The Vale Cup',
+    open: 'Enter the Vale Cup',
+    hint: 'Judged on genetics, on the grade you bring, and on how well you know the plant.',
+    season: 'Season {season}',
+    remainingHours: '{hours}h {minutes}m left',
+    remainingMinutes: '{minutes}m left',
+    best: 'Your best score: {score}',
+    emptyBoard: 'No entries yet this season. The board is yours to open.',
+    gradeLabel: 'Bud grade',
+    strainLabel: 'Strain',
+    noBuds: 'No buds to enter with. Harvest a crop first.',
+    noStrains: 'No strains yet. Harvest a crop to discover one.',
+    projected: 'Scores {score}',
+    enter: 'Enter ({count} buds, scoring {score})',
+    posted: '{strain} is on the board at {score}, ranked {rank}.',
+  },
   // Cultivation: the Garden window (personal plots). Opened from the Grow Station.
   garden: {
     title: 'Garden',

@@ -257,6 +257,7 @@ function makeFakeHost() {
     pendingLootRolls: new Map(),
     nextLootRollId: 1,
     devCommands: false,
+    cupEntries: [],
     marketListings: [],
     emit: vi.fn(),
     error: vi.fn(),

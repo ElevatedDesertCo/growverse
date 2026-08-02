@@ -1,4 +1,4 @@
-import type { PlotView, StrainView } from '../sim/types';
+import type { CupStanding, PlotView, StrainView } from '../sim/types';
 
 // Cultivation: the personal-garden + strain-genetics seam. `garden` is the plot read (one
 // PlotView per plot) and `strains` is the library read (one StrainView per owned strain,
@@ -35,4 +35,19 @@ export interface IWorldCultivation {
   refineStrain(targetStrainId: string, donorStrainId: string): void;
   // Release a strain from the library to free a slot.
   releaseStrain(strainId: string): void;
+  // --- The Vale Cup: the commune's recurring growing competition -----------------------
+  // The public board for the running season, highest score first. World state (every
+  // grower competes on one board), not per-player.
+  cupStandings: CupStanding[];
+  // Which season the clock is in, and how many seconds are left in it. Derived from the
+  // sim clock, so both worlds agree without a scheduler.
+  cupSeason: number;
+  cupSecondsRemaining: number;
+  // The best score THIS character has ever posted. The board clears every season; this is
+  // the part that outlives it.
+  cupBest: number;
+  // Enter a strain in the running season, spending CUP_ENTRY_BUD_COUNT buds of the given
+  // grade (the grade feeds the score). One entry per grower per season. Server
+  // re-validates proximity to the Steward, ownership, the buds, and the season.
+  enterCup(strainId: string, budItemId: string): void;
 }

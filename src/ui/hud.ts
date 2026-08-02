@@ -83,7 +83,10 @@ import {
   type AbilityEffect,
   BREED_COST_ITEM,
   CONSUME_DURATION,
+  CUP_ENTRY_BUD_COUNT,
+  CUP_GRADE_ORDER,
   canPrestige,
+  cupScore,
   dist2d,
   type Entity,
   FISHING_CAST_ID,
@@ -161,6 +164,8 @@ import { type CardinalId, compassView } from './compass';
 import { formatMinimapCoords } from './coords';
 import { buildCraftingView } from './crafting_view';
 import { renderCraftingWindow } from './crafting_window';
+import { buildCupView } from './cup_view';
+import { renderCupWindow } from './cup_window';
 import { DailyRewardsWindow } from './daily_rewards_window';
 import { DelveMapPainter } from './delve_map_painter';
 import { devTierBadgeDataUrl, devTierByIndex, devTierDisplayName } from './dev_tier';
@@ -918,6 +923,10 @@ export class Hud {
   // Breeding window (strain genetics + commune reputation): the two pending parent picks
   // and the change-detect signature, mirroring the garden window.
   private breedingWindowOpen = false;
+  private cupWindowOpen = false;
+  private cupSelectedStrain: string | null = null;
+  private cupSelectedBud: string | null = null;
+  private cupSig = '';
   private breedingSelectedA: string | null = null;
   private breedingSelectedB: string | null = null;
   private breedingSig = '';
@@ -1734,6 +1743,9 @@ export class Hud {
         break;
       case 'breeding-window':
         this.closeBreeding();
+        break;
+      case 'cup-window':
+        this.closeCup();
         break;
       case 'loot-window':
         this.closeLoot();
@@ -4764,6 +4776,7 @@ export class Hud {
     // Refresh the open Garden window (~4 Hz) when its view changed: advances growth
     // bars and reconciles an online plant/harvest from the snapshot. No-op when closed.
     if (mediumHud) this.maybeRefreshGarden();
+    if (mediumHud) this.maybeRefreshCup();
     if (mediumHud) this.maybeRefreshBreeding();
     const slowHud = now - this.lastHudSlowAt >= 500;
     if (slowHud) this.lastHudSlowAt = now;
@@ -8244,6 +8257,11 @@ export class Hud {
       const breedingLabel = t('hudChrome.breeding.open');
       html += `<button type="button" class="qd-list-item" data-breeding="1" aria-label="${esc(breedingLabel)}"><span class="gold">${svgIcon('interact')}</span> ${esc(breedingLabel)}</button>`;
     }
+    // The Cup Steward opens the Vale Cup board.
+    if (def?.cupSteward) {
+      const cupLabel = t('hudChrome.cup.open');
+      html += `<button type="button" class="qd-list-item" data-cup="1" aria-label="${esc(cupLabel)}"><span class="gold">${svgIcon('interact')}</span> ${esc(cupLabel)}</button>`;
+    }
     if (def?.stash) {
       html += `<button type="button" class="qd-list-item" data-bank="1" aria-label="${esc(t('hudChrome.bank.open'))}"><span class="gold">${svgIcon('chest')}</span> ${esc(t('hudChrome.bank.open'))}</button>`;
     }
@@ -8282,6 +8300,10 @@ export class Hud {
     el.querySelector('[data-breeding]')?.addEventListener('click', () => {
       this.closeQuestDialog(false);
       this.openBreeding();
+    });
+    el.querySelector('[data-cup]')?.addEventListener('click', () => {
+      this.closeQuestDialog(false);
+      this.openCup();
     });
     el.querySelector('[data-bank]')?.addEventListener('click', () => {
       this.closeQuestDialog(false);
@@ -9104,6 +9126,106 @@ export class Hud {
 
   get gardenOpen(): boolean {
     return this.gardenWindowOpen;
+  }
+
+  // --- Vale Cup window (the commune's growing competition) -------------------
+  private cupWindowElRef(): HTMLElement {
+    let el = document.getElementById('cup-window');
+    if (!el) {
+      el = document.createElement('div');
+      el.id = 'cup-window';
+      el.className = 'window panel';
+      const sibling = document.getElementById('vendor-window');
+      (sibling?.parentElement ?? document.getElementById('ui') ?? document.body).appendChild(el);
+    }
+    return el;
+  }
+
+  // Re-render only when the view actually changed: the board moves when anyone enters and
+  // the season counts down, so the signature carries both plus the local picks. Minutes,
+  // not seconds: the countdown renders to the minute, so a per-second signature would
+  // rebuild the panel sixty times for one visible change.
+  private cupSignature(): string {
+    const board = this.sim.cupStandings.map((r) => `${r.pid}:${r.score}`).join('|');
+    const buds = CUP_GRADE_ORDER.map((id) => this.heldCount(id)).join(',');
+    const strains = this.sim.strains.map((s) => `${s.id}:${s.mastery}`).join('|');
+    const mins = Math.floor(this.sim.cupSecondsRemaining / 60);
+    return `${board};${buds};${strains};${this.sim.cupSeason};${mins};${this.cupSelectedStrain ?? ''};${this.cupSelectedBud ?? ''}`;
+  }
+
+  openCup(): void {
+    this.closeOtherWindows('#cup-window');
+    this.cupWindowOpen = true;
+    this.renderCup();
+  }
+
+  closeCup(): void {
+    this.cupWindowOpen = false;
+    const el = document.getElementById('cup-window');
+    if (el) el.style.display = 'none';
+  }
+
+  get cupOpen(): boolean {
+    return this.cupWindowOpen;
+  }
+
+  private renderCup(): void {
+    if (!this.cupWindowOpen) return;
+    this.cupSig = this.cupSignature();
+    const budCounts: Record<string, number> = {};
+    for (const id of CUP_GRADE_ORDER) budCounts[id] = this.heldCount(id);
+    // Default the grade to the best one they hold enough of, so the projected scores mean
+    // something the moment the window opens rather than after two clicks.
+    if (!this.cupSelectedBud || (budCounts[this.cupSelectedBud] ?? 0) < CUP_ENTRY_BUD_COUNT) {
+      this.cupSelectedBud =
+        [...CUP_GRADE_ORDER].reverse().find((id) => budCounts[id] >= CUP_ENTRY_BUD_COUNT) ?? null;
+    }
+    const byId = new Map(this.sim.strains.map((s) => [s.id, s]));
+    const view = buildCupView(
+      this.sim.cupStandings,
+      this.sim.cupSeason,
+      this.sim.cupSecondsRemaining,
+      this.sim.cupBest,
+      this.sim.player?.id ?? -1,
+      this.sim.strains,
+      budCounts,
+      ITEMS,
+      this.cupSelectedStrain,
+      this.cupSelectedBud,
+      // The SAME pure scorer the server runs (types.ts cupScore), over the expressed
+      // tiers the StrainView already carries. Not a reimplementation and not an estimate:
+      // one function, so the number shown before you spend ten buds is the number you get.
+      (strainId, budItemId) => {
+        const v = byId.get(strainId);
+        return v ? cupScore(v, budItemId) : 0;
+      },
+    );
+    renderCupWindow(this.cupWindowElRef(), view, {
+      ...this.presentationBag,
+      hideTooltip: () => this.hideTooltip(),
+      onPickStrain: (strainId) => {
+        this.cupSelectedStrain = this.cupSelectedStrain === strainId ? null : strainId;
+        this.renderCup();
+      },
+      onPickBud: (budItemId) => {
+        this.cupSelectedBud = budItemId;
+        this.renderCup();
+      },
+      onEnter: () => {
+        if (this.cupSelectedStrain && this.cupSelectedBud) {
+          this.sim.enterCup(this.cupSelectedStrain, this.cupSelectedBud);
+          this.cupSelectedStrain = null;
+        }
+        this.renderCup();
+        if ($('#bags').style.display !== 'none') this.renderBags();
+      },
+      onClose: () => this.closeCup(),
+    });
+  }
+
+  private maybeRefreshCup(): void {
+    if (!this.cupWindowOpen) return;
+    if (this.cupSignature() !== this.cupSig) this.renderCup();
   }
 
   // --- Breeding window (strain genetics + commune reputation) ----------------

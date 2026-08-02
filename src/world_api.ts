@@ -304,6 +304,7 @@ export const COMMAND_NAMES = [
   'breed_strains',
   'refine_strain',
   'release_strain',
+  'enter_cup',
   'telemetry',
 ] as const;
 

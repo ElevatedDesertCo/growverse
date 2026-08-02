@@ -1102,6 +1102,23 @@ export const sv_SE: EnTranslations = {
         "budsNotFresh": "Those buds have dried. Extract live resin right after a harvest."
       }
     },
+    "cup": {
+      "title": "The Vale Cup",
+      "open": "Enter the Vale Cup",
+      "hint": "Judged on genetics, on the grade you bring, and on how well you know the plant.",
+      "season": "Season {season}",
+      "remainingHours": "{hours}h {minutes}m left",
+      "remainingMinutes": "{minutes}m left",
+      "best": "Your best score: {score}",
+      "emptyBoard": "No entries yet this season. The board is yours to open.",
+      "gradeLabel": "Bud grade",
+      "strainLabel": "Strain",
+      "noBuds": "No buds to enter with. Harvest a crop first.",
+      "noStrains": "No strains yet. Harvest a crop to discover one.",
+      "projected": "Scores {score}",
+      "enter": "Enter ({count} buds, scoring {score})",
+      "posted": "{strain} is on the board at {score}, ranked {rank}."
+    },
     "garden": {
       "title": "Garden",
       "hint": "Plant seeds in your plots and harvest Bloom.",
@@ -6234,6 +6251,11 @@ export const sv_SE: EnTranslations = {
         "name": "Rell",
         "title": "the Extractor",
         "greeting": "Flower is where it starts, {className}, not where it ends. Bring me buds and I will wash them down to hash, shatter, or diamonds. Bring them still wet off the bed and we will make something better."
+      },
+      "cup_steward_wilder": {
+        "name": "Wilder",
+        "title": "Steward of the Vale Cup",
+        "greeting": "The Cup is open, {className}. Bring me a strain and ten buds off it and I will put your name on the board. Judged on the genetics, on the grade you bring, and on how well you know the plant. All three, or you are just entering."
       },
       "banker_thistle": {
         "name": "Vault Keeper Thistle",

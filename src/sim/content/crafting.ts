@@ -712,6 +712,24 @@ export const CRAFT_NPCS: Record<string, NpcDef> = {
   // walk from the northmost bed is a few seconds, which is what makes the live-resin
   // freshness window fair. 14yd east of Marlow (60, 50), so no one spot reaches both
   // the Grow Station and the lab (the gate is INTERACT_RANGE + 2 = 7yd).
+  // The Cup Steward: keeps the Vale Cup, the commune's recurring growing competition.
+  // Stands at the NORTH end of the garden field, past the last bed row, so the field
+  // itself reads as the walk up to the judging table: beds behind you, the board ahead.
+  // Far from Marlow (50) and Rell (74, 50) so no one spot reaches two stations at once.
+  // Like the crafting attendants he IS the station; the Cup's stage is the field.
+  cup_steward_wilder: {
+    id: 'cup_steward_wilder',
+    name: 'Wilder',
+    title: 'Steward of the Vale Cup',
+    pos: { x: 60, z: 70 },
+    // Faces back down the beds, due south toward the field and the town beyond.
+    facing: Math.PI,
+    color: 0xc8a24a,
+    questIds: [],
+    cupSteward: true,
+    greeting:
+      'The Cup is open, $C. Bring me a strain and ten buds off it and I will put your name on the board. Judged on the genetics, on the grade you bring, and on how well you know the plant. All three, or you are just entering.',
+  },
   extractor_rell: {
     id: 'extractor_rell',
     name: 'Rell',

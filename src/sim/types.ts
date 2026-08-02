@@ -1201,6 +1201,10 @@ export interface NpcDef {
   // filtered to this station. 'grow' = the Grow Station (nutrients, seed strains,
   // grow accessories); 'upgrade' = the Upgrade Bench (weapon/armor reforging).
   crafting?: CraftStation;
+  // Runs the Vale Cup: talking to this NPC opens the Cup board, and entering is gated on
+  // standing near them. A role flag on the def, resolved by templateId, exactly like
+  // `crafting` and `stash` (no entity field).
+  cupSteward?: true;
   // A bank attendant: talking to this NPC opens the account stash window, where the
   // player deposits/withdraws items into a persistent bank. Like `crafting`, the role
   // lives on the def and is resolved by the entity's templateId (no entity field).
@@ -1272,6 +1276,71 @@ export const MASTERY_PER_HARVEST_MAX = 5;
 // additively with TEND_YIELD_BONUS, so a perfectly tended fully-mastered strain yields
 // +80% bulk over its untended, unmastered self.
 export const MASTERY_YIELD_BONUS = 0.3;
+
+// ---- The Vale Cup --------------------------------------------------------------------
+// The commune's recurring growing competition (see src/sim/cup.ts for the system and the
+// reasoning). A season is a fixed window on the SIM clock, so it advances with server
+// uptime and a reloaded world lands in the season the clock says it is in, with no
+// scheduler to drift.
+export const CUP_SEASON_SECONDS = 172800; // 48 hours of sim time, the classic event cycle
+export const CUP_ENTRY_BUD_COUNT = 10; // buds one entry consumes
+
+// The bud grades the Cup accepts, WEAKEST FIRST: the index is the grade rank the score
+// reads, so this array is the ordering, not just the allowlist. Extending the bud ladder
+// means appending here.
+export const CUP_GRADE_ORDER: readonly string[] = ['bud_common', 'bud_fine', 'bud_prime'];
+
+// Score weights. Tuned so no single system is the whole answer: maxed genetics alone,
+// perfect mastery alone, and prime buds alone all land well short of an entry that has
+// all three. A landrace is a real edge but not a guaranteed win.
+export const CUP_W_TRAIT = 10; // per expressed trait tier, summed over the three traits
+export const CUP_W_GRADE = 25; // per grade rank above common
+export const CUP_W_MASTERY = 60; // at STRAIN_MASTERY_MAX, scaled linearly
+export const CUP_W_LANDRACE = 40; // flat, for the all-maxed phenotype
+// Commune standing earned per this many score points (at least 1 per entry).
+export const CUP_REP_PER_100 = 8;
+
+// The score for one entry. Takes the EXPRESSED phenotype rather than a genotype, which is
+// deliberate on two counts: scoring only ever reads expression (the hidden recessive is
+// irrelevant to a judged bud), and it means the client can project a score from the
+// StrainView it already has without the raw genotype ever leaving the server. The client
+// and the server therefore run the SAME function over the same inputs, so the projection
+// shown before you spend ten buds cannot drift from the score you actually get.
+export interface CupJudged {
+  potency: number;
+  vigor: number;
+  yield: number;
+  landrace: boolean;
+  mastery: number;
+}
+export function cupScore(s: CupJudged, budItemId: string): number {
+  const traits = (s.potency + s.vigor + s.yield) * CUP_W_TRAIT;
+  const gradeRank = CUP_GRADE_ORDER.indexOf(budItemId);
+  const grade = gradeRank < 0 ? 0 : gradeRank * CUP_W_GRADE;
+  const mastery = STRAIN_MASTERY_MAX > 0 ? (s.mastery / STRAIN_MASTERY_MAX) * CUP_W_MASTERY : 0;
+  return Math.round(traits + grade + mastery + (s.landrace ? CUP_W_LANDRACE : 0));
+}
+
+// One posted entry. Stored on the Sim for the running season (like the Market book) and
+// cleared when the clock crosses a season boundary.
+export interface CupEntry {
+  season: number;
+  pid: number;
+  growerName: string;
+  strainName: string;
+  budItemId: string;
+  score: number;
+}
+
+// The client-facing board row: one per entry, ranked. Carries the grower and strain names
+// because the point of the board is that a strain is known BY someone.
+export interface CupStanding {
+  rank: number;
+  pid: number;
+  growerName: string;
+  strainName: string;
+  score: number;
+}
 
 // ---- Epic Buds: the breeding input ---------------------------------------------------
 // Breeding used to cost two Common Buds, which meant anyone who planted enough could
@@ -2126,6 +2195,11 @@ export type SimEvent = { pid?: number } & (
   // ignores this loses only the feedback flourish. Structured (no text) so the sim stays
   // language-agnostic; the plain 'log' "You tend X" line still records it in chat.
   | { type: 'plotTended'; plot: number; tends: number }
+  // An entry landing on the Vale Cup board. World-visible (no pid) on purpose: a posted
+  // score is public, which is what makes the board a competition rather than a private
+  // scoreboard. Structured (no text) so the sim stays language-agnostic; the grower and
+  // strain names are proper nouns the client splices verbatim.
+  | { type: 'cupEntry'; entityId: number; growerName: string; strainName: string; score: number }
   // A cross completing at the Breeding Chamber. Purely a presentation cue: the
   // strain itself already landed in the library and rides the self-snapshot, so a
   // client that ignores this event loses only the ceremony. Carries the generated

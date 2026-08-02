@@ -27,6 +27,7 @@ import type { MarketQuery } from '../sim/market_query';
 import { normalizeMoveFacing, sanitizeMoveInput } from '../sim/move_input';
 import { computeQuestState, type ResolvedAbility } from '../sim/sim';
 import {
+  type CupStanding,
   type Entity,
   type EquipSlot,
   emptyMoveInput,
@@ -842,6 +843,10 @@ export class ClientWorld implements IWorld {
   // --- IWorldCultivation: the garden view (one PlotView per plot) + the strain library
   // (one StrainView per owned strain), both mirrored from self. ---
   garden: PlotView[] = [];
+  cupStandings: CupStanding[] = [];
+  cupSeason = 0;
+  cupSecondsRemaining = 0;
+  cupBest = 0;
   strains: StrainView[] = [];
   // --- IWorldReputation: commune standings + gathering-profession skills. ---
   reputation: ReputationView[] = [];
@@ -1528,6 +1533,12 @@ export class ClientWorld implements IWorld {
       // IWorldCultivation garden + strain library: delta-guarded; a missing field keeps
       // the prior mirror. IWorldReputation standings ride the same self-frame (terse `rep`).
       if (s.garden !== undefined) this.garden = s.garden;
+      if (s.cup !== undefined) {
+        this.cupStandings = s.cup.standings;
+        this.cupSeason = s.cup.season;
+        this.cupSecondsRemaining = s.cup.remaining;
+        this.cupBest = s.cup.best;
+      }
       if (s.strains !== undefined) this.strains = s.strains;
       if (s.rep !== undefined) this.reputation = s.rep;
       if (s.prof !== undefined) this.professions = s.prof;
@@ -1836,6 +1847,11 @@ export class ClientWorld implements IWorld {
   }
   releaseStrain(strainId: string): void {
     this.cmd({ cmd: 'release_strain', strain: strainId });
+  }
+  // --- The Vale Cup: the board rides the self-snapshot; entering is a command the server
+  // re-validates (proximity to the Steward, ownership, buds, one entry per season).
+  enterCup(strainId: string, budItemId: string): void {
+    this.cmd({ cmd: 'enter_cup', strain: strainId, item: budItemId });
   }
   // --- IWorldCrafting: submit a recipe at the nearby station. Server re-validates
   // proximity, copper, and reagents; result flows back as an events frame.

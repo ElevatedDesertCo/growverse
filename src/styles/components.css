@@ -3251,6 +3251,139 @@
     cursor: default;
   }
 
+  /* Vale Cup window (the commune's growing competition). Board first, entry form under
+     it, because the board is the point of opening the panel. */
+  #cup-window {
+    width: 440px;
+    max-width: 100%;
+  }
+  .cup-hint,
+  .cup-season,
+  .cup-best {
+    font-size: 11px;
+    color: #a89c78;
+    padding: 0 5px 2px;
+  }
+  .cup-remaining {
+    color: #e6c65a;
+  }
+  .cup-board {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 4px 0 8px;
+  }
+  .cup-row {
+    display: grid;
+    grid-template-columns: 28px 1fr 1fr auto;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 5px;
+    font-size: 11px;
+    color: #c8b888;
+  }
+  .cup-row-self {
+    background: #221a09;
+    border-radius: 3px;
+    color: #efe4c2;
+  }
+  .cup-rank {
+    color: #a89c78;
+    text-align: right;
+  }
+  .cup-strain {
+    color: #a9d86a;
+  }
+  .cup-score {
+    font-family: var(--title-font);
+    color: #e6c65a;
+    text-align: right;
+  }
+  .cup-empty,
+  .cup-note,
+  .cup-posted {
+    font-size: 11px;
+    color: #a89c78;
+    padding: 6px 5px;
+  }
+  .cup-posted {
+    color: #a9d86a;
+  }
+  .cup-label {
+    font-size: 11px;
+    color: #a89c78;
+    margin-right: 6px;
+  }
+  .cup-buds,
+  .cup-strains {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 5px;
+  }
+  .cup-strains {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cup-bud,
+  .cup-strain-opt {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 40px;
+    padding: 4px 10px;
+    border: 1px solid #4a3c1a;
+    border-radius: 4px;
+    background: #1a1409;
+    color: #efe4c2;
+    font-size: 11px;
+    cursor: var(--cursor-point);
+  }
+  .cup-strain-opt {
+    justify-content: space-between;
+  }
+  .cup-bud-on,
+  .cup-strain-opt-on {
+    border-color: #c8a24a;
+    background: #2a2010;
+  }
+  .cup-bud:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  .cup-bud-count,
+  .cup-projected {
+    color: #a89c78;
+  }
+  .cup-landrace {
+    font-size: 10px;
+    color: #1a1408;
+    background: linear-gradient(#e6c65a, #c8a24a);
+    padding: 1px 6px;
+    border-radius: 8px;
+  }
+  .cup-action {
+    align-self: flex-start;
+    margin: 4px 5px 8px;
+    min-height: 40px;
+    padding: 6px 16px;
+    border: 1px solid #6a5320;
+    border-radius: 4px;
+    cursor: var(--cursor-point);
+    background: linear-gradient(#8a6a26, #5a4413 55%, #473409);
+    color: #ffe6a8;
+    font-family: var(--title-font);
+    font-size: 12px;
+  }
+  .cup-action:hover:not(:disabled) {
+    filter: brightness(1.12);
+  }
+  .cup-action:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
   /* breeding window (strain genetics + commune reputation) */
   #breeding-window {
     width: 440px;

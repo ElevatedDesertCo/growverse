@@ -38,6 +38,7 @@ import type {
   AbilityDef,
   Aura,
   CrowdControlDrCategory,
+  CupEntry,
   DelveRun,
   Entity,
   ErrorReason,
@@ -152,6 +153,10 @@ export interface SimContextPrimitives {
   // read-only view (never reassigned by the readout).
   readonly devCommands: boolean;
   readonly marketListings: MarketListing[];
+  // The Vale Cup's board for the running season. Live view onto the Sim-owned array (the
+  // cup slice pushes entries and clears it at a season boundary), same shape of seam as
+  // marketListings above.
+  readonly cupEntries: CupEntry[];
 }
 
 // Cross-system callbacks. Each signature mirrors the still-on-`Sim` method it
@@ -713,6 +718,9 @@ export function createSimContext(host: SimContextHost): SimContext {
     },
     get devCommands() {
       return host.devCommands;
+    },
+    get cupEntries() {
+      return host.cupEntries;
     },
     get marketListings() {
       return host.marketListings;
