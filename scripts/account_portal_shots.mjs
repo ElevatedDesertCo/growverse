@@ -1,8 +1,9 @@
 // Screenshot harness for the home-page account portal (feat/account-portal).
 // Requires: npm run dev (5173) + npm run server (proxied). Registers a fresh
 // account, then captures the logged-out nav, the account portal, and sections.
-import puppeteer from 'puppeteer-core';
+
 import { setTimeout as sleep } from 'node:timers/promises';
+import puppeteer from 'puppeteer-core';
 
 const CHROME = process.env.CHROME_BIN || '/usr/bin/chromium';
 const BASE = 'http://localhost:5173/';
@@ -17,7 +18,9 @@ const browser = await puppeteer.launch({
 });
 const page = await browser.newPage();
 await page.setViewport({ width: 1440, height: 900 });
-page.on('console', (m) => { if (m.type() === 'error') console.log('PAGE ERR:', m.text()); });
+page.on('console', (m) => {
+  if (m.type() === 'error') console.log('PAGE ERR:', m.text());
+});
 
 await page.goto(BASE, { waitUntil: 'networkidle2' });
 await sleep(1500);

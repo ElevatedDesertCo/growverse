@@ -1,8 +1,10 @@
 // Mage E2E: casting, polymorph, conjure water + drinking, death + release.
-import puppeteer from 'puppeteer-core';
+
 import fs from 'node:fs';
+import puppeteer from 'puppeteer-core';
 
 import { BROWSER_PATH as EDGE } from './browser_path.mjs';
+
 const URL = process.env.GAME_URL ?? 'http://localhost:5173';
 fs.mkdirSync('tmp', { recursive: true });
 
@@ -37,14 +39,19 @@ const setup = await page.evaluate(() => {
   const g = window.__game;
   const sim = g.sim;
   const p = sim.player;
-  let wolf = null, d = 1e9;
+  let wolf = null,
+    d = 1e9;
   for (const e of sim.entities.values()) {
     if (e.templateId === 'forest_wolf' && !e.dead) {
       const dd = Math.hypot(e.pos.x - p.pos.x, e.pos.z - p.pos.z);
-      if (dd < d) { d = dd; wolf = e; }
+      if (dd < d) {
+        d = dd;
+        wolf = e;
+      }
     }
   }
-  p.pos.x = wolf.pos.x + 25; p.pos.z = wolf.pos.z;
+  p.pos.x = wolf.pos.x + 25;
+  p.pos.z = wolf.pos.z;
   sim.targetEntity(wolf.id);
   p.facing = Math.atan2(wolf.pos.x - p.pos.x, wolf.pos.z - p.pos.z);
   g.input.camYaw = p.facing;
@@ -67,7 +74,10 @@ for (let i = 0; i < 50; i++) {
     return { dead: w.dead, whp: w.hp, slowed: w.auras.some((a) => a.kind === 'slow') };
   }, setup.wolfId);
   if (i === 2) console.log('mid-fight:', JSON.stringify(s));
-  if (s.dead) { killed = true; break; }
+  if (s.dead) {
+    killed = true;
+    break;
+  }
   await new Promise((r) => setTimeout(r, 400));
 }
 console.log('mage killed wolf at range:', killed ? 'OK' : 'FAIL');
@@ -77,11 +87,15 @@ const poly = await page.evaluate(() => {
   const g = window.__game;
   const sim = g.sim;
   const p = sim.player;
-  let wolf = null, d = 1e9;
+  let wolf = null,
+    d = 1e9;
   for (const e of sim.entities.values()) {
     if (e.templateId === 'forest_wolf' && !e.dead) {
       const dd = Math.hypot(e.pos.x - p.pos.x, e.pos.z - p.pos.z);
-      if (dd < d) { d = dd; wolf = e; }
+      if (dd < d) {
+        d = dd;
+        wolf = e;
+      }
     }
   }
   // shake any aggro from the previous fight so nothing interrupts the cast
@@ -92,7 +106,8 @@ const poly = await page.evaluate(() => {
     }
   }
   p.hp = p.maxHp;
-  p.pos.x = wolf.pos.x + 15; p.pos.z = wolf.pos.z;
+  p.pos.x = wolf.pos.x + 15;
+  p.pos.z = wolf.pos.z;
   p.resource = p.maxResource;
   sim.targetEntity(wolf.id);
   return wolf.id;
@@ -127,7 +142,8 @@ await page.evaluate(() => {
       e.aggroTargetId = null;
     }
   }
-  p.pos.x = 0; p.pos.z = -40; // somewhere quiet
+  p.pos.x = 0;
+  p.pos.z = -40; // somewhere quiet
   p.resource = p.maxResource;
 });
 let conjured = 0;
@@ -150,7 +166,12 @@ const drink2 = await page.evaluate(() => {
   sim.useItem('conjured_water');
   return { sitting: p.sitting };
 });
-console.log('conjured water:', conjured === 2 ? 'OK' : `FAIL (${conjured})`, '| sitting to drink:', drink2.sitting ? 'OK' : 'FAIL');
+console.log(
+  'conjured water:',
+  conjured === 2 ? 'OK' : `FAIL (${conjured})`,
+  '| sitting to drink:',
+  drink2.sitting ? 'OK' : 'FAIL',
+);
 let manaAfter = 20;
 for (let i = 0; i < 30 && manaAfter <= 20; i++) {
   await new Promise((r) => setTimeout(r, 500));
@@ -166,13 +187,17 @@ await page.evaluate(() => {
   const p = sim.player;
   let boss = null;
   for (const e of sim.entities.values()) if (e.templateId === 'gorrak') boss = e;
-  p.pos.x = boss.pos.x + 3; p.pos.z = boss.pos.z;
+  p.pos.x = boss.pos.x + 3;
+  p.pos.z = boss.pos.z;
   p.hp = 10;
 });
 let deadOk = false;
 for (let i = 0; i < 30; i++) {
   await new Promise((r) => setTimeout(r, 500));
-  if (await page.evaluate(() => window.__game.sim.player.dead)) { deadOk = true; break; }
+  if (await page.evaluate(() => window.__game.sim.player.dead)) {
+    deadOk = true;
+    break;
+  }
 }
 console.log('died to boss:', deadOk ? 'OK' : 'FAIL');
 await page.click('#release-btn');

@@ -23,6 +23,12 @@ export interface BreedingStrainRow {
   yield: number;
   /** Which parent slot this strain fills in the pending cross, or null. */
   selectedAs: 'a' | 'b' | null;
+  /** The two parent names this strain was crossed from, or null for a base strain
+   *  (which has no parents). Display only; the genotype is the mechanical record. */
+  lineage: readonly [string, string] | null;
+  /** The character credited with the cross, or null for a base strain and for any
+   *  strain restored from a save written before breeder credit existed. */
+  breeder: string | null;
 }
 
 export interface BreedingView {
@@ -69,6 +75,8 @@ export function buildBreedingView(
     vigor: s.vigor,
     yield: s.yield,
     selectedAs: s.id === a ? 'a' : s.id === b ? 'b' : null,
+    lineage: s.lineage ? [s.lineage[0], s.lineage[1]] : null,
+    breeder: s.breeder ?? null,
   }));
   const emptyIndex = garden.findIndex((p) => p.stage === 'empty');
   return {

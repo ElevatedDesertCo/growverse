@@ -11,8 +11,8 @@
 //   node scripts/mobile_input_zoom_check.mjs
 //   BASE_URL=http://localhost:5173 node scripts/mobile_input_zoom_check.mjs
 
-import puppeteer from 'puppeteer-core';
 import { mkdirSync } from 'node:fs';
+import puppeteer from 'puppeteer-core';
 import { BROWSER_PATH } from './browser_path.mjs';
 
 const BASE = (process.env.BASE_URL || 'http://localhost:5173').replace(/\/$/, '');
@@ -31,7 +31,12 @@ const PHONES = [
 let pass = 0;
 let fail = 0;
 const check = (name, cond, extra = '') => {
-  if (cond) { pass++; } else { fail++; console.log(`  FAIL: ${name}${extra ? ' -- ' + extra : ''}`); }
+  if (cond) {
+    pass++;
+  } else {
+    fail++;
+    console.log(`  FAIL: ${name}${extra ? ' -- ' + extra : ''}`);
+  }
 };
 
 // Injected representatives for controls that only exist once a HUD window opens, each
@@ -85,11 +90,22 @@ function measure(injectHtml) {
   };
 }
 
-const label = (c) => `${c.tag}${c.type ? '[' + c.type + ']' : ''}${c.id ? '#' + c.id : ''}${c.cls ? '.' + String(c.cls).trim().split(/\s+/).join('.') : ''}`;
+const label = (c) =>
+  `${c.tag}${c.type ? '[' + c.type + ']' : ''}${c.id ? '#' + c.id : ''}${c.cls ? '.' + String(c.cls).trim().split(/\s+/).join('.') : ''}`;
 // type=range / checkbox / radio / color / file / button do not render text, so font-size
 // never triggers focus-zoom on them -- exclude from the >=16 assertion (the rule still
 // harmlessly applies, we just do not require it).
-const NON_TEXT = new Set(['range', 'checkbox', 'radio', 'color', 'file', 'button', 'submit', 'reset', 'image']);
+const NON_TEXT = new Set([
+  'range',
+  'checkbox',
+  'radio',
+  'color',
+  'file',
+  'button',
+  'submit',
+  'reset',
+  'image',
+]);
 const isTextEntry = (c) => !(c.tag === 'input' && NON_TEXT.has(c.type));
 
 const browser = await puppeteer.launch({
@@ -101,14 +117,23 @@ const browser = await puppeteer.launch({
 async function loadTouch(url, viewport) {
   const ctx = await browser.createBrowserContext();
   const page = await ctx.newPage();
-  await page.setViewport({ ...viewport, isMobile: true, hasTouch: true, deviceScaleFactor: viewport.dsf });
+  await page.setViewport({
+    ...viewport,
+    isMobile: true,
+    hasTouch: true,
+    deviceScaleFactor: viewport.dsf,
+  });
   await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 60000 });
   // Belt: force the coarse-pointer media so the @media(pointer:coarse) gate is exercised
   // even if device-metrics emulation alone did not flip it.
   try {
     const client = await page.target().createCDPSession();
-    await client.send('Emulation.setEmulatedMedia', { features: [{ name: 'pointer', value: 'coarse' }] });
-  } catch { /* feature not emulable on this Chrome; rely on device emulation */ }
+    await client.send('Emulation.setEmulatedMedia', {
+      features: [{ name: 'pointer', value: 'coarse' }],
+    });
+  } catch {
+    /* feature not emulable on this Chrome; rely on device emulation */
+  }
   return { ctx, page };
 }
 
@@ -119,11 +144,16 @@ for (const v of PHONES) {
   check(`[${v.name}] pointer:coarse matches`, r.coarse, `coarse=${r.coarse} fine=${r.fine}`);
   const textControls = r.controls.filter(isTextEntry);
   const bad = textControls.filter((c) => !(c.px >= 16));
-  check(`[${v.name}] all ${textControls.length} text controls >= 16px`, bad.length === 0,
-    bad.map((c) => `${label(c)}=${c.px}px`).join(', '));
+  check(
+    `[${v.name}] all ${textControls.length} text controls >= 16px`,
+    bad.length === 0,
+    bad.map((c) => `${label(c)}=${c.px}px`).join(', '),
+  );
   if (v.name === 'iphone-13') {
-    console.log(`  measured (${textControls.length} text controls): ` +
-      textControls.map((c) => `${label(c)}=${c.px}`).join(' | '));
+    console.log(
+      `  measured (${textControls.length} text controls): ` +
+        textControls.map((c) => `${label(c)}=${c.px}`).join(' | '),
+    );
   }
   await page.screenshot({ path: `tmp/zoom_game_${v.name}.png` }).catch(() => {});
   await ctx.close();
@@ -136,11 +166,16 @@ for (const v of PHONES) {
   check(`[admin ${v.name}] pointer:coarse matches`, r.coarse);
   const textControls = r.controls.filter(isTextEntry);
   const bad = textControls.filter((c) => !(c.px >= 16));
-  check(`[admin ${v.name}] all ${textControls.length} text controls >= 16px`, bad.length === 0,
-    bad.map((c) => `${label(c)}=${c.px}px`).join(', '));
+  check(
+    `[admin ${v.name}] all ${textControls.length} text controls >= 16px`,
+    bad.length === 0,
+    bad.map((c) => `${label(c)}=${c.px}px`).join(', '),
+  );
   if (v.name === 'iphone-13') {
-    console.log(`  measured (${textControls.length} text controls): ` +
-      textControls.map((c) => `${label(c)}=${c.px}`).join(' | '));
+    console.log(
+      `  measured (${textControls.length} text controls): ` +
+        textControls.map((c) => `${label(c)}=${c.px}`).join(' | '),
+    );
     await page.screenshot({ path: `tmp/zoom_admin_${v.name}.png` }).catch(() => {});
   }
   await ctx.close();
@@ -152,23 +187,47 @@ console.log(`\n=== DESKTOP regression (small fonts retained) ===`);
 {
   const ctx = await browser.createBrowserContext();
   const page = await ctx.newPage();
-  await page.setViewport({ width: 1440, height: 900, isMobile: false, hasTouch: false, deviceScaleFactor: 1 });
+  await page.setViewport({
+    width: 1440,
+    height: 900,
+    isMobile: false,
+    hasTouch: false,
+    deviceScaleFactor: 1,
+  });
   await page.goto(`${BASE}/`, { waitUntil: 'domcontentloaded', timeout: 60000 });
   const r = await page.evaluate(measure, GAME_INJECT);
   check('desktop is NOT pointer:coarse', !r.coarse, `coarse=${r.coarse}`);
   const cd = r.controls.find((c) => c.tag === 'input' && /\bcd-input\b/.test(c.cls));
   const pn = r.controls.find((c) => /\bprompt-number\b/.test(c.cls));
-  check('desktop .cd-input stays 12px', cd && Math.abs(cd.px - 12) < 0.6, cd ? `${cd.px}px` : 'not found');
-  check('desktop .prompt-number stays 12px', pn && Math.abs(pn.px - 12) < 0.6, pn ? `${pn.px}px` : 'not found');
+  check(
+    'desktop .cd-input stays 12px',
+    cd && Math.abs(cd.px - 12) < 0.6,
+    cd ? `${cd.px}px` : 'not found',
+  );
+  check(
+    'desktop .prompt-number stays 12px',
+    pn && Math.abs(pn.px - 12) < 0.6,
+    pn ? `${pn.px}px` : 'not found',
+  );
   await ctx.close();
 
   const actx = await browser.createBrowserContext();
   const apage = await actx.newPage();
-  await apage.setViewport({ width: 1440, height: 900, isMobile: false, hasTouch: false, deviceScaleFactor: 1 });
+  await apage.setViewport({
+    width: 1440,
+    height: 900,
+    isMobile: false,
+    hasTouch: false,
+    deviceScaleFactor: 1,
+  });
   await apage.goto(`${BASE}/admin.html`, { waitUntil: 'domcontentloaded', timeout: 60000 });
   const ar = await apage.evaluate(measure, ADMIN_INJECT);
   const lu = ar.controls.find((c) => c.id === 'login-username');
-  check('desktop admin #login-username stays 14px', lu && Math.abs(lu.px - 14) < 0.6, lu ? `${lu.px}px` : 'not found');
+  check(
+    'desktop admin #login-username stays 14px',
+    lu && Math.abs(lu.px - 14) < 0.6,
+    lu ? `${lu.px}px` : 'not found',
+  );
   await actx.close();
 }
 

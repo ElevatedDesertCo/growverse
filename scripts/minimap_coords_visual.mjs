@@ -1,8 +1,9 @@
 // Screenshot the minimap coordinate readout through a real offline client.
 // Boots offline, walks to a couple of positions, and element-clips #minimap-wrap
 // so the new #minimap-coords pill is visible under the minimap.
-import puppeteer from 'puppeteer-core';
+
 import fs from 'node:fs';
+import puppeteer from 'puppeteer-core';
 import { BROWSER_PATH as EDGE } from './browser_path.mjs';
 
 const URL = process.env.GAME_URL ?? 'http://localhost:5173';
@@ -31,11 +32,15 @@ await sleep(500);
 
 async function shotAt(x, z, name) {
   // place the player at a known spot; offline sim lets us set pos directly.
-  await page.evaluate((px, pz) => {
-    const p = window.__game.sim.player;
-    p.pos.x = px;
-    p.pos.z = pz;
-  }, x, z);
+  await page.evaluate(
+    (px, pz) => {
+      const p = window.__game.sim.player;
+      p.pos.x = px;
+      p.pos.z = pz;
+    },
+    x,
+    z,
+  );
   await sleep(400); // let updateMinimapCoords run a frame
   const coords = await page.evaluate(() => document.querySelector('#minimap-coords')?.textContent);
   console.log(`${name}: coords pill =`, JSON.stringify(coords));

@@ -1235,6 +1235,11 @@ export const hudChromeStrings = {
     plant: 'Plant',
     release: 'Release',
     breed: 'Cross',
+    // Provenance on a bred strain. `lineage` is deliberately placeholder-only:
+    // both values are generated strain names, which are proper nouns spliced
+    // verbatim in every locale, so the line needs no translatable words.
+    lineage: '{a} x {b}',
+    bredBy: 'Bred by {name}',
     full: 'Your strain library is full. Release a strain to make room.',
   },
   // Commune reputation: the standing tier names shown on the breeding header.

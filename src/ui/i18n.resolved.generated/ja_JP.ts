@@ -1115,6 +1115,8 @@ export const ja_JP: EnTranslations = {
       "plant": "植える",
       "release": "手放す",
       "breed": "交配",
+      "lineage": "{a} x {b}",
+      "bredBy": "Bred by {name}",
       "full": "品種ライブラリが満杯です。品種を手放して空きを作りましょう。"
     },
     "reputation": {

@@ -2,10 +2,12 @@
 // control, plus a before/after of the start-screen decorative effects under the
 // fx-full vs fx-minimal tiers (backdrop-filter blur + ambient background layers
 // dropped). Offline flow (no server). Needs `npm run dev`. Writes PNGs to tmp/.
-import puppeteer from 'puppeteer-core';
+
 import fs from 'node:fs';
+import puppeteer from 'puppeteer-core';
 
 import { BROWSER_PATH as EDGE } from './browser_path.mjs';
+
 const URL = process.env.GAME_URL ?? 'http://localhost:5173';
 const CLASS = process.env.GAME_CLASS ?? 'mage';
 fs.mkdirSync('tmp', { recursive: true });
@@ -20,7 +22,9 @@ await page.setViewport({ width: 1280, height: 900 });
 
 const errors = [];
 page.on('pageerror', (e) => errors.push('PAGEERROR: ' + e.message));
-page.on('console', (m) => { if (m.type() === 'error') errors.push('CONSOLE: ' + m.text()); });
+page.on('console', (m) => {
+  if (m.type() === 'error') errors.push('CONSOLE: ' + m.text());
+});
 
 const wait = (ms) => new Promise((r) => setTimeout(r, ms));
 const tap = (sel) => page.evaluate((s) => document.querySelector(s)?.click(), sel);
@@ -54,7 +58,10 @@ await tap('#btn-offline');
 await wait(200);
 await page.evaluate(() => {
   const n = document.querySelector('#char-name');
-  if (n) { n.value = 'Adapt'; n.dispatchEvent(new Event('input', { bubbles: true })); }
+  if (n) {
+    n.value = 'Adapt';
+    n.dispatchEvent(new Event('input', { bubbles: true }));
+  }
 });
 await tap(`#offline-select .mini-class[data-class="${CLASS}"]`);
 await tap('#btn-start-offline');
@@ -73,10 +80,16 @@ const box = await page.evaluate(() => {
   const el = document.querySelector('#options-menu');
   if (!el) return null;
   const r = el.getBoundingClientRect();
-  return { x: Math.round(r.x), y: Math.round(r.y), width: Math.round(r.width), height: Math.round(r.height) };
+  return {
+    x: Math.round(r.x),
+    y: Math.round(r.y),
+    width: Math.round(r.width),
+    height: Math.round(r.height),
+  };
 });
 await page.screenshot({ path: 'tmp/browser_effects_graphics_full.png' });
-if (box && box.width > 0) await page.screenshot({ path: 'tmp/browser_effects_graphics_panel.png', clip: box });
+if (box && box.width > 0)
+  await page.screenshot({ path: 'tmp/browser_effects_graphics_panel.png', clip: box });
 
 // Report the detected engine + classes so the PR can cite what was running.
 const detected = await page.evaluate(() => ({
@@ -85,5 +98,7 @@ const detected = await page.evaluate(() => ({
 }));
 console.log('detected:', JSON.stringify(detected));
 if (errors.length) console.log('PAGE ERRORS:\n' + errors.join('\n'));
-console.log('wrote tmp/browser_effects_{start_full,start_minimal,graphics_full,graphics_panel}.png');
+console.log(
+  'wrote tmp/browser_effects_{start_full,start_minimal,graphics_full,graphics_panel}.png',
+);
 await browser.close();

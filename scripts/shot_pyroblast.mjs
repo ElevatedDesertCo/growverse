@@ -2,10 +2,12 @@
 // Boots an offline mage, levels to 20 so Pyroblast is learned, stands a dummy
 // target in front, casts the spell (capturing the long 6s cast bar and the
 // fire DoT it leaves on the target), then opens the spellbook for its tooltip.
-import puppeteer from 'puppeteer-core';
+
 import fs from 'node:fs';
+import puppeteer from 'puppeteer-core';
 
 import { BROWSER_PATH as EDGE } from './browser_path.mjs';
+
 const URL = process.env.GAME_URL ?? 'http://localhost:5173';
 fs.mkdirSync('tmp', { recursive: true });
 
@@ -42,33 +44,54 @@ const setup = await page.evaluate(() => {
   // Pick a mob out in open wilderness (a forest wolf) so line-of-sight is
   // clear — the town hub is cluttered with buildings. Move the PLAYER to it
   // rather than dragging the mob into terrain (mirrors the fireball sim test).
-  let mob = null, d = 1e9;
+  let mob = null,
+    d = 1e9;
   for (const e of sim.entities.values()) {
     if (e.kind === 'mob' && !e.dead && e.templateId === 'forest_wolf') {
       const dd = Math.hypot(e.pos.x - p.pos.x, e.pos.z - p.pos.z);
-      if (dd < d) { d = dd; mob = e; }
+      if (dd < d) {
+        d = dd;
+        mob = e;
+      }
     }
   }
-  if (!mob) { // fall back to any mob if no wolf is loaded
+  if (!mob) {
+    // fall back to any mob if no wolf is loaded
     for (const e of sim.entities.values()) {
       if (e.kind === 'mob' && !e.dead) {
         const dd = Math.hypot(e.pos.x - p.pos.x, e.pos.z - p.pos.z);
-        if (dd < d) { d = dd; mob = e; }
+        if (dd < d) {
+          d = dd;
+          mob = e;
+        }
       }
     }
   }
   mob.name = 'Training Dummy';
   mob.level = 20;
-  mob.hostile = true;           // a damage spell needs a hostile target...
-  mob.maxHp = 5000; mob.hp = 5000;
+  mob.hostile = true; // a damage spell needs a hostile target...
+  mob.maxHp = 5000;
+  mob.hp = 5000;
   // ...but root it so it can't close to melee and push back the 6s cast.
   sim.applyAura(mob, {
-    id: 'shot_root', name: 'Held', kind: 'root',
-    remaining: 60, duration: 60, value: 1, sourceId: p.id, school: 'frost',
+    id: 'shot_root',
+    name: 'Held',
+    kind: 'root',
+    remaining: 60,
+    duration: 60,
+    value: 1,
+    sourceId: p.id,
+    school: 'frost',
   });
   // Stand the player 12yd from the wolf at the wolf's ground height.
-  p.pos.x = mob.pos.x - 12; p.pos.z = mob.pos.z; p.pos.y = mob.pos.y;
-  p.prevPos = { ...p.pos }; p.vx = 0; p.vz = 0; p.vy = 0; p.onGround = true;
+  p.pos.x = mob.pos.x - 12;
+  p.pos.z = mob.pos.z;
+  p.pos.y = mob.pos.y;
+  p.prevPos = { ...p.pos };
+  p.vx = 0;
+  p.vz = 0;
+  p.vy = 0;
+  p.onGround = true;
   sim.targetEntity(mob.id);
   p.facing = Math.atan2(mob.pos.x - p.pos.x, mob.pos.z - p.pos.z);
   g.input.camYaw = p.facing;
@@ -88,8 +111,13 @@ const impact = await page.evaluate((mobId) => {
   const sim = window.__game.sim;
   const mob = sim.entities.get(mobId);
   const dot = mob?.auras?.find((a) => a.kind === 'dot');
-  return { mobHp: mob?.hp, mobMaxHp: mob?.maxHp, hasDot: !!dot, dotName: dot?.name,
-    auras: mob?.auras?.map((a) => a.kind) };
+  return {
+    mobHp: mob?.hp,
+    mobMaxHp: mob?.maxHp,
+    hasDot: !!dot,
+    dotName: dot?.name,
+    auras: mob?.auras?.map((a) => a.kind),
+  };
 }, setup.mobId);
 console.log('impact:', JSON.stringify(impact));
 await page.screenshot({ path: 'tmp/pyroblast_impact.png' });
@@ -106,8 +134,10 @@ if (tf && tf.w > 0) {
   await page.screenshot({
     path: 'tmp/pyroblast_target.png',
     clip: {
-      x: Math.max(0, tf.x - pad), y: Math.max(0, tf.y - pad),
-      width: tf.w + pad * 2, height: tf.h + pad * 2,
+      x: Math.max(0, tf.x - pad),
+      y: Math.max(0, tf.y - pad),
+      width: tf.w + pad * 2,
+      height: tf.h + pad * 2,
     },
   });
 }
@@ -121,8 +151,12 @@ const box = await page.evaluate(() => {
   // smallest element whose text is exactly the ability name
   let best = null;
   for (const el of sb.querySelectorAll('*')) {
-    if (el.textContent && el.textContent.trim() === 'Pyroblast' &&
-        (!best || el.textContent.length < best.textContent.length)) best = el;
+    if (
+      el.textContent &&
+      el.textContent.trim() === 'Pyroblast' &&
+      (!best || el.textContent.length < best.textContent.length)
+    )
+      best = el;
   }
   if (best) {
     const r = best.getBoundingClientRect();

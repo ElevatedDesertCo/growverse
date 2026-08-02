@@ -112,3 +112,40 @@ describe('buildBreedingView', () => {
     expect(a).toEqual(b);
   });
 });
+
+// Provenance: a bred strain carries the parents it came from and the character
+// credited with the cross. A base strain has neither, and neither does a strain
+// restored from a save written before breeder credit existed, so the view must
+// report null rather than inventing a value the window would then render.
+describe('lineage and breeder', () => {
+  const bred = (id: string): StrainView => ({
+    ...strain(id, 2, 2, 2),
+    lineage: ['Fen Haze', 'Copper Diesel'],
+    breeder: 'Grower',
+  });
+
+  it('passes lineage and breeder through for a bred strain', () => {
+    const view = buildBreedingView([bred('x')], rep, [], null, null);
+    expect(view.strains[0].lineage).toEqual(['Fen Haze', 'Copper Diesel']);
+    expect(view.strains[0].breeder).toBe('Grower');
+  });
+
+  it('reports null for a base strain, which has no parents and no breeder', () => {
+    const view = buildBreedingView([strain('a', 1, 1, 1)], rep, [], null, null);
+    expect(view.strains[0].lineage).toBeNull();
+    expect(view.strains[0].breeder).toBeNull();
+  });
+
+  it('reports null breeder for a legacy strain that has lineage but no credit', () => {
+    const legacy: StrainView = { ...strain('l', 1, 1, 1), lineage: ['Alpha', 'Beta'] };
+    const view = buildBreedingView([legacy], rep, [], null, null);
+    expect(view.strains[0].lineage).toEqual(['Alpha', 'Beta']);
+    expect(view.strains[0].breeder).toBeNull();
+  });
+
+  it('copies lineage rather than aliasing the caller-owned array', () => {
+    const src = bred('x');
+    const view = buildBreedingView([src], rep, [], null, null);
+    expect(view.strains[0].lineage).not.toBe(src.lineage);
+  });
+});

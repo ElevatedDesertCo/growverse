@@ -2,10 +2,12 @@
 // crest) so we can eyeball the portrait fill/crispness + the portrait/bar
 // overlap. LABEL=<name> names the output; TEMPLATE=<mobId> targets a different
 // mob (e.g. an elite like elder_bristleback). Runs offline (needs `npm run dev`).
-import puppeteer from 'puppeteer-core';
+
 import fs from 'node:fs';
+import puppeteer from 'puppeteer-core';
 
 import { BROWSER_PATH as EDGE } from './browser_path.mjs';
+
 const URL = process.env.GAME_URL ?? 'http://localhost:5173';
 const LABEL = process.env.LABEL ?? 'before';
 fs.mkdirSync('tmp', { recursive: true });
@@ -20,7 +22,9 @@ const browser = await puppeteer.launch({
 const page = await browser.newPage();
 const errors = [];
 page.on('pageerror', (e) => errors.push('PAGEERROR: ' + e.message));
-page.on('console', (m) => { if (m.type() === 'error') errors.push('CONSOLE: ' + m.text()); });
+page.on('console', (m) => {
+  if (m.type() === 'error') errors.push('CONSOLE: ' + m.text());
+});
 
 await page.goto(URL, { waitUntil: 'networkidle0', timeout: 30000 });
 // JS-driven clicks: the auth panels fade in via transitions, so puppeteer's
@@ -43,8 +47,11 @@ const found = await page.evaluate((template) => {
   const p = sim.player;
   const boar = [...sim.entities.values()].find((e) => e.templateId === template);
   if (!boar) return { ok: false };
-  p.maxHp = 999999; p.hp = 999999;
-  p.pos.x = boar.pos.x + 3; p.pos.z = boar.pos.z + 3; p.pos.y = boar.pos.y;
+  p.maxHp = 999999;
+  p.hp = 999999;
+  p.pos.x = boar.pos.x + 3;
+  p.pos.z = boar.pos.z + 3;
+  p.pos.y = boar.pos.y;
   p.facing = Math.atan2(boar.pos.x - p.pos.x, boar.pos.z - p.pos.z);
   g.input.camYaw = p.facing;
   sim.targetEntity(boar.id);
@@ -54,9 +61,15 @@ console.log('boar:', JSON.stringify(found));
 await new Promise((r) => setTimeout(r, 1200));
 
 // Whole target frame.
-await page.screenshot({ path: `tmp/tf_${LABEL}_frame.png`, clip: { x: 0, y: 0, width: 320, height: 110 } });
+await page.screenshot({
+  path: `tmp/tf_${LABEL}_frame.png`,
+  clip: { x: 0, y: 0, width: 320, height: 110 },
+});
 // Zoomed portrait only (the circle + its overlap with the bar's right edge).
-await page.screenshot({ path: `tmp/tf_${LABEL}_portrait.png`, clip: { x: 168, y: 4, width: 92, height: 92 } });
+await page.screenshot({
+  path: `tmp/tf_${LABEL}_portrait.png`,
+  clip: { x: 168, y: 4, width: 92, height: 92 },
+});
 // Full HUD: compare the target frame (top-left) against the player frame (the
 // bottom-centre one the user is happy with) so the fix can match it.
 await page.screenshot({ path: `tmp/tf_${LABEL}_full.png` });
@@ -64,9 +77,17 @@ await page.screenshot({ path: `tmp/tf_${LABEL}_full.png` });
 // frame and the layout the user accepts.
 const pf = await page.evaluate(() => {
   const r = document.querySelector('#player-frame').getBoundingClientRect();
-  return { x: Math.round(r.x), y: Math.round(r.y), w: Math.round(r.width), h: Math.round(r.height) };
+  return {
+    x: Math.round(r.x),
+    y: Math.round(r.y),
+    w: Math.round(r.width),
+    h: Math.round(r.height),
+  };
 });
-await page.screenshot({ path: `tmp/tf_${LABEL}_playerframe.png`, clip: { x: pf.x - 6, y: pf.y - 6, width: Math.min(360, pf.w + 12), height: pf.h + 12 } });
+await page.screenshot({
+  path: `tmp/tf_${LABEL}_playerframe.png`,
+  clip: { x: pf.x - 6, y: pf.y - 6, width: Math.min(360, pf.w + 12), height: pf.h + 12 },
+});
 
 console.log(errors.length ? 'ERRORS:\n' + errors.slice(0, 15).join('\n') : 'no page errors');
 await browser.close();

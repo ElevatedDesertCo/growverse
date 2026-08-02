@@ -5,8 +5,9 @@
 //   3. the buff bar after casting self-buffs (Tiger's Fury + Travel Form)
 //   4. a target debuff from Faerie Fire + Insect Swarm
 // Needs `npm run dev` (override with GAME_URL). Writes to tmp/.
-import puppeteer from 'puppeteer-core';
+
 import fs from 'node:fs';
+import puppeteer from 'puppeteer-core';
 import { BROWSER_PATH } from './browser_path.mjs';
 
 const URL = process.env.GAME_URL ?? 'http://localhost:5173';
@@ -21,7 +22,9 @@ const browser = await puppeteer.launch({
 });
 const page = await browser.newPage();
 page.on('pageerror', (e) => console.log('PAGEERROR:', e.message));
-page.on('console', (m) => { if (m.type() === 'error') console.log('CONSOLE:', m.text()); });
+page.on('console', (m) => {
+  if (m.type() === 'error') console.log('CONSOLE:', m.text());
+});
 
 await page.goto(URL, { waitUntil: 'networkidle0', timeout: 30000 });
 await page.evaluate(() => document.querySelector('#btn-offline').click());
@@ -93,28 +96,41 @@ const dbg = await page.evaluate(() => {
   const g = window.__game;
   const p = g.sim.player;
   // back to caster form so the ranged nukes are castable
-  if (p.auras.some((a) => a.kind === 'form_cat')) { g.sim.castAbility('cat_form', p.id); g.sim.tick(); }
+  if (p.auras.some((a) => a.kind === 'form_cat')) {
+    g.sim.castAbility('cat_form', p.id);
+    g.sim.tick();
+  }
   // find the nearest hostile mob and pull it close + in front
-  let mob = null, best = 1e9;
+  let mob = null,
+    best = 1e9;
   for (const e of g.sim.entities.values()) {
     if (e.kind !== 'mob' || e.dead || !e.hostile) continue;
     const d = Math.hypot(e.pos.x - p.pos.x, e.pos.z - p.pos.z);
-    if (d < best) { best = d; mob = e; }
+    if (d < best) {
+      best = d;
+      mob = e;
+    }
   }
   if (!mob) return 'no mob';
   mob.level = 20;
-  mob.pos.x = p.pos.x + 6; mob.pos.z = p.pos.z; mob.pos.y = p.pos.y;
-  mob.maxHp = 1e6; mob.hp = 1e6;
+  mob.pos.x = p.pos.x + 6;
+  mob.pos.z = p.pos.z;
+  mob.pos.y = p.pos.y;
+  mob.maxHp = 1e6;
+  mob.hp = 1e6;
   g.sim.tick();
   p.targetId = mob.id;
   p.facing = Math.atan2(mob.pos.x - p.pos.x, mob.pos.z - p.pos.z);
   g.input.camYaw = p.facing;
   p.resource = 1000;
-  g.sim.castAbility('faerie_fire', p.id); g.sim.tick();
+  g.sim.castAbility('faerie_fire', p.id);
+  g.sim.tick();
   // wait out the global cooldown before the second cast
   for (let i = 0; i < 35; i++) g.sim.tick();
-  p.resource = 1000; p.targetId = mob.id;
-  g.sim.castAbility('insect_swarm', p.id); g.sim.tick();
+  p.resource = 1000;
+  p.targetId = mob.id;
+  g.sim.castAbility('insect_swarm', p.id);
+  g.sim.tick();
   return mob.auras.map((a) => a.name);
 });
 console.log('target auras:', dbg);
@@ -122,4 +138,6 @@ await sleep(900);
 await page.screenshot({ path: 'tmp/druid-debuffs.png' });
 
 await browser.close();
-console.log('done — tmp/druid-spellbook.png, druid-tooltip.png, druid-buffs.png, druid-debuffs.png');
+console.log(
+  'done — tmp/druid-spellbook.png, druid-tooltip.png, druid-buffs.png, druid-debuffs.png',
+);

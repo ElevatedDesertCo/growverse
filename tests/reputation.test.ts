@@ -4,7 +4,7 @@
 
 import { describe, expect, it } from 'vitest';
 import { craft } from '../src/sim/crafting';
-import { PLANTS } from '../src/sim/data';
+import { NPCS, PLANTS } from '../src/sim/data';
 import {
   awardReputation,
   emptyReputation,
@@ -81,6 +81,14 @@ describe('reputation: gains over a Sim', () => {
     growAndHarvest(sim, 'enriched_seed', 1);
     const beforeBreed = sim.reputation[0].points;
     sim.addItem(BREED_COST_ITEM, 10);
+    // Crossing is station-gated at the Breeding Chamber (strain_library.ts), so park
+    // the player on its keeper or the cross is refused and no standing is awarded.
+    const keeper = [...sim.entities.values()].find(
+      (e) => e.kind === 'npc' && NPCS[e.templateId]?.crafting === 'grow',
+    );
+    if (!keeper) throw new Error('no Breeding Chamber keeper in the world');
+    sim.player.pos.x = keeper.pos.x;
+    sim.player.pos.z = keeper.pos.z;
     sim.breedStrains(sim.strains[0].id, sim.strains[1].id);
     expect(sim.reputation[0].points).toBe(beforeBreed + REP_PER_BREED);
   });

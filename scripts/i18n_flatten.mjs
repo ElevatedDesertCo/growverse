@@ -24,7 +24,9 @@ export function flatten(node, prefix = '', out = {}) {
     // nesting (flatten and unflatten would disagree). Today no `en` key contains a
     // dot; fail loud if a future key ever does rather than silently corrupting.
     if (key.includes('.')) {
-      throw new Error(`i18n flatten: key segment contains a literal '.', unrepresentable in the dotted-key encoding: "${prefix ? `${prefix}.` : ''}${key}"`);
+      throw new Error(
+        `i18n flatten: key segment contains a literal '.', unrepresentable in the dotted-key encoding: "${prefix ? `${prefix}.` : ''}${key}"`,
+      );
     }
     const value = node[key];
     const path = prefix ? `${prefix}.${key}` : key;
@@ -50,7 +52,9 @@ export function unflatten(flat) {
       } else if (typeof existing !== 'object' || Array.isArray(existing)) {
         // A leaf already sits here, i.e. some key is a strict prefix of this one
         // ("a.b" and "a.b.c"). The encoding cannot hold both; surface it.
-        throw new Error(`i18n unflatten: path collision at "${parts.slice(0, i + 1).join('.')}" while inserting "${path}"`);
+        throw new Error(
+          `i18n unflatten: path collision at "${parts.slice(0, i + 1).join('.')}" while inserting "${path}"`,
+        );
       }
       node = node[part];
     }
@@ -58,7 +62,9 @@ export function unflatten(flat) {
     const occupied = node[last];
     if (occupied && typeof occupied === 'object' && !Array.isArray(occupied)) {
       // The reverse collision: a leaf would overwrite an existing nested object.
-      throw new Error(`i18n unflatten: path collision at "${path}" (a leaf would overwrite a nested object)`);
+      throw new Error(
+        `i18n unflatten: path collision at "${path}" (a leaf would overwrite a nested object)`,
+      );
     }
     node[last] = flat[path];
   }

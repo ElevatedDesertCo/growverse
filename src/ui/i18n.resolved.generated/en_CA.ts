@@ -1115,6 +1115,8 @@ export const en_CA: EnTranslations = {
       "plant": "Plant",
       "release": "Release",
       "breed": "Cross",
+      "lineage": "{a} x {b}",
+      "bredBy": "Bred by {name}",
       "full": "Your strain library is full. Release a strain to make room."
     },
     "reputation": {

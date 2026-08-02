@@ -5,8 +5,9 @@
 // summoned demon fighting at the warlock's side.
 //
 // Needs `npm run dev` on :5173 (override with GAME_URL). Writes to tmp/.
-import puppeteer from 'puppeteer-core';
+
 import fs from 'node:fs';
+import puppeteer from 'puppeteer-core';
 import { BROWSER_PATH } from './browser_path.mjs';
 
 const URL = process.env.GAME_URL ?? 'http://localhost:5173';
@@ -21,7 +22,9 @@ const browser = await puppeteer.launch({
 });
 const page = await browser.newPage();
 page.on('pageerror', (e) => console.log('PAGEERROR:', e.message));
-page.on('console', (m) => { if (m.type() === 'error') console.log('CONSOLE:', m.text()); });
+page.on('console', (m) => {
+  if (m.type() === 'error') console.log('CONSOLE:', m.text());
+});
 
 await page.goto(URL, { waitUntil: 'networkidle0', timeout: 30000 });
 await page.evaluate(() => document.querySelector('#btn-offline').click());
@@ -37,8 +40,10 @@ await page.evaluate(() => {
   const p = g.sim.player;
   g.sim.setPlayerLevel(20, p.id);
   p.gm = true;
-  p.maxHp = 99999; p.hp = 99999;
-  p.maxMp = 99999; p.mp = 99999;
+  p.maxHp = 99999;
+  p.hp = 99999;
+  p.maxMp = 99999;
+  p.mp = 99999;
 });
 await sleep(800);
 
@@ -50,10 +55,16 @@ await page.screenshot({ path: 'tmp/warlock-demon-spellbook.png' });
 // --- tooltip on the Summon Felguard row ---
 const hovered = await page.evaluate(() => {
   const rows = [...document.querySelectorAll('.spell-row')];
-  const row = rows.find((r) => /Felguard|Felhunter|Succubus|Infernal|Doomguard/.test(r.textContent || ''));
+  const row = rows.find((r) =>
+    /Felguard|Felhunter|Succubus|Infernal|Doomguard/.test(r.textContent || ''),
+  );
   if (!row) return null;
   const b = row.getBoundingClientRect();
-  return { x: b.x + b.width / 2, y: b.y + b.height / 2, label: row.textContent?.trim().slice(0, 40) };
+  return {
+    x: b.x + b.width / 2,
+    y: b.y + b.height / 2,
+    label: row.textContent?.trim().slice(0, 40),
+  };
 });
 if (hovered) {
   await page.mouse.move(hovered.x, hovered.y);

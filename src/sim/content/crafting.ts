@@ -498,8 +498,12 @@ export const CRAFT_NPCS: Record<string, NpcDef> = {
     title: 'the Cultivator',
     // Stationed at the south entrance of the Baked Beaver farm, facing north up the field
     // of beds (which now expands south toward him as the player levels): the early-game
-    // growing hub (Grow Station + the physical garden). Kept a couple yards south of the
-    // southmost (fully-unlocked) row of plots; nudge if the garden grid moves.
+    // growing hub. He keeps BOTH the Grow Station and the Breeding Chamber, the building
+    // immediately behind him (zone1.ts buildings), so the whole grow loop is one place:
+    // field in front, chamber behind, him in the doorway. His position is also the
+    // proximity anchor that gates crossing (strain_library.ts breedingChamberInRange),
+    // so moving him moves the chamber's reach. Kept a couple of yards south of the
+    // southmost (fully-unlocked) row of plots and north of the chamber wall (z 48).
     pos: { x: 60, z: 50 },
     facing: 0,
     color: 0x4e9a2f,

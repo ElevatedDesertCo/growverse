@@ -1115,6 +1115,8 @@ export const en_XA: EnTranslations = {
       "plant": "[Þļáñţ]",
       "release": "[Ŕéļéášé]",
       "breed": "[Çŕóšš]",
+      "lineage": "[{a} ẋ {b}]",
+      "bredBy": "[Ɓŕéð ƀý {name}]",
       "full": "[Ýóúŕ šţŕáíñ ļíƀŕáŕý íš ƒúļļ. Ŕéļéášé á šţŕáíñ ţó ɱáķé ŕóóɱ.]"
     },
     "reputation": {

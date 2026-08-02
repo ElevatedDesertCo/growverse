@@ -1115,6 +1115,8 @@ export const ko_KR: EnTranslations = {
       "plant": "심기",
       "release": "방출",
       "breed": "교배",
+      "lineage": "{a} x {b}",
+      "bredBy": "Bred by {name}",
       "full": "품종 보관함이 가득 찼습니다. 품종을 방출해 공간을 만드세요."
     },
     "reputation": {

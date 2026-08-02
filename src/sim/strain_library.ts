@@ -12,11 +12,19 @@
 // `src/sim`-pure: no DOM/Three/render-ui-game-net imports, no Math.random/Date.now. Player
 // text is English source emitted through ctx, localized at the client boundary.
 
-import { BASE_STRAIN_BY_SEED } from './data';
+import { BASE_STRAIN_BY_SEED, NPCS } from './data';
 import { baseStrain, breed, strainView } from './genetics';
 import { awardReputation, REP_PER_BREED, REP_PER_LANDRACE } from './reputation';
 import type { SimContext } from './sim_context';
-import { type Genotype, MAX_STRAINS, type Strain, type StrainView } from './types';
+import {
+  dist2d,
+  type Entity,
+  type Genotype,
+  INTERACT_RANGE,
+  MAX_STRAINS,
+  type Strain,
+  type StrainView,
+} from './types';
 
 // Breeding consumes harvested buds, tying the mechanic back into cultivation output (a
 // real sink, reachable from the garden loop) rather than being free. Buds rather than
@@ -52,15 +60,34 @@ export function registerBaseStrain(ctx: SimContext, seedItemId: string, pid?: nu
   return true;
 }
 
+// The Breeding Chamber is kept by the Cultivator, so his station is the anchor:
+// one NPC, one building, both the Grow Station and the crossing bench. Mirrors
+// craftingStationInRange (crafting.ts) rather than inventing a second rule.
+function breedingChamberInRange(ctx: SimContext, p: Entity): boolean {
+  return [...ctx.entities.values()].some(
+    (e) =>
+      e.kind === 'npc' &&
+      NPCS[e.templateId]?.crafting === 'grow' &&
+      dist2d(p.pos, e.pos) <= INTERACT_RANGE + 2,
+  );
+}
+
 // Cross two owned strains into a new library strain. Guards mirror the other consumable
-// actions (alive, both strains owned and distinct, library has room, can pay the cost).
-// Draws through ctx.rng so the offspring is replay-stable.
+// actions (at the chamber, alive, both strains owned and distinct, library has room, can
+// pay the cost). Draws through ctx.rng so the offspring is replay-stable.
 export function breedStrains(ctx: SimContext, idA: string, idB: string, pid?: number): void {
   const r = ctx.resolve(pid);
   if (!r) return;
   const { meta, e: p } = r;
   if (p.dead) {
     ctx.error(meta.entityId, "You can't do that while dead.");
+    return;
+  }
+  // Crossing happens at the Breeding Chamber, not anywhere in the world. Same
+  // proximity rule the crafting stations use (crafting.ts), keyed on the NPC who
+  // keeps the chamber, so breeding is a PLACE you go rather than a menu you open.
+  if (!breedingChamberInRange(ctx, p)) {
+    ctx.error(meta.entityId, 'You are too far from the Breeding Chamber.');
     return;
   }
   if (idA === idB) {

@@ -5,7 +5,7 @@
 // save/load round-trip are all covered.
 
 import { describe, expect, it } from 'vitest';
-import { PLANTS } from '../src/sim/data';
+import { NPCS, PLANTS } from '../src/sim/data';
 import {
   breed,
   breedGenotype,
@@ -50,6 +50,17 @@ const makeSim = (cls: PlayerClass = 'warrior', seed = 42) =>
 // through the full grow time (thousands of ticks), backdate plantedAt so the plot reads
 // ready immediately: growth is a pure time delta, so this is behaviorally identical and
 // keeps the suite fast.
+// Breeding is station-gated: crossing happens AT the Breeding Chamber, which the
+// Cultivator keeps. Park the player on him so a test exercises the cross itself
+// rather than the proximity guard (there is a dedicated test for that guard).
+const standAtChamber = (sim: Sim) => {
+  const keeper = [...sim.entities.values()].find(
+    (e) => e.kind === 'npc' && NPCS[e.templateId]?.crafting === 'grow',
+  );
+  if (!keeper) throw new Error('no Breeding Chamber keeper in the world');
+  sim.player.pos.x = keeper.pos.x;
+  sim.player.pos.z = keeper.pos.z;
+};
 const growAndHarvest = (sim: Sim, seedItemId: string, plot = 0) => {
   sim.addItem(seedItemId, 1);
   sim.plantSeed(plot, seedItemId);
@@ -183,6 +194,7 @@ describe('strain library: discovery + breeding over a Sim', () => {
     const [a, b] = sim.strains;
     const before = sim.countItem(BREED_COST_ITEM);
     expect(before).toBeGreaterThanOrEqual(BREED_COST_COUNT);
+    standAtChamber(sim);
     sim.breedStrains(a.id, b.id);
     expect(sim.strains).toHaveLength(3);
     expect(sim.countItem(BREED_COST_ITEM)).toBe(before - BREED_COST_COUNT);
@@ -195,10 +207,12 @@ describe('strain library: discovery + breeding over a Sim', () => {
     const [a, b] = sim.strains;
     // Drain the material below the cost.
     sim.removeItem(BREED_COST_ITEM, sim.countItem(BREED_COST_ITEM));
+    standAtChamber(sim);
     sim.breedStrains(a.id, b.id);
     expect(sim.strains).toHaveLength(2); // rejected: no material
     // Same strain twice is rejected too.
     sim.addItem(BREED_COST_ITEM, 10);
+    standAtChamber(sim);
     sim.breedStrains(a.id, a.id);
     expect(sim.strains).toHaveLength(2);
   });
@@ -213,12 +227,35 @@ describe('strain library: discovery + breeding over a Sim', () => {
     expect(sim.strains).toHaveLength(1);
   });
 
+  // Crossing is a PLACE you go, not a menu you open anywhere in the world.
+  it('refuses a cross away from the Breeding Chamber, and allows it at the chamber', () => {
+    const sim = makeSim();
+    growAndHarvest(sim, 'common_seed', 0);
+    growAndHarvest(sim, 'enriched_seed', 1);
+    const [a, b] = sim.strains;
+    sim.addItem(BREED_COST_ITEM, 100);
+
+    // Far from the chamber: rejected, and the cost is NOT consumed.
+    sim.player.pos.x = 1000;
+    sim.player.pos.z = 1000;
+    const held = sim.countItem(BREED_COST_ITEM);
+    sim.breedStrains(a.id, b.id);
+    expect(sim.strains).toHaveLength(2);
+    expect(sim.countItem(BREED_COST_ITEM)).toBe(held);
+
+    // At the chamber: the same call goes through.
+    standAtChamber(sim);
+    sim.breedStrains(a.id, b.id);
+    expect(sim.strains).toHaveLength(3);
+  });
+
   it('caps the library at MAX_STRAINS', () => {
     const sim = makeSim();
     growAndHarvest(sim, 'common_seed', 0);
     growAndHarvest(sim, 'enriched_seed', 1);
     const [a, b] = sim.strains;
     sim.addItem(BREED_COST_ITEM, 100);
+    standAtChamber(sim);
     // Breed until full; further crosses are rejected rather than growing past the cap.
     for (let i = 0; i < MAX_STRAINS + 4; i++) sim.breedStrains(a.id, b.id);
     expect(sim.strains.length).toBe(MAX_STRAINS);
@@ -231,6 +268,7 @@ describe('strain library: discovery + breeding over a Sim', () => {
       growAndHarvest(sim, 'enriched_seed', 1);
       const [a, b] = sim.strains;
       sim.addItem(BREED_COST_ITEM, 10);
+      standAtChamber(sim);
       sim.breedStrains(a.id, b.id);
       // The IWorld view exposes only expressed phenotype; reach into the library state
       // for the raw genotype so determinism covers the hidden recessive alleles too.
@@ -244,6 +282,7 @@ describe('strain library: discovery + breeding over a Sim', () => {
     growAndHarvest(sim, 'common_seed', 0);
     growAndHarvest(sim, 'enriched_seed', 1);
     sim.addItem(BREED_COST_ITEM, 10);
+    standAtChamber(sim);
     sim.breedStrains(sim.strains[0].id, sim.strains[1].id);
     const savedLibrary = sim.strains.map((s) => ({ ...s }));
     const saved = sim.serializeCharacter(sim.playerId)!;

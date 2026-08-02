@@ -3,10 +3,12 @@
 // casts it, and captures (1) the world scene with the buff-bar icon,
 // (2) a tight crop of the buff-bar imbue icon, and (3) the spellbook
 // tooltip for the ability.
-import puppeteer from 'puppeteer-core';
+
 import fs from 'node:fs';
+import puppeteer from 'puppeteer-core';
 
 import { BROWSER_PATH as EDGE } from './browser_path.mjs';
+
 const URL = process.env.GAME_URL ?? 'http://localhost:5173';
 fs.mkdirSync('tmp', { recursive: true });
 
@@ -61,8 +63,10 @@ if (box && box.w > 0) {
   await page.screenshot({
     path: 'tmp/frostbrand_buff.png',
     clip: {
-      x: Math.max(0, box.x - pad), y: Math.max(0, box.y - pad),
-      width: box.w + pad * 2, height: box.h + pad * 2,
+      x: Math.max(0, box.x - pad),
+      y: Math.max(0, box.y - pad),
+      width: box.w + pad * 2,
+      height: box.h + pad * 2,
     },
   });
 }
@@ -74,7 +78,8 @@ const hover = await page.evaluate(() => {
   const sb = document.querySelector('#spellbook');
   if (!sb) return null;
   const row = [...sb.querySelectorAll('.spell-row')].find((el) =>
-    (el.textContent || '').trim().startsWith('Frostbrand Weapon'));
+    (el.textContent || '').trim().startsWith('Frostbrand Weapon'),
+  );
   if (!row) return null;
   const r = row.getBoundingClientRect();
   return { x: r.left + r.width / 2, y: r.top + r.height / 2 };

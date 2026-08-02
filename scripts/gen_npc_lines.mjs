@@ -15,11 +15,11 @@
 // Idempotent: existing mp3s are skipped unless --force. The key is read from the
 // environment / local .env; never commit it.
 
-import * as esbuild from 'esbuild';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import path from 'node:path';
-import { voiceIdFor } from './voices/npc_voice_prompts.mjs';
+import * as esbuild from 'esbuild';
 import { EXTRA_LINES } from './voices/extra_lines.mjs';
+import { voiceIdFor } from './voices/npc_voice_prompts.mjs';
 
 const API = 'https://api.elevenlabs.io';
 const TTS_MODEL = 'eleven_multilingual_v2'; // quality model — generation is one-time
@@ -36,7 +36,11 @@ const force = process.argv.includes('--force');
 const onlyIdx = process.argv.indexOf('--only');
 const only = onlyIdx >= 0 ? process.argv[onlyIdx + 1] : null;
 
-try { process.loadEnvFile(); } catch { /* no .env — rely on the ambient env */ }
+try {
+  process.loadEnvFile();
+} catch {
+  /* no .env — rely on the ambient env */
+}
 const KEY = process.env.ELEVENLABS_API_KEY;
 if (!KEY) {
   console.error('ELEVENLABS_API_KEY is not set (env or .env). Aborting.');
@@ -109,11 +113,18 @@ const { NPCS, QUESTS } = await loadContent();
 // resolve to their base voice via voiceIdFor.
 const lines = [];
 for (const npc of Object.values(NPCS)) {
-  if (npc.greeting) lines.push({ key: `greeting__${npc.id}`, text: npc.greeting, voiceNpc: voiceIdFor(npc.id) });
+  if (npc.greeting)
+    lines.push({ key: `greeting__${npc.id}`, text: npc.greeting, voiceNpc: voiceIdFor(npc.id) });
 }
 for (const q of Object.values(QUESTS)) {
-  if (q.text) lines.push({ key: `quest__${q.id}__offer`, text: q.text, voiceNpc: voiceIdFor(q.giverNpcId) });
-  if (q.completionText) lines.push({ key: `quest__${q.id}__complete`, text: q.completionText, voiceNpc: voiceIdFor(q.turnInNpcId) });
+  if (q.text)
+    lines.push({ key: `quest__${q.id}__offer`, text: q.text, voiceNpc: voiceIdFor(q.giverNpcId) });
+  if (q.completionText)
+    lines.push({
+      key: `quest__${q.id}__complete`,
+      text: q.completionText,
+      voiceNpc: voiceIdFor(q.turnInNpcId),
+    });
 }
 // Encounter dialogue (yells/bubbles) that isn't on an NpcDef/QuestDef.
 for (const e of EXTRA_LINES) lines.push({ key: e.key, text: e.text, voiceNpc: e.voiceNpc });
@@ -135,7 +146,10 @@ for (const line of lines) {
     continue;
   }
   const dest = diskPathFor(line);
-  if (existsSync(dest) && !force) { skipped++; continue; }
+  if (existsSync(dest) && !force) {
+    skipped++;
+    continue;
+  }
   const text = spoken(line.text);
   process.stdout.write(`tts  ${line.key} (${line.voiceNpc}, ${text.length} chars)… `);
   try {
@@ -160,7 +174,11 @@ const entries = {};
 for (const line of lines) {
   if (existsSync(diskPathFor(line))) entries[line.key] = publicPathFor(line);
 }
-const sorted = Object.fromEntries(Object.keys(entries).sort().map((k) => [k, entries[k]]));
+const sorted = Object.fromEntries(
+  Object.keys(entries)
+    .sort()
+    .map((k) => [k, entries[k]]),
+);
 mkdirSync(path.dirname(manifestPath), { recursive: true });
 writeFileSync(
   manifestPath,
@@ -173,6 +191,9 @@ writeFileSync(
   ].join('\n'),
 );
 
-console.log(`\nDone: ${made} synthesized, ${skipped} skipped, ${Object.keys(sorted).length}/${lines.length} lines have audio.`);
+console.log(
+  `\nDone: ${made} synthesized, ${skipped} skipped, ${Object.keys(sorted).length}/${lines.length} lines have audio.`,
+);
 console.log(`Billed ~${chars} characters this run. Manifest: ${path.relative(root, manifestPath)}`);
-if (missingVoice.size) console.log(`Missing voices (run gen_npc_voices.mjs): ${[...missingVoice].join(', ')}`);
+if (missingVoice.size)
+  console.log(`Missing voices (run gen_npc_voices.mjs): ${[...missingVoice].join(', ')}`);

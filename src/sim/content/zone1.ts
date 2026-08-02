@@ -1389,6 +1389,17 @@ export const ZONE1_PROPS: ZonePropsDef = {
     // pond and the path to the south.
     { kind: 'inn', x: 38, z: 60, w: 6, d: 7, rot: 3.05 }, // beaver lodge (rested XP)
     { kind: 'house', x: 46, z: 62, w: 6, d: 5, rot: 2.9 }, // beaver den
+    // The Breeding Chamber: where crosses are made. Sits at the SOUTH entrance of
+    // the garden field with its door facing north up the beds, so the grow loop
+    // reads as one place (field in front, chamber behind). Marlow keeps it and
+    // stands a couple of yards north of the north wall, between chamber and field,
+    // which is also the proximity anchor breeding is gated on (strain_library.ts).
+    // Footprint x 56.5-63.5, z 42-48: clear of the southmost plot row (z 53.7) and
+    // of Marlow himself (z 50).
+    // rot follows the same convention as the town ring: atan2(targetX - x, targetZ - z)
+    // aims the FRONT at the target. Marlow/the field sit due north at (60, 50), so
+    // atan2(0, +5) = 0 puts the door on the field side. (3.1 faced it away.)
+    { kind: 'house', x: 60, z: 45, w: 7, d: 6, rot: 0 }, // the Breeding Chamber
   ],
   wells: [{ x: 0, z: 2, r: 1.5 }],
   stalls: [

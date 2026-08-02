@@ -1115,6 +1115,8 @@ export const zh_CN: EnTranslations = {
       "plant": "种植",
       "release": "释放",
       "breed": "杂交",
+      "lineage": "{a} x {b}",
+      "bredBy": "Bred by {name}",
       "full": "你的品系库已满。释放一个品系以腾出空间。"
     },
     "reputation": {

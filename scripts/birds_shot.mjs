@@ -1,10 +1,12 @@
 // Screenshots of the ambient bird flock (src/render/birds.ts) for the PR.
 // Boots the offline world, looks up at the sky, and captures the flock drifting
 // overhead. Needs `npm run dev` running. Browser via scripts/browser_path.mjs.
-import puppeteer from 'puppeteer-core';
+
 import fs from 'node:fs';
+import puppeteer from 'puppeteer-core';
 
 import { BROWSER_PATH as EDGE } from './browser_path.mjs';
+
 const URL = process.env.GAME_URL ?? 'http://localhost:5173';
 const OUT = 'tmp/birds';
 fs.mkdirSync(OUT, { recursive: true });
@@ -30,8 +32,10 @@ await new Promise((r) => setTimeout(r, 3000));
 await page.evaluate(() => {
   const g = window.__game;
   const p = g.sim.player;
-  p.maxHp = 99999; p.hp = 99999;
-  p.pos.x = 0; p.pos.z = -40;
+  p.maxHp = 99999;
+  p.hp = 99999;
+  p.pos.x = 0;
+  p.pos.z = -40;
   p.facing = 0;
   g.input.camYaw = Math.PI;
   g.input.camPitch = -0.4; // pitch the orbit camera up toward the sky
@@ -58,7 +62,8 @@ await page.evaluate(() => {
   const fwd = kids[0].position.clone();
   cam.getWorldDirection(fwd);
   const rl = Math.hypot(fwd.x, fwd.z) || 1;
-  const rx = fwd.z / rl, rz = -fwd.x / rl; // right vector on the ground plane
+  const rx = fwd.z / rl,
+    rz = -fwd.x / rl; // right vector on the ground plane
   const cy = g.input.camYaw;
   kids.forEach((b, i) => {
     const rank = Math.ceil(i / 2);
@@ -75,7 +80,7 @@ await page.evaluate(() => {
     // view; the flap then reads as a shallow V.
     b.rotation.set(0, cy + Math.PI, 0.55);
     b.scale.setScalar(1.7);
-    b.children[0].rotation.z = 0.5;  // wings mid-flap
+    b.children[0].rotation.z = 0.5; // wings mid-flap
     b.children[1].rotation.z = -0.5;
   });
 });

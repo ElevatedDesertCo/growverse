@@ -1115,6 +1115,8 @@ export const ru_RU: EnTranslations = {
       "plant": "Посадить",
       "release": "Отпустить",
       "breed": "Скрестить",
+      "lineage": "{a} x {b}",
+      "bredBy": "Bred by {name}",
       "full": "Библиотека штаммов заполнена. Отпустите штамм, чтобы освободить место."
     },
     "reputation": {

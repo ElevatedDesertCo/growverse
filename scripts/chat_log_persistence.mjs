@@ -29,7 +29,10 @@ function check(name, cond, extra = '') {
 async function api(path, body, token) {
   const res = await fetch(BASE + path, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', ...(token ? { Authorization: `Bearer ${token}` } : {}) },
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    },
     body: JSON.stringify(body),
   });
   return { status: res.status, body: await res.json().catch(() => ({})) };
@@ -55,7 +58,9 @@ class Client {
           this.events.push(...msg.list);
         }
       });
-      this.ws.on('open', () => this.ws.send(JSON.stringify({ t: 'auth', token, character: characterId })));
+      this.ws.on('open', () =>
+        this.ws.send(JSON.stringify({ t: 'auth', token, character: characterId })),
+      );
       this.ws.on('error', reject);
     });
   }
@@ -123,7 +128,11 @@ async function main() {
     { channel: 'party', message: 'log party' },
   ];
 
-  check('persisted accepted channel rows', JSON.stringify(actual) === JSON.stringify(expected), JSON.stringify(actual));
+  check(
+    'persisted accepted channel rows',
+    JSON.stringify(actual) === JSON.stringify(expected),
+    JSON.stringify(actual),
+  );
   check('did not persist bad command text', !actual.some((r) => r.message.includes('bad command')));
   check('did not persist bad whisper text', !actual.some((r) => r.message.includes('bad whisper')));
 

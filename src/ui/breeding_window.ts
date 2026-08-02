@@ -85,9 +85,20 @@ export function renderBreedingWindow(
         `<span class="breeding-trait">${esc(t('hudChrome.breeding.potency'))} ${esc(num(s.potency))}</span>` +
         `<span class="breeding-trait">${esc(t('hudChrome.breeding.vigor'))} ${esc(num(s.vigor))}</span>` +
         `<span class="breeding-trait">${esc(t('hudChrome.breeding.yield'))} ${esc(num(s.yield))}</span>`;
+      // Provenance: what it came from and who made it. A base strain has neither,
+      // and so does a strain from a save written before breeder credit landed, so
+      // both lines are omitted rather than shown empty.
+      const lineage = s.lineage
+        ? `<div class="breeding-lineage">${esc(t('hudChrome.breeding.lineage', { a: s.lineage[0], b: s.lineage[1] }))}</div>`
+        : '';
+      const breeder = s.breeder
+        ? `<div class="breeding-breeder">${esc(t('hudChrome.breeding.bredBy', { name: s.breeder }))}</div>`
+        : '';
       row.innerHTML =
         `<div class="breeding-strain-head"><span class="breeding-strain-name">${esc(s.name)}</span>${landrace}</div>` +
-        `<div class="breeding-traits">${traits}</div>`;
+        `<div class="breeding-traits">${traits}</div>` +
+        lineage +
+        breeder;
 
       const actions = document.createElement('div');
       actions.className = 'breeding-strain-actions';

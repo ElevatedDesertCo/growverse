@@ -1,7 +1,8 @@
 // Visual context for the footstep-audio PR: spawn offline, walk, and screenshot
 // the character mid-stride. (The fix itself is audible; see the spectrograms.)
-import puppeteer from 'puppeteer-core';
+
 import fs from 'node:fs';
+import puppeteer from 'puppeteer-core';
 import { BROWSER_PATH as EDGE } from './browser_path.mjs';
 
 const URL = process.env.GAME_URL ?? 'http://localhost:5173';
