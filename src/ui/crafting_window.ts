@@ -29,6 +29,7 @@ const PROFESSION_LABEL_KEY: Record<ProfessionId, TranslationKey> = {
   alchemy: 'hudChrome.professions.alchemy',
   smithing: 'hudChrome.professions.smithing',
   enchanting: 'hudChrome.professions.enchanting',
+  extraction: 'hudChrome.professions.extraction',
   lockpicking: 'hudChrome.professions.lockpicking',
 };
 

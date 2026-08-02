@@ -296,6 +296,7 @@ export const zh_CN: EnTranslations = {
       "alchemy": "炼金术",
       "smithing": "锻造",
       "enchanting": "附魔",
+      "extraction": "萃取",
       "lockpicking": "开锁",
       "skillAria": "{profession}: {skill} of {max}"
     },
@@ -1069,11 +1070,13 @@ export const zh_CN: EnTranslations = {
       "cookTitle": "篝火烹饪",
       "alchemyTitle": "炼金实验室",
       "enchantTitle": "注灵台",
+      "extractTitle": "萃取实验室",
       "growHint": "制作营养剂、升级种子品系、打造种植装备。",
       "upgradeHint": "重铸装备，并用腐蚀碎片切割战斗消耗品。",
       "cookHint": "将你钓到的鱼烹制成丰盛的餐食，恢复生命值与法力值。",
       "alchemyHint": "将采集的花蕾酿成治疗药水、法力药水和一瓶战斗灵药。",
       "enchantHint": "将上等花苞与腐化碎片结合，铸成可持续半小时的符文。",
+      "extractHint": "把收获的花苞洗炼成大麻脂、脆片、鲜活树脂与钻石。",
       "craftButton": "制作",
       "costLabel": "花费",
       "requiresLabel": "需要",
@@ -1095,7 +1098,8 @@ export const zh_CN: EnTranslations = {
         "recipeUnavailable": "这里没有该配方。",
         "tooFarFromStation": "你离工作台太远了。",
         "levelTooLow": "你的技艺还不足以制作那个。",
-        "missingMaterials": "你缺少制作所需的材料。"
+        "missingMaterials": "你缺少制作所需的材料。",
+        "budsNotFresh": "这些花苞已经干了。鲜活树脂要在收获后立刻萃取。"
       }
     },
     "garden": {
@@ -5212,6 +5216,18 @@ export const zh_CN: EnTranslations = {
       "resin_glyph_warding": {
         "name": "守护树脂符文"
       },
+      "vale_hash": {
+        "name": "山谷大麻脂"
+      },
+      "golden_shatter": {
+        "name": "黄金脆片"
+      },
+      "live_resin": {
+        "name": "鲜活树脂"
+      },
+      "bloom_diamonds": {
+        "name": "花晶钻石"
+      },
       "bristleback_maul": {
         "name": "硬鬃重槌"
       },
@@ -6200,6 +6216,11 @@ export const zh_CN: EnTranslations = {
         "name": "奥林",
         "title": "符文匠",
         "greeting": "任何种植者都能烧掉自己最好的花，{className}。把你的上等花苞和一块裂隙碎片带来，我会把两者绑成一枚可维持半小时的符文。"
+      },
+      "extractor_rell": {
+        "name": "雷尔",
+        "title": "萃取师",
+        "greeting": "花只是起点，{className}，不是终点。把花苞带来，我能洗成大麻脂、脆片或钻石。要是刚从苗床上摘下、还带着水汽，我们能做出更好的东西。"
       },
       "banker_thistle": {
         "name": "金库管理员西斯尔",

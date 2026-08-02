@@ -140,6 +140,7 @@ const NPC_IDS = [
   'smith_draxa', // Upgrade Bench attendant (Bloomhaven crafting)
   'alchemist_sable', // Alchemy Lab attendant (Bloomhaven crafting)
   'glyphwright_orrin', // Infusion Table attendant (Bloomhaven crafting)
+  'extractor_rell', // Extraction Lab keeper (east flank of the garden field)
   'banker_thistle', // Bloomhaven banker (account stash / bank)
   // Dockside Cooks: fishing-pole vendor + Cookfire station at each fishing dock
   'cook_ferra', // Sunken Wastes dock (zone 2)

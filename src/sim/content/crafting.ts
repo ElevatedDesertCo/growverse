@@ -1,4 +1,4 @@
-import type { CraftRecipe, ItemDef, NpcDef } from '../types';
+import { type CraftRecipe, FRESH_HARVEST_WINDOW, type ItemDef, type NpcDef } from '../types';
 
 // ---------------------------------------------------------------------------
 // Growverse crafting: two stations, their attendant NPCs, the reagent + output
@@ -518,6 +518,61 @@ export const CRAFT_ITEMS: Record<string, ItemDef> = {
     elixir: { aura: 'Bound Warding', kind: 'buff_armor', value: 75, duration: 1800 },
     sellValue: 90,
   },
+
+  // --- Extraction Lab outputs: concentrates (the burst tier) ----------------------
+  // The third axis over bud grade and the cure/press/infuse split: extraction METHOD.
+  // Where a Session is broad and medium-length and a Glyph is narrow and long, a
+  // concentrate is the opposite corner: the highest all-stats numbers in the game on
+  // the shortest clocks. You take one for a specific fight, not for an evening.
+  //
+  // The ladder is ordered by what it asks of the player, not by raw power:
+  //   Hash      any buds, no gate.        The floor: turns surplus common flower into
+  //                                       something usable and sellable.
+  //   Shatter   fine buds + a press,      The workhorse, once you have worked the lab.
+  //             Extraction 10.
+  //   Live      fine buds, and they must  The freshness window. Best magnitude-to-
+  //   Resin     be FRESH off the bed,     duration ratio in the game, and the only
+  //             Extraction 20.            recipe that asks you to BE somewhere.
+  //   Diamonds  prime buds,               Prestige. Epic quality, the biggest number,
+  //             Extraction 40.            the shortest window to spend it in.
+  //
+  // BALANCE: first-pass numbers anchored on Prime Pressed Resin (allstats 10 / 360s),
+  // the strongest burst the Grow Station can make. Everything above it here costs a
+  // second station, a skill, and (for two of the four) a real constraint.
+  vale_hash: {
+    id: 'vale_hash',
+    name: 'Vale Hash',
+    kind: 'elixir',
+    quality: 'uncommon',
+    elixir: { aura: 'Hash Haze', kind: 'buff_allstats', value: 6, duration: 300 },
+    sellValue: 26,
+  },
+  golden_shatter: {
+    id: 'golden_shatter',
+    name: 'Golden Shatter',
+    kind: 'elixir',
+    quality: 'rare',
+    elixir: { aura: 'Shatter Rush', kind: 'buff_allstats', value: 11, duration: 300 },
+    sellValue: 65,
+  },
+  // The freshness payoff: strictly better than shatter, and the only way to get it is
+  // to be standing at the lab when a crop comes off the bed.
+  live_resin: {
+    id: 'live_resin',
+    name: 'Live Resin',
+    kind: 'elixir',
+    quality: 'rare',
+    elixir: { aura: 'Living Bloom', kind: 'buff_allstats', value: 12, duration: 420 },
+    sellValue: 95,
+  },
+  bloom_diamonds: {
+    id: 'bloom_diamonds',
+    name: 'Bloom Diamonds',
+    kind: 'elixir',
+    quality: 'epic',
+    elixir: { aura: 'Diamond Clarity', kind: 'buff_allstats', value: 15, duration: 240 },
+    sellValue: 160,
+  },
 };
 
 // The reagents the Cultivator sells, so the grow loop is self-contained (buy
@@ -631,6 +686,27 @@ export const CRAFT_NPCS: Record<string, NpcDef> = {
     crafting: 'enchant',
     greeting:
       'Any grower can burn their best flower, $C. Bring your prime buds and a shard off the rift and I will bind the two into a glyph that holds for half an hour.',
+  },
+  // The Extractor: keeps the Extraction Lab on the EAST flank of the garden field,
+  // mirroring the Breeding Chamber on the south. Both are places rather than benches,
+  // because both are things you make a trip for. Rell stands between the lab wall and
+  // the beds, which is also the proximity anchor the extraction recipes gate on; the
+  // walk from the northmost bed is a few seconds, which is what makes the live-resin
+  // freshness window fair. 14yd east of Marlow (60, 50), so no one spot reaches both
+  // the Grow Station and the lab (the gate is INTERACT_RANGE + 2 = 7yd).
+  extractor_rell: {
+    id: 'extractor_rell',
+    name: 'Rell',
+    title: 'the Extractor',
+    pos: { x: 74, z: 50 },
+    // Faces the beds, due north: atan2(targetX - x, targetZ - z) with the field
+    // straight up-field, the same convention Marlow and the town ring use.
+    facing: 0,
+    color: 0xd08a3a,
+    questIds: [],
+    crafting: 'extract',
+    greeting:
+      'Flower is where it starts, $C, not where it ends. Bring me buds and I will wash them down to hash, shatter, or diamonds. Bring them still wet off the bed and we will make something better.',
   },
 };
 
@@ -1034,6 +1110,54 @@ export const CRAFT_RECIPES: CraftRecipe[] = [
     copperCost: 120,
     output: { itemId: 'resin_glyph_warding', count: 1 },
     requiredProfession: { id: 'enchanting', skill: 15 },
+  },
+
+  // --- Extraction Lab (the Extractor): buds -> concentrates -----------------------
+  // Hash is the ungated floor on purpose: a new grower with nothing but common buds can
+  // walk in and make something the first time, which is what makes the lab worth
+  // finding. Everything above it gates on Extraction, so the lab teaches itself.
+  {
+    id: 'extract_vale_hash',
+    station: 'extract',
+    category: 'consumable',
+    inputs: [{ itemId: 'bud_common', count: 4 }],
+    copperCost: 20,
+    output: { itemId: 'vale_hash', count: 1 },
+  },
+  // Shatter needs a press: the Trellis Frame is the Logging-line grow accessory, so the
+  // workhorse concentrate quietly wants a second gathering profession worked.
+  {
+    id: 'extract_golden_shatter',
+    station: 'extract',
+    category: 'consumable',
+    inputs: [
+      { itemId: 'bud_fine', count: 3 },
+      { itemId: 'trellis_frame', count: 1 },
+    ],
+    copperCost: 70,
+    output: { itemId: 'golden_shatter', count: 1 },
+    requiredProfession: { id: 'extraction', skill: 10 },
+  },
+  // Live resin: same buds as shatter and NO press, but the harvest must still be wet.
+  // Cheaper in materials and better in effect, paid for entirely with presence.
+  {
+    id: 'extract_live_resin',
+    station: 'extract',
+    category: 'consumable',
+    inputs: [{ itemId: 'bud_fine', count: 3 }],
+    copperCost: 70,
+    output: { itemId: 'live_resin', count: 1 },
+    requiredProfession: { id: 'extraction', skill: 20 },
+    requiresFreshHarvest: FRESH_HARVEST_WINDOW,
+  },
+  {
+    id: 'extract_bloom_diamonds',
+    station: 'extract',
+    category: 'consumable',
+    inputs: [{ itemId: 'bud_prime', count: 4 }],
+    copperCost: 200,
+    output: { itemId: 'bloom_diamonds', count: 1 },
+    requiredProfession: { id: 'extraction', skill: 40 },
   },
 ];
 

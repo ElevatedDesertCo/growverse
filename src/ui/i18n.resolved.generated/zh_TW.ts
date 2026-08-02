@@ -296,6 +296,7 @@ export const zh_TW: EnTranslations = {
       "alchemy": "煉金術",
       "smithing": "鍛造",
       "enchanting": "附魔",
+      "extraction": "萃取",
       "lockpicking": "開鎖",
       "skillAria": "{profession}: {skill} of {max}"
     },
@@ -1069,11 +1070,13 @@ export const zh_TW: EnTranslations = {
       "cookTitle": "炊火",
       "alchemyTitle": "煉金實驗室",
       "enchantTitle": "注靈台",
+      "extractTitle": "萃取實驗室",
       "growHint": "製作營養劑、升級種子品系、打造種植裝備。",
       "upgradeHint": "重鑄裝備，並用腐蝕碎片切割戰鬥消耗品。",
       "cookHint": "將你釣到的魚烹煮成豐盛餐點，恢復生命與法力。",
       "alchemyHint": "將採集的花蕾釀成治療藥水、法力藥水和一瓶戰鬥靈藥。",
       "enchantHint": "將上等花苞與腐化碎片結合，鑄成可持續半小時的符文。",
+      "extractHint": "把收穫的花苞洗煉成大麻脂、脆片、鮮活樹脂與鑽石。",
       "craftButton": "製作",
       "costLabel": "花費",
       "requiresLabel": "需要",
@@ -1095,7 +1098,8 @@ export const zh_TW: EnTranslations = {
         "recipeUnavailable": "這裡沒有該配方。",
         "tooFarFromStation": "你離工作台太遠了。",
         "levelTooLow": "你的技藝還不足以製作那個。",
-        "missingMaterials": "你缺少製作所需的材料。"
+        "missingMaterials": "你缺少製作所需的材料。",
+        "budsNotFresh": "這些花苞已經乾了。鮮活樹脂要在收穫後立刻萃取。"
       }
     },
     "garden": {
@@ -5212,6 +5216,18 @@ export const zh_TW: EnTranslations = {
       "resin_glyph_warding": {
         "name": "守護樹脂符文"
       },
+      "vale_hash": {
+        "name": "山谷大麻脂"
+      },
+      "golden_shatter": {
+        "name": "黃金脆片"
+      },
+      "live_resin": {
+        "name": "鮮活樹脂"
+      },
+      "bloom_diamonds": {
+        "name": "花晶鑽石"
+      },
       "bristleback_maul": {
         "name": "硬鬃重槌"
       },
@@ -6200,6 +6216,11 @@ export const zh_TW: EnTranslations = {
         "name": "奧林",
         "title": "符文匠",
         "greeting": "任何種植者都能燒掉自己最好的花，{className}。把你的上等花苞和一塊裂隙碎片帶來，我會把兩者綁成一枚可維持半小時的符文。"
+      },
+      "extractor_rell": {
+        "name": "雷爾",
+        "title": "萃取師",
+        "greeting": "花只是起點，{className}，不是終點。把花苞帶來，我能洗成大麻脂、脆片或鑽石。要是剛從苗床上摘下、還帶著水氣，我們能做出更好的東西。"
       },
       "banker_thistle": {
         "name": "金庫管理員西斯爾",

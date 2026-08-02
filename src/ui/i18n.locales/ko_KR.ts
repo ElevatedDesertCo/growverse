@@ -105,6 +105,7 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.professions.alchemy': '연금술',
   'hudChrome.professions.smithing': '대장 기술',
   'hudChrome.professions.enchanting': '마법부여',
+  'hudChrome.professions.extraction': '추출',
   'hudChrome.professions.breeding': '교배',
   'hudChrome.professions.lockpicking': '자물쇠 따기',
   'hudChrome.loadouts.title': '장비 세트',
@@ -2374,6 +2375,10 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.items.coppermesh_gloves.name': '구리 그물 장갑',
   'entities.items.verdant_draught.name': '신록의 물약',
   'entities.npcs.glyphwright_orrin.name': '오린',
+  'entities.npcs.extractor_rell.name': '렐',
+  'entities.npcs.extractor_rell.title': '추출사',
+  'entities.npcs.extractor_rell.greeting':
+    '꽃은 시작일 뿐 끝이 아닙니다, {className}. 꽃봉오리를 가져오시면 해시시든 셰터든 다이아몬드든 씻어 드리지요. 밭에서 갓 딴 젖은 것이라면 더 좋은 걸 만들 수 있습니다.',
   'entities.npcs.glyphwright_orrin.title': '문양사',
   'entities.npcs.glyphwright_orrin.greeting':
     '최고의 꽃을 태우는 건 아무 재배자나 할 수 있지요, {className}. 최상급 꽃봉오리와 균열의 파편을 가져오시면 둘을 엮어 30분간 지속되는 문양으로 만들어 드리겠습니다.',
@@ -2383,6 +2388,11 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
     '{className}이여, 골짜기에서 꽃봉오리를 가져다주게. 그러면 내가 그 정수를 뽑아내겠네. 살을 아물게 하는 물약, 정신을 맑게 하는 물약, 그리고 지혜를 날카롭게 하는 엘릭서를 말일세.',
   'hudChrome.crafting.alchemyTitle': '연금술 실험실',
   'hudChrome.crafting.enchantTitle': '주입대',
+  'hudChrome.crafting.extractTitle': '추출 실험실',
+  'hudChrome.crafting.extractHint':
+    '수확한 꽃봉오리를 해시시, 셰터, 생수지, 다이아몬드로 씻어냅니다.',
+  'hudChrome.crafting.errors.budsNotFresh':
+    '그 꽃봉오리는 이미 말랐습니다. 생수지는 수확 직후에 추출해야 합니다.',
   'hudChrome.crafting.enchantHint':
     '최상급 꽃봉오리와 타락의 파편을 엮어 30분간 지속되는 문양을 새깁니다.',
   'hudChrome.crafting.alchemyHint':
@@ -5366,6 +5376,10 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.cook_cobb.greeting':
     '거울 호수는 인내심 있는 낚싯줄에 훌륭한 송어를 내어 준답니다. 낚싯대를 챙겨 잡은 것을 내 모닥불로 가져오세요.',
   'entities.items.bud_common.name': '평범한 꽃봉오리',
+  'entities.items.vale_hash.name': '계곡 해시시',
+  'entities.items.golden_shatter.name': '황금 셰터',
+  'entities.items.live_resin.name': '생수지',
+  'entities.items.bloom_diamonds.name': '개화 다이아몬드',
   'entities.items.resin_glyph_vigor.name': '활력의 수지 문양',
   'entities.items.resin_glyph_focus.name': '집중의 수지 문양',
   'entities.items.resin_glyph_warding.name': '수호의 수지 문양',

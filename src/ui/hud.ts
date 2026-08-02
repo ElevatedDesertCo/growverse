@@ -7480,6 +7480,8 @@ export class Hud {
       'You are too far from the station.': 'hudChrome.crafting.errors.tooFarFromStation',
       'You are not skilled enough to craft that yet.': 'hudChrome.crafting.errors.levelTooLow',
       'You lack the materials to craft that.': 'hudChrome.crafting.errors.missingMaterials',
+      'Those buds have dried. Extract live resin right after a harvest.':
+        'hudChrome.crafting.errors.budsNotFresh',
     };
     const key = exact[text];
     if (key) return t(key);

@@ -251,6 +251,9 @@ export function harvestPlot(ctx: SimContext, plotIndex: number, pid?: number): v
   // itself. A world node trains via harvest.ts; a garden bed trains here, so working
   // your own field levels the grower's competence line the same way.
   trainProfession(meta.professions, 'cultivation');
+  // Stamp the harvest for the Extraction Lab's live-resin window. Set here, at the one
+  // place a crop actually comes off the bed, so freshness means what it says.
+  meta.lastHarvestAt = ctx.time;
   // Reputation: cultivating for the commune builds standing with the Baked Beaver.
   awardReputation(ctx, 'baked_beaver', REP_PER_HARVEST, pid);
 }

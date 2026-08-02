@@ -105,6 +105,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.professions.alchemy': 'Алхимия',
   'hudChrome.professions.smithing': 'Кузнечное дело',
   'hudChrome.professions.enchanting': 'Наложение чар',
+  'hudChrome.professions.extraction': 'Экстракция',
   'hudChrome.professions.breeding': 'Селекция',
   'hudChrome.professions.lockpicking': 'Взлом замков',
   'hudChrome.loadouts.title': 'Наборы',
@@ -2410,6 +2411,10 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.items.coppermesh_gloves.name': 'Медные сетчатые перчатки',
   'entities.items.verdant_draught.name': 'Изумрудный настой',
   'entities.npcs.glyphwright_orrin.name': 'Оррин',
+  'entities.npcs.extractor_rell.name': 'Релл',
+  'entities.npcs.extractor_rell.title': 'Экстрактор',
+  'entities.npcs.extractor_rell.greeting':
+    'Цветок - это начало, {className}, а не конец. Принеси бутоны, и я промою их в гашиш, шаттер или алмазы. Принеси их прямо с грядки, ещё влажными, и мы сделаем кое-что получше.',
   'entities.npcs.glyphwright_orrin.title': 'Глифотворец',
   'entities.npcs.glyphwright_orrin.greeting':
     'Сжечь свой лучший цвет способен любой садовод, {className}. Принеси отборные бутоны и осколок из разлома, и я свяжу их в глиф, который держится полчаса.',
@@ -2419,6 +2424,11 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
     'Принеси мне цветы из долины, {className}, и я извлеку их суть: настои, что исцеляют плоть, что бодрят разум, и эликсир, что обостряет ум.',
   'hudChrome.crafting.alchemyTitle': 'Алхимическая лаборатория',
   'hudChrome.crafting.enchantTitle': 'Стол внедрения',
+  'hudChrome.crafting.extractTitle': 'Лаборатория экстракции',
+  'hudChrome.crafting.extractHint':
+    'Промывайте собранные бутоны в гашиш, шаттер, живую смолу и алмазы.',
+  'hudChrome.crafting.errors.budsNotFresh':
+    'Эти бутоны высохли. Живую смолу добывают сразу после сбора.',
   'hudChrome.crafting.enchantHint':
     'Свяжите отборные бутоны и осколки Порчи в глифы, которые держатся полчаса.',
   'hudChrome.crafting.alchemyHint':
@@ -5472,6 +5482,10 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.cook_cobb.greeting':
     'Зеркальное озеро дарит отменную форель терпеливой удочке. Возьми снасть и неси улов к моему костру.',
   'entities.items.bud_common.name': 'Обычный бутон',
+  'entities.items.vale_hash.name': 'Долинный гашиш',
+  'entities.items.golden_shatter.name': 'Золотой шаттер',
+  'entities.items.live_resin.name': 'Живая смола',
+  'entities.items.bloom_diamonds.name': 'Алмазы цветения',
   'entities.items.resin_glyph_vigor.name': 'Смоляной глиф мощи',
   'entities.items.resin_glyph_focus.name': 'Смоляной глиф сосредоточения',
   'entities.items.resin_glyph_warding.name': 'Смоляной глиф ограждения',

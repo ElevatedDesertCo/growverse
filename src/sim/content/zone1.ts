@@ -1400,6 +1400,13 @@ export const ZONE1_PROPS: ZonePropsDef = {
     // aims the FRONT at the target. Marlow/the field sit due north at (60, 50), so
     // atan2(0, +5) = 0 puts the door on the field side. (3.1 faced it away.)
     { kind: 'house', x: 60, z: 45, w: 7, d: 6, rot: 0 }, // the Breeding Chamber
+    // The Extraction Lab: where buds become concentrates. Sits on the EAST flank of the
+    // same garden field, so the grow loop has one structure per verb (cross to the south,
+    // concentrate to the east, the beds between them). Footprint x 70.5-77.5, z 42-48:
+    // clear of the Chamber (56.5-63.5), of the bed grid (x 53.5-66.5, z 53.7-66.7), and
+    // of Rell himself (74, 50). Inside GARDEN_FARM, so it rests on leveled ground.
+    // Door faces north up the field, same rot convention as the Chamber.
+    { kind: 'house', x: 74, z: 45, w: 7, d: 6, rot: 0 }, // the Extraction Lab
   ],
   wells: [{ x: 0, z: 2, r: 1.5 }],
   stalls: [

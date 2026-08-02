@@ -693,9 +693,17 @@ export interface PlayerMeta {
   // cultivation/breeding, gates recipes/strains. Persisted in CharacterState. See
   // src/sim/reputation.ts.
   reputation: Record<FactionId, number>;
-  // Gathering-profession skills (Mining / Herbalism / Logging), 0..PROFESSION_MAX. Raised
-  // by working world nodes; persisted in CharacterState. See src/sim/professions.ts.
+  // Profession skills, 0..PROFESSION_MAX each, raised by doing the matching activity;
+  // persisted in CharacterState. See src/sim/professions.ts for the roster and who
+  // trains each one.
   professions: ProfessionSkills;
+  // Sim time of this player's most recent garden harvest, or null if they have not
+  // harvested this session. The Extraction Lab's live-resin recipe reads it: real live
+  // resin is made from material that never dried, so in-game it must come from a fresh
+  // harvest (FRESH_HARVEST_WINDOW). Deliberately NOT persisted: it is an absolute clock
+  // stamp (the plots store elapsed time for exactly that reason), and a player who just
+  // logged in was not standing at the field when the crop came in.
+  lastHarvestAt: number | null;
   copper: number;
   equipment: PlayerEquipment;
   xp: number;
@@ -1305,6 +1313,7 @@ export class Sim {
       strainSeq: 0,
       reputation: emptyReputation(),
       professions: emptyProfessions(),
+      lastHarvestAt: null,
       copper: 0,
       equipment: { mainhand: classDef.startWeapon, chest: classDef.startChest },
       xp: 0,

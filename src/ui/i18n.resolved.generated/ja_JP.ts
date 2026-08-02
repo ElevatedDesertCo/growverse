@@ -296,6 +296,7 @@ export const ja_JP: EnTranslations = {
       "alchemy": "錬金術",
       "smithing": "鍛冶",
       "enchanting": "エンチャント",
+      "extraction": "抽出",
       "lockpicking": "鍵開け",
       "skillAria": "{profession}: {skill} of {max}"
     },
@@ -1069,11 +1070,13 @@ export const ja_JP: EnTranslations = {
       "cookTitle": "料理のかまど",
       "alchemyTitle": "錬金術ラボ",
       "enchantTitle": "注入台",
+      "extractTitle": "抽出ラボ",
       "growHint": "栄養剤の作成、種子品種の強化、栽培装備の製作。",
       "upgradeHint": "装備を鍛え直し、腐敗の欠片から戦闘用消耗品を削り出す。",
       "cookHint": "釣った魚を調理して、体力とマナを回復する滋味豊かな料理に仕上げましょう。",
       "alchemyHint": "採取した花蕾を治療とマナの水薬、そして戦闘用エリクサーに調合する。",
       "enchantHint": "極上の花蕾と堕落の欠片を結び、30分持続する紋を刻む。",
+      "extractHint": "収穫した花蕾をハシシュ、シャッター、生樹脂、ダイヤモンドへ洗い出す。",
       "craftButton": "作成",
       "costLabel": "コスト",
       "requiresLabel": "必要",
@@ -1095,7 +1098,8 @@ export const ja_JP: EnTranslations = {
         "recipeUnavailable": "ここではそのレシピは利用できない。",
         "tooFarFromStation": "作業台から離れすぎている。",
         "levelTooLow": "それを作成するにはまだ技量が足りない。",
-        "missingMaterials": "作成に必要な材料が足りない。"
+        "missingMaterials": "作成に必要な材料が足りない。",
+        "budsNotFresh": "その花蕾はもう乾いている。生樹脂は収穫の直後に抽出しろ。"
       }
     },
     "garden": {
@@ -5212,6 +5216,18 @@ export const ja_JP: EnTranslations = {
       "resin_glyph_warding": {
         "name": "守護の樹脂紋"
       },
+      "vale_hash": {
+        "name": "谷のハシシュ"
+      },
+      "golden_shatter": {
+        "name": "黄金のシャッター"
+      },
+      "live_resin": {
+        "name": "生樹脂"
+      },
+      "bloom_diamonds": {
+        "name": "開花のダイヤモンド"
+      },
       "bristleback_maul": {
         "name": "ブリストルバックの大槌"
       },
@@ -6200,6 +6216,11 @@ export const ja_JP: EnTranslations = {
         "name": "オリン",
         "title": "紋章師",
         "greeting": "極上の花を燃やすだけなら誰にでもできる、{className}。極上の花蕾と裂け目の欠片を持ってこい。二つを結んで、30分持つ紋に仕立ててやる。"
+      },
+      "extractor_rell": {
+        "name": "レル",
+        "title": "抽出師",
+        "greeting": "花は始まりであって終わりではない、{className}。花蕾を持ってこい。ハシシュにもシャッターにもダイヤモンドにも洗い上げてやる。苗床から摘みたてで濡れたままなら、もっといいものが作れる。"
       },
       "banker_thistle": {
         "name": "金庫番シスル",

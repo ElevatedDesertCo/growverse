@@ -63,6 +63,16 @@ export function craft(ctx: SimContext, recipeId: string, pid?: number): void {
     ctx.error(meta.entityId, 'The commune does not trust you enough for that yet.');
     return;
   }
+  if (recipe.requiresFreshHarvest !== undefined) {
+    // Live resin is pressed from material that never dried, so the recipe reads the
+    // player's last garden harvest rather than the bags (inventory stacks are fungible
+    // and carry no age). Missing the window costs nothing: the same buds still make hash.
+    const last = meta.lastHarvestAt;
+    if (last === null || ctx.time - last > recipe.requiresFreshHarvest) {
+      ctx.error(meta.entityId, 'Those buds have dried. Extract live resin right after a harvest.');
+      return;
+    }
+  }
   if (meta.copper < recipe.copperCost) {
     ctx.error(meta.entityId, 'Not enough money.');
     return;

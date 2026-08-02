@@ -17,6 +17,7 @@ import {
 import { Sim } from '../src/sim/sim';
 import {
   type Entity,
+  FRESH_HARVEST_WINDOW,
   PROFESSION_IDS,
   PROFESSION_MAX,
   PROFESSION_SKILL_PER_GATHER,
@@ -404,5 +405,98 @@ describe('enchanting: the Infusion Table ladder', () => {
     sim.craft('enchant_glyph_of_vigor', pid);
     expect(sim.countItem('resin_glyph_vigor', pid)).toBe(0);
     expect(meta.professions.enchanting).toBe(0);
+  });
+});
+
+// The Extraction Lab (the Extractor): the concentrate station, and the only recipe in
+// the game with a live-harvest window. Live resin is made from material that never
+// dried, so the recipe reads PlayerMeta.lastHarvestAt rather than the bags (inventory
+// stacks are fungible and carry no age).
+describe('extraction: the Extraction Lab and the live-resin freshness window', () => {
+  const atLab = (sim: AnySim) => {
+    const pid = sim.addPlayer('warrior', 'Washer');
+    const npc = [...sim.entities.values()].find(
+      (e: Entity) => (e as unknown as { templateId?: string }).templateId === 'extractor_rell',
+    ) as Entity;
+    const p = sim.entities.get(pid) as Entity;
+    p.pos.x = npc.pos.x + 2;
+    p.pos.z = npc.pos.z;
+    sim.rebucket(p);
+    const meta = sim.meta(pid)!;
+    meta.copper = 10000;
+    for (const id of ['bud_common', 'bud_fine', 'bud_prime', 'trellis_frame']) {
+      sim.addItem(id, 20, pid);
+    }
+    return { pid, meta };
+  };
+  const world = () => new Sim({ seed: 42, playerClass: 'warrior', noPlayer: true }) as AnySim;
+
+  it('hash is the ungated floor and trains Extraction', () => {
+    const sim = world();
+    const { pid, meta } = atLab(sim);
+    sim.craft('extract_vale_hash', pid);
+    expect(sim.countItem('vale_hash', pid)).toBe(1);
+    expect(meta.professions.extraction).toBe(PROFESSION_SKILL_PER_GATHER);
+  });
+
+  it('shatter and diamonds gate on Extraction skill', () => {
+    const sim = world();
+    const { pid, meta } = atLab(sim);
+    sim.craft('extract_golden_shatter', pid);
+    sim.craft('extract_bloom_diamonds', pid);
+    expect(sim.countItem('golden_shatter', pid)).toBe(0);
+    expect(sim.countItem('bloom_diamonds', pid)).toBe(0);
+
+    meta.professions.extraction = 40;
+    sim.craft('extract_golden_shatter', pid);
+    sim.craft('extract_bloom_diamonds', pid);
+    expect(sim.countItem('golden_shatter', pid)).toBe(1);
+    expect(sim.countItem('bloom_diamonds', pid)).toBe(1);
+  });
+
+  it('live resin refuses a player who has not harvested at all', () => {
+    const sim = world();
+    const { pid, meta } = atLab(sim);
+    meta.professions.extraction = 20;
+    expect(meta.lastHarvestAt).toBeNull();
+    sim.craft('extract_live_resin', pid);
+    expect(sim.countItem('live_resin', pid)).toBe(0);
+    expect(sim.countItem('bud_fine', pid)).toBe(20); // reagents untouched on a refusal
+  });
+
+  it('live resin works inside the window and refuses once the buds have dried', () => {
+    const sim = world();
+    const { pid, meta } = atLab(sim);
+    meta.professions.extraction = 20;
+    const now = (sim as unknown as { time: number }).time;
+
+    meta.lastHarvestAt = now; // just came off the bed
+    sim.craft('extract_live_resin', pid);
+    expect(sim.countItem('live_resin', pid)).toBe(1);
+
+    meta.lastHarvestAt = now - FRESH_HARVEST_WINDOW - 1; // one second past the window
+    sim.craft('extract_live_resin', pid);
+    expect(sim.countItem('live_resin', pid)).toBe(1); // still just the one
+  });
+
+  it('a real harvest opens the window, and the same buds still make hash after it closes', () => {
+    const sim = world();
+    const { pid, meta } = atLab(sim);
+    meta.professions.extraction = 20;
+    sim.addItem('common_seed', 1, pid);
+    sim.plantSeed(0, 'common_seed', pid);
+    meta.plots[0].plantedAt = -100000;
+    sim.harvestPlot(0, pid);
+    expect(meta.lastHarvestAt).not.toBeNull();
+
+    sim.craft('extract_live_resin', pid);
+    expect(sim.countItem('live_resin', pid)).toBe(1);
+
+    // Nothing is lost by missing the window: hash is always available.
+    meta.lastHarvestAt = (meta.lastHarvestAt as number) - FRESH_HARVEST_WINDOW - 1;
+    sim.craft('extract_live_resin', pid);
+    expect(sim.countItem('live_resin', pid)).toBe(1);
+    sim.craft('extract_vale_hash', pid);
+    expect(sim.countItem('vale_hash', pid)).toBe(1);
   });
 });

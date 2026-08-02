@@ -1143,11 +1143,14 @@ export interface AbilityDef {
 // combat consumables from Corruption Shards. The Cookfire (Dockside Cooks at the
 // fishing docks) turns raw fish into cooked meals. The Alchemy Lab (the Alchemist
 // in Bloomhaven) brews harvested blooms into potions and a battle elixir. The
+// Extraction Lab (the Extractor, on the east flank of the garden field) concentrates
+// buds into hash, shatter, live resin, and diamonds: the high-magnitude, SHORT-duration
+// tier, and the only station with a live-harvest window (see FRESH_HARVEST_WINDOW). The
 // Infusion Table (the Glyphwright, beside the Alchemy Lab) binds PRIME BUDS and
 // Corruption Shards into resin glyphs: half-hour buffs, the long-duration tier the
 // draughts and elixirs do not cover. Its signature reagent is the top harvest grade
 // on purpose, so the best flower has a use besides being sold.
-export type CraftStation = 'grow' | 'upgrade' | 'cook' | 'alchemy' | 'enchant';
+export type CraftStation = 'grow' | 'upgrade' | 'cook' | 'alchemy' | 'enchant' | 'extract';
 
 // A crafting recipe: consumes reagent items + copper at a station and yields an
 // output item. Pure data-as-code (content/crafting.ts); the engine reads it in
@@ -1169,7 +1172,18 @@ export interface CraftRecipe {
   // the profession reaches `skill`. This is how working timber/ore nodes (which raise
   // Logging / Mining) unlocks the recipes that consume them. See src/sim/professions.ts.
   requiredProfession?: { id: ProfessionId; skill: number };
+  // Optional FRESH-HARVEST gate, in seconds: the recipe only works within this long of
+  // the player's most recent garden harvest (PlayerMeta.lastHarvestAt). Live resin is
+  // made from material that never dried, so it cannot be made from buds that have sat
+  // in the bags. Nothing is lost by missing the window: the same buds still make hash.
+  requiresFreshHarvest?: number;
 }
+
+// How long a garden harvest counts as FRESH for the Extraction Lab's live-resin recipe.
+// Two sim minutes: long enough to walk the beds to the lab on the east flank of the
+// field, far too short to bank a harvest and come back for it later. The window rewards
+// being present when a crop finishes without punishing anyone for being absent.
+export const FRESH_HARVEST_WINDOW = 120;
 
 export interface NpcDef {
   id: string;
@@ -1462,6 +1476,7 @@ export interface HarvestNodeDef {
 //   fishing trains on a successful catch (sim.ts completeFishing).
 //   cooking, alchemy, smithing, enchanting train on their crafting station (crafting.ts),
 //     mapped by STATION_PROFESSION in professions.ts.
+//   extraction trains at the Extraction Lab, the same station rule as the crafting skills.
 //   lockpicking trains on a delve chest actually SOLVED (delves/lockpick_controller.ts), by
 //     the ante's loot tier, since a premium three-page gauntlet is not one modest lock.
 // Crafting recipes can gate on a profession skill (CraftRecipe.requiredProfession), so a
@@ -1477,6 +1492,7 @@ export type ProfessionId =
   | 'alchemy'
   | 'smithing'
   | 'enchanting'
+  | 'extraction'
   | 'lockpicking';
 // Display AND canonical order, grouped by what the player does: gather, grow, fish,
 // craft, then the roguish one. The character sheet paints them in exactly this order.
@@ -1491,6 +1507,7 @@ export const PROFESSION_IDS: readonly ProfessionId[] = [
   'alchemy',
   'smithing',
   'enchanting',
+  'extraction',
   'lockpicking',
 ];
 export const PROFESSION_MAX = 100; // skill ceiling for every profession

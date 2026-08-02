@@ -296,6 +296,7 @@ export const ko_KR: EnTranslations = {
       "alchemy": "연금술",
       "smithing": "대장 기술",
       "enchanting": "마법부여",
+      "extraction": "추출",
       "lockpicking": "자물쇠 따기",
       "skillAria": "{profession}: {skill} of {max}"
     },
@@ -1069,11 +1070,13 @@ export const ko_KR: EnTranslations = {
       "cookTitle": "모닥불 요리",
       "alchemyTitle": "연금술 실험실",
       "enchantTitle": "주입대",
+      "extractTitle": "추출 실험실",
       "growHint": "영양제 제작, 씨앗 품종 강화, 재배 장비 제작.",
       "upgradeHint": "장비를 다시 벼리고, 부패의 파편으로 전투 소모품을 깎아낸다.",
       "cookHint": "잡은 물고기를 요리하여 체력과 마나를 회복시켜 주는 든든한 음식을 만드세요.",
       "alchemyHint": "수확한 꽃봉오리를 치유와 마나 물약, 그리고 전투용 엘릭서로 조제합니다.",
       "enchantHint": "최상급 꽃봉오리와 타락의 파편을 엮어 30분간 지속되는 문양을 새깁니다.",
+      "extractHint": "수확한 꽃봉오리를 해시시, 셰터, 생수지, 다이아몬드로 씻어냅니다.",
       "craftButton": "제작",
       "costLabel": "비용",
       "requiresLabel": "필요",
@@ -1095,7 +1098,8 @@ export const ko_KR: EnTranslations = {
         "recipeUnavailable": "여기서는 그 제조법을 쓸 수 없습니다.",
         "tooFarFromStation": "작업대에서 너무 멀리 있습니다.",
         "levelTooLow": "아직 그것을 제작할 만한 실력이 안 됩니다.",
-        "missingMaterials": "제작에 필요한 재료가 부족합니다."
+        "missingMaterials": "제작에 필요한 재료가 부족합니다.",
+        "budsNotFresh": "그 꽃봉오리는 이미 말랐습니다. 생수지는 수확 직후에 추출해야 합니다."
       }
     },
     "garden": {
@@ -5212,6 +5216,18 @@ export const ko_KR: EnTranslations = {
       "resin_glyph_warding": {
         "name": "수호의 수지 문양"
       },
+      "vale_hash": {
+        "name": "계곡 해시시"
+      },
+      "golden_shatter": {
+        "name": "황금 셰터"
+      },
+      "live_resin": {
+        "name": "생수지"
+      },
+      "bloom_diamonds": {
+        "name": "개화 다이아몬드"
+      },
       "bristleback_maul": {
         "name": "뻣센등뼈 철퇴"
       },
@@ -6200,6 +6216,11 @@ export const ko_KR: EnTranslations = {
         "name": "오린",
         "title": "문양사",
         "greeting": "최고의 꽃을 태우는 건 아무 재배자나 할 수 있지요, {className}. 최상급 꽃봉오리와 균열의 파편을 가져오시면 둘을 엮어 30분간 지속되는 문양으로 만들어 드리겠습니다."
+      },
+      "extractor_rell": {
+        "name": "렐",
+        "title": "추출사",
+        "greeting": "꽃은 시작일 뿐 끝이 아닙니다, {className}. 꽃봉오리를 가져오시면 해시시든 셰터든 다이아몬드든 씻어 드리지요. 밭에서 갓 딴 젖은 것이라면 더 좋은 걸 만들 수 있습니다."
       },
       "banker_thistle": {
         "name": "금고지기 시슬",

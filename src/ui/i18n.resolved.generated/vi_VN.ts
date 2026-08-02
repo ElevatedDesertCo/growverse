@@ -296,6 +296,7 @@ export const vi_VN: EnTranslations = {
       "alchemy": "Alchemy",
       "smithing": "Smithing",
       "enchanting": "Enchanting",
+      "extraction": "Extraction",
       "lockpicking": "Lockpicking",
       "skillAria": "{profession}: {skill} of {max}"
     },
@@ -1069,11 +1070,13 @@ export const vi_VN: EnTranslations = {
       "cookTitle": "Cookfire",
       "alchemyTitle": "Alchemy Lab",
       "enchantTitle": "Infusion Table",
+      "extractTitle": "Extraction Lab",
       "growHint": "Craft nutrients, upgrade seed strains, and build growing gear.",
       "upgradeHint": "Reforge gear and cut battle consumables from Corruption Shards.",
       "cookHint": "Cook the fish you catch into hearty meals that restore health and mana.",
       "alchemyHint": "Brew harvested blooms into healing and mana draughts and a battle elixir.",
       "enchantHint": "Bind prime buds and Corruption Shards into glyphs that hold for half an hour.",
+      "extractHint": "Wash harvested buds down to hash, shatter, live resin, and diamonds.",
       "craftButton": "Craft",
       "costLabel": "Cost",
       "requiresLabel": "Requires",
@@ -1095,7 +1098,8 @@ export const vi_VN: EnTranslations = {
         "recipeUnavailable": "That recipe is not available here.",
         "tooFarFromStation": "You are too far from the station.",
         "levelTooLow": "You are not skilled enough to craft that yet.",
-        "missingMaterials": "You lack the materials to craft that."
+        "missingMaterials": "You lack the materials to craft that.",
+        "budsNotFresh": "Those buds have dried. Extract live resin right after a harvest."
       }
     },
     "garden": {
@@ -5212,6 +5216,18 @@ export const vi_VN: EnTranslations = {
       "resin_glyph_warding": {
         "name": "Ấn nhựa cây hộ vệ"
       },
+      "vale_hash": {
+        "name": "Hash thung lũng"
+      },
+      "golden_shatter": {
+        "name": "Hổ phách vàng"
+      },
+      "live_resin": {
+        "name": "Nhựa tươi"
+      },
+      "bloom_diamonds": {
+        "name": "Kim cương trổ hoa"
+      },
       "bristleback_maul": {
         "name": "Vồ Lưng Gai"
       },
@@ -6200,6 +6216,11 @@ export const vi_VN: EnTranslations = {
         "name": "Orrin",
         "title": "the Glyphwright",
         "greeting": "Any grower can burn their best flower, {className}. Bring your prime buds and a shard off the rift and I will bind the two into a glyph that holds for half an hour."
+      },
+      "extractor_rell": {
+        "name": "Rell",
+        "title": "the Extractor",
+        "greeting": "Flower is where it starts, {className}, not where it ends. Bring me buds and I will wash them down to hash, shatter, or diamonds. Bring them still wet off the bed and we will make something better."
       },
       "banker_thistle": {
         "name": "Vault Keeper Thistle",

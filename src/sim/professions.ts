@@ -28,6 +28,7 @@ export const STATION_PROFESSION: Record<CraftStation, ProfessionId> = {
   alchemy: 'alchemy',
   upgrade: 'smithing',
   enchant: 'enchanting',
+  extract: 'extraction',
 };
 
 // A fresh skill ledger (character create + load default): every profession at 0.
@@ -43,6 +44,7 @@ export function emptyProfessions(): ProfessionSkills {
     alchemy: 0,
     smithing: 0,
     enchanting: 0,
+    extraction: 0,
     lockpicking: 0,
   };
 }

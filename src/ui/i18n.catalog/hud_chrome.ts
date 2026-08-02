@@ -210,6 +210,7 @@ export const hudChromeStrings = {
     alchemy: 'Alchemy',
     smithing: 'Smithing',
     enchanting: 'Enchanting',
+    extraction: 'Extraction',
     lockpicking: 'Lockpicking',
     skillAria: '{profession}: {skill} of {max}',
   },
@@ -1183,11 +1184,13 @@ export const hudChromeStrings = {
     cookTitle: 'Cookfire',
     alchemyTitle: 'Alchemy Lab',
     enchantTitle: 'Infusion Table',
+    extractTitle: 'Extraction Lab',
     growHint: 'Craft nutrients, upgrade seed strains, and build growing gear.',
     upgradeHint: 'Reforge gear and cut battle consumables from Corruption Shards.',
     cookHint: 'Cook the fish you catch into hearty meals that restore health and mana.',
     alchemyHint: 'Brew harvested blooms into healing and mana draughts and a battle elixir.',
     enchantHint: 'Bind prime buds and Corruption Shards into glyphs that hold for half an hour.',
+    extractHint: 'Wash harvested buds down to hash, shatter, live resin, and diamonds.',
     craftButton: 'Craft',
     costLabel: 'Cost',
     requiresLabel: 'Requires',
@@ -1213,6 +1216,9 @@ export const hudChromeStrings = {
       tooFarFromStation: 'You are too far from the station.',
       levelTooLow: 'You are not skilled enough to craft that yet.',
       missingMaterials: 'You lack the materials to craft that.',
+      // The live-resin freshness window: shown when the player's last garden harvest is
+      // older than the recipe allows. Phrased so it teaches the rule, not just the denial.
+      budsNotFresh: 'Those buds have dried. Extract live resin right after a harvest.',
     },
   },
   // Cultivation: the Garden window (personal plots). Opened from the Grow Station.

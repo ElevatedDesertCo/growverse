@@ -108,6 +108,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.professions.alchemy': '錬金術',
   'hudChrome.professions.smithing': '鍛冶',
   'hudChrome.professions.enchanting': 'エンチャント',
+  'hudChrome.professions.extraction': '抽出',
   'hudChrome.professions.breeding': '交配',
   'hudChrome.professions.lockpicking': '鍵開け',
   'hudChrome.loadouts.title': '装備セット',
@@ -2381,6 +2382,10 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.items.coppermesh_gloves.name': '銅メッシュグローブ',
   'entities.items.verdant_draught.name': '翠緑の水薬',
   'entities.npcs.glyphwright_orrin.name': 'オリン',
+  'entities.npcs.extractor_rell.name': 'レル',
+  'entities.npcs.extractor_rell.title': '抽出師',
+  'entities.npcs.extractor_rell.greeting':
+    '花は始まりであって終わりではない、{className}。花蕾を持ってこい。ハシシュにもシャッターにもダイヤモンドにも洗い上げてやる。苗床から摘みたてで濡れたままなら、もっといいものが作れる。',
   'entities.npcs.glyphwright_orrin.title': '紋章師',
   'entities.npcs.glyphwright_orrin.greeting':
     '極上の花を燃やすだけなら誰にでもできる、{className}。極上の花蕾と裂け目の欠片を持ってこい。二つを結んで、30分持つ紋に仕立ててやる。',
@@ -2390,6 +2395,11 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
     '{className}よ、谷から花蕾を持ってきておくれ。そうすればその精髄を引き出そう。肉を癒す水薬、心を研ぎ澄ます水薬、そして知恵を鋭くするエリクサーをな。',
   'hudChrome.crafting.alchemyTitle': '錬金術ラボ',
   'hudChrome.crafting.enchantTitle': '注入台',
+  'hudChrome.crafting.extractTitle': '抽出ラボ',
+  'hudChrome.crafting.extractHint':
+    '収穫した花蕾をハシシュ、シャッター、生樹脂、ダイヤモンドへ洗い出す。',
+  'hudChrome.crafting.errors.budsNotFresh':
+    'その花蕾はもう乾いている。生樹脂は収穫の直後に抽出しろ。',
   'hudChrome.crafting.enchantHint': '極上の花蕾と堕落の欠片を結び、30分持続する紋を刻む。',
   'hudChrome.crafting.alchemyHint':
     '採取した花蕾を治療とマナの水薬、そして戦闘用エリクサーに調合する。',
@@ -5359,6 +5369,10 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.cook_cobb.greeting':
     'ミラー湖は、辛抱強く糸を垂らせば見事なマスを恵んでくれる。竿を手に取って、釣った魚を私のかまどまで持ってきておくれ。',
   'entities.items.bud_common.name': '並の花芽',
+  'entities.items.vale_hash.name': '谷のハシシュ',
+  'entities.items.golden_shatter.name': '黄金のシャッター',
+  'entities.items.live_resin.name': '生樹脂',
+  'entities.items.bloom_diamonds.name': '開花のダイヤモンド',
   'entities.items.resin_glyph_vigor.name': '活力の樹脂紋',
   'entities.items.resin_glyph_focus.name': '集中の樹脂紋',
   'entities.items.resin_glyph_warding.name': '守護の樹脂紋',
