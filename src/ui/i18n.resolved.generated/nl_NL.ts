@@ -1110,6 +1110,9 @@ export const nl_NL: EnTranslations = {
       "empty": "Empty plot",
       "plant": "Plant",
       "harvest": "Harvest",
+      "tend": "Tend",
+      "tendCount": "Tended {tends}/{total}",
+      "tendNudge": "{count} plants are ready to tend.",
       "ready": "Ready",
       "open": "Tend Garden",
       "locked": "Locked",
@@ -1131,6 +1134,8 @@ export const nl_NL: EnTranslations = {
       "breed": "Cross",
       "lineage": "{a} x {b}",
       "bredBy": "Bred by {name}",
+      "mastery": "Mastery",
+      "masteryAria": "{strain} mastery: {mastery} of {max}",
       "full": "Your strain library is full. Release a strain to make room."
     },
     "reputation": {

@@ -9037,7 +9037,7 @@ export class Hud {
 
   private gardenSignature(seeds: GardenSeedOption[]): string {
     const garden = this.sim.garden
-      .map((p) => `${p.seedItemId ?? ''}:${p.stage}:${p.progress}`)
+      .map((p) => `${p.seedItemId ?? ''}:${p.stage}:${p.progress}:${p.tends}:${p.canTend}`)
       .join('|');
     const seedSig = seeds.map((s) => `${s.itemId}x${s.count}`).join(',');
     return `${garden};${seedSig};${this.gardenSelectedSeed ?? ''}`;
@@ -9072,6 +9072,10 @@ export class Hud {
         if (this.gardenSelectedSeed) this.sim.plantSeed(plotIndex, this.gardenSelectedSeed);
         this.renderGarden();
         refreshBags();
+      },
+      onTend: (plotIndex) => {
+        this.sim.tendPlot(plotIndex);
+        this.renderGarden();
       },
       onHarvest: (plotIndex) => {
         this.sim.harvestPlot(plotIndex);

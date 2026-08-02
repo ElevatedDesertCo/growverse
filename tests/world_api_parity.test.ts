@@ -133,6 +133,7 @@ export const IWORLD_MEMBERS = [
   { name: 'strains', kind: 'data' },
   { name: 'plantSeed', kind: 'method' },
   { name: 'plantStrain', kind: 'method' },
+  { name: 'tendPlot', kind: 'method' },
   { name: 'harvestPlot', kind: 'method' },
   { name: 'breedStrains', kind: 'method' },
   { name: 'releaseStrain', kind: 'method' },
@@ -349,9 +350,9 @@ beforeAll(() => {
 
 describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => {
   it('pins total / data / method counts', () => {
-    expect(IWORLD_MEMBERS.length).toBe(161);
+    expect(IWORLD_MEMBERS.length).toBe(162);
     expect(DATA_MEMBERS.length).toBe(41);
-    expect(METHOD_MEMBERS.length).toBe(120);
+    expect(METHOD_MEMBERS.length).toBe(121);
   });
 
   it('has no duplicate member names', () => {
@@ -510,6 +511,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'talents',
       'targetEntity',
       'targetNearestFriendly',
+      'tendPlot',
       'tradeAccept',
       'tradeCancel',
       'tradeConfirm',
@@ -573,7 +575,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
     ]);
   });
 
-  it('the sorted method-kind set is exactly the pinned 118', () => {
+  it('the sorted method-kind set is exactly the pinned 121', () => {
     expect(METHOD_MEMBERS.map((m) => m.name).sort()).toEqual([
       'abandonPet',
       'abandonQuest',
@@ -685,6 +687,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'talentPoints',
       'targetEntity',
       'targetNearestFriendly',
+      'tendPlot',
       'tradeAccept',
       'tradeCancel',
       'tradeConfirm',
@@ -996,6 +999,7 @@ const FACET_CULTIVATION = [
   'strains',
   'plantSeed',
   'plantStrain',
+  'tendPlot',
   'harvestPlot',
   'breedStrains',
   'releaseStrain',
@@ -1073,8 +1077,8 @@ describe('W1: aggregate IWorld member set equals the disjoint union of the 22 fa
 
   it('the union of the 22 facets equals the pinned 160-member IWORLD_MEMBERS set', () => {
     const union = Object.values(FACET_MEMBER_ARRAYS).flatMap((arr) => [...arr]);
-    expect(union.length, 'union size before dedup (catches a duplicated member)').toBe(161);
-    expect(new Set(union).size, 'union size after dedup (catches a duplicated member)').toBe(161);
+    expect(union.length, 'union size before dedup (catches a duplicated member)').toBe(162);
+    expect(new Set(union).size, 'union size after dedup (catches a duplicated member)').toBe(162);
     const sortedUnion = [...union].sort();
     const pinned = IWORLD_MEMBERS.map((m) => m.name).sort();
     expect(sortedUnion).toEqual(pinned);

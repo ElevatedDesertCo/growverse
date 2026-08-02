@@ -24,8 +24,14 @@ import { registerBaseStrain } from './strain_library';
 import {
   GARDEN_PLOT_COUNT,
   gardenPlotUnlockLevel,
+  MASTERY_PER_HARVEST_MAX,
+  MASTERY_PER_HARVEST_MIN,
+  MASTERY_YIELD_BONUS,
   type Plot,
   type PlotView,
+  STRAIN_MASTERY_MAX,
+  TEND_YIELD_BONUS,
+  TENDS_PER_GROW,
   unlockedGardenPlots,
 } from './types';
 
@@ -41,6 +47,8 @@ export function emptyPlots(): Plot[] {
     plantedAt: 0,
     growSeconds: 0,
     strainId: null,
+    tends: 0,
+    lastTendWindow: -1,
   }));
 }
 
@@ -71,7 +79,16 @@ export function gardenView(plots: Plot[], now: number, level: number): PlotView[
     const unlockLevel = gardenPlotUnlockLevel(index);
     const stage = plotStage(plot, now);
     if (stage === 'empty') {
-      return { seedItemId: null, stage, progress: 0, secondsRemaining: 0, locked, unlockLevel };
+      return {
+        seedItemId: null,
+        stage,
+        progress: 0,
+        secondsRemaining: 0,
+        locked,
+        unlockLevel,
+        tends: 0,
+        canTend: false,
+      };
     }
     const remaining = Math.max(0, Math.ceil(plot.growSeconds - (now - plot.plantedAt)));
     return {
@@ -81,8 +98,77 @@ export function gardenView(plots: Plot[], now: number, level: number): PlotView[
       secondsRemaining: stage === 'ready' ? 0 : remaining,
       locked,
       unlockLevel,
+      tends: plot.tends,
+      canTend: canTendPlot(plot, now),
     };
   });
+}
+
+// ---- Tending ------------------------------------------------------------------------
+// The grow is split into TENDS_PER_GROW equal windows and a plot can be credited at most
+// once per window. Windows advance with the clock, so a player cannot bank several tends
+// in one visit, and skipping one costs only that one. Pure time reads, no rng.
+
+// Which tend window a growing plot is currently in (0..TENDS_PER_GROW-1), or -1 when the
+// plot is empty or the plant has already matured (a finished plant is past tending).
+export function tendWindow(plot: Plot, now: number): number {
+  if (!plot.seedItemId || !PLANTS[plot.seedItemId]) return -1;
+  if (plot.growSeconds <= 0) return -1;
+  const elapsed = now - plot.plantedAt;
+  if (elapsed < 0 || elapsed >= plot.growSeconds) return -1;
+  const w = Math.floor((elapsed / plot.growSeconds) * TENDS_PER_GROW);
+  return w < 0 ? 0 : w >= TENDS_PER_GROW ? TENDS_PER_GROW - 1 : w;
+}
+
+// True when tending this plot right now would actually be credited.
+export function canTendPlot(plot: Plot, now: number): boolean {
+  const w = tendWindow(plot, now);
+  return w >= 0 && w > plot.lastTendWindow;
+}
+
+// How much of the bulk yield a grow's tend record adds, 0..TEND_YIELD_BONUS. Bonus-only:
+// an untended crop returns 0 and therefore yields exactly what it always did.
+export function tendYieldFraction(plot: Plot): number {
+  if (TENDS_PER_GROW <= 0) return 0;
+  const caught = Math.min(plot.tends, TENDS_PER_GROW);
+  return (caught / TENDS_PER_GROW) * TEND_YIELD_BONUS;
+}
+
+// Tend a growing plot: credit the current window if it has not been credited yet. Guards
+// mirror the other garden actions. Never penalises a mistimed press, it just says so.
+export function tendPlot(ctx: SimContext, plotIndex: number, pid?: number): void {
+  const r = ctx.resolve(pid);
+  if (!r) return;
+  const { meta, e: p } = r;
+  if (p.dead) {
+    ctx.error(meta.entityId, "You can't do that while dead.");
+    return;
+  }
+  const plot = meta.plots[plotIndex];
+  if (!plot) {
+    ctx.error(meta.entityId, 'There is no such garden plot.');
+    return;
+  }
+  const stage = plotStage(plot, ctx.time);
+  if (stage === 'empty') {
+    ctx.error(meta.entityId, 'That plot is empty.');
+    return;
+  }
+  if (stage === 'ready') {
+    ctx.error(meta.entityId, 'That plant is finished. Harvest it.');
+    return;
+  }
+  if (!canTendPlot(plot, ctx.time)) {
+    ctx.error(meta.entityId, 'You have already tended that plant for now.');
+    return;
+  }
+  plot.lastTendWindow = tendWindow(plot, ctx.time);
+  plot.tends += 1;
+  const def = PLANTS[plot.seedItemId as string];
+  const strain = plot.strainId ? meta.strains.find((s) => s.id === plot.strainId) : undefined;
+  const name = strain ? strain.name : (def?.name ?? 'the plant');
+  ctx.notice(meta.entityId, `You tend ${name}.`);
+  ctx.emit({ type: 'plotTended', plot: plotIndex, tends: plot.tends, pid: meta.entityId });
 }
 
 // Plant a seed the player carries into an empty plot. Guards mirror the other
@@ -128,6 +214,8 @@ export function plantSeed(
   plot.plantedAt = ctx.time;
   plot.growSeconds = def.growSeconds;
   plot.strainId = null;
+  plot.tends = 0;
+  plot.lastTendWindow = -1;
   ctx.notice(meta.entityId, `You plant ${def.name}.`);
 }
 
@@ -181,6 +269,8 @@ export function plantStrain(
   plot.plantedAt = ctx.time;
   plot.growSeconds = def.growSeconds * growTimeFactor(expressTrait(strain.genotype, 'vigor'));
   plot.strainId = strain.id;
+  plot.tends = 0;
+  plot.lastTendWindow = -1;
   ctx.notice(meta.entityId, `You plant ${strain.name}.`);
 }
 
@@ -230,12 +320,33 @@ export function harvestPlot(ctx: SimContext, plotIndex: number, pid?: number): v
       ctx.addItem(ESSENCE_ITEM, 1, meta.entityId);
     }
   }
+  // Skill expression, both halves BONUS-ONLY: how well this crop was tended, plus the
+  // grower's standing record with this strain. Zero for an untended plain seed, so the
+  // pre-tending harvest is exactly preserved. Genetics set the ceiling (grade, yield
+  // tier, essence above); these two decide how close to it you land.
+  const tendFrac = tendYieldFraction(plot);
+  const masteryFrac = strain ? (strain.mastery / STRAIN_MASTERY_MAX) * MASTERY_YIELD_BONUS : 0;
+  const baseBulk = def.yields.find((y) => y.itemId === baseBulkId)?.count ?? 0;
+  const careBonus = Math.round(baseBulk * (tendFrac + masteryFrac));
+  if (bulkId && careBonus > 0) ctx.addItem(bulkId, careBonus, meta.entityId);
+  // Mastery is per-strain and never decays, so only a strain planting earns it. The gain
+  // interpolates from an untended grow to a perfect one: tending masters a strain five
+  // times faster than volume alone, which is the whole point of it being a SKILL record.
+  if (strain) {
+    const caught = TENDS_PER_GROW > 0 ? Math.min(plot.tends, TENDS_PER_GROW) / TENDS_PER_GROW : 0;
+    const gain = Math.round(
+      MASTERY_PER_HARVEST_MIN + (MASTERY_PER_HARVEST_MAX - MASTERY_PER_HARVEST_MIN) * caught,
+    );
+    strain.mastery = Math.min(STRAIN_MASTERY_MAX, strain.mastery + gain);
+  }
   const name = strain ? strain.name : def.name;
   const seedItemId = def.seedItemId;
   plot.seedItemId = null;
   plot.plantedAt = 0;
   plot.growSeconds = 0;
   plot.strainId = null;
+  plot.tends = 0;
+  plot.lastTendWindow = -1;
   // Structured gather popup (item icon + localized name), alongside addItem's "You
   // receive" loot lines and the harvest log line, so a harvest reads as a real gather
   // with a floating popup and icon, exactly like the flower-patch nodes (harvest.ts).
@@ -268,6 +379,13 @@ export interface SavedPlot {
   grown: number;
   strainId?: string;
   growSeconds?: number;
+  // Tend record for the CURRENT grow. Both optional and both absent from saves written
+  // before tending existed, so an in-flight crop from an older save simply loads
+  // untended (it yields what it would have yielded then, which is the bonus-only rule
+  // holding across the upgrade). lastTendWindow is a window INDEX, not a clock stamp,
+  // so unlike `grown` it needs no rebasing.
+  tends?: number;
+  lastTendWindow?: number;
 }
 
 export function serializePlots(plots: Plot[], now: number): (SavedPlot | null)[] {
@@ -281,6 +399,8 @@ export function serializePlots(plots: Plot[], now: number): (SavedPlot | null)[]
       base.strainId = plot.strainId;
       base.growSeconds = plot.growSeconds;
     }
+    if (plot.tends > 0) base.tends = plot.tends;
+    if (plot.lastTendWindow >= 0) base.lastTendWindow = plot.lastTendWindow;
     return base;
   });
 }
@@ -300,6 +420,8 @@ export function restorePlots(saved: (SavedPlot | null)[] | undefined, now: numbe
         plantedAt: now - Math.max(0, s.grown),
         growSeconds: s.growSeconds ?? PLANTS[s.seedItemId].growSeconds,
         strainId: s.strainId ?? null,
+        tends: Math.max(0, Math.min(TENDS_PER_GROW, s.tends ?? 0)),
+        lastTendWindow: Math.max(-1, Math.min(TENDS_PER_GROW - 1, s.lastTendWindow ?? -1)),
       };
     }
   }

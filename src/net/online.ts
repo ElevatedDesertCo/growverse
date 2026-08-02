@@ -1816,6 +1816,9 @@ export class ClientWorld implements IWorld {
   plantSeed(plotIndex: number, seedItemId: string): void {
     this.cmd({ cmd: 'plant_seed', plot: plotIndex, item: seedItemId });
   }
+  tendPlot(plotIndex: number): void {
+    this.cmd({ cmd: 'tend_plot', plot: plotIndex });
+  }
   harvestPlot(plotIndex: number): void {
     this.cmd({ cmd: 'harvest_plot', plot: plotIndex });
   }

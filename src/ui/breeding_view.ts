@@ -12,7 +12,13 @@
 // same-input-same-output against a Sim- and a ClientWorld-shaped read. The server always
 // re-validates breed/plant/release, so this is purely presentational.
 
-import { MAX_STRAINS, type PlotView, type ReputationView, type StrainView } from '../sim/types';
+import {
+  MAX_STRAINS,
+  type PlotView,
+  type ReputationView,
+  STRAIN_MASTERY_MAX,
+  type StrainView,
+} from '../sim/types';
 
 export interface BreedingStrainRow {
   id: string;
@@ -29,6 +35,11 @@ export interface BreedingStrainRow {
   /** The character credited with the cross, or null for a base strain and for any
    *  strain restored from a save written before breeder credit existed. */
   breeder: string | null;
+  /** The owner's record with this strain, 0..STRAIN_MASTERY_MAX, and the same value as a
+   *  0..100 percent for the bar. Not inherited: a fresh cross starts at 0 however well
+   *  its parents were grown. */
+  mastery: number;
+  masteryPct: number;
 }
 
 export interface BreedingView {
@@ -77,6 +88,11 @@ export function buildBreedingView(
     selectedAs: s.id === a ? 'a' : s.id === b ? 'b' : null,
     lineage: s.lineage ? [s.lineage[0], s.lineage[1]] : null,
     breeder: s.breeder ?? null,
+    mastery: s.mastery,
+    masteryPct:
+      STRAIN_MASTERY_MAX > 0
+        ? Math.round(Math.min(1, Math.max(0, s.mastery / STRAIN_MASTERY_MAX)) * 100)
+        : 0,
   }));
   const emptyIndex = garden.findIndex((p) => p.stage === 'empty');
   return {

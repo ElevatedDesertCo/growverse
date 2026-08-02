@@ -55,6 +55,11 @@ const baseEnTable = {
   'error.talentsArena': 'You cannot change talents during an arena match.',
   'error.noItem': "You don't have that item.",
   'error.cantWhileDead': "You can't do that while dead.",
+  // Cultivation tending (src/sim/cultivation.ts tendPlot). {name} is a plant or a
+  // GENERATED strain name, spliced verbatim like every other proper noun.
+  'garden.tend': 'You tend {name}.',
+  'garden.finished': 'That plant is finished. Harvest it.',
+  'garden.alreadyTended': 'You have already tended that plant for now.',
   'error.cantWhileSwimming': "You can't do that while swimming.",
   'error.tameThat': 'You cannot tame that.',
   'error.tameBeastsOnly': 'Only beasts can be tamed.',
@@ -219,6 +224,9 @@ export type SimMessageKey = keyof typeof enTable;
 // a missing locale OR a missing/renamed key (stronger than the server DICT).
 const BASE_DICT: Record<SupportedLanguage, Record<BaseSimMessageKey, string>> = {
   en: {
+    'garden.tend': 'You tend {name}.',
+    'garden.finished': 'That plant is finished. Harvest it.',
+    'garden.alreadyTended': 'You have already tended that plant for now.',
     'error.lineOfSight': 'Line of sight.',
     'error.specLevel': 'You may choose a specialization at level {level}.',
     'error.equipLevel': 'You must be level {level} to equip that.',
@@ -359,6 +367,9 @@ const BASE_DICT: Record<SupportedLanguage, Record<BaseSimMessageKey, string>> = 
     'aura.demoralized': 'Demoralized',
   },
   es: {
+    'garden.tend': 'Cuidas {name}.',
+    'garden.finished': 'Esa planta ya está lista. Coséchala.',
+    'garden.alreadyTended': 'Ya has cuidado esa planta por ahora.',
     'log.learnedAbility': 'Has aprendido una nueva habilidad: {name}.',
     'log.abilityRankUp': 'Tu {name} ha mejorado a Rango {rank}.',
     'log.stopFollowing': 'Dejas de seguir.',
@@ -500,6 +511,9 @@ const BASE_DICT: Record<SupportedLanguage, Record<BaseSimMessageKey, string>> = 
     'aura.elixirBear': 'Poder del Oso',
   },
   es_ES: {
+    'garden.tend': 'Cuidas {name}.',
+    'garden.finished': 'Esa planta ya está lista. Coséchala.',
+    'garden.alreadyTended': 'Ya has cuidado esa planta por ahora.',
     'log.learnedAbility': 'Has aprendido una nueva habilidad: {name}.',
     'log.abilityRankUp': 'Tu {name} ha mejorado a Rango {rank}.',
     'log.stopFollowing': 'Dejas de seguir.',
@@ -641,6 +655,9 @@ const BASE_DICT: Record<SupportedLanguage, Record<BaseSimMessageKey, string>> = 
     'aura.elixirBear': 'Poder del Oso',
   },
   fr_FR: {
+    'garden.tend': 'Vous soignez {name}.',
+    'garden.finished': 'Cette plante est arrivée à terme. Récoltez-la.',
+    'garden.alreadyTended': 'Vous avez déjà soigné cette plante pour le moment.',
     'log.learnedAbility': 'Vous avez appris une nouvelle technique : {name}.',
     'log.abilityRankUp': 'Votre {name} est passé au rang {rank}.',
     'log.stopFollowing': 'Vous ne suivez plus.',
@@ -784,6 +801,9 @@ const BASE_DICT: Record<SupportedLanguage, Record<BaseSimMessageKey, string>> = 
     'aura.elixirBear': "Puissance de l'Ours",
   },
   fr_CA: {
+    'garden.tend': 'Vous soignez {name}.',
+    'garden.finished': 'Cette plante est arrivée à terme. Récoltez-la.',
+    'garden.alreadyTended': 'Vous avez déjà soigné cette plante pour le moment.',
     'log.learnedAbility': 'Vous avez appris une nouvelle technique : {name}.',
     'log.abilityRankUp': 'Votre {name} est passé au rang {rank}.',
     'log.stopFollowing': 'Vous ne suivez plus.',
@@ -928,6 +948,9 @@ const BASE_DICT: Record<SupportedLanguage, Record<BaseSimMessageKey, string>> = 
     'aura.elixirBear': "Puissance de l'Ours",
   },
   en_CA: {
+    'garden.tend': 'You tend {name}.',
+    'garden.finished': 'That plant is finished. Harvest it.',
+    'garden.alreadyTended': 'You have already tended that plant for now.',
     'log.learnedAbility': 'You have learned a new ability: {name}.',
     'log.abilityRankUp': 'Your {name} has improved to Rank {rank}.',
     'log.stopFollowing': 'You stop following.',
@@ -1068,6 +1091,9 @@ const BASE_DICT: Record<SupportedLanguage, Record<BaseSimMessageKey, string>> = 
     'aura.elixirBear': 'Might of the Bear',
   },
   it_IT: {
+    'garden.tend': 'Curi {name}.',
+    'garden.finished': 'Quella pianta è matura. Raccoglila.',
+    'garden.alreadyTended': 'Hai già curato quella pianta per ora.',
     'log.learnedAbility': 'Hai imparato una nuova abilità: {name}.',
     'log.abilityRankUp': 'La tua {name} è migliorata al Grado {rank}.',
     'log.stopFollowing': 'Smetti di seguire.',
@@ -1209,6 +1235,9 @@ const BASE_DICT: Record<SupportedLanguage, Record<BaseSimMessageKey, string>> = 
     'aura.elixirBear': "Potenza dell'Orso",
   },
   de_DE: {
+    'garden.tend': 'Du pflegst {name}.',
+    'garden.finished': 'Diese Pflanze ist fertig. Ernte sie.',
+    'garden.alreadyTended': 'Du hast diese Pflanze vorerst schon gepflegt.',
     'log.learnedAbility': 'Ihr habt eine neue Fähigkeit erlernt: {name}.',
     'log.abilityRankUp': 'Euer {name} wurde auf Rang {rank} verbessert.',
     'log.stopFollowing': 'Ihr folgt nicht mehr.',
@@ -1351,6 +1380,9 @@ const BASE_DICT: Record<SupportedLanguage, Record<BaseSimMessageKey, string>> = 
     'aura.elixirBear': 'Macht des Bären',
   },
   zh_CN: {
+    'garden.tend': '你照料了{name}。',
+    'garden.finished': '这株植物已经成熟了。收获它吧。',
+    'garden.alreadyTended': '这株植物暂时已经照料过了。',
     'log.learnedAbility': '你学会了新技能：{name}。',
     'log.abilityRankUp': '你的{name}已提升至等级 {rank}。',
     'log.stopFollowing': '你停止了跟随。',
@@ -1490,6 +1522,9 @@ const BASE_DICT: Record<SupportedLanguage, Record<BaseSimMessageKey, string>> = 
     'aura.elixirBear': '巨熊之力',
   },
   zh_TW: {
+    'garden.tend': '你照料了{name}。',
+    'garden.finished': '這株植物已經成熟了。收穫它吧。',
+    'garden.alreadyTended': '這株植物暫時已經照料過了。',
     'log.learnedAbility': '你學會了新技能：{name}。',
     'log.abilityRankUp': '你的「{name}」已提升至第 {rank} 級。',
     'log.stopFollowing': '你停止了跟隨。',
@@ -1629,6 +1664,9 @@ const BASE_DICT: Record<SupportedLanguage, Record<BaseSimMessageKey, string>> = 
     'aura.elixirBear': '巨熊之力',
   },
   ko_KR: {
+    'garden.tend': '{name}을(를) 돌봤습니다.',
+    'garden.finished': '그 식물은 다 자랐습니다. 수확하세요.',
+    'garden.alreadyTended': '그 식물은 지금은 이미 돌봤습니다.',
     'log.learnedAbility': '새로운 기술을 배웠습니다: {name}.',
     'log.abilityRankUp': '{name}이(가) {rank}단계로 향상되었습니다.',
     'log.stopFollowing': '따라가기를 멈췄습니다.',
@@ -1770,6 +1808,9 @@ const BASE_DICT: Record<SupportedLanguage, Record<BaseSimMessageKey, string>> = 
     'aura.elixirBear': '곰의 힘',
   },
   ja_JP: {
+    'garden.tend': '{name}の世話をした。',
+    'garden.finished': 'その株はもう育ちきっている。収穫しろ。',
+    'garden.alreadyTended': 'その株は今のところもう世話をした。',
     'log.learnedAbility': '新しいアビリティ「{name}」を習得しました。',
     'log.abilityRankUp': '「{name}」がランク{rank}に上昇しました。',
     'log.stopFollowing': '追従を解除しました。',
@@ -1914,6 +1955,9 @@ const BASE_DICT: Record<SupportedLanguage, Record<BaseSimMessageKey, string>> = 
     'aura.elixirBear': '熊の力',
   },
   pt_BR: {
+    'garden.tend': 'Você cuida de {name}.',
+    'garden.finished': 'Essa planta já está pronta. Colha-a.',
+    'garden.alreadyTended': 'Você já cuidou dessa planta por enquanto.',
     'log.learnedAbility': 'Você aprendeu uma nova habilidade: {name}.',
     'log.abilityRankUp': 'Sua habilidade {name} melhorou para o Grau {rank}.',
     'log.stopFollowing': 'Você parou de seguir.',
@@ -2054,6 +2098,9 @@ const BASE_DICT: Record<SupportedLanguage, Record<BaseSimMessageKey, string>> = 
     'aura.elixirBear': 'Força do Urso',
   },
   ru_RU: {
+    'garden.tend': 'Вы ухаживаете за {name}.',
+    'garden.finished': 'Это растение созрело. Соберите урожай.',
+    'garden.alreadyTended': 'Вы уже ухаживали за этим растением.',
     'log.learnedAbility': 'Вы изучили новое умение: {name}.',
     'log.abilityRankUp': 'Умение «{name}» повышено до ранга {rank}.',
     'log.stopFollowing': 'Вы перестаёте следовать.',
@@ -3968,6 +4015,10 @@ const RULES: Rule[] = [
   {
     re: /^You may choose a specialization at level (\d+)\.$/,
     build: (m) => tSim('error.specLevel', { level: m[1] }),
+  },
+  {
+    re: /^You tend (.+)\.$/,
+    build: (m) => tSim('garden.tend', { name: m[1] }),
   },
   {
     re: /^You must be level (\d+) to equip that\.$/,

@@ -5356,6 +5356,9 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.garden.empty': 'Пустая грядка',
   'hudChrome.garden.plant': 'Посадить',
   'hudChrome.garden.harvest': 'Собрать',
+  'hudChrome.garden.tend': 'Уход',
+  'hudChrome.garden.tendCount': 'Уход {tends}/{total}',
+  'hudChrome.garden.tendNudge': 'Растений, готовых к уходу: {count}.',
   'hudChrome.garden.ready': 'Готово',
   'hudChrome.garden.locked': 'Заблокировано',
   'hudChrome.garden.unlockLevel': 'Открывается на уровне {level}',
@@ -5376,6 +5379,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.breeding.breed': 'Скрестить',
   'hudChrome.breeding.full':
     'Библиотека штаммов заполнена. Отпустите штамм, чтобы освободить место.',
+  'hudChrome.breeding.mastery': 'Мастерство',
+  'hudChrome.breeding.masteryAria': 'Мастерство {strain}: {mastery} из {max}',
   'hudChrome.reputation.tier.neutral': 'Нейтралитет',
   'hudChrome.reputation.tier.friendly': 'Дружелюбие',
   'hudChrome.reputation.tier.honored': 'Уважение',

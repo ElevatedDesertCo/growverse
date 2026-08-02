@@ -1110,6 +1110,9 @@ export const ko_KR: EnTranslations = {
       "empty": "빈 밭",
       "plant": "심기",
       "harvest": "수확",
+      "tend": "돌보기",
+      "tendCount": "돌봄 {tends}/{total}",
+      "tendNudge": "{count}그루가 돌볼 준비가 되었습니다.",
       "ready": "수확 가능",
       "open": "정원 가꾸기",
       "locked": "잠김",
@@ -1131,6 +1134,8 @@ export const ko_KR: EnTranslations = {
       "breed": "교배",
       "lineage": "{a} x {b}",
       "bredBy": "Bred by {name}",
+      "mastery": "숙련도",
+      "masteryAria": "{strain} 숙련도: {max} 중 {mastery}",
       "full": "품종 보관함이 가득 찼습니다. 품종을 방출해 공간을 만드세요."
     },
     "reputation": {

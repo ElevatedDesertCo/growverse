@@ -1110,6 +1110,9 @@ export const en_XA: EnTranslations = {
       "empty": "[Éɱþţý þļóţ]",
       "plant": "[Þļáñţ]",
       "harvest": "[Ĥáŕʋéšţ]",
+      "tend": "[Ţéñð]",
+      "tendCount": "[Ţéñðéð {tends}/{total}]",
+      "tendNudge": "[{count} þļáñţš áŕé ŕéáðý ţó ţéñð.]",
       "ready": "[Ŕéáðý]",
       "open": "[Ţéñð Ĝáŕðéñ]",
       "locked": "[Ļóçķéð]",
@@ -1131,6 +1134,8 @@ export const en_XA: EnTranslations = {
       "breed": "[Çŕóšš]",
       "lineage": "[{a} ẋ {b}]",
       "bredBy": "[Ɓŕéð ƀý {name}]",
+      "mastery": "[Ɱášţéŕý]",
+      "masteryAria": "[{strain} ɱášţéŕý: {mastery} óƒ {max}]",
       "full": "[Ýóúŕ šţŕáíñ ļíƀŕáŕý íš ƒúļļ. Ŕéļéášé á šţŕáíñ ţó ɱáķé ŕóóɱ.]"
     },
     "reputation": {

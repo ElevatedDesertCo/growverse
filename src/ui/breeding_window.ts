@@ -8,6 +8,7 @@
 // re-rendered on a library/standing change), NOT a per-frame painter, so direct innerHTML
 // writes are fine (like the garden).
 
+import { STRAIN_MASTERY_MAX } from '../sim/types';
 import type { BreedingView } from './breeding_view';
 import { esc } from './esc';
 import { formatNumber, t } from './i18n';
@@ -94,9 +95,25 @@ export function renderBreedingWindow(
       const breeder = s.breeder
         ? `<div class="breeding-breeder">${esc(t('hudChrome.breeding.bredBy', { name: s.breeder }))}</div>`
         : '';
+      // Mastery: the grower's own record with this strain, shown as a bar beside the
+      // inherited traits so the two read as what they are. Traits are the strain's
+      // ceiling; mastery is how close this grower gets to it.
+      const masteryAria = t('hudChrome.breeding.masteryAria', {
+        strain: s.name,
+        mastery: num(s.mastery),
+        max: num(STRAIN_MASTERY_MAX),
+      });
+      const mastery =
+        `<div class="breeding-mastery" role="group" aria-label="${esc(masteryAria)}">` +
+        `<span class="breeding-mastery-label">${esc(t('hudChrome.breeding.mastery'))}</span>` +
+        `<div class="breeding-mastery-bar" style="--mastery-pct:${esc(num(s.masteryPct))}%">` +
+        `<div class="breeding-mastery-fill"></div></div>` +
+        `<span class="breeding-mastery-value">${esc(num(s.mastery))} / ${esc(num(STRAIN_MASTERY_MAX))}</span>` +
+        `</div>`;
       row.innerHTML =
         `<div class="breeding-strain-head"><span class="breeding-strain-name">${esc(s.name)}</span>${landrace}</div>` +
         `<div class="breeding-traits">${traits}</div>` +
+        mastery +
         lineage +
         breeder;
 

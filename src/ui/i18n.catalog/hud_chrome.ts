@@ -1230,6 +1230,11 @@ export const hudChromeStrings = {
     empty: 'Empty plot',
     plant: 'Plant',
     harvest: 'Harvest',
+    // Tending: the opt-in bonus. `tend` is the button, `tendCount` the caught/total
+    // record on a growing plot, `tendNudge` the header line when a crop is due one.
+    tend: 'Tend',
+    tendCount: 'Tended {tends}/{total}',
+    tendNudge: '{count} plants are ready to tend.',
     ready: 'Ready',
     open: 'Tend Garden',
     locked: 'Locked',
@@ -1256,6 +1261,9 @@ export const hudChromeStrings = {
     // verbatim in every locale, so the line needs no translatable words.
     lineage: '{a} x {b}',
     bredBy: 'Bred by {name}',
+    // Per-strain mastery: the grower's own record with a strain, not an inherited trait.
+    mastery: 'Mastery',
+    masteryAria: '{strain} mastery: {mastery} of {max}',
     full: 'Your strain library is full. Release a strain to make room.',
   },
   // Commune reputation: the standing tier names shown on the breeding header.

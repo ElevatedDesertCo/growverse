@@ -1110,6 +1110,9 @@ export const zh_TW: EnTranslations = {
       "empty": "空地塊",
       "plant": "種植",
       "harvest": "收穫",
+      "tend": "照料",
+      "tendCount": "已照料 {tends}/{total}",
+      "tendNudge": "有 {count} 株植物可以照料。",
       "ready": "可收穫",
       "open": "打理花園",
       "locked": "已鎖定",
@@ -1131,6 +1134,8 @@ export const zh_TW: EnTranslations = {
       "breed": "雜交",
       "lineage": "{a} x {b}",
       "bredBy": "Bred by {name}",
+      "mastery": "精通",
+      "masteryAria": "{strain} 精通：{mastery} / {max}",
       "full": "你的品系庫已滿。釋放一個品系以騰出空間。"
     },
     "reputation": {

@@ -4706,6 +4706,10 @@ export class Sim {
     cultivation.plantStrain(this.ctx, plotIndex, strainId, pid);
   }
 
+  tendPlot(plotIndex: number, pid?: number): void {
+    cultivation.tendPlot(this.ctx, plotIndex, pid);
+  }
+
   harvestPlot(plotIndex: number, pid?: number): void {
     cultivation.harvestPlot(this.ctx, plotIndex, pid);
   }

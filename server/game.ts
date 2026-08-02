@@ -2373,6 +2373,9 @@ export class GameServer {
           sim.plantSeed(msg.plot, msg.item, pid);
         }
         break;
+      case 'tend_plot':
+        if (typeof msg.plot === 'number') sim.tendPlot(msg.plot, pid);
+        break;
       case 'harvest_plot':
         if (typeof msg.plot === 'number') sim.harvestPlot(msg.plot, pid);
         break;

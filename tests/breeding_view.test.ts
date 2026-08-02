@@ -7,11 +7,19 @@ import type { PlotView, ReputationView, StrainView } from '../src/sim/types';
 import { MAX_STRAINS } from '../src/sim/types';
 import { buildBreedingView } from '../src/ui/breeding_view';
 
-const strain = (id: string, p: number, v: number, y: number, landrace = false): StrainView => ({
+const strain = (
+  id: string,
+  p: number,
+  v: number,
+  y: number,
+  landrace = false,
+  mastery = 0,
+): StrainView => ({
   id,
   baseId: 'common_bloom',
   name: `Strain ${id}`,
   landrace,
+  mastery,
   potency: p,
   vigor: v,
   yield: y,
@@ -36,6 +44,8 @@ const emptyPlot = (): PlotView => ({
   secondsRemaining: 0,
   locked: false,
   unlockLevel: 1,
+  tends: 0,
+  canTend: false,
 });
 const growingPlot = (): PlotView => ({
   seedItemId: 'common_seed',
@@ -44,6 +54,8 @@ const growingPlot = (): PlotView => ({
   secondsRemaining: 90,
   locked: false,
   unlockLevel: 1,
+  tends: 0,
+  canTend: false,
 });
 
 describe('buildBreedingView', () => {

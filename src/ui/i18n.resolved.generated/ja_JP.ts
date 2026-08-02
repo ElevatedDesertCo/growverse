@@ -1110,6 +1110,9 @@ export const ja_JP: EnTranslations = {
       "empty": "空き区画",
       "plant": "植える",
       "harvest": "収穫",
+      "tend": "世話",
+      "tendCount": "世話 {tends}/{total}",
+      "tendNudge": "{count} 株が世話を待っている。",
       "ready": "収穫可能",
       "open": "菜園の手入れ",
       "locked": "ロック中",
@@ -1131,6 +1134,8 @@ export const ja_JP: EnTranslations = {
       "breed": "交配",
       "lineage": "{a} x {b}",
       "bredBy": "Bred by {name}",
+      "mastery": "熟練",
+      "masteryAria": "{strain} の熟練：{max} 中 {mastery}",
       "full": "品種ライブラリが満杯です。品種を手放して空きを作りましょう。"
     },
     "reputation": {

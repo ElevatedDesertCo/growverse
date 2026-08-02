@@ -1110,6 +1110,9 @@ export const ru_RU: EnTranslations = {
       "empty": "Пустая грядка",
       "plant": "Посадить",
       "harvest": "Собрать",
+      "tend": "Уход",
+      "tendCount": "Уход {tends}/{total}",
+      "tendNudge": "Растений, готовых к уходу: {count}.",
       "ready": "Готово",
       "open": "Ухаживать за садом",
       "locked": "Заблокировано",
@@ -1131,6 +1134,8 @@ export const ru_RU: EnTranslations = {
       "breed": "Скрестить",
       "lineage": "{a} x {b}",
       "bredBy": "Bred by {name}",
+      "mastery": "Мастерство",
+      "masteryAria": "Мастерство {strain}: {mastery} из {max}",
       "full": "Библиотека штаммов заполнена. Отпустите штамм, чтобы освободить место."
     },
     "reputation": {

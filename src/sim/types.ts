@@ -1237,7 +1237,41 @@ export interface Plot {
   // harvest trait bonuses (extra yield, the potency essence drop). Not exposed to the
   // client view; the plot still shows its lineage seed.
   strainId: string | null;
+  // Tending (skill expression). The grow is split into TENDS_PER_GROW equal windows;
+  // `tends` counts how many were caught and `lastTendWindow` is the last window credited
+  // (-1 = none yet), which is what stops a player banking several tends in one window.
+  // Both reset at plant time. Tending is BONUS-ONLY: an untended crop yields exactly what
+  // it yielded before tending existed, so a raid night is never a cultivation loss.
+  tends: number;
+  lastTendWindow: number;
 }
+
+// ---- Tending + strain mastery ------------------------------------------------------
+// Cultivation used to have no skill expression: you planted, a timer ran, you harvested,
+// and the outcome was fully determined at plant time by the genotype. Tending adds the
+// missing axis WITHOUT adding a punishment. Genetics decide a strain's ceiling; tending
+// and mastery decide how close to it you actually get.
+//
+// Three windows per grow, not a fixed interval, so a 10-minute prime bloom asks for the
+// same three visits as a 3-minute common one: long grows are not punished with more trips
+// and short grows stay tendable. Missing a window costs only that window.
+export const TENDS_PER_GROW = 3;
+// Bulk-yield bonus at a PERFECT tend record (all three windows caught), scaled linearly by
+// how many were caught. Added on top of the base yield, never subtracted from it.
+export const TEND_YIELD_BONUS = 0.5;
+// Per-strain mastery: a permanent record of how well you have grown THAT strain. Rises on
+// every harvest of it and never falls (no decay, ever: the point is a bonus you build, not
+// a streak you can lose). Only a planted library strain earns it; a plain crafted seed has
+// no strain to master.
+export const STRAIN_MASTERY_MAX = 100;
+// Mastery earned per harvest, interpolated from an untended grow to a perfect one, so
+// tending masters a strain five times faster than volume alone does.
+export const MASTERY_PER_HARVEST_MIN = 1;
+export const MASTERY_PER_HARVEST_MAX = 5;
+// Bulk-yield bonus at STRAIN_MASTERY_MAX, scaled linearly by current mastery. Stacks
+// additively with TEND_YIELD_BONUS, so a perfectly tended fully-mastered strain yields
+// +80% bulk over its untended, unmastered self.
+export const MASTERY_YIELD_BONUS = 0.3;
 export interface PlantYield {
   itemId: string;
   count: number;
@@ -1263,6 +1297,11 @@ export interface PlotView {
   // The character level at which this plot unlocks (1 for the base rows). Only meaningful
   // when `locked`, but always present so the snapshot delta stays a fixed shape.
   unlockLevel: number;
+  // Tending: how many of the grow's TENDS_PER_GROW windows have been caught, and whether
+  // this plot's CURRENT window is still open (so the Garden window can offer a Tend button
+  // only when pressing it would do something). Both 0/false on an empty or ready plot.
+  tends: number;
+  canTend: boolean;
 }
 // The garden's physical home: the Baked Beaver colony's growing grounds, on the solid
 // land south of the grotto road (a short walk northeast of the outpost buildings). This
@@ -1363,6 +1402,10 @@ export interface Strain {
   // worth being known for. Absent on a base strain (nobody bred it) and on any
   // strain restored from a save written before this field existed.
   breeder?: string;
+  // The OWNER's record with this strain, 0..STRAIN_MASTERY_MAX, raised on every harvest
+  // of it and never lowered. Not part of the genotype and never inherited by a cross: a
+  // child is a new strain nobody has grown yet. See TENDS_PER_GROW above.
+  mastery: number;
 }
 
 // Base-strain content: the starting genotypes a player discovers by harvesting the
@@ -1391,6 +1434,9 @@ export interface StrainView {
   yield: number;
   lineage?: [string, string];
   breeder?: string;
+  // How well this player has grown THIS strain, 0..STRAIN_MASTERY_MAX. Unlike the
+  // genotype traits it is not inherited: it is the grower's record with the strain.
+  mastery: number;
 }
 
 // ---- Commune reputation (Phase C) -------------------------------------------------
@@ -2039,6 +2085,11 @@ export type SimEvent = { pid?: number } & (
   // icon + localized name in a gather popup; the plain 'loot' "You receive" line still
   // records it in chat (harvest.ts emits both).
   | { type: 'harvestGather'; itemId: string }
+  // A garden plot was tended (one of its TENDS_PER_GROW windows caught). Purely a
+  // presentation cue: the plot state already rides the self-snapshot, so a client that
+  // ignores this loses only the feedback flourish. Structured (no text) so the sim stays
+  // language-agnostic; the plain 'log' "You tend X" line still records it in chat.
+  | { type: 'plotTended'; plot: number; tends: number }
   // A cross completing at the Breeding Chamber. Purely a presentation cue: the
   // strain itself already landed in the library and rides the self-snapshot, so a
   // client that ignores this event loses only the ceremony. Carries the generated

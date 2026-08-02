@@ -52,6 +52,7 @@ export function strainView(s: Strain): StrainView {
     yield: expressTrait(s.genotype, 'yield'),
     ...(s.lineage ? { lineage: [s.lineage[0], s.lineage[1]] as [string, string] } : {}),
     ...(s.breeder ? { breeder: s.breeder } : {}),
+    mastery: s.mastery,
   };
 }
 
@@ -64,6 +65,7 @@ export function baseStrain(def: StrainDef, id: string): Strain {
     name: def.name,
     genotype,
     landrace: isLandrace(genotype),
+    mastery: 0,
   };
 }
 
@@ -123,6 +125,9 @@ export function breed(rng: Rng, a: Strain, b: Strain, newId: string, breeder?: s
     landrace,
     lineage: [a.name, b.name],
     ...(breeder ? { breeder } : {}),
+    // Mastery is the GROWER's record, not a heritable trait: a brand-new cross is a
+    // strain nobody has grown yet, however well its parents were tended.
+    mastery: 0,
   };
 }
 

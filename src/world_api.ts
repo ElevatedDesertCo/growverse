@@ -298,6 +298,7 @@ export const COMMAND_NAMES = [
   'deposit_stash',
   'withdraw_stash',
   'plant_seed',
+  'tend_plot',
   'harvest_plot',
   'plant_strain',
   'breed_strains',

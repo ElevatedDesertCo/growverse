@@ -3214,6 +3214,22 @@
   .garden-ready {
     color: #a9d86a;
   }
+  /* Tending: an opt-in bonus, so its chrome stays quiet. The caught/total record sits
+     inline with the status line, and the nudge is a single muted header row that is
+     absent (not blank) when nothing is due. */
+  .garden-plot-tends {
+    color: #a89c78;
+  }
+  .garden-tend-nudge {
+    font-size: 11px;
+    color: #a9d86a;
+    padding: 0 5px 4px;
+  }
+  .garden-tend {
+    background: linear-gradient(#4e7a2c, #3a5c1f 55%, #2c4616);
+    border-color: #4a6a26;
+    color: #dcf0b8;
+  }
   .garden-action {
     align-self: flex-start;
     margin-top: 2px;
@@ -3330,6 +3346,31 @@
   .breeding-trait {
     font-size: 11px;
     color: #c8b888;
+  }
+  /* Per-strain mastery: the grower's own record, so it reads as a bar (something you
+     build) rather than as another inherited trait chip. */
+  .breeding-mastery {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 6px;
+  }
+  .breeding-mastery-label,
+  .breeding-mastery-value {
+    font-size: 11px;
+    color: #a89c78;
+  }
+  .breeding-mastery-bar {
+    height: 6px;
+    border-radius: 4px;
+    background: #120e06;
+    overflow: hidden;
+  }
+  .breeding-mastery-fill {
+    height: 100%;
+    width: var(--mastery-pct, 0%);
+    background: linear-gradient(#8fbf5a, #5a8a2c);
   }
   .breeding-strain-actions {
     display: flex;

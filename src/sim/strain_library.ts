@@ -23,6 +23,7 @@ import {
   type Genotype,
   INTERACT_RANGE,
   MAX_STRAINS,
+  STRAIN_MASTERY_MAX,
   type Strain,
   type StrainView,
 } from './types';
@@ -172,6 +173,10 @@ export interface SavedStrain {
   // truthful value to invent.
   lineage?: [string, string];
   breeder?: string;
+  // The grower's record with this strain. Absent from saves written before mastery
+  // existed, which load at 0: mastery is earned by growing, so starting a returning
+  // player at zero is the truthful value rather than a backfilled guess.
+  mastery?: number;
 }
 
 export function serializeStrains(strains: Strain[]): SavedStrain[] {
@@ -187,6 +192,7 @@ export function serializeStrains(strains: Strain[]): SavedStrain[] {
     landrace: s.landrace,
     ...(s.lineage ? { lineage: [s.lineage[0], s.lineage[1]] as [string, string] } : {}),
     ...(s.breeder ? { breeder: s.breeder } : {}),
+    ...(s.mastery > 0 ? { mastery: s.mastery } : {}),
   }));
 }
 
@@ -204,5 +210,6 @@ export function restoreStrains(saved: SavedStrain[] | undefined): Strain[] {
     landrace: s.landrace,
     ...(s.lineage ? { lineage: [s.lineage[0], s.lineage[1]] as [string, string] } : {}),
     ...(s.breeder ? { breeder: s.breeder } : {}),
+    mastery: Math.max(0, Math.min(STRAIN_MASTERY_MAX, s.mastery ?? 0)),
   }));
 }

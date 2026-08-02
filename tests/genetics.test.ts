@@ -39,6 +39,7 @@ const g = (p: [number, number], v: [number, number], y: [number, number]): Genot
 const strain = (id: string, genotype: Genotype, name = 'Test Bloom'): Strain => ({
   id,
   baseId: 'test',
+  mastery: 0,
   name,
   genotype,
   landrace: isLandrace(genotype),
@@ -85,8 +86,13 @@ describe('genetics: expression', () => {
   it('strainView exposes expressed phenotype, not the raw alleles', () => {
     const view = strainView(strain('s1', g([3, 1], [2, 0], [1, 1]), 'Kush'));
     expect(view).toMatchObject({ id: 's1', name: 'Kush', potency: 3, vigor: 2, yield: 1 });
-    // The hidden recessive alleles (1, 0) are not present on the view.
-    expect(Object.values(view)).not.toContain(0);
+    // The hidden recessive alleles are not reachable from the view: it exposes only the
+    // expressed tier per trait, and no `genotype` field at all. (Checked directly rather
+    // than as "no zero anywhere on the view", which was a proxy that any legitimately
+    // zero-valued field, e.g. a fresh strain's mastery, would trip.)
+    expect(view).not.toHaveProperty('genotype');
+    expect(Object.keys(view)).not.toContain('alleles');
+    expect([view.potency, view.vigor, view.yield]).toEqual([3, 2, 1]);
   });
 });
 
@@ -329,7 +335,14 @@ describe('strain library: discovery + breeding over a Sim', () => {
 // Inject a strain (with a chosen genotype + lineage) straight into the library so a test
 // can assert exact plant/harvest payoff without breeding toward a target genotype.
 const injectStrain = (sim: Sim, baseId: string, genotype: Genotype, name = 'Injected'): string => {
-  const s: Strain = { id: 'inj', baseId, name, genotype, landrace: isLandrace(genotype) };
+  const s: Strain = {
+    id: 'inj',
+    baseId,
+    name,
+    genotype,
+    landrace: isLandrace(genotype),
+    mastery: 0,
+  };
   (sim as unknown as { primary: { strains: Strain[] } }).primary.strains.push(s);
   return s.id;
 };

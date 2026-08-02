@@ -2,6 +2,9 @@
 /* eslint-disable */
 export const BASE_NEW = {
   da_DK: {
+    'garden.tend': 'Du passer {name}.',
+    'garden.finished': 'Den plante er færdig. Høst den.',
+    'garden.alreadyTended': 'Du har allerede passet den plante for nu.',
     'aura.acidSpit': 'Syrespyt',
     'aura.blindingPowder': 'Blændende Pulver',
     'aura.bogRot': 'Sumpråd',
@@ -143,6 +146,9 @@ export const BASE_NEW = {
     'presence.nowDnd': 'Du er nu i Forstyr Ikke-tilstand: {message}',
   },
   id_ID: {
+    'garden.tend': 'Kamu merawat {name}.',
+    'garden.finished': 'Tanaman itu sudah matang. Panenlah.',
+    'garden.alreadyTended': 'Kamu sudah merawat tanaman itu untuk saat ini.',
     'aura.acidSpit': 'Ludah Asam',
     'aura.blindingPowder': 'Serbuk Pembutaan',
     'aura.bogRot': 'Busuk Rawa',
@@ -284,6 +290,9 @@ export const BASE_NEW = {
     'presence.nowDnd': 'Kamu kini dalam mode Jangan Diganggu: {message}',
   },
   nl_NL: {
+    'garden.tend': 'Je verzorgt {name}.',
+    'garden.finished': 'Die plant is klaar. Oogst hem.',
+    'garden.alreadyTended': 'Je hebt die plant voorlopig al verzorgd.',
     'aura.acidSpit': 'Zuurspuug',
     'aura.blindingPowder': 'Verblindend Poeder',
     'aura.bogRot': 'Moerasrot',
@@ -425,6 +434,9 @@ export const BASE_NEW = {
     'presence.nowDnd': 'Je bent nu in de modus Niet Storen: {message}',
   },
   pl_PL: {
+    'garden.tend': 'Doglądasz {name}.',
+    'garden.finished': 'Ta roślina jest gotowa. Zbierz ją.',
+    'garden.alreadyTended': 'Na razie już doglądałeś tej rośliny.',
     'aura.acidSpit': 'Plwocina kwasu',
     'aura.blindingPowder': 'Oślepiający proszek',
     'aura.bogRot': 'Bagienna zgnilizna',
@@ -566,6 +578,9 @@ export const BASE_NEW = {
     'presence.nowDnd': 'Jesteś teraz w trybie Nie przeszkadzać: {message}',
   },
   sv_SE: {
+    'garden.tend': 'Du sköter {name}.',
+    'garden.finished': 'Den plantan är färdig. Skörda den.',
+    'garden.alreadyTended': 'Du har redan skött den plantan för tillfället.',
     'aura.acidSpit': 'Syraspott',
     'aura.blindingPowder': 'Förblindande pulver',
     'aura.bogRot': 'Myrröta',
@@ -707,6 +722,9 @@ export const BASE_NEW = {
     'presence.nowDnd': 'Du är nu i läget Stör ej: {message}',
   },
   tr_TR: {
+    'garden.tend': '{name} bitkisine baktın.',
+    'garden.finished': 'O bitki olgunlaştı. Hasat et.',
+    'garden.alreadyTended': 'O bitkiye şimdilik zaten baktın.',
     'aura.acidSpit': 'Asit Tükürüğü',
     'aura.blindingPowder': 'Kör Edici Toz',
     'aura.bogRot': 'Bataklık Çürümesi',
@@ -847,6 +865,9 @@ export const BASE_NEW = {
     'presence.nowDnd': 'Artık Rahatsız Etmeyin modundasın: {message}',
   },
   vi_VN: {
+    'garden.tend': 'Bạn chăm sóc {name}.',
+    'garden.finished': 'Cây đó đã chín. Hãy thu hoạch.',
+    'garden.alreadyTended': 'Bạn đã chăm sóc cây đó rồi, hãy đợi thêm.',
     'aura.acidSpit': 'Phun Axit',
     'aura.blindingPowder': 'Bột Làm Mù',
     'aura.bogRot': 'Thối Rữa Đầm Lầy',

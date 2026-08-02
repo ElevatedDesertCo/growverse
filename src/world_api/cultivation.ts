@@ -17,6 +17,10 @@ export interface IWorldCultivation {
   // Plant a library strain into an empty plot (consumes the strain's lineage seed). Server
   // re-validates the strain, the plot, and the seed medium.
   plantStrain(plotIndex: number, strainId: string): void;
+  // Tend a growing plot, crediting its current tend window if it is still open. Purely a
+  // BONUS: an untended crop yields exactly what it always did, so this never has to be
+  // pressed. Server re-validates the plot, its stage, and the window.
+  tendPlot(plotIndex: number): void;
   // Harvest a matured plot for its Bloom yield; a no-op the server rejects if the plot
   // is empty or still growing.
   harvestPlot(plotIndex: number): void;

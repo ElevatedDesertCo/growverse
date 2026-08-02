@@ -25,6 +25,7 @@ const rep = (
 const strain = (id: string, over: Partial<StrainView> = {}): StrainView => ({
   id,
   baseId: 'common_bloom',
+  mastery: 0,
   name: id,
   landrace: false,
   potency: 10,
