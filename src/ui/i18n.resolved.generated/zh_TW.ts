@@ -289,6 +289,11 @@ export const zh_TW: EnTranslations = {
       "mining": "採礦",
       "herbalism": "草藥學",
       "logging": "伐木",
+      "cultivation": "栽培",
+      "fishing": "釣魚",
+      "cooking": "烹飪",
+      "alchemy": "煉金術",
+      "smithing": "鍛造",
       "skillAria": "{profession}: {skill} of {max}"
     },
     "loadouts": {

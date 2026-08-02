@@ -17,6 +17,7 @@
 
 import { BASE_STRAINS, PLANTS } from './data';
 import { budGrade, dropsEssence, expressTrait, growTimeFactor, yieldBonus } from './genetics';
+import { trainProfession } from './professions';
 import { awardReputation, REP_PER_HARVEST } from './reputation';
 import type { SimContext } from './sim_context';
 import { registerBaseStrain } from './strain_library';
@@ -246,6 +247,10 @@ export function harvestPlot(ctx: SimContext, plotIndex: number, pid?: number): v
   // Genetics: harvesting a base seed discovers its strain in the library (once per
   // lineage), seeding the breeding loop from ordinary cultivation output.
   registerBaseStrain(ctx, seedItemId, pid);
+  // Cultivation is a profession like mining or herbalism: it trains off the action
+  // itself. A world node trains via harvest.ts; a garden bed trains here, so working
+  // your own field levels the grower's competence line the same way.
+  trainProfession(meta.professions, 'cultivation');
   // Reputation: cultivating for the commune builds standing with the Baked Beaver.
   awardReputation(ctx, 'baked_beaver', REP_PER_HARVEST, pid);
 }

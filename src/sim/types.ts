@@ -1442,13 +1442,40 @@ export interface HarvestNodeDef {
   yields: HarvestYield[];
 }
 
-// ---- Gathering professions ---------------------------------------------------------
-// The three gathering skills a player levels by working world nodes: Herbalism (flower/
-// spore blooms), Mining (vents/seams/ore), Logging (timber). A skill is a single 0..
-// PROFESSION_MAX points total per profession (PlayerMeta.professions), raised
-// deterministically when a node of that profession is worked (see src/sim/professions.ts).
-export type ProfessionId = 'mining' | 'herbalism' | 'logging';
-export const PROFESSION_IDS: readonly ProfessionId[] = ['mining', 'herbalism', 'logging'];
+// ---- Professions -------------------------------------------------------------------
+// The skills a player levels by DOING the activity, separately from character level. A
+// skill is a single 0..PROFESSION_MAX points total per profession (PlayerMeta.professions),
+// raised deterministically by the action itself (see src/sim/professions.ts). Every one of
+// them is trained by an activity that already exists in the world; none is a skill invented
+// to need an activity:
+//   gathering: mining (vents/seams/ore), herbalism (flower/spore blooms), logging (timber)
+//     train on a world node whose HarvestNodeDef names the profession (harvest.ts).
+//   cultivation trains on working your OWN garden (cultivation.ts harvestPlot) and on the
+//     Grow Station, so the whole grow loop, bed to processed product, levels one line.
+//   fishing trains on a successful catch (sim.ts completeFishing).
+//   cooking, alchemy, smithing train on their crafting station (crafting.ts), mapped by
+//     STATION_PROFESSION in professions.ts.
+// Crafting recipes can gate on a profession skill (CraftRecipe.requiredProfession), so a
+// station both trains its skill and unlocks the deeper recipes on that same line.
+export type ProfessionId =
+  | 'mining'
+  | 'herbalism'
+  | 'logging'
+  | 'cultivation'
+  | 'fishing'
+  | 'cooking'
+  | 'alchemy'
+  | 'smithing';
+export const PROFESSION_IDS: readonly ProfessionId[] = [
+  'mining',
+  'herbalism',
+  'logging',
+  'cultivation',
+  'fishing',
+  'cooking',
+  'alchemy',
+  'smithing',
+];
 export const PROFESSION_MAX = 100; // skill ceiling for every profession
 export const PROFESSION_SKILL_PER_GATHER = 1; // points a single successful gather trains
 

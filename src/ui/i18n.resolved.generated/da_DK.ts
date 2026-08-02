@@ -289,6 +289,11 @@ export const da_DK: EnTranslations = {
       "mining": "Mining",
       "herbalism": "Herbalism",
       "logging": "Logging",
+      "cultivation": "Cultivation",
+      "fishing": "Fishing",
+      "cooking": "Cooking",
+      "alchemy": "Alchemy",
+      "smithing": "Smithing",
       "skillAria": "{profession}: {skill} of {max}"
     },
     "loadouts": {

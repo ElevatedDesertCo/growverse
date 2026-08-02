@@ -1,11 +1,14 @@
-// Gathering professions: the skill math and the train action for Mining / Herbalism /
-// Logging. A player's standing in a profession is a single points total 0..PROFESSION_MAX
-// (PlayerMeta.professions), raised deterministically when a world node of that profession
-// is worked (harvest.ts calls trainProfession on a successful gather). Draws NO rng and
-// reads no clock: skill gains are deterministic point adds, so gathering never forks the
-// world. `src/sim`-pure. Character-sheet reads go through professionsView.
+// Professions: the skill math and the train action behind every levelable skill
+// (the roster and who trains each one is documented at ProfessionId in types.ts).
+// A player's standing in a profession is a single points total 0..PROFESSION_MAX
+// (PlayerMeta.professions), raised deterministically when the matching action
+// succeeds: harvest.ts on a world node, cultivation.ts on a garden bed, sim.ts on
+// a fish catch, crafting.ts at a station. Draws NO rng and reads no clock: skill
+// gains are deterministic point adds, so working a skill never forks the world.
+// `src/sim`-pure. Character-sheet reads go through professionsView.
 
 import {
+  type CraftStation,
   PROFESSION_IDS,
   PROFESSION_MAX,
   PROFESSION_SKILL_PER_GATHER,
@@ -14,9 +17,30 @@ import {
   type ProfessionView,
 } from './types';
 
+// Which skill a crafting station trains (and, via CraftRecipe.requiredProfession,
+// gates its own deeper recipes on). One map rather than a check per recipe, so a new
+// station is a one-line change and can never silently train nothing. The Grow Station
+// trains cultivation: processing your buds is the back half of the same grow loop the
+// garden bed trains, not a separate craft.
+export const STATION_PROFESSION: Record<CraftStation, ProfessionId> = {
+  grow: 'cultivation',
+  cook: 'cooking',
+  alchemy: 'alchemy',
+  upgrade: 'smithing',
+};
+
 // A fresh skill ledger (character create + load default): every profession at 0.
 export function emptyProfessions(): ProfessionSkills {
-  return { mining: 0, herbalism: 0, logging: 0 };
+  return {
+    mining: 0,
+    herbalism: 0,
+    logging: 0,
+    cultivation: 0,
+    fishing: 0,
+    cooking: 0,
+    alchemy: 0,
+    smithing: 0,
+  };
 }
 
 // Clamp a raw skill value into the legal band.
@@ -40,7 +64,9 @@ export function professionsView(skills: ProfessionSkills): ProfessionView[] {
 // Persistence: a plain skills record for CharacterState. Undefined fields default to 0, so
 // a save from before professions existed (or a partial one) loads cleanly.
 export function serializeProfessions(skills: ProfessionSkills): ProfessionSkills {
-  return { mining: skills.mining, herbalism: skills.herbalism, logging: skills.logging };
+  const out = emptyProfessions();
+  for (const id of PROFESSION_IDS) out[id] = skills[id];
+  return out;
 }
 
 export function restoreProfessions(saved: Partial<ProfessionSkills> | undefined): ProfessionSkills {

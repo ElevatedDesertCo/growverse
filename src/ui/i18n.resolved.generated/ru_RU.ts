@@ -289,6 +289,11 @@ export const ru_RU: EnTranslations = {
       "mining": "Горное дело",
       "herbalism": "Травничество",
       "logging": "Лесозаготовка",
+      "cultivation": "Выращивание",
+      "fishing": "Рыбалка",
+      "cooking": "Кулинария",
+      "alchemy": "Алхимия",
+      "smithing": "Кузнечное дело",
       "skillAria": "{profession}: {skill} of {max}"
     },
     "loadouts": {

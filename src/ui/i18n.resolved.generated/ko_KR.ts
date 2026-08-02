@@ -289,6 +289,11 @@ export const ko_KR: EnTranslations = {
       "mining": "채광",
       "herbalism": "약초 채집",
       "logging": "벌목",
+      "cultivation": "재배",
+      "fishing": "낚시",
+      "cooking": "요리",
+      "alchemy": "연금술",
+      "smithing": "대장 기술",
       "skillAria": "{profession}: {skill} of {max}"
     },
     "loadouts": {

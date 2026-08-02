@@ -9,6 +9,7 @@
 // no Math.random/Date.now (enforced by tests/architecture.test.ts). Draws NO rng.
 
 import { CRAFT_RECIPES_BY_ID, NPCS } from './data';
+import { STATION_PROFESSION, trainProfession } from './professions';
 import { meetsTier } from './reputation';
 import type { SimContext } from './sim_context';
 import { type CraftStation, dist2d, type Entity, INTERACT_RANGE } from './types';
@@ -77,5 +78,8 @@ export function craft(ctx: SimContext, recipeId: string, pid?: number): void {
   meta.copper -= recipe.copperCost;
   for (const input of recipe.inputs) ctx.removeItem(input.itemId, input.count, meta.entityId);
   ctx.addItem(recipe.output.itemId, recipe.output.count, meta.entityId);
+  // A craft trains its station's skill, the same way a gather trains a node's. Trained
+  // AFTER the checks so a failed craft never advances the line that gates it.
+  trainProfession(meta.professions, STATION_PROFESSION[recipe.station]);
   ctx.emit({ type: 'craft', recipeId: recipe.id, pid: meta.entityId });
 }

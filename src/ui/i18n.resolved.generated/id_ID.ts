@@ -289,6 +289,11 @@ export const id_ID: EnTranslations = {
       "mining": "Mining",
       "herbalism": "Herbalism",
       "logging": "Logging",
+      "cultivation": "Cultivation",
+      "fishing": "Fishing",
+      "cooking": "Cooking",
+      "alchemy": "Alchemy",
+      "smithing": "Smithing",
       "skillAria": "{profession}: {skill} of {max}"
     },
     "loadouts": {

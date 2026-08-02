@@ -188,6 +188,7 @@ import {
   professionsView,
   restoreProfessions,
   serializeProfessions,
+  trainProfession,
 } from './professions';
 import {
   applyTalentAllocation,
@@ -4597,6 +4598,7 @@ export class Sim {
   private completeFishing(p: Entity, meta: PlayerMeta): void {
     if (this.shouldCatchCodfather(p, meta)) {
       this.addItem(THE_CODFATHER_ITEM_ID, 1, meta.entityId);
+      trainProfession(meta.professions, 'fishing');
       return;
     }
     // The catch depends on which zone's water you're fishing — each has its own
@@ -4641,6 +4643,9 @@ export class Sim {
     // popup. Carries only the item id (no text), so the sim stays language-agnostic.
     this.emit({ type: 'fishCatch', itemId: caught, rare, pid: p.id });
     this.addItem(caught, 1, meta.entityId);
+    // Fishing is a profession like mining: the catch trains it. Only a real catch
+    // counts, so an empty line ("No fish are biting") returns above without training.
+    trainProfession(meta.professions, 'fishing');
   }
 
   useItem(itemId: string, pid?: number): ItemUseResult | undefined {

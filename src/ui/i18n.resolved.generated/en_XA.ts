@@ -289,6 +289,11 @@ export const en_XA: EnTranslations = {
       "mining": "[Ɱíñíñĝ]",
       "herbalism": "[Ĥéŕƀáļíšɱ]",
       "logging": "[Ļóĝĝíñĝ]",
+      "cultivation": "[Çúļţíʋáţíóñ]",
+      "fishing": "[Ƒíšĥíñĝ]",
+      "cooking": "[Çóóķíñĝ]",
+      "alchemy": "[Áļçĥéɱý]",
+      "smithing": "[Šɱíţĥíñĝ]",
       "skillAria": "[{profession}: {skill} óƒ {max}]"
     },
     "loadouts": {

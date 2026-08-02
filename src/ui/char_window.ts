@@ -115,6 +115,11 @@ const PROFESSION_LABEL_KEY = {
   mining: 'hudChrome.professions.mining',
   herbalism: 'hudChrome.professions.herbalism',
   logging: 'hudChrome.professions.logging',
+  cultivation: 'hudChrome.professions.cultivation',
+  fishing: 'hudChrome.professions.fishing',
+  cooking: 'hudChrome.professions.cooking',
+  alchemy: 'hudChrome.professions.alchemy',
+  smithing: 'hudChrome.professions.smithing',
 } as const satisfies Record<ProfessionId, string>;
 
 // The character sheet's two tabs: the Gear view (paperdoll + stats + bags) and the

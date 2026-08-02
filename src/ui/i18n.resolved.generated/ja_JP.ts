@@ -289,6 +289,11 @@ export const ja_JP: EnTranslations = {
       "mining": "採掘",
       "herbalism": "薬草学",
       "logging": "伐採",
+      "cultivation": "栽培",
+      "fishing": "釣り",
+      "cooking": "料理",
+      "alchemy": "錬金術",
+      "smithing": "鍛冶",
       "skillAria": "{profession}: {skill} of {max}"
     },
     "loadouts": {

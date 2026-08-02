@@ -203,6 +203,11 @@ export const hudChromeStrings = {
     mining: 'Mining',
     herbalism: 'Herbalism',
     logging: 'Logging',
+    cultivation: 'Cultivation',
+    fishing: 'Fishing',
+    cooking: 'Cooking',
+    alchemy: 'Alchemy',
+    smithing: 'Smithing',
     skillAria: '{profession}: {skill} of {max}',
   },
   // Loadouts panel on the character sheet: saved gear + talent sets, clickable to
