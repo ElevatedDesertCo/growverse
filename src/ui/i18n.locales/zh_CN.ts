@@ -5091,15 +5091,21 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'entities.items.infused_lozenge_fine.name': '优质浸制含片',
   'entities.items.infused_lozenge_prime.name': '极品浸制含片',
   'entities.quests.q_first_harvest.title': '初次收成',
-  'entities.quests.q_first_harvest.text': '每个种植者都是这样起步的：一畦土、一粒种，以及静待其成的耐心。种下些什么，让它长足时候，再把收成带来给我。在我把更好的种源交给你之前，我要先看看你怎么侍弄一茬庄稼。',
-  'entities.quests.q_first_harvest.completion': '瞧瞧这个。修剪得干净利落，没有一处是赶工出来的。你有做这行的手艺。',
+  'entities.quests.q_first_harvest.text':
+    '每个种植者都是这样起步的：一畦土、一粒种，以及静待其成的耐心。种下些什么，让它长足时候，再把收成带来给我。在我把更好的种源交给你之前，我要先看看你怎么侍弄一茬庄稼。',
+  'entities.quests.q_first_harvest.completion':
+    '瞧瞧这个。修剪得干净利落，没有一处是赶工出来的。你有做这行的手艺。',
   'entities.quests.q_first_harvest.objectives.0.label': '普通花苞',
   'entities.quests.q_fine_supply.title': '更上一层',
-  'entities.quests.q_fine_supply.text': '普通货色够点灯过日子，却打动不了任何人。我需要更优质的料子，至于你从哪儿弄来的，我不太在意。有耐心就自己育出来，没有就从育出来的人手里买。手里有钱的种植者，也还是种植者。',
-  'entities.quests.q_fine_supply.completion': '这才值得好好熟化。养出这货色的人是懂行的——若那人就是你，那就更好了。',
+  'entities.quests.q_fine_supply.text':
+    '普通货色够点灯过日子，却打动不了任何人。我需要更优质的料子，至于你从哪儿弄来的，我不太在意。有耐心就自己育出来，没有就从育出来的人手里买。手里有钱的种植者，也还是种植者。',
+  'entities.quests.q_fine_supply.completion':
+    '这才值得好好熟化。养出这货色的人是懂行的——若那人就是你，那就更好了。',
   'entities.quests.q_fine_supply.objectives.0.label': '优质花苞',
   'entities.quests.q_prime_order.title': '园丁的订单',
-  'entities.quests.q_prime_order.text': '我有一份长期订单，却从来没能交付过一次：只要极品料，差一点都不行。那得有一株从头到尾都育对了的品系，要么你自己花上几年做杂交，要么跟已经做成的人搞好关系。无论走哪条路，只要你交得出来，整个营地都会记住你的名字。',
-  'entities.quests.q_prime_order.completion': '六份极品。这一季我等了很久。营地欠你一份人情，我也是。',
+  'entities.quests.q_prime_order.text':
+    '我有一份长期订单，却从来没能交付过一次：只要极品料，差一点都不行。那得有一株从头到尾都育对了的品系，要么你自己花上几年做杂交，要么跟已经做成的人搞好关系。无论走哪条路，只要你交得出来，整个营地都会记住你的名字。',
+  'entities.quests.q_prime_order.completion':
+    '六份极品。这一季我等了很久。营地欠你一份人情，我也是。',
   'entities.quests.q_prime_order.objectives.0.label': '极品花苞',
 };
