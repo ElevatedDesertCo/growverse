@@ -14,6 +14,7 @@
 
 import { BASE_STRAIN_BY_SEED, NPCS } from './data';
 import { baseStrain, breed, strainView } from './genetics';
+import { trainProfession } from './professions';
 import { awardReputation, REP_PER_BREED, REP_PER_LANDRACE } from './reputation';
 import type { SimContext } from './sim_context';
 import {
@@ -115,6 +116,10 @@ export function breedStrains(ctx: SimContext, idA: string, idB: string, pid?: nu
   // parents, so the library reads as a lineage rather than twelve identical rows.
   const child = breed(ctx.rng, a, b, `s${meta.strainSeq++}`, p.name);
   meta.strains.push(child);
+  // Breeding is its own skill: reading genetics is not the same competence as growing a
+  // plant well, so a cross trains breeding rather than cultivation. Trained here, after
+  // every guard and after the cost is paid, so only a cross that actually landed counts.
+  trainProfession(meta.professions, 'breeding');
   ctx.notice(meta.entityId, `You cross ${a.name} and ${b.name} into a new ${child.name} strain.`);
   // The ceremony. World-visible (no pid) so other growers at the chamber see a
   // cross land, which is half the point of breeding being a place.

@@ -5,6 +5,7 @@
 // (cultivation/cooking/alchemy/smithing via STATION_PROFESSION).
 
 import { describe, expect, it } from 'vitest';
+import { NPCS } from '../src/sim/data';
 import { createGroundObject } from '../src/sim/entity';
 import {
   emptyProfessions,
@@ -281,5 +282,127 @@ describe('fishing: trained by landing a catch', () => {
     for (const id of PROFESSION_IDS) {
       if (id !== 'fishing') expect(skillOf(sim, id), id).toBe(0);
     }
+  });
+});
+
+// Breeding is its own line, trained at the Breeding Chamber. Deliberately NOT folded
+// into cultivation: growing a plant well and reading genetics are different skills,
+// and the strain library is the game's signature progression.
+describe('breeding: trained by landing a cross', () => {
+  // The chamber's proximity gate is anchored on its keeper (the Cultivator), so park
+  // the player on him. Mirrors standAtChamber in genetics.test.ts.
+  const standAtChamber = (sim: AnySim) => {
+    const keeper = [...sim.entities.values()].find(
+      (e: Entity) => e.kind === 'npc' && NPCS[e.templateId]?.crafting === 'grow',
+    );
+    if (!keeper) throw new Error('no Breeding Chamber keeper in the world');
+    sim.player.pos.x = keeper.pos.x;
+    sim.player.pos.z = keeper.pos.z;
+  };
+  // Two owned strains plus the bud cost, so only the cross itself is under test.
+  const readyToCross = (sim: AnySim) => {
+    standAtChamber(sim);
+    const meta = sim.meta(sim.playerId)!;
+    for (const seedId of ['common_seed', 'enriched_seed']) {
+      sim.addItem(seedId, 1);
+      sim.plantSeed(0, seedId);
+      sim.plots[0].plantedAt = -100000;
+      sim.harvestPlot(0);
+    }
+    sim.addItem('bud_common', 40);
+    return meta;
+  };
+
+  it('gains on each cross that lands', () => {
+    const sim = makeSim();
+    const meta = readyToCross(sim);
+    const [a, b] = meta.strains;
+    expect(skillOf(sim, 'breeding')).toBe(0);
+    sim.breedStrains(a.id, b.id);
+    expect(skillOf(sim, 'breeding')).toBe(PROFESSION_SKILL_PER_GATHER);
+    sim.breedStrains(a.id, b.id);
+    expect(skillOf(sim, 'breeding')).toBe(PROFESSION_SKILL_PER_GATHER * 2);
+  });
+
+  it('trains nothing when the cross is rejected', () => {
+    const sim = makeSim();
+    const meta = readyToCross(sim);
+    const [a] = meta.strains;
+    sim.breedStrains(a.id, a.id); // same strain twice: rejected
+    expect(skillOf(sim, 'breeding')).toBe(0);
+  });
+
+  it('is separate from cultivation: growing does not train it', () => {
+    const sim = makeSim();
+    readyToCross(sim); // two harvests happened, so cultivation moved
+    expect(skillOf(sim, 'cultivation')).toBeGreaterThan(0);
+    expect(skillOf(sim, 'breeding')).toBe(0);
+  });
+});
+
+// The Infusion Table (the Glyphwright): the enchanting station. Its entry recipes are
+// gated on Cultivation, and its best recipe is gated on Enchanting itself, so working
+// the station is what unlocks the station's own top line.
+describe('enchanting: the Infusion Table ladder', () => {
+  const atTable = (sim: AnySim) => {
+    const pid = sim.addPlayer('warrior', 'Binder');
+    const npc = [...sim.entities.values()].find(
+      (e: Entity) => (e as unknown as { templateId?: string }).templateId === 'glyphwright_orrin',
+    ) as Entity;
+    const p = sim.entities.get(pid) as Entity;
+    p.pos.x = npc.pos.x + 2;
+    p.pos.z = npc.pos.z;
+    sim.rebucket(p);
+    const meta = sim.meta(pid)!;
+    meta.copper = 10000;
+    sim.addItem('bud_prime', 20, pid);
+    sim.addItem('corruption_shard', 20, pid);
+    return { pid, meta };
+  };
+  const world = () => new Sim({ seed: 42, playerClass: 'warrior', noPlayer: true }) as AnySim;
+
+  it('an entry glyph needs Cultivation 10, and crafting it trains Enchanting', () => {
+    const sim = world();
+    const { pid, meta } = atTable(sim);
+    sim.craft('enchant_glyph_of_vigor', pid);
+    expect(sim.countItem('resin_glyph_vigor', pid)).toBe(0); // Cultivation 0: gated
+
+    meta.professions.cultivation = 10;
+    sim.craft('enchant_glyph_of_vigor', pid);
+    expect(sim.countItem('resin_glyph_vigor', pid)).toBe(1);
+    expect(meta.professions.enchanting).toBe(PROFESSION_SKILL_PER_GATHER);
+    expect(meta.professions.cultivation).toBe(10); // the station trains enchanting, not the gate
+  });
+
+  it('the warding glyph is gated on Enchanting itself, so the station unlocks its own top recipe', () => {
+    const sim = world();
+    const { pid, meta } = atTable(sim);
+    meta.professions.cultivation = 10;
+    sim.craft('enchant_glyph_of_warding', pid);
+    expect(sim.countItem('resin_glyph_warding', pid)).toBe(0); // Enchanting 0: gated
+
+    meta.professions.enchanting = 15;
+    sim.craft('enchant_glyph_of_warding', pid);
+    expect(sim.countItem('resin_glyph_warding', pid)).toBe(1);
+  });
+
+  it('needs the Infusion Table: the same recipe fails at the Alchemy Lab', () => {
+    const sim = world();
+    const pid = sim.addPlayer('warrior', 'Wanderer');
+    const sable = [...sim.entities.values()].find(
+      (e: Entity) => (e as unknown as { templateId?: string }).templateId === 'alchemist_sable',
+    ) as Entity;
+    const p = sim.entities.get(pid) as Entity;
+    p.pos.x = sable.pos.x;
+    p.pos.z = sable.pos.z;
+    sim.rebucket(p);
+    const meta = sim.meta(pid)!;
+    meta.copper = 10000;
+    meta.professions.cultivation = 10;
+    sim.addItem('bud_prime', 20, pid);
+    sim.addItem('corruption_shard', 20, pid);
+    sim.craft('enchant_glyph_of_vigor', pid);
+    expect(sim.countItem('resin_glyph_vigor', pid)).toBe(0);
+    expect(meta.professions.enchanting).toBe(0);
   });
 });

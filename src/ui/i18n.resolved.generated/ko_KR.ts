@@ -290,10 +290,13 @@ export const ko_KR: EnTranslations = {
       "herbalism": "약초 채집",
       "logging": "벌목",
       "cultivation": "재배",
+      "breeding": "교배",
       "fishing": "낚시",
       "cooking": "요리",
       "alchemy": "연금술",
       "smithing": "대장 기술",
+      "enchanting": "마법부여",
+      "lockpicking": "자물쇠 따기",
       "skillAria": "{profession}: {skill} of {max}"
     },
     "loadouts": {
@@ -1065,10 +1068,12 @@ export const ko_KR: EnTranslations = {
       "upgradeTitle": "개조 작업대",
       "cookTitle": "모닥불 요리",
       "alchemyTitle": "연금술 실험실",
+      "enchantTitle": "주입대",
       "growHint": "영양제 제작, 씨앗 품종 강화, 재배 장비 제작.",
       "upgradeHint": "장비를 다시 벼리고, 부패의 파편으로 전투 소모품을 깎아낸다.",
       "cookHint": "잡은 물고기를 요리하여 체력과 마나를 회복시켜 주는 든든한 음식을 만드세요.",
       "alchemyHint": "수확한 꽃봉오리를 치유와 마나 물약, 그리고 전투용 엘릭서로 조제합니다.",
+      "enchantHint": "최상급 꽃봉오리와 타락의 파편을 엮어 30분간 지속되는 문양을 새깁니다.",
       "craftButton": "제작",
       "costLabel": "비용",
       "requiresLabel": "필요",
@@ -5198,6 +5203,15 @@ export const ko_KR: EnTranslations = {
       "infused_lozenge_prime": {
         "name": "최상급 침출 정제"
       },
+      "resin_glyph_vigor": {
+        "name": "활력의 수지 문양"
+      },
+      "resin_glyph_focus": {
+        "name": "집중의 수지 문양"
+      },
+      "resin_glyph_warding": {
+        "name": "수호의 수지 문양"
+      },
       "bristleback_maul": {
         "name": "뻣센등뼈 철퇴"
       },
@@ -6181,6 +6195,11 @@ export const ko_KR: EnTranslations = {
         "name": "세이블",
         "title": "연금술사",
         "greeting": "{className}이여, 골짜기에서 꽃봉오리를 가져다주게. 그러면 내가 그 정수를 뽑아내겠네. 살을 아물게 하는 물약, 정신을 맑게 하는 물약, 그리고 지혜를 날카롭게 하는 엘릭서를 말일세."
+      },
+      "glyphwright_orrin": {
+        "name": "오린",
+        "title": "문양사",
+        "greeting": "최고의 꽃을 태우는 건 아무 재배자나 할 수 있지요, {className}. 최상급 꽃봉오리와 균열의 파편을 가져오시면 둘을 엮어 30분간 지속되는 문양으로 만들어 드리겠습니다."
       },
       "banker_thistle": {
         "name": "금고지기 시슬",

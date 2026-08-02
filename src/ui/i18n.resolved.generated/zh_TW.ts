@@ -290,10 +290,13 @@ export const zh_TW: EnTranslations = {
       "herbalism": "草藥學",
       "logging": "伐木",
       "cultivation": "栽培",
+      "breeding": "育種",
       "fishing": "釣魚",
       "cooking": "烹飪",
       "alchemy": "煉金術",
       "smithing": "鍛造",
+      "enchanting": "附魔",
+      "lockpicking": "開鎖",
       "skillAria": "{profession}: {skill} of {max}"
     },
     "loadouts": {
@@ -1065,10 +1068,12 @@ export const zh_TW: EnTranslations = {
       "upgradeTitle": "升級台",
       "cookTitle": "炊火",
       "alchemyTitle": "煉金實驗室",
+      "enchantTitle": "注靈台",
       "growHint": "製作營養劑、升級種子品系、打造種植裝備。",
       "upgradeHint": "重鑄裝備，並用腐蝕碎片切割戰鬥消耗品。",
       "cookHint": "將你釣到的魚烹煮成豐盛餐點，恢復生命與法力。",
       "alchemyHint": "將採集的花蕾釀成治療藥水、法力藥水和一瓶戰鬥靈藥。",
+      "enchantHint": "將上等花苞與腐化碎片結合，鑄成可持續半小時的符文。",
       "craftButton": "製作",
       "costLabel": "花費",
       "requiresLabel": "需要",
@@ -5198,6 +5203,15 @@ export const zh_TW: EnTranslations = {
       "infused_lozenge_prime": {
         "name": "極品浸製含片"
       },
+      "resin_glyph_vigor": {
+        "name": "活力樹脂符文"
+      },
+      "resin_glyph_focus": {
+        "name": "專注樹脂符文"
+      },
+      "resin_glyph_warding": {
+        "name": "守護樹脂符文"
+      },
       "bristleback_maul": {
         "name": "硬鬃重槌"
       },
@@ -6181,6 +6195,11 @@ export const zh_TW: EnTranslations = {
         "name": "塞布爾",
         "title": "煉金術士",
         "greeting": "{className}，從山谷裡給我採來花蕾，我便能提煉出其中的精華：治癒血肉的藥水、令心神敏捷的藥劑，還有一瓶磨礪神智的靈藥。"
+      },
+      "glyphwright_orrin": {
+        "name": "奧林",
+        "title": "符文匠",
+        "greeting": "任何種植者都能燒掉自己最好的花，{className}。把你的上等花苞和一塊裂隙碎片帶來，我會把兩者綁成一枚可維持半小時的符文。"
       },
       "banker_thistle": {
         "name": "金庫管理員西斯爾",

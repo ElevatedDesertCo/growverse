@@ -23,10 +23,13 @@ const PROFESSION_LABEL_KEY: Record<ProfessionId, TranslationKey> = {
   herbalism: 'hudChrome.professions.herbalism',
   logging: 'hudChrome.professions.logging',
   cultivation: 'hudChrome.professions.cultivation',
+  breeding: 'hudChrome.professions.breeding',
   fishing: 'hudChrome.professions.fishing',
   cooking: 'hudChrome.professions.cooking',
   alchemy: 'hudChrome.professions.alchemy',
   smithing: 'hudChrome.professions.smithing',
+  enchanting: 'hudChrome.professions.enchanting',
+  lockpicking: 'hudChrome.professions.lockpicking',
 };
 
 /**

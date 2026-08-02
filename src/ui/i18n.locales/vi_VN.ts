@@ -5146,6 +5146,9 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'errors.api.desktopCodeInvalid':
     'Mã đăng nhập máy tính không hợp lệ hoặc đã hết hạn. Vui lòng thử lại.',
   'entities.items.bud_common.name': 'Búp thường',
+  'entities.items.resin_glyph_vigor.name': 'Ấn nhựa cây sung mãn',
+  'entities.items.resin_glyph_focus.name': 'Ấn nhựa cây tập trung',
+  'entities.items.resin_glyph_warding.name': 'Ấn nhựa cây hộ vệ',
   'entities.items.bud_fine.name': 'Búp hảo hạng',
   'entities.items.bud_prime.name': 'Búp thượng hạng',
   'entities.items.cured_flower_fine.name': 'Hoa sấy hảo hạng',

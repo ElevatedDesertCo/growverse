@@ -477,6 +477,47 @@ export const CRAFT_ITEMS: Record<string, ItemDef> = {
     },
     sellValue: 80,
   },
+
+  // --- Infusion Table outputs: resin glyphs (the long-duration tier) --------------
+  // A glyph is prime flower bound to a Corruption Shard: not smoked, carried. That is
+  // what separates Enchanting from Alchemy here. Every session above is a strong buff
+  // on a short clock (300-1800s, most under 900), and several carry a couch-lock or
+  // an onset delay you have to plan around. A glyph is the opposite trade: a flat
+  // 1800s, no tradeoff, no onset, but a narrow single-stat effect rather than the
+  // sessions' all-stats sweep. So a glyph is what you carry into a long delve and a
+  // session is what you take before a specific pull; neither replaces the other.
+  //
+  // Cost side: prime buds mean tier-3 potency, which means breeding for it, and
+  // Corruption Shards come off delve mobs. So the recipe spans the game's two loops
+  // (grow and fight) on purpose, and gives the top harvest grade a use besides sale.
+  // BALANCE: first-pass numbers, tuned to sit just under the 1800s gear buffs already
+  // in the tables (buff_ap 20-35, buff_armor 70-80) since a glyph is craftable.
+  resin_glyph_vigor: {
+    id: 'resin_glyph_vigor',
+    name: 'Resin Glyph of Vigor',
+    kind: 'elixir',
+    quality: 'uncommon',
+    elixir: { aura: 'Bound Vigor', kind: 'buff_ap', value: 25, duration: 1800 },
+    sellValue: 45,
+  },
+  resin_glyph_focus: {
+    id: 'resin_glyph_focus',
+    name: 'Resin Glyph of Focus',
+    kind: 'elixir',
+    quality: 'uncommon',
+    elixir: { aura: 'Bound Focus', kind: 'buff_int', value: 7, duration: 1800 },
+    sellValue: 45,
+  },
+  // The deep cut: gated on Enchanting itself, so the station unlocks its own best
+  // recipe. Warding is the tanking line, hence the heavier shard cost.
+  resin_glyph_warding: {
+    id: 'resin_glyph_warding',
+    name: 'Resin Glyph of Warding',
+    kind: 'elixir',
+    quality: 'rare',
+    elixir: { aura: 'Bound Warding', kind: 'buff_armor', value: 75, duration: 1800 },
+    sellValue: 90,
+  },
 };
 
 // The reagents the Cultivator sells, so the grow loop is self-contained (buy
@@ -569,6 +610,27 @@ export const CRAFT_NPCS: Record<string, NpcDef> = {
     crafting: 'alchemy',
     greeting:
       'Bring me blooms from the vale, $C, and I will draw out their virtue: draughts to mend flesh, to quicken the mind, and an elixir to sharpen your wits.',
+  },
+  // The Glyphwright: runs the Infusion Table, a few paces west of the Alchemy Lab so
+  // Bloomhaven's west side reads as one craft quarter (Sable brews, Orrin binds). Like
+  // Sable and Draxa he IS the station, no building of his own; the Breeding Chamber is
+  // the one station that needed to be a place, because crossing is a ceremony.
+  glyphwright_orrin: {
+    id: 'glyphwright_orrin',
+    name: 'Orrin',
+    title: 'the Glyphwright',
+    // Set far enough from Sable (-24, 0) that one spot cannot reach both stations:
+    // the crafting gate is INTERACT_RANGE + 2 = 7yd, and these two sit 9.9yd apart,
+    // so each bench is somewhere you walk to. Still inside the town (TOWN_RADIUS 34).
+    pos: { x: -28, z: 9 },
+    // Faces the plaza: atan2(targetX - x, targetZ - z) toward (0, 0), the same
+    // convention the town buildings and Marlow use.
+    facing: 1.881,
+    color: 0x8a6fd0,
+    questIds: [],
+    crafting: 'enchant',
+    greeting:
+      'Any grower can burn their best flower, $C. Bring your prime buds and a shard off the rift and I will bind the two into a glyph that holds for half an hour.',
   },
 };
 
@@ -928,6 +990,50 @@ export const CRAFT_RECIPES: CraftRecipe[] = [
     inputs: [{ itemId: 'purple_petal', count: 2 }],
     copperCost: 10,
     output: { itemId: 'swirling_mana_draught', count: 1 },
+  },
+
+  // --- Infusion Table (the Glyphwright): prime buds + shards -> resin glyphs ------
+  // Both entry glyphs are gated on Cultivation 10 rather than character level: the
+  // reagent already requires tier-3 potency, and the gate says out loud that this
+  // station belongs to growers. Vigor and Focus are deliberately the same price, so
+  // the choice is which stat your class wants, never which is cheaper.
+  {
+    id: 'enchant_glyph_of_vigor',
+    station: 'enchant',
+    category: 'consumable',
+    inputs: [
+      { itemId: 'bud_prime', count: 2 },
+      { itemId: 'corruption_shard', count: 1 },
+    ],
+    copperCost: 60,
+    output: { itemId: 'resin_glyph_vigor', count: 1 },
+    requiredProfession: { id: 'cultivation', skill: 10 },
+  },
+  {
+    id: 'enchant_glyph_of_focus',
+    station: 'enchant',
+    category: 'consumable',
+    inputs: [
+      { itemId: 'bud_prime', count: 2 },
+      { itemId: 'corruption_shard', count: 1 },
+    ],
+    copperCost: 60,
+    output: { itemId: 'resin_glyph_focus', count: 1 },
+    requiredProfession: { id: 'cultivation', skill: 10 },
+  },
+  // Gated on Enchanting itself: the two glyphs above train the skill that opens this
+  // one, so the station is a ladder rather than a flat menu.
+  {
+    id: 'enchant_glyph_of_warding',
+    station: 'enchant',
+    category: 'consumable',
+    inputs: [
+      { itemId: 'bud_prime', count: 3 },
+      { itemId: 'corruption_shard', count: 2 },
+    ],
+    copperCost: 120,
+    output: { itemId: 'resin_glyph_warding', count: 1 },
+    requiredProfession: { id: 'enchanting', skill: 15 },
   },
 ];
 

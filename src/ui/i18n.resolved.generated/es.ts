@@ -290,10 +290,13 @@ export const es: EnTranslations = {
       "herbalism": "Herbalism",
       "logging": "Logging",
       "cultivation": "Cultivation",
+      "breeding": "Breeding",
       "fishing": "Fishing",
       "cooking": "Cooking",
       "alchemy": "Alchemy",
       "smithing": "Smithing",
+      "enchanting": "Enchanting",
+      "lockpicking": "Lockpicking",
       "skillAria": "{profession}: {skill} of {max}"
     },
     "loadouts": {
@@ -1065,10 +1068,12 @@ export const es: EnTranslations = {
       "upgradeTitle": "Upgrade Bench",
       "cookTitle": "Cookfire",
       "alchemyTitle": "Alchemy Lab",
+      "enchantTitle": "Infusion Table",
       "growHint": "Craft nutrients, upgrade seed strains, and build growing gear.",
       "upgradeHint": "Reforge gear and cut battle consumables from Corruption Shards.",
       "cookHint": "Cook the fish you catch into hearty meals that restore health and mana.",
       "alchemyHint": "Brew harvested blooms into healing and mana draughts and a battle elixir.",
+      "enchantHint": "Bind prime buds and Corruption Shards into glyphs that hold for half an hour.",
       "craftButton": "Craft",
       "costLabel": "Cost",
       "requiresLabel": "Requires",
@@ -5198,6 +5203,15 @@ export const es: EnTranslations = {
       "infused_lozenge_prime": {
         "name": "Pastilla infusionada suprema"
       },
+      "resin_glyph_vigor": {
+        "name": "Glifo de resina de vigor"
+      },
+      "resin_glyph_focus": {
+        "name": "Glifo de resina de concentración"
+      },
+      "resin_glyph_warding": {
+        "name": "Glifo de resina de protección"
+      },
       "bristleback_maul": {
         "name": "Maza Bristleback"
       },
@@ -6181,6 +6195,11 @@ export const es: EnTranslations = {
         "name": "Sable",
         "title": "the Alchemist",
         "greeting": "Bring me blooms from the vale, {className}, and I will draw out their virtue: draughts to mend flesh, to quicken the mind, and an elixir to sharpen your wits."
+      },
+      "glyphwright_orrin": {
+        "name": "Orrin",
+        "title": "the Glyphwright",
+        "greeting": "Any grower can burn their best flower, {className}. Bring your prime buds and a shard off the rift and I will bind the two into a glyph that holds for half an hour."
       },
       "banker_thistle": {
         "name": "Vault Keeper Thistle",

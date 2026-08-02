@@ -290,10 +290,13 @@ export const en_XA: EnTranslations = {
       "herbalism": "[Ĥéŕƀáļíšɱ]",
       "logging": "[Ļóĝĝíñĝ]",
       "cultivation": "[Çúļţíʋáţíóñ]",
+      "breeding": "[Ɓŕééðíñĝ]",
       "fishing": "[Ƒíšĥíñĝ]",
       "cooking": "[Çóóķíñĝ]",
       "alchemy": "[Áļçĥéɱý]",
       "smithing": "[Šɱíţĥíñĝ]",
+      "enchanting": "[Éñçĥáñţíñĝ]",
+      "lockpicking": "[Ļóçķþíçķíñĝ]",
       "skillAria": "[{profession}: {skill} óƒ {max}]"
     },
     "loadouts": {
@@ -1065,10 +1068,12 @@ export const en_XA: EnTranslations = {
       "upgradeTitle": "[Úþĝŕáðé Ɓéñçĥ]",
       "cookTitle": "[Çóóķƒíŕé]",
       "alchemyTitle": "[Áļçĥéɱý Ļáƀ]",
+      "enchantTitle": "[Íñƒúšíóñ Ţáƀļé]",
       "growHint": "[Çŕáƒţ ñúţŕíéñţš, úþĝŕáðé šééð šţŕáíñš, áñð ƀúíļð ĝŕóŵíñĝ ĝéáŕ.]",
       "upgradeHint": "[Ŕéƒóŕĝé ĝéáŕ áñð çúţ ƀáţţļé çóñšúɱáƀļéš ƒŕóɱ Çóŕŕúþţíóñ Šĥáŕðš.]",
       "cookHint": "[Çóóķ ţĥé ƒíšĥ ýóú çáţçĥ íñţó ĥéáŕţý ɱéáļš ţĥáţ ŕéšţóŕé ĥéáļţĥ áñð ɱáñá.]",
       "alchemyHint": "[Ɓŕéŵ ĥáŕʋéšţéð ƀļóóɱš íñţó ĥéáļíñĝ áñð ɱáñá ðŕáúĝĥţš áñð á ƀáţţļé éļíẋíŕ.]",
+      "enchantHint": "[Ɓíñð þŕíɱé ƀúðš áñð Çóŕŕúþţíóñ Šĥáŕðš íñţó ĝļýþĥš ţĥáţ ĥóļð ƒóŕ ĥáļƒ áñ ĥóúŕ.]",
       "craftButton": "[Çŕáƒţ]",
       "costLabel": "[Çóšţ]",
       "requiresLabel": "[Ŕéɋúíŕéš]",
@@ -5198,6 +5203,15 @@ export const en_XA: EnTranslations = {
       "infused_lozenge_prime": {
         "name": "[Þŕíɱé Íñƒúšéð Ļóžéñĝé]"
       },
+      "resin_glyph_vigor": {
+        "name": "[Ŕéšíñ Ĝļýþĥ óƒ Ʋíĝóŕ]"
+      },
+      "resin_glyph_focus": {
+        "name": "[Ŕéšíñ Ĝļýþĥ óƒ Ƒóçúš]"
+      },
+      "resin_glyph_warding": {
+        "name": "[Ŕéšíñ Ĝļýþĥ óƒ Ŵáŕðíñĝ]"
+      },
       "bristleback_maul": {
         "name": "[Ɓŕíšţļéƀáçķ Ɱáúļ]"
       },
@@ -6181,6 +6195,11 @@ export const en_XA: EnTranslations = {
         "name": "[Šáƀļé]",
         "title": "[ţĥé Áļçĥéɱíšţ]",
         "greeting": "[Ɓŕíñĝ ɱé ƀļóóɱš ƒŕóɱ ţĥé ʋáļé, {className}, áñð Í ŵíļļ ðŕáŵ óúţ ţĥéíŕ ʋíŕţúé: ðŕáúĝĥţš ţó ɱéñð ƒļéšĥ, ţó ɋúíçķéñ ţĥé ɱíñð, áñð áñ éļíẋíŕ ţó šĥáŕþéñ ýóúŕ ŵíţš.]"
+      },
+      "glyphwright_orrin": {
+        "name": "[Óŕŕíñ]",
+        "title": "[ţĥé Ĝļýþĥŵŕíĝĥţ]",
+        "greeting": "[Áñý ĝŕóŵéŕ çáñ ƀúŕñ ţĥéíŕ ƀéšţ ƒļóŵéŕ, {className}. Ɓŕíñĝ ýóúŕ þŕíɱé ƀúðš áñð á šĥáŕð óƒƒ ţĥé ŕíƒţ áñð Í ŵíļļ ƀíñð ţĥé ţŵó íñţó á ĝļýþĥ ţĥáţ ĥóļðš ƒóŕ ĥáļƒ áñ ĥóúŕ.]"
       },
       "banker_thistle": {
         "name": "[Ʋáúļţ Ķééþéŕ Ţĥíšţļé]",

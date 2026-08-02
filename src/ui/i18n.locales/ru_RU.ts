@@ -104,6 +104,9 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.professions.cooking': 'Кулинария',
   'hudChrome.professions.alchemy': 'Алхимия',
   'hudChrome.professions.smithing': 'Кузнечное дело',
+  'hudChrome.professions.enchanting': 'Наложение чар',
+  'hudChrome.professions.breeding': 'Селекция',
+  'hudChrome.professions.lockpicking': 'Взлом замков',
   'hudChrome.loadouts.title': 'Наборы',
   'hudChrome.loadouts.hint': 'Сохраняйте наборы снаряжения и талантов в панели талантов.',
   'hudChrome.loadouts.applyAria': 'Применить набор: {name}',
@@ -2406,11 +2409,18 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.items.trellis_frame.name': 'Шпалера',
   'entities.items.coppermesh_gloves.name': 'Медные сетчатые перчатки',
   'entities.items.verdant_draught.name': 'Изумрудный настой',
+  'entities.npcs.glyphwright_orrin.name': 'Оррин',
+  'entities.npcs.glyphwright_orrin.title': 'Глифотворец',
+  'entities.npcs.glyphwright_orrin.greeting':
+    'Сжечь свой лучший цвет способен любой садовод, {className}. Принеси отборные бутоны и осколок из разлома, и я свяжу их в глиф, который держится полчаса.',
   'entities.npcs.alchemist_sable.name': 'Сейбл',
   'entities.npcs.alchemist_sable.title': 'Алхимик',
   'entities.npcs.alchemist_sable.greeting':
     'Принеси мне цветы из долины, {className}, и я извлеку их суть: настои, что исцеляют плоть, что бодрят разум, и эликсир, что обостряет ум.',
   'hudChrome.crafting.alchemyTitle': 'Алхимическая лаборатория',
+  'hudChrome.crafting.enchantTitle': 'Стол внедрения',
+  'hudChrome.crafting.enchantHint':
+    'Свяжите отборные бутоны и осколки Порчи в глифы, которые держатся полчаса.',
   'hudChrome.crafting.alchemyHint':
     'Варите собранные цветы в лечебные настои, зелья маны и боевой эликсир.',
   'entities.items.sableweb_slippers.name': 'Туфли Сейблвеб',
@@ -5462,6 +5472,9 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.cook_cobb.greeting':
     'Зеркальное озеро дарит отменную форель терпеливой удочке. Возьми снасть и неси улов к моему костру.',
   'entities.items.bud_common.name': 'Обычный бутон',
+  'entities.items.resin_glyph_vigor.name': 'Смоляной глиф мощи',
+  'entities.items.resin_glyph_focus.name': 'Смоляной глиф сосредоточения',
+  'entities.items.resin_glyph_warding.name': 'Смоляной глиф ограждения',
   'entities.items.bud_fine.name': 'Отборный бутон',
   'entities.items.bud_prime.name': 'Отменный бутон',
   'entities.items.cured_flower_fine.name': 'Отборный вяленый цвет',

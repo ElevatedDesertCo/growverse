@@ -1142,8 +1142,12 @@ export interface AbilityDef {
 // grow accessories). The Upgrade Bench reforges weapons and armor and cuts
 // combat consumables from Corruption Shards. The Cookfire (Dockside Cooks at the
 // fishing docks) turns raw fish into cooked meals. The Alchemy Lab (the Alchemist
-// in Bloomhaven) brews harvested blooms into potions and a battle elixir.
-export type CraftStation = 'grow' | 'upgrade' | 'cook' | 'alchemy';
+// in Bloomhaven) brews harvested blooms into potions and a battle elixir. The
+// Infusion Table (the Glyphwright, beside the Alchemy Lab) binds PRIME BUDS and
+// Corruption Shards into resin glyphs: half-hour buffs, the long-duration tier the
+// draughts and elixirs do not cover. Its signature reagent is the top harvest grade
+// on purpose, so the best flower has a use besides being sold.
+export type CraftStation = 'grow' | 'upgrade' | 'cook' | 'alchemy' | 'enchant';
 
 // A crafting recipe: consumes reagent items + copper at a station and yields an
 // output item. Pure data-as-code (content/crafting.ts); the engine reads it in
@@ -1452,9 +1456,14 @@ export interface HarvestNodeDef {
 //     train on a world node whose HarvestNodeDef names the profession (harvest.ts).
 //   cultivation trains on working your OWN garden (cultivation.ts harvestPlot) and on the
 //     Grow Station, so the whole grow loop, bed to processed product, levels one line.
+//   breeding trains on a cross landing at the Breeding Chamber (strain_library.ts). Kept
+//     separate from cultivation on purpose: growing a plant well and reading genetics are
+//     different competences, and the strain library is the game's signature line.
 //   fishing trains on a successful catch (sim.ts completeFishing).
-//   cooking, alchemy, smithing train on their crafting station (crafting.ts), mapped by
-//     STATION_PROFESSION in professions.ts.
+//   cooking, alchemy, smithing, enchanting train on their crafting station (crafting.ts),
+//     mapped by STATION_PROFESSION in professions.ts.
+//   lockpicking trains on a delve chest actually SOLVED (delves/lockpick_controller.ts), by
+//     the ante's loot tier, since a premium three-page gauntlet is not one modest lock.
 // Crafting recipes can gate on a profession skill (CraftRecipe.requiredProfession), so a
 // station both trains its skill and unlocks the deeper recipes on that same line.
 export type ProfessionId =
@@ -1462,19 +1471,27 @@ export type ProfessionId =
   | 'herbalism'
   | 'logging'
   | 'cultivation'
+  | 'breeding'
   | 'fishing'
   | 'cooking'
   | 'alchemy'
-  | 'smithing';
+  | 'smithing'
+  | 'enchanting'
+  | 'lockpicking';
+// Display AND canonical order, grouped by what the player does: gather, grow, fish,
+// craft, then the roguish one. The character sheet paints them in exactly this order.
 export const PROFESSION_IDS: readonly ProfessionId[] = [
   'mining',
   'herbalism',
   'logging',
   'cultivation',
+  'breeding',
   'fishing',
   'cooking',
   'alchemy',
   'smithing',
+  'enchanting',
+  'lockpicking',
 ];
 export const PROFESSION_MAX = 100; // skill ceiling for every profession
 export const PROFESSION_SKILL_PER_GATHER = 1; // points a single successful gather trains

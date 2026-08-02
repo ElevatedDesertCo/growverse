@@ -107,6 +107,9 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.professions.cooking': '料理',
   'hudChrome.professions.alchemy': '錬金術',
   'hudChrome.professions.smithing': '鍛冶',
+  'hudChrome.professions.enchanting': 'エンチャント',
+  'hudChrome.professions.breeding': '交配',
+  'hudChrome.professions.lockpicking': '鍵開け',
   'hudChrome.loadouts.title': '装備セット',
   'hudChrome.loadouts.hint': 'タレントパネルで装備とタレントのセットを保存。',
   'hudChrome.loadouts.applyAria': '装備セットを適用：{name}',
@@ -2377,11 +2380,17 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.items.trellis_frame.name': '栽培トレリス',
   'entities.items.coppermesh_gloves.name': '銅メッシュグローブ',
   'entities.items.verdant_draught.name': '翠緑の水薬',
+  'entities.npcs.glyphwright_orrin.name': 'オリン',
+  'entities.npcs.glyphwright_orrin.title': '紋章師',
+  'entities.npcs.glyphwright_orrin.greeting':
+    '極上の花を燃やすだけなら誰にでもできる、{className}。極上の花蕾と裂け目の欠片を持ってこい。二つを結んで、30分持つ紋に仕立ててやる。',
   'entities.npcs.alchemist_sable.name': 'セイブル',
   'entities.npcs.alchemist_sable.title': '錬金術師',
   'entities.npcs.alchemist_sable.greeting':
     '{className}よ、谷から花蕾を持ってきておくれ。そうすればその精髄を引き出そう。肉を癒す水薬、心を研ぎ澄ます水薬、そして知恵を鋭くするエリクサーをな。',
   'hudChrome.crafting.alchemyTitle': '錬金術ラボ',
+  'hudChrome.crafting.enchantTitle': '注入台',
+  'hudChrome.crafting.enchantHint': '極上の花蕾と堕落の欠片を結び、30分持続する紋を刻む。',
   'hudChrome.crafting.alchemyHint':
     '採取した花蕾を治療とマナの水薬、そして戦闘用エリクサーに調合する。',
   'entities.items.sableweb_slippers.name': 'セーブルウェブのスリッパ',
@@ -5350,6 +5359,9 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.npcs.cook_cobb.greeting':
     'ミラー湖は、辛抱強く糸を垂らせば見事なマスを恵んでくれる。竿を手に取って、釣った魚を私のかまどまで持ってきておくれ。',
   'entities.items.bud_common.name': '並の花芽',
+  'entities.items.resin_glyph_vigor.name': '活力の樹脂紋',
+  'entities.items.resin_glyph_focus.name': '集中の樹脂紋',
+  'entities.items.resin_glyph_warding.name': '守護の樹脂紋',
   'entities.items.bud_fine.name': '上質な花芽',
   'entities.items.bud_prime.name': '極上の花芽',
   'entities.items.cured_flower_fine.name': '上質な乾燥花',

@@ -290,10 +290,13 @@ export const ja_JP: EnTranslations = {
       "herbalism": "薬草学",
       "logging": "伐採",
       "cultivation": "栽培",
+      "breeding": "交配",
       "fishing": "釣り",
       "cooking": "料理",
       "alchemy": "錬金術",
       "smithing": "鍛冶",
+      "enchanting": "エンチャント",
+      "lockpicking": "鍵開け",
       "skillAria": "{profession}: {skill} of {max}"
     },
     "loadouts": {
@@ -1065,10 +1068,12 @@ export const ja_JP: EnTranslations = {
       "upgradeTitle": "アップグレード台",
       "cookTitle": "料理のかまど",
       "alchemyTitle": "錬金術ラボ",
+      "enchantTitle": "注入台",
       "growHint": "栄養剤の作成、種子品種の強化、栽培装備の製作。",
       "upgradeHint": "装備を鍛え直し、腐敗の欠片から戦闘用消耗品を削り出す。",
       "cookHint": "釣った魚を調理して、体力とマナを回復する滋味豊かな料理に仕上げましょう。",
       "alchemyHint": "採取した花蕾を治療とマナの水薬、そして戦闘用エリクサーに調合する。",
+      "enchantHint": "極上の花蕾と堕落の欠片を結び、30分持続する紋を刻む。",
       "craftButton": "作成",
       "costLabel": "コスト",
       "requiresLabel": "必要",
@@ -5198,6 +5203,15 @@ export const ja_JP: EnTranslations = {
       "infused_lozenge_prime": {
         "name": "極上の浸出ロゼンジ"
       },
+      "resin_glyph_vigor": {
+        "name": "活力の樹脂紋"
+      },
+      "resin_glyph_focus": {
+        "name": "集中の樹脂紋"
+      },
+      "resin_glyph_warding": {
+        "name": "守護の樹脂紋"
+      },
       "bristleback_maul": {
         "name": "ブリストルバックの大槌"
       },
@@ -6181,6 +6195,11 @@ export const ja_JP: EnTranslations = {
         "name": "セイブル",
         "title": "錬金術師",
         "greeting": "{className}よ、谷から花蕾を持ってきておくれ。そうすればその精髄を引き出そう。肉を癒す水薬、心を研ぎ澄ます水薬、そして知恵を鋭くするエリクサーをな。"
+      },
+      "glyphwright_orrin": {
+        "name": "オリン",
+        "title": "紋章師",
+        "greeting": "極上の花を燃やすだけなら誰にでもできる、{className}。極上の花蕾と裂け目の欠片を持ってこい。二つを結んで、30分持つ紋に仕立ててやる。"
       },
       "banker_thistle": {
         "name": "金庫番シスル",

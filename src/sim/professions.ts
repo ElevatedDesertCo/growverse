@@ -27,6 +27,7 @@ export const STATION_PROFESSION: Record<CraftStation, ProfessionId> = {
   cook: 'cooking',
   alchemy: 'alchemy',
   upgrade: 'smithing',
+  enchant: 'enchanting',
 };
 
 // A fresh skill ledger (character create + load default): every profession at 0.
@@ -36,10 +37,13 @@ export function emptyProfessions(): ProfessionSkills {
     herbalism: 0,
     logging: 0,
     cultivation: 0,
+    breeding: 0,
     fishing: 0,
     cooking: 0,
     alchemy: 0,
     smithing: 0,
+    enchanting: 0,
+    lockpicking: 0,
   };
 }
 
@@ -48,10 +52,17 @@ function clampSkill(skill: number): number {
   return skill < 0 ? 0 : skill > PROFESSION_MAX ? PROFESSION_MAX : Math.floor(skill);
 }
 
-// Train a profession by one gather: raise its skill by PROFESSION_SKILL_PER_GATHER, capped
-// at PROFESSION_MAX. Returns the new skill value. Deterministic (no rng, no clock).
-export function trainProfession(skills: ProfessionSkills, prof: ProfessionId): number {
-  const next = clampSkill(skills[prof] + PROFESSION_SKILL_PER_GATHER);
+// Train a profession by one successful action: raise its skill by `points` (one gather's
+// worth by default), capped at PROFESSION_MAX. Returns the new skill value. `points` exists
+// for the actions that are not all the same size: a delve chest solved on the premium ante
+// is a three-page flawless gauntlet, not one modest lock, so it is worth more than a swing
+// at an ore vein. Deterministic (no rng, no clock).
+export function trainProfession(
+  skills: ProfessionSkills,
+  prof: ProfessionId,
+  points: number = PROFESSION_SKILL_PER_GATHER,
+): number {
+  const next = clampSkill(skills[prof] + points);
   skills[prof] = next;
   return next;
 }

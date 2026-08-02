@@ -1226,12 +1226,15 @@
     font-size: 11px;
     color: #b9ac82;
   }
-  /* Professions panel on the character sheet: a skill bar per gathering skill,
-     modeled on the breeding reputation rows (name / bar / value). */
+  /* Professions panel on the character sheet: a skill bar per skill, modeled on the
+     breeding reputation rows (name / bar / value). The roster is long enough (gather,
+     grow, fish, craft, pick) that a single column would push the panels below it off
+     the sheet, so rows flow into as many columns as the panel width allows and fall
+     back to one column when narrow. */
   .char-professions .prof-list {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 6px 16px;
     margin-top: 2px;
   }
   .prof-row {
