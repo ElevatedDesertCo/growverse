@@ -227,6 +227,37 @@ describe('strain library: discovery + breeding over a Sim', () => {
     expect(sim.strains).toHaveLength(1);
   });
 
+  // The ceremony: a cross emits a presentation cue carrying the generated name
+  // (the reveal is the payoff) and the landrace flag (the jackpot looks different).
+  it('emits a strainFused cue carrying the generated name', () => {
+    const sim = makeSim();
+    growAndHarvest(sim, 'common_seed', 0);
+    growAndHarvest(sim, 'enriched_seed', 1);
+    const [a, b] = sim.strains;
+    sim.addItem(BREED_COST_ITEM, 10);
+    standAtChamber(sim);
+    sim.breedStrains(a.id, b.id);
+    const fused = sim.tick().filter((e) => e.type === 'strainFused');
+    expect(fused).toHaveLength(1);
+    const ev = fused[0] as Extract<(typeof fused)[number], { type: 'strainFused' }>;
+    // The cue names the CHILD, not a parent, and points at the breeder.
+    expect(ev.childName).toBe(sim.strains[2].name);
+    expect(ev.entityId).toBe(sim.playerId);
+    expect(ev.landrace).toBe(sim.strains[2].landrace);
+  });
+
+  it('emits no cue when the cross is refused', () => {
+    const sim = makeSim();
+    growAndHarvest(sim, 'common_seed', 0);
+    growAndHarvest(sim, 'enriched_seed', 1);
+    const [a, b] = sim.strains;
+    sim.addItem(BREED_COST_ITEM, 10);
+    sim.player.pos.x = 1000; // away from the chamber
+    sim.player.pos.z = 1000;
+    sim.breedStrains(a.id, b.id);
+    expect(sim.tick().filter((e) => e.type === 'strainFused')).toHaveLength(0);
+  });
+
   // Crossing is a PLACE you go, not a menu you open anywhere in the world.
   it('refuses a cross away from the Breeding Chamber, and allows it at the chamber', () => {
     const sim = makeSim();

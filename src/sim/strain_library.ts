@@ -116,6 +116,14 @@ export function breedStrains(ctx: SimContext, idA: string, idB: string, pid?: nu
   const child = breed(ctx.rng, a, b, `s${meta.strainSeq++}`, p.name);
   meta.strains.push(child);
   ctx.notice(meta.entityId, `You cross ${a.name} and ${b.name} into a new ${child.name} strain.`);
+  // The ceremony. World-visible (no pid) so other growers at the chamber see a
+  // cross land, which is half the point of breeding being a place.
+  ctx.emit({
+    type: 'strainFused',
+    entityId: meta.entityId,
+    childName: child.name,
+    landrace: child.landrace,
+  });
   // Reputation: breeding advances the commune's craft; a rare landrace is a windfall.
   awardReputation(ctx, 'baked_beaver', REP_PER_BREED, pid);
   if (child.landrace) awardReputation(ctx, 'baked_beaver', REP_PER_LANDRACE, pid);

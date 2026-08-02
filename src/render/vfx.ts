@@ -593,6 +593,67 @@ export class Vfx {
     }
   }
 
+  // A cross landing at the Breeding Chamber. Two parent motes spiral INWARD and
+  // meet at chest height, then bloom outward: the convergence is the whole read,
+  // so the inward half is drawn as two opposed arcs rather than a ring. A landrace
+  // (every trait maxed) gets the gold treatment and a bigger bloom, because the
+  // jackpot should not look like an ordinary cross.
+  strainFusion(entityId: number, landrace: boolean): void {
+    const at = this.anchor(entityId, 0.55);
+    if (!at) return;
+    const seam = landrace ? 0xffd766 : 0x9ce87a; // gold for a landrace, leaf-green otherwise
+    const core = new THREE.Color(seam).multiplyScalar(hdr(landrace ? 3.0 : 2.2));
+    const soft = new THREE.Color(seam).multiplyScalar(hdr(1.4));
+
+    // The two parents, drawn in from opposite sides. Negative gravity holds them
+    // up so the meeting reads at chest height rather than sagging to the feet.
+    const arm = this.scaledCount(18);
+    for (const side of [0, Math.PI]) {
+      for (let i = 0; i < arm; i++) {
+        const f = i / arm;
+        const a = side + f * Math.PI * 0.9;
+        const r = 1.5 * (1 - f * 0.55);
+        this.spawn(
+          at.x + Math.sin(a) * r,
+          at.y - 0.25 + f * 0.5,
+          at.z + Math.cos(a) * r,
+          -Math.sin(a) * 2.4, // inward
+          0.5,
+          -Math.cos(a) * 2.4,
+          i % 3 === 0 ? core : soft,
+          0.34,
+          0.55,
+          -0.8,
+          i % 2 === 0 ? SPR.magicWisp : SPR.sparkle,
+        );
+      }
+    }
+
+    // The meeting: a flash and a rune ring at the seam.
+    this.spawn(at.x, at.y, at.z, 0, 0.3, 0, core, landrace ? 2.0 : 1.4, 0.35, 0, SPR.flash);
+    this.spawn(at.x, at.y, at.z, 0, 0.25, 0, core, landrace ? 1.8 : 1.2, 0.5, 0, SPR.ring, 0);
+
+    // The bloom outward: the new strain announcing itself.
+    const bloom = this.scaledCount(landrace ? 40 : 26);
+    for (let i = 0; i < bloom; i++) {
+      const a = (i / bloom) * Math.PI * 2;
+      const sp = (landrace ? 4.2 : 3.0) + Math.random() * 1.6;
+      this.spawn(
+        at.x,
+        at.y,
+        at.z,
+        Math.sin(a) * sp,
+        1.4 + Math.random() * 1.2,
+        Math.cos(a) * sp,
+        i % 4 === 0 ? core : soft,
+        0.4,
+        0.9 + Math.random() * 0.5,
+        -1.2,
+        i % 3 === 0 ? SPR.star : SPR.magicRune,
+      );
+    }
+  }
+
   meleeSpark(targetId: number, crit: boolean): void {
     const at = this.anchor(targetId, 0.55);
     if (!at) return;

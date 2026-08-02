@@ -2895,6 +2895,11 @@ export class Renderer {
           if (ev.school === 'physical') this.vfx.meleeSpark(ev.targetId, ev.crit);
         }
         break;
+      case 'strainFused':
+        // The cross ceremony. World-visible, so a grower standing at the chamber
+        // sees someone else's cross land too.
+        this.vfx.strainFusion(ev.entityId, ev.landrace);
+        break;
       case 'heal2':
         if (ev.amount > 0 || ev.crit) this.vfx.healGlow(ev.targetId);
         break;

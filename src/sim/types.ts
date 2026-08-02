@@ -1978,6 +1978,12 @@ export type SimEvent = { pid?: number } & (
   // icon + localized name in a gather popup; the plain 'loot' "You receive" line still
   // records it in chat (harvest.ts emits both).
   | { type: 'harvestGather'; itemId: string }
+  // A cross completing at the Breeding Chamber. Purely a presentation cue: the
+  // strain itself already landed in the library and rides the self-snapshot, so a
+  // client that ignores this event loses only the ceremony. Carries the generated
+  // child name because the REVEAL is the payoff (you do not choose it), and the
+  // landrace flag because the jackpot deserves to look different.
+  | { type: 'strainFused'; entityId: number; childName: string; landrace: boolean }
   | { type: 'loot'; text: string }
   | {
       type: 'lootRoll';
