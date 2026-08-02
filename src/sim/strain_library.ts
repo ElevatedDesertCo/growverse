@@ -78,11 +78,15 @@ export function breedStrains(ctx: SimContext, idA: string, idB: string, pid?: nu
     return;
   }
   if (ctx.countItem(BREED_COST_ITEM, meta.entityId) < BREED_COST_COUNT) {
-    ctx.error(meta.entityId, 'You need more Bloom Extract to cross strains.');
+    // Says buds, not extract: the cost moved to cultivation output when growing
+    // and foraging were split, and this line was left describing the old item.
+    ctx.error(meta.entityId, 'You need more Common Buds to cross strains.');
     return;
   }
   ctx.removeItem(BREED_COST_ITEM, BREED_COST_COUNT, meta.entityId);
-  const child = breed(ctx.rng, a, b, `s${meta.strainSeq++}`);
+  // The cross is credited to the breeder, and its name is generated from the
+  // parents, so the library reads as a lineage rather than twelve identical rows.
+  const child = breed(ctx.rng, a, b, `s${meta.strainSeq++}`, p.name);
   meta.strains.push(child);
   ctx.notice(meta.entityId, `You cross ${a.name} and ${b.name} into a new ${child.name} strain.`);
   // Reputation: breeding advances the commune's craft; a rare landrace is a windfall.
@@ -122,6 +126,12 @@ export interface SavedStrain {
   name: string;
   genotype: Genotype;
   landrace: boolean;
+  // Both optional and both absent from saves written before named genetics
+  // landed, so an old character loads with an unattributed library rather than
+  // failing. Never backfilled: a strain whose breeder was not recorded has no
+  // truthful value to invent.
+  lineage?: [string, string];
+  breeder?: string;
 }
 
 export function serializeStrains(strains: Strain[]): SavedStrain[] {
@@ -135,6 +145,8 @@ export function serializeStrains(strains: Strain[]): SavedStrain[] {
       yield: [s.genotype.yield[0], s.genotype.yield[1]],
     },
     landrace: s.landrace,
+    ...(s.lineage ? { lineage: [s.lineage[0], s.lineage[1]] as [string, string] } : {}),
+    ...(s.breeder ? { breeder: s.breeder } : {}),
   }));
 }
 
@@ -150,5 +162,7 @@ export function restoreStrains(saved: SavedStrain[] | undefined): Strain[] {
       yield: [s.genotype.yield[0], s.genotype.yield[1]],
     },
     landrace: s.landrace,
+    ...(s.lineage ? { lineage: [s.lineage[0], s.lineage[1]] as [string, string] } : {}),
+    ...(s.breeder ? { breeder: s.breeder } : {}),
   }));
 }

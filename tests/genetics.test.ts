@@ -126,13 +126,40 @@ describe('genetics: breeding', () => {
     }
   });
 
-  it('offspring inherits parent A lineage (baseId + name)', () => {
+  it('offspring inherits parent A baseId but gets its OWN generated name', () => {
     const a = strain('a', g([1, 1], [1, 1], [1, 1]), 'Alpha');
     const b = strain('b', g([2, 2], [2, 2], [2, 2]), 'Beta');
     b.baseId = 'beta';
     const child = breed(new Rng(3), a, b, 'c');
     expect(child.baseId).toBe('test'); // a.baseId
-    expect(child.name).toBe('Alpha');
+    // The name used to be copied from parent A, which left a whole library
+    // reading as one strain. A cross is now named from its parents instead.
+    expect(child.name).not.toBe('Alpha');
+    expect(child.name).not.toBe('Beta');
+    expect(child.name.length).toBeGreaterThan(0);
+  });
+
+  it('records both parents as lineage, oldest-first, and credits the breeder', () => {
+    const a = strain('a', g([1, 1], [1, 1], [1, 1]), 'Alpha');
+    const b = strain('b', g([2, 2], [2, 2], [2, 2]), 'Beta');
+    const child = breed(new Rng(3), a, b, 'c', 'Grower');
+    expect(child.lineage).toEqual(['Alpha', 'Beta']);
+    expect(child.breeder).toBe('Grower');
+  });
+
+  it('leaves breeder unset when no one is credited', () => {
+    const a = strain('a', g([1, 1], [1, 1], [1, 1]), 'Alpha');
+    const b = strain('b', g([2, 2], [2, 2], [2, 2]), 'Beta');
+    expect(breed(new Rng(3), a, b, 'c').breeder).toBeUndefined();
+  });
+
+  it('names the same cross identically for the same rng state (replay-stable)', () => {
+    const mk = () => {
+      const a = strain('a', g([1, 1], [1, 1], [1, 1]), 'Alpha');
+      const b = strain('b', g([2, 2], [2, 2], [2, 2]), 'Beta');
+      return breed(new Rng(7), a, b, 'c', 'Grower');
+    };
+    expect(mk().name).toBe(mk().name);
   });
 });
 

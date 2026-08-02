@@ -10,6 +10,7 @@
 // Vitest imports directly. `src/sim`-pure: no DOM/Three/render-ui-game-net imports.
 
 import type { Rng } from './rng';
+import { nameCross } from './strain_naming';
 import {
   GENE_MAX,
   type Genotype,
@@ -49,6 +50,8 @@ export function strainView(s: Strain): StrainView {
     potency: expressTrait(s.genotype, 'potency'),
     vigor: expressTrait(s.genotype, 'vigor'),
     yield: expressTrait(s.genotype, 'yield'),
+    ...(s.lineage ? { lineage: [s.lineage[0], s.lineage[1]] as [string, string] } : {}),
+    ...(s.breeder ? { breeder: s.breeder } : {}),
   };
 }
 
@@ -101,14 +104,25 @@ function mutateAllele(rng: Rng, allele: number): number {
 // Breed two owned strains into a new library strain. The offspring inherits parent A's
 // lineage (baseId + name root) so display names stay bounded; its genotype is the bred
 // result and its landrace flag is recomputed from expression.
-export function breed(rng: Rng, a: Strain, b: Strain, newId: string): Strain {
+// Cross two strains. `breeder` is the character credited with the cross; omit it
+// for a cross with no owner to attribute (tests, tooling).
+//
+// The offspring is NAMED here rather than inheriting parent A's name, which is
+// what it used to do: every cross now blends its parents into a new name, so a
+// library reads as a lineage instead of twelve rows all called "Common Bloom".
+// The genotype draw happens FIRST and the naming draws after it, so the existing
+// inheritance stream is untouched and only the new draws extend it.
+export function breed(rng: Rng, a: Strain, b: Strain, newId: string, breeder?: string): Strain {
   const genotype = breedGenotype(rng, a.genotype, b.genotype);
+  const landrace = isLandrace(genotype);
   return {
     id: newId,
     baseId: a.baseId,
-    name: a.name,
+    name: nameCross(rng, a.name, b.name, landrace),
     genotype,
-    landrace: isLandrace(genotype),
+    landrace,
+    lineage: [a.name, b.name],
+    ...(breeder ? { breeder } : {}),
   };
 }
 

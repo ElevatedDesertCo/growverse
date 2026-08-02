@@ -1,20 +1,15 @@
-// Player-authored strain names: the shape rules, and nothing else.
+// Shape rules for strain names.
 //
-// Naming a cross is the branding layer of the strain economy: a bred strain carries
-// its author's name and its breeder's, and both travel with it when the strain is
-// traded. That makes this the first PLAYER-AUTHORED TEXT this fork puts in front of
-// other players, so it is gated in two independent places:
+// Strain names are GENERATED, not typed (see strain_naming.ts), so this is NOT a
+// moderation gate: nothing a player authors reaches another player through the
+// strain system, which is exactly why that design was chosen. What this module
+// is instead is the generator's own guard rail. A pool edit or a blend rule that
+// produced an over-long, empty, or malformed label would otherwise ship a broken
+// name into a market listing, where it is read by every buyer.
 //
-//   1. SHAPE, here. Pure, deterministic, host-agnostic, and enforced in the sim so
-//      offline and online agree. Length, character set, and whitespace only.
-//   2. CONTENT, at the server boundary (server/game.ts), through the same
-//      `offensiveName` matcher that already gates account and character names.
-//      The sim cannot do this: it must not import from server/, and the word lists
-//      are operator-configurable at runtime.
-//
-// Offline play gets rule 1 only, which is correct: a single-player name is never
-// shown to anyone else. The moment a name can reach another player it has crossed
-// the server, where rule 2 applies.
+// Kept as a separate leaf from the generator so a Vitest can pin the rules
+// directly, and so the two cannot drift: `nameCross` validates its own output
+// through `normalizeStrainName` before returning.
 //
 // `src/sim`-pure: no DOM/Three/render-ui-game-net imports, no rng, no clock.
 
