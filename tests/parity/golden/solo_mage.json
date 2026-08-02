@@ -14,8 +14,8 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 585,
-      "state": "00f629c1",
+      "nextId": 586,
+      "state": "04a8ac9d",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -33,7 +33,7 @@
           "counters": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 584,
+          "entityId": 585,
           "equipment": {
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
@@ -167,7 +167,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 54,
-          "id": 584,
+          "id": 585,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -211,9 +211,9 @@
     {
       "tick": 20,
       "time": 1,
-      "nextId": 586,
-      "state": "5a708cb2",
-      "events": "1cc9d1d5",
+      "nextId": 587,
+      "state": "49e57a5a",
+      "events": "08470176",
       "rng": {
         "draws": 2,
         "digest": "73636399"
@@ -222,9 +222,9 @@
     {
       "tick": 40,
       "time": 2,
-      "nextId": 586,
-      "state": "41857fd3",
-      "events": "3bf0b793",
+      "nextId": 587,
+      "state": "0e5858ad",
+      "events": "8d3da95a",
       "rng": {
         "draws": 2,
         "digest": "73636399"
@@ -233,9 +233,9 @@
     {
       "tick": 60,
       "time": 3,
-      "nextId": 586,
-      "state": "284fa303",
-      "events": "56c8f44c",
+      "nextId": 587,
+      "state": "3c49affd",
+      "events": "27547ace",
       "rng": {
         "draws": 85,
         "digest": "60a9aa94"
@@ -244,9 +244,9 @@
     {
       "tick": 80,
       "time": 4,
-      "nextId": 586,
-      "state": "073145d2",
-      "events": "d6c24ff1",
+      "nextId": 587,
+      "state": "7ef7a8e4",
+      "events": "e16b67c5",
       "rng": {
         "draws": 197,
         "digest": "8391c572"
@@ -255,9 +255,9 @@
     {
       "tick": 100,
       "time": 5,
-      "nextId": 586,
-      "state": "435f62bd",
-      "events": "1b7d3978",
+      "nextId": 587,
+      "state": "7979b857",
+      "events": "f9e8edb5",
       "rng": {
         "draws": 329,
         "digest": "b3982a46"
@@ -266,9 +266,9 @@
     {
       "tick": 120,
       "time": 6,
-      "nextId": 586,
-      "state": "14144e24",
-      "events": "7d070315",
+      "nextId": 587,
+      "state": "04d90089",
+      "events": "5f0538cd",
       "rng": {
         "draws": 475,
         "digest": "bc25cdc0"
@@ -277,8 +277,8 @@
     {
       "tick": 128,
       "time": 6.4,
-      "nextId": 586,
-      "state": "f72fbef0",
+      "nextId": 587,
+      "state": "7f113c99",
       "events": "741638a5",
       "rng": {
         "draws": 539,
@@ -299,7 +299,7 @@
           },
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 584,
+          "entityId": 585,
           "equipment": {
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
@@ -439,7 +439,7 @@
           "fiveSecondRule": 1.55,
           "gcdRemaining": 0.7,
           "hp": 49985,
-          "id": 584,
+          "id": 585,
           "inCombat": true,
           "kind": "player",
           "level": 10,
@@ -472,7 +472,7 @@
             "sta": 23,
             "str": 10
           },
-          "targetId": 585,
+          "targetId": 586,
           "templateId": "mage",
           "weapon": {
             "max": 6,
@@ -481,7 +481,7 @@
           }
         },
         {
-          "aggroTargetId": 584,
+          "aggroTargetId": 585,
           "aiState": "attack",
           "auras": [
             {
@@ -491,7 +491,7 @@
               "name": "Fireball",
               "remaining": 2.2,
               "school": "fire",
-              "sourceId": 584,
+              "sourceId": 585,
               "tickInterval": 2,
               "tickTimer": 0.2,
               "value": 1
@@ -503,7 +503,7 @@
               "name": "Frostbolt",
               "remaining": 4.65,
               "school": "frost",
-              "sourceId": 584,
+              "sourceId": 585,
               "value": 0.6
             }
           ],
@@ -516,7 +516,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 8909,
-          "id": 585,
+          "id": 586,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -546,11 +546,11 @@
             "armor": 40
           },
           "swingTimer": 1.6,
-          "tappedById": 584,
+          "tappedById": 585,
           "templateId": "forest_wolf",
           "threat": [
             [
-              584,
+              585,
               92
             ]
           ],
