@@ -2016,8 +2016,8 @@ function dirtyEveryDeltaField(): {
   sim.trades.set(lp, {
     a: lp,
     b: mp,
-    offerA: { items: [], copper: 10 },
-    offerB: { items: [], copper: 0 },
+    offerA: { items: [], copper: 10, strainId: null },
+    offerB: { items: [], copper: 0, strainId: null },
     acceptedA: true,
     acceptedB: false,
   });

@@ -1099,8 +1099,13 @@ export const da_DK: EnTranslations = {
         "tooFarFromStation": "You are too far from the station.",
         "levelTooLow": "You are not skilled enough to craft that yet.",
         "missingMaterials": "You lack the materials to craft that.",
-        "budsNotFresh": "Those buds have dried. Extract live resin right after a harvest."
+        "budsNotFresh": "Those buds have dried. Extract live resin right after a harvest.",
+        "processRunning": "That process is still running. Come back when it is done."
       }
+    },
+    "trade": {
+      "cutLabel": "Cut",
+      "hint": "A cut copies the strain: you keep yours, they need a free library slot."
     },
     "cup": {
       "title": "The Vale Cup",

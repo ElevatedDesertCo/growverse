@@ -1177,6 +1177,17 @@ export interface CraftRecipe {
   // made from material that never dried, so it cannot be made from buds that have sat
   // in the bags. Nothing is lost by missing the window: the same buds still make hash.
   requiresFreshHarvest?: number;
+  // Optional PROCESS TIME, in seconds: this recipe cannot be run again until this long
+  // has passed. For the handful of outputs whose cost is genuinely TIME rather than
+  // materials (diamonds are a long slow run on the wash, not an expensive one), which
+  // the instant reagents-for-output shape cannot otherwise express.
+  //
+  // Modelled as a per-recipe cooldown rather than a cast channel on purpose: a channel
+  // would mean standing at the bench watching a bar, which is a worse version of the
+  // same wait, and it would drag the client cast bar and a server command into a
+  // content change. A cooldown lets the process run while you go do something else,
+  // which is what a long process actually feels like.
+  processSeconds?: number;
 }
 
 // How long a garden harvest counts as FRESH for the Extraction Lab's live-resin recipe.

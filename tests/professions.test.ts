@@ -5,7 +5,7 @@
 // (cultivation/cooking/alchemy/smithing via STATION_PROFESSION).
 
 import { describe, expect, it } from 'vitest';
-import { NPCS } from '../src/sim/data';
+import { CRAFT_RECIPES_BY_ID, NPCS } from '../src/sim/data';
 import { createGroundObject } from '../src/sim/entity';
 import {
   emptyProfessions,
@@ -500,5 +500,78 @@ describe('extraction: the Extraction Lab and the live-resin freshness window', (
     expect(sim.countItem('live_resin', pid)).toBe(1);
     sim.craft('extract_vale_hash', pid);
     expect(sim.countItem('vale_hash', pid)).toBe(1);
+  });
+});
+
+// Long-process recipes (CraftRecipe.processSeconds): the handful whose real cost is TIME
+// rather than materials. Diamonds are the one that has it: a long slow run on the wash,
+// which the instant reagents-for-output shape could not otherwise express.
+describe('crafting: long-process recipes', () => {
+  const atLab = (sim: AnySim) => {
+    const pid = sim.addPlayer('warrior', 'Washer');
+    const npc = [...sim.entities.values()].find(
+      (e: Entity) => (e as unknown as { templateId?: string }).templateId === 'extractor_rell',
+    ) as Entity;
+    const p = sim.entities.get(pid) as Entity;
+    p.pos.x = npc.pos.x + 2;
+    p.pos.z = npc.pos.z;
+    sim.rebucket(p);
+    const meta = sim.meta(pid)!;
+    meta.copper = 100000;
+    meta.professions.extraction = 40;
+    sim.addItem('bud_prime', 100, pid);
+    sim.addItem('bud_common', 100, pid);
+    return { pid, meta };
+  };
+  const world = () => new Sim({ seed: 42, playerClass: 'warrior', noPlayer: true }) as AnySim;
+  const recipe = CRAFT_RECIPES_BY_ID.extract_bloom_diamonds;
+
+  it('diamonds declare a process time', () => {
+    expect(recipe.processSeconds).toBeGreaterThan(0);
+  });
+
+  it('runs once, then refuses until the process finishes, charging nothing meanwhile', () => {
+    const sim = world();
+    const { pid, meta } = atLab(sim);
+    sim.craft('extract_bloom_diamonds', pid);
+    expect(sim.countItem('bloom_diamonds', pid)).toBe(1);
+    const budsAfterFirst = sim.countItem('bud_prime', pid);
+    const copperAfterFirst = meta.copper;
+
+    sim.craft('extract_bloom_diamonds', pid); // the wash is still running
+    expect(sim.countItem('bloom_diamonds', pid)).toBe(1);
+    expect(sim.countItem('bud_prime', pid)).toBe(budsAfterFirst); // no reagents taken
+    expect(meta.copper).toBe(copperAfterFirst); // and no copper
+  });
+
+  it('runs again once the process time has elapsed', () => {
+    const sim = world();
+    const { pid, meta } = atLab(sim);
+    sim.craft('extract_bloom_diamonds', pid);
+    meta.craftReadyAt.extract_bloom_diamonds = -1; // the run finished
+    sim.craft('extract_bloom_diamonds', pid);
+    expect(sim.countItem('bloom_diamonds', pid)).toBe(2);
+  });
+
+  it('does not block a DIFFERENT recipe at the same station', () => {
+    const sim = world();
+    const { pid } = atLab(sim);
+    sim.craft('extract_bloom_diamonds', pid);
+    sim.craft('extract_vale_hash', pid); // no process time of its own
+    expect(sim.countItem('vale_hash', pid)).toBe(1);
+  });
+
+  it('persists as time REMAINING, so a clock reset does not hand back a free run', () => {
+    const sim = world();
+    const { pid } = atLab(sim);
+    sim.craft('extract_bloom_diamonds', pid);
+    const saved = sim.serializeCharacter(pid)!;
+    expect(saved.craftCooldowns?.extract_bloom_diamonds).toBeGreaterThan(0);
+
+    // A fresh Sim starts its clock at 0; the cooldown rebases onto it rather than
+    // reading as long expired (which an absolute stamp would).
+    const reloaded = new Sim({ seed: 42, playerClass: 'warrior', noPlayer: true }) as AnySim;
+    const rid = reloaded.addPlayer('warrior', 'Washer', { state: saved });
+    expect(reloaded.meta(rid)!.craftReadyAt.extract_bloom_diamonds).toBeGreaterThan(0);
   });
 });

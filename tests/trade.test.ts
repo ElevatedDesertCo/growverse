@@ -81,8 +81,8 @@ describe('trade module (direct, no Sim)', () => {
     tradeMod.tradeAccept(h.ctx, 2);
     expect(tradeMod.tradeFor(h.ctx, 1)).toBeTruthy();
 
-    tradeMod.tradeSetOffer(h.ctx, [{ itemId: 'wolf_fang', count: 2 }], 30, 1);
-    tradeMod.tradeSetOffer(h.ctx, [{ itemId: 'baked_bread', count: 1 }], 10, 2);
+    tradeMod.tradeSetOffer(h.ctx, [{ itemId: 'wolf_fang', count: 2 }], 30, null, 1);
+    tradeMod.tradeSetOffer(h.ctx, [{ itemId: 'baked_bread', count: 1 }], 10, null, 2);
     tradeMod.tradeConfirm(h.ctx, 1);
     expect(tradeMod.tradeFor(h.ctx, 1)).toBeTruthy(); // not done until both confirm
     tradeMod.tradeConfirm(h.ctx, 2);

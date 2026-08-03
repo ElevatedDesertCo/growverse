@@ -3660,8 +3660,8 @@ function playerTrade(): Scenario {
       // 1) atomic swap: A gives 2 wolf_fang + 30 copper, B gives 1 baked_bread + 10 copper.
       sim.tradeRequest(b, a);
       sim.tradeAccept(b);
-      sim.tradeSetOffer([{ itemId: 'wolf_fang', count: 2 }], 30, a);
-      sim.tradeSetOffer([{ itemId: 'baked_bread', count: 1 }], 10, b);
+      sim.tradeSetOffer([{ itemId: 'wolf_fang', count: 2 }], 30, null, a);
+      sim.tradeSetOffer([{ itemId: 'baked_bread', count: 1 }], 10, null, b);
       sim.tradeConfirm(a);
       sim.tradeConfirm(b);
       rec.snapshot('swapped');
@@ -3669,7 +3669,7 @@ function playerTrade(): Scenario {
       // 2) cancel path: open another session, A confirms, B cancels it (no swap).
       sim.tradeRequest(b, a);
       sim.tradeAccept(b);
-      sim.tradeSetOffer([{ itemId: 'wolf_fang', count: 1 }], 0, a);
+      sim.tradeSetOffer([{ itemId: 'wolf_fang', count: 1 }], 0, null, a);
       sim.tradeConfirm(a);
       sim.tradeCancel(b);
       rec.snapshot('cancelled');

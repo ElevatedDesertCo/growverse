@@ -12,9 +12,10 @@
 
 import type { TradeInfo } from '../../world_api';
 import { ITEMS } from '../data';
-import type { TradeSession } from '../sim';
+import { strainView } from '../genetics';
+import type { PlayerMeta, TradeSession } from '../sim';
 import type { SimContext } from '../sim_context';
-import { dist2d, type InvSlot } from '../types';
+import { dist2d, type InvSlot, MAX_STRAINS } from '../types';
 
 // A trade is only offered/kept while both parties are within this many yards;
 // the drift sweep cancels an open session once they wander past TRADE_RANGE + 4.
@@ -70,8 +71,8 @@ export function tradeAccept(ctx: SimContext, pid?: number): void {
   const session: TradeSession = {
     a: invite.fromPid,
     b: r.meta.entityId,
-    offerA: { items: [], copper: 0 },
-    offerB: { items: [], copper: 0 },
+    offerA: { items: [], copper: 0, strainId: null },
+    offerB: { items: [], copper: 0, strainId: null },
     acceptedA: false,
     acceptedB: false,
   };
@@ -86,6 +87,7 @@ export function tradeSetOffer(
   ctx: SimContext,
   items: InvSlot[],
   copper: number,
+  strainId: string | null,
   pid?: number,
 ): void {
   const r = ctx.resolve(pid);
@@ -108,9 +110,16 @@ export function tradeSetOffer(
     if (ctx.countItem(itemId, r.meta.entityId) < count) continue;
     cleaned.push({ itemId, count });
   }
+  // The cut. Validated the same way the items are: it is dropped rather than rejected if
+  // the player does not own it, so a stale client cannot stake genetics they do not have.
+  const cut =
+    typeof strainId === 'string' && r.meta.strains.some((st) => st.id === strainId)
+      ? strainId
+      : null;
   const offer = {
     items: cleaned,
     copper: Math.max(0, Math.min(Math.floor(copper), r.meta.copper)),
+    strainId: cut,
   };
   if (session.a === r.meta.entityId) session.offerA = offer;
   else session.offerB = offer;
@@ -145,6 +154,22 @@ export function tradeConfirm(ctx: SimContext, pid?: number): void {
     closeTrade(ctx, session);
     return;
   }
+  // Cuts are validated separately because they fail for a different reason and deserve a
+  // different line: the giver must still own the strain, and the RECEIVER must have a
+  // library slot free. Checked before anything moves, so a full library cancels the trade
+  // rather than silently dropping the genetics half of it.
+  if (!cutTransferable(session.offerA.strainId, metaA, metaB)) {
+    for (const tPid of [session.a, session.b])
+      ctx.error(tPid, 'Trade failed: no room for that cut.');
+    closeTrade(ctx, session);
+    return;
+  }
+  if (!cutTransferable(session.offerB.strainId, metaB, metaA)) {
+    for (const tPid of [session.a, session.b])
+      ctx.error(tPid, 'Trade failed: no room for that cut.');
+    closeTrade(ctx, session);
+    return;
+  }
   // swap
   metaA.copper = metaA.copper - session.offerA.copper + session.offerB.copper;
   metaB.copper = metaB.copper - session.offerB.copper + session.offerA.copper;
@@ -156,6 +181,10 @@ export function tradeConfirm(ctx: SimContext, pid?: number): void {
     ctx.removeItem(s.itemId, s.count, session.b);
     ctx.addItem(s.itemId, s.count, session.a);
   }
+  // Cuts LAST, and both after every guard, so the swap stays atomic. Taken as copies:
+  // the giver keeps the mother plant, which is the difference between a cut and a plant.
+  giveCut(session.offerA.strainId, metaA, metaB);
+  giveCut(session.offerB.strainId, metaB, metaA);
   for (const tPid of [session.a, session.b]) {
     ctx.emit({ type: 'log', text: 'Trade complete.', color: '#8df', pid: tPid });
     ctx.emit({ type: 'tradeDone', pid: tPid });
@@ -172,6 +201,38 @@ export function tradeCancel(ctx: SimContext, pid?: number): void {
     ctx.emit({ type: 'log', text: 'Trade cancelled.', color: '#8df', pid: tPid });
   }
   closeTrade(ctx, session);
+}
+
+// True when a staked cut can actually move: the giver still owns it and the receiver has
+// a library slot. A null cut is trivially fine (most trades stake no genetics).
+function cutTransferable(strainId: string | null, from: PlayerMeta, to: PlayerMeta): boolean {
+  if (strainId === null) return true;
+  if (!from.strains.some((st) => st.id === strainId)) return false;
+  return to.strains.length < MAX_STRAINS;
+}
+
+// Copy a staked cut into the receiver's library. The genotype, name, lineage, and BREEDER
+// CREDIT all travel, which is what makes a strain that spreads carry its breeder's name.
+// Mastery deliberately does NOT: it is the grower's own record with a plant, so a cut
+// arrives at zero however well the giver knew it, exactly as a fresh cross does.
+function giveCut(strainId: string | null, from: PlayerMeta, to: PlayerMeta): void {
+  if (strainId === null) return;
+  const src = from.strains.find((st) => st.id === strainId);
+  if (!src || to.strains.length >= MAX_STRAINS) return;
+  to.strains.push({
+    id: `s${to.strainSeq++}`,
+    baseId: src.baseId,
+    name: src.name,
+    genotype: {
+      potency: [src.genotype.potency[0], src.genotype.potency[1]],
+      vigor: [src.genotype.vigor[0], src.genotype.vigor[1]],
+      yield: [src.genotype.yield[0], src.genotype.yield[1]],
+    },
+    landrace: src.landrace,
+    ...(src.lineage ? { lineage: [src.lineage[0], src.lineage[1]] as [string, string] } : {}),
+    ...(src.breeder ? { breeder: src.breeder } : {}),
+    mastery: 0,
+  });
 }
 
 // true when the player's bags cover the offered totals per item, summing
@@ -221,11 +282,25 @@ export function tradeInfoFor(ctx: SimContext, pid: number): TradeInfo | null {
   if (!t) return null;
   const mine = t.a === pid;
   const otherPid = mine ? t.b : t.a;
+  // Each side's staked cut resolves to the EXPRESSED phenotype only, so the receiver can
+  // judge what they are being offered without the raw genotype (and its hidden
+  // recessives) crossing the wire, exactly like every other client-facing strain read.
+  const cutOf = (side: 'a' | 'b') => {
+    const owner = ctx.players.get(side === 'a' ? t.a : t.b);
+    const id = side === 'a' ? t.offerA.strainId : t.offerB.strainId;
+    if (!owner || id === null) return null;
+    const src = owner.strains.find((st) => st.id === id);
+    return src ? strainView(src) : null;
+  };
+  const offerFor = (side: 'a' | 'b') => {
+    const o = side === 'a' ? t.offerA : t.offerB;
+    return { items: o.items, copper: o.copper, cut: cutOf(side) };
+  };
   return {
     otherPid,
     otherName: ctx.players.get(otherPid)?.name ?? '?',
-    myOffer: mine ? t.offerA : t.offerB,
-    theirOffer: mine ? t.offerB : t.offerA,
+    myOffer: offerFor(mine ? 'a' : 'b'),
+    theirOffer: offerFor(mine ? 'b' : 'a'),
     myAccepted: mine ? t.acceptedA : t.acceptedB,
     theirAccepted: mine ? t.acceptedB : t.acceptedA,
   };

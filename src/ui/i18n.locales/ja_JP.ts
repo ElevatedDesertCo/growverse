@@ -2404,6 +2404,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
     '収穫した花蕾をハシシュ、シャッター、生樹脂、ダイヤモンドへ洗い出す。',
   'hudChrome.crafting.errors.budsNotFresh':
     'その花蕾はもう乾いている。生樹脂は収穫の直後に抽出しろ。',
+  'hudChrome.crafting.errors.processRunning': 'その工程はまだ回っている。終わってから来い。',
   'hudChrome.crafting.enchantHint': '極上の花蕾と堕落の欠片を結び、30分持続する紋を刻む。',
   'hudChrome.crafting.alchemyHint':
     '採取した花蕾を治療とマナの水薬、そして戦闘用エリクサーに調合する。',
@@ -5242,6 +5243,8 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.crafting.crafted': '{name} を作成した。',
   'hudChrome.crafting.empty': 'ここではまだ何も作成できない。',
   'hudChrome.crafting.close': '閉じる',
+  'hudChrome.trade.cutLabel': '挿し穂',
+  'hudChrome.trade.hint': '挿し穂は複製だ。母株は手元に残り、相手には品種の空き枠が要る。',
   'hudChrome.cup.title': 'ヴェイル・カップ',
   'hudChrome.cup.open': 'ヴェイル・カップに出品',
   'hudChrome.cup.hint': '遺伝、持ち込む品級、そして株をどれだけ知っているかで審査される。',

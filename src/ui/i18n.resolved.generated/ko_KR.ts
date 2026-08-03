@@ -1099,8 +1099,13 @@ export const ko_KR: EnTranslations = {
         "tooFarFromStation": "작업대에서 너무 멀리 있습니다.",
         "levelTooLow": "아직 그것을 제작할 만한 실력이 안 됩니다.",
         "missingMaterials": "제작에 필요한 재료가 부족합니다.",
-        "budsNotFresh": "그 꽃봉오리는 이미 말랐습니다. 생수지는 수확 직후에 추출해야 합니다."
+        "budsNotFresh": "그 꽃봉오리는 이미 말랐습니다. 생수지는 수확 직후에 추출해야 합니다.",
+        "processRunning": "그 공정은 아직 돌아가고 있습니다. 끝나면 다시 오세요."
       }
+    },
+    "trade": {
+      "cutLabel": "꺾꽂이",
+      "hint": "꺾꽂이는 복제입니다. 모주는 그대로 두고, 상대에게는 빈 품종 칸이 필요합니다."
     },
     "cup": {
       "title": "밸리 컵",

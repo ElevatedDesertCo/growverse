@@ -1,5 +1,9 @@
 import { type CraftRecipe, FRESH_HARVEST_WINDOW, type ItemDef, type NpcDef } from '../types';
 
+// How long the diamond wash runs between batches. Named rather than inline so the one
+// balance number the prestige tier turns on is visible next to the recipe.
+const DIAMOND_PROCESS_SECONDS = 1200;
+
 // ---------------------------------------------------------------------------
 // Growverse crafting: two stations, their attendant NPCs, the reagent + output
 // items, and the recipes. Pure data-as-code; the engine reads CRAFT_RECIPES in
@@ -1194,6 +1198,10 @@ export const CRAFT_RECIPES: CraftRecipe[] = [
     copperCost: 200,
     output: { itemId: 'bloom_diamonds', count: 1 },
     requiredProfession: { id: 'extraction', skill: 40 },
+    // The prestige tier's real cost is TIME on the wash, not reagents. Twenty sim
+    // minutes between runs, so diamonds are something you set going and come back to
+    // rather than something you spam once the skill gate is behind you.
+    processSeconds: DIAMOND_PROCESS_SECONDS,
   },
 ];
 

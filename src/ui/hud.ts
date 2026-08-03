@@ -964,6 +964,9 @@ export class Hud {
   private lastLowResourceSig = '';
   // trading: locally staged offer, pushed to the server on change
   private stagedTrade: { items: InvSlot[]; copper: number } = { items: [], copper: 0 };
+  // The library strain staked as a cut on this trade, or null. Kept beside stagedTrade
+  // and cleared with it, so a new trade never inherits the last one's genetics.
+  private stagedCut: string | null = null;
   private tradeWasOpen = false;
   private lastTradeSig = '';
   private lastPartySig = '';
@@ -7496,6 +7499,8 @@ export class Hud {
       'You lack the materials to craft that.': 'hudChrome.crafting.errors.missingMaterials',
       'Those buds have dried. Extract live resin right after a harvest.':
         'hudChrome.crafting.errors.budsNotFresh',
+      'That process is still running. Come back when it is done.':
+        'hudChrome.crafting.errors.processRunning',
     };
     const key = exact[text];
     if (key) return t(key);
@@ -11732,7 +11737,16 @@ export class Hud {
   }
 
   private pushTradeOffer(): void {
-    this.sim.tradeSetOffer(this.stagedTrade.items, this.stagedTrade.copper);
+    this.sim.tradeSetOffer(this.stagedTrade.items, this.stagedTrade.copper, this.stagedCut);
+  }
+
+  // Stake (or clear) a cut of one of your library strains. A cut is a COPY: your mother
+  // plant stays yours, so the only cost is a slot in the receiver's library. Toggling the
+  // same strain clears it, matching how the parent picks work in the breeding window.
+  stageTradeCut(strainId: string | null): void {
+    if (!this.tradeOpen) return;
+    this.stagedCut = this.stagedCut === strainId ? null : strainId;
+    this.pushTradeOffer();
   }
 
   private updateTradeWindow(): void {
@@ -11743,6 +11757,7 @@ export class Hud {
         el.style.display = 'none';
         this.tradeWasOpen = false;
         this.stagedTrade = { items: [], copper: 0 };
+        this.stagedCut = null;
         this.lastTradeSig = '';
         if ($('#bags').style.display !== 'none') this.renderBags();
       }
@@ -11751,6 +11766,7 @@ export class Hud {
     if (!this.tradeWasOpen) {
       this.tradeWasOpen = true;
       this.stagedTrade = { items: [], copper: 0 };
+      this.stagedCut = null;
       this.renderBags();
       $('#bags').style.display = 'flex';
     }
@@ -11772,12 +11788,35 @@ export class Hud {
         ? `<button type="button" class="trade-item mine" data-item="${esc(s.itemId)}">${inner}</button>`
         : `<div class="trade-item">${inner}</div>`;
     };
+    // The cut picker: genetics-for-genetics is the trade this economy has that a generic
+    // auction house does not, so it sits alongside the items rather than behind a tab.
+    // A strain the giver keeps, so the only thing spent is a slot in the receiver's
+    // library, which is why the hint says what it says.
+    const cutLabel = (name: string, landrace: boolean) =>
+      `${esc(name)}${landrace ? ` <span class="trade-cut-landrace">${esc(t('hudChrome.breeding.landrace'))}</span>` : ''}`;
+    const cutPicker =
+      this.sim.strains.length === 0
+        ? ''
+        : `<div class="trade-cut"><span class="trade-cut-label">${esc(t('hudChrome.trade.cutLabel'))}</span>` +
+          this.sim.strains
+            .map(
+              (st) =>
+                `<button type="button" class="trade-cut-opt${st.id === this.stagedCut ? ' trade-cut-on' : ''}"` +
+                ` data-cut="${esc(st.id)}" aria-pressed="${st.id === this.stagedCut}">${cutLabel(st.name, st.landrace)}</button>`,
+            )
+            .join('') +
+          `</div>`;
+    const theirCut = info.theirOffer.cut
+      ? `<div class="trade-cut"><span class="trade-cut-label">${esc(t('hudChrome.trade.cutLabel'))}</span>` +
+        `<span class="trade-cut-offered">${cutLabel(info.theirOffer.cut.name, info.theirOffer.cut.landrace)}</span></div>`
+      : '';
     el.innerHTML = `
       <div class="panel-title"><span>${esc(t('hud.trade.title', { name: info.otherName }))}</span><button type="button" class="x-btn" data-close aria-label="${esc(t('hud.trade.cancel'))}">${svgIcon('close')}</button></div>
       <div class="trade-cols">
         <div class="trade-col ${info.myAccepted ? 'accepted' : ''}">
           <h4>${esc(t('hud.trade.yourOffer'))}</h4>
           <div class="trade-items">${info.myOffer.items.map((s) => itemRow(s, true)).join('') || `<div class="trade-empty">${esc(t('hud.trade.emptyMine'))}</div>`}</div>
+          ${cutPicker}
           <div class="trade-money"><span class="trade-money-label">${esc(t('hud.trade.money'))}:</span>
             <span class="trade-coins">
               <input class="coininput" id="trade-g" type="number" min="0" value="${Math.floor(this.stagedTrade.copper / 10000)}" aria-label="${esc(t('itemUi.money.gold'))}"><span class="coin g" aria-hidden="true"></span><span class="mkt-coin-tag">${esc(t('itemUi.money.goldShort'))}</span>
@@ -11789,6 +11828,7 @@ export class Hud {
         <div class="trade-col ${info.theirAccepted ? 'accepted' : ''}">
           <h4>${esc(t('hud.trade.theirOffer', { name: info.otherName }))}</h4>
           <div class="trade-items">${info.theirOffer.items.map((s) => itemRow(s, false)).join('') || `<div class="trade-empty">${esc(t('hud.trade.emptyTheirs'))}</div>`}</div>
+          ${theirCut}
           <div class="trade-money">${esc(t('hud.trade.money'))}: <span class="gold">${formatLocalizedMoney(info.theirOffer.copper)}</span></div>
         </div>
       </div>
@@ -11804,6 +11844,10 @@ export class Hud {
     cancelBtn.addEventListener('click', () => this.sim.tradeCancel());
     el.append(acceptBtn, cancelBtn);
     el.querySelector('[data-close]')?.addEventListener('click', () => this.sim.tradeCancel());
+    el.querySelectorAll('[data-cut]').forEach((btn) => {
+      const id = (btn as HTMLElement).dataset.cut;
+      if (id) btn.addEventListener('click', () => this.stageTradeCut(id));
+    });
     el.querySelectorAll('.trade-item.mine').forEach((row) => {
       row.addEventListener('click', () => {
         const itemId = (row as HTMLElement).dataset.item ?? '';

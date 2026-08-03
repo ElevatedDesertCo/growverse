@@ -1219,7 +1219,16 @@ export const hudChromeStrings = {
       // The live-resin freshness window: shown when the player's last garden harvest is
       // older than the recipe allows. Phrased so it teaches the rule, not just the denial.
       budsNotFresh: 'Those buds have dried. Extract live resin right after a harvest.',
+      // A long-process recipe (CraftRecipe.processSeconds) whose run has not finished.
+      processRunning: 'That process is still running. Come back when it is done.',
     },
+  },
+  // Cut swapping on the trade window: staking a copy of one of your library strains
+  // alongside the items. Lives here rather than in the merge.ts trade block because that
+  // catalog is tsc-enforced per locale; this namespace takes English-only adds.
+  trade: {
+    cutLabel: 'Cut',
+    hint: 'A cut copies the strain: you keep yours, they need a free library slot.',
   },
   // The Vale Cup: the commune's recurring growing competition. The board is public and
   // carries grower + strain names verbatim (proper nouns), so only the chrome is keyed.

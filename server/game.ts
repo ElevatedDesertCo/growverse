@@ -2611,7 +2611,14 @@ export class GameServer {
         sim.tradeAccept(pid);
         break;
       case 'trade_offer':
-        if (Array.isArray(msg.items)) sim.tradeSetOffer(msg.items, Number(msg.copper) || 0, pid);
+        if (Array.isArray(msg.items)) {
+          sim.tradeSetOffer(
+            msg.items,
+            Number(msg.copper) || 0,
+            typeof msg.strain === 'string' ? msg.strain : null,
+            pid,
+          );
+        }
         break;
       case 'trade_confirm':
         sim.tradeConfirm(pid);

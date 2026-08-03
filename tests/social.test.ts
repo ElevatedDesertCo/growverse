@@ -9,7 +9,8 @@ import {
   MOBS,
 } from '../src/sim/data';
 import { type Party, Sim } from '../src/sim/sim';
-import { ALL_CLASSES, dist2d, type Entity, MAX_LEVEL } from '../src/sim/types';
+import { tradeInfoFor } from '../src/sim/social/trade';
+import { ALL_CLASSES, dist2d, type Entity, MAX_LEVEL, MAX_STRAINS } from '../src/sim/types';
 import { groundHeight } from '../src/sim/world';
 import type { PartyMemberInfo } from '../src/world_api';
 
@@ -706,8 +707,8 @@ describe('trading', () => {
     sim.tradeRequest(b, a);
     sim.tradeAccept(b);
     expect(sim.tradeFor(a)).toBeTruthy();
-    sim.tradeSetOffer([{ itemId: 'wolf_fang', count: 2 }], 30, a);
-    sim.tradeSetOffer([{ itemId: 'baked_bread', count: 1 }], 10, b);
+    sim.tradeSetOffer([{ itemId: 'wolf_fang', count: 2 }], 30, null, a);
+    sim.tradeSetOffer([{ itemId: 'baked_bread', count: 1 }], 10, null, b);
     sim.tradeConfirm(a);
     expect(sim.tradeFor(a)).toBeTruthy(); // not done until both confirm
     sim.tradeConfirm(b);
@@ -762,7 +763,7 @@ describe('trading', () => {
     sim.tradeAccept(b);
     // exploit attempt: 6 duplicate slots, each individually covered by the bags
     const dup = Array.from({ length: 6 }, () => ({ itemId: 'wolf_fang', count: 5 }));
-    sim.tradeSetOffer(dup, 0, a);
+    sim.tradeSetOffer(dup, 0, null, a);
     // the merged total (30) exceeds the bags (5), so the offer must be rejected
     expect(sim.tradeFor(a)?.offerA.items.length).toBe(0);
     sim.tradeConfirm(a);
@@ -794,7 +795,7 @@ describe('trading', () => {
       { itemId: 'wolf_fang', count: 2 },
     ] as any;
     // must not throw, and only the one valid slot survives
-    expect(() => sim.tradeSetOffer(junk, 0, a)).not.toThrow();
+    expect(() => sim.tradeSetOffer(junk, 0, null, a)).not.toThrow();
     expect(sim.tradeFor(a)?.offerA.items).toEqual([{ itemId: 'wolf_fang', count: 2 }]);
     sim.tradeConfirm(a);
     sim.tradeConfirm(b);
@@ -820,6 +821,7 @@ describe('trading', () => {
         { itemId: 'wolf_fang', count: 2 },
       ],
       0,
+      null,
       a,
     );
     expect(sim.tradeFor(a)?.offerA.items).toEqual([{ itemId: 'wolf_fang', count: 4 }]);
@@ -839,7 +841,7 @@ describe('trading', () => {
     sim.addItem('boar_hide', 2, a);
     sim.tradeRequest(b, a);
     sim.tradeAccept(b);
-    sim.tradeSetOffer([{ itemId: 'boar_hide', count: 2 }], 0, a);
+    sim.tradeSetOffer([{ itemId: 'boar_hide', count: 2 }], 0, null, a);
     expect(sim.tradeFor(a)?.offerA.items.length).toBe(0);
   });
 
@@ -853,7 +855,7 @@ describe('trading', () => {
 
     sim.tradeRequest(b, a);
     sim.tradeAccept(b);
-    sim.tradeSetOffer([{ itemId: 'vanguard_chrome_armor_plate', count: 1 }], 0, a);
+    sim.tradeSetOffer([{ itemId: 'vanguard_chrome_armor_plate', count: 1 }], 0, null, a);
     sim.tradeConfirm(a);
     sim.tradeConfirm(b);
 
@@ -1005,5 +1007,128 @@ describe('the new dungeons', () => {
     korgath.hp = Math.floor(korgath.maxHp * 0.25);
     sim.tick();
     expect(korgath.enraged).toBe(true);
+  });
+});
+
+// Cut swapping: staking a copy of a library strain alongside the items. Genetics for
+// genetics is the trade growers actually make, and it is the one thing this economy has
+// that a generic auction house does not.
+describe('trading: cuts', () => {
+  const pair = (sim: Sim) => {
+    const a = sim.addPlayer('warrior', 'Ayla');
+    const b = sim.addPlayer('warrior', 'Bram');
+    teleport(sim, a, 0, -40);
+    teleport(sim, b, 3, -40);
+    sim.tradeRequest(b, a);
+    sim.tradeAccept(b);
+    return { a, b };
+  };
+  const lib = (sim: Sim, pid: number) => sim.meta(pid)!.strains;
+  const giveStrain = (sim: Sim, pid: number, name: string, breeder?: string): string => {
+    const list = lib(sim, pid);
+    const id = `t${pid}_${list.length}`;
+    list.push({
+      id,
+      baseId: 'common_bloom',
+      name,
+      genotype: { potency: [3, 1], vigor: [2, 0], yield: [1, 1] },
+      landrace: false,
+      ...(breeder ? { breeder } : {}),
+      mastery: 0,
+    });
+    return id;
+  };
+
+  it('swaps a cut both ways, and BOTH sides keep their own', () => {
+    const sim = makeWorld();
+    const { a, b } = pair(sim);
+    const aCut = giveStrain(sim, a, 'Fen Haze');
+    const bCut = giveStrain(sim, b, 'Copper Diesel');
+
+    sim.tradeSetOffer([], 0, aCut, a);
+    sim.tradeSetOffer([], 0, bCut, b);
+    sim.tradeConfirm(a);
+    sim.tradeConfirm(b);
+
+    // A cut is a COPY: the mother plant stays home, so each side ends with both.
+    expect(
+      lib(sim, a)
+        .map((s) => s.name)
+        .sort(),
+    ).toEqual(['Copper Diesel', 'Fen Haze']);
+    expect(
+      lib(sim, b)
+        .map((s) => s.name)
+        .sort(),
+    ).toEqual(['Copper Diesel', 'Fen Haze']);
+  });
+
+  it('carries the breeder credit, so a strain that spreads carries its breeder name', () => {
+    const sim = makeWorld();
+    const { a, b } = pair(sim);
+    sim.tradeSetOffer([], 0, giveStrain(sim, a, 'Fen Diesel', 'Ayla'), a);
+    sim.tradeConfirm(a);
+    sim.tradeConfirm(b);
+    expect(lib(sim, b).find((s) => s.name === 'Fen Diesel')?.breeder).toBe('Ayla');
+  });
+
+  it('does NOT carry mastery: that is the grower record, not the plant', () => {
+    const sim = makeWorld();
+    const { a, b } = pair(sim);
+    const aCut = giveStrain(sim, a, 'Fen Haze');
+    lib(sim, a).find((s) => s.id === aCut)!.mastery = 88;
+    sim.tradeSetOffer([], 0, aCut, a);
+    sim.tradeConfirm(a);
+    sim.tradeConfirm(b);
+    expect(lib(sim, b).find((s) => s.name === 'Fen Haze')?.mastery).toBe(0);
+    expect(lib(sim, a).find((s) => s.id === aCut)?.mastery).toBe(88); // giver untouched
+  });
+
+  it('cancels the whole trade when the receiver library is full, moving nothing', () => {
+    const sim = makeWorld();
+    const { a, b } = pair(sim);
+    const aCut = giveStrain(sim, a, 'Fen Haze');
+    while (lib(sim, b).length < MAX_STRAINS) giveStrain(sim, b, `Filler ${lib(sim, b).length}`);
+    sim.addItem('wolf_fang', 3, a);
+
+    sim.tradeSetOffer([{ itemId: 'wolf_fang', count: 3 }], 0, aCut, a);
+    sim.tradeConfirm(a);
+    sim.tradeConfirm(b);
+
+    // Atomic: the ITEMS half must not land either, or a failed swap silently became a gift.
+    expect(lib(sim, b)).toHaveLength(MAX_STRAINS);
+    expect(sim.countItem('wolf_fang', a)).toBe(3);
+    expect(sim.countItem('wolf_fang', b)).toBe(0);
+  });
+
+  it('drops a staked cut the offerer does not own, rather than trusting the client', () => {
+    const sim = makeWorld();
+    const { a, b } = pair(sim);
+    sim.tradeSetOffer([], 0, 'not-a-strain-i-own', a);
+    expect(sim.tradeFor(a)?.offerA.strainId).toBeNull();
+    sim.tradeConfirm(a);
+    sim.tradeConfirm(b);
+    expect(lib(sim, b)).toHaveLength(0);
+  });
+
+  it('shows the expressed phenotype of the offered cut, never the genotype', () => {
+    const sim = makeWorld();
+    const { a, b } = pair(sim);
+    sim.tradeSetOffer([], 0, giveStrain(sim, a, 'Fen Haze'), a);
+    const theirs = tradeInfoFor(sim.ctx, b)!.theirOffer.cut;
+    expect(theirs?.name).toBe('Fen Haze');
+    expect(theirs?.potency).toBe(3); // the dominant allele, not the carried 1
+    expect(theirs).not.toHaveProperty('genotype');
+  });
+
+  it('leaves an ordinary trade untouched when no cut is staked', () => {
+    const sim = makeWorld();
+    const { a, b } = pair(sim);
+    sim.addItem('wolf_fang', 2, a);
+    sim.tradeSetOffer([{ itemId: 'wolf_fang', count: 2 }], 0, null, a);
+    sim.tradeConfirm(a);
+    sim.tradeConfirm(b);
+    expect(sim.countItem('wolf_fang', b)).toBe(2);
+    expect(lib(sim, b)).toHaveLength(0);
   });
 });

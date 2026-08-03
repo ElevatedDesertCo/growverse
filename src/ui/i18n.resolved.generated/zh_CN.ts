@@ -1099,8 +1099,13 @@ export const zh_CN: EnTranslations = {
         "tooFarFromStation": "你离工作台太远了。",
         "levelTooLow": "你的技艺还不足以制作那个。",
         "missingMaterials": "你缺少制作所需的材料。",
-        "budsNotFresh": "这些花苞已经干了。鲜活树脂要在收获后立刻萃取。"
+        "budsNotFresh": "这些花苞已经干了。鲜活树脂要在收获后立刻萃取。",
+        "processRunning": "这道工序还在进行中。等它完成后再来。"
       }
+    },
+    "trade": {
+      "cutLabel": "插枝",
+      "hint": "插枝是复制品：你保留自己的母株，对方需要一个空的品系槽位。"
     },
     "cup": {
       "title": "山谷杯",

@@ -224,6 +224,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.errors.budsNotFresh",
     "hudChrome.crafting.errors.levelTooLow",
     "hudChrome.crafting.errors.missingMaterials",
+    "hudChrome.crafting.errors.processRunning",
     "hudChrome.crafting.errors.recipeUnavailable",
     "hudChrome.crafting.errors.tooFarFromStation",
     "hudChrome.crafting.extractHint",
@@ -306,6 +307,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
+    "hudChrome.trade.cutLabel",
+    "hudChrome.trade.hint",
     "hudChrome.unitFrame.lvl"
   ],
   "es_ES": [
@@ -523,6 +526,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.errors.budsNotFresh",
     "hudChrome.crafting.errors.levelTooLow",
     "hudChrome.crafting.errors.missingMaterials",
+    "hudChrome.crafting.errors.processRunning",
     "hudChrome.crafting.errors.recipeUnavailable",
     "hudChrome.crafting.errors.tooFarFromStation",
     "hudChrome.crafting.extractHint",
@@ -605,6 +609,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
+    "hudChrome.trade.cutLabel",
+    "hudChrome.trade.hint",
     "hudChrome.unitFrame.lvl"
   ],
   "fr_FR": [
@@ -822,6 +828,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.errors.budsNotFresh",
     "hudChrome.crafting.errors.levelTooLow",
     "hudChrome.crafting.errors.missingMaterials",
+    "hudChrome.crafting.errors.processRunning",
     "hudChrome.crafting.errors.recipeUnavailable",
     "hudChrome.crafting.errors.tooFarFromStation",
     "hudChrome.crafting.extractHint",
@@ -904,6 +911,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
+    "hudChrome.trade.cutLabel",
+    "hudChrome.trade.hint",
     "hudChrome.unitFrame.lvl"
   ],
   "fr_CA": [
@@ -1121,6 +1130,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.errors.budsNotFresh",
     "hudChrome.crafting.errors.levelTooLow",
     "hudChrome.crafting.errors.missingMaterials",
+    "hudChrome.crafting.errors.processRunning",
     "hudChrome.crafting.errors.recipeUnavailable",
     "hudChrome.crafting.errors.tooFarFromStation",
     "hudChrome.crafting.extractHint",
@@ -1203,6 +1213,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
+    "hudChrome.trade.cutLabel",
+    "hudChrome.trade.hint",
     "hudChrome.unitFrame.lvl"
   ],
   "en_CA": [],
@@ -1421,6 +1433,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.errors.budsNotFresh",
     "hudChrome.crafting.errors.levelTooLow",
     "hudChrome.crafting.errors.missingMaterials",
+    "hudChrome.crafting.errors.processRunning",
     "hudChrome.crafting.errors.recipeUnavailable",
     "hudChrome.crafting.errors.tooFarFromStation",
     "hudChrome.crafting.extractHint",
@@ -1503,6 +1516,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
+    "hudChrome.trade.cutLabel",
+    "hudChrome.trade.hint",
     "hudChrome.unitFrame.lvl"
   ],
   "de_DE": [
@@ -1720,6 +1735,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.errors.budsNotFresh",
     "hudChrome.crafting.errors.levelTooLow",
     "hudChrome.crafting.errors.missingMaterials",
+    "hudChrome.crafting.errors.processRunning",
     "hudChrome.crafting.errors.recipeUnavailable",
     "hudChrome.crafting.errors.tooFarFromStation",
     "hudChrome.crafting.extractHint",
@@ -1802,6 +1818,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
+    "hudChrome.trade.cutLabel",
+    "hudChrome.trade.hint",
     "hudChrome.unitFrame.lvl"
   ],
   "zh_CN": [
@@ -2075,6 +2093,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.errors.budsNotFresh",
     "hudChrome.crafting.errors.levelTooLow",
     "hudChrome.crafting.errors.missingMaterials",
+    "hudChrome.crafting.errors.processRunning",
     "hudChrome.crafting.errors.recipeUnavailable",
     "hudChrome.crafting.errors.tooFarFromStation",
     "hudChrome.crafting.extractHint",
@@ -2157,6 +2176,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
+    "hudChrome.trade.cutLabel",
+    "hudChrome.trade.hint",
     "hudChrome.unitFrame.lvl"
   ],
   "ru_RU": [
@@ -2388,6 +2409,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.errors.budsNotFresh",
     "hudChrome.crafting.errors.levelTooLow",
     "hudChrome.crafting.errors.missingMaterials",
+    "hudChrome.crafting.errors.processRunning",
     "hudChrome.crafting.errors.recipeUnavailable",
     "hudChrome.crafting.errors.tooFarFromStation",
     "hudChrome.crafting.extractHint",
@@ -2470,6 +2492,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
+    "hudChrome.trade.cutLabel",
+    "hudChrome.trade.hint",
     "hudChrome.unitFrame.lvl"
   ],
   "pl_PL": [
@@ -2687,6 +2711,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.errors.budsNotFresh",
     "hudChrome.crafting.errors.levelTooLow",
     "hudChrome.crafting.errors.missingMaterials",
+    "hudChrome.crafting.errors.processRunning",
     "hudChrome.crafting.errors.recipeUnavailable",
     "hudChrome.crafting.errors.tooFarFromStation",
     "hudChrome.crafting.extractHint",
@@ -2769,6 +2794,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
+    "hudChrome.trade.cutLabel",
+    "hudChrome.trade.hint",
     "hudChrome.unitFrame.lvl"
   ],
   "id_ID": [
@@ -2986,6 +3013,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.errors.budsNotFresh",
     "hudChrome.crafting.errors.levelTooLow",
     "hudChrome.crafting.errors.missingMaterials",
+    "hudChrome.crafting.errors.processRunning",
     "hudChrome.crafting.errors.recipeUnavailable",
     "hudChrome.crafting.errors.tooFarFromStation",
     "hudChrome.crafting.extractHint",
@@ -3068,6 +3096,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
+    "hudChrome.trade.cutLabel",
+    "hudChrome.trade.hint",
     "hudChrome.unitFrame.lvl"
   ],
   "tr_TR": [
@@ -3285,6 +3315,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.errors.budsNotFresh",
     "hudChrome.crafting.errors.levelTooLow",
     "hudChrome.crafting.errors.missingMaterials",
+    "hudChrome.crafting.errors.processRunning",
     "hudChrome.crafting.errors.recipeUnavailable",
     "hudChrome.crafting.errors.tooFarFromStation",
     "hudChrome.crafting.extractHint",
@@ -3367,6 +3398,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
+    "hudChrome.trade.cutLabel",
+    "hudChrome.trade.hint",
     "hudChrome.unitFrame.lvl"
   ],
   "sv_SE": [
@@ -3584,6 +3617,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.errors.budsNotFresh",
     "hudChrome.crafting.errors.levelTooLow",
     "hudChrome.crafting.errors.missingMaterials",
+    "hudChrome.crafting.errors.processRunning",
     "hudChrome.crafting.errors.recipeUnavailable",
     "hudChrome.crafting.errors.tooFarFromStation",
     "hudChrome.crafting.extractHint",
@@ -3666,6 +3700,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
+    "hudChrome.trade.cutLabel",
+    "hudChrome.trade.hint",
     "hudChrome.unitFrame.lvl"
   ],
   "vi_VN": [
@@ -3883,6 +3919,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.errors.budsNotFresh",
     "hudChrome.crafting.errors.levelTooLow",
     "hudChrome.crafting.errors.missingMaterials",
+    "hudChrome.crafting.errors.processRunning",
     "hudChrome.crafting.errors.recipeUnavailable",
     "hudChrome.crafting.errors.tooFarFromStation",
     "hudChrome.crafting.extractHint",
@@ -3965,6 +4002,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
+    "hudChrome.trade.cutLabel",
+    "hudChrome.trade.hint",
     "hudChrome.unitFrame.lvl"
   ],
   "da_DK": [
@@ -4182,6 +4221,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.crafting.errors.budsNotFresh",
     "hudChrome.crafting.errors.levelTooLow",
     "hudChrome.crafting.errors.missingMaterials",
+    "hudChrome.crafting.errors.processRunning",
     "hudChrome.crafting.errors.recipeUnavailable",
     "hudChrome.crafting.errors.tooFarFromStation",
     "hudChrome.crafting.extractHint",
@@ -4264,6 +4304,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.honored",
     "hudChrome.reputation.tier.neutral",
     "hudChrome.reputation.tier.revered",
+    "hudChrome.trade.cutLabel",
+    "hudChrome.trade.hint",
     "hudChrome.unitFrame.lvl"
   ]
 };

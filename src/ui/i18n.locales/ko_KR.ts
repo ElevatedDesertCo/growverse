@@ -2397,6 +2397,8 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
     '수확한 꽃봉오리를 해시시, 셰터, 생수지, 다이아몬드로 씻어냅니다.',
   'hudChrome.crafting.errors.budsNotFresh':
     '그 꽃봉오리는 이미 말랐습니다. 생수지는 수확 직후에 추출해야 합니다.',
+  'hudChrome.crafting.errors.processRunning':
+    '그 공정은 아직 돌아가고 있습니다. 끝나면 다시 오세요.',
   'hudChrome.crafting.enchantHint':
     '최상급 꽃봉오리와 타락의 파편을 엮어 30분간 지속되는 문양을 새깁니다.',
   'hudChrome.crafting.alchemyHint':
@@ -5250,6 +5252,9 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.crafting.crafted': '{name}을(를) 제작했습니다.',
   'hudChrome.crafting.empty': '아직 여기서 제작할 수 있는 것이 없습니다.',
   'hudChrome.crafting.close': '닫기',
+  'hudChrome.trade.cutLabel': '꺾꽂이',
+  'hudChrome.trade.hint':
+    '꺾꽂이는 복제입니다. 모주는 그대로 두고, 상대에게는 빈 품종 칸이 필요합니다.',
   'hudChrome.cup.title': '밸리 컵',
   'hudChrome.cup.open': '밸리 컵에 출품',
   'hudChrome.cup.hint': '유전, 가져온 등급, 그리고 그 식물을 얼마나 잘 아는지로 심사합니다.',

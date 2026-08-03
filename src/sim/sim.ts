@@ -512,8 +512,10 @@ export interface Party {
 export interface TradeSession {
   a: number;
   b: number;
-  offerA: { items: InvSlot[]; copper: number };
-  offerB: { items: InvSlot[]; copper: number };
+  // Each side may also stake ONE cut: a copy of a library strain. One per side because
+  // that is the shape of the real trade the mechanic is modelling, a cut for a cut.
+  offerA: { items: InvSlot[]; copper: number; strainId: string | null };
+  offerB: { items: InvSlot[]; copper: number; strainId: string | null };
   acceptedA: boolean;
   acceptedB: boolean;
 }
@@ -712,6 +714,11 @@ export interface PlayerMeta {
   // state and clears every season; this is the one part that outlives it, which is what a
   // returning grower is measured against. Persisted in CharacterState.
   cupBest: number;
+  // When each long-process recipe (CraftRecipe.processSeconds) is next runnable, as a sim
+  // time. Only recipes that HAVE a process time ever appear, so this stays a couple of
+  // keys rather than one per recipe. Persisted as time REMAINING, not as a clock stamp,
+  // for the same reason the plots store elapsed grow time: the sim clock resets.
+  craftReadyAt: Record<string, number>;
   copper: number;
   equipment: PlayerEquipment;
   xp: number;
@@ -854,6 +861,9 @@ export interface CharacterState {
   professions?: ProfessionSkills;
   // Best Vale Cup score ever posted. Optional so a pre-Cup save loads at 0.
   cupBest?: number;
+  // Long-process recipe cooldowns as seconds REMAINING at save time (never an absolute
+  // clock stamp), rebased onto the current clock on load.
+  craftCooldowns?: Record<string, number>;
   questLog: { questId: string; counts: number[]; state: 'active' | 'ready' | 'done' }[];
   questsDone: string[];
   // Persistent quest branch flags. Optional so pre-Phase-D saves load cleanly (default []).
@@ -1329,6 +1339,7 @@ export class Sim {
       professions: emptyProfessions(),
       lastHarvestAt: null,
       cupBest: 0,
+      craftReadyAt: {},
       copper: 0,
       equipment: { mainhand: classDef.startWeapon, chest: classDef.startChest },
       xp: 0,
@@ -1398,6 +1409,10 @@ export class Sim {
       meta.reputation = restoreReputation(s.reputation);
       meta.professions = restoreProfessions(s.professions);
       meta.cupBest = Math.max(0, s.cupBest ?? 0);
+      meta.craftReadyAt = {};
+      for (const [id, left] of Object.entries(s.craftCooldowns ?? {})) {
+        if (left > 0) meta.craftReadyAt[id] = this.time + left;
+      }
       for (const q of s.questLog) {
         if (q.state !== 'done')
           meta.questLog.set(q.questId, {
@@ -1613,6 +1628,11 @@ export class Sim {
       reputation: serializeReputation(meta.reputation),
       professions: serializeProfessions(meta.professions),
       cupBest: meta.cupBest,
+      craftCooldowns: Object.fromEntries(
+        Object.entries(meta.craftReadyAt)
+          .map(([id, at]) => [id, Math.max(0, Math.ceil(at - this.time))] as const)
+          .filter(([, left]) => left > 0),
+      ),
       questLog: [...meta.questLog.values()].map((q) => ({
         questId: q.questId,
         counts: [...q.counts],
@@ -5502,8 +5522,13 @@ export class Sim {
     tradeMod.tradeAccept(this.ctx, pid);
   }
 
-  tradeSetOffer(items: InvSlot[], copper: number, pid?: number): void {
-    tradeMod.tradeSetOffer(this.ctx, items, copper, pid);
+  tradeSetOffer(
+    items: InvSlot[],
+    copper: number,
+    strainId: string | null = null,
+    pid?: number,
+  ): void {
+    tradeMod.tradeSetOffer(this.ctx, items, copper, strainId, pid);
   }
 
   tradeConfirm(pid?: number): void {

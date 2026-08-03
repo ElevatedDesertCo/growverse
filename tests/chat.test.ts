@@ -744,7 +744,7 @@ describe('trade completion event', () => {
 
     sim.tradeRequest(b, a);
     sim.tradeAccept(b);
-    sim.tradeSetOffer([{ itemId: 'wolf_fang', count: 1 }], 0, a);
+    sim.tradeSetOffer([{ itemId: 'wolf_fang', count: 1 }], 0, null, a);
     sim.tradeConfirm(a);
     sim.tradeConfirm(b);
     const events = sim.tick();

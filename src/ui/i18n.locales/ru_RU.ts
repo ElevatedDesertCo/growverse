@@ -2433,6 +2433,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
     'Промывайте собранные бутоны в гашиш, шаттер, живую смолу и алмазы.',
   'hudChrome.crafting.errors.budsNotFresh':
     'Эти бутоны высохли. Живую смолу добывают сразу после сбора.',
+  'hudChrome.crafting.errors.processRunning':
+    'Этот процесс ещё идёт. Возвращайтесь, когда он закончится.',
   'hudChrome.crafting.enchantHint':
     'Свяжите отборные бутоны и осколки Порчи в глифы, которые держатся полчаса.',
   'hudChrome.crafting.alchemyHint':
@@ -5353,6 +5355,9 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.crafting.crafted': 'Создано: {name}.',
   'hudChrome.crafting.empty': 'Здесь пока нечего создавать.',
   'hudChrome.crafting.close': 'Закрыть',
+  'hudChrome.trade.cutLabel': 'Черенок',
+  'hudChrome.trade.hint':
+    'Черенок копирует штамм: свой вы оставляете себе, а получателю нужен свободный слот.',
   'hudChrome.cup.title': 'Кубок Долины',
   'hudChrome.cup.open': 'Участвовать в Кубке Долины',
   'hudChrome.cup.hint':

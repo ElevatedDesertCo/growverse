@@ -3251,6 +3251,45 @@
     cursor: default;
   }
 
+  /* Cut swapping on the trade window: staking a copy of a library strain alongside the
+     items. Sits between the items and the money, because that is what it is worth. */
+  .trade-cut {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 0;
+  }
+  .trade-cut-label {
+    font-size: 11px;
+    color: #a89c78;
+  }
+  .trade-cut-opt {
+    min-height: 40px;
+    padding: 3px 8px;
+    border: 1px solid #4a3c1a;
+    border-radius: 4px;
+    background: #1a1409;
+    color: #a9d86a;
+    font-size: 11px;
+    cursor: var(--cursor-point);
+  }
+  .trade-cut-on {
+    border-color: #c8a24a;
+    background: #2a2010;
+  }
+  .trade-cut-offered {
+    font-size: 11px;
+    color: #a9d86a;
+  }
+  .trade-cut-landrace {
+    font-size: 10px;
+    color: #1a1408;
+    background: linear-gradient(#e6c65a, #c8a24a);
+    padding: 1px 6px;
+    border-radius: 8px;
+  }
+
   /* Vale Cup window (the commune's growing competition). Board first, entry form under
      it, because the board is the point of opening the panel. */
   #cup-window {

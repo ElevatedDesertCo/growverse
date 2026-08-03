@@ -1099,8 +1099,13 @@ export const ja_JP: EnTranslations = {
         "tooFarFromStation": "作業台から離れすぎている。",
         "levelTooLow": "それを作成するにはまだ技量が足りない。",
         "missingMaterials": "作成に必要な材料が足りない。",
-        "budsNotFresh": "その花蕾はもう乾いている。生樹脂は収穫の直後に抽出しろ。"
+        "budsNotFresh": "その花蕾はもう乾いている。生樹脂は収穫の直後に抽出しろ。",
+        "processRunning": "その工程はまだ回っている。終わってから来い。"
       }
+    },
+    "trade": {
+      "cutLabel": "挿し穂",
+      "hint": "挿し穂は複製だ。母株は手元に残り、相手には品種の空き枠が要る。"
     },
     "cup": {
       "title": "ヴェイル・カップ",

@@ -63,6 +63,15 @@ export function craft(ctx: SimContext, recipeId: string, pid?: number): void {
     ctx.error(meta.entityId, 'The commune does not trust you enough for that yet.');
     return;
   }
+  if (recipe.processSeconds !== undefined) {
+    // A long process is still running: the bench is busy, not the player. Checked before
+    // the cost so a refusal never charges, like every other guard here.
+    const readyAt = meta.craftReadyAt[recipe.id] ?? 0;
+    if (ctx.time < readyAt) {
+      ctx.error(meta.entityId, 'That process is still running. Come back when it is done.');
+      return;
+    }
+  }
   if (recipe.requiresFreshHarvest !== undefined) {
     // Live resin is pressed from material that never dried, so the recipe reads the
     // player's last garden harvest rather than the bags (inventory stacks are fungible
@@ -91,5 +100,9 @@ export function craft(ctx: SimContext, recipeId: string, pid?: number): void {
   // A craft trains its station's skill, the same way a gather trains a node's. Trained
   // AFTER the checks so a failed craft never advances the line that gates it.
   trainProfession(meta.professions, STATION_PROFESSION[recipe.station]);
+  // Start the next run's clock only on a craft that actually happened.
+  if (recipe.processSeconds !== undefined) {
+    meta.craftReadyAt[recipe.id] = ctx.time + recipe.processSeconds;
+  }
   ctx.emit({ type: 'craft', recipeId: recipe.id, pid: meta.entityId });
 }

@@ -33,6 +33,14 @@ export const COPPER_PER_SILVER = 100;
 export interface MarketBrowseRow {
   listing: MarketListingView;
   item: ItemDef;
+  /** Copper per single unit, rounded up so the shown figure never understates what a
+   *  buyer pays. Real trade is denominated in size and bulk sellers undercut per unit,
+   *  so without this a 5-copper single and a 400-copper stack of a hundred are not
+   *  comparable at a glance and the browse cannot be shopped. */
+  unitPrice: number;
+  /** True when the listing is a single unit, so the painter can omit a per-unit line
+   *  that would just repeat the total. */
+  single: boolean;
 }
 
 /** A page of resolved browse rows (the listing page shape, rows not listings). */
@@ -136,7 +144,13 @@ export function buildMarketBrowse(info: MarketInfo, filters: MarketFilters): Mar
   for (const listing of info.listings) {
     const item = ITEMS[listing.itemId];
     if (!item) continue; // a listing for an item we no longer know is dropped
-    rows.push({ listing, item });
+    const count = listing.count > 0 ? listing.count : 1;
+    rows.push({
+      listing,
+      item,
+      unitPrice: Math.ceil(listing.price / count),
+      single: listing.count <= 1,
+    });
   }
   if (rows.length === 0) {
     const reason = info.filter.trim() ? 'search' : filtersActive(filters) ? 'filtered' : 'browse';

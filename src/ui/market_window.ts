@@ -486,15 +486,17 @@ export class MarketWindow {
         total: formatNumber(page.total, { maximumFractionDigits: 0 }),
       });
     }
-    for (const { listing: l, item } of page.items) {
+    for (const { listing: l, item, unitPrice, single } of page.items) {
       const qColor = QUALITY_COLOR[item.quality ?? 'common'] ?? QUALITY_DEFAULT_COLOR;
       const row = document.createElement('div');
       row.className = 'mkt-row';
       const itemName = itemDisplayName(item);
-      const each =
-        l.count > 1
-          ? `<br><span class="seller">${esc(t('itemUi.market.each', { money: formatLocalizedMoney(Math.ceil(l.price / l.count)) }))}</span>`
-          : '';
+      // Per-unit price comes from the view core rather than being recomputed here: it is
+      // derived data, so it belongs where a test can reach it (the rounding direction in
+      // particular is a real decision, not a formatting detail).
+      const each = single
+        ? ''
+        : `<br><span class="seller">${esc(t('itemUi.market.each', { money: formatLocalizedMoney(unitPrice) }))}</span>`;
       const stack =
         l.count > 1
           ? ` <span class="stack">${esc(t('itemUi.market.stackCount', { count: formatNumber(l.count, { maximumFractionDigits: 0 }) }))}</span>`
