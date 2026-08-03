@@ -3115,6 +3115,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.zones.eastbrook_vale.pois.5.label': '銅鉱山',
   'entities.zones.eastbrook_vale.pois.6.label': '盗賊の野営地',
   'entities.zones.eastbrook_vale.pois.7.label': '倒れた礼拝堂',
+  'entities.zones.eastbrook_vale.pois.12.label': '栽培テラス',
   'entities.zones.mirefen_marsh.name': 'マイアフェン湿地',
   'entities.zones.mirefen_marsh.welcome':
     'フェンブリッジの門で番人フェンウィックに報告してください。',

@@ -7342,6 +7342,9 @@ export const it_IT: EnTranslations = {
           },
           "11": {
             "label": "The Lodge"
+          },
+          "12": {
+            "label": "The Grow Terrace"
           }
         }
       },

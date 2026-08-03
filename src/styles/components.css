@@ -3216,9 +3216,14 @@
   }
   /* Tending: an opt-in bonus, so its chrome stays quiet. The caught/total record sits
      inline with the status line, and the nudge is a single muted header row that is
-     absent (not blank) when nothing is due. */
+     absent (not blank) when nothing is due. The rule is a divider, not decoration: at
+     11px the growth percent and the tend record abut ("1% Tended 0/3") and read as one
+     phrase, so they need a visible break rather than only a slightly dimmer color. */
   .garden-plot-tends {
     color: #a89c78;
+    margin-left: 5px;
+    padding-left: 6px;
+    border-left: 1px solid #4a4030;
   }
   .garden-tend-nudge {
     font-size: 11px;

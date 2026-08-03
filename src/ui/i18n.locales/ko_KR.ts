@@ -3113,6 +3113,7 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.zones.eastbrook_vale.pois.5.label': '구리 광산',
   'entities.zones.eastbrook_vale.pois.6.label': '도적 야영지',
   'entities.zones.eastbrook_vale.pois.7.label': '무너진 예배당',
+  'entities.zones.eastbrook_vale.pois.12.label': '재배 테라스',
   'entities.zones.mirefen_marsh.name': '마이어펜 습지',
   'entities.zones.mirefen_marsh.welcome': '펜브리지 문에서 감시관 펜윅에게 보고하십시오.',
   'entities.zones.mirefen_marsh.pois.0.label': '펜브리지',

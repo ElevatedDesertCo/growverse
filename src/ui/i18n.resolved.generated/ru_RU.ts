@@ -7342,6 +7342,9 @@ export const ru_RU: EnTranslations = {
           },
           "11": {
             "label": "The Lodge"
+          },
+          "12": {
+            "label": "Терраса плантаций"
           }
         }
       },

@@ -58,6 +58,15 @@ export const ZONE1_ZONE: ZoneDef = {
     // trails. `landmark` pins it on the map so a wandering starter finds the
     // community, not just a lone statue.
     { x: 40, z: 50, label: 'The Lodge', landmark: true },
+    // The Grow Terrace: the cultivation district. Without a POI of its own the whole
+    // arc borrowed its subzone banner from whatever landmark happened to be nearest,
+    // so the Breeding Chamber read "The Lodge" and the Extraction Lab read "The
+    // Withered Bloom". Anchored at the centroid of the district (bed grid x 53.5-66.5
+    // z 53.7-66.7, Chamber 60/45, Lab 74/45, the Cup grounds 60/70) so the 32yd
+    // SUBZONE_RADIUS covers every station and beats both neighbours at each of them.
+    // `landmark` pins it, because finding the beds is the first step of the grow loop.
+    // APPEND only: the completeness test allowlists 'Baked Beaver' by index (10).
+    { x: 63, z: 56, label: 'The Grow Terrace', landmark: true },
   ],
   welcome: 'Find Marshal Redbrook in town, he has work for you.',
   welcomeQuestId: 'q_wolves',

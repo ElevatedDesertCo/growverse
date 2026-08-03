@@ -7342,6 +7342,9 @@ export const ja_JP: EnTranslations = {
           },
           "11": {
             "label": "The Lodge"
+          },
+          "12": {
+            "label": "栽培テラス"
           }
         }
       },

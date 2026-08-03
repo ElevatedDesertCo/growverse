@@ -7342,6 +7342,9 @@ export const en_XA: EnTranslations = {
           },
           "11": {
             "label": "[Ţĥé Ļóðĝé]"
+          },
+          "12": {
+            "label": "[Ţĥé Ĝŕóŵ Ţéŕŕáçé]"
           }
         }
       },

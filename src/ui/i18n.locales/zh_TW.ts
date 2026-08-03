@@ -2980,6 +2980,7 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.zones.eastbrook_vale.pois.5.label': '銅礦坑',
   'entities.zones.eastbrook_vale.pois.6.label': '強盜營地',
   'entities.zones.eastbrook_vale.pois.7.label': '倒塌禮拜堂',
+  'entities.zones.eastbrook_vale.pois.12.label': '種植台地',
   'entities.zones.mirefen_marsh.name': '泥沼濕地',
   'entities.zones.mirefen_marsh.welcome': '到芬橋大門向守望者芬威克報到。',
   'entities.zones.mirefen_marsh.pois.0.label': '芬橋',

@@ -7342,6 +7342,9 @@ export const fr_CA: EnTranslations = {
           },
           "11": {
             "label": "The Lodge"
+          },
+          "12": {
+            "label": "The Grow Terrace"
           }
         }
       },

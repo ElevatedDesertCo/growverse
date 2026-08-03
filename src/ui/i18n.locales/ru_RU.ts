@@ -3149,6 +3149,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.zones.eastbrook_vale.pois.5.label': 'Медный рудник',
   'entities.zones.eastbrook_vale.pois.6.label': 'Лагерь бандитов',
   'entities.zones.eastbrook_vale.pois.7.label': 'Павшая часовня',
+  'entities.zones.eastbrook_vale.pois.12.label': 'Терраса плантаций',
   'entities.zones.mirefen_marsh.name': 'Мирефенская топь',
   'entities.zones.mirefen_marsh.welcome': 'Доложите стражу Фенвику у ворот Фенбриджа.',
   'entities.zones.mirefen_marsh.pois.0.label': 'Фенбридж',

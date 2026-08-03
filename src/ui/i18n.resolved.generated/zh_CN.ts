@@ -7342,6 +7342,9 @@ export const zh_CN: EnTranslations = {
           },
           "11": {
             "label": "The Lodge"
+          },
+          "12": {
+            "label": "种植台地"
           }
         }
       },

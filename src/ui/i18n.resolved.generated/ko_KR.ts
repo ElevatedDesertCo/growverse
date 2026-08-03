@@ -7342,6 +7342,9 @@ export const ko_KR: EnTranslations = {
           },
           "11": {
             "label": "The Lodge"
+          },
+          "12": {
+            "label": "재배 테라스"
           }
         }
       },
