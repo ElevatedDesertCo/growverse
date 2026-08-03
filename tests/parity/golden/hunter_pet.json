@@ -14,8 +14,8 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 583,
-      "state": "02f345ba",
+      "nextId": 586,
+      "state": "8ecaa49a",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -31,50 +31,123 @@
           "cls": "hunter",
           "companionUpgrades": {},
           "counters": {},
+          "craftReadyAt": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 582,
+          "entityId": 585,
           "equipment": {
             "chest": "footpad_jerkin",
             "mainhand": "rusty_hatchet"
           },
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {}
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            }
           ],
           "professions": {},
           "reputation": {},
@@ -95,7 +168,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 69,
-          "id": 582,
+          "id": 585,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -140,9 +213,9 @@
     {
       "tick": 20,
       "time": 1,
-      "nextId": 586,
-      "state": "88564a66",
-      "events": "c45a8269",
+      "nextId": 589,
+      "state": "e5b61312",
+      "events": "a8c1f6cd",
       "rng": {
         "draws": 6,
         "digest": "a5efa65e"
@@ -151,8 +224,8 @@
     {
       "tick": 40,
       "time": 2,
-      "nextId": 586,
-      "state": "3e684b26",
+      "nextId": 589,
+      "state": "f3d4c4be",
       "events": "741638a5",
       "rng": {
         "draws": 6,
@@ -162,9 +235,9 @@
     {
       "tick": 60,
       "time": 3,
-      "nextId": 586,
-      "state": "a4572174",
-      "events": "866231f0",
+      "nextId": 589,
+      "state": "b03f2b18",
+      "events": "d5ddd7a0",
       "rng": {
         "draws": 115,
         "digest": "04678a06"
@@ -173,8 +246,8 @@
     {
       "tick": 80,
       "time": 4,
-      "nextId": 586,
-      "state": "d0ab0abc",
+      "nextId": 589,
+      "state": "83672094",
       "events": "741638a5",
       "rng": {
         "draws": 228,
@@ -184,9 +257,9 @@
     {
       "tick": 100,
       "time": 5,
-      "nextId": 586,
-      "state": "ba595893",
-      "events": "129f5fe9",
+      "nextId": 589,
+      "state": "bd8fcacf",
+      "events": "b9dd8dd5",
       "rng": {
         "draws": 349,
         "digest": "aecd4bac"
@@ -195,8 +268,8 @@
     {
       "tick": 120,
       "time": 6,
-      "nextId": 586,
-      "state": "912f5173",
+      "nextId": 589,
+      "state": "fd735f73",
       "events": "741638a5",
       "rng": {
         "draws": 485,
@@ -206,8 +279,8 @@
     {
       "tick": 120,
       "time": 6,
-      "nextId": 586,
-      "state": "912f5173",
+      "nextId": 589,
+      "state": "fd735f73",
       "events": "741638a5",
       "rng": {
         "draws": 485,
@@ -223,51 +296,124 @@
           "cls": "hunter",
           "companionUpgrades": {},
           "counters": {},
+          "craftReadyAt": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 582,
+          "entityId": 585,
           "equipment": {
             "chest": "footpad_jerkin",
             "mainhand": "rusty_hatchet"
           },
           "lifetimeXp": 44000,
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {}
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            }
           ],
           "professions": {},
           "reputation": {},
@@ -289,7 +435,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 105,
           "hp": 50000,
-          "id": 582,
+          "id": 585,
           "inCombat": true,
           "kind": "player",
           "level": 12,
@@ -323,7 +469,7 @@
             "sta": 41,
             "str": 25
           },
-          "targetId": 584,
+          "targetId": 587,
           "templateId": "hunter",
           "weapon": {
             "max": 5,
@@ -332,7 +478,7 @@
           }
         },
         {
-          "aggroTargetId": 584,
+          "aggroTargetId": 587,
           "aiState": "idle",
           "combatTimer": 1.8,
           "critChance": 0.05,
@@ -342,7 +488,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 62,
-          "id": 583,
+          "id": 586,
           "inCombat": true,
           "kind": "mob",
           "level": 8,
@@ -351,7 +497,7 @@
           "moveSpeed": 8,
           "onGround": true,
           "overpowerUntil": -1,
-          "ownerId": 582,
+          "ownerId": 585,
           "petMode": "aggressive",
           "pos": {
             "x": 3,
@@ -376,7 +522,7 @@
           }
         },
         {
-          "aggroTargetId": 583,
+          "aggroTargetId": 586,
           "aiState": "attack",
           "combatTimer": 1.8,
           "critChance": 0.05,
@@ -387,7 +533,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 49941,
-          "id": 584,
+          "id": 587,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -417,12 +563,12 @@
             "armor": 70
           },
           "swingTimer": 0.2,
-          "tappedById": 582,
-          "targetId": 582,
+          "tappedById": 585,
+          "targetId": 585,
           "templateId": "forest_wolf",
           "threat": [
             [
-              583,
+              586,
               59
             ]
           ],
@@ -433,7 +579,7 @@
           }
         },
         {
-          "aggroTargetId": 582,
+          "aggroTargetId": 585,
           "aiState": "attack",
           "combatTimer": 1.95,
           "critChance": 0.05,
@@ -444,7 +590,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 50000,
-          "id": 585,
+          "id": 588,
           "inCombat": true,
           "kind": "mob",
           "level": 8,
@@ -469,7 +615,7 @@
             "armor": 35
           },
           "swingTimer": 0.05,
-          "targetId": 582,
+          "targetId": 585,
           "templateId": "warlock_imp",
           "weapon": {
             "max": 9,

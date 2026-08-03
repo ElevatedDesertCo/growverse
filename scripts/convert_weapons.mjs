@@ -4,10 +4,11 @@
 // resolves buffers/images, writes a binary glb). Not wired into npm; run with:
 //   node scripts/convert_weapons.mjs [destDir]
 // Source packs live under public/models/_New_Imports (deleted after import).
+
+import { existsSync, mkdirSync, readdirSync } from 'node:fs';
+import path from 'node:path';
 import { NodeIO } from '@gltf-transform/core';
 import { ALL_EXTENSIONS } from '@gltf-transform/extensions';
-import { readdirSync, mkdirSync, existsSync } from 'node:fs';
-import path from 'node:path';
 
 // Register all KHR/EXT extensions so emissive-strength glow (the flashy
 // weapons) and other material data survive the gltf → glb round-trip.
@@ -27,7 +28,10 @@ mkdirSync(dest, { recursive: true });
 
 let n = 0;
 for (const { dir, tag } of SRC_DIRS) {
-  if (!existsSync(dir)) { console.warn(`(skip, missing) ${dir}`); continue; }
+  if (!existsSync(dir)) {
+    console.warn(`(skip, missing) ${dir}`);
+    continue;
+  }
   for (const f of readdirSync(dir)) {
     if (!f.endsWith('.gltf')) continue;
     if (tag && SKIP.test(f)) continue;

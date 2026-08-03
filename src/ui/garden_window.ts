@@ -9,6 +9,7 @@
 // on-demand window (opened from the Grow Station, re-rendered on a garden change),
 // NOT a per-frame painter, so direct innerHTML writes are fine (like crafting).
 
+import { TENDS_PER_GROW } from '../sim/types';
 import { itemDisplayName } from './entity_i18n';
 import { esc } from './esc';
 import type { GardenView } from './garden_view';
@@ -20,6 +21,7 @@ export interface GardenWindowDeps extends PainterHostPresentation {
   hideTooltip(): void;
   onSelectSeed(seedItemId: string): void;
   onPlant(plotIndex: number): void;
+  onTend(plotIndex: number): void;
   onHarvest(plotIndex: number): void;
   onClose(): void;
 }
@@ -42,7 +44,17 @@ export function renderGardenWindow(
   const title = t('hudChrome.garden.title');
   el.innerHTML =
     `<div class="panel-title"><span>${esc(title)}</span><button type="button" class="x-btn" data-close aria-label="${esc(t('hudChrome.crafting.close'))}">${svgIcon('close')}</button></div>` +
-    `<div class="garden-hint">${esc(t('hudChrome.garden.hint'))}</div>`;
+    `<div class="garden-hint">${esc(t('hudChrome.garden.hint'))}</div>` +
+    // A standing nudge when a crop is due a tend, so the bonus is discoverable without
+    // opening every plot. Absent (not an empty node) when nothing is due, so the panel
+    // does not carry a permanently blank row.
+    (view.tendableCount > 0
+      ? `<div class="garden-tend-nudge">${esc(
+          t('hudChrome.garden.tendNudge', {
+            count: formatNumber(view.tendableCount, { maximumFractionDigits: 0 }),
+          }),
+        )}</div>`
+      : '');
 
   // Seed selector: which strain the Plant buttons will sow. Empty when the player
   // carries no plantable seed.
@@ -91,10 +103,31 @@ export function renderGardenWindow(
       const status = ready
         ? `<span class="garden-ready">${esc(t('hudChrome.garden.ready'))}</span>`
         : `<span class="garden-progress-pct">${esc(pct(plot.progress))}%</span>`;
+      // The tend record reads as caught/total so a player can see at a glance how close
+      // this crop is to a perfect grow, whether or not a tend is due right now.
+      const tends = formatNumber(plot.tends, { maximumFractionDigits: 0 });
+      const tendTotal = formatNumber(TENDS_PER_GROW, { maximumFractionDigits: 0 });
       cell.innerHTML =
         `<div class="garden-plot-crop">${icon}<span class="garden-plot-name">${esc(seedName)}</span></div>` +
         `<div class="garden-progress"><div class="garden-progress-fill" style="width:${esc(pct(plot.progress))}%"></div></div>` +
-        `<div class="garden-plot-status">${status}</div>`;
+        `<div class="garden-plot-status">${status}` +
+        (ready
+          ? ''
+          : ` <span class="garden-plot-tends">${esc(
+              t('hudChrome.garden.tendCount', { tends, total: tendTotal }),
+            )}</span>`) +
+        `</div>`;
+      if (!ready) {
+        // Tending is a BONUS, never a requirement, so the button is offered only while a
+        // window is actually open rather than sitting disabled through the whole grow.
+        const tendBtn = document.createElement('button');
+        tendBtn.type = 'button';
+        tendBtn.className = 'garden-action garden-tend';
+        tendBtn.disabled = !plot.canTend;
+        tendBtn.textContent = t('hudChrome.garden.tend');
+        tendBtn.addEventListener('click', () => deps.onTend(plot.index));
+        cell.appendChild(tendBtn);
+      }
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'garden-action garden-harvest';

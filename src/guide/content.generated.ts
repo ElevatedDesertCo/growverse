@@ -1267,7 +1267,8 @@ export const GUIDE_ZONES: GuideZoneInfo[] = [
       "Seedvault Hill",
       "Bloomwood Glade",
       "Baked Beaver",
-      "The Lodge"
+      "The Lodge",
+      "The Grow Terrace"
     ],
     "welcome": "Find Marshal Redbrook in town, he has work for you."
   },

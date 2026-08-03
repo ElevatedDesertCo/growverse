@@ -2,10 +2,12 @@
 // Boots a level-20 warrior, clusters a few nearby mobs in front, casts the
 // shout, and captures the scene, the enemy attack-power debuff on the target
 // frame, and the spellbook tooltip for the new ability.
-import puppeteer from 'puppeteer-core';
+
 import fs from 'node:fs';
+import puppeteer from 'puppeteer-core';
 
 import { BROWSER_PATH as EDGE } from './browser_path.mjs';
+
 const URL = process.env.GAME_URL ?? 'http://localhost:5173';
 fs.mkdirSync('tmp', { recursive: true });
 
@@ -47,9 +49,14 @@ const result = await page.evaluate(() => {
   }
   mobs.sort((a, b) => a._d - b._d);
   const crew = mobs.slice(0, 3);
-  const offs = [[2.5, 4], [-2.5, 4.5], [0, 6]];
+  const offs = [
+    [2.5, 4],
+    [-2.5, 4.5],
+    [0, 6],
+  ];
   crew.forEach((m, i) => {
-    m.hostile = true; m.hp = m.maxHp;
+    m.hostile = true;
+    m.hp = m.maxHp;
     m.pos.x = p.pos.x + offs[i][0];
     m.pos.z = p.pos.z + offs[i][1];
   });
@@ -60,7 +67,10 @@ const result = await page.evaluate(() => {
 
   // Re-index the spatial grid at the mobs' new positions before the AoE scans it.
   sim.tick();
-  crew.forEach((m, i) => { m.pos.x = p.pos.x + offs[i][0]; m.pos.z = p.pos.z + offs[i][1]; });
+  crew.forEach((m, i) => {
+    m.pos.x = p.pos.x + offs[i][0];
+    m.pos.z = p.pos.z + offs[i][1];
+  });
   sim.tick();
 
   const apBefore = crew.map((m) => sim.effectiveAttackPower(m));
@@ -70,9 +80,11 @@ const result = await page.evaluate(() => {
   const apAfter = crew.map((m) => sim.effectiveAttackPower(m));
   const debuffs = crew.map((m) => m.auras.find((a) => a.id === 'demoralizing_shout_ap'));
   return {
-    apBefore, apAfter,
+    apBefore,
+    apAfter,
     debuffed: debuffs.filter(Boolean).length,
-    value: debuffs[0]?.value, remaining: debuffs[0]?.remaining,
+    value: debuffs[0]?.value,
+    remaining: debuffs[0]?.remaining,
   };
 });
 console.log('demoralizing shout:', JSON.stringify(result));
@@ -92,8 +104,10 @@ if (tf) {
   await page.screenshot({
     path: 'tmp/demoshout_targetframe.png',
     clip: {
-      x: Math.max(0, tf.x - pad), y: Math.max(0, tf.y - pad),
-      width: tf.w + pad * 2, height: tf.h + pad * 2,
+      x: Math.max(0, tf.x - pad),
+      y: Math.max(0, tf.y - pad),
+      width: tf.w + pad * 2,
+      height: tf.h + pad * 2,
     },
   });
 }

@@ -194,6 +194,7 @@ function makeCtx() {
     pendingLootRolls: new Map(),
     nextLootRollId: 1,
     devCommands: false,
+    cupEntries: [],
     marketListings: [],
     grantXp: vi.fn(),
     enterCombat: vi.fn(),

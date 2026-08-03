@@ -7,8 +7,9 @@
 //   - Dash AFTER fix     (value 1.5 -> 50% faster)
 // The bug is visible as the "before" line lying exactly on the baseline.
 // Needs `npm run dev` (override with GAME_URL). Writes tmp/dash-speed-chart.png.
-import puppeteer from 'puppeteer-core';
+
 import fs from 'node:fs';
+import puppeteer from 'puppeteer-core';
 import { BROWSER_PATH } from './browser_path.mjs';
 
 const URL = process.env.GAME_URL ?? 'http://localhost:5173';
@@ -23,7 +24,9 @@ const browser = await puppeteer.launch({
 });
 const page = await browser.newPage();
 page.on('pageerror', (e) => console.log('PAGEERROR:', e.message));
-page.on('console', (m) => { if (m.type() === 'error') console.log('CONSOLE:', m.text()); });
+page.on('console', (m) => {
+  if (m.type() === 'error') console.log('CONSOLE:', m.text());
+});
 
 await page.goto(URL, { waitUntil: 'networkidle0', timeout: 30000 });
 await page.evaluate(() => document.querySelector('#btn-offline').click());
@@ -34,8 +37,9 @@ await page.evaluate(() => {
   if (el) el.click();
 });
 await page.click('#btn-start-offline');
-await page.waitForFunction(() => window.__game && window.__game.sim && window.__game.sim.player,
-  { timeout: 30000 });
+await page.waitForFunction(() => window.__game && window.__game.sim && window.__game.sim.player, {
+  timeout: 30000,
+});
 await sleep(800);
 
 const series = await page.evaluate(() => {
@@ -53,13 +57,30 @@ const series = await page.evaluate(() => {
     p.facing = 0;
     p.auras = p.auras.filter((a) => a.kind !== 'buff_speed' && a.kind !== 'form_cat');
     // Cat ("Wolf") form so Dash's gate is satisfied for realism.
-    p.auras.push({ id: 'wolf_form', name: 'Wolf Form', kind: 'form_cat',
-      remaining: 3600, duration: 3600, value: 1, sourceId: p.id, school: 'physical' });
+    p.auras.push({
+      id: 'wolf_form',
+      name: 'Wolf Form',
+      kind: 'form_cat',
+      remaining: 3600,
+      duration: 3600,
+      value: 1,
+      sourceId: p.id,
+      school: 'physical',
+    });
     if (value != null) {
-      p.auras.push({ id: 'dash', name: 'Dash', kind: 'buff_speed',
-        remaining: 15, duration: 15, value, sourceId: p.id, school: 'physical' });
+      p.auras.push({
+        id: 'dash',
+        name: 'Dash',
+        kind: 'buff_speed',
+        remaining: 15,
+        duration: 15,
+        value,
+        sourceId: p.id,
+        school: 'physical',
+      });
     }
-    const sx = p.pos.x, sz = p.pos.z;
+    const sx = p.pos.x,
+      sz = p.pos.z;
     const dists = [];
     for (let i = 0; i < TICKS; i++) {
       sim.moveInput.forward = true; // re-assert each tick (sync loop, no RAF interleave)
@@ -79,15 +100,26 @@ const series = await page.evaluate(() => {
 // Draw the chart on a canvas overlay and screenshot it.
 await page.evaluate((s) => {
   const TICKS = s.none.length;
-  const W = 1180, H = 720, PAD = 80;
+  const W = 1180,
+    H = 720,
+    PAD = 80;
   const cv = document.createElement('canvas');
   cv.id = 'dash-chart';
-  cv.width = W; cv.height = H;
-  Object.assign(cv.style, { position: 'fixed', left: '50px', top: '50px', zIndex: 99999,
-    background: '#11151c', border: '1px solid #2c3a4a', borderRadius: '8px' });
+  cv.width = W;
+  cv.height = H;
+  Object.assign(cv.style, {
+    position: 'fixed',
+    left: '50px',
+    top: '50px',
+    zIndex: 99999,
+    background: '#11151c',
+    border: '1px solid #2c3a4a',
+    borderRadius: '8px',
+  });
   document.body.appendChild(cv);
   const ctx = cv.getContext('2d');
-  ctx.fillStyle = '#11151c'; ctx.fillRect(0, 0, W, H);
+  ctx.fillStyle = '#11151c';
+  ctx.fillRect(0, 0, W, H);
 
   const all = [...s.none, ...s.before, ...s.after];
   const maxD = Math.max(...all) * 1.05;
@@ -95,12 +127,17 @@ await page.evaluate((s) => {
   const y = (d) => H - PAD - (d / maxD) * (H - PAD * 2);
 
   // axes + grid
-  ctx.strokeStyle = '#39414f'; ctx.fillStyle = '#9aa6b8';
-  ctx.font = '15px system-ui, sans-serif'; ctx.lineWidth = 1;
+  ctx.strokeStyle = '#39414f';
+  ctx.fillStyle = '#9aa6b8';
+  ctx.font = '15px system-ui, sans-serif';
+  ctx.lineWidth = 1;
   for (let gy = 0; gy <= 5; gy++) {
     const d = (maxD / 5) * gy;
     const yy = y(d);
-    ctx.beginPath(); ctx.moveTo(PAD, yy); ctx.lineTo(W - PAD * 0.3, yy); ctx.stroke();
+    ctx.beginPath();
+    ctx.moveTo(PAD, yy);
+    ctx.lineTo(W - PAD * 0.3, yy);
+    ctx.stroke();
     ctx.fillText(`${d.toFixed(0)} yd`, 10, yy + 5);
   }
   for (let sec = 0; sec <= 15; sec += 3) {
@@ -109,10 +146,17 @@ await page.evaluate((s) => {
   }
 
   const line = (data, color, dash) => {
-    ctx.strokeStyle = color; ctx.lineWidth = 3.5; ctx.setLineDash(dash || []);
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 3.5;
+    ctx.setLineDash(dash || []);
     ctx.beginPath();
-    data.forEach((d, t) => { const xx = x(t), yy = y(d); t ? ctx.lineTo(xx, yy) : ctx.moveTo(xx, yy); });
-    ctx.stroke(); ctx.setLineDash([]);
+    data.forEach((d, t) => {
+      const xx = x(t),
+        yy = y(d);
+      t ? ctx.lineTo(xx, yy) : ctx.moveTo(xx, yy);
+    });
+    ctx.stroke();
+    ctx.setLineDash([]);
   };
   // Draw baseline first, then before (dashed, on top) so the overlap is visible.
   line(s.none, '#6b7688');
@@ -120,7 +164,8 @@ await page.evaluate((s) => {
   line(s.after, '#4ad07a');
 
   // title + legend
-  ctx.fillStyle = '#e8edf4'; ctx.font = '600 24px system-ui, sans-serif';
+  ctx.fillStyle = '#e8edf4';
+  ctx.font = '600 24px system-ui, sans-serif';
   ctx.fillText('Druid Dash — distance run over 15s (cat form, straight line)', PAD, 38);
   const legend = [
     ['#4ad07a', 'Dash AFTER fix (value 1.5)  → +50% distance'],
@@ -130,15 +175,21 @@ await page.evaluate((s) => {
   ctx.font = '16px system-ui, sans-serif';
   legend.forEach(([c, label], i) => {
     const ly = 70 + i * 26;
-    ctx.fillStyle = c; ctx.fillRect(PAD, ly - 12, 26, 6);
-    ctx.fillStyle = '#cdd6e3'; ctx.fillText(label, PAD + 38, ly - 4);
+    ctx.fillStyle = c;
+    ctx.fillRect(PAD, ly - 12, 26, 6);
+    ctx.fillStyle = '#cdd6e3';
+    ctx.fillText(label, PAD + 38, ly - 4);
   });
 
   // numeric callout
   const fd = (a) => a[a.length - 1].toFixed(1);
-  ctx.fillStyle = '#8b95a6'; ctx.font = '15px system-ui, sans-serif';
-  ctx.fillText(`final: after ${fd(s.after)} yd · before ${fd(s.before)} yd · none ${fd(s.none)} yd`,
-    PAD, H - 18);
+  ctx.fillStyle = '#8b95a6';
+  ctx.font = '15px system-ui, sans-serif';
+  ctx.fillText(
+    `final: after ${fd(s.after)} yd · before ${fd(s.before)} yd · none ${fd(s.none)} yd`,
+    PAD,
+    H - 18,
+  );
 }, series);
 
 await sleep(200);
@@ -148,8 +199,11 @@ console.log('wrote tmp/dash-speed-chart.png');
 
 // --- second artifact: real in-game cast, buff bar shows Dash active ---
 await page.evaluate(() => {
-  const cv = document.querySelector('#dash-chart'); if (cv) cv.remove();
-  const g = window.__game, sim = g.sim, p = sim.player;
+  const cv = document.querySelector('#dash-chart');
+  if (cv) cv.remove();
+  const g = window.__game,
+    sim = g.sim,
+    p = sim.player;
   // Enter Wolf (cat) form and cast Dash through the real ability pipeline.
   p.auras = p.auras.filter((a) => a.kind !== 'buff_speed');
   if (!p.auras.some((a) => a.kind === 'form_cat')) sim.castAbility('cat_form', p.id);
@@ -161,9 +215,14 @@ await page.evaluate(() => {
 await sleep(900);
 await page.screenshot({ path: 'tmp/dash-buff-active.png' });
 console.log('wrote tmp/dash-buff-active.png');
-console.log('final distances:',
-  'none', series.none.at(-1).toFixed(1),
-  'before', series.before.at(-1).toFixed(1),
-  'after', series.after.at(-1).toFixed(1));
+console.log(
+  'final distances:',
+  'none',
+  series.none.at(-1).toFixed(1),
+  'before',
+  series.before.at(-1).toFixed(1),
+  'after',
+  series.after.at(-1).toFixed(1),
+);
 
 await browser.close();

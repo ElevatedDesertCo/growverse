@@ -289,6 +289,15 @@ export const es: EnTranslations = {
       "mining": "Mining",
       "herbalism": "Herbalism",
       "logging": "Logging",
+      "cultivation": "Cultivation",
+      "breeding": "Breeding",
+      "fishing": "Fishing",
+      "cooking": "Cooking",
+      "alchemy": "Alchemy",
+      "smithing": "Smithing",
+      "enchanting": "Enchanting",
+      "extraction": "Extraction",
+      "lockpicking": "Lockpicking",
       "skillAria": "{profession}: {skill} of {max}"
     },
     "loadouts": {
@@ -1060,10 +1069,14 @@ export const es: EnTranslations = {
       "upgradeTitle": "Upgrade Bench",
       "cookTitle": "Cookfire",
       "alchemyTitle": "Alchemy Lab",
+      "enchantTitle": "Infusion Table",
+      "extractTitle": "Extraction Lab",
       "growHint": "Craft nutrients, upgrade seed strains, and build growing gear.",
       "upgradeHint": "Reforge gear and cut battle consumables from Corruption Shards.",
       "cookHint": "Cook the fish you catch into hearty meals that restore health and mana.",
       "alchemyHint": "Brew harvested blooms into healing and mana draughts and a battle elixir.",
+      "enchantHint": "Bind prime buds and Corruption Shards into glyphs that hold for half an hour.",
+      "extractHint": "Wash harvested buds down to hash, shatter, live resin, and diamonds.",
       "craftButton": "Craft",
       "costLabel": "Cost",
       "requiresLabel": "Requires",
@@ -1085,8 +1098,31 @@ export const es: EnTranslations = {
         "recipeUnavailable": "That recipe is not available here.",
         "tooFarFromStation": "You are too far from the station.",
         "levelTooLow": "You are not skilled enough to craft that yet.",
-        "missingMaterials": "You lack the materials to craft that."
+        "missingMaterials": "You lack the materials to craft that.",
+        "budsNotFresh": "Those buds have dried. Extract live resin right after a harvest.",
+        "processRunning": "That process is still running. Come back when it is done."
       }
+    },
+    "trade": {
+      "cutLabel": "Cut",
+      "hint": "A cut copies the strain: you keep yours, they need a free library slot."
+    },
+    "cup": {
+      "title": "The Vale Cup",
+      "open": "Enter the Vale Cup",
+      "hint": "Judged on genetics, on the grade you bring, and on how well you know the plant.",
+      "season": "Season {season}",
+      "remainingHours": "{hours}h {minutes}m left",
+      "remainingMinutes": "{minutes}m left",
+      "best": "Your best score: {score}",
+      "emptyBoard": "No entries yet this season. The board is yours to open.",
+      "gradeLabel": "Bud grade",
+      "strainLabel": "Strain",
+      "noBuds": "No buds to enter with. Harvest a crop first.",
+      "noStrains": "No strains yet. Harvest a crop to discover one.",
+      "projected": "Scores {score}",
+      "enter": "Enter ({count} buds, scoring {score})",
+      "posted": "{strain} is on the board at {score}, ranked {rank}."
     },
     "garden": {
       "title": "Garden",
@@ -1096,6 +1132,9 @@ export const es: EnTranslations = {
       "empty": "Empty plot",
       "plant": "Plant",
       "harvest": "Harvest",
+      "tend": "Tend",
+      "tendCount": "Tended {tends}/{total}",
+      "tendNudge": "{count} plants are ready to tend.",
       "ready": "Ready",
       "open": "Tend Garden",
       "locked": "Locked",
@@ -1115,7 +1154,16 @@ export const es: EnTranslations = {
       "plant": "Plant",
       "release": "Release",
       "breed": "Cross",
-      "full": "Your strain library is full. Release a strain to make room."
+      "lineage": "{a} x {b}",
+      "bredBy": "Bred by {name}",
+      "cost": "Cross cost: {count} Epic Buds (you have {held})",
+      "needEpicBuds": "Tend a crop to earn an Epic Bud. A perfect grow always drops one.",
+      "mastery": "Mastery",
+      "masteryAria": "{strain} mastery: {mastery} of {max}",
+      "full": "Your strain library is full. Release a strain to make room.",
+      "refine": "Refine",
+      "refineHint": "Fold the second strain into the first, improving it and freeing a slot.",
+      "fullRefine": "Your strain library is full. Refine or release a strain to make room."
     },
     "reputation": {
       "tier": {
@@ -5191,6 +5239,30 @@ export const es: EnTranslations = {
       "infused_lozenge_prime": {
         "name": "Pastilla infusionada suprema"
       },
+      "resin_glyph_vigor": {
+        "name": "Glifo de resina de vigor"
+      },
+      "resin_glyph_focus": {
+        "name": "Glifo de resina de concentración"
+      },
+      "resin_glyph_warding": {
+        "name": "Glifo de resina de protección"
+      },
+      "vale_hash": {
+        "name": "Hachís del valle"
+      },
+      "golden_shatter": {
+        "name": "Ámbar quebradizo"
+      },
+      "live_resin": {
+        "name": "Resina viva"
+      },
+      "bloom_diamonds": {
+        "name": "Diamantes de floración"
+      },
+      "epic_bud": {
+        "name": "Cogollo épico"
+      },
       "bristleback_maul": {
         "name": "Maza Bristleback"
       },
@@ -6174,6 +6246,21 @@ export const es: EnTranslations = {
         "name": "Sable",
         "title": "the Alchemist",
         "greeting": "Bring me blooms from the vale, {className}, and I will draw out their virtue: draughts to mend flesh, to quicken the mind, and an elixir to sharpen your wits."
+      },
+      "glyphwright_orrin": {
+        "name": "Orrin",
+        "title": "the Glyphwright",
+        "greeting": "Any grower can burn their best flower, {className}. Bring your prime buds and a shard off the rift and I will bind the two into a glyph that holds for half an hour."
+      },
+      "extractor_rell": {
+        "name": "Rell",
+        "title": "the Extractor",
+        "greeting": "Flower is where it starts, {className}, not where it ends. Bring me buds and I will wash them down to hash, shatter, or diamonds. Bring them still wet off the bed and we will make something better."
+      },
+      "cup_steward_wilder": {
+        "name": "Wilder",
+        "title": "Steward of the Vale Cup",
+        "greeting": "The Cup is open, {className}. Bring me a strain and ten buds off it and I will put your name on the board. Judged on the genetics, on the grade you bring, and on how well you know the plant. All three, or you are just entering."
       },
       "banker_thistle": {
         "name": "Vault Keeper Thistle",
@@ -7255,6 +7342,9 @@ export const es: EnTranslations = {
           },
           "11": {
             "label": "The Lodge"
+          },
+          "12": {
+            "label": "The Grow Terrace"
           }
         }
       },

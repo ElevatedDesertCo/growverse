@@ -15,7 +15,7 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 582,
+      "nextId": 585,
       "state": "5bc471b0",
       "events": "741638a5",
       "rng": {
@@ -29,9 +29,9 @@
     {
       "tick": 25,
       "time": 1.25,
-      "nextId": 586,
-      "state": "91d007b9",
-      "events": "eeb0ce13",
+      "nextId": 589,
+      "state": "0cd2d1d7",
+      "events": "622cd57b",
       "rng": {
         "draws": 0,
         "digest": "811c9dc5"
@@ -40,9 +40,9 @@
     {
       "tick": 50,
       "time": 2.5,
-      "nextId": 586,
-      "state": "d2a63b5b",
-      "events": "949c33cd",
+      "nextId": 589,
+      "state": "5dcd749d",
+      "events": "6da92121",
       "rng": {
         "draws": 36,
         "digest": "5f2ff261"
@@ -51,9 +51,9 @@
     {
       "tick": 75,
       "time": 3.75,
-      "nextId": 586,
-      "state": "47635431",
-      "events": "7e8a8ffd",
+      "nextId": 589,
+      "state": "a7da2d9f",
+      "events": "86f8e3e9",
       "rng": {
         "draws": 132,
         "digest": "26582072"
@@ -62,9 +62,9 @@
     {
       "tick": 100,
       "time": 5,
-      "nextId": 586,
-      "state": "aacb790b",
-      "events": "2f76c0b5",
+      "nextId": 589,
+      "state": "a499d841",
+      "events": "5f102359",
       "rng": {
         "draws": 280,
         "digest": "40bf7bce"
@@ -73,9 +73,9 @@
     {
       "tick": 125,
       "time": 6.25,
-      "nextId": 586,
-      "state": "5910cf28",
-      "events": "3b46446f",
+      "nextId": 589,
+      "state": "3707adec",
+      "events": "56a6b718",
       "rng": {
         "draws": 452,
         "digest": "7c368899"
@@ -84,8 +84,8 @@
     {
       "tick": 150,
       "time": 7.5,
-      "nextId": 586,
-      "state": "d0cf2958",
+      "nextId": 589,
+      "state": "5bfac0e4",
       "events": "741638a5",
       "rng": {
         "draws": 637,
@@ -95,9 +95,9 @@
     {
       "tick": 163,
       "time": 8.15,
-      "nextId": 586,
-      "state": "2ad89e49",
-      "events": "c3e4b618",
+      "nextId": 589,
+      "state": "b673aed9",
+      "events": "32c11d40",
       "rng": {
         "draws": 722,
         "digest": "1f1e64ce"
@@ -114,9 +114,10 @@
           "counters": {
             "kills": 1
           },
+          "craftReadyAt": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 582,
+          "entityId": 585,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
@@ -129,42 +130,114 @@
             }
           },
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {}
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            }
           ],
           "professions": {},
           "reputation": {},
@@ -187,9 +260,10 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {},
+          "craftReadyAt": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 583,
+          "entityId": 586,
           "equipment": {
             "chest": "apprentice_robe",
             "mainhand": "gnarled_staff"
@@ -202,42 +276,114 @@
             }
           },
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {}
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            }
           ],
           "professions": {},
           "reputation": {},
@@ -262,9 +408,10 @@
           "counters": {
             "deaths": 1
           },
+          "craftReadyAt": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 584,
+          "entityId": 587,
           "equipment": {
             "chest": "footpad_jerkin",
             "mainhand": "rusty_dagger"
@@ -280,42 +427,114 @@
             }
           },
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {}
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            }
           ],
           "professions": {},
           "reputation": {},
@@ -338,9 +557,10 @@
           "cls": "hunter",
           "companionUpgrades": {},
           "counters": {},
+          "craftReadyAt": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 585,
+          "entityId": 588,
           "equipment": {
             "chest": "footpad_jerkin",
             "mainhand": "rusty_hatchet"
@@ -353,42 +573,114 @@
             }
           },
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {}
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            }
           ],
           "professions": {},
           "reputation": {},
@@ -415,7 +707,7 @@
           "dodgeChance": 0.0795,
           "fiveSecondRule": 107.15,
           "hp": 812,
-          "id": 582,
+          "id": 585,
           "kind": "player",
           "level": 20,
           "lootFfaTimer": "Infinity",
@@ -461,7 +753,7 @@
           "dodgeChance": 0.056,
           "fiveSecondRule": 107.15,
           "hp": 418,
-          "id": 583,
+          "id": 586,
           "kind": "player",
           "level": 20,
           "lootFfaTimer": "Infinity",
@@ -509,7 +801,7 @@
           "facing": 3.141593,
           "fiveSecondRule": 107.15,
           "hp": 510,
-          "id": 584,
+          "id": 587,
           "kind": "player",
           "level": 20,
           "lootFfaTimer": "Infinity",
@@ -558,7 +850,7 @@
           "facing": 3.141593,
           "fiveSecondRule": 107.15,
           "hp": 848,
-          "id": 585,
+          "id": 588,
           "kind": "player",
           "level": 20,
           "lootFfaTimer": "Infinity",

@@ -10,6 +10,7 @@
 // Vitest imports directly. `src/sim`-pure: no DOM/Three/render-ui-game-net imports.
 
 import type { Rng } from './rng';
+import { nameCross } from './strain_naming';
 import {
   GENE_MAX,
   type Genotype,
@@ -49,6 +50,9 @@ export function strainView(s: Strain): StrainView {
     potency: expressTrait(s.genotype, 'potency'),
     vigor: expressTrait(s.genotype, 'vigor'),
     yield: expressTrait(s.genotype, 'yield'),
+    ...(s.lineage ? { lineage: [s.lineage[0], s.lineage[1]] as [string, string] } : {}),
+    ...(s.breeder ? { breeder: s.breeder } : {}),
+    mastery: s.mastery,
   };
 }
 
@@ -61,6 +65,7 @@ export function baseStrain(def: StrainDef, id: string): Strain {
     name: def.name,
     genotype,
     landrace: isLandrace(genotype),
+    mastery: 0,
   };
 }
 
@@ -101,15 +106,52 @@ function mutateAllele(rng: Rng, allele: number): number {
 // Breed two owned strains into a new library strain. The offspring inherits parent A's
 // lineage (baseId + name root) so display names stay bounded; its genotype is the bred
 // result and its landrace flag is recomputed from expression.
-export function breed(rng: Rng, a: Strain, b: Strain, newId: string): Strain {
+// Cross two strains. `breeder` is the character credited with the cross; omit it
+// for a cross with no owner to attribute (tests, tooling).
+//
+// The offspring is NAMED here rather than inheriting parent A's name, which is
+// what it used to do: every cross now blends its parents into a new name, so a
+// library reads as a lineage instead of twelve rows all called "Common Bloom".
+// The genotype draw happens FIRST and the naming draws after it, so the existing
+// inheritance stream is untouched and only the new draws extend it.
+export function breed(rng: Rng, a: Strain, b: Strain, newId: string, breeder?: string): Strain {
   const genotype = breedGenotype(rng, a.genotype, b.genotype);
+  const landrace = isLandrace(genotype);
   return {
     id: newId,
     baseId: a.baseId,
-    name: a.name,
+    name: nameCross(rng, a.name, b.name, landrace),
     genotype,
-    landrace: isLandrace(genotype),
+    landrace,
+    lineage: [a.name, b.name],
+    ...(breeder ? { breeder } : {}),
+    // Mastery is the GROWER's record, not a heritable trait: a brand-new cross is a
+    // strain nobody has grown yet, however well its parents were tended.
+    mastery: 0,
   };
+}
+
+// Fold a donor strain's genetics into a target's, returning the improved genotype. Per
+// trait, the target's WEAKER allele is replaced by the donor's STRONGER one when that is
+// an upgrade, so the result is never worse than the target on any trait and the pair the
+// target carries into future crosses gets better too, not just its expressed tier.
+//
+// Deterministic (no rng): refining is a deliberate, expensive action, and a guaranteed
+// improvement is what makes it worth spending the cost on. It also keeps the cultivation
+// slice's rng footprint to the single Epic Bud roll.
+//
+// Why the weaker slot rather than the stronger: expression takes the higher allele, so
+// overwriting the higher one could LOWER the phenotype, and overwriting the lower one can
+// only raise it (or leave it alone). That is the whole invariant, in one line.
+export function refineGenotype(target: Genotype, donor: Genotype): Genotype {
+  const out = cloneGenotype(target);
+  for (const trait of STRAIN_TRAITS) {
+    const [t0, t1] = out[trait];
+    const weakIndex = t0 <= t1 ? 0 : 1;
+    const donorBest = expressTrait(donor, trait);
+    if (donorBest > out[trait][weakIndex]) out[trait][weakIndex] = donorBest;
+  }
+  return out;
 }
 
 // ---- Phenotype -> gameplay curves -------------------------------------------------

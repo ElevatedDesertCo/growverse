@@ -133,9 +133,16 @@ export const IWORLD_MEMBERS = [
   { name: 'strains', kind: 'data' },
   { name: 'plantSeed', kind: 'method' },
   { name: 'plantStrain', kind: 'method' },
+  { name: 'tendPlot', kind: 'method' },
   { name: 'harvestPlot', kind: 'method' },
   { name: 'breedStrains', kind: 'method' },
+  { name: 'refineStrain', kind: 'method' },
   { name: 'releaseStrain', kind: 'method' },
+  { name: 'cupStandings', kind: 'data' },
+  { name: 'cupSeason', kind: 'data' },
+  { name: 'cupSecondsRemaining', kind: 'data' },
+  { name: 'cupBest', kind: 'data' },
+  { name: 'enterCup', kind: 'method' },
   // IWorldReputation: the commune-standing + gathering-profession reads (no commands;
   // both earned server-side).
   { name: 'reputation', kind: 'data' },
@@ -349,9 +356,9 @@ beforeAll(() => {
 
 describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => {
   it('pins total / data / method counts', () => {
-    expect(IWORLD_MEMBERS.length).toBe(161);
-    expect(DATA_MEMBERS.length).toBe(41);
-    expect(METHOD_MEMBERS.length).toBe(120);
+    expect(IWORLD_MEMBERS.length).toBe(168);
+    expect(DATA_MEMBERS.length).toBe(45);
+    expect(METHOD_MEMBERS.length).toBe(123);
   });
 
   it('has no duplicate member names', () => {
@@ -397,6 +404,10 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'convertPartyToRaid',
       'convertRaidToParty',
       'copper',
+      'cupBest',
+      'cupSeason',
+      'cupSecondsRemaining',
+      'cupStandings',
       'deleteLoadout',
       'delveBuyShopItem',
       'delveDaily',
@@ -411,6 +422,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'duelDecline',
       'duelInfo',
       'duelRequest',
+      'enterCup',
       'enterDelve',
       'enterDungeon',
       'entities',
@@ -479,6 +491,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'questsDone',
       'raidLockouts',
       'realm',
+      'refineStrain',
       'releaseSpirit',
       'releaseStrain',
       'renamePet',
@@ -510,6 +523,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'talents',
       'targetEntity',
       'targetNearestFriendly',
+      'tendPlot',
       'tradeAccept',
       'tradeCancel',
       'tradeConfirm',
@@ -536,6 +550,10 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'companionState',
       'companionUpgrades',
       'copper',
+      'cupBest',
+      'cupSeason',
+      'cupSecondsRemaining',
+      'cupStandings',
       'delveDaily',
       'delveMarks',
       'delveRun',
@@ -573,7 +591,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
     ]);
   });
 
-  it('the sorted method-kind set is exactly the pinned 118', () => {
+  it('the sorted method-kind set is exactly the pinned 123', () => {
     expect(METHOD_MEMBERS.map((m) => m.name).sort()).toEqual([
       'abandonPet',
       'abandonQuest',
@@ -612,6 +630,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'duelAccept',
       'duelDecline',
       'duelRequest',
+      'enterCup',
       'enterDelve',
       'enterDungeon',
       'equipItem',
@@ -662,6 +681,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'prestige',
       'questState',
       'raidLockouts',
+      'refineStrain',
       'releaseSpirit',
       'releaseStrain',
       'renamePet',
@@ -685,6 +705,7 @@ describe('IWORLD_MEMBERS is the pinned IWorld contract (anti-loosening)', () => 
       'talentPoints',
       'targetEntity',
       'targetNearestFriendly',
+      'tendPlot',
       'tradeAccept',
       'tradeCancel',
       'tradeConfirm',
@@ -996,9 +1017,16 @@ const FACET_CULTIVATION = [
   'strains',
   'plantSeed',
   'plantStrain',
+  'tendPlot',
   'harvestPlot',
   'breedStrains',
+  'refineStrain',
   'releaseStrain',
+  'cupStandings',
+  'cupSeason',
+  'cupSecondsRemaining',
+  'cupBest',
+  'enterCup',
 ] as const satisfies readonly (keyof IWorldCultivation)[];
 type _ExhaustCultivation = AssertNever<
   Exclude<keyof IWorldCultivation, (typeof FACET_CULTIVATION)[number]>
@@ -1073,8 +1101,8 @@ describe('W1: aggregate IWorld member set equals the disjoint union of the 22 fa
 
   it('the union of the 22 facets equals the pinned 160-member IWORLD_MEMBERS set', () => {
     const union = Object.values(FACET_MEMBER_ARRAYS).flatMap((arr) => [...arr]);
-    expect(union.length, 'union size before dedup (catches a duplicated member)').toBe(161);
-    expect(new Set(union).size, 'union size after dedup (catches a duplicated member)').toBe(161);
+    expect(union.length, 'union size before dedup (catches a duplicated member)').toBe(168);
+    expect(new Set(union).size, 'union size after dedup (catches a duplicated member)').toBe(168);
     const sortedUnion = [...union].sort();
     const pinned = IWORLD_MEMBERS.map((m) => m.name).sort();
     expect(sortedUnion).toEqual(pinned);

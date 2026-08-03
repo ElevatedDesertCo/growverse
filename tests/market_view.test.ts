@@ -334,3 +334,46 @@ describe('market_view: determinism + ClientWorld-vs-Sim parity', () => {
     }
   });
 });
+
+// Per-unit price. Real trade is denominated in size and bulk sellers undercut per unit,
+// so a browse where a 5-copper single and a 400-copper stack of a hundred cannot be
+// compared at a glance is a browse you cannot shop. The figure used to be derived inline
+// in the painter; it lives in the core now because the ROUNDING DIRECTION is a real
+// decision (round down and the shown price understates what a buyer pays) and a decision
+// belongs where a test can reach it.
+describe('market_view: per-unit pricing', () => {
+  const rows = (l: MarketListingView) =>
+    buildMarketBrowse(info({ listings: [l], totalCount: 1 }), ALL);
+
+  it('divides the total by the stack count', () => {
+    const body = rows(listing('bud_common', { count: 10, price: 400 }));
+    expect(body.state).toBe('list');
+    if (body.state !== 'list') return;
+    expect(body.page.items[0].unitPrice).toBe(40);
+    expect(body.page.items[0].single).toBe(false);
+  });
+
+  it('rounds UP, so the per-unit figure never understates what a buyer pays', () => {
+    // 401 / 10 is 40.1; showing 40 would price the stack at 400.
+    const body = buildMarketBrowse(
+      info({ listings: [listing('bud_common', { count: 10, price: 401 })], totalCount: 1 }),
+      ALL,
+    );
+    if (body.state !== 'list') return;
+    expect(body.page.items[0].unitPrice).toBe(41);
+  });
+
+  it('marks a single-unit listing, so the painter can omit a line that repeats the total', () => {
+    const body = rows(listing('bud_common', { count: 1, price: 55 }));
+    if (body.state !== 'list') return;
+    expect(body.page.items[0].single).toBe(true);
+    expect(body.page.items[0].unitPrice).toBe(55);
+  });
+
+  it('never divides by zero on a malformed count', () => {
+    const body = rows(listing('bud_common', { count: 0, price: 70 }));
+    if (body.state !== 'list') return;
+    expect(body.page.items[0].unitPrice).toBe(70);
+    expect(Number.isFinite(body.page.items[0].unitPrice)).toBe(true);
+  });
+});

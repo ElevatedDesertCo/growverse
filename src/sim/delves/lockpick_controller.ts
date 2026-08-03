@@ -43,6 +43,7 @@ import {
   stepLock,
   visibleCells,
 } from '../lockpick';
+import { trainProfession } from '../professions';
 import type { PlayerMeta } from '../sim';
 import type { SimContext } from '../sim_context';
 import {
@@ -54,6 +55,18 @@ import {
   type Entity,
 } from '../types';
 import { grantDelveRewards, openDelveSurfaceExit } from './runs';
+
+/** Lockpicking skill awarded for a SOLVED chest, by the ante's loot tier. A delve
+ * chest is once per cleared run, so a flat one-point gather would take a hundred
+ * delves to master; scaling by tier also makes the premium three-page, one-try
+ * gauntlet worth the risk it actually is. The copper/marks payout is separate
+ * (LOCKPICK_TIER_REWARD) and goes to the whole party; the SKILL goes only to the
+ * player who picked. A jammed chest trains nothing. */
+const LOCKPICK_SKILL_BY_TIER: Record<'premium' | 'medium' | 'low', number> = {
+  premium: 5,
+  medium: 3,
+  low: 1,
+};
 
 /** Resolve the locked-chest object + run for an acting player, with all the
  * proximity/eligibility guards. Returns null (after emitting an error) on any
@@ -367,6 +380,12 @@ function lockpickSucceed(ctx: SimContext, run: DelveRun, session: LockSession): 
   }
   grantDelveRewards(ctx, run);
   grantLockpickBonus(ctx, run, session.lootTier);
+  // The skill is the picker's alone, unlike the copper/marks bonus above, which the
+  // whole party shares. Trained only on this success path, so a jam trains nothing.
+  const picker = ctx.players.get(session.ownerId);
+  if (picker) {
+    trainProfession(picker.professions, 'lockpicking', LOCKPICK_SKILL_BY_TIER[session.lootTier]);
+  }
   openDelveSurfaceExit(ctx, run);
   ctx.emit({ type: 'delveChestLoot', chestId: session.chestId, items, pid: session.ownerId });
   ctx.emit({

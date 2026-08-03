@@ -1,11 +1,13 @@
 // Expansion verification tour: boots offline, levels up, walks the new zones
 // and dungeons, opens every icon-bearing window, and saves screenshots to
 // tmp/exp_*.png for visual inspection.
-import puppeteer from 'puppeteer-core';
+
 import fs from 'node:fs';
+import puppeteer from 'puppeteer-core';
 import { BROWSER_PATH } from './browser_path.mjs';
 
-const URL = (process.env.GAME_URL ?? 'http://localhost:5173') + '/?gfx=' + (process.env.GFX_TIER ?? 'high');
+const URL =
+  (process.env.GAME_URL ?? 'http://localhost:5173') + '/?gfx=' + (process.env.GFX_TIER ?? 'high');
 fs.mkdirSync('tmp', { recursive: true });
 
 const browser = await puppeteer.launch({
@@ -17,7 +19,9 @@ const browser = await puppeteer.launch({
 const page = await browser.newPage();
 const errors = [];
 page.on('pageerror', (e) => errors.push('PAGEERROR: ' + e.message));
-page.on('console', (msg) => { if (msg.type() === 'error') errors.push('CONSOLE: ' + msg.text()); });
+page.on('console', (msg) => {
+  if (msg.type() === 'error') errors.push('CONSOLE: ' + msg.text());
+});
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const shot = (name) => page.screenshot({ path: `tmp/exp_${name}.png` });
@@ -32,23 +36,29 @@ await page.waitForFunction(() => window.__game?.sim?.player, { timeout: 60000 })
 await sleep(2500);
 
 const tp = async (x, z, facing = 0) => {
-  await page.evaluate(({ x, z, facing }) => {
-    const g = window.__game;
-    const p = g.sim.player;
-    const pos = g.sim.groundPos(x, z);
-    p.pos = pos; p.prevPos = { ...pos };
-    p.facing = facing; p.prevFacing = facing;
-    g.input.camYaw = facing;
-  }, { x, z, facing });
+  await page.evaluate(
+    ({ x, z, facing }) => {
+      const g = window.__game;
+      const p = g.sim.player;
+      const pos = g.sim.groundPos(x, z);
+      p.pos = pos;
+      p.prevPos = { ...pos };
+      p.facing = facing;
+      p.prevFacing = facing;
+      g.input.camYaw = facing;
+    },
+    { x, z, facing },
+  );
   await sleep(900);
 };
 
 // 1) levels + new spell ranks: level 6 -> check lightning bolt rank, then 20
-const ranksAt = async (lvl) => page.evaluate((lvl) => {
-  const g = window.__game;
-  g.sim.setPlayerLevel(lvl);
-  return g.sim.known.map((k) => `${k.def.id}:r${k.rank}`).join(' ');
-}, lvl);
+const ranksAt = async (lvl) =>
+  page.evaluate((lvl) => {
+    const g = window.__game;
+    g.sim.setPlayerLevel(lvl);
+    return g.sim.known.map((k) => `${k.def.id}:r${k.rank}`).join(' ');
+  }, lvl);
 console.log('kit @6 :', await ranksAt(6));
 console.log('kit @14:', await ranksAt(14));
 console.log('kit @20:', await ranksAt(20));
@@ -57,7 +67,14 @@ await sleep(400);
 // 2) icon-bearing UI: action bar + spellbook + bags + character
 await page.evaluate(() => {
   const g = window.__game;
-  for (const it of ['baked_bread', 'spring_water', 'eastbrook_arming_sword', 'mistcallers_edge', 'wyrmfang_greatblade', 'trail_hardtack']) {
+  for (const it of [
+    'baked_bread',
+    'spring_water',
+    'eastbrook_arming_sword',
+    'mistcallers_edge',
+    'wyrmfang_greatblade',
+    'trail_hardtack',
+  ]) {
     g.sim.addItem(it, 1);
   }
 });
@@ -85,7 +102,11 @@ const consume = await page.evaluate(() => {
   const p = window.__game.sim.player;
   return { eating: !!p.eating, drinking: !!p.drinking };
 });
-console.log('eat+drink simultaneously:', JSON.stringify(consume), consume.eating && consume.drinking ? 'OK' : 'FAIL');
+console.log(
+  'eat+drink simultaneously:',
+  JSON.stringify(consume),
+  consume.eating && consume.drinking ? 'OK' : 'FAIL',
+);
 await shot('03_eating_and_drinking');
 
 // 4) smith vendor in Eastbrook
@@ -114,7 +135,9 @@ await tp(0, 295, 0.5);
 await shot('06_fenbridge_hub');
 const fenNpcs = await page.evaluate(() => {
   const g = window.__game;
-  return [...g.sim.entities.values()].filter((e) => e.kind === 'npc' && e.pos.z > 280 && e.pos.z < 320).map((e) => e.name);
+  return [...g.sim.entities.values()]
+    .filter((e) => e.kind === 'npc' && e.pos.z > 280 && e.pos.z < 320)
+    .map((e) => e.name);
 });
 console.log('fenbridge npcs:', JSON.stringify(fenNpcs));
 
@@ -130,7 +153,8 @@ const inBastion = await page.evaluate(() => {
   const g = window.__game;
   if (g.sim.player.dead) g.sim.releaseSpirit();
   const pos = g.sim.groundPos(45, 511);
-  g.sim.player.pos = pos; g.sim.player.prevPos = { ...pos };
+  g.sim.player.pos = pos;
+  g.sim.player.prevPos = { ...pos };
   g.sim.enterDungeon('sunken_bastion');
   return g.sim.player.pos.x;
 });
@@ -158,7 +182,8 @@ const inSanctum = await page.evaluate(() => {
   // the approach is patrolled by level-19 revenants; revive if they got us
   if (g.sim.player.dead) g.sim.releaseSpirit();
   const pos = g.sim.groundPos(0, 876);
-  g.sim.player.pos = pos; g.sim.player.prevPos = { ...pos };
+  g.sim.player.pos = pos;
+  g.sim.player.prevPos = { ...pos };
   g.sim.enterDungeon('gravewyrm_sanctum');
   return g.sim.player.pos.x;
 });

@@ -1226,12 +1226,15 @@
     font-size: 11px;
     color: #b9ac82;
   }
-  /* Professions panel on the character sheet: a skill bar per gathering skill,
-     modeled on the breeding reputation rows (name / bar / value). */
+  /* Professions panel on the character sheet: a skill bar per skill, modeled on the
+     breeding reputation rows (name / bar / value). The roster is long enough (gather,
+     grow, fish, craft, pick) that a single column would push the panels below it off
+     the sheet, so rows flow into as many columns as the panel width allows and fall
+     back to one column when narrow. */
   .char-professions .prof-list {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 6px 16px;
     margin-top: 2px;
   }
   .prof-row {
@@ -3211,6 +3214,27 @@
   .garden-ready {
     color: #a9d86a;
   }
+  /* Tending: an opt-in bonus, so its chrome stays quiet. The caught/total record sits
+     inline with the status line, and the nudge is a single muted header row that is
+     absent (not blank) when nothing is due. The rule is a divider, not decoration: at
+     11px the growth percent and the tend record abut ("1% Tended 0/3") and read as one
+     phrase, so they need a visible break rather than only a slightly dimmer color. */
+  .garden-plot-tends {
+    color: #a89c78;
+    margin-left: 5px;
+    padding-left: 6px;
+    border-left: 1px solid #4a4030;
+  }
+  .garden-tend-nudge {
+    font-size: 11px;
+    color: #a9d86a;
+    padding: 0 5px 4px;
+  }
+  .garden-tend {
+    background: linear-gradient(#4e7a2c, #3a5c1f 55%, #2c4616);
+    border-color: #4a6a26;
+    color: #dcf0b8;
+  }
   .garden-action {
     align-self: flex-start;
     margin-top: 2px;
@@ -3228,6 +3252,178 @@
     filter: brightness(1.12);
   }
   .garden-action:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+
+  /* Cut swapping on the trade window: staking a copy of a library strain alongside the
+     items. Sits between the items and the money, because that is what it is worth. */
+  .trade-cut {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 0;
+  }
+  .trade-cut-label {
+    font-size: 11px;
+    color: #a89c78;
+  }
+  .trade-cut-opt {
+    min-height: 40px;
+    padding: 3px 8px;
+    border: 1px solid #4a3c1a;
+    border-radius: 4px;
+    background: #1a1409;
+    color: #a9d86a;
+    font-size: 11px;
+    cursor: var(--cursor-point);
+  }
+  .trade-cut-on {
+    border-color: #c8a24a;
+    background: #2a2010;
+  }
+  .trade-cut-offered {
+    font-size: 11px;
+    color: #a9d86a;
+  }
+  .trade-cut-landrace {
+    font-size: 10px;
+    color: #1a1408;
+    background: linear-gradient(#e6c65a, #c8a24a);
+    padding: 1px 6px;
+    border-radius: 8px;
+  }
+
+  /* Vale Cup window (the commune's growing competition). Board first, entry form under
+     it, because the board is the point of opening the panel. */
+  #cup-window {
+    width: 440px;
+    max-width: 100%;
+  }
+  .cup-hint,
+  .cup-season,
+  .cup-best {
+    font-size: 11px;
+    color: #a89c78;
+    padding: 0 5px 2px;
+  }
+  .cup-remaining {
+    color: #e6c65a;
+  }
+  .cup-board {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin: 4px 0 8px;
+  }
+  .cup-row {
+    display: grid;
+    grid-template-columns: 28px 1fr 1fr auto;
+    align-items: center;
+    gap: 8px;
+    padding: 3px 5px;
+    font-size: 11px;
+    color: #c8b888;
+  }
+  .cup-row-self {
+    background: #221a09;
+    border-radius: 3px;
+    color: #efe4c2;
+  }
+  .cup-rank {
+    color: #a89c78;
+    text-align: right;
+  }
+  .cup-strain {
+    color: #a9d86a;
+  }
+  .cup-score {
+    font-family: var(--title-font);
+    color: #e6c65a;
+    text-align: right;
+  }
+  .cup-empty,
+  .cup-note,
+  .cup-posted {
+    font-size: 11px;
+    color: #a89c78;
+    padding: 6px 5px;
+  }
+  .cup-posted {
+    color: #a9d86a;
+  }
+  .cup-label {
+    font-size: 11px;
+    color: #a89c78;
+    margin-right: 6px;
+  }
+  .cup-buds,
+  .cup-strains {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 5px;
+  }
+  .cup-strains {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .cup-bud,
+  .cup-strain-opt {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 40px;
+    padding: 4px 10px;
+    border: 1px solid #4a3c1a;
+    border-radius: 4px;
+    background: #1a1409;
+    color: #efe4c2;
+    font-size: 11px;
+    cursor: var(--cursor-point);
+  }
+  .cup-strain-opt {
+    justify-content: space-between;
+  }
+  .cup-bud-on,
+  .cup-strain-opt-on {
+    border-color: #c8a24a;
+    background: #2a2010;
+  }
+  .cup-bud:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
+  .cup-bud-count,
+  .cup-projected {
+    color: #a89c78;
+  }
+  .cup-landrace {
+    font-size: 10px;
+    color: #1a1408;
+    background: linear-gradient(#e6c65a, #c8a24a);
+    padding: 1px 6px;
+    border-radius: 8px;
+  }
+  .cup-action {
+    align-self: flex-start;
+    margin: 4px 5px 8px;
+    min-height: 40px;
+    padding: 6px 16px;
+    border: 1px solid #6a5320;
+    border-radius: 4px;
+    cursor: var(--cursor-point);
+    background: linear-gradient(#8a6a26, #5a4413 55%, #473409);
+    color: #ffe6a8;
+    font-family: var(--title-font);
+    font-size: 12px;
+  }
+  .cup-action:hover:not(:disabled) {
+    filter: brightness(1.12);
+  }
+  .cup-action:disabled {
     opacity: 0.5;
     cursor: default;
   }
@@ -3328,10 +3524,44 @@
     font-size: 11px;
     color: #c8b888;
   }
+  /* Per-strain mastery: the grower's own record, so it reads as a bar (something you
+     build) rather than as another inherited trait chip. */
+  .breeding-mastery {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 8px;
+    margin: 0 0 6px;
+  }
+  .breeding-mastery-label,
+  .breeding-mastery-value {
+    font-size: 11px;
+    color: #a89c78;
+  }
+  .breeding-mastery-bar {
+    height: 6px;
+    border-radius: 4px;
+    background: #120e06;
+    overflow: hidden;
+  }
+  .breeding-mastery-fill {
+    height: 100%;
+    width: var(--mastery-pct, 0%);
+    background: linear-gradient(#8fbf5a, #5a8a2c);
+  }
   .breeding-strain-actions {
     display: flex;
     flex-wrap: wrap;
     gap: 6px;
+  }
+  /* The Epic Bud cost line in the breeding footer: quiet when affordable, warm when
+     short, so the gate reads as information rather than an error. */
+  .breeding-cost {
+    font-size: 11px;
+    color: #a89c78;
+  }
+  .breeding-cost-short {
+    color: #e6c65a;
   }
   .breeding-footer {
     display: flex;

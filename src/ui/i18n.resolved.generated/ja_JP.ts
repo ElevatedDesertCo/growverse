@@ -289,6 +289,15 @@ export const ja_JP: EnTranslations = {
       "mining": "採掘",
       "herbalism": "薬草学",
       "logging": "伐採",
+      "cultivation": "栽培",
+      "breeding": "交配",
+      "fishing": "釣り",
+      "cooking": "料理",
+      "alchemy": "錬金術",
+      "smithing": "鍛冶",
+      "enchanting": "エンチャント",
+      "extraction": "抽出",
+      "lockpicking": "鍵開け",
       "skillAria": "{profession}: {skill} of {max}"
     },
     "loadouts": {
@@ -1060,10 +1069,14 @@ export const ja_JP: EnTranslations = {
       "upgradeTitle": "アップグレード台",
       "cookTitle": "料理のかまど",
       "alchemyTitle": "錬金術ラボ",
+      "enchantTitle": "注入台",
+      "extractTitle": "抽出ラボ",
       "growHint": "栄養剤の作成、種子品種の強化、栽培装備の製作。",
       "upgradeHint": "装備を鍛え直し、腐敗の欠片から戦闘用消耗品を削り出す。",
       "cookHint": "釣った魚を調理して、体力とマナを回復する滋味豊かな料理に仕上げましょう。",
       "alchemyHint": "採取した花蕾を治療とマナの水薬、そして戦闘用エリクサーに調合する。",
+      "enchantHint": "極上の花蕾と堕落の欠片を結び、30分持続する紋を刻む。",
+      "extractHint": "収穫した花蕾をハシシュ、シャッター、生樹脂、ダイヤモンドへ洗い出す。",
       "craftButton": "作成",
       "costLabel": "コスト",
       "requiresLabel": "必要",
@@ -1085,8 +1098,31 @@ export const ja_JP: EnTranslations = {
         "recipeUnavailable": "ここではそのレシピは利用できない。",
         "tooFarFromStation": "作業台から離れすぎている。",
         "levelTooLow": "それを作成するにはまだ技量が足りない。",
-        "missingMaterials": "作成に必要な材料が足りない。"
+        "missingMaterials": "作成に必要な材料が足りない。",
+        "budsNotFresh": "その花蕾はもう乾いている。生樹脂は収穫の直後に抽出しろ。",
+        "processRunning": "その工程はまだ回っている。終わってから来い。"
       }
+    },
+    "trade": {
+      "cutLabel": "挿し穂",
+      "hint": "挿し穂は複製だ。母株は手元に残り、相手には品種の空き枠が要る。"
+    },
+    "cup": {
+      "title": "ヴェイル・カップ",
+      "open": "ヴェイル・カップに出品",
+      "hint": "遺伝、持ち込む品級、そして株をどれだけ知っているかで審査される。",
+      "season": "第 {season} シーズン",
+      "remainingHours": "残り {hours} 時間 {minutes} 分",
+      "remainingMinutes": "残り {minutes} 分",
+      "best": "自己最高得点：{score}",
+      "emptyBoard": "今季はまだ出品がない。板を開くのは君だ。",
+      "gradeLabel": "花蕾の品級",
+      "strainLabel": "品種",
+      "noBuds": "出品できる花蕾がない。まず収穫しろ。",
+      "noStrains": "品種がまだない。収穫すれば一つ見つかる。",
+      "projected": "{score} 点",
+      "enter": "出品（花蕾 {count} 個、{score} 点）",
+      "posted": "{strain} が {score} 点で board に載り、順位は {rank} 位。"
     },
     "garden": {
       "title": "菜園",
@@ -1096,6 +1132,9 @@ export const ja_JP: EnTranslations = {
       "empty": "空き区画",
       "plant": "植える",
       "harvest": "収穫",
+      "tend": "世話",
+      "tendCount": "世話 {tends}/{total}",
+      "tendNudge": "{count} 株が世話を待っている。",
       "ready": "収穫可能",
       "open": "菜園の手入れ",
       "locked": "ロック中",
@@ -1115,7 +1154,16 @@ export const ja_JP: EnTranslations = {
       "plant": "植える",
       "release": "手放す",
       "breed": "交配",
-      "full": "品種ライブラリが満杯です。品種を手放して空きを作りましょう。"
+      "lineage": "{a} x {b}",
+      "bredBy": "Bred by {name}",
+      "cost": "交配費用：エピックな花蕾 {count} 個（所持 {held} 個）",
+      "needEpicBuds": "作物の世話をすればエピックな花蕾が手に入る。完璧に育てれば必ず一つ落ちる。",
+      "mastery": "熟練",
+      "masteryAria": "{strain} の熟練：{max} 中 {mastery}",
+      "full": "品種ライブラリが満杯です。品種を手放して空きを作りましょう。",
+      "refine": "精錬",
+      "refineHint": "二つ目の品種を一つ目に取り込み、強化して枠を一つ空ける。",
+      "fullRefine": "品種ライブラリが満杯だ。精錬するか一つ手放して空きを作れ。"
     },
     "reputation": {
       "tier": {
@@ -5191,6 +5239,30 @@ export const ja_JP: EnTranslations = {
       "infused_lozenge_prime": {
         "name": "極上の浸出ロゼンジ"
       },
+      "resin_glyph_vigor": {
+        "name": "活力の樹脂紋"
+      },
+      "resin_glyph_focus": {
+        "name": "集中の樹脂紋"
+      },
+      "resin_glyph_warding": {
+        "name": "守護の樹脂紋"
+      },
+      "vale_hash": {
+        "name": "谷のハシシュ"
+      },
+      "golden_shatter": {
+        "name": "黄金のシャッター"
+      },
+      "live_resin": {
+        "name": "生樹脂"
+      },
+      "bloom_diamonds": {
+        "name": "開花のダイヤモンド"
+      },
+      "epic_bud": {
+        "name": "エピックな花蕾"
+      },
       "bristleback_maul": {
         "name": "ブリストルバックの大槌"
       },
@@ -6174,6 +6246,21 @@ export const ja_JP: EnTranslations = {
         "name": "セイブル",
         "title": "錬金術師",
         "greeting": "{className}よ、谷から花蕾を持ってきておくれ。そうすればその精髄を引き出そう。肉を癒す水薬、心を研ぎ澄ます水薬、そして知恵を鋭くするエリクサーをな。"
+      },
+      "glyphwright_orrin": {
+        "name": "オリン",
+        "title": "紋章師",
+        "greeting": "極上の花を燃やすだけなら誰にでもできる、{className}。極上の花蕾と裂け目の欠片を持ってこい。二つを結んで、30分持つ紋に仕立ててやる。"
+      },
+      "extractor_rell": {
+        "name": "レル",
+        "title": "抽出師",
+        "greeting": "花は始まりであって終わりではない、{className}。花蕾を持ってこい。ハシシュにもシャッターにもダイヤモンドにも洗い上げてやる。苗床から摘みたてで濡れたままなら、もっといいものが作れる。"
+      },
+      "cup_steward_wilder": {
+        "name": "ワイルダー",
+        "title": "ヴェイル・カップ世話役",
+        "greeting": "カップは開いている、{className}。品種一つと、そこから採れた花蕾を十個持ってこい。板に名前を載せてやる。審査は遺伝、持ち込んだ品級、そして株をどれだけ知っているか。三つ揃わなければ、ただ出しただけだ。"
       },
       "banker_thistle": {
         "name": "金庫番シスル",
@@ -7255,6 +7342,9 @@ export const ja_JP: EnTranslations = {
           },
           "11": {
             "label": "The Lodge"
+          },
+          "12": {
+            "label": "栽培テラス"
           }
         }
       },

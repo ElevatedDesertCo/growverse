@@ -144,6 +144,7 @@ const UI_PURE_CORES = [
   'src/ui/crafting_view.ts',
   'src/ui/garden_view.ts',
   'src/ui/breeding_view.ts',
+  'src/ui/cup_view.ts',
   'src/ui/loot_settings_view.ts',
   'src/ui/market_view.ts',
   'src/ui/char_view.ts',

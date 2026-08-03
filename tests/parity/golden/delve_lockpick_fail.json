@@ -15,8 +15,8 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 583,
-      "state": "7b981266",
+      "nextId": 586,
+      "state": "69665438",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -32,50 +32,123 @@
           "cls": "rogue",
           "companionUpgrades": {},
           "counters": {},
+          "craftReadyAt": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 582,
+          "entityId": 585,
           "equipment": {
             "chest": "footpad_jerkin",
             "mainhand": "rusty_dagger"
           },
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {}
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            }
           ],
           "professions": {},
           "reputation": {},
@@ -96,7 +169,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 62,
-          "id": 582,
+          "id": 585,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -141,9 +214,9 @@
     {
       "tick": 10,
       "time": 0.5,
-      "nextId": 593,
-      "state": "fb922c63",
-      "events": "a6c89dc0",
+      "nextId": 596,
+      "state": "aea3aa3c",
+      "events": "5ea64559",
       "rng": {
         "draws": 3,
         "digest": "9bd6ead1"
@@ -152,8 +225,8 @@
     {
       "tick": 20,
       "time": 1,
-      "nextId": 593,
-      "state": "71ecb2f3",
+      "nextId": 596,
+      "state": "25453bcc",
       "events": "741638a5",
       "rng": {
         "draws": 3,
@@ -163,8 +236,8 @@
     {
       "tick": 30,
       "time": 1.5,
-      "nextId": 593,
-      "state": "9d45a4d9",
+      "nextId": 596,
+      "state": "28e2d9f6",
       "events": "741638a5",
       "rng": {
         "draws": 3,
@@ -174,8 +247,8 @@
     {
       "tick": 40,
       "time": 2,
-      "nextId": 593,
-      "state": "add0ce17",
+      "nextId": 596,
+      "state": "9bee8410",
       "events": "741638a5",
       "rng": {
         "draws": 3,
@@ -185,8 +258,8 @@
     {
       "tick": 50,
       "time": 2.5,
-      "nextId": 593,
-      "state": "6ff81711",
+      "nextId": 596,
+      "state": "21fc031e",
       "events": "741638a5",
       "rng": {
         "draws": 3,
@@ -196,8 +269,8 @@
     {
       "tick": 60,
       "time": 3,
-      "nextId": 593,
-      "state": "8bca5a63",
+      "nextId": 596,
+      "state": "22c2a83c",
       "events": "741638a5",
       "rng": {
         "draws": 3,
@@ -207,9 +280,9 @@
     {
       "tick": 69,
       "time": 3.45,
-      "nextId": 594,
-      "state": "42df2959",
-      "events": "9f50092d",
+      "nextId": 597,
+      "state": "96e42a76",
+      "events": "7e51063c",
       "rng": {
         "draws": 3,
         "digest": "9bd6ead1"
@@ -228,51 +301,124 @@
             "kills": 1,
             "xpGained": 198
           },
+          "craftReadyAt": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 582,
+          "entityId": 585,
           "equipment": {
             "chest": "footpad_jerkin",
             "mainhand": "rusty_dagger"
           },
           "lifetimeXp": 11398,
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {}
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            }
           ],
           "professions": {},
           "reputation": {},
@@ -293,7 +439,7 @@
           "dodgeChance": 0.0715,
           "fiveSecondRule": 102.45,
           "hp": 50000,
-          "id": 582,
+          "id": 585,
           "inCombat": true,
           "kind": "player",
           "level": 7,
@@ -342,7 +488,7 @@
           "facing": 3.141593,
           "fiveSecondRule": 99,
           "hp": 1,
-          "id": 592,
+          "id": 595,
           "kind": "object",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -375,8 +521,8 @@
     {
       "tick": 70,
       "time": 3.5,
-      "nextId": 594,
-      "state": "c382bdb5",
+      "nextId": 597,
+      "state": "7e6ff4d2",
       "events": "741638a5",
       "rng": {
         "draws": 3,
@@ -386,8 +532,8 @@
     {
       "tick": 71,
       "time": 3.55,
-      "nextId": 594,
-      "state": "02dc6009",
+      "nextId": 597,
+      "state": "0f2fbe66",
       "events": "741638a5",
       "rng": {
         "draws": 3,
@@ -407,51 +553,124 @@
             "kills": 1,
             "xpGained": 198
           },
+          "craftReadyAt": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 582,
+          "entityId": 585,
           "equipment": {
             "chest": "footpad_jerkin",
             "mainhand": "rusty_dagger"
           },
           "lifetimeXp": 11398,
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {}
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            }
           ],
           "professions": {},
           "reputation": {},
@@ -472,7 +691,7 @@
           "dodgeChance": 0.0715,
           "fiveSecondRule": 102.55,
           "hp": 50000,
-          "id": 582,
+          "id": 585,
           "inCombat": true,
           "kind": "player",
           "level": 7,
@@ -521,7 +740,7 @@
           "facing": 3.141593,
           "fiveSecondRule": 99,
           "hp": 1,
-          "id": 592,
+          "id": 595,
           "kind": "object",
           "level": 1,
           "lootFfaTimer": "Infinity",

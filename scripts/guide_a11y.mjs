@@ -1,12 +1,30 @@
 // Accessibility QA for the Guide (/wiki). Needs `npm run dev`. Override with GUIDE_URL=.
 // Runs axe-core (WCAG 2 A/AA) on key routes, checks the skip link is the first tab stop,
 // and verifies 320px reflow has no horizontal scroll. Writes a 320px screenshot to tmp/.
-import puppeteer from 'puppeteer-core';
+
 import { mkdirSync } from 'node:fs';
+import puppeteer from 'puppeteer-core';
 import { BROWSER_PATH } from './browser_path.mjs';
 
 const BASE = process.env.GUIDE_URL ?? 'http://localhost:5173';
-const ROUTES = ['/wiki', '/wiki/how-to-play', '/wiki/classes', '/wiki/classes/druid', '/wiki/bestiary', '/wiki/models', '/wiki/world', '/wiki/gear', '/wiki/economy', '/wiki/social', '/wiki/dungeons', '/wiki/quests', '/wiki/reference/controls', '/wiki/reference/combat', '/wiki/reference/stats', '/wiki/reference/progression'];
+const ROUTES = [
+  '/wiki',
+  '/wiki/how-to-play',
+  '/wiki/classes',
+  '/wiki/classes/druid',
+  '/wiki/bestiary',
+  '/wiki/models',
+  '/wiki/world',
+  '/wiki/gear',
+  '/wiki/economy',
+  '/wiki/social',
+  '/wiki/dungeons',
+  '/wiki/quests',
+  '/wiki/reference/controls',
+  '/wiki/reference/combat',
+  '/wiki/reference/stats',
+  '/wiki/reference/progression',
+];
 const AXE_CDN = 'https://cdn.jsdelivr.net/npm/axe-core@4.10.2/axe.min.js';
 mkdirSync('tmp', { recursive: true });
 
@@ -40,14 +58,19 @@ try {
       // eslint-disable-next-line no-undef
       return await axe.run(document, { runOnly: ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'] });
     });
-    const serious = results.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical');
+    const serious = results.violations.filter(
+      (v) => v.impact === 'serious' || v.impact === 'critical',
+    );
     const summary = serious.map((v) => `${v.id}(${v.nodes.length})`).join(', ');
     check(`axe: no serious/critical on ${route}`, serious.length === 0, summary);
     if (results.violations.length) {
-      console.log(`     (all violations on ${route}: ${results.violations.map((v) => `${v.id}:${v.impact}`).join(', ')})`);
+      console.log(
+        `     (all violations on ${route}: ${results.violations.map((v) => `${v.id}:${v.impact}`).join(', ')})`,
+      );
     }
   }
-  if (!axeReady) console.log('NOTE  axe-core CDN unreachable; skipped automated WCAG scan (run with network).');
+  if (!axeReady)
+    console.log('NOTE  axe-core CDN unreachable; skipped automated WCAG scan (run with network).');
 
   // Keyboard: skip link is the first focusable element.
   await page.goto(`${BASE}/wiki`, { waitUntil: 'networkidle0' });
@@ -60,7 +83,9 @@ try {
   await page.setViewport({ width: 320, height: 640 });
   await page.goto(`${BASE}/wiki`, { waitUntil: 'networkidle0' });
   await page.waitForSelector('.guide-hero-title');
-  const overflow = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+  const overflow = await page.evaluate(
+    () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+  );
   check('no horizontal scroll at 320px', overflow <= 1, `overflow=${overflow}px`);
   await page.screenshot({ path: 'tmp/wiki-320.png', fullPage: true });
 } finally {

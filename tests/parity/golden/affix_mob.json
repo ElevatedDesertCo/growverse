@@ -15,8 +15,8 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 583,
-      "state": "53194b7b",
+      "nextId": 586,
+      "state": "1c051f77",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -32,50 +32,123 @@
           "cls": "warrior",
           "companionUpgrades": {},
           "counters": {},
+          "craftReadyAt": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 582,
+          "entityId": 585,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {}
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            }
           ],
           "professions": {},
           "reputation": {},
@@ -96,7 +169,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 90,
-          "id": 582,
+          "id": 585,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -139,9 +212,9 @@
     {
       "tick": 20,
       "time": 1,
-      "nextId": 585,
-      "state": "b138ff88",
-      "events": "9c9152b0",
+      "nextId": 588,
+      "state": "905cb8ca",
+      "events": "513fa2f2",
       "rng": {
         "draws": 12,
         "digest": "a6f51069"
@@ -150,9 +223,9 @@
     {
       "tick": 40,
       "time": 2,
-      "nextId": 585,
-      "state": "dffeb655",
-      "events": "70529b7d",
+      "nextId": 588,
+      "state": "b517be95",
+      "events": "915f6f89",
       "rng": {
         "draws": 26,
         "digest": "297b1f7d"
@@ -161,9 +234,9 @@
     {
       "tick": 50,
       "time": 2.5,
-      "nextId": 585,
-      "state": "66f2a9a5",
-      "events": "9dddf6a9",
+      "nextId": 588,
+      "state": "65d045f3",
+      "events": "bc4a71ea",
       "rng": {
         "draws": 63,
         "digest": "aa1a915e"
@@ -181,51 +254,124 @@
             "damageDealt": 200,
             "damageTaken": 186
           },
+          "craftReadyAt": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 582,
+          "entityId": 585,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
           "lifetimeXp": 54100,
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {}
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            }
           ],
           "professions": {},
           "reputation": {},
@@ -247,7 +393,7 @@
               "name": "Rending Claws",
               "remaining": 8.5,
               "school": "physical",
-              "sourceId": 584,
+              "sourceId": 587,
               "tickInterval": 3,
               "tickTimer": 2.5,
               "value": 5
@@ -265,7 +411,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 101.5,
           "hp": 391,
-          "id": 582,
+          "id": 585,
           "inCombat": true,
           "kind": "player",
           "level": 13,
@@ -298,7 +444,7 @@
             "sta": 46,
             "str": 47
           },
-          "targetId": 583,
+          "targetId": 586,
           "templateId": "warrior",
           "weapon": {
             "max": 5,
@@ -307,7 +453,7 @@
           }
         },
         {
-          "aggroTargetId": 582,
+          "aggroTargetId": 585,
           "aiState": "attack",
           "auras": [
             {
@@ -317,7 +463,7 @@
               "name": "Blood Frenzy",
               "remaining": 7.5,
               "school": "physical",
-              "sourceId": 583,
+              "sourceId": 586,
               "value": 1.3
             }
           ],
@@ -327,11 +473,11 @@
           "facing": -1.570796,
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
-          "forcedTargetId": 582,
+          "forcedTargetId": 585,
           "forcedTargetTimer": 3,
           "hostile": true,
           "hp": 59800,
-          "id": 583,
+          "id": 586,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -361,12 +507,12 @@
             "armor": 48
           },
           "swingTimer": 0.334615,
-          "tappedById": 582,
-          "targetId": 582,
+          "tappedById": 585,
+          "targetId": 585,
           "templateId": "old_greyjaw",
           "threat": [
             [
-              582,
+              585,
               200
             ]
           ],
@@ -377,7 +523,7 @@
           }
         },
         {
-          "aggroTargetId": 582,
+          "aggroTargetId": 585,
           "aiState": "attack",
           "combatTimer": 0.5,
           "critChance": 0.05,
@@ -388,7 +534,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 60000,
-          "id": 584,
+          "id": 587,
           "inCombat": true,
           "kind": "mob",
           "level": 13,
@@ -411,7 +557,7 @@
             "armor": 168
           },
           "swingTimer": 1.35,
-          "targetId": 582,
+          "targetId": 585,
           "templateId": "ridge_stalker",
           "weapon": {
             "max": 50,
@@ -424,8 +570,8 @@
     {
       "tick": 54,
       "time": 2.7,
-      "nextId": 585,
-      "state": "60729c4c",
+      "nextId": 588,
+      "state": "b268f12c",
       "events": "741638a5",
       "rng": {
         "draws": 79,
@@ -444,51 +590,124 @@
             "damageDealt": 200,
             "damageTaken": 186
           },
+          "craftReadyAt": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 582,
+          "entityId": 585,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "worn_sword"
           },
           "lifetimeXp": 54100,
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {}
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            }
           ],
           "professions": {},
           "reputation": {},
@@ -510,7 +729,7 @@
               "name": "Rending Claws",
               "remaining": 8.3,
               "school": "physical",
-              "sourceId": 584,
+              "sourceId": 587,
               "tickInterval": 3,
               "tickTimer": 2.3,
               "value": 5
@@ -529,7 +748,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 101.7,
           "hp": 391,
-          "id": 582,
+          "id": 585,
           "inCombat": true,
           "kind": "player",
           "level": 13,
@@ -562,7 +781,7 @@
             "sta": 46,
             "str": 47
           },
-          "targetId": 583,
+          "targetId": 586,
           "templateId": "warrior",
           "weapon": {
             "max": 5,
@@ -571,7 +790,7 @@
           }
         },
         {
-          "aggroTargetId": 582,
+          "aggroTargetId": 585,
           "aiState": "attack",
           "auras": [
             {
@@ -581,7 +800,7 @@
               "name": "Blood Frenzy",
               "remaining": 7.3,
               "school": "physical",
-              "sourceId": 583,
+              "sourceId": 586,
               "value": 1.3
             }
           ],
@@ -592,11 +811,11 @@
           "facing": -1.570796,
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
-          "forcedTargetId": 582,
+          "forcedTargetId": 585,
           "forcedTargetTimer": 2.8,
           "hostile": true,
           "hp": 59800,
-          "id": 583,
+          "id": 586,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -626,12 +845,12 @@
             "armor": 48
           },
           "swingTimer": 0.134615,
-          "tappedById": 582,
-          "targetId": 582,
+          "tappedById": 585,
+          "targetId": 585,
           "templateId": "old_greyjaw",
           "threat": [
             [
-              582,
+              585,
               200
             ]
           ],
@@ -642,7 +861,7 @@
           }
         },
         {
-          "aggroTargetId": 582,
+          "aggroTargetId": 585,
           "aiState": "attack",
           "combatTimer": 0.7,
           "critChance": 0.05,
@@ -653,7 +872,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 60000,
-          "id": 584,
+          "id": 587,
           "inCombat": true,
           "kind": "mob",
           "level": 13,
@@ -676,7 +895,7 @@
             "armor": 168
           },
           "swingTimer": 1.15,
-          "targetId": 582,
+          "targetId": 585,
           "templateId": "ridge_stalker",
           "weapon": {
             "max": 50,

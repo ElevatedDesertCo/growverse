@@ -1142,8 +1142,15 @@ export interface AbilityDef {
 // grow accessories). The Upgrade Bench reforges weapons and armor and cuts
 // combat consumables from Corruption Shards. The Cookfire (Dockside Cooks at the
 // fishing docks) turns raw fish into cooked meals. The Alchemy Lab (the Alchemist
-// in Bloomhaven) brews harvested blooms into potions and a battle elixir.
-export type CraftStation = 'grow' | 'upgrade' | 'cook' | 'alchemy';
+// in Bloomhaven) brews harvested blooms into potions and a battle elixir. The
+// Extraction Lab (the Extractor, on the east flank of the garden field) concentrates
+// buds into hash, shatter, live resin, and diamonds: the high-magnitude, SHORT-duration
+// tier, and the only station with a live-harvest window (see FRESH_HARVEST_WINDOW). The
+// Infusion Table (the Glyphwright, beside the Alchemy Lab) binds PRIME BUDS and
+// Corruption Shards into resin glyphs: half-hour buffs, the long-duration tier the
+// draughts and elixirs do not cover. Its signature reagent is the top harvest grade
+// on purpose, so the best flower has a use besides being sold.
+export type CraftStation = 'grow' | 'upgrade' | 'cook' | 'alchemy' | 'enchant' | 'extract';
 
 // A crafting recipe: consumes reagent items + copper at a station and yields an
 // output item. Pure data-as-code (content/crafting.ts); the engine reads it in
@@ -1165,7 +1172,29 @@ export interface CraftRecipe {
   // the profession reaches `skill`. This is how working timber/ore nodes (which raise
   // Logging / Mining) unlocks the recipes that consume them. See src/sim/professions.ts.
   requiredProfession?: { id: ProfessionId; skill: number };
+  // Optional FRESH-HARVEST gate, in seconds: the recipe only works within this long of
+  // the player's most recent garden harvest (PlayerMeta.lastHarvestAt). Live resin is
+  // made from material that never dried, so it cannot be made from buds that have sat
+  // in the bags. Nothing is lost by missing the window: the same buds still make hash.
+  requiresFreshHarvest?: number;
+  // Optional PROCESS TIME, in seconds: this recipe cannot be run again until this long
+  // has passed. For the handful of outputs whose cost is genuinely TIME rather than
+  // materials (diamonds are a long slow run on the wash, not an expensive one), which
+  // the instant reagents-for-output shape cannot otherwise express.
+  //
+  // Modelled as a per-recipe cooldown rather than a cast channel on purpose: a channel
+  // would mean standing at the bench watching a bar, which is a worse version of the
+  // same wait, and it would drag the client cast bar and a server command into a
+  // content change. A cooldown lets the process run while you go do something else,
+  // which is what a long process actually feels like.
+  processSeconds?: number;
 }
+
+// How long a garden harvest counts as FRESH for the Extraction Lab's live-resin recipe.
+// Two sim minutes: long enough to walk the beds to the lab on the east flank of the
+// field, far too short to bank a harvest and come back for it later. The window rewards
+// being present when a crop finishes without punishing anyone for being absent.
+export const FRESH_HARVEST_WINDOW = 120;
 
 export interface NpcDef {
   id: string;
@@ -1183,6 +1212,10 @@ export interface NpcDef {
   // filtered to this station. 'grow' = the Grow Station (nutrients, seed strains,
   // grow accessories); 'upgrade' = the Upgrade Bench (weapon/armor reforging).
   crafting?: CraftStation;
+  // Runs the Vale Cup: talking to this NPC opens the Cup board, and entering is gated on
+  // standing near them. A role flag on the def, resolved by templateId, exactly like
+  // `crafting` and `stash` (no entity field).
+  cupSteward?: true;
   // A bank attendant: talking to this NPC opens the account stash window, where the
   // player deposits/withdraws items into a persistent bank. Like `crafting`, the role
   // lives on the def and is resolved by the entity's templateId (no entity field).
@@ -1219,6 +1252,141 @@ export interface Plot {
   // harvest trait bonuses (extra yield, the potency essence drop). Not exposed to the
   // client view; the plot still shows its lineage seed.
   strainId: string | null;
+  // Tending (skill expression). The grow is split into TENDS_PER_GROW equal windows;
+  // `tends` counts how many were caught and `lastTendWindow` is the last window credited
+  // (-1 = none yet), which is what stops a player banking several tends in one window.
+  // Both reset at plant time. Tending is BONUS-ONLY: an untended crop yields exactly what
+  // it yielded before tending existed, so a raid night is never a cultivation loss.
+  tends: number;
+  lastTendWindow: number;
+}
+
+// ---- Tending + strain mastery ------------------------------------------------------
+// Cultivation used to have no skill expression: you planted, a timer ran, you harvested,
+// and the outcome was fully determined at plant time by the genotype. Tending adds the
+// missing axis WITHOUT adding a punishment. Genetics decide a strain's ceiling; tending
+// and mastery decide how close to it you actually get.
+//
+// Three windows per grow, not a fixed interval, so a 10-minute prime bloom asks for the
+// same three visits as a 3-minute common one: long grows are not punished with more trips
+// and short grows stay tendable. Missing a window costs only that window.
+export const TENDS_PER_GROW = 3;
+// Bulk-yield bonus at a PERFECT tend record (all three windows caught), scaled linearly by
+// how many were caught. Added on top of the base yield, never subtracted from it.
+export const TEND_YIELD_BONUS = 0.5;
+// Per-strain mastery: a permanent record of how well you have grown THAT strain. Rises on
+// every harvest of it and never falls (no decay, ever: the point is a bonus you build, not
+// a streak you can lose). Only a planted library strain earns it; a plain crafted seed has
+// no strain to master.
+export const STRAIN_MASTERY_MAX = 100;
+// Mastery earned per harvest, interpolated from an untended grow to a perfect one, so
+// tending masters a strain five times faster than volume alone does.
+export const MASTERY_PER_HARVEST_MIN = 1;
+export const MASTERY_PER_HARVEST_MAX = 5;
+// Bulk-yield bonus at STRAIN_MASTERY_MAX, scaled linearly by current mastery. Stacks
+// additively with TEND_YIELD_BONUS, so a perfectly tended fully-mastered strain yields
+// +80% bulk over its untended, unmastered self.
+export const MASTERY_YIELD_BONUS = 0.3;
+
+// ---- The Vale Cup --------------------------------------------------------------------
+// The commune's recurring growing competition (see src/sim/cup.ts for the system and the
+// reasoning). A season is a fixed window on the SIM clock, so it advances with server
+// uptime and a reloaded world lands in the season the clock says it is in, with no
+// scheduler to drift.
+export const CUP_SEASON_SECONDS = 172800; // 48 hours of sim time, the classic event cycle
+export const CUP_ENTRY_BUD_COUNT = 10; // buds one entry consumes
+
+// The bud grades the Cup accepts, WEAKEST FIRST: the index is the grade rank the score
+// reads, so this array is the ordering, not just the allowlist. Extending the bud ladder
+// means appending here.
+export const CUP_GRADE_ORDER: readonly string[] = ['bud_common', 'bud_fine', 'bud_prime'];
+
+// Score weights. Tuned so no single system is the whole answer: maxed genetics alone,
+// perfect mastery alone, and prime buds alone all land well short of an entry that has
+// all three. A landrace is a real edge but not a guaranteed win.
+export const CUP_W_TRAIT = 10; // per expressed trait tier, summed over the three traits
+export const CUP_W_GRADE = 25; // per grade rank above common
+export const CUP_W_MASTERY = 60; // at STRAIN_MASTERY_MAX, scaled linearly
+export const CUP_W_LANDRACE = 40; // flat, for the all-maxed phenotype
+// Commune standing earned per this many score points (at least 1 per entry).
+export const CUP_REP_PER_100 = 8;
+
+// The score for one entry. Takes the EXPRESSED phenotype rather than a genotype, which is
+// deliberate on two counts: scoring only ever reads expression (the hidden recessive is
+// irrelevant to a judged bud), and it means the client can project a score from the
+// StrainView it already has without the raw genotype ever leaving the server. The client
+// and the server therefore run the SAME function over the same inputs, so the projection
+// shown before you spend ten buds cannot drift from the score you actually get.
+export interface CupJudged {
+  potency: number;
+  vigor: number;
+  yield: number;
+  landrace: boolean;
+  mastery: number;
+}
+export function cupScore(s: CupJudged, budItemId: string): number {
+  const traits = (s.potency + s.vigor + s.yield) * CUP_W_TRAIT;
+  const gradeRank = CUP_GRADE_ORDER.indexOf(budItemId);
+  const grade = gradeRank < 0 ? 0 : gradeRank * CUP_W_GRADE;
+  const mastery = STRAIN_MASTERY_MAX > 0 ? (s.mastery / STRAIN_MASTERY_MAX) * CUP_W_MASTERY : 0;
+  return Math.round(traits + grade + mastery + (s.landrace ? CUP_W_LANDRACE : 0));
+}
+
+// One posted entry. Stored on the Sim for the running season (like the Market book) and
+// cleared when the clock crosses a season boundary.
+export interface CupEntry {
+  season: number;
+  pid: number;
+  growerName: string;
+  strainName: string;
+  budItemId: string;
+  score: number;
+}
+
+// The client-facing board row: one per entry, ranked. Carries the grower and strain names
+// because the point of the board is that a strain is known BY someone.
+export interface CupStanding {
+  rank: number;
+  pid: number;
+  growerName: string;
+  strainName: string;
+  score: number;
+}
+
+// ---- Epic Buds: the breeding input ---------------------------------------------------
+// Breeding used to cost two Common Buds, which meant anyone who planted enough could
+// cross without ever getting better at growing. The cost is now two EPIC Buds, and an
+// Epic Bud is not a grade of the bulk crop: it drops from how well the crop was GROWN.
+// That makes the breeding economy a function of grow SKILL rather than grow VOLUME, and
+// it is the natural consumer of the tend record and per-strain mastery above.
+//
+// A PERFECT grow (every window caught) guarantees one, which is the whole promise: tend
+// properly and you can always breed. Everything short of perfect is a chance, so a
+// careless grower still gets there eventually, just slower. Consistent with the
+// bonus-only rule: an untended grow of an unmastered strain has a zero chance, which is
+// exactly what it had before Epic Buds existed, so nothing was taken away.
+export const EPIC_BUD_ITEM = 'epic_bud';
+// A cross costs two of them, a mother and a father.
+export const BREED_COST_ITEM = EPIC_BUD_ITEM;
+export const BREED_COST_COUNT = 2;
+// Chance contributed per caught tend window. At TENDS_PER_GROW windows this reaches 1
+// on its own, so a perfect grow needs no luck (and draws no rng).
+export const EPIC_BUD_CHANCE_PER_TEND = 1 / TENDS_PER_GROW;
+// Extra chance at STRAIN_MASTERY_MAX, scaled linearly by current mastery, so a strain you
+// know well pays off even on a grow you could not be there for. Added to the tend
+// contribution and clamped, never a second roll.
+export const EPIC_BUD_CHANCE_AT_MAX_MASTERY = 0.25;
+
+// The Epic Bud drop chance for one harvest, 0..1. Pure: the caller decides whether to
+// draw. Exactly 1 on a perfect grow and exactly 0 on an untended grow of an unmastered
+// strain, which is what lets both ends skip the rng entirely.
+export function epicBudChance(tends: number, mastery: number): number {
+  const caught = tends < 0 ? 0 : tends > TENDS_PER_GROW ? TENDS_PER_GROW : tends;
+  const mast = mastery < 0 ? 0 : mastery > STRAIN_MASTERY_MAX ? STRAIN_MASTERY_MAX : mastery;
+  const c =
+    caught * EPIC_BUD_CHANCE_PER_TEND +
+    (STRAIN_MASTERY_MAX > 0 ? (mast / STRAIN_MASTERY_MAX) * EPIC_BUD_CHANCE_AT_MAX_MASTERY : 0);
+  return c < 0 ? 0 : c > 1 ? 1 : c;
 }
 export interface PlantYield {
   itemId: string;
@@ -1245,6 +1413,11 @@ export interface PlotView {
   // The character level at which this plot unlocks (1 for the base rows). Only meaningful
   // when `locked`, but always present so the snapshot delta stays a fixed shape.
   unlockLevel: number;
+  // Tending: how many of the grow's TENDS_PER_GROW windows have been caught, and whether
+  // this plot's CURRENT window is still open (so the Garden window can offer a Tend button
+  // only when pressing it would do something). Both 0/false on an empty or ready plot.
+  tends: number;
+  canTend: boolean;
 }
 // The garden's physical home: the Baked Beaver colony's growing grounds, on the solid
 // land south of the grotto road (a short walk northeast of the outpost buildings). This
@@ -1330,9 +1503,25 @@ export type Genotype = Record<StrainTraitId, [number, number]>;
 export interface Strain {
   id: string;
   baseId: string;
-  name: string; // English source display name
+  // Display name. For a base strain this is content (content/genetics.ts); for a
+  // cross it is GENERATED by strain_naming.ts from the parents' names. Never
+  // player-authored, so it is a proper noun spliced verbatim in every locale,
+  // the same treatment player names already get.
+  name: string;
   genotype: Genotype;
   landrace: boolean; // rare phenotype: every trait expresses at GENE_MAX
+  // Lineage: the two parent names a cross was blended from, oldest-first as
+  // given to breed(). Absent on a base strain, which has no parents. Display
+  // only; the genotype is the mechanical record.
+  lineage?: [string, string];
+  // The character who first bred this cross, for the credit that makes a strain
+  // worth being known for. Absent on a base strain (nobody bred it) and on any
+  // strain restored from a save written before this field existed.
+  breeder?: string;
+  // The OWNER's record with this strain, 0..STRAIN_MASTERY_MAX, raised on every harvest
+  // of it and never lowered. Not part of the genotype and never inherited by a cross: a
+  // child is a new strain nobody has grown yet. See TENDS_PER_GROW above.
+  mastery: number;
 }
 
 // Base-strain content: the starting genotypes a player discovers by harvesting the
@@ -1359,6 +1548,11 @@ export interface StrainView {
   potency: number;
   vigor: number;
   yield: number;
+  lineage?: [string, string];
+  breeder?: string;
+  // How well this player has grown THIS strain, 0..STRAIN_MASTERY_MAX. Unlike the
+  // genotype traits it is not inherited: it is the grower's record with the strain.
+  mastery: number;
 }
 
 // ---- Commune reputation (Phase C) -------------------------------------------------
@@ -1428,13 +1622,56 @@ export interface HarvestNodeDef {
   yields: HarvestYield[];
 }
 
-// ---- Gathering professions ---------------------------------------------------------
-// The three gathering skills a player levels by working world nodes: Herbalism (flower/
-// spore blooms), Mining (vents/seams/ore), Logging (timber). A skill is a single 0..
-// PROFESSION_MAX points total per profession (PlayerMeta.professions), raised
-// deterministically when a node of that profession is worked (see src/sim/professions.ts).
-export type ProfessionId = 'mining' | 'herbalism' | 'logging';
-export const PROFESSION_IDS: readonly ProfessionId[] = ['mining', 'herbalism', 'logging'];
+// ---- Professions -------------------------------------------------------------------
+// The skills a player levels by DOING the activity, separately from character level. A
+// skill is a single 0..PROFESSION_MAX points total per profession (PlayerMeta.professions),
+// raised deterministically by the action itself (see src/sim/professions.ts). Every one of
+// them is trained by an activity that already exists in the world; none is a skill invented
+// to need an activity:
+//   gathering: mining (vents/seams/ore), herbalism (flower/spore blooms), logging (timber)
+//     train on a world node whose HarvestNodeDef names the profession (harvest.ts).
+//   cultivation trains on working your OWN garden (cultivation.ts harvestPlot) and on the
+//     Grow Station, so the whole grow loop, bed to processed product, levels one line.
+//   breeding trains on a cross landing at the Breeding Chamber (strain_library.ts). Kept
+//     separate from cultivation on purpose: growing a plant well and reading genetics are
+//     different competences, and the strain library is the game's signature line.
+//   fishing trains on a successful catch (sim.ts completeFishing).
+//   cooking, alchemy, smithing, enchanting train on their crafting station (crafting.ts),
+//     mapped by STATION_PROFESSION in professions.ts.
+//   extraction trains at the Extraction Lab, the same station rule as the crafting skills.
+//   lockpicking trains on a delve chest actually SOLVED (delves/lockpick_controller.ts), by
+//     the ante's loot tier, since a premium three-page gauntlet is not one modest lock.
+// Crafting recipes can gate on a profession skill (CraftRecipe.requiredProfession), so a
+// station both trains its skill and unlocks the deeper recipes on that same line.
+export type ProfessionId =
+  | 'mining'
+  | 'herbalism'
+  | 'logging'
+  | 'cultivation'
+  | 'breeding'
+  | 'fishing'
+  | 'cooking'
+  | 'alchemy'
+  | 'smithing'
+  | 'enchanting'
+  | 'extraction'
+  | 'lockpicking';
+// Display AND canonical order, grouped by what the player does: gather, grow, fish,
+// craft, then the roguish one. The character sheet paints them in exactly this order.
+export const PROFESSION_IDS: readonly ProfessionId[] = [
+  'mining',
+  'herbalism',
+  'logging',
+  'cultivation',
+  'breeding',
+  'fishing',
+  'cooking',
+  'alchemy',
+  'smithing',
+  'enchanting',
+  'extraction',
+  'lockpicking',
+];
 export const PROFESSION_MAX = 100; // skill ceiling for every profession
 export const PROFESSION_SKILL_PER_GATHER = 1; // points a single successful gather trains
 
@@ -1964,6 +2201,22 @@ export type SimEvent = { pid?: number } & (
   // icon + localized name in a gather popup; the plain 'loot' "You receive" line still
   // records it in chat (harvest.ts emits both).
   | { type: 'harvestGather'; itemId: string }
+  // A garden plot was tended (one of its TENDS_PER_GROW windows caught). Purely a
+  // presentation cue: the plot state already rides the self-snapshot, so a client that
+  // ignores this loses only the feedback flourish. Structured (no text) so the sim stays
+  // language-agnostic; the plain 'log' "You tend X" line still records it in chat.
+  | { type: 'plotTended'; plot: number; tends: number }
+  // An entry landing on the Vale Cup board. World-visible (no pid) on purpose: a posted
+  // score is public, which is what makes the board a competition rather than a private
+  // scoreboard. Structured (no text) so the sim stays language-agnostic; the grower and
+  // strain names are proper nouns the client splices verbatim.
+  | { type: 'cupEntry'; entityId: number; growerName: string; strainName: string; score: number }
+  // A cross completing at the Breeding Chamber. Purely a presentation cue: the
+  // strain itself already landed in the library and rides the self-snapshot, so a
+  // client that ignores this event loses only the ceremony. Carries the generated
+  // child name because the REVEAL is the payoff (you do not choose it), and the
+  // landrace flag because the jackpot deserves to look different.
+  | { type: 'strainFused'; entityId: number; childName: string; landrace: boolean }
   | { type: 'loot'; text: string }
   | {
       type: 'lootRoll';

@@ -1,5 +1,13 @@
 import { createHash } from 'node:crypto';
-import { copyFileSync, existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import {
+  copyFileSync,
+  existsSync,
+  mkdirSync,
+  readdirSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
 import path from 'node:path';
 
 const root = process.cwd();
@@ -53,7 +61,9 @@ function generate() {
       '',
     ].join('\n'),
   );
-  console.log(`generated ${path.relative(root, generatedPath)} (${Object.keys(entries).length} media assets)`);
+  console.log(
+    `generated ${path.relative(root, generatedPath)} (${Object.keys(entries).length} media assets)`,
+  );
 }
 
 function emit() {
@@ -66,7 +76,9 @@ function emit() {
     mkdirSync(path.dirname(dest), { recursive: true });
     copyFileSync(src, dest);
   }
-  console.log(`emitted ${Object.keys(entries).length} hashed media assets to ${path.relative(root, mediaDir)}`);
+  console.log(
+    `emitted ${Object.keys(entries).length} hashed media assets to ${path.relative(root, mediaDir)}`,
+  );
 }
 
 const cmd = process.argv[2] ?? 'generate';

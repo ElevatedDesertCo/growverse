@@ -29,6 +29,8 @@ const empty = (): PlotView => ({
   secondsRemaining: 0,
   locked: false,
   unlockLevel: 1,
+  tends: 0,
+  canTend: false,
 });
 const growing = (seed: string, progress: number, secs: number): PlotView => ({
   seedItemId: seed,
@@ -37,6 +39,8 @@ const growing = (seed: string, progress: number, secs: number): PlotView => ({
   secondsRemaining: secs,
   locked: false,
   unlockLevel: 1,
+  tends: 0,
+  canTend: false,
 });
 const ready = (seed: string): PlotView => ({
   seedItemId: seed,
@@ -45,6 +49,8 @@ const ready = (seed: string): PlotView => ({
   secondsRemaining: 0,
   locked: false,
   unlockLevel: 1,
+  tends: 0,
+  canTend: false,
 });
 
 const seeds: GardenSeedOption[] = [{ itemId: 'common_seed', item: ITEMS.common_seed, count: 3 }];

@@ -6,8 +6,9 @@
 // snapshot), then captures the rendered Need/Greed/Pass panel.
 //
 // Needs a dev server (default :5173, override with GAME_URL). Writes to tmp/.
-import puppeteer from 'puppeteer-core';
+
 import fs from 'node:fs';
+import puppeteer from 'puppeteer-core';
 import { BROWSER_PATH } from './browser_path.mjs';
 
 const URL = (process.env.GAME_URL ?? 'http://localhost:5173') + '/?gfx=ultra';
@@ -22,7 +23,9 @@ const browser = await puppeteer.launch({
 });
 const page = await browser.newPage();
 page.on('pageerror', (e) => console.log('PAGEERROR:', e.message));
-page.on('console', (m) => { if (m.type() === 'error') console.log('CONSOLE:', m.text()); });
+page.on('console', (m) => {
+  if (m.type() === 'error') console.log('CONSOLE:', m.text());
+});
 
 await page.goto(URL, { waitUntil: 'domcontentloaded', timeout: 60000 });
 await page.waitForSelector('#btn-offline', { timeout: 60000 });
@@ -44,8 +47,22 @@ const now = await page.evaluate(() => {
   const hud = window.__game.hud;
   const t = (window.__game.world.time ?? 0) + 30;
   hud.handleEvents([
-    { type: 'lootRoll', rollId: 8001, itemId: 'greyjaw_hide_boots', itemName: 'Greyjaw Hide Boots', quality: 'uncommon', expiresAt: t },
-    { type: 'lootRoll', rollId: 8002, itemId: 'cragmaw_huntcord', itemName: 'Cragmaw Huntcord', quality: 'rare', expiresAt: t },
+    {
+      type: 'lootRoll',
+      rollId: 8001,
+      itemId: 'greyjaw_hide_boots',
+      itemName: 'Greyjaw Hide Boots',
+      quality: 'uncommon',
+      expiresAt: t,
+    },
+    {
+      type: 'lootRoll',
+      rollId: 8002,
+      itemId: 'cragmaw_huntcord',
+      itemName: 'Cragmaw Huntcord',
+      quality: 'rare',
+      expiresAt: t,
+    },
   ]);
   return document.querySelectorAll('#loot-rolls .loot-roll').length;
 });
@@ -58,7 +75,12 @@ const clip = await page.evaluate(() => {
   const el = document.getElementById('loot-rolls');
   const r = el.getBoundingClientRect();
   const pad = 24;
-  return { x: Math.max(0, r.x - pad), y: Math.max(0, r.y - pad), width: r.width + pad * 2, height: r.height + pad * 2 };
+  return {
+    x: Math.max(0, r.x - pad),
+    y: Math.max(0, r.y - pad),
+    width: r.width + pad * 2,
+    height: r.height + pad * 2,
+  };
 });
 await page.screenshot({ path: 'tmp/loot_roll_prompt_crop.png', clip });
 console.log('screenshots written to tmp/loot_roll_prompt.png and tmp/loot_roll_prompt_crop.png');

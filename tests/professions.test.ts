@@ -1,8 +1,11 @@
-// Gathering professions (src/sim/professions.ts + the harvest integration): a player levels
-// Mining / Herbalism / Logging by working world nodes. Covers the skill math (train + cap),
-// the view, a save/load round-trip, and the real gather path raising the node's profession.
+// Professions (src/sim/professions.ts + its training integrations): a player levels a skill
+// by doing the activity, separately from character level. Covers the skill math (train +
+// cap), the view, a save/load round-trip, and each real training path: a world node
+// (mining/herbalism/logging), a garden bed (cultivation), and a crafting station
+// (cultivation/cooking/alchemy/smithing via STATION_PROFESSION).
 
 import { describe, expect, it } from 'vitest';
+import { CRAFT_RECIPES_BY_ID, NPCS } from '../src/sim/data';
 import { createGroundObject } from '../src/sim/entity';
 import {
   emptyProfessions,
@@ -12,7 +15,16 @@ import {
   trainProfession,
 } from '../src/sim/professions';
 import { Sim } from '../src/sim/sim';
-import { type Entity, PROFESSION_MAX, type ProfessionId } from '../src/sim/types';
+import {
+  BREED_COST_COUNT,
+  BREED_COST_ITEM,
+  type Entity,
+  FRESH_HARVEST_WINDOW,
+  PROFESSION_IDS,
+  PROFESSION_MAX,
+  PROFESSION_SKILL_PER_GATHER,
+  type ProfessionId,
+} from '../src/sim/types';
 import { terrainHeight } from '../src/sim/world';
 
 type AnySim = Sim & Record<string, any>;
@@ -49,9 +61,9 @@ describe('professions: skill math', () => {
   });
 
   it('professionsView returns one entry per profession with skill + ceiling', () => {
-    const skills = { mining: 5, herbalism: 12, logging: 0 };
+    const skills = { ...emptyProfessions(), mining: 5, herbalism: 12 };
     const view = professionsView(skills);
-    expect(view.map((p) => p.id).sort()).toEqual(['herbalism', 'logging', 'mining']);
+    expect(view.map((p) => p.id)).toEqual([...PROFESSION_IDS]);
     expect(view.find((p) => p.id === 'herbalism')).toEqual({
       id: 'herbalism',
       skill: 12,
@@ -60,10 +72,20 @@ describe('professions: skill math', () => {
   });
 
   it('serialize/restore round-trips, and a pre-professions save loads at 0', () => {
-    const skills = { mining: 7, herbalism: 3, logging: 21 };
+    const skills = {
+      ...emptyProfessions(),
+      mining: 7,
+      herbalism: 3,
+      logging: 21,
+      cultivation: 14,
+      fishing: 5,
+      cooking: 2,
+      alchemy: 11,
+      smithing: 8,
+    };
     expect(restoreProfessions(serializeProfessions(skills))).toEqual(skills);
     expect(restoreProfessions(undefined)).toEqual(emptyProfessions());
-    expect(restoreProfessions({ mining: 9 })).toEqual({ mining: 9, herbalism: 0, logging: 0 });
+    expect(restoreProfessions({ mining: 9 })).toEqual({ ...emptyProfessions(), mining: 9 });
   });
 });
 
@@ -117,5 +139,439 @@ describe('professions: earned by gathering', () => {
     const reloaded = new Sim({ seed: 42, playerClass: 'warrior', noPlayer: true });
     reloaded.addPlayer('warrior', 'Test', { state: saved });
     expect(reloaded.professions.find((p) => p.id === 'herbalism')?.skill).toBe(1);
+  });
+});
+
+// Cultivation is a profession like the gathering three, but it trains off your own
+// garden rather than a world node. The point of adding it: the grow loop should
+// level a skill the way mining does, not sit outside the skill system.
+describe('cultivation: trained by harvesting your own garden', () => {
+  const growAndHarvest = (sim: Sim, seedItemId: string, plot = 0) => {
+    sim.addItem(seedItemId, 1);
+    sim.plantSeed(plot, seedItemId);
+    sim.plots[plot].plantedAt = -100000;
+    sim.harvestPlot(plot);
+  };
+
+  it('starts at zero and gains on each harvest', () => {
+    const sim = makeSim();
+    expect(skillOf(sim, 'cultivation')).toBe(0);
+    growAndHarvest(sim, 'common_seed', 0);
+    expect(skillOf(sim, 'cultivation')).toBe(PROFESSION_SKILL_PER_GATHER);
+    growAndHarvest(sim, 'common_seed', 1);
+    expect(skillOf(sim, 'cultivation')).toBe(PROFESSION_SKILL_PER_GATHER * 2);
+  });
+
+  it('does not train the gathering professions', () => {
+    const sim = makeSim();
+    growAndHarvest(sim, 'common_seed', 0);
+    for (const id of ['mining', 'herbalism', 'logging'] as const) {
+      expect(skillOf(sim, id), id).toBe(0);
+    }
+  });
+
+  it('is reported by the character-sheet read alongside the others', () => {
+    const sim = makeSim();
+    expect(sim.professions.map((p) => p.id)).toContain('cultivation');
+    expect(sim.professions.find((p) => p.id === 'cultivation')?.max).toBe(PROFESSION_MAX);
+  });
+});
+
+// A crafting station trains its own skill (STATION_PROFESSION), so the bench you work
+// levels a line the way a node does. The Grow Station trains cultivation on purpose:
+// processing your buds is the back half of the same grow loop the garden bed trains.
+describe('professions: trained by working a crafting station', () => {
+  // Add a player and stand them beside the attendant NPC so the proximity gate passes.
+  // Mirrors craftPlayer in crafting.test.ts.
+  const atStation = (sim: AnySim, templateId: string) => {
+    const pid = sim.addPlayer('warrior', 'Crafter');
+    const npc = [...sim.entities.values()].find(
+      (e: Entity) => (e as unknown as { templateId?: string }).templateId === templateId,
+    ) as Entity;
+    const p = sim.entities.get(pid) as Entity;
+    p.pos.x = npc.pos.x + 2;
+    p.pos.z = npc.pos.z;
+    sim.rebucket(p);
+    const meta = sim.meta(pid)!;
+    meta.copper = 10000;
+    return { pid, meta };
+  };
+  const skillFor = (sim: AnySim, pid: number, id: ProfessionId): number =>
+    sim.meta(pid)!.professions[id];
+
+  const cases: {
+    station: ProfessionId;
+    npc: string;
+    recipe: string;
+    input: [string, number];
+  }[] = [
+    {
+      station: 'cultivation',
+      npc: 'cultivator_marlow',
+      recipe: 'craft_bloom_nutrient',
+      input: ['bloom_essence', 2],
+    },
+    {
+      station: 'cooking',
+      npc: 'cook_cobb',
+      recipe: 'cook_mirror_trout',
+      input: ['raw_mirror_trout', 1],
+    },
+    {
+      station: 'alchemy',
+      npc: 'alchemist_sable',
+      recipe: 'alchemy_healing_draught',
+      input: ['bloom_extract', 2],
+    },
+    {
+      station: 'smithing',
+      npc: 'smith_draxa',
+      recipe: 'craft_shard_whetstone',
+      input: ['corruption_shard', 2],
+    },
+  ];
+
+  for (const c of cases) {
+    it(`crafting at ${c.npc}'s station trains ${c.station} and nothing else`, () => {
+      const sim = new Sim({ seed: 42, playerClass: 'warrior', noPlayer: true }) as AnySim;
+      const { pid } = atStation(sim, c.npc);
+      sim.addItem(c.input[0], c.input[1], pid);
+      sim.craft(c.recipe, pid);
+      expect(skillFor(sim, pid, c.station)).toBe(PROFESSION_SKILL_PER_GATHER);
+      for (const id of PROFESSION_IDS) {
+        if (id !== c.station) expect(skillFor(sim, pid, id), id).toBe(0);
+      }
+    });
+  }
+
+  it('a craft that fails its gate trains nothing', () => {
+    const sim = new Sim({ seed: 42, playerClass: 'warrior', noPlayer: true }) as AnySim;
+    const { pid } = atStation(sim, 'cultivator_marlow');
+    sim.craft('craft_bloom_nutrient', pid); // no reagents in the bags
+    for (const id of PROFESSION_IDS) expect(skillFor(sim, pid, id), id).toBe(0);
+  });
+});
+
+// Fishing trains on the catch itself (sim.completeFishing), which is the same shape as a
+// gather: the action succeeds, the skill ticks. Driven through the completion body rather
+// than a real five-second cast so the assertion is about training, not lake geometry; the
+// cast-to-completion path itself is covered in sim.test.ts.
+describe('fishing: trained by landing a catch', () => {
+  const bagCount = (meta: { inventory: { count: number }[] }) =>
+    meta.inventory.reduce((n, s) => n + s.count, 0);
+  // completeFishing is private on Sim; reached the same way the rest of the suite reaches
+  // sim internals (tests/CLAUDE.md), so the training hook is driven where it actually runs.
+  const landCast = (sim: AnySim) => {
+    const meta = sim.meta(sim.playerId)!;
+    const before = bagCount(meta);
+    (sim as Record<string, any>).completeFishing(sim.player, meta);
+    return bagCount(meta) > before;
+  };
+
+  it('trains once per catch and never on an empty line', () => {
+    const sim = makeSim();
+    let catches = 0;
+    for (let i = 0; i < 40; i++) if (landCast(sim)) catches++;
+    // The table has a "nothing bit" weight, so some of the 40 casts come up empty. The
+    // point of the test is the exact correspondence: skill gained == fish landed.
+    expect(catches).toBeGreaterThan(0);
+    expect(catches).toBeLessThan(40);
+    expect(skillOf(sim, 'fishing')).toBe(catches * PROFESSION_SKILL_PER_GATHER);
+  });
+
+  it('does not train any other skill', () => {
+    const sim = makeSim();
+    for (let i = 0; i < 10; i++) landCast(sim);
+    for (const id of PROFESSION_IDS) {
+      if (id !== 'fishing') expect(skillOf(sim, id), id).toBe(0);
+    }
+  });
+});
+
+// Breeding is its own line, trained at the Breeding Chamber. Deliberately NOT folded
+// into cultivation: growing a plant well and reading genetics are different skills,
+// and the strain library is the game's signature progression.
+describe('breeding: trained by landing a cross', () => {
+  // The chamber's proximity gate is anchored on its keeper (the Cultivator), so park
+  // the player on him. Mirrors standAtChamber in genetics.test.ts.
+  const standAtChamber = (sim: AnySim) => {
+    const keeper = [...sim.entities.values()].find(
+      (e: Entity) => e.kind === 'npc' && NPCS[e.templateId]?.crafting === 'grow',
+    );
+    if (!keeper) throw new Error('no Breeding Chamber keeper in the world');
+    sim.player.pos.x = keeper.pos.x;
+    sim.player.pos.z = keeper.pos.z;
+  };
+  // Two owned strains plus the bud cost, so only the cross itself is under test.
+  const readyToCross = (sim: AnySim) => {
+    standAtChamber(sim);
+    const meta = sim.meta(sim.playerId)!;
+    for (const seedId of ['common_seed', 'enriched_seed']) {
+      sim.addItem(seedId, 1);
+      sim.plantSeed(0, seedId);
+      sim.plots[0].plantedAt = -100000;
+      sim.harvestPlot(0);
+    }
+    sim.addItem(BREED_COST_ITEM, BREED_COST_COUNT * 4);
+    return meta;
+  };
+
+  it('gains on each cross that lands', () => {
+    const sim = makeSim();
+    const meta = readyToCross(sim);
+    const [a, b] = meta.strains;
+    expect(skillOf(sim, 'breeding')).toBe(0);
+    sim.breedStrains(a.id, b.id);
+    expect(skillOf(sim, 'breeding')).toBe(PROFESSION_SKILL_PER_GATHER);
+    sim.breedStrains(a.id, b.id);
+    expect(skillOf(sim, 'breeding')).toBe(PROFESSION_SKILL_PER_GATHER * 2);
+  });
+
+  it('trains nothing when the cross is rejected', () => {
+    const sim = makeSim();
+    const meta = readyToCross(sim);
+    const [a] = meta.strains;
+    sim.breedStrains(a.id, a.id); // same strain twice: rejected
+    expect(skillOf(sim, 'breeding')).toBe(0);
+  });
+
+  it('is separate from cultivation: growing does not train it', () => {
+    const sim = makeSim();
+    readyToCross(sim); // two harvests happened, so cultivation moved
+    expect(skillOf(sim, 'cultivation')).toBeGreaterThan(0);
+    expect(skillOf(sim, 'breeding')).toBe(0);
+  });
+});
+
+// The Infusion Table (the Glyphwright): the enchanting station. Its entry recipes are
+// gated on Cultivation, and its best recipe is gated on Enchanting itself, so working
+// the station is what unlocks the station's own top line.
+describe('enchanting: the Infusion Table ladder', () => {
+  const atTable = (sim: AnySim) => {
+    const pid = sim.addPlayer('warrior', 'Binder');
+    const npc = [...sim.entities.values()].find(
+      (e: Entity) => (e as unknown as { templateId?: string }).templateId === 'glyphwright_orrin',
+    ) as Entity;
+    const p = sim.entities.get(pid) as Entity;
+    p.pos.x = npc.pos.x + 2;
+    p.pos.z = npc.pos.z;
+    sim.rebucket(p);
+    const meta = sim.meta(pid)!;
+    meta.copper = 10000;
+    sim.addItem('bud_prime', 20, pid);
+    sim.addItem('corruption_shard', 20, pid);
+    return { pid, meta };
+  };
+  const world = () => new Sim({ seed: 42, playerClass: 'warrior', noPlayer: true }) as AnySim;
+
+  it('an entry glyph needs Cultivation 10, and crafting it trains Enchanting', () => {
+    const sim = world();
+    const { pid, meta } = atTable(sim);
+    sim.craft('enchant_glyph_of_vigor', pid);
+    expect(sim.countItem('resin_glyph_vigor', pid)).toBe(0); // Cultivation 0: gated
+
+    meta.professions.cultivation = 10;
+    sim.craft('enchant_glyph_of_vigor', pid);
+    expect(sim.countItem('resin_glyph_vigor', pid)).toBe(1);
+    expect(meta.professions.enchanting).toBe(PROFESSION_SKILL_PER_GATHER);
+    expect(meta.professions.cultivation).toBe(10); // the station trains enchanting, not the gate
+  });
+
+  it('the warding glyph is gated on Enchanting itself, so the station unlocks its own top recipe', () => {
+    const sim = world();
+    const { pid, meta } = atTable(sim);
+    meta.professions.cultivation = 10;
+    sim.craft('enchant_glyph_of_warding', pid);
+    expect(sim.countItem('resin_glyph_warding', pid)).toBe(0); // Enchanting 0: gated
+
+    meta.professions.enchanting = 15;
+    sim.craft('enchant_glyph_of_warding', pid);
+    expect(sim.countItem('resin_glyph_warding', pid)).toBe(1);
+  });
+
+  it('needs the Infusion Table: the same recipe fails at the Alchemy Lab', () => {
+    const sim = world();
+    const pid = sim.addPlayer('warrior', 'Wanderer');
+    const sable = [...sim.entities.values()].find(
+      (e: Entity) => (e as unknown as { templateId?: string }).templateId === 'alchemist_sable',
+    ) as Entity;
+    const p = sim.entities.get(pid) as Entity;
+    p.pos.x = sable.pos.x;
+    p.pos.z = sable.pos.z;
+    sim.rebucket(p);
+    const meta = sim.meta(pid)!;
+    meta.copper = 10000;
+    meta.professions.cultivation = 10;
+    sim.addItem('bud_prime', 20, pid);
+    sim.addItem('corruption_shard', 20, pid);
+    sim.craft('enchant_glyph_of_vigor', pid);
+    expect(sim.countItem('resin_glyph_vigor', pid)).toBe(0);
+    expect(meta.professions.enchanting).toBe(0);
+  });
+});
+
+// The Extraction Lab (the Extractor): the concentrate station, and the only recipe in
+// the game with a live-harvest window. Live resin is made from material that never
+// dried, so the recipe reads PlayerMeta.lastHarvestAt rather than the bags (inventory
+// stacks are fungible and carry no age).
+describe('extraction: the Extraction Lab and the live-resin freshness window', () => {
+  const atLab = (sim: AnySim) => {
+    const pid = sim.addPlayer('warrior', 'Washer');
+    const npc = [...sim.entities.values()].find(
+      (e: Entity) => (e as unknown as { templateId?: string }).templateId === 'extractor_rell',
+    ) as Entity;
+    const p = sim.entities.get(pid) as Entity;
+    p.pos.x = npc.pos.x + 2;
+    p.pos.z = npc.pos.z;
+    sim.rebucket(p);
+    const meta = sim.meta(pid)!;
+    meta.copper = 10000;
+    for (const id of ['bud_common', 'bud_fine', 'bud_prime', 'trellis_frame']) {
+      sim.addItem(id, 20, pid);
+    }
+    return { pid, meta };
+  };
+  const world = () => new Sim({ seed: 42, playerClass: 'warrior', noPlayer: true }) as AnySim;
+
+  it('hash is the ungated floor and trains Extraction', () => {
+    const sim = world();
+    const { pid, meta } = atLab(sim);
+    sim.craft('extract_vale_hash', pid);
+    expect(sim.countItem('vale_hash', pid)).toBe(1);
+    expect(meta.professions.extraction).toBe(PROFESSION_SKILL_PER_GATHER);
+  });
+
+  it('shatter and diamonds gate on Extraction skill', () => {
+    const sim = world();
+    const { pid, meta } = atLab(sim);
+    sim.craft('extract_golden_shatter', pid);
+    sim.craft('extract_bloom_diamonds', pid);
+    expect(sim.countItem('golden_shatter', pid)).toBe(0);
+    expect(sim.countItem('bloom_diamonds', pid)).toBe(0);
+
+    meta.professions.extraction = 40;
+    sim.craft('extract_golden_shatter', pid);
+    sim.craft('extract_bloom_diamonds', pid);
+    expect(sim.countItem('golden_shatter', pid)).toBe(1);
+    expect(sim.countItem('bloom_diamonds', pid)).toBe(1);
+  });
+
+  it('live resin refuses a player who has not harvested at all', () => {
+    const sim = world();
+    const { pid, meta } = atLab(sim);
+    meta.professions.extraction = 20;
+    expect(meta.lastHarvestAt).toBeNull();
+    sim.craft('extract_live_resin', pid);
+    expect(sim.countItem('live_resin', pid)).toBe(0);
+    expect(sim.countItem('bud_fine', pid)).toBe(20); // reagents untouched on a refusal
+  });
+
+  it('live resin works inside the window and refuses once the buds have dried', () => {
+    const sim = world();
+    const { pid, meta } = atLab(sim);
+    meta.professions.extraction = 20;
+    const now = (sim as unknown as { time: number }).time;
+
+    meta.lastHarvestAt = now; // just came off the bed
+    sim.craft('extract_live_resin', pid);
+    expect(sim.countItem('live_resin', pid)).toBe(1);
+
+    meta.lastHarvestAt = now - FRESH_HARVEST_WINDOW - 1; // one second past the window
+    sim.craft('extract_live_resin', pid);
+    expect(sim.countItem('live_resin', pid)).toBe(1); // still just the one
+  });
+
+  it('a real harvest opens the window, and the same buds still make hash after it closes', () => {
+    const sim = world();
+    const { pid, meta } = atLab(sim);
+    meta.professions.extraction = 20;
+    sim.addItem('common_seed', 1, pid);
+    sim.plantSeed(0, 'common_seed', pid);
+    meta.plots[0].plantedAt = -100000;
+    sim.harvestPlot(0, pid);
+    expect(meta.lastHarvestAt).not.toBeNull();
+
+    sim.craft('extract_live_resin', pid);
+    expect(sim.countItem('live_resin', pid)).toBe(1);
+
+    // Nothing is lost by missing the window: hash is always available.
+    meta.lastHarvestAt = (meta.lastHarvestAt as number) - FRESH_HARVEST_WINDOW - 1;
+    sim.craft('extract_live_resin', pid);
+    expect(sim.countItem('live_resin', pid)).toBe(1);
+    sim.craft('extract_vale_hash', pid);
+    expect(sim.countItem('vale_hash', pid)).toBe(1);
+  });
+});
+
+// Long-process recipes (CraftRecipe.processSeconds): the handful whose real cost is TIME
+// rather than materials. Diamonds are the one that has it: a long slow run on the wash,
+// which the instant reagents-for-output shape could not otherwise express.
+describe('crafting: long-process recipes', () => {
+  const atLab = (sim: AnySim) => {
+    const pid = sim.addPlayer('warrior', 'Washer');
+    const npc = [...sim.entities.values()].find(
+      (e: Entity) => (e as unknown as { templateId?: string }).templateId === 'extractor_rell',
+    ) as Entity;
+    const p = sim.entities.get(pid) as Entity;
+    p.pos.x = npc.pos.x + 2;
+    p.pos.z = npc.pos.z;
+    sim.rebucket(p);
+    const meta = sim.meta(pid)!;
+    meta.copper = 100000;
+    meta.professions.extraction = 40;
+    sim.addItem('bud_prime', 100, pid);
+    sim.addItem('bud_common', 100, pid);
+    return { pid, meta };
+  };
+  const world = () => new Sim({ seed: 42, playerClass: 'warrior', noPlayer: true }) as AnySim;
+  const recipe = CRAFT_RECIPES_BY_ID.extract_bloom_diamonds;
+
+  it('diamonds declare a process time', () => {
+    expect(recipe.processSeconds).toBeGreaterThan(0);
+  });
+
+  it('runs once, then refuses until the process finishes, charging nothing meanwhile', () => {
+    const sim = world();
+    const { pid, meta } = atLab(sim);
+    sim.craft('extract_bloom_diamonds', pid);
+    expect(sim.countItem('bloom_diamonds', pid)).toBe(1);
+    const budsAfterFirst = sim.countItem('bud_prime', pid);
+    const copperAfterFirst = meta.copper;
+
+    sim.craft('extract_bloom_diamonds', pid); // the wash is still running
+    expect(sim.countItem('bloom_diamonds', pid)).toBe(1);
+    expect(sim.countItem('bud_prime', pid)).toBe(budsAfterFirst); // no reagents taken
+    expect(meta.copper).toBe(copperAfterFirst); // and no copper
+  });
+
+  it('runs again once the process time has elapsed', () => {
+    const sim = world();
+    const { pid, meta } = atLab(sim);
+    sim.craft('extract_bloom_diamonds', pid);
+    meta.craftReadyAt.extract_bloom_diamonds = -1; // the run finished
+    sim.craft('extract_bloom_diamonds', pid);
+    expect(sim.countItem('bloom_diamonds', pid)).toBe(2);
+  });
+
+  it('does not block a DIFFERENT recipe at the same station', () => {
+    const sim = world();
+    const { pid } = atLab(sim);
+    sim.craft('extract_bloom_diamonds', pid);
+    sim.craft('extract_vale_hash', pid); // no process time of its own
+    expect(sim.countItem('vale_hash', pid)).toBe(1);
+  });
+
+  it('persists as time REMAINING, so a clock reset does not hand back a free run', () => {
+    const sim = world();
+    const { pid } = atLab(sim);
+    sim.craft('extract_bloom_diamonds', pid);
+    const saved = sim.serializeCharacter(pid)!;
+    expect(saved.craftCooldowns?.extract_bloom_diamonds).toBeGreaterThan(0);
+
+    // A fresh Sim starts its clock at 0; the cooldown rebases onto it rather than
+    // reading as long expired (which an absolute stamp would).
+    const reloaded = new Sim({ seed: 42, playerClass: 'warrior', noPlayer: true }) as AnySim;
+    const rid = reloaded.addPlayer('warrior', 'Washer', { state: saved });
+    expect(reloaded.meta(rid)!.craftReadyAt.extract_bloom_diamonds).toBeGreaterThan(0);
   });
 });

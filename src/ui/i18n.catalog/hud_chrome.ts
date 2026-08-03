@@ -203,6 +203,15 @@ export const hudChromeStrings = {
     mining: 'Mining',
     herbalism: 'Herbalism',
     logging: 'Logging',
+    cultivation: 'Cultivation',
+    breeding: 'Breeding',
+    fishing: 'Fishing',
+    cooking: 'Cooking',
+    alchemy: 'Alchemy',
+    smithing: 'Smithing',
+    enchanting: 'Enchanting',
+    extraction: 'Extraction',
+    lockpicking: 'Lockpicking',
     skillAria: '{profession}: {skill} of {max}',
   },
   // Loadouts panel on the character sheet: saved gear + talent sets, clickable to
@@ -1174,10 +1183,14 @@ export const hudChromeStrings = {
     upgradeTitle: 'Upgrade Bench',
     cookTitle: 'Cookfire',
     alchemyTitle: 'Alchemy Lab',
+    enchantTitle: 'Infusion Table',
+    extractTitle: 'Extraction Lab',
     growHint: 'Craft nutrients, upgrade seed strains, and build growing gear.',
     upgradeHint: 'Reforge gear and cut battle consumables from Corruption Shards.',
     cookHint: 'Cook the fish you catch into hearty meals that restore health and mana.',
     alchemyHint: 'Brew harvested blooms into healing and mana draughts and a battle elixir.',
+    enchantHint: 'Bind prime buds and Corruption Shards into glyphs that hold for half an hour.',
+    extractHint: 'Wash harvested buds down to hash, shatter, live resin, and diamonds.',
     craftButton: 'Craft',
     costLabel: 'Cost',
     requiresLabel: 'Requires',
@@ -1203,7 +1216,38 @@ export const hudChromeStrings = {
       tooFarFromStation: 'You are too far from the station.',
       levelTooLow: 'You are not skilled enough to craft that yet.',
       missingMaterials: 'You lack the materials to craft that.',
+      // The live-resin freshness window: shown when the player's last garden harvest is
+      // older than the recipe allows. Phrased so it teaches the rule, not just the denial.
+      budsNotFresh: 'Those buds have dried. Extract live resin right after a harvest.',
+      // A long-process recipe (CraftRecipe.processSeconds) whose run has not finished.
+      processRunning: 'That process is still running. Come back when it is done.',
     },
+  },
+  // Cut swapping on the trade window: staking a copy of one of your library strains
+  // alongside the items. Lives here rather than in the merge.ts trade block because that
+  // catalog is tsc-enforced per locale; this namespace takes English-only adds.
+  trade: {
+    cutLabel: 'Cut',
+    hint: 'A cut copies the strain: you keep yours, they need a free library slot.',
+  },
+  // The Vale Cup: the commune's recurring growing competition. The board is public and
+  // carries grower + strain names verbatim (proper nouns), so only the chrome is keyed.
+  cup: {
+    title: 'The Vale Cup',
+    open: 'Enter the Vale Cup',
+    hint: 'Judged on genetics, on the grade you bring, and on how well you know the plant.',
+    season: 'Season {season}',
+    remainingHours: '{hours}h {minutes}m left',
+    remainingMinutes: '{minutes}m left',
+    best: 'Your best score: {score}',
+    emptyBoard: 'No entries yet this season. The board is yours to open.',
+    gradeLabel: 'Bud grade',
+    strainLabel: 'Strain',
+    noBuds: 'No buds to enter with. Harvest a crop first.',
+    noStrains: 'No strains yet. Harvest a crop to discover one.',
+    projected: 'Scores {score}',
+    enter: 'Enter ({count} buds, scoring {score})',
+    posted: '{strain} is on the board at {score}, ranked {rank}.',
   },
   // Cultivation: the Garden window (personal plots). Opened from the Grow Station.
   garden: {
@@ -1214,6 +1258,11 @@ export const hudChromeStrings = {
     empty: 'Empty plot',
     plant: 'Plant',
     harvest: 'Harvest',
+    // Tending: the opt-in bonus. `tend` is the button, `tendCount` the caught/total
+    // record on a growing plot, `tendNudge` the header line when a crop is due one.
+    tend: 'Tend',
+    tendCount: 'Tended {tends}/{total}',
+    tendNudge: '{count} plants are ready to tend.',
     ready: 'Ready',
     open: 'Tend Garden',
     locked: 'Locked',
@@ -1235,7 +1284,25 @@ export const hudChromeStrings = {
     plant: 'Plant',
     release: 'Release',
     breed: 'Cross',
+    // Provenance on a bred strain. `lineage` is deliberately placeholder-only:
+    // both values are generated strain names, which are proper nouns spliced
+    // verbatim in every locale, so the line needs no translatable words.
+    lineage: '{a} x {b}',
+    bredBy: 'Bred by {name}',
+    // The Epic Bud gate on a cross: the cost line is always shown so the requirement is
+    // learned before it blocks anything, and the shortfall note says how to earn one
+    // (tend a crop), because the answer is not to grow more.
+    cost: 'Cross cost: {count} Epic Buds (you have {held})',
+    needEpicBuds: 'Tend a crop to earn an Epic Bud. A perfect grow always drops one.',
+    // Per-strain mastery: the grower's own record with a strain, not an inherited trait.
+    mastery: 'Mastery',
+    masteryAria: '{strain} mastery: {mastery} of {max}',
     full: 'Your strain library is full. Release a strain to make room.',
+    // Refine: fold the second pick into the first. The hint spells out which pick
+    // survives, because getting that backwards costs a strain.
+    refine: 'Refine',
+    refineHint: 'Fold the second strain into the first, improving it and freeing a slot.',
+    fullRefine: 'Your strain library is full. Refine or release a strain to make room.',
   },
   // Commune reputation: the standing tier names shown on the breeding header.
   reputation: {

@@ -14,8 +14,8 @@
     {
       "tick": 0,
       "time": 0,
-      "nextId": 583,
-      "state": "9ae0a05a",
+      "nextId": 586,
+      "state": "a0a9c222",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -31,50 +31,123 @@
           "cls": "paladin",
           "companionUpgrades": {},
           "counters": {},
+          "craftReadyAt": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 582,
+          "entityId": 585,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "training_mace"
           },
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {}
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            }
           ],
           "professions": {},
           "reputation": {},
@@ -95,7 +168,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 99,
           "hp": 95,
-          "id": 582,
+          "id": 585,
           "kind": "player",
           "level": 1,
           "lootFfaTimer": "Infinity",
@@ -139,9 +212,9 @@
     {
       "tick": 20,
       "time": 1,
-      "nextId": 584,
-      "state": "4a632823",
-      "events": "69cd3e36",
+      "nextId": 587,
+      "state": "9496d894",
+      "events": "a77a3c5e",
       "rng": {
         "draws": 4,
         "digest": "ae42410c"
@@ -150,8 +223,8 @@
     {
       "tick": 40,
       "time": 2,
-      "nextId": 584,
-      "state": "922a5e8c",
+      "nextId": 587,
+      "state": "4556ac37",
       "events": "741638a5",
       "rng": {
         "draws": 4,
@@ -161,9 +234,9 @@
     {
       "tick": 60,
       "time": 3,
-      "nextId": 584,
-      "state": "ed30eb70",
-      "events": "0542f72c",
+      "nextId": 587,
+      "state": "ffc1c86d",
+      "events": "a5dfc6be",
       "rng": {
         "draws": 106,
         "digest": "cf3340d9"
@@ -172,8 +245,8 @@
     {
       "tick": 80,
       "time": 4,
-      "nextId": 584,
-      "state": "94f93a9d",
+      "nextId": 587,
+      "state": "cf97ab74",
       "events": "741638a5",
       "rng": {
         "draws": 212,
@@ -183,9 +256,9 @@
     {
       "tick": 100,
       "time": 5,
-      "nextId": 584,
-      "state": "4b5774a8",
-      "events": "a1032b87",
+      "nextId": 587,
+      "state": "2518539d",
+      "events": "4df8128d",
       "rng": {
         "draws": 343,
         "digest": "8e2e0d9a"
@@ -194,8 +267,8 @@
     {
       "tick": 120,
       "time": 6,
-      "nextId": 584,
-      "state": "7c802527",
+      "nextId": 587,
+      "state": "e4c13976",
       "events": "741638a5",
       "rng": {
         "draws": 492,
@@ -205,9 +278,9 @@
     {
       "tick": 140,
       "time": 7,
-      "nextId": 584,
-      "state": "156dbb09",
-      "events": "d17315aa",
+      "nextId": 587,
+      "state": "69b950f8",
+      "events": "1e8f87d8",
       "rng": {
         "draws": 616,
         "digest": "78c8a204"
@@ -216,8 +289,8 @@
     {
       "tick": 160,
       "time": 8,
-      "nextId": 584,
-      "state": "d02f153b",
+      "nextId": 587,
+      "state": "e7f9bbaa",
       "events": "741638a5",
       "rng": {
         "draws": 764,
@@ -227,9 +300,9 @@
     {
       "tick": 180,
       "time": 9,
-      "nextId": 584,
-      "state": "684a04f6",
-      "events": "7f13bf84",
+      "nextId": 587,
+      "state": "5a16f687",
+      "events": "caca44ce",
       "rng": {
         "draws": 942,
         "digest": "fdb19892"
@@ -238,8 +311,8 @@
     {
       "tick": 200,
       "time": 10,
-      "nextId": 584,
-      "state": "7525e481",
+      "nextId": 587,
+      "state": "bff8edbc",
       "events": "741638a5",
       "rng": {
         "draws": 1107,
@@ -249,8 +322,8 @@
     {
       "tick": 201,
       "time": 10.05,
-      "nextId": 584,
-      "state": "088c316b",
+      "nextId": 587,
+      "state": "acc406cc",
       "events": "741638a5",
       "rng": {
         "draws": 1112,
@@ -269,51 +342,124 @@
             "damageDealt": 165,
             "damageTaken": 13
           },
+          "craftReadyAt": {},
           "delveClears": {},
           "delveDaily": {},
-          "entityId": 582,
+          "entityId": 585,
           "equipment": {
             "chest": "recruit_tunic",
             "mainhand": "training_mace"
           },
           "lifetimeXp": 167200,
           "plots": [
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {},
-            {}
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            },
+            {
+              "lastTendWindow": -1
+            }
           ],
           "professions": {},
           "reputation": {},
@@ -334,7 +480,7 @@
           "fallStartY": 1.5,
           "fiveSecondRule": 10,
           "hp": 49987,
-          "id": 582,
+          "id": 585,
           "inCombat": true,
           "kind": "player",
           "level": 20,
@@ -367,7 +513,7 @@
             "sta": 60,
             "str": 60
           },
-          "targetId": 583,
+          "targetId": 586,
           "templateId": "paladin",
           "weapon": {
             "max": 5,
@@ -376,7 +522,7 @@
           }
         },
         {
-          "aggroTargetId": 582,
+          "aggroTargetId": 585,
           "aiState": "attack",
           "combatTimer": 1.95,
           "critChance": 0.05,
@@ -387,7 +533,7 @@
           "fiveSecondRule": 99,
           "hostile": true,
           "hp": 39835,
-          "id": 583,
+          "id": 586,
           "inCombat": true,
           "kind": "mob",
           "leashAnchor": {
@@ -417,11 +563,11 @@
             "armor": 40
           },
           "swingTimer": 0.05,
-          "tappedById": 582,
+          "tappedById": 585,
           "templateId": "forest_wolf",
           "threat": [
             [
-              582,
+              585,
               166
             ]
           ],

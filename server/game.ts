@@ -2373,6 +2373,9 @@ export class GameServer {
           sim.plantSeed(msg.plot, msg.item, pid);
         }
         break;
+      case 'tend_plot':
+        if (typeof msg.plot === 'number') sim.tendPlot(msg.plot, pid);
+        break;
       case 'harvest_plot':
         if (typeof msg.plot === 'number') sim.harvestPlot(msg.plot, pid);
         break;
@@ -2384,6 +2387,16 @@ export class GameServer {
       case 'breed_strains':
         if (typeof msg.a === 'string' && typeof msg.b === 'string') {
           sim.breedStrains(msg.a, msg.b, pid);
+        }
+        break;
+      case 'enter_cup':
+        if (typeof msg.strain === 'string' && typeof msg.item === 'string') {
+          sim.enterCup(msg.strain, msg.item, pid);
+        }
+        break;
+      case 'refine_strain':
+        if (typeof msg.a === 'string' && typeof msg.b === 'string') {
+          sim.refineStrain(msg.a, msg.b, pid);
         }
         break;
       case 'release_strain':
@@ -2598,7 +2611,14 @@ export class GameServer {
         sim.tradeAccept(pid);
         break;
       case 'trade_offer':
-        if (Array.isArray(msg.items)) sim.tradeSetOffer(msg.items, Number(msg.copper) || 0, pid);
+        if (Array.isArray(msg.items)) {
+          sim.tradeSetOffer(
+            msg.items,
+            Number(msg.copper) || 0,
+            typeof msg.strain === 'string' ? msg.strain : null,
+            pid,
+          );
+        }
         break;
       case 'trade_confirm':
         sim.tradeConfirm(pid);
@@ -3204,6 +3224,14 @@ export class GameServer {
       maybe('buyback', meta.vendorBuyback);
       maybe('stash', meta.stash);
       maybe('garden', gardenView(meta.plots, this.sim.time, p.level));
+      // The Vale Cup rides the self snapshot as one object so the four reads land or miss
+      // together: a half-applied board would rank against a stale season.
+      maybe('cup', {
+        standings: this.sim.cupStandings,
+        season: this.sim.cupSeason,
+        remaining: Math.ceil(this.sim.cupSecondsRemaining),
+        best: meta.cupBest,
+      });
       maybe('strains', strainViews(meta.strains));
       maybe('rep', reputationViews(meta.reputation));
       maybe('prof', professionsView(meta.professions));

@@ -58,6 +58,15 @@ export const ZONE1_ZONE: ZoneDef = {
     // trails. `landmark` pins it on the map so a wandering starter finds the
     // community, not just a lone statue.
     { x: 40, z: 50, label: 'The Lodge', landmark: true },
+    // The Grow Terrace: the cultivation district. Without a POI of its own the whole
+    // arc borrowed its subzone banner from whatever landmark happened to be nearest,
+    // so the Breeding Chamber read "The Lodge" and the Extraction Lab read "The
+    // Withered Bloom". Anchored at the centroid of the district (bed grid x 53.5-66.5
+    // z 53.7-66.7, Chamber 60/45, Lab 74/45, the Cup grounds 60/70) so the 32yd
+    // SUBZONE_RADIUS covers every station and beats both neighbours at each of them.
+    // `landmark` pins it, because finding the beds is the first step of the grow loop.
+    // APPEND only: the completeness test allowlists 'Baked Beaver' by index (10).
+    { x: 63, z: 56, label: 'The Grow Terrace', landmark: true },
   ],
   welcome: 'Find Marshal Redbrook in town, he has work for you.',
   welcomeQuestId: 'q_wolves',
@@ -1389,6 +1398,24 @@ export const ZONE1_PROPS: ZonePropsDef = {
     // pond and the path to the south.
     { kind: 'inn', x: 38, z: 60, w: 6, d: 7, rot: 3.05 }, // beaver lodge (rested XP)
     { kind: 'house', x: 46, z: 62, w: 6, d: 5, rot: 2.9 }, // beaver den
+    // The Breeding Chamber: where crosses are made. Sits at the SOUTH entrance of
+    // the garden field with its door facing north up the beds, so the grow loop
+    // reads as one place (field in front, chamber behind). Marlow keeps it and
+    // stands a couple of yards north of the north wall, between chamber and field,
+    // which is also the proximity anchor breeding is gated on (strain_library.ts).
+    // Footprint x 56.5-63.5, z 42-48: clear of the southmost plot row (z 53.7) and
+    // of Marlow himself (z 50).
+    // rot follows the same convention as the town ring: atan2(targetX - x, targetZ - z)
+    // aims the FRONT at the target. Marlow/the field sit due north at (60, 50), so
+    // atan2(0, +5) = 0 puts the door on the field side. (3.1 faced it away.)
+    { kind: 'house', x: 60, z: 45, w: 7, d: 6, rot: 0 }, // the Breeding Chamber
+    // The Extraction Lab: where buds become concentrates. Sits on the EAST flank of the
+    // same garden field, so the grow loop has one structure per verb (cross to the south,
+    // concentrate to the east, the beds between them). Footprint x 70.5-77.5, z 42-48:
+    // clear of the Chamber (56.5-63.5), of the bed grid (x 53.5-66.5, z 53.7-66.7), and
+    // of Rell himself (74, 50). Inside GARDEN_FARM, so it rests on leveled ground.
+    // Door faces north up the field, same rot convention as the Chamber.
+    { kind: 'house', x: 74, z: 45, w: 7, d: 6, rot: 0 }, // the Extraction Lab
   ],
   wells: [{ x: 0, z: 2, r: 1.5 }],
   stalls: [

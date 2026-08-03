@@ -207,3 +207,48 @@ describe('lockpick controller (I2b module), guards', () => {
     expect(run.lockpick.lootTier).toBe('premium');
   });
 });
+
+// Lockpicking is a levelable skill (src/sim/professions.ts): a SOLVED chest trains it,
+// scaled by the ante's loot tier, and a jam trains nothing. The skill is the picker's
+// alone, unlike the copper/marks bonus, which the whole party shares.
+describe('lockpick controller (I2b module), the lockpicking skill', () => {
+  const skill = (sim: Sim) => sim.professions.find((p) => p.id === 'lockpicking')?.skill ?? -1;
+
+  it('a premium solve trains more than a low-ante solve', () => {
+    const hard = makeSim();
+    const hardRun = setup(hard);
+    expect(skill(hard)).toBe(0);
+    lockpick.lockpickEngage(hard.ctx, hardRun.chestId, 1); // premium, 3 pages, one try
+    solve(hard, hardRun.run);
+    const premium = skill(hard);
+
+    const easy = makeSim();
+    const easyRun = setup(easy);
+    lockpick.lockpickEngage(easy.ctx, easyRun.chestId, 3); // low, one page
+    solve(easy, easyRun.run);
+    const low = skill(easy);
+
+    expect(low).toBeGreaterThan(0);
+    expect(premium).toBeGreaterThan(low);
+  });
+
+  it('a jammed chest trains nothing', () => {
+    const sim = makeSim(7);
+    const { run, chestId } = setup(sim);
+    lockpick.lockpickEngage(sim.ctx, chestId, 1); // premium: one try
+    run.lockpick.stepDeadlineTick = 0;
+    lockpick.tickLockpickTimeout(sim.ctx, run); // times out -> jam
+    expect(run.objectState[chestId].looted).toBeFalsy();
+    expect(skill(sim)).toBe(0);
+  });
+
+  it('trains no other skill', () => {
+    const sim = makeSim();
+    const { run, chestId } = setup(sim);
+    lockpick.lockpickEngage(sim.ctx, chestId, 3);
+    solve(sim, run);
+    for (const p of sim.professions) {
+      if (p.id !== 'lockpicking') expect(p.skill, p.id).toBe(0);
+    }
+  });
+});

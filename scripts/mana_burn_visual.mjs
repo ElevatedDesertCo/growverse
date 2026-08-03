@@ -5,8 +5,9 @@
 //
 // Run the dev client first:  npx vite --port 5180 --strictPort &
 // then:  GAME_URL=http://localhost:5180 node scripts/mana_burn_visual.mjs
-import puppeteer from 'puppeteer-core';
+
 import fs from 'node:fs';
+import puppeteer from 'puppeteer-core';
 import { BROWSER_PATH } from './browser_path.mjs';
 
 const URL = process.env.GAME_URL ?? 'http://localhost:5180';
@@ -17,7 +18,13 @@ const browser = await puppeteer.launch({
   executablePath: BROWSER_PATH,
   headless: 'new',
   protocolTimeout: 60000,
-  args: ['--no-sandbox', '--disable-setuid-sandbox', '--window-size=1320,820', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
+  args: [
+    '--no-sandbox',
+    '--disable-setuid-sandbox',
+    '--window-size=1320,820',
+    '--use-angle=swiftshader',
+    '--enable-unsafe-swiftshader',
+  ],
   defaultViewport: { width: 1320, height: 820 },
 });
 
@@ -33,7 +40,10 @@ await page.evaluate(() => {
   document.querySelector('#offline-select .mini-class[data-class="mage"]').click();
   document.querySelector('#btn-start-offline').click();
 });
-await page.waitForFunction(() => window.__game?.sim && document.querySelector('#minimap-wrap'), { timeout: 20000, polling: 300 });
+await page.waitForFunction(() => window.__game?.sim && document.querySelector('#minimap-wrap'), {
+  timeout: 20000,
+  polling: 300,
+});
 await sleep(1500);
 
 // Level the mage up so it survives a level-18 necromancer's swing, then spawn the
@@ -48,11 +58,17 @@ const result = await page.evaluate(() => {
   // Build a Wyrmcult Necromancer beside the player. Private modules are reachable
   // at runtime; createMob/MOBS come off the sim's own imports via a tiny eval-free
   // path: reuse an existing entity as the carrier by retemplating it.
-  let necro = [...sim.entities.values()].find((e) => e.kind === 'mob' && e.templateId === 'wyrmcult_necromancer' && !e.dead);
+  let necro = [...sim.entities.values()].find(
+    (e) => e.kind === 'mob' && e.templateId === 'wyrmcult_necromancer' && !e.dead,
+  );
   if (!necro) {
     // retemplate the nearest living mob into a necromancer carrier
     necro = [...sim.entities.values()].find((e) => e.kind === 'mob' && !e.dead);
-    if (necro) { necro.templateId = 'wyrmcult_necromancer'; necro.name = 'Wyrmcult Necromancer'; necro.level = 18; }
+    if (necro) {
+      necro.templateId = 'wyrmcult_necromancer';
+      necro.name = 'Wyrmcult Necromancer';
+      necro.level = 18;
+    }
   }
   if (necro) {
     necro.pos = { x: p.pos.x + 2, y: p.pos.y, z: p.pos.z + 2 };
@@ -70,7 +86,12 @@ const result = await page.evaluate(() => {
     if (p.resource < r0) procs++;
   }
   p.hp = p.maxHp;
-  return { before, after: { res: Math.round(p.resource), max: Math.round(p.maxResource) }, procs, necro: !!necro };
+  return {
+    before,
+    after: { res: Math.round(p.resource), max: Math.round(p.maxResource) },
+    procs,
+    necro: !!necro,
+  };
 });
 console.log('mana before/after:', JSON.stringify(result));
 

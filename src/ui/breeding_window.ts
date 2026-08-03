@@ -8,6 +8,7 @@
 // re-rendered on a library/standing change), NOT a per-frame painter, so direct innerHTML
 // writes are fine (like the garden).
 
+import { STRAIN_MASTERY_MAX } from '../sim/types';
 import type { BreedingView } from './breeding_view';
 import { esc } from './esc';
 import { formatNumber, t } from './i18n';
@@ -18,6 +19,7 @@ export interface BreedingWindowDeps extends PainterHostPresentation {
   hideTooltip(): void;
   onPickParent(strainId: string, slot: 'a' | 'b'): void;
   onBreed(): void;
+  onRefine(): void;
   onPlant(strainId: string): void;
   onRelease(strainId: string): void;
   onClose(): void;
@@ -85,9 +87,36 @@ export function renderBreedingWindow(
         `<span class="breeding-trait">${esc(t('hudChrome.breeding.potency'))} ${esc(num(s.potency))}</span>` +
         `<span class="breeding-trait">${esc(t('hudChrome.breeding.vigor'))} ${esc(num(s.vigor))}</span>` +
         `<span class="breeding-trait">${esc(t('hudChrome.breeding.yield'))} ${esc(num(s.yield))}</span>`;
+      // Provenance: what it came from and who made it. A base strain has neither,
+      // and so does a strain from a save written before breeder credit landed, so
+      // both lines are omitted rather than shown empty.
+      const lineage = s.lineage
+        ? `<div class="breeding-lineage">${esc(t('hudChrome.breeding.lineage', { a: s.lineage[0], b: s.lineage[1] }))}</div>`
+        : '';
+      const breeder = s.breeder
+        ? `<div class="breeding-breeder">${esc(t('hudChrome.breeding.bredBy', { name: s.breeder }))}</div>`
+        : '';
+      // Mastery: the grower's own record with this strain, shown as a bar beside the
+      // inherited traits so the two read as what they are. Traits are the strain's
+      // ceiling; mastery is how close this grower gets to it.
+      const masteryAria = t('hudChrome.breeding.masteryAria', {
+        strain: s.name,
+        mastery: num(s.mastery),
+        max: num(STRAIN_MASTERY_MAX),
+      });
+      const mastery =
+        `<div class="breeding-mastery" role="group" aria-label="${esc(masteryAria)}">` +
+        `<span class="breeding-mastery-label">${esc(t('hudChrome.breeding.mastery'))}</span>` +
+        `<div class="breeding-mastery-bar" style="--mastery-pct:${esc(num(s.masteryPct))}%">` +
+        `<div class="breeding-mastery-fill"></div></div>` +
+        `<span class="breeding-mastery-value">${esc(num(s.mastery))} / ${esc(num(STRAIN_MASTERY_MAX))}</span>` +
+        `</div>`;
       row.innerHTML =
         `<div class="breeding-strain-head"><span class="breeding-strain-name">${esc(s.name)}</span>${landrace}</div>` +
-        `<div class="breeding-traits">${traits}</div>`;
+        `<div class="breeding-traits">${traits}</div>` +
+        mastery +
+        lineage +
+        breeder;
 
       const actions = document.createElement('div');
       actions.className = 'breeding-strain-actions';
@@ -126,19 +155,43 @@ export function renderBreedingWindow(
   }
   el.appendChild(list);
 
-  // Footer: the cross action + capacity note.
+  // Footer: the cross action, its Epic Bud cost, and whichever note is blocking. The
+  // cost is always shown (not only when short) so a player learns what a cross takes
+  // before they are stopped by it; the shortfall note explains how to earn one, because
+  // the answer is "grow better", not "grow more".
   const footer = document.createElement('div');
   footer.className = 'breeding-footer';
-  if (view.atCapacity) {
-    footer.innerHTML = `<span class="breeding-note">${esc(t('hudChrome.breeding.full'))}</span>`;
-  }
+  const cost = t('hudChrome.breeding.cost', {
+    count: formatNumber(view.breedCost, { maximumFractionDigits: 0 }),
+    held: formatNumber(view.epicBuds, { maximumFractionDigits: 0 }),
+  });
+  // At capacity the note points at Refine rather than only saying "release something":
+  // folding the second pick into the first frees the slot AND improves a strain, which
+  // is a strictly better answer than throwing one away.
+  const note = view.atCapacity
+    ? t('hudChrome.breeding.fullRefine')
+    : view.cannotAfford
+      ? t('hudChrome.breeding.needEpicBuds')
+      : '';
+  footer.innerHTML =
+    `<span class="breeding-cost${view.cannotAfford ? ' breeding-cost-short' : ''}">${esc(cost)}</span>` +
+    (note ? `<span class="breeding-note">${esc(note)}</span>` : '');
   const breed = document.createElement('button');
   breed.type = 'button';
   breed.className = 'breeding-action breeding-breed';
   breed.disabled = !view.canBreed;
   breed.textContent = t('hudChrome.breeding.breed');
   breed.addEventListener('click', () => deps.onBreed());
-  footer.appendChild(breed);
+  // Refine: same two picks, a different verb. A (the first pick) is the strain that is
+  // kept and improved; B is folded into it and consumed.
+  const refine = document.createElement('button');
+  refine.type = 'button';
+  refine.className = 'breeding-action breeding-refine';
+  refine.disabled = !view.canRefine;
+  refine.textContent = t('hudChrome.breeding.refine');
+  refine.title = t('hudChrome.breeding.refineHint');
+  refine.addEventListener('click', () => deps.onRefine());
+  footer.append(breed, refine);
   el.appendChild(footer);
 
   el.querySelector('[data-close]')?.addEventListener('click', () => deps.onClose());

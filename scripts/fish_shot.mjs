@@ -4,8 +4,9 @@
 // "hero" pose (frozen at the arc apex over water) and natural in-game frames.
 //
 // Needs `npm run dev` on :5173 (override with GAME_URL). Writes to tmp/.
-import puppeteer from 'puppeteer-core';
+
 import fs from 'node:fs';
+import puppeteer from 'puppeteer-core';
 import { BROWSER_PATH } from './browser_path.mjs';
 
 const URL = process.env.GAME_URL ?? 'http://localhost:5173';
@@ -20,7 +21,9 @@ const browser = await puppeteer.launch({
 });
 const page = await browser.newPage();
 page.on('pageerror', (e) => console.log('PAGEERROR:', e.message));
-page.on('console', (m) => { if (m.type() === 'error') console.log('CONSOLE:', m.text()); });
+page.on('console', (m) => {
+  if (m.type() === 'error') console.log('CONSOLE:', m.text());
+});
 
 await page.goto(URL, { waitUntil: 'networkidle0', timeout: 30000 });
 await page.evaluate(() => document.querySelector('#btn-offline').click());
@@ -34,8 +37,10 @@ await sleep(2500);
 await page.evaluate(() => {
   const g = window.__game;
   const p = g.sim.player;
-  p.pos.x = -104; p.pos.z = 300;
-  p.maxHp = 99999; p.hp = 99999;
+  p.pos.x = -104;
+  p.pos.z = 300;
+  p.maxHp = 99999;
+  p.hp = 99999;
   // face the open water at ~(-128,300): west, -x
   p.facing = Math.atan2(-128 - p.pos.x, 0);
   g.input.camYaw = p.facing;

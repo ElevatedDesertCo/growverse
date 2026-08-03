@@ -32,6 +32,11 @@ export interface GardenPlotRow {
   canPlant: boolean;
   /** Matured plot: the Harvest button is enabled. */
   canHarvest: boolean;
+  /** Growing plot whose current tend window is still open: the Tend button is enabled.
+   *  Tending is a pure bonus, so a disabled Tend never blocks anything. */
+  canTend: boolean;
+  /** How many of the grow's tend windows have been caught so far (0 when empty/ready). */
+  tends: number;
   /** A not-yet-unlocked plot (its row opens at a higher level): shows the unlock level
    *  instead of Plant/Harvest, and cannot be acted on. */
   locked: boolean;
@@ -47,6 +52,9 @@ export interface GardenView {
   selectedSeedId: string | null;
   /** How many plots are ready to harvest (drives the header count). */
   readyCount: number;
+  /** How many growing plots are waiting on a tend right now (drives the header nudge, so
+   *  a player who never opens a plot still sees there is a bonus on the table). */
+  tendableCount: number;
 }
 
 /**
@@ -69,8 +77,10 @@ export function buildGardenView(
 ): GardenView {
   const canPlantAny = selectedSeedId !== null;
   let readyCount = 0;
+  let tendableCount = 0;
   const plots: GardenPlotRow[] = garden.map((plot, index) => {
     if (plot.stage === 'ready' && !plot.locked) readyCount++;
+    if (plot.stage === 'growing' && plot.canTend && !plot.locked) tendableCount++;
     return {
       index,
       stage: plot.stage,
@@ -79,9 +89,11 @@ export function buildGardenView(
       secondsRemaining: plot.secondsRemaining,
       canPlant: !plot.locked && plot.stage === 'empty' && canPlantAny,
       canHarvest: !plot.locked && plot.stage === 'ready',
+      canTend: !plot.locked && plot.stage === 'growing' && plot.canTend,
+      tends: plot.tends,
       locked: plot.locked,
       unlockLevel: plot.unlockLevel,
     };
   });
-  return { plots, seeds: [...seeds], selectedSeedId, readyCount };
+  return { plots, seeds: [...seeds], selectedSeedId, readyCount, tendableCount };
 }

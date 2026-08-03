@@ -289,6 +289,15 @@ export const zh_CN: EnTranslations = {
       "mining": "采矿",
       "herbalism": "草药学",
       "logging": "伐木",
+      "cultivation": "栽培",
+      "breeding": "育种",
+      "fishing": "钓鱼",
+      "cooking": "烹饪",
+      "alchemy": "炼金术",
+      "smithing": "锻造",
+      "enchanting": "附魔",
+      "extraction": "萃取",
+      "lockpicking": "开锁",
       "skillAria": "{profession}: {skill} of {max}"
     },
     "loadouts": {
@@ -1060,10 +1069,14 @@ export const zh_CN: EnTranslations = {
       "upgradeTitle": "升级台",
       "cookTitle": "篝火烹饪",
       "alchemyTitle": "炼金实验室",
+      "enchantTitle": "注灵台",
+      "extractTitle": "萃取实验室",
       "growHint": "制作营养剂、升级种子品系、打造种植装备。",
       "upgradeHint": "重铸装备，并用腐蚀碎片切割战斗消耗品。",
       "cookHint": "将你钓到的鱼烹制成丰盛的餐食，恢复生命值与法力值。",
       "alchemyHint": "将采集的花蕾酿成治疗药水、法力药水和一瓶战斗灵药。",
+      "enchantHint": "将上等花苞与腐化碎片结合，铸成可持续半小时的符文。",
+      "extractHint": "把收获的花苞洗炼成大麻脂、脆片、鲜活树脂与钻石。",
       "craftButton": "制作",
       "costLabel": "花费",
       "requiresLabel": "需要",
@@ -1085,8 +1098,31 @@ export const zh_CN: EnTranslations = {
         "recipeUnavailable": "这里没有该配方。",
         "tooFarFromStation": "你离工作台太远了。",
         "levelTooLow": "你的技艺还不足以制作那个。",
-        "missingMaterials": "你缺少制作所需的材料。"
+        "missingMaterials": "你缺少制作所需的材料。",
+        "budsNotFresh": "这些花苞已经干了。鲜活树脂要在收获后立刻萃取。",
+        "processRunning": "这道工序还在进行中。等它完成后再来。"
       }
+    },
+    "trade": {
+      "cutLabel": "插枝",
+      "hint": "插枝是复制品：你保留自己的母株，对方需要一个空的品系槽位。"
+    },
+    "cup": {
+      "title": "山谷杯",
+      "open": "参加山谷杯",
+      "hint": "评审看的是基因、你带来的品级，以及你对这株植物的了解。",
+      "season": "第 {season} 赛季",
+      "remainingHours": "剩余 {hours} 小时 {minutes} 分",
+      "remainingMinutes": "剩余 {minutes} 分",
+      "best": "你的最高分：{score}",
+      "emptyBoard": "本赛季还没有参赛作品。榜单由你来开启。",
+      "gradeLabel": "花苞品级",
+      "strainLabel": "品系",
+      "noBuds": "没有可参赛的花苞。先去收获一季。",
+      "noStrains": "还没有品系。收获一季即可发现一个。",
+      "projected": "得分 {score}",
+      "enter": "参赛（{count} 枚花苞，得分 {score}）",
+      "posted": "{strain} 已上榜，得分 {score}，排名第 {rank}。"
     },
     "garden": {
       "title": "花园",
@@ -1096,6 +1132,9 @@ export const zh_CN: EnTranslations = {
       "empty": "空地块",
       "plant": "种植",
       "harvest": "收获",
+      "tend": "照料",
+      "tendCount": "已照料 {tends}/{total}",
+      "tendNudge": "有 {count} 株植物可以照料。",
       "ready": "可收获",
       "open": "打理花园",
       "locked": "已锁定",
@@ -1115,7 +1154,16 @@ export const zh_CN: EnTranslations = {
       "plant": "种植",
       "release": "释放",
       "breed": "杂交",
-      "full": "你的品系库已满。释放一个品系以腾出空间。"
+      "lineage": "{a} x {b}",
+      "bredBy": "Bred by {name}",
+      "cost": "杂交花费：{count} 枚史诗花苞（你有 {held} 枚）",
+      "needEpicBuds": "照料作物即可获得史诗花苞。完美的一轮种植必定掉落一枚。",
+      "mastery": "精通",
+      "masteryAria": "{strain} 精通：{mastery} / {max}",
+      "full": "你的品系库已满。释放一个品系以腾出空间。",
+      "refine": "精炼",
+      "refineHint": "把第二个品系并入第一个，提升它并腾出一个槽位。",
+      "fullRefine": "你的品系库已满。精炼或释放一个品系以腾出空间。"
     },
     "reputation": {
       "tier": {
@@ -5191,6 +5239,30 @@ export const zh_CN: EnTranslations = {
       "infused_lozenge_prime": {
         "name": "极品浸制含片"
       },
+      "resin_glyph_vigor": {
+        "name": "活力树脂符文"
+      },
+      "resin_glyph_focus": {
+        "name": "专注树脂符文"
+      },
+      "resin_glyph_warding": {
+        "name": "守护树脂符文"
+      },
+      "vale_hash": {
+        "name": "山谷大麻脂"
+      },
+      "golden_shatter": {
+        "name": "黄金脆片"
+      },
+      "live_resin": {
+        "name": "鲜活树脂"
+      },
+      "bloom_diamonds": {
+        "name": "花晶钻石"
+      },
+      "epic_bud": {
+        "name": "史诗花苞"
+      },
       "bristleback_maul": {
         "name": "硬鬃重槌"
       },
@@ -6174,6 +6246,21 @@ export const zh_CN: EnTranslations = {
         "name": "塞布尔",
         "title": "炼金术士",
         "greeting": "{className}，从山谷里给我采来花蕾，我便能提炼出其中的精华：治愈血肉的药水、令心神敏捷的药剂，还有一瓶磨砺神智的灵药。"
+      },
+      "glyphwright_orrin": {
+        "name": "奥林",
+        "title": "符文匠",
+        "greeting": "任何种植者都能烧掉自己最好的花，{className}。把你的上等花苞和一块裂隙碎片带来，我会把两者绑成一枚可维持半小时的符文。"
+      },
+      "extractor_rell": {
+        "name": "雷尔",
+        "title": "萃取师",
+        "greeting": "花只是起点，{className}，不是终点。把花苞带来，我能洗成大麻脂、脆片或钻石。要是刚从苗床上摘下、还带着水汽，我们能做出更好的东西。"
+      },
+      "cup_steward_wilder": {
+        "name": "怀尔德",
+        "title": "山谷杯司仪",
+        "greeting": "山谷杯开赛了，{className}。带一个品系和十枚花苞来，我就把你的名字写上榜。评的是基因、你带来的品级，还有你对这株植物有多熟。三样齐全，不然你只是来凑数的。"
       },
       "banker_thistle": {
         "name": "金库管理员西斯尔",
@@ -7255,6 +7342,9 @@ export const zh_CN: EnTranslations = {
           },
           "11": {
             "label": "The Lodge"
+          },
+          "12": {
+            "label": "种植台地"
           }
         }
       },

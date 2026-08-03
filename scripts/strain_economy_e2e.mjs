@@ -29,6 +29,9 @@ const browser = await puppeteer.launch({
     '--window-size=1600,900',
     '--use-angle=swiftshader',
     '--enable-unsafe-swiftshader',
+    // Sandboxed runs export a proxy; localhost must bypass it or the dev server
+    // is unreachable from inside the browser.
+    '--proxy-bypass-list=<-loopback>',
     ...(process.getuid?.() === 0 ? ['--no-sandbox', '--disable-setuid-sandbox'] : []),
   ],
   defaultViewport: { width: 1600, height: 900 },

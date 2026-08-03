@@ -9,6 +9,7 @@
 // no Math.random/Date.now (enforced by tests/architecture.test.ts). Draws NO rng.
 
 import { CRAFT_RECIPES_BY_ID, NPCS } from './data';
+import { STATION_PROFESSION, trainProfession } from './professions';
 import { meetsTier } from './reputation';
 import type { SimContext } from './sim_context';
 import { type CraftStation, dist2d, type Entity, INTERACT_RANGE } from './types';
@@ -62,6 +63,25 @@ export function craft(ctx: SimContext, recipeId: string, pid?: number): void {
     ctx.error(meta.entityId, 'The commune does not trust you enough for that yet.');
     return;
   }
+  if (recipe.processSeconds !== undefined) {
+    // A long process is still running: the bench is busy, not the player. Checked before
+    // the cost so a refusal never charges, like every other guard here.
+    const readyAt = meta.craftReadyAt[recipe.id] ?? 0;
+    if (ctx.time < readyAt) {
+      ctx.error(meta.entityId, 'That process is still running. Come back when it is done.');
+      return;
+    }
+  }
+  if (recipe.requiresFreshHarvest !== undefined) {
+    // Live resin is pressed from material that never dried, so the recipe reads the
+    // player's last garden harvest rather than the bags (inventory stacks are fungible
+    // and carry no age). Missing the window costs nothing: the same buds still make hash.
+    const last = meta.lastHarvestAt;
+    if (last === null || ctx.time - last > recipe.requiresFreshHarvest) {
+      ctx.error(meta.entityId, 'Those buds have dried. Extract live resin right after a harvest.');
+      return;
+    }
+  }
   if (meta.copper < recipe.copperCost) {
     ctx.error(meta.entityId, 'Not enough money.');
     return;
@@ -77,5 +97,12 @@ export function craft(ctx: SimContext, recipeId: string, pid?: number): void {
   meta.copper -= recipe.copperCost;
   for (const input of recipe.inputs) ctx.removeItem(input.itemId, input.count, meta.entityId);
   ctx.addItem(recipe.output.itemId, recipe.output.count, meta.entityId);
+  // A craft trains its station's skill, the same way a gather trains a node's. Trained
+  // AFTER the checks so a failed craft never advances the line that gates it.
+  trainProfession(meta.professions, STATION_PROFESSION[recipe.station]);
+  // Start the next run's clock only on a craft that actually happened.
+  if (recipe.processSeconds !== undefined) {
+    meta.craftReadyAt[recipe.id] = ctx.time + recipe.processSeconds;
+  }
   ctx.emit({ type: 'craft', recipeId: recipe.id, pid: meta.entityId });
 }

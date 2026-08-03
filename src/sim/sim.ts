@@ -78,6 +78,7 @@ import { applyCooldowns, type SavedCooldowns, serializeCooldowns } from './coold
 import * as crafting from './crafting';
 import * as cultivation from './cultivation';
 import { emptyPlots, restorePlots, serializePlots } from './cultivation';
+import * as cup from './cup';
 import type { DelveShopGate, DelveShopOffer } from './data';
 import {
   abilitiesKnownAt,
@@ -188,6 +189,7 @@ import {
   professionsView,
   restoreProfessions,
   serializeProfessions,
+  trainProfession,
 } from './professions';
 import {
   applyTalentAllocation,
@@ -218,6 +220,7 @@ import * as tradeMod from './social/trade';
 import {
   breedStrains,
   emptyStrains,
+  refineStrain,
   releaseStrain,
   restoreStrains,
   type SavedStrain,
@@ -296,6 +299,8 @@ import {
   angleTo,
   armorReduction,
   type CrowdControlDrCategory,
+  type CupEntry,
+  type CupStanding,
   DELVE_COMPANION_HEAL_INTERVAL,
   type DelveDef,
   type DelveModuleDef,
@@ -507,8 +512,10 @@ export interface Party {
 export interface TradeSession {
   a: number;
   b: number;
-  offerA: { items: InvSlot[]; copper: number };
-  offerB: { items: InvSlot[]; copper: number };
+  // Each side may also stake ONE cut: a copy of a library strain. One per side because
+  // that is the shape of the real trade the mechanic is modelling, a cut for a cut.
+  offerA: { items: InvSlot[]; copper: number; strainId: string | null };
+  offerB: { items: InvSlot[]; copper: number; strainId: string | null };
   acceptedA: boolean;
   acceptedB: boolean;
 }
@@ -692,9 +699,26 @@ export interface PlayerMeta {
   // cultivation/breeding, gates recipes/strains. Persisted in CharacterState. See
   // src/sim/reputation.ts.
   reputation: Record<FactionId, number>;
-  // Gathering-profession skills (Mining / Herbalism / Logging), 0..PROFESSION_MAX. Raised
-  // by working world nodes; persisted in CharacterState. See src/sim/professions.ts.
+  // Profession skills, 0..PROFESSION_MAX each, raised by doing the matching activity;
+  // persisted in CharacterState. See src/sim/professions.ts for the roster and who
+  // trains each one.
   professions: ProfessionSkills;
+  // Sim time of this player's most recent garden harvest, or null if they have not
+  // harvested this session. The Extraction Lab's live-resin recipe reads it: real live
+  // resin is made from material that never dried, so in-game it must come from a fresh
+  // harvest (FRESH_HARVEST_WINDOW). Deliberately NOT persisted: it is an absolute clock
+  // stamp (the plots store elapsed time for exactly that reason), and a player who just
+  // logged in was not standing at the field when the crop came in.
+  lastHarvestAt: number | null;
+  // Best Vale Cup score this character has ever posted. The season board itself is Sim
+  // state and clears every season; this is the one part that outlives it, which is what a
+  // returning grower is measured against. Persisted in CharacterState.
+  cupBest: number;
+  // When each long-process recipe (CraftRecipe.processSeconds) is next runnable, as a sim
+  // time. Only recipes that HAVE a process time ever appear, so this stays a couple of
+  // keys rather than one per recipe. Persisted as time REMAINING, not as a clock stamp,
+  // for the same reason the plots store elapsed grow time: the sim clock resets.
+  craftReadyAt: Record<string, number>;
   copper: number;
   equipment: PlayerEquipment;
   xp: number;
@@ -835,6 +859,11 @@ export interface CharacterState {
   reputation?: SavedReputation;
   // Gathering-profession skills. Optional so pre-professions saves load cleanly (default 0).
   professions?: ProfessionSkills;
+  // Best Vale Cup score ever posted. Optional so a pre-Cup save loads at 0.
+  cupBest?: number;
+  // Long-process recipe cooldowns as seconds REMAINING at save time (never an absolute
+  // clock stamp), rebased onto the current clock on load.
+  craftCooldowns?: Record<string, number>;
   questLog: { questId: string; counts: number[]; state: 'active' | 'ready' | 'done' }[];
   questsDone: string[];
   // Persistent quest branch flags. Optional so pre-Phase-D saves load cleanly (default []).
@@ -986,6 +1015,10 @@ export class Sim {
   instances: InstanceSlot[] = [];
   // delve instances (separate slot pool from dungeons)
   delveRuns: DelveRun[] = [];
+  // The Vale Cup's board for the running season. Sim state (like the Market book), not
+  // per-player: every grower in this world competes on one board. Cleared when the clock
+  // crosses a season boundary. See src/sim/cup.ts.
+  cupEntries: CupEntry[] = [];
   private delvePetStash = new Map<number, PetState>();
   // Real-world UTC day ('YYYY-MM-DD') for the delve daily reset (FR-5.1). The sim
   // core must stay deterministic, so it never reads the wall clock itself: the host
@@ -1304,6 +1337,9 @@ export class Sim {
       strainSeq: 0,
       reputation: emptyReputation(),
       professions: emptyProfessions(),
+      lastHarvestAt: null,
+      cupBest: 0,
+      craftReadyAt: {},
       copper: 0,
       equipment: { mainhand: classDef.startWeapon, chest: classDef.startChest },
       xp: 0,
@@ -1372,6 +1408,11 @@ export class Sim {
       meta.strainSeq = s.strainSeq ?? 0;
       meta.reputation = restoreReputation(s.reputation);
       meta.professions = restoreProfessions(s.professions);
+      meta.cupBest = Math.max(0, s.cupBest ?? 0);
+      meta.craftReadyAt = {};
+      for (const [id, left] of Object.entries(s.craftCooldowns ?? {})) {
+        if (left > 0) meta.craftReadyAt[id] = this.time + left;
+      }
       for (const q of s.questLog) {
         if (q.state !== 'done')
           meta.questLog.set(q.questId, {
@@ -1586,6 +1627,12 @@ export class Sim {
       strainSeq: meta.strainSeq,
       reputation: serializeReputation(meta.reputation),
       professions: serializeProfessions(meta.professions),
+      cupBest: meta.cupBest,
+      craftCooldowns: Object.fromEntries(
+        Object.entries(meta.craftReadyAt)
+          .map(([id, at]) => [id, Math.max(0, Math.ceil(at - this.time))] as const)
+          .filter(([, left]) => left > 0),
+      ),
       questLog: [...meta.questLog.values()].map((q) => ({
         questId: q.questId,
         counts: [...q.counts],
@@ -2152,6 +2199,9 @@ export class Sim {
       // instance is constructed after this host literal, so the getter reads it lazily).
       get devCommands() {
         return sim.devCommands;
+      },
+      get cupEntries() {
+        return sim.cupEntries;
       },
       get marketListings() {
         return sim.marketListings;
@@ -4597,6 +4647,7 @@ export class Sim {
   private completeFishing(p: Entity, meta: PlayerMeta): void {
     if (this.shouldCatchCodfather(p, meta)) {
       this.addItem(THE_CODFATHER_ITEM_ID, 1, meta.entityId);
+      trainProfession(meta.professions, 'fishing');
       return;
     }
     // The catch depends on which zone's water you're fishing — each has its own
@@ -4641,6 +4692,9 @@ export class Sim {
     // popup. Carries only the item id (no text), so the sim stays language-agnostic.
     this.emit({ type: 'fishCatch', itemId: caught, rare, pid: p.id });
     this.addItem(caught, 1, meta.entityId);
+    // Fishing is a profession like mining: the catch trains it. Only a real catch
+    // counts, so an empty line ("No fish are biting") returns above without training.
+    trainProfession(meta.professions, 'fishing');
   }
 
   useItem(itemId: string, pid?: number): ItemUseResult | undefined {
@@ -4692,6 +4746,10 @@ export class Sim {
     cultivation.plantStrain(this.ctx, plotIndex, strainId, pid);
   }
 
+  tendPlot(plotIndex: number, pid?: number): void {
+    cultivation.tendPlot(this.ctx, plotIndex, pid);
+  }
+
   harvestPlot(plotIndex: number, pid?: number): void {
     cultivation.harvestPlot(this.ctx, plotIndex, pid);
   }
@@ -4701,6 +4759,31 @@ export class Sim {
   // strain_library.ts); the library is per-player PlayerMeta state, persisted in the save.
   breedStrains(strainIdA: string, strainIdB: string, pid?: number): void {
     breedStrains(this.ctx, strainIdA, strainIdB, pid);
+  }
+
+  // --- The Vale Cup (IWorld facade + server dispatch) ---
+  enterCup(strainId: string, budItemId: string, pid?: number): void {
+    cup.enterCup(this.ctx, strainId, budItemId, pid);
+  }
+
+  get cupStandings(): CupStanding[] {
+    return cup.cupStandings(this.cupEntries, this.time);
+  }
+
+  get cupSeason(): number {
+    return cup.cupSeasonAt(this.time);
+  }
+
+  get cupSecondsRemaining(): number {
+    return cup.cupSeasonRemaining(this.time);
+  }
+
+  get cupBest(): number {
+    return this.primary.cupBest;
+  }
+
+  refineStrain(targetStrainId: string, donorStrainId: string, pid?: number): void {
+    refineStrain(this.ctx, targetStrainId, donorStrainId, pid);
   }
 
   releaseStrain(strainId: string, pid?: number): void {
@@ -5439,8 +5522,13 @@ export class Sim {
     tradeMod.tradeAccept(this.ctx, pid);
   }
 
-  tradeSetOffer(items: InvSlot[], copper: number, pid?: number): void {
-    tradeMod.tradeSetOffer(this.ctx, items, copper, pid);
+  tradeSetOffer(
+    items: InvSlot[],
+    copper: number,
+    strainId: string | null = null,
+    pid?: number,
+  ): void {
+    tradeMod.tradeSetOffer(this.ctx, items, copper, strainId, pid);
   }
 
   tradeConfirm(pid?: number): void {

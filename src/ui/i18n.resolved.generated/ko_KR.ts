@@ -289,6 +289,15 @@ export const ko_KR: EnTranslations = {
       "mining": "채광",
       "herbalism": "약초 채집",
       "logging": "벌목",
+      "cultivation": "재배",
+      "breeding": "교배",
+      "fishing": "낚시",
+      "cooking": "요리",
+      "alchemy": "연금술",
+      "smithing": "대장 기술",
+      "enchanting": "마법부여",
+      "extraction": "추출",
+      "lockpicking": "자물쇠 따기",
       "skillAria": "{profession}: {skill} of {max}"
     },
     "loadouts": {
@@ -1060,10 +1069,14 @@ export const ko_KR: EnTranslations = {
       "upgradeTitle": "개조 작업대",
       "cookTitle": "모닥불 요리",
       "alchemyTitle": "연금술 실험실",
+      "enchantTitle": "주입대",
+      "extractTitle": "추출 실험실",
       "growHint": "영양제 제작, 씨앗 품종 강화, 재배 장비 제작.",
       "upgradeHint": "장비를 다시 벼리고, 부패의 파편으로 전투 소모품을 깎아낸다.",
       "cookHint": "잡은 물고기를 요리하여 체력과 마나를 회복시켜 주는 든든한 음식을 만드세요.",
       "alchemyHint": "수확한 꽃봉오리를 치유와 마나 물약, 그리고 전투용 엘릭서로 조제합니다.",
+      "enchantHint": "최상급 꽃봉오리와 타락의 파편을 엮어 30분간 지속되는 문양을 새깁니다.",
+      "extractHint": "수확한 꽃봉오리를 해시시, 셰터, 생수지, 다이아몬드로 씻어냅니다.",
       "craftButton": "제작",
       "costLabel": "비용",
       "requiresLabel": "필요",
@@ -1085,8 +1098,31 @@ export const ko_KR: EnTranslations = {
         "recipeUnavailable": "여기서는 그 제조법을 쓸 수 없습니다.",
         "tooFarFromStation": "작업대에서 너무 멀리 있습니다.",
         "levelTooLow": "아직 그것을 제작할 만한 실력이 안 됩니다.",
-        "missingMaterials": "제작에 필요한 재료가 부족합니다."
+        "missingMaterials": "제작에 필요한 재료가 부족합니다.",
+        "budsNotFresh": "그 꽃봉오리는 이미 말랐습니다. 생수지는 수확 직후에 추출해야 합니다.",
+        "processRunning": "그 공정은 아직 돌아가고 있습니다. 끝나면 다시 오세요."
       }
+    },
+    "trade": {
+      "cutLabel": "꺾꽂이",
+      "hint": "꺾꽂이는 복제입니다. 모주는 그대로 두고, 상대에게는 빈 품종 칸이 필요합니다."
+    },
+    "cup": {
+      "title": "밸리 컵",
+      "open": "밸리 컵에 출품",
+      "hint": "유전, 가져온 등급, 그리고 그 식물을 얼마나 잘 아는지로 심사합니다.",
+      "season": "{season} 시즌",
+      "remainingHours": "{hours}시간 {minutes}분 남음",
+      "remainingMinutes": "{minutes}분 남음",
+      "best": "내 최고 점수: {score}",
+      "emptyBoard": "이번 시즌 출품이 아직 없습니다. 순위표를 여는 건 당신입니다.",
+      "gradeLabel": "꽃봉오리 등급",
+      "strainLabel": "품종",
+      "noBuds": "출품할 꽃봉오리가 없습니다. 먼저 수확하세요.",
+      "noStrains": "품종이 아직 없습니다. 수확하면 하나 발견합니다.",
+      "projected": "{score}점",
+      "enter": "출품 (꽃봉오리 {count}개, {score}점)",
+      "posted": "{strain}이(가) {score}점으로 {rank}위에 올랐습니다."
     },
     "garden": {
       "title": "정원",
@@ -1096,6 +1132,9 @@ export const ko_KR: EnTranslations = {
       "empty": "빈 밭",
       "plant": "심기",
       "harvest": "수확",
+      "tend": "돌보기",
+      "tendCount": "돌봄 {tends}/{total}",
+      "tendNudge": "{count}그루가 돌볼 준비가 되었습니다.",
       "ready": "수확 가능",
       "open": "정원 가꾸기",
       "locked": "잠김",
@@ -1115,7 +1154,16 @@ export const ko_KR: EnTranslations = {
       "plant": "심기",
       "release": "방출",
       "breed": "교배",
-      "full": "품종 보관함이 가득 찼습니다. 품종을 방출해 공간을 만드세요."
+      "lineage": "{a} x {b}",
+      "bredBy": "Bred by {name}",
+      "cost": "교배 비용: 영웅 꽃봉오리 {count}개 (보유 {held}개)",
+      "needEpicBuds": "작물을 돌보면 영웅 꽃봉오리를 얻습니다. 완벽하게 기르면 반드시 하나 나옵니다.",
+      "mastery": "숙련도",
+      "masteryAria": "{strain} 숙련도: {max} 중 {mastery}",
+      "full": "품종 보관함이 가득 찼습니다. 품종을 방출해 공간을 만드세요.",
+      "refine": "정제",
+      "refineHint": "두 번째 품종을 첫 번째에 접어 넣어 강화하고 슬롯을 하나 비웁니다.",
+      "fullRefine": "품종 보관함이 가득 찼습니다. 정제하거나 하나를 방출해 자리를 비우세요."
     },
     "reputation": {
       "tier": {
@@ -5191,6 +5239,30 @@ export const ko_KR: EnTranslations = {
       "infused_lozenge_prime": {
         "name": "최상급 침출 정제"
       },
+      "resin_glyph_vigor": {
+        "name": "활력의 수지 문양"
+      },
+      "resin_glyph_focus": {
+        "name": "집중의 수지 문양"
+      },
+      "resin_glyph_warding": {
+        "name": "수호의 수지 문양"
+      },
+      "vale_hash": {
+        "name": "계곡 해시시"
+      },
+      "golden_shatter": {
+        "name": "황금 셰터"
+      },
+      "live_resin": {
+        "name": "생수지"
+      },
+      "bloom_diamonds": {
+        "name": "개화 다이아몬드"
+      },
+      "epic_bud": {
+        "name": "영웅 꽃봉오리"
+      },
       "bristleback_maul": {
         "name": "뻣센등뼈 철퇴"
       },
@@ -6174,6 +6246,21 @@ export const ko_KR: EnTranslations = {
         "name": "세이블",
         "title": "연금술사",
         "greeting": "{className}이여, 골짜기에서 꽃봉오리를 가져다주게. 그러면 내가 그 정수를 뽑아내겠네. 살을 아물게 하는 물약, 정신을 맑게 하는 물약, 그리고 지혜를 날카롭게 하는 엘릭서를 말일세."
+      },
+      "glyphwright_orrin": {
+        "name": "오린",
+        "title": "문양사",
+        "greeting": "최고의 꽃을 태우는 건 아무 재배자나 할 수 있지요, {className}. 최상급 꽃봉오리와 균열의 파편을 가져오시면 둘을 엮어 30분간 지속되는 문양으로 만들어 드리겠습니다."
+      },
+      "extractor_rell": {
+        "name": "렐",
+        "title": "추출사",
+        "greeting": "꽃은 시작일 뿐 끝이 아닙니다, {className}. 꽃봉오리를 가져오시면 해시시든 셰터든 다이아몬드든 씻어 드리지요. 밭에서 갓 딴 젖은 것이라면 더 좋은 걸 만들 수 있습니다."
+      },
+      "cup_steward_wilder": {
+        "name": "와일더",
+        "title": "밸리 컵 관리인",
+        "greeting": "컵이 열렸습니다, {className}. 품종 하나와 거기서 딴 꽃봉오리 열 개를 가져오시면 순위표에 이름을 올려 드리지요. 심사는 유전, 가져온 등급, 그리고 그 식물을 얼마나 아는지. 셋 다 아니면 그냥 출품일 뿐입니다."
       },
       "banker_thistle": {
         "name": "금고지기 시슬",
@@ -7255,6 +7342,9 @@ export const ko_KR: EnTranslations = {
           },
           "11": {
             "label": "The Lodge"
+          },
+          "12": {
+            "label": "재배 테라스"
           }
         }
       },

@@ -2,10 +2,12 @@
 // ring) in its out-of-combat and in-combat states. Boots the offline world,
 // aggroes a nearby wild mob onto the player to engage combat, and crops the
 // player unit frame for a clean before/after comparison.
-import puppeteer from 'puppeteer-core';
+
 import fs from 'node:fs';
+import puppeteer from 'puppeteer-core';
 
 import { BROWSER_PATH as EDGE } from './browser_path.mjs';
+
 const URL = process.env.GAME_URL ?? 'http://localhost:5173';
 fs.mkdirSync('tmp', { recursive: true });
 
@@ -33,7 +35,12 @@ const clip = async (name) => {
   const pad = 14;
   await page.screenshot({
     path: `tmp/${name}.png`,
-    clip: { x: box.x - pad, y: box.y - pad, width: box.width + pad * 2, height: box.height + pad * 2 },
+    clip: {
+      x: box.x - pad,
+      y: box.y - pad,
+      width: box.width + pad * 2,
+      height: box.height + pad * 2,
+    },
   });
   console.log(`wrote tmp/${name}.png`);
 };
@@ -46,15 +53,20 @@ await clip('combat_indicator_off');
 const ok = await page.evaluate(() => {
   const sim = window.__game.sim;
   const p = sim.player;
-  let mob = null, d = 1e9;
+  let mob = null,
+    d = 1e9;
   for (const e of sim.entities.values()) {
     if (e.kind === 'mob' && !e.dead && e.hostile) {
       const dd = Math.hypot(e.pos.x - p.pos.x, e.pos.z - p.pos.z);
-      if (dd < d) { d = dd; mob = e; }
+      if (dd < d) {
+        d = dd;
+        mob = e;
+      }
     }
   }
   if (!mob) return false;
-  mob.pos.x = p.pos.x + 4; mob.pos.z = p.pos.z;
+  mob.pos.x = p.pos.x + 4;
+  mob.pos.z = p.pos.z;
   mob.aggroTargetId = p.id;
   sim.targetEntity(mob.id);
   return true;
