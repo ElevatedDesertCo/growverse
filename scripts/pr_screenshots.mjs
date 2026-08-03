@@ -48,7 +48,15 @@ const browser = await puppeteer.launch({
   executablePath: BROWSER_PATH,
   // Software GL so it runs on a headless CI box with no GPU, matching the other tours.
   headless: 'new',
-  args: ['--window-size=1600,900', '--use-angle=swiftshader', '--enable-unsafe-swiftshader'],
+  args: [
+    '--window-size=1600,900',
+    '--use-angle=swiftshader',
+    '--enable-unsafe-swiftshader',
+    // CI runs as a normal user, but a local root shell (containers, some dev boxes) cannot
+    // start Chrome's sandbox at all, so the run dies before the first frame. Same guard the
+    // other browser scripts here use; a no-op off root.
+    ...(process.getuid?.() === 0 ? ['--no-sandbox', '--disable-setuid-sandbox'] : []),
+  ],
   defaultViewport: { width: 1600, height: 900 },
 });
 
@@ -105,6 +113,13 @@ async function changeAwareTour() {
   watch(page, 'desktop');
   await page.goto(URL, { waitUntil: 'networkidle0', timeout: 60000 });
   await enterOfflineGame(page, { charClass: 'warrior', charName: 'Thorgar', settleMs: 3000 });
+  // A fresh character lands with the tutorial panel up, and it renders OVER the windows the
+  // targets below clip to, hiding their titles. Dismiss it once here rather than in each
+  // recipe: it degrades every frame this tour takes, not just one. (Left out of the shared
+  // enter_offline_game helper on purpose, whose contract keeps post-entry concerns with the
+  // caller, and which ~20 other scripts depend on.)
+  await page.evaluate(() => document.querySelector('.tut-skip')?.click());
+  await new Promise((r) => setTimeout(r, 400));
   let i = 1;
   for (const t of targets) {
     const idx = String(i).padStart(2, '0');
