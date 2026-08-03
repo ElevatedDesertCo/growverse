@@ -15,7 +15,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 586,
-      "state": "09040414",
+      "state": "8ecaa49a",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -31,6 +31,7 @@
           "cls": "hunter",
           "companionUpgrades": {},
           "counters": {},
+          "craftReadyAt": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 585,
@@ -213,7 +214,7 @@
       "tick": 20,
       "time": 1,
       "nextId": 589,
-      "state": "549353b0",
+      "state": "e5b61312",
       "events": "a8c1f6cd",
       "rng": {
         "draws": 6,
@@ -224,7 +225,7 @@
       "tick": 40,
       "time": 2,
       "nextId": 589,
-      "state": "acefa764",
+      "state": "f3d4c4be",
       "events": "741638a5",
       "rng": {
         "draws": 6,
@@ -235,7 +236,7 @@
       "tick": 60,
       "time": 3,
       "nextId": 589,
-      "state": "3a168bfe",
+      "state": "b03f2b18",
       "events": "d5ddd7a0",
       "rng": {
         "draws": 115,
@@ -246,7 +247,7 @@
       "tick": 80,
       "time": 4,
       "nextId": 589,
-      "state": "1c5d64b2",
+      "state": "83672094",
       "events": "741638a5",
       "rng": {
         "draws": 228,
@@ -257,7 +258,7 @@
       "tick": 100,
       "time": 5,
       "nextId": 589,
-      "state": "f57aefe5",
+      "state": "bd8fcacf",
       "events": "b9dd8dd5",
       "rng": {
         "draws": 349,
@@ -268,7 +269,7 @@
       "tick": 120,
       "time": 6,
       "nextId": 589,
-      "state": "e7342fb1",
+      "state": "fd735f73",
       "events": "741638a5",
       "rng": {
         "draws": 485,
@@ -279,7 +280,7 @@
       "tick": 120,
       "time": 6,
       "nextId": 589,
-      "state": "e7342fb1",
+      "state": "fd735f73",
       "events": "741638a5",
       "rng": {
         "draws": 485,
@@ -295,6 +296,7 @@
           "cls": "hunter",
           "companionUpgrades": {},
           "counters": {},
+          "craftReadyAt": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 585,

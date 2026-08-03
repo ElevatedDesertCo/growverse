@@ -15,7 +15,7 @@
       "tick": 0,
       "time": 0,
       "nextId": 586,
-      "state": "04a8ac9d",
+      "state": "2350a287",
       "events": "741638a5",
       "rng": {
         "draws": 0,
@@ -31,6 +31,7 @@
           "cls": "mage",
           "companionUpgrades": {},
           "counters": {},
+          "craftReadyAt": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 585,
@@ -212,7 +213,7 @@
       "tick": 20,
       "time": 1,
       "nextId": 587,
-      "state": "49e57a5a",
+      "state": "31bd1cc4",
       "events": "08470176",
       "rng": {
         "draws": 2,
@@ -223,7 +224,7 @@
       "tick": 40,
       "time": 2,
       "nextId": 587,
-      "state": "0e5858ad",
+      "state": "b8e1c9ff",
       "events": "8d3da95a",
       "rng": {
         "draws": 2,
@@ -234,7 +235,7 @@
       "tick": 60,
       "time": 3,
       "nextId": 587,
-      "state": "3c49affd",
+      "state": "b0d667cf",
       "events": "27547ace",
       "rng": {
         "draws": 85,
@@ -245,7 +246,7 @@
       "tick": 80,
       "time": 4,
       "nextId": 587,
-      "state": "7ef7a8e4",
+      "state": "7bd65abe",
       "events": "e16b67c5",
       "rng": {
         "draws": 197,
@@ -256,7 +257,7 @@
       "tick": 100,
       "time": 5,
       "nextId": 587,
-      "state": "7979b857",
+      "state": "b2368211",
       "events": "f9e8edb5",
       "rng": {
         "draws": 329,
@@ -267,7 +268,7 @@
       "tick": 120,
       "time": 6,
       "nextId": 587,
-      "state": "04d90089",
+      "state": "ba561313",
       "events": "5f0538cd",
       "rng": {
         "draws": 475,
@@ -278,7 +279,7 @@
       "tick": 128,
       "time": 6.4,
       "nextId": 587,
-      "state": "7f113c99",
+      "state": "d3ffd0a3",
       "events": "741638a5",
       "rng": {
         "draws": 539,
@@ -297,6 +298,7 @@
             "damageDealt": 91,
             "damageTaken": 15
           },
+          "craftReadyAt": {},
           "delveClears": {},
           "delveDaily": {},
           "entityId": 585,
