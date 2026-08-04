@@ -47,12 +47,23 @@ export function makeWindowFocus(fm: FocusManager, root: () => HTMLElement): Wind
       // down the trap; only a return-to-opener on close (target outside the
       // window, or null) releases it.
       const r = root();
-      if (target && r.contains(target)) {
+      if (target && r?.contains(target)) {
         fm.restore(target);
         return;
       }
       handle?.release(false);
       handle = null;
+      // Close with NO opener to return to. A window opened while focus sat on <body>
+      // (a keybind, or a click the browser did not focus) captures a null opener, so
+      // restore() has nowhere to send focus and the browser leaves activeElement on the
+      // control inside the window we just hid. Focus then sits on a display:none button:
+      // the next Tab resumes from a detached point and a screen reader reads an invisible
+      // control. Blur it so focus falls back to the document and Tab restarts from the
+      // top. Only on the close path, and only when focus is actually still inside.
+      if (!target) {
+        const active = typeof document === 'undefined' ? null : document.activeElement;
+        if (active instanceof HTMLElement && r?.contains(active)) active.blur();
+      }
       fm.restore(target);
     },
   };

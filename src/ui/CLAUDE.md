@@ -38,7 +38,9 @@ mobile portrait *and* landscape before calling UI work done.
     check: `node scripts/mobile_input_zoom_check.mjs` (needs `npm run dev`).
   - Every tappable target stays **>=40x40px** on mobile touch (the preferred floor); 24x24px
     (WCAG 2.2 SC 2.5.8) is the absolute minimum, used only where 40x40 is genuinely infeasible.
-    Do NOT weaken the 40x40 floor to 24px.
+    Do NOT weaken the 40x40 floor to 24px. This is a RENDERED size, so source review cannot
+    settle it: regression check `node scripts/mobile_touch_target_check.mjs` (needs
+    `npm run dev`), which measures every control in each window in portrait AND landscape.
   - Narrow headers collapse to a hamburger drawer rather than wrapping/overflowing.
 - **Accessibility (WCAG 2.2 AA):** correct semantics / ARIA, high-contrast `:focus-visible` on
   every custom interactive element, honor `prefers-reduced-motion` (drop cross-fades, content
@@ -52,7 +54,16 @@ mobile portrait *and* landscape before calling UI work done.
     `FocusManager` + `FOCUSABLE_SELECTOR`), which `Hud` drives through `windowFocus(rootSel)`.
     The trap intercepts Tab ONLY when focus is already inside (Tab is the game's target-nearest
     key, so an unconditional trap would hijack it). Esc stays with the single `closeAll`
-    dispatcher, not the manager.
+    dispatcher, not the manager. A window opened from a keybind captures a NULL opener (focus
+    sat on `<body>`), so the bridge (`window_focus.ts`) also BLURS on that close path: without
+    it focus is left on a control inside the now-hidden window, the next Tab resumes from a
+    detached point, and a screen reader reads an invisible button. Covered by
+    `tests/window_focus.test.ts`.
+    The hand-rolled panels built inline in `hud.ts` (garden / breeding / cup / loot / stash) are
+    wired through `panelFocusOpen`/`panelFocusClose`, which own one bridge per root. **Vendor and
+    crafting are deliberately NOT wired:** on touch they open `#bags` alongside their own window
+    as one interaction, so a single-root trap would make the bag grid unreachable by Tab. They
+    need a multi-root trap.
   - **Visible focus that never animates away:** every outline-based `:focus-visible` ring is
     steady and drawn from a token / system color, never a raw hex, never transitioned off.
   - **Skip links** ("Skip to Main HUD" / "Skip to Chat") are the first focusable elements;
