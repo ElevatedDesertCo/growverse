@@ -5307,6 +5307,9 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
     '두 번째 품종을 첫 번째에 접어 넣어 강화하고 슬롯을 하나 비웁니다.',
   'hudChrome.breeding.fullRefine':
     '품종 보관함이 가득 찼습니다. 정제하거나 하나를 방출해 자리를 비우세요.',
+  'hudChrome.breeding.outlookTitle': '이 교배가 낼 수 있는 결과',
+  'hudChrome.breeding.outlookRow': '{trait}: {target} 유지 확률 최소 {chance}%, 최대 {ceiling}까지',
+  'hudChrome.breeding.outlookLandrace': '이 조합은 랜드레이스에 도달할 수 있습니다.',
   'hudChrome.breeding.mastery': '숙련도',
   'hudChrome.breeding.masteryAria': '{strain} 숙련도: {max} 중 {mastery}',
   'hudChrome.reputation.tier.neutral': '중립',

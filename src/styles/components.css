@@ -3595,6 +3595,30 @@
     padding: 8px 5px;
     border-top: 1px solid #463a1c;
   }
+  /* The pre-cross outlook, between the library list and the cost/action row. Quiet by
+     default (it is a projection, not a promise) with the landrace line picking up the
+     same gold the landrace tag uses elsewhere, since that is the one line worth chasing. */
+  .breeding-outlook {
+    padding: 8px 5px 0;
+    border-top: 1px solid #463a1c;
+  }
+  .breeding-outlook-title {
+    font-family: var(--title-font);
+    font-size: 11px;
+    letter-spacing: 0.3px;
+    color: #c8b888;
+    margin-bottom: 3px;
+  }
+  .breeding-outlook-row {
+    font-size: 11px;
+    color: #a89c78;
+    line-height: 1.5;
+  }
+  .breeding-outlook-landrace {
+    font-size: 11px;
+    color: var(--gold);
+    margin-top: 3px;
+  }
   .breeding-note {
     font-size: 11px;
     color: #d8a86a;

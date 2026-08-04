@@ -1163,7 +1163,10 @@ export const zh_TW: EnTranslations = {
       "full": "你的品系庫已滿。釋放一個品系以騰出空間。",
       "refine": "精煉",
       "refineHint": "把第二個品系併入第一個，提升它並騰出一個槽位。",
-      "fullRefine": "你的品系庫已滿。精煉或釋放一個品系以騰出空間。"
+      "fullRefine": "你的品系庫已滿。精煉或釋放一個品系以騰出空間。",
+      "outlookTitle": "這次雜交可能出什麼",
+      "outlookRow": "{trait}：至少 {chance}% 保住 {target}，最高可到 {ceiling}",
+      "outlookLandrace": "這個組合有機會出地方種。"
     },
     "reputation": {
       "tier": {

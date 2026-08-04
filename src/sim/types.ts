@@ -1537,6 +1537,71 @@ export interface StrainDef {
 // errors until one is released). Bounds persistence growth and the breeding UI.
 export const MAX_STRAINS = 12;
 
+// --- Cross outlook: what a player can honestly be told before paying for a cross -------
+//
+// Deliberately derived from the EXPRESSED phenotype alone, never the genotype, and that
+// is the whole design of this function rather than a limitation of it. The exact
+// per-tier odds ARE computable from two genotypes (four equally likely allele pairs, then
+// an independent mutation roll each), but publishing them would let a player invert the
+// distribution and read both hidden recessive alleles. The buried tier resurfacing is the
+// reason a cross is worth making at all, so an exact preview would delete the mechanic it
+// is meant to serve. What this returns is what an experienced grower could reason out
+// from the two plants in front of them, and nothing more.
+//
+// Pure and host-agnostic (the cupScore precedent): the client projects the same numbers
+// the server would, because it needs no server-only input.
+
+// A parent contributes one of its two alleles with equal probability. Exactly one of them
+// is known from the outside: the expressed (dominant) one. The other is <= it and hidden.
+const ALLELE_IS_THE_EXPRESSED_ONE = 0.5;
+// A single allele survives the mutation roll at or above its own tier when it does not
+// mutate at all, or mutates UPWARD. (MUTATION_CHANCE is 0.08 with a 50/50 direction, and
+// an upward mutation at GENE_MAX clamps back to GENE_MAX, which is still >= the tier.)
+const ALLELE_HOLDS_ITS_TIER = 0.96;
+
+export interface TraitOutlook {
+  trait: StrainTraitId;
+  /** The tier this cross is aiming at: the better parent's expressed tier. */
+  target: number;
+  /** The best expressed tier the cross can reach, target plus one if a mutation lands. */
+  ceiling: number;
+  /** A LOWER BOUND, 0..100, on the chance the child expresses at least `target`, counting
+   *  only the contributions the expressed phenotype guarantees. The true chance is higher
+   *  whenever a hidden allele also reaches the target, which is exactly the information
+   *  this refuses to reveal. Render it as "at least N%", never as "N%". */
+  atLeastTargetPct: number;
+}
+
+/** Project a cross from the two parents' expressed tiers for one trait. */
+export function traitOutlook(trait: StrainTraitId, aTier: number, bTier: number): TraitOutlook {
+  const target = aTier > bTier ? aTier : bTier;
+  const ceiling = target >= GENE_MAX ? GENE_MAX : target + 1;
+  // Every tier is >= 0, so a target of 0 is certain and needs no probability argument.
+  if (target <= 0) return { trait, target, ceiling, atLeastTargetPct: 100 };
+  // Each parent that EXPRESSES the target reaches it by passing its dominant allele
+  // (probability 1/2) and having that allele hold its tier through mutation. A parent
+  // expressing below the target contributes nothing we can count on.
+  const perParent = ALLELE_IS_THE_EXPRESSED_ONE * ALLELE_HOLDS_ITS_TIER;
+  const missChance =
+    (aTier === target ? 1 - perParent : 1) * (bTier === target ? 1 - perParent : 1);
+  return { trait, target, ceiling, atLeastTargetPct: Math.round((1 - missChance) * 100) };
+}
+
+/** The per-trait outlook for a cross, in the fixed STRAIN_TRAITS order. */
+export function crossOutlook(
+  a: Pick<StrainView, StrainTraitId>,
+  b: Pick<StrainView, StrainTraitId>,
+): TraitOutlook[] {
+  return STRAIN_TRAITS.map((t) => traitOutlook(t, a[t], b[t]));
+}
+
+/** True when every trait's ceiling reaches GENE_MAX, so this pairing could in principle
+ *  throw a landrace. Not a promise that it will: `ceiling` already includes the mutation
+ *  that may not land. */
+export function crossCanReachLandrace(outlook: TraitOutlook[]): boolean {
+  return outlook.length > 0 && outlook.every((o) => o.ceiling >= GENE_MAX);
+}
+
 // Client-facing strain view (the IWorld read; rides the self-snapshot). Carries the
 // EXPRESSED phenotype per trait (the dominant allele), not the raw genotype, so the
 // hidden recessive stays server-side until a cross reveals it.
