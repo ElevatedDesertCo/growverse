@@ -5414,7 +5414,8 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'hudChrome.breeding.fullRefine':
     'Библиотека штаммов заполнена. Улучшите или отпустите штамм, чтобы освободить место.',
   'hudChrome.breeding.outlookTitle': 'Что может дать это скрещивание',
-  'hudChrome.breeding.outlookRow': '{trait}: не менее {chance}% удержать {target}, вплоть до {ceiling}',
+  'hudChrome.breeding.outlookRow':
+    '{trait}: не менее {chance}% удержать {target}, вплоть до {ceiling}',
   'hudChrome.breeding.outlookLandrace': 'Эта пара может дать ландрас.',
   'hudChrome.breeding.mastery': 'Мастерство',
   'hudChrome.breeding.masteryAria': 'Мастерство {strain}: {mastery} из {max}',
