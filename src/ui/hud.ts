@@ -3415,11 +3415,20 @@ export class Hud {
   // ONE implementation; this thin wrapper binds it to the shared focus manager
   // and the window root. Escape is handled by the existing unified
   // dispatcher (main.ts game input -> hud.closeAll()), not by the trap.
-  private windowFocus(rootSel: string): {
+  private windowFocus(
+    rootSel: string,
+    coRootSels?: string[],
+  ): {
     captureFocus: () => HTMLElement | null;
     restoreFocus: (target: HTMLElement | null) => void;
   } {
-    return makeWindowFocus(this.focusManager, () => $(rootSel));
+    return makeWindowFocus(
+      this.focusManager,
+      () => $(rootSel),
+      coRootSels
+        ? () => coRootSels.map((sel) => document.querySelector<HTMLElement>(sel))
+        : undefined,
+    );
   }
 
   // --- Focus wiring for the HAND-ROLLED panels ------------------------------
@@ -3445,11 +3454,11 @@ export class Hud {
   /** Trap focus in a hand-rolled panel. No-op when it is ALREADY open, so a re-open (or a
    *  re-render that routes through open) cannot record an in-window element as the opener
    *  and strand focus inside the panel after it closes. */
-  private panelFocusOpen(rootSel: string, wasOpen: boolean): void {
+  private panelFocusOpen(rootSel: string, wasOpen: boolean, coRootSels?: string[]): void {
     if (wasOpen) return;
     let entry = this.panelFocus.get(rootSel);
     if (!entry) {
-      entry = { bridge: this.windowFocus(rootSel), opener: null };
+      entry = { bridge: this.windowFocus(rootSel, coRootSels), opener: null };
       this.panelFocus.set(rootSel, entry);
     }
     entry.opener = entry.bridge.captureFocus();
@@ -8884,11 +8893,16 @@ export class Hud {
 
   openVendor(npcId: number): void {
     this.closeOtherWindows(['#vendor-window', '#bags']);
+    const wasOpen = this.openVendorNpcId !== null;
     this.openVendorNpcId = npcId;
     document.body.classList.add('vendor-open');
     this.renderVendor();
     this.renderBags();
     $('#bags').style.display = 'flex';
+    // #bags is a CO-ROOT, not a second trap: the vendor opens it as part of the same
+    // interaction (you buy from one side and sell from the other), so the Tab cycle has
+    // to span both or the grid becomes unreachable from the keyboard.
+    this.panelFocusOpen('#vendor-window', wasOpen, ['#bags']);
   }
 
   private renderVendor(): void {
@@ -8934,6 +8948,7 @@ export class Hud {
   }
 
   closeVendor(): void {
+    const wasOpen = this.openVendorNpcId !== null;
     const closeMobileBags =
       document.body.classList.contains('mobile-touch') && $('#bags').style.display !== 'none';
     $('#vendor-window').style.display = 'none';
@@ -8952,6 +8967,7 @@ export class Hud {
     } else if ($('#bags').style.display !== 'none') {
       this.renderBags();
     }
+    if (wasOpen) this.panelFocusClose('#vendor-window');
   }
 
   get vendorOpen(): boolean {
@@ -8965,11 +8981,14 @@ export class Hud {
   // -------------------------------------------------------------------------
   openCrafting(npcId: number): void {
     this.closeOtherWindows(['#craft-window', '#bags']);
+    const wasOpen = this.openCraftingNpcId !== null;
     this.openCraftingNpcId = npcId;
     document.body.classList.add('vendor-open');
     this.renderCrafting();
     this.renderBags();
     $('#bags').style.display = 'flex';
+    // Same co-root reasoning as the vendor: the reagents live in the bag grid.
+    this.panelFocusOpen('#craft-window', wasOpen, ['#bags']);
   }
 
   private renderCrafting(): void {
@@ -9004,6 +9023,7 @@ export class Hud {
   }
 
   closeCrafting(): void {
+    const wasOpen = this.openCraftingNpcId !== null;
     const closeMobileBags =
       document.body.classList.contains('mobile-touch') && $('#bags').style.display !== 'none';
     $('#craft-window').style.display = 'none';
@@ -9018,6 +9038,7 @@ export class Hud {
     } else if ($('#bags').style.display !== 'none') {
       this.renderBags();
     }
+    if (wasOpen) this.panelFocusClose('#craft-window');
   }
 
   get craftingOpen(): boolean {

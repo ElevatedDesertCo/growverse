@@ -59,11 +59,13 @@ mobile portrait *and* landscape before calling UI work done.
     it focus is left on a control inside the now-hidden window, the next Tab resumes from a
     detached point, and a screen reader reads an invisible button. Covered by
     `tests/window_focus.test.ts`.
-    The hand-rolled panels built inline in `hud.ts` (garden / breeding / cup / loot / stash) are
-    wired through `panelFocusOpen`/`panelFocusClose`, which own one bridge per root. **Vendor and
-    crafting are deliberately NOT wired:** on touch they open `#bags` alongside their own window
-    as one interaction, so a single-root trap would make the bag grid unreachable by Tab. They
-    need a multi-root trap.
+    The hand-rolled panels built inline in `hud.ts` (garden / breeding / cup / loot / stash /
+    vendor / crafting) are wired through `panelFocusOpen`/`panelFocusClose`, which own one bridge
+    per root. **Vendor and crafting pass `#bags` as a CO-ROOT** (`FocusTrapOptions.coRoots`): they
+    open the bag grid alongside their own window as one interaction, so the Tab cycle has to span
+    both or the grid is unreachable from the keyboard. Co-roots extend the cycle only; the primary
+    root still decides what counts as an in-window refocus, and an unrendered co-root contributes
+    nothing, so no call site needs a viewport condition.
   - **Visible focus that never animates away:** every outline-based `:focus-visible` ring is
     steady and drawn from a token / system color, never a raw hex, never transitioned off.
   - **Skip links** ("Skip to Main HUD" / "Skip to Chat") are the first focusable elements;

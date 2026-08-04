@@ -296,3 +296,102 @@ describe('FocusManager listener lifecycle', () => {
     expect(keydownHandler).toBeNull(); // removed once the stack empties
   });
 });
+
+// Co-roots: a trap can span more than one container when a single interaction opens more
+// than one. The vendor and crafting windows co-open #bags (you buy from one side and sell
+// from the other), so a trap on the window alone would make the bag grid unreachable by
+// Tab, which is how an accessibility fix turns into an accessibility regression.
+describe('FocusManager co-roots', () => {
+  it('cycles through every container, primary root first', () => {
+    const fm = new FocusManager();
+    const win = new FakeHTMLElement();
+    const w1 = new FakeHTMLElement({ focusable: true });
+    win.append(w1);
+    const bags = new FakeHTMLElement();
+    const b1 = new FakeHTMLElement({ focusable: true });
+    const b2 = new FakeHTMLElement({ focusable: true });
+    bags.append(b1, b2);
+
+    fm.open({ root: () => el(win), coRoots: () => [el(bags)] });
+    w1.focus();
+    expect(tab()).toBe(true);
+    expect(fakeDoc.activeElement).toBe(b1);
+    expect(tab()).toBe(true);
+    expect(fakeDoc.activeElement).toBe(b2);
+    // Wraps from the last co-root element back to the primary root.
+    expect(tab()).toBe(true);
+    expect(fakeDoc.activeElement).toBe(w1);
+  });
+
+  it('traps Tab when focus starts in a co-root, not only in the primary root', () => {
+    const fm = new FocusManager();
+    const win = new FakeHTMLElement();
+    const w1 = new FakeHTMLElement({ focusable: true });
+    win.append(w1);
+    const bags = new FakeHTMLElement();
+    const b1 = new FakeHTMLElement({ focusable: true });
+    bags.append(b1);
+
+    fm.open({ root: () => el(win), coRoots: () => [el(bags)] });
+    b1.focus();
+    expect(tab()).toBe(true);
+    expect(fakeDoc.activeElement).toBe(w1);
+  });
+
+  it('skips a co-root that is not rendered', () => {
+    // A hidden co-root costs nothing and needs no condition at the call site.
+    const fm = new FocusManager();
+    const win = new FakeHTMLElement();
+    const w1 = new FakeHTMLElement({ focusable: true });
+    const w2 = new FakeHTMLElement({ focusable: true });
+    win.append(w1, w2);
+    const bags = new FakeHTMLElement();
+    const b1 = new FakeHTMLElement({ focusable: true });
+    bags.append(b1);
+    bags.visible = false;
+    b1.visible = false;
+
+    fm.open({ root: () => el(win), coRoots: () => [el(bags)] });
+    w1.focus();
+    expect(tab()).toBe(true);
+    expect(fakeDoc.activeElement).toBe(w2);
+    expect(tab()).toBe(true);
+    expect(fakeDoc.activeElement).toBe(w1);
+  });
+
+  it('survives while any container is still rendered', () => {
+    // The self-heal must not drop a trap whose co-opened grid closed but whose own
+    // window is still up.
+    const fm = new FocusManager();
+    const win = new FakeHTMLElement();
+    const w1 = new FakeHTMLElement({ focusable: true });
+    const w2 = new FakeHTMLElement({ focusable: true });
+    win.append(w1, w2);
+    const bags = new FakeHTMLElement();
+    const b1 = new FakeHTMLElement({ focusable: true });
+    bags.append(b1);
+
+    fm.open({ root: () => el(win), coRoots: () => [el(bags)] });
+    bags.visible = false;
+    b1.visible = false;
+    w1.focus();
+    expect(tab()).toBe(true);
+    expect(fakeDoc.activeElement).toBe(w2);
+  });
+
+  it('never lands on the same element twice when containers nest', () => {
+    const fm = new FocusManager();
+    const win = new FakeHTMLElement();
+    const inner = new FakeHTMLElement();
+    const a = new FakeHTMLElement({ focusable: true });
+    inner.append(a);
+    win.append(inner);
+
+    fm.open({ root: () => el(win), coRoots: () => [el(inner)] });
+    a.focus();
+    // One focusable reachable through two containers is ONE Tab stop, so the cycle has
+    // nowhere else to go and the manager leaves the event alone.
+    tab();
+    expect(fakeDoc.activeElement).toBe(a);
+  });
+});

@@ -28,8 +28,17 @@ export interface WindowFocusBridge {
  * Build the focus bridge for one window. `root` re-resolves the window element
  * lazily (it may be hidden or unpopulated at open() time, exactly like
  * FocusManager's own root callback).
+ *
+ * `coRoots` are additional containers that belong to the SAME interaction and must stay
+ * in the Tab cycle (the vendor/crafting windows co-open #bags on touch). They only extend
+ * the cycle; the primary `root` still decides what counts as an in-window refocus, because
+ * that is about the window whose lifecycle owns the trap.
  */
-export function makeWindowFocus(fm: FocusManager, root: () => HTMLElement): WindowFocusBridge {
+export function makeWindowFocus(
+  fm: FocusManager,
+  root: () => HTMLElement,
+  coRoots?: () => (HTMLElement | null)[],
+): WindowFocusBridge {
   let handle: FocusTrapHandle | null = null;
   return {
     captureFocus: () => {
@@ -39,7 +48,7 @@ export function makeWindowFocus(fm: FocusManager, root: () => HTMLElement): Wind
       // next Tab, but releasing here keeps the stack honest).
       handle?.release(false);
       const opener = fm.activeFocusable();
-      handle = fm.open({ root, returnFocusTo: opener });
+      handle = fm.open({ root, ...(coRoots ? { coRoots } : {}), returnFocusTo: opener });
       return opener;
     },
     restoreFocus: (target) => {
