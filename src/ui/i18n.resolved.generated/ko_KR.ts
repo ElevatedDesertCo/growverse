@@ -1163,7 +1163,10 @@ export const ko_KR: EnTranslations = {
       "full": "품종 보관함이 가득 찼습니다. 품종을 방출해 공간을 만드세요.",
       "refine": "정제",
       "refineHint": "두 번째 품종을 첫 번째에 접어 넣어 강화하고 슬롯을 하나 비웁니다.",
-      "fullRefine": "품종 보관함이 가득 찼습니다. 정제하거나 하나를 방출해 자리를 비우세요."
+      "fullRefine": "품종 보관함이 가득 찼습니다. 정제하거나 하나를 방출해 자리를 비우세요.",
+      "outlookTitle": "이 교배가 낼 수 있는 결과",
+      "outlookRow": "{trait}: {target} 유지 확률 최소 {chance}%, 최대 {ceiling}까지",
+      "outlookLandrace": "이 조합은 랜드레이스에 도달할 수 있습니다."
     },
     "reputation": {
       "tier": {

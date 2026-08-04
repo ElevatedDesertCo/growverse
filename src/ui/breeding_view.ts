@@ -14,11 +14,14 @@
 
 import {
   BREED_COST_COUNT,
+  crossCanReachLandrace,
+  crossOutlook,
   MAX_STRAINS,
   type PlotView,
   type ReputationView,
   STRAIN_MASTERY_MAX,
   type StrainView,
+  type TraitOutlook,
 } from '../sim/types';
 
 export interface BreedingStrainRow {
@@ -70,6 +73,12 @@ export interface BreedingView {
   /** The player cannot pay the Epic Bud cost. Distinct from atCapacity so the footer can
    *  say which of the two is blocking. */
   cannotAfford: boolean;
+  /** What the pending pair could throw, per trait, or null until two distinct parents are
+   *  picked. Projected from the EXPRESSED phenotype only: see crossOutlook in sim/types,
+   *  which explains at length why exact odds are deliberately not offered. */
+  outlook: TraitOutlook[] | null;
+  /** The pending pair could in principle reach a landrace (every trait can top out). */
+  outlookLandrace: boolean;
 }
 
 /**
@@ -111,6 +120,12 @@ export function buildBreedingView(
   }));
   const cannotAfford = epicBuds < BREED_COST_COUNT;
   const emptyIndex = garden.findIndex((p) => p.stage === 'empty');
+  // The pre-cross outlook needs two DISTINCT parents; with one (or the same strain twice)
+  // there is nothing to project.
+  const parentA = a !== null ? strains.find((s) => s.id === a) : undefined;
+  const parentB = b !== null ? strains.find((s) => s.id === b) : undefined;
+  const outlook =
+    parentA && parentB && parentA.id !== parentB.id ? crossOutlook(parentA, parentB) : null;
   return {
     strains: rows,
     reputation: [...reputation],
@@ -124,5 +139,7 @@ export function buildBreedingView(
     breedCost: BREED_COST_COUNT,
     epicBuds,
     cannotAfford,
+    outlook,
+    outlookLandrace: outlook !== null && crossCanReachLandrace(outlook),
   };
 }

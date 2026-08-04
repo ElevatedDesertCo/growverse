@@ -5295,6 +5295,10 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.breeding.refine': '精錬',
   'hudChrome.breeding.refineHint': '二つ目の品種を一つ目に取り込み、強化して枠を一つ空ける。',
   'hudChrome.breeding.fullRefine': '品種ライブラリが満杯だ。精錬するか一つ手放して空きを作れ。',
+  'hudChrome.breeding.outlookTitle': 'この交配で出る可能性',
+  'hudChrome.breeding.outlookRow':
+    '{trait}：{target} を保つ確率は最低 {chance}%、最大 {ceiling} まで',
+  'hudChrome.breeding.outlookLandrace': 'この組み合わせはランドレースに届く可能性があります。',
   'hudChrome.breeding.mastery': '熟練',
   'hudChrome.breeding.masteryAria': '{strain} の熟練：{max} 中 {mastery}',
   'hudChrome.reputation.tier.neutral': '中立',

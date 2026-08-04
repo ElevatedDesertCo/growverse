@@ -1303,6 +1303,13 @@ export const hudChromeStrings = {
     refine: 'Refine',
     refineHint: 'Fold the second strain into the first, improving it and freeing a slot.',
     fullRefine: 'Your strain library is full. Refine or release a strain to make room.',
+    // The pre-cross outlook. "At least" is load-bearing, not hedging: the odds shown are a
+    // floor derived from what the parents express, and a hidden recessive can only push
+    // the real chance higher. See crossOutlook in sim/types for why exact odds are
+    // deliberately withheld.
+    outlookTitle: 'What this cross could throw',
+    outlookRow: '{trait}: at least {chance}% to hold {target}, up to {ceiling}',
+    outlookLandrace: 'This pairing could reach a landrace.',
   },
   // Commune reputation: the standing tier names shown on the breeding header.
   reputation: {

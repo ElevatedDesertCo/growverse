@@ -1163,7 +1163,10 @@ export const ja_JP: EnTranslations = {
       "full": "品種ライブラリが満杯です。品種を手放して空きを作りましょう。",
       "refine": "精錬",
       "refineHint": "二つ目の品種を一つ目に取り込み、強化して枠を一つ空ける。",
-      "fullRefine": "品種ライブラリが満杯だ。精錬するか一つ手放して空きを作れ。"
+      "fullRefine": "品種ライブラリが満杯だ。精錬するか一つ手放して空きを作れ。",
+      "outlookTitle": "この交配で出る可能性",
+      "outlookRow": "{trait}：{target} を保つ確率は最低 {chance}%、最大 {ceiling} まで",
+      "outlookLandrace": "この組み合わせはランドレースに届く可能性があります。"
     },
     "reputation": {
       "tier": {

@@ -159,6 +159,39 @@ export function renderBreedingWindow(
   // cost is always shown (not only when short) so a player learns what a cross takes
   // before they are stopped by it; the shortfall note explains how to earn one, because
   // the answer is "grow better", not "grow more".
+  // The pre-cross outlook, shown once two distinct parents are picked. It sits ABOVE the
+  // cost/action row so a player reads what the cross could throw before deciding to spend
+  // Epic Buds on it. "At least" is the honest framing: the chance is a floor derived from
+  // what the parents express, and a hidden recessive can only push it higher.
+  if (view.outlook) {
+    const outlook = document.createElement('div');
+    outlook.className = 'breeding-outlook';
+    const traitLabel: Record<string, string> = {
+      potency: t('hudChrome.breeding.potency'),
+      vigor: t('hudChrome.breeding.vigor'),
+      yield: t('hudChrome.breeding.yield'),
+    };
+    outlook.innerHTML =
+      `<div class="breeding-outlook-title">${esc(t('hudChrome.breeding.outlookTitle'))}</div>` +
+      view.outlook
+        .map(
+          (o) =>
+            `<div class="breeding-outlook-row">${esc(
+              t('hudChrome.breeding.outlookRow', {
+                trait: traitLabel[o.trait] ?? o.trait,
+                chance: formatNumber(o.atLeastTargetPct, { maximumFractionDigits: 0 }),
+                target: formatNumber(o.target, { maximumFractionDigits: 0 }),
+                ceiling: formatNumber(o.ceiling, { maximumFractionDigits: 0 }),
+              }),
+            )}</div>`,
+        )
+        .join('') +
+      (view.outlookLandrace
+        ? `<div class="breeding-outlook-landrace">${esc(t('hudChrome.breeding.outlookLandrace'))}</div>`
+        : '');
+    el.appendChild(outlook);
+  }
+
   const footer = document.createElement('div');
   footer.className = 'breeding-footer';
   const cost = t('hudChrome.breeding.cost', {

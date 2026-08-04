@@ -28,8 +28,17 @@ export interface WindowFocusBridge {
  * Build the focus bridge for one window. `root` re-resolves the window element
  * lazily (it may be hidden or unpopulated at open() time, exactly like
  * FocusManager's own root callback).
+ *
+ * `coRoots` are additional containers that belong to the SAME interaction and must stay
+ * in the Tab cycle (the vendor/crafting windows co-open #bags on touch). They only extend
+ * the cycle; the primary `root` still decides what counts as an in-window refocus, because
+ * that is about the window whose lifecycle owns the trap.
  */
-export function makeWindowFocus(fm: FocusManager, root: () => HTMLElement): WindowFocusBridge {
+export function makeWindowFocus(
+  fm: FocusManager,
+  root: () => HTMLElement,
+  coRoots?: () => (HTMLElement | null)[],
+): WindowFocusBridge {
   let handle: FocusTrapHandle | null = null;
   return {
     captureFocus: () => {
@@ -39,7 +48,7 @@ export function makeWindowFocus(fm: FocusManager, root: () => HTMLElement): Wind
       // next Tab, but releasing here keeps the stack honest).
       handle?.release(false);
       const opener = fm.activeFocusable();
-      handle = fm.open({ root, returnFocusTo: opener });
+      handle = fm.open({ root, ...(coRoots ? { coRoots } : {}), returnFocusTo: opener });
       return opener;
     },
     restoreFocus: (target) => {
@@ -47,12 +56,23 @@ export function makeWindowFocus(fm: FocusManager, root: () => HTMLElement): Wind
       // down the trap; only a return-to-opener on close (target outside the
       // window, or null) releases it.
       const r = root();
-      if (target && r.contains(target)) {
+      if (target && r?.contains(target)) {
         fm.restore(target);
         return;
       }
       handle?.release(false);
       handle = null;
+      // Close with NO opener to return to. A window opened while focus sat on <body>
+      // (a keybind, or a click the browser did not focus) captures a null opener, so
+      // restore() has nowhere to send focus and the browser leaves activeElement on the
+      // control inside the window we just hid. Focus then sits on a display:none button:
+      // the next Tab resumes from a detached point and a screen reader reads an invisible
+      // control. Blur it so focus falls back to the document and Tab restarts from the
+      // top. Only on the close path, and only when focus is actually still inside.
+      if (!target) {
+        const active = typeof document === 'undefined' ? null : document.activeElement;
+        if (active instanceof HTMLElement && r?.contains(active)) active.blur();
+      }
       fm.restore(target);
     },
   };

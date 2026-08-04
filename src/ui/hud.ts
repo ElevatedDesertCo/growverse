@@ -331,7 +331,7 @@ import {
   wocBalance,
   wocBalanceVerified,
 } from './wallet_balance';
-import { makeWindowFocus } from './window_focus';
+import { makeWindowFocus, type WindowFocusBridge } from './window_focus';
 import { formatXp, xpBarView } from './xp_bar';
 import { XpBarPainter } from './xp_bar_painter';
 
@@ -3415,11 +3415,66 @@ export class Hud {
   // ONE implementation; this thin wrapper binds it to the shared focus manager
   // and the window root. Escape is handled by the existing unified
   // dispatcher (main.ts game input -> hud.closeAll()), not by the trap.
-  private windowFocus(rootSel: string): {
+  private windowFocus(
+    rootSel: string,
+    coRootSels?: string[],
+  ): {
     captureFocus: () => HTMLElement | null;
     restoreFocus: (target: HTMLElement | null) => void;
   } {
-    return makeWindowFocus(this.focusManager, () => $(rootSel));
+    return makeWindowFocus(
+      this.focusManager,
+      () => $(rootSel),
+      coRootSels
+        ? () => coRootSels.map((sel) => document.querySelector<HTMLElement>(sel))
+        : undefined,
+    );
+  }
+
+  // --- Focus wiring for the HAND-ROLLED panels ------------------------------
+  // The garden / breeding / cup / loot / stash panels are built here in hud.ts rather than
+  // as painter modules, so they never received the shared FocusManager wiring that the
+  // windowFocus-family windows (talents, social, market, arena, character, ...) get through
+  // their deps. The result was a real gap against the HUD-chrome contract in
+  // src/ui/CLAUDE.md: opening one left Tab walking out into the page behind it, and closing
+  // one dropped focus on <body> instead of returning it to the opener.
+  //
+  // One bridge per root, created lazily and keyed by selector, because five copies of the
+  // same two fields is exactly the duplication the rule of three warns about.
+  //
+  // Vendor and crafting are deliberately NOT wired here: on a touch viewport they open
+  // #bags ALONGSIDE their own window as one interaction, so trapping their single root
+  // would make the bag grid unreachable by Tab, turning an a11y fix into an a11y
+  // regression. Those two need a multi-root trap, which is its own change.
+  private readonly panelFocus = new Map<
+    string,
+    { bridge: WindowFocusBridge; opener: HTMLElement | null }
+  >();
+
+  /** Trap focus in a hand-rolled panel. No-op when it is ALREADY open, so a re-open (or a
+   *  re-render that routes through open) cannot record an in-window element as the opener
+   *  and strand focus inside the panel after it closes. */
+  private panelFocusOpen(rootSel: string, wasOpen: boolean, coRootSels?: string[]): void {
+    if (wasOpen) return;
+    let entry = this.panelFocus.get(rootSel);
+    if (!entry) {
+      entry = { bridge: this.windowFocus(rootSel, coRootSels), opener: null };
+      this.panelFocus.set(rootSel, entry);
+    }
+    entry.opener = entry.bridge.captureFocus();
+  }
+
+  /** Release a hand-rolled panel's trap and return focus to its opener. */
+  private panelFocusClose(rootSel: string): void {
+    const entry = this.panelFocus.get(rootSel);
+    if (!entry) return;
+    const opener = entry.opener;
+    entry.opener = null;
+    // restoreFocus reads the root to tell an in-window refocus from a close-and-return.
+    // These panels are created lazily, so never hand it a missing element; a trap left
+    // behind by a vanished root is self-healed by the manager on the next Tab.
+    if (!document.querySelector(rootSel)) return;
+    entry.bridge.restoreFocus(opener);
   }
 
   private refreshLocalizedDynamicUi(): void {
@@ -5640,6 +5695,7 @@ export class Hud {
     this.closeLockpick();
     if (items.length === 0) return;
     this.closeOtherWindows('#loot-window');
+    const wasOpen = this.openLootMobId !== null || this.openLootChestId !== null;
     this.openLootMobId = null;
     this.openLootChestId = chestId;
     const chest = this.sim.entities.get(chestId);
@@ -5667,6 +5723,7 @@ export class Hud {
     el.style.top = `${Math.max(10, (window.innerHeight - 220) / 2)}px`;
     el.style.transform = 'none';
     el.style.display = 'block';
+    this.panelFocusOpen('#loot-window', wasOpen);
   }
 
   private bindLockpickKeys(): void {
@@ -8789,6 +8846,7 @@ export class Hud {
     );
     if (mob.loot.copper <= 0 && visibleItems.length === 0) return;
     this.closeOtherWindows('#loot-window');
+    const wasOpen = this.openLootMobId !== null || this.openLootChestId !== null;
     this.openLootMobId = mobId;
     this.openLootChestId = null;
     const el = $('#loot-window');
@@ -8817,13 +8875,16 @@ export class Hud {
     this.placePopupAt(el, screenX - 115, screenY - 30, 260, 280, 10, 10);
     el.style.transform = 'none'; // loot pops at the cursor, not the centred slot
     el.style.display = 'block';
+    this.panelFocusOpen('#loot-window', wasOpen);
   }
 
   closeLoot(): void {
+    const wasOpen = this.openLootMobId !== null || this.openLootChestId !== null;
     $('#loot-window').style.display = 'none';
     this.openLootMobId = null;
     this.openLootChestId = null;
     this.hideTooltip();
+    if (wasOpen) this.panelFocusClose('#loot-window');
   }
 
   // -------------------------------------------------------------------------
@@ -8832,11 +8893,16 @@ export class Hud {
 
   openVendor(npcId: number): void {
     this.closeOtherWindows(['#vendor-window', '#bags']);
+    const wasOpen = this.openVendorNpcId !== null;
     this.openVendorNpcId = npcId;
     document.body.classList.add('vendor-open');
     this.renderVendor();
     this.renderBags();
     $('#bags').style.display = 'flex';
+    // #bags is a CO-ROOT, not a second trap: the vendor opens it as part of the same
+    // interaction (you buy from one side and sell from the other), so the Tab cycle has
+    // to span both or the grid becomes unreachable from the keyboard.
+    this.panelFocusOpen('#vendor-window', wasOpen, ['#bags']);
   }
 
   private renderVendor(): void {
@@ -8882,6 +8948,7 @@ export class Hud {
   }
 
   closeVendor(): void {
+    const wasOpen = this.openVendorNpcId !== null;
     const closeMobileBags =
       document.body.classList.contains('mobile-touch') && $('#bags').style.display !== 'none';
     $('#vendor-window').style.display = 'none';
@@ -8900,6 +8967,7 @@ export class Hud {
     } else if ($('#bags').style.display !== 'none') {
       this.renderBags();
     }
+    if (wasOpen) this.panelFocusClose('#vendor-window');
   }
 
   get vendorOpen(): boolean {
@@ -8913,11 +8981,14 @@ export class Hud {
   // -------------------------------------------------------------------------
   openCrafting(npcId: number): void {
     this.closeOtherWindows(['#craft-window', '#bags']);
+    const wasOpen = this.openCraftingNpcId !== null;
     this.openCraftingNpcId = npcId;
     document.body.classList.add('vendor-open');
     this.renderCrafting();
     this.renderBags();
     $('#bags').style.display = 'flex';
+    // Same co-root reasoning as the vendor: the reagents live in the bag grid.
+    this.panelFocusOpen('#craft-window', wasOpen, ['#bags']);
   }
 
   private renderCrafting(): void {
@@ -8952,6 +9023,7 @@ export class Hud {
   }
 
   closeCrafting(): void {
+    const wasOpen = this.openCraftingNpcId !== null;
     const closeMobileBags =
       document.body.classList.contains('mobile-touch') && $('#bags').style.display !== 'none';
     $('#craft-window').style.display = 'none';
@@ -8966,6 +9038,7 @@ export class Hud {
     } else if ($('#bags').style.display !== 'none') {
       this.renderBags();
     }
+    if (wasOpen) this.panelFocusClose('#craft-window');
   }
 
   get craftingOpen(): boolean {
@@ -8995,8 +9068,10 @@ export class Hud {
 
   openStash(npcId: number): void {
     this.closeOtherWindows('#stash-window');
+    const wasOpen = this.openStashNpcId !== null;
     this.openStashNpcId = npcId;
     this.renderStash();
+    this.panelFocusOpen('#stash-window', wasOpen);
   }
 
   private renderStash(): void {
@@ -9022,10 +9097,12 @@ export class Hud {
   }
 
   closeStash(): void {
+    const wasOpen = this.openStashNpcId !== null;
     const el = document.getElementById('stash-window');
     if (el) el.style.display = 'none';
     this.openStashNpcId = null;
     this.hideTooltip();
+    if (wasOpen) this.panelFocusClose('#stash-window');
   }
 
   get stashOpen(): boolean {
@@ -9073,8 +9150,12 @@ export class Hud {
 
   openGarden(): void {
     this.closeOtherWindows('#garden-window');
+    const wasOpen = this.gardenWindowOpen;
     this.gardenWindowOpen = true;
+    // Render BEFORE trapping: the panel root is created lazily on first render, and the
+    // trap re-queries the live DOM for its focusable set.
     this.renderGarden();
+    this.panelFocusOpen('#garden-window', wasOpen);
   }
 
   private renderGarden(): void {
@@ -9123,10 +9204,12 @@ export class Hud {
   }
 
   closeGarden(): void {
+    const wasOpen = this.gardenWindowOpen;
     const el = document.getElementById('garden-window');
     if (el) el.style.display = 'none';
     this.gardenWindowOpen = false;
     this.hideTooltip();
+    if (wasOpen) this.panelFocusClose('#garden-window');
   }
 
   get gardenOpen(): boolean {
@@ -9160,14 +9243,18 @@ export class Hud {
 
   openCup(): void {
     this.closeOtherWindows('#cup-window');
+    const wasOpen = this.cupWindowOpen;
     this.cupWindowOpen = true;
     this.renderCup();
+    this.panelFocusOpen('#cup-window', wasOpen);
   }
 
   closeCup(): void {
+    const wasOpen = this.cupWindowOpen;
     this.cupWindowOpen = false;
     const el = document.getElementById('cup-window');
     if (el) el.style.display = 'none';
+    if (wasOpen) this.panelFocusClose('#cup-window');
   }
 
   get cupOpen(): boolean {
@@ -9266,8 +9353,10 @@ export class Hud {
 
   openBreeding(): void {
     this.closeOtherWindows('#breeding-window');
+    const wasOpen = this.breedingWindowOpen;
     this.breedingWindowOpen = true;
     this.renderBreeding();
+    this.panelFocusOpen('#breeding-window', wasOpen);
   }
 
   private renderBreeding(): void {
@@ -9343,10 +9432,12 @@ export class Hud {
   }
 
   closeBreeding(): void {
+    const wasOpen = this.breedingWindowOpen;
     const el = document.getElementById('breeding-window');
     if (el) el.style.display = 'none';
     this.breedingWindowOpen = false;
     this.hideTooltip();
+    if (wasOpen) this.panelFocusClose('#breeding-window');
   }
 
   get breedingOpen(): boolean {

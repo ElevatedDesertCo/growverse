@@ -57,6 +57,19 @@ export interface FocusTrapOptions {
    */
   root: () => HTMLElement | null;
   /**
+   * Additional containers that belong to the SAME interaction and must stay inside the
+   * Tab cycle. A window is usually one element, but not always: on a touch viewport the
+   * vendor and crafting windows open #bags alongside themselves, and the player moves
+   * between the two as one task. Trapping only the primary root there would make the bag
+   * grid unreachable by Tab, so an a11y fix would become an a11y regression.
+   *
+   * Resolved lazily and per-Tab like `root`, and an element that is not rendered
+   * contributes nothing (its descendants have no client rects), so a co-root that is
+   * currently hidden costs nothing and needs no separate condition at the call site.
+   * Tab order follows the array: primary root first, then these in order.
+   */
+  coRoots?: () => (HTMLElement | null)[];
+  /**
    * The element to refocus on release. Captured from the active element at open()
    * when omitted (the old currentFocusableElement idiom).
    */
@@ -78,6 +91,7 @@ export interface FocusTrapHandle {
 
 interface TrapState {
   root: () => HTMLElement | null;
+  coRoots?: () => (HTMLElement | null)[];
   opener: HTMLElement | null;
 }
 
@@ -141,6 +155,7 @@ export class FocusManager {
   open(opts: FocusTrapOptions): FocusTrapHandle {
     const state: TrapState = {
       root: opts.root,
+      ...(opts.coRoots ? { coRoots: opts.coRoots } : {}),
       opener: opts.returnFocusTo !== undefined ? opts.returnFocusTo : this.activeFocusable(),
     };
     this.stack.push(state);
@@ -175,13 +190,21 @@ export class FocusManager {
     this.listening = false;
   }
 
+  /** Every container in a trap, primary root first, then its co-roots in order: the Tab
+   *  cycle walks them in exactly this sequence. Unrendered entries are dropped. */
+  private rootsOf(state: TrapState): HTMLElement[] {
+    const all = [state.root(), ...(state.coRoots?.() ?? [])];
+    return all.filter((el): el is HTMLElement => this.canFocus(el));
+  }
+
   // Bound once for stable add/removeEventListener identity.
   private readonly onKeyDown = (e: KeyboardEvent): void => {
     if (e.key !== 'Tab') return;
     // Self-heal: drop any top traps whose window was closed without releasing, so a
-    // leaked trap can never strand the user.
+    // leaked trap can never strand the user. A trap survives while ANY of its containers
+    // is still rendered (a vendor window whose co-opened bag grid closed is still open).
     let top = this.stack[this.stack.length - 1];
-    while (top && !this.canFocus(top.root())) {
+    while (top && this.rootsOf(top).length === 0) {
       this.stack.pop();
       top = this.stack[this.stack.length - 1];
     }
@@ -189,13 +212,13 @@ export class FocusManager {
       this.stopListening();
       return;
     }
-    const root = top.root();
-    if (!root) return;
+    const roots = this.rootsOf(top);
+    if (roots.length === 0) return;
     const active = document.activeElement;
-    // Only trap Tab when focus is already inside the window: from the game world Tab
-    // is the target-nearest key and must not be hijacked.
-    if (!(active instanceof HTMLElement) || !root.contains(active)) return;
-    const focusables = this.focusablesIn(root);
+    // Only trap Tab when focus is already inside the trapped containers: from the game
+    // world Tab is the target-nearest key and must not be hijacked.
+    if (!(active instanceof HTMLElement) || !roots.some((r) => r.contains(active))) return;
+    const focusables = this.focusablesIn(roots);
     if (focusables.length === 0) return;
     const nextIndex = nextFocusIndex(focusables.length, focusables.indexOf(active), e.shiftKey);
     if (nextIndex < 0) return;
@@ -203,9 +226,15 @@ export class FocusManager {
     focusables[nextIndex].focus();
   };
 
-  private focusablesIn(root: HTMLElement): HTMLElement[] {
-    return [...root.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)].filter(
-      (el) => el.getClientRects().length > 0,
-    );
+  private focusablesIn(roots: HTMLElement[]): HTMLElement[] {
+    const out: HTMLElement[] = [];
+    for (const root of roots) {
+      for (const el of root.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTOR)) {
+        // A container can legally nest inside another (never today, but the filter costs
+        // nothing and a duplicated Tab stop would be a real bug).
+        if (el.getClientRects().length > 0 && !out.includes(el)) out.push(el);
+      }
+    }
+    return out;
   }
 }

@@ -40,8 +40,19 @@ permissions:
   contents: read
   pull-requests: write
 
+# Scoped by EVENT as well as by PR. The jobs below are split by event_name (screenshots +
+# ai-review run only on pull_request; ai-review-comment only on issue_comment), so ONE
+# shared group let an issue_comment run cancel an in-flight pull_request run. Bots comment
+# on essentially every PR (Vercel posts a deploy status within seconds of opening one), and
+# the resulting comment run enters the group, kills the capture mid-tour, then SKIPS all its
+# own jobs because ai-review-comment requires an explicit /review. The screenshot comment
+# step is `if: always()`, so it still posted, reporting "No screenshots were captured".
+# Observed on PR #51 (pull_request run cancelled 8s after opening by the Vercel comment) and
+# identically on #50 (6s). Splitting the group keeps the behavior that is actually wanted, a
+# new push superseding an older run of the SAME event, without letting an unrelated comment
+# destroy a capture.
 concurrency:
-  group: pr-ai-${{ github.event.pull_request.number || github.event.issue.number || github.ref }}
+  group: pr-ai-${{ github.event.pull_request.number || github.event.issue.number || github.ref }}-${{ github.event_name }}
   cancel-in-progress: true
 
 jobs:

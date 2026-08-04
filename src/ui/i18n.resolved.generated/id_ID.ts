@@ -1163,7 +1163,10 @@ export const id_ID: EnTranslations = {
       "full": "Your strain library is full. Release a strain to make room.",
       "refine": "Refine",
       "refineHint": "Fold the second strain into the first, improving it and freeing a slot.",
-      "fullRefine": "Your strain library is full. Refine or release a strain to make room."
+      "fullRefine": "Your strain library is full. Refine or release a strain to make room.",
+      "outlookTitle": "What this cross could throw",
+      "outlookRow": "{trait}: at least {chance}% to hold {target}, up to {ceiling}",
+      "outlookLandrace": "This pairing could reach a landrace."
     },
     "reputation": {
       "tier": {
