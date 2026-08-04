@@ -869,6 +869,19 @@
     color: var(--gold);
     border-bottom-color: var(--gold);
   }
+  /* Touch: the character-sheet tabs are the only way to reach the Overview panel, and at
+     the desktop 6px padding they render 29px tall, under the 40px floor in
+     src/ui/CLAUDE.md. Grow the tap target with padding rather than a fixed height so the
+     text stays vertically centred and the active underline keeps sitting on the row's
+     bottom edge. */
+  @media (pointer: coarse) {
+    .char-tab {
+      min-height: 40px;
+      box-sizing: border-box;
+      display: inline-flex;
+      align-items: center;
+    }
+  }
   .char-body {
     display: grid;
     grid-template-columns: 372px minmax(220px, 1fr) minmax(240px, 1.1fr);
@@ -2770,6 +2783,16 @@
     display: inline-flex;
     align-items: center;
     gap: 7px;
+  }
+  /* Touch: the share button renders 29px tall wherever it appears. #player-card-modal
+     already floors its own actions further down this file; the character-sheet footer
+     hosts the same button outside that scope, so floor the class itself. */
+  @media (pointer: coarse) {
+    .pc-share-btn {
+      min-height: 40px;
+      box-sizing: border-box;
+      justify-content: center;
+    }
   }
   .pc-share-ico {
     flex: none;

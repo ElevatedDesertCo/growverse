@@ -2423,6 +2423,15 @@
     color: #fff;
     box-shadow: 0 0 9px var(--class-color, #69ccf0);
   }
+  /* Touch: 34px square is under the 40px floor in src/ui/CLAUDE.md. The swatches are a
+     wrapping row, so growing them costs no layout elsewhere. Both axes, since a swatch is
+     square by design (a min-height alone would leave it 34px wide). */
+  @media (pointer: coarse) {
+    .skin-swatch {
+      width: 40px;
+      height: 40px;
+    }
+  }
   .skin-unequip-btn {
     min-height: 34px;
     min-width: 40px;
