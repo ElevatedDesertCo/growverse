@@ -191,6 +191,12 @@ const QUEST_IDS = [
   'q_deepfen_purge',
   'q_widows',
   'q_broodmother',
+  // The grey-rot branching arc (zone 2)
+  'q_greyrot',
+  'q_burn_the_beds',
+  'q_seed_the_shallows',
+  'q_ash_and_water',
+  'q_first_green',
   'q_drowned',
   'q_drowned_censers',
   'q_no_rest',

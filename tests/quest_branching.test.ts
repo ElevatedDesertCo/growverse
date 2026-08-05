@@ -5,7 +5,7 @@
 // (and localizing) in-world content: that lands with the zone re-theming.
 
 import { afterEach, describe, expect, it } from 'vitest';
-import { QUESTS } from '../src/sim/data';
+import { NPCS, QUEST_ORDER, QUESTS } from '../src/sim/data';
 import {
   computeQuestState,
   finalizeQuestAccept,
@@ -111,5 +111,86 @@ describe('quest branching: world-flag gates', () => {
     // and the branch gate still resolves from the restored flags
     expect(stateOf(reloaded, 'q_branch_payoff')).toBe('available');
     expect(stateOf(reloaded, 'q_branch_b')).toBe('unavailable');
+  });
+});
+
+// The first SHIPPED branching questline (Phase D-2): zone 2's grey-rot arc. Drives the
+// real content records, not injected defs, so the wiring (giver questIds, QUEST_ORDER,
+// the flag names on both branches) is proven, not just the engine.
+describe('zone 2 grey-rot arc: the shipped branching questline', () => {
+  const ARC = [
+    'q_greyrot',
+    'q_burn_the_beds',
+    'q_seed_the_shallows',
+    'q_ash_and_water',
+    'q_first_green',
+  ];
+
+  // Reach the arc's entry point: q_greyrot requires q_widows turned in.
+  const openArc = (sim: Sim) => {
+    (sim as unknown as { primary: { questsDone: Set<string> } }).primary.questsDone.add('q_widows');
+  };
+
+  it('every arc quest is a real, reachable content record', () => {
+    for (const id of ARC) {
+      const q = QUESTS[id];
+      expect(q, `${id} missing from QUESTS`).toBeDefined();
+      expect(NPCS[q.giverNpcId]?.questIds).toContain(id);
+      expect(QUEST_ORDER).toContain(id);
+    }
+  });
+
+  it('the two answers to the rot are mutually exclusive once one is accepted', () => {
+    const sim = makeSim();
+    openArc(sim);
+    // Neither answer is offered until the rot has actually been traced.
+    expect(stateOf(sim, 'q_burn_the_beds')).toBe('unavailable');
+    expect(stateOf(sim, 'q_seed_the_shallows')).toBe('unavailable');
+
+    accept(sim, 'q_greyrot');
+    complete(sim, 'q_greyrot'); // sets fen_rot_traced
+    expect(stateOf(sim, 'q_burn_the_beds')).toBe('available');
+    expect(stateOf(sim, 'q_seed_the_shallows')).toBe('available');
+
+    accept(sim, 'q_burn_the_beds'); // sets fen_beds_burned, which the other branch forbids
+    expect(stateOf(sim, 'q_seed_the_shallows')).toBe('unavailable');
+  });
+
+  it("each branch's payoff opens only for the branch that was taken", () => {
+    const burn = makeSim();
+    openArc(burn);
+    accept(burn, 'q_greyrot');
+    complete(burn, 'q_greyrot');
+    accept(burn, 'q_burn_the_beds');
+    expect(stateOf(burn, 'q_ash_and_water')).toBe('unavailable'); // gated on the TURN-IN
+    complete(burn, 'q_burn_the_beds');
+    expect(stateOf(burn, 'q_ash_and_water')).toBe('available');
+    expect(stateOf(burn, 'q_first_green')).toBe('unavailable'); // the road not taken
+
+    const seed = makeSim();
+    openArc(seed);
+    accept(seed, 'q_greyrot');
+    complete(seed, 'q_greyrot');
+    accept(seed, 'q_seed_the_shallows');
+    complete(seed, 'q_seed_the_shallows');
+    expect(stateOf(seed, 'q_first_green')).toBe('available');
+    expect(stateOf(seed, 'q_ash_and_water')).toBe('unavailable');
+    expect(stateOf(seed, 'q_burn_the_beds')).toBe('unavailable');
+  });
+
+  it('the choice survives a save/load and still locks out the other road', () => {
+    const sim = makeSim();
+    openArc(sim);
+    accept(sim, 'q_greyrot');
+    complete(sim, 'q_greyrot');
+    accept(sim, 'q_seed_the_shallows');
+    complete(sim, 'q_seed_the_shallows');
+
+    const saved = sim.serializeCharacter(sim.playerId)!;
+    const reloaded = new Sim({ seed: 42, playerClass: 'warrior', noPlayer: true });
+    reloaded.addPlayer('warrior', 'Test', { state: saved });
+    expect(stateOf(reloaded, 'q_first_green')).toBe('available');
+    expect(stateOf(reloaded, 'q_burn_the_beds')).toBe('unavailable');
+    expect(stateOf(reloaded, 'q_ash_and_water')).toBe('unavailable');
   });
 });

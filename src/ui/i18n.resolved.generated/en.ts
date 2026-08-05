@@ -1294,9 +1294,9 @@ export const en: EnTranslations = {
         "cta": "See the world",
         "valeName": "Bloomhaven Vale",
         "valeBlurb": "Green hills and old woods where every adventure begins.",
-        "marshName": "Mirefen Marsh",
-        "marshBlurb": "Sunken fens and tide-worn ruins, home to murlocs and worse.",
-        "peaksName": "Thornpeak Heights",
+        "marshName": "The Sunken Wastes",
+        "marshBlurb": "Sunken fens and tide-worn ruins, home to snappers and worse.",
+        "peaksName": "Thornreach Heights",
         "peaksBlurb": "Wind-scoured ridges climbing toward the realm's coldest dangers."
       },
       "group": {
@@ -1600,9 +1600,9 @@ export const en: EnTranslations = {
       "notedLabel": "Of note",
       "flavor": {
         "old_greyjaw": "A scarred old wolf no trap has held, blamed for three hounds and a stable boy's arm. He hunts the deep woods alone, and turns savage the longer a fight wears on.",
-        "grubjaw": "A fen troll so greedy the other trolls will not dig beside him, said to have eaten a trader's last two pack-mules, harness and all.",
+        "grubjaw": "A fen brute so greedy the other brutes will not dig beside him, said to have eaten a trader's last two pack-mules, harness and all.",
         "shardlord_kazzix": "A storm elemental given shoulders, walking the far crags above Stormcrag with a heartshard worth braving the lightning for.",
-        "mirejaw_frenzy": "A marsh murloc that whips itself into a thrashing frenzy mid-fight, the loudest thing in a loud, territorial pack.",
+        "mirejaw_frenzy": "A marsh snapper that whips itself into a thrashing frenzy mid-fight, the loudest thing in a loud, territorial pack.",
         "gravecaller_cultist": "Robed servants of the death-cult whose work fouls the graves from the Vale to the peaks. Where they gather, the dead do not rest."
       }
     },
@@ -1616,20 +1616,20 @@ export const en: EnTranslations = {
         "desc": "Web-spinners and venomous lurkers that nest in dark, tangled places. Hunters can tame them, the same as beasts."
       },
       "murloc": {
-        "name": "Murlocs",
+        "name": "Snappers",
         "desc": "Amphibious marsh-dwellers that swarm the shallows in noisy, territorial packs."
       },
       "kobold": {
-        "name": "Kobolds",
-        "desc": "Candle-headed diggers that infest mines and burrows, fiercely guarding their ore."
+        "name": "Gremlins",
+        "desc": "Candle-headed diggers that infest mines and burrows, fiercely guarding whatever they have hoarded."
       },
       "humanoid": {
         "name": "Humanoids",
         "desc": "Bandits, cultists, and others who took up the wrong trade. They fight with tactics, not just teeth."
       },
       "troll": {
-        "name": "Trolls",
-        "desc": "Hulking brutes that lair in the marshes of the fen."
+        "name": "Brutes",
+        "desc": "Hulking marsh-dwellers that lair in the drowned reaches of the fen and dig where they are told."
       },
       "ogre": {
         "name": "Ogres",
@@ -1656,8 +1656,8 @@ export const en: EnTranslations = {
       "mapSub": "Three zones, south to north, each a step higher in level. Follow the quest trail and the land carries you from the valley to the peaks.",
       "places": "Notable places",
       "residents": "Who you will meet",
-      "valeBlurb": "The green starting valley, where new heroes cut their teeth on wolves and bandits around the town of Bloomhaven.",
-      "marshBlurb": "A drowned country of fog and ruins. Murlocs swarm the shallows and something older stirs beneath the water, watched from the bridge-town of Fenbridge.",
+      "valeBlurb": "The green starting valley, where new cultivators cut their teeth on coyotes and raiders around the commune town of Bloomhaven.",
+      "marshBlurb": "A drowned country of fog and ruins. Snappers swarm the shallows and something older stirs beneath the water, watched from the bridge-town of Fenbridge.",
       "peaksBlurb": "Wind-scoured ridges and old mine-works climbing to the realm's coldest, highest dangers, held by the outpost of Highwatch.",
       "valeGreeting": "Keep your blade close. The Vale is not what it was.",
       "valeGreeter": "Marshal Redbrook, Bloomhaven",
@@ -1666,8 +1666,8 @@ export const en: EnTranslations = {
       "peaksGreeting": "Two hundred years this wall has held. It will not break on my watch, but it groans.",
       "peaksGreeter": "Captain Thessaly, Highwatch",
       "valePlaceNotes": "Bloomhaven is your first home base. Coyote Wash and Javelina Flats are gentle hunting ground; Mirror Lake is quiet water to fish; the Mitewood and the Old Dig hide Bloom mites and Bloom-thieving gremlins; the Dry Camp and the Withered Bloom hold rougher work; Seedvault Hill drops into the Collapsed Reliquary, the realm's first delve; and Bloomwood Glade is a quiet, sunlit grove to the north.",
-      "marshPlaceNotes": "Fenbridge guards the only dry road. The Prowler Reeds and Deepfen Shallows teem with marsh beasts and murlocs; the Widow Thicket is spun thick with web; the Drowned Chapel and the Troll Mounds keep older dangers; the Gravecaller Encampment is the cult dug in, and the Sunken Bastion is the marsh's instanced heart.",
-      "peaksPlaceNotes": "Highwatch holds the wall. Stalker Ridge and the Deeprock Burrows belong to ridge cats and kobolds; the Ogre Foothills and Drogmar's War-Camp to brutes for hire; Stormcrag crackles with elementals and the Glimmermere glows below it; the Wyrmcult Tents and Revenant Fields ring the cult's high ground, with Gravewyrm Sanctum at its peak.",
+      "marshPlaceNotes": "Fenbridge guards the only dry road. The Prowler Reeds and Deepfen Shallows teem with marsh beasts and snappers; the Broodmother Thicket is spun thick with web; the Drowned Chapel and the Brute Mounds keep older dangers; the Blight Cult Encampment is the cult dug in, and the Drowned Bastion is the marsh's instanced heart.",
+      "peaksPlaceNotes": "Highwatch holds the wall. Spikeling Ridge and the Deeproot Burrows belong to ridge cats and gremlins; the Brute Foothills and Drogmar's War-Camp to hired muscle; Riftcrag crackles with elementals and the Glimmermere glows below it; the Rift Cult Tents and Husk Fields ring the cult's high ground, with the Rift Sanctum at its peak.",
       "gladeTitle": "A quiet corner: Bloomwood Glade",
       "gladeBody": "Not every story in the Vale is about the dead. In the north, a sunlit grove called Bloomwood Glade keeps its own gentler rhythm, all quiet paths and dappled light beneath the boughs. It is a soft counterpoint to the trail you are following, and worth seeing when the road gives you room to wander."
     },
@@ -6641,6 +6641,56 @@ export const en: EnTranslations = {
           },
           "1": {
             "label": "The Spore Broodmother slain"
+          }
+        }
+      },
+      "q_greyrot": {
+        "title": "The Grey Rot",
+        "text": "Bloom does not wither out here the way it does on the flats, {playerName}. It drowns. It goes grey and soft and the rot walks root to root until a whole terrace is mush. And wherever a patch turns, the bog bloats are already drifting over it. Burst ten of them on the western shelf and tell me what comes out.",
+        "completion": "Spores, you say, packed tight and all of a size. That is not weather, {playerName}, and it is not luck. Someone is growing the rot and aiming it at our gardens.",
+        "objectives": {
+          "0": {
+            "label": "Bog Bloat slain"
+          }
+        }
+      },
+      "q_burn_the_beds": {
+        "title": "Burn the Beds",
+        "text": "Yara wants a season to breed something that out-grows the rot. I do not have a season. I have a causeway holding up two hundred people and a rot walking straight at it. Burn the bloat beds on the western shelf, {playerName}. Twelve should break the drift. The fen will be poorer for it and I will sleep anyway.",
+        "completion": "Shelf is ash and the drift has stopped dead at the water. That was the right call, and Yara will not speak to me for a month. Take your pay.",
+        "objectives": {
+          "0": {
+            "label": "Bog Bloat slain"
+          }
+        }
+      },
+      "q_seed_the_shallows": {
+        "title": "Seed the Shallows",
+        "text": "Fire clears a shelf and leaves it bare, and bare ground is where rot goes next. I would rather crowd it out. I have cuttings bred off the Bloomhaven stock that will root in standing water, but the deepfen snappers strip anything green from the shallows inside a day. Clear twelve of them off the east bank and I will get the cuttings in.",
+        "completion": "Cuttings are in, and the water has not turned them yet. It is slower than the Warden would like, and slower still to prove. But if it holds, the fen keeps its green instead of trading it for ash.",
+        "objectives": {
+          "0": {
+            "label": "Deepfen Spore-Snapper slain"
+          }
+        }
+      },
+      "q_ash_and_water": {
+        "title": "Ash and Water",
+        "text": "The burn worked, and it bought me a new problem, which is how this fen pays a debt. Smoke drew the drowned up out of the shallows and now they stand in the ash where the beds were, waiting on nothing. Put ten of them back down before they find the causeway.",
+        "completion": "Ash, and the dead standing in it. I chose the fire, {playerName}, and I would choose it again. But do not let anyone tell you it came free.",
+        "objectives": {
+          "0": {
+            "label": "Drowned Husk laid to rest"
+          }
+        }
+      },
+      "q_first_green": {
+        "title": "The First Green",
+        "text": "The cuttings have taken, {playerName}. Green in the shallows for the first time since the marsh rose, and the brutes have come down off the barrow-mounds to strip it by the handful. Drive ten of them back east. Every day those roots hold is a day the rot has to go around them.",
+        "completion": "Still standing, still green. It will not save the fen this year. But my grandmother planted the Bloomhaven terrace and never saw it flower either, so I will take a shallow full of cuttings and call it a good season.",
+        "objectives": {
+          "0": {
+            "label": "Sunken Wastes Brute slain"
           }
         }
       },
