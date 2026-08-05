@@ -49,8 +49,10 @@ export const TARGETS = [
       'ui/map',
       'map_window',
       'minimap',
-      'sim/content/zones',
-      'sim/zone',
+      // Zone content lives in per-zone files (content/zone1..zone4.ts), so match the
+      // singular stem. The old 'sim/content/zones' / 'sim/zone' entries matched no path
+      // in the repo, which meant a zone-content diff never triggered this target.
+      'sim/content/zone',
       'render/terrain',
       'render/world',
     ],
