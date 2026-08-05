@@ -249,6 +249,9 @@ import {
   checkQuestReady,
   onInventoryChangedForQuests,
   onMobKilledForQuests,
+  onNpcInteractedForQuests,
+  onReachCheckForQuests,
+  onReputationChangedForQuests,
 } from './quests/quest_credit';
 
 // computeQuestState (the pure quest-state fn) moved to quests/quest_commands.ts (W4);
@@ -385,6 +388,12 @@ export const FALL_SAFE_DISTANCE = 12; // yards of free fall before damage
 // browser, headless RL env, tests), a kill locks for a flat 24h day. The authoritative
 // server overrides this with its realm-local 3 AM daily reset via SimConfig.raidResetMs.
 const DEFAULT_RAID_LOCKOUT_MS = 24 * 60 * 60 * 1000;
+
+// Phase D `reach` objectives poll the player's position rather than reacting to an
+// event, so they run every Nth tick instead of all 20. 4 ticks is 5 Hz: a player at
+// full run speed covers well under the default 12yd credit radius in that window, so
+// nothing is ever missed by walking through.
+const REACH_CHECK_TICKS = 4;
 // OBJECT_RESPAWN moved to types.ts (shared with the extracted Nythraxis crypt-relic
 // respawn). The NYTHRAXIS_* encounter consts (relic summons, Aldric id, wardstone /
 // gravebreaker / soul-rend / deathless / transition tuning, room radius, lockout ms,
@@ -2285,6 +2294,10 @@ export class Sim {
       onMobKilledForQuests: (mob, meta) => onMobKilledForQuests(sim.ctx, mob, meta),
       onInventoryChangedForQuests: (meta) => onInventoryChangedForQuests(sim.ctx, meta),
       checkQuestReady: (qp, meta) => checkQuestReady(sim.ctx, qp, meta),
+      onNpcInteractedForQuests: (npcTemplateId, meta) =>
+        onNpcInteractedForQuests(sim.ctx, npcTemplateId, meta),
+      onReachCheckForQuests: (meta) => onReachCheckForQuests(sim.ctx, meta),
+      onReputationChangedForQuests: (meta) => onReputationChangedForQuests(sim.ctx, meta),
       countItem: sim.countItem.bind(sim),
       completeQuestForDev: (questId, pid) => completeQuestForDev(sim.ctx, questId, pid),
       completeCurrentQuestsForDev: (pid) => completeCurrentQuestsForDev(sim.ctx, pid),
@@ -2700,6 +2713,11 @@ export class Sim {
         updateRegen(this.ctx, p, meta);
         tickPendingSession(this.ctx, p);
         updateRested(p, meta);
+        // Phase D `reach` objectives: a poll, not an event, so it runs on a throttle
+        // rather than all 20 ticks. Pure distance math, no rng, so the draw order (and
+        // the parity gate) is unaffected; the cadence is derived from the sim clock so
+        // it stays deterministic.
+        if (this.tickCount % REACH_CHECK_TICKS === 0) onReachCheckForQuests(this.ctx, meta);
       }
       updateTimers(p);
       updateAuras(this.ctx, p);
@@ -4867,27 +4885,11 @@ export class Sim {
     }
   }
 
+  // The NPC-talk objective path (both `interact` and Phase D's `deliver`) lives in
+  // quests/quest_credit.ts alongside the other credit updaters; Sim keeps this thin
+  // delegate because talkToNpc resolves it here.
   private interactNpcForQuests(npc: Entity, meta: PlayerMeta): boolean {
-    let progressed = false;
-    for (const qp of meta.questLog.values()) {
-      if (qp.state !== 'active') continue;
-      const quest = QUESTS[qp.questId];
-      quest.objectives.forEach((objective, objectiveIndex) => {
-        if (objective.type !== 'interact' || objective.targetNpcId !== npc.templateId) return;
-        if (qp.counts[objectiveIndex] >= objective.count) return;
-        qp.counts[objectiveIndex]++;
-        progressed = true;
-        meta.counters.questProgress++;
-        this.emit({
-          type: 'questProgress',
-          questId: qp.questId,
-          text: `${objective.label}: ${qp.counts[objectiveIndex]}/${objective.count}`,
-          pid: meta.entityId,
-        });
-        this.ctx.checkQuestReady(qp, meta);
-      });
-    }
-    return progressed;
+    return this.ctx.onNpcInteractedForQuests(npc.templateId, meta);
   }
 
   // -------------------------------------------------------------------------

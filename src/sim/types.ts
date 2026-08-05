@@ -1919,11 +1919,19 @@ export function emptyZoneProps(): ZonePropsDef {
 }
 
 export interface QuestObjective {
-  type: 'kill' | 'collect' | 'interact';
+  type: 'kill' | 'collect' | 'interact' | 'reach' | 'deliver' | 'reputation';
   targetMobId?: string; // for kill
-  itemId?: string; // for collect
+  itemId?: string; // for collect, AND the payload for deliver
   targetObjectItemId?: string; // for interactable ground objects
-  targetNpcId?: string; // for interactable NPC objectives
+  targetNpcId?: string; // for interactable NPC objectives, AND the recipient for deliver
+  // reach: credited once the player stands within `reachRadius` yards of `reachPos`.
+  // Scanned on a throttled cadence rather than every tick (see quests/quest_credit.ts);
+  // the check is pure distance math and draws no rng.
+  reachPos?: { x: number; z: number };
+  reachRadius?: number;
+  // reputation: credited once the player's standing with `requiredRep.factionId` reaches
+  // `requiredRep.tier`. Same shape the crafting gate already uses (CraftRecipe.requiredRep).
+  requiredRep?: { factionId: FactionId; tier: RepTier };
   count: number;
   label: string;
 }
