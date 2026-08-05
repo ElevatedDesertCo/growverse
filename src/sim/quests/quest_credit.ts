@@ -187,7 +187,8 @@ export function onQuestDeadlinesForQuests(ctx: SimContext, meta: PlayerMeta): vo
   for (const qp of meta.questLog.values()) {
     if (qp.state === 'done' || qp.expiresAt === undefined) continue;
     if (ctx.time < qp.expiresAt) continue;
-    (expired ??= []).push(qp.questId);
+    if (!expired) expired = [];
+    expired.push(qp.questId);
   }
   if (!expired) return;
   for (const questId of expired) {
