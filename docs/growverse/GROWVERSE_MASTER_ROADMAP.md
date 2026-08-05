@@ -202,11 +202,19 @@ STATUS: IN PROGRESS, landing in small batches as the gating note under QW4 recom
 - D-2a also de-cloned the Guide bestiary category labels, the loudest inherited-IP strings
   left in the wiki: Murlocs to Snappers, Kobolds to Gremlins, Trolls to Brutes, plus the
   stale zone names/POI notes the earlier partial reskin left behind.
-- NOT done yet: zone 3 (Thornreach Heights) still ships the Gravewyrm strings the
-  definition of done names, plus the ogre/kobold/wyrmcult arc; zone 4 and Hollowmere are
-  untouched (Hollowmere is a DELIBERATE seasonal wing, not inherited fantasy: leave the
-  pumpkins and crones alone). The extended `QuestObjective` union (escort/deliver/timed/
-  reach/reputation) is also still open.
+- D-2b (zone 3, Thornreach Heights) is SHIPPED: the Gravewyrm is retired, closing the
+  definition-of-done item that named it. Zone 3 was already half-reskinned (its own header
+  comment reads "the Rift Cult feeds Korzul the Corrupted Wyrm", and the POIs have said Rift
+  Sanctum / Riftcrag / Deeproot Burrows / Spikeling Ridge for a while); the mobs, dungeon,
+  items and quests now follow it. Korzul the Corrupted Wyrm, the Rift Sanctum, Rift Cult
+  Zealots/Necromancers, Riftcrag Elementals, Deeproot Tunnelers, Thornreach Ogres/Crushers,
+  and the matching Rift/Riftscale item family. Ids and keys are untouched, so no key is
+  added: English-only per the contributor rule, M16 does not fire. The Aldren boss yell
+  moved at its emit site AND in every `sim_i18n.ts` locale block together, so S3 stays green.
+- NOT done yet: zone 4 and Hollowmere (Hollowmere is a DELIBERATE seasonal wing, not
+  inherited fantasy: leave the pumpkins and crones alone). The extended `QuestObjective`
+  union (escort/deliver/timed/reach/reputation) is also still open, as is a second branching
+  arc now that the pattern has a working reference.
 - Known debt this batch does not pay: the 20 locale overlays predate the whole rebrand
   (they still say Eastbrook Vale / Mirefen Marsh / Mirefen Troll). Renames only red the
   M16 gate when a value is byte-identical to English, so stale-but-different translations
