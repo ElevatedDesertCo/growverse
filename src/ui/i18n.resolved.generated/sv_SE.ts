@@ -3705,6 +3705,7 @@ export const sv_SE: EnTranslations = {
     "logs": {
       "accepted": "Uppdrag accepterat: {name}",
       "abandoned": "Uppdrag övergivet: {name}",
+      "failed": "Quest failed: {name}",
       "completed": "Uppdrag avklarat: {name}",
       "ready": "{name} ({status})",
       "progress": "{label}: {current}/{total}"

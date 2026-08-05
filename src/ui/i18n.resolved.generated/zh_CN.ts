@@ -3705,6 +3705,7 @@ export const zh_CN: EnTranslations = {
     "logs": {
       "accepted": "已接受任务：{name}",
       "abandoned": "已放弃任务：{name}",
+      "failed": "任务失败：{name}",
       "completed": "已完成任务：{name}",
       "ready": "{name}（{status}）",
       "progress": "{label}：{current}/{total}"

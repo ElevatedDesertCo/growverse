@@ -3705,6 +3705,7 @@ export const da_DK: EnTranslations = {
     "logs": {
       "accepted": "Quest accepteret: {name}",
       "abandoned": "Quest opgivet: {name}",
+      "failed": "Quest failed: {name}",
       "completed": "Quest fuldført: {name}",
       "ready": "{name} ({status})",
       "progress": "{label}: {current}/{total}"

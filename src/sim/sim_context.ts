@@ -307,6 +307,9 @@ export interface SimContextCallbacks {
   onNpcInteractedForQuests(npcTemplateId: string, meta: PlayerMeta): boolean;
   onReachCheckForQuests(meta: PlayerMeta): void;
   onReputationChangedForQuests(meta: PlayerMeta): void;
+  // Timed quests: fails and drops any quest past its deadline. Same throttled cadence
+  // as the reach poll; reads only the sim clock.
+  onQuestDeadlinesForQuests(meta: PlayerMeta): void;
   countItem(itemId: string, pid?: number): number;
   completeQuestForDev(questId: string, pid?: number): boolean;
   completeCurrentQuestsForDev(pid?: number): number;
@@ -795,6 +798,7 @@ export function createSimContext(host: SimContextHost): SimContext {
     onNpcInteractedForQuests: host.onNpcInteractedForQuests,
     onReachCheckForQuests: host.onReachCheckForQuests,
     onReputationChangedForQuests: host.onReputationChangedForQuests,
+    onQuestDeadlinesForQuests: host.onQuestDeadlinesForQuests,
     countItem: host.countItem,
     completeQuestForDev: host.completeQuestForDev,
     completeCurrentQuestsForDev: host.completeCurrentQuestsForDev,

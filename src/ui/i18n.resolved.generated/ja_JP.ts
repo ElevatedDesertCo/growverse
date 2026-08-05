@@ -3705,6 +3705,7 @@ export const ja_JP: EnTranslations = {
     "logs": {
       "accepted": "クエスト受諾: {name}",
       "abandoned": "クエスト破棄: {name}",
+      "failed": "クエスト失敗: {name}",
       "completed": "クエスト完了: {name}",
       "ready": "{name}（{status}）",
       "progress": "{label}: {current}/{total}"

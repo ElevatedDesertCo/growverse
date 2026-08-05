@@ -175,6 +175,7 @@ function makeCtx() {
     onNpcInteractedForQuests: vi.fn(),
     onReachCheckForQuests: vi.fn(),
     onReputationChangedForQuests: vi.fn(),
+    onQuestDeadlinesForQuests: vi.fn(),
     countItem: vi.fn(() => 0),
     completeQuestForDev: vi.fn(() => false),
     completeCurrentQuestsForDev: vi.fn(() => 0),

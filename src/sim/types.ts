@@ -1965,6 +1965,11 @@ export interface QuestDef {
   retired?: boolean; // remains finishable if already accepted, but cannot be newly accepted
   shareable?: boolean; // quest-link sharing allowed (default true; set false to opt out)
   suggestedPlayers?: number; // group quests ("Suggested players: 5")
+  // Seconds allowed after accepting before the quest fails and leaves the log. A
+  // quest-level constraint rather than an objective: a deadline is not something the
+  // player completes, so modelling it as an objective would leave a count that can never
+  // be credited and a quest that can never be ready.
+  timeLimit?: number;
 }
 
 export function questTurnInNpcIds(quest: QuestDef): readonly string[] {
@@ -1983,6 +1988,10 @@ export interface QuestProgress {
   questId: string;
   counts: number[]; // per objective
   state: 'active' | 'ready' | 'done';
+  // Absolute sim time the quest expires, set on accept from QuestDef.timeLimit. Absolute
+  // (not a ticking countdown) on purpose: the snapshot JSON-diffs the whole quest log, so
+  // a field that changed every tick would re-send it every tick for every player.
+  expiresAt?: number;
 }
 
 // Consumables restore their total over CONSUME_DURATION seconds while sitting,

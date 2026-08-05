@@ -1423,6 +1423,7 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'questUi.detail.requiresLevel': '需要等级 {level}',
   'questUi.logs.accepted': '已接受任务：{name}',
   'questUi.logs.abandoned': '已放弃任务：{name}',
+  'questUi.logs.failed': '任务失败：{name}',
   'questUi.logs.completed': '已完成任务：{name}',
   'questUi.logs.ready': '{name}（{status}）',
   'questUi.logs.progress': '{label}：{current}/{total}',

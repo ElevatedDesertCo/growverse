@@ -3705,6 +3705,7 @@ export const ko_KR: EnTranslations = {
     "logs": {
       "accepted": "퀘스트 수락: {name}",
       "abandoned": "퀘스트 포기: {name}",
+      "failed": "퀘스트 실패: {name}",
       "completed": "퀘스트 완료: {name}",
       "ready": "{name} ({status})",
       "progress": "{label}: {current}/{total}"

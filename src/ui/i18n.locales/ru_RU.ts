@@ -1513,6 +1513,7 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'questUi.detail.requiresLevel': 'Требуется уровень {level}',
   'questUi.logs.accepted': 'Задание принято: {name}',
   'questUi.logs.abandoned': 'Задание отменено: {name}',
+  'questUi.logs.failed': 'Задание провалено: {name}',
   'questUi.logs.completed': 'Задание завершено: {name}',
   'questUi.logs.ready': '{name} ({status})',
   'questUi.logs.progress': '{label}: {current}/{total}',

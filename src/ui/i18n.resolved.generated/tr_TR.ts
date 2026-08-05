@@ -3705,6 +3705,7 @@ export const tr_TR: EnTranslations = {
     "logs": {
       "accepted": "Görev kabul edildi: {name}",
       "abandoned": "Görev bırakıldı: {name}",
+      "failed": "Quest failed: {name}",
       "completed": "Görev tamamlandı: {name}",
       "ready": "{name} ({status})",
       "progress": "{label}: {current}/{total}"

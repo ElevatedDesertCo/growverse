@@ -178,6 +178,29 @@ export function onReputationChangedForQuests(ctx: SimContext, meta: PlayerMeta):
   }
 }
 
+// Timed quests fail rather than complete: on expiry the quest leaves the log and is NOT
+// recorded as done, so it can be picked up and attempted again. Driven on the same
+// throttled cadence as the reach poll (deadlines need no finer granularity than that),
+// and it reads only the sim clock, so it draws no rng.
+export function onQuestDeadlinesForQuests(ctx: SimContext, meta: PlayerMeta): void {
+  let expired: string[] | null = null;
+  for (const qp of meta.questLog.values()) {
+    if (qp.state === 'done' || qp.expiresAt === undefined) continue;
+    if (ctx.time < qp.expiresAt) continue;
+    (expired ??= []).push(qp.questId);
+  }
+  if (!expired) return;
+  for (const questId of expired) {
+    meta.questLog.delete(questId);
+    ctx.emit({
+      type: 'log',
+      text: `Quest failed: ${QUESTS[questId].name}`,
+      color: '#f66',
+      pid: meta.entityId,
+    });
+  }
+}
+
 export function checkQuestReady(ctx: SimContext, qp: QuestProgress, meta: PlayerMeta): void {
   const quest = QUESTS[qp.questId];
   const ready = quest.objectives.every((obj, i) => qp.counts[i] >= obj.count);

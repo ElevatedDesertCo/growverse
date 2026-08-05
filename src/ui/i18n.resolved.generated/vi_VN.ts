@@ -3705,6 +3705,7 @@ export const vi_VN: EnTranslations = {
     "logs": {
       "accepted": "Đã nhận nhiệm vụ: {name}",
       "abandoned": "Đã từ bỏ nhiệm vụ: {name}",
+      "failed": "Quest failed: {name}",
       "completed": "Đã hoàn thành nhiệm vụ: {name}",
       "ready": "{name} ({status})",
       "progress": "{label}: {current}/{total}"

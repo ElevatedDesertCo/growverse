@@ -14,6 +14,7 @@ import { QUESTS } from '../src/sim/data';
 import { finalizeQuestAccept } from '../src/sim/quests/quest_commands';
 import {
   onNpcInteractedForQuests,
+  onQuestDeadlinesForQuests,
   onReachCheckForQuests,
   onReputationChangedForQuests,
 } from '../src/sim/quests/quest_credit';
@@ -37,7 +38,14 @@ const q = (id: string, objectives: QuestObjective[]): QuestDef => ({
   itemRewards: {},
 });
 
+// A quest-level deadline rather than an objective (see QuestDef.timeLimit).
+const timed = (id: string, timeLimit: number): QuestDef => ({
+  ...q(id, [{ type: 'kill', targetMobId: 'munchie_coyote', count: 1, label: 'Coyote slain' }]),
+  timeLimit,
+});
+
 const TEMP: QuestDef[] = [
+  timed('q_obj_timed', 60),
   q('q_obj_reach', [
     {
       type: 'reach',
@@ -217,5 +225,94 @@ describe('quest objectives: reputation', () => {
     awardReputation(ctxOf(sim) as never, 'baked_beaver', 5000, sim.playerId);
     expect(progressOf(sim, 'q_obj_rep')?.counts[0]).toBe(1);
     expect(progressOf(sim, 'q_obj_rep')?.state).toBe('ready');
+  });
+});
+
+describe('quest objectives: timed quests', () => {
+  afterEach(uninstall);
+
+  it('stamps a deadline on accept, derived from the sim clock', () => {
+    install();
+    const sim = makeSim();
+    accept(sim, 'q_obj_timed');
+    const qp = progressOf(sim, 'q_obj_timed');
+    expect(qp?.expiresAt).toBeCloseTo(ctxOf(sim).time + 60, 5);
+  });
+
+  it('leaves an untimed quest with no deadline at all', () => {
+    install();
+    const sim = makeSim();
+    accept(sim, 'q_obj_reach');
+    expect(progressOf(sim, 'q_obj_reach')?.expiresAt).toBeUndefined();
+  });
+
+  it('does not fail the quest before the deadline', () => {
+    install();
+    const sim = makeSim();
+    accept(sim, 'q_obj_timed');
+    onQuestDeadlinesForQuests(ctxOf(sim), metaOf(sim));
+    expect(metaOf(sim).questLog.has('q_obj_timed')).toBe(true);
+  });
+
+  it('fails and drops the quest once the deadline passes, without marking it done', () => {
+    install();
+    const sim = makeSim();
+    accept(sim, 'q_obj_timed');
+    const qp = progressOf(sim, 'q_obj_timed');
+    if (qp) qp.expiresAt = ctxOf(sim).time - 1; // deadline already behind us
+    onQuestDeadlinesForQuests(ctxOf(sim), metaOf(sim));
+    expect(metaOf(sim).questLog.has('q_obj_timed')).toBe(false);
+    // Not recorded as done, so the player can pick it up and try again.
+    expect(metaOf(sim).questsDone.has('q_obj_timed')).toBe(false);
+  });
+
+  it('is failed by the running sim, and announces it', () => {
+    install();
+    const sim = makeSim();
+    accept(sim, 'q_obj_timed');
+    const qp = progressOf(sim, 'q_obj_timed');
+    if (qp) qp.expiresAt = ctxOf(sim).time - 1;
+    let failed = '';
+    for (let i = 0; i < 8 && !failed; i++) {
+      for (const ev of sim.tick()) {
+        if (ev.type === 'log' && ev.text.startsWith('Quest failed:')) failed = ev.text;
+      }
+    }
+    expect(failed).toBe('Quest failed: q_obj_timed');
+    expect(metaOf(sim).questLog.has('q_obj_timed')).toBe(false);
+  });
+
+  it('persists as seconds REMAINING, so the deadline survives a relog', () => {
+    install();
+    const sim = makeSim();
+    accept(sim, 'q_obj_timed');
+    const qp = progressOf(sim, 'q_obj_timed');
+    if (qp) qp.expiresAt = ctxOf(sim).time + 25; // 25s left when we save
+    const saved = sim.serializeCharacter(sim.playerId)!;
+    const row = saved.questLog.find((r) => r.questId === 'q_obj_timed');
+    expect(row?.timeLeft).toBe(25);
+
+    // A fresh Sim starts its clock at 0, so an absolute stamp would have expired.
+    const reloaded = new Sim({ seed: 42, playerClass: 'warrior', noPlayer: true });
+    reloaded.addPlayer('warrior', 'Test', { state: saved });
+    const restored = progressOf(reloaded, 'q_obj_timed');
+    expect(restored).toBeDefined();
+    expect(restored?.expiresAt).toBeCloseTo(ctxOf(reloaded).time + 25, 5);
+  });
+
+  it('drops a quest whose clock ran out while the character was offline', () => {
+    install();
+    const sim = makeSim();
+    accept(sim, 'q_obj_timed');
+    const qp = progressOf(sim, 'q_obj_timed');
+    if (qp) qp.expiresAt = ctxOf(sim).time; // 0s left
+    const saved = sim.serializeCharacter(sim.playerId)!;
+    expect(saved.questLog.find((r) => r.questId === 'q_obj_timed')?.timeLeft).toBe(0);
+
+    const reloaded = new Sim({ seed: 42, playerClass: 'warrior', noPlayer: true });
+    reloaded.addPlayer('warrior', 'Test', { state: saved });
+    expect(metaOf(reloaded).questLog.has('q_obj_timed')).toBe(false);
+    // and it is re-acceptable, not silently completed
+    expect(metaOf(reloaded).questsDone.has('q_obj_timed')).toBe(false);
   });
 });

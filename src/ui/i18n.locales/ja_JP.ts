@@ -1494,6 +1494,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'questUi.detail.requiresLevel': 'レベル{level}が必要',
   'questUi.logs.accepted': 'クエスト受諾: {name}',
   'questUi.logs.abandoned': 'クエスト破棄: {name}',
+  'questUi.logs.failed': 'クエスト失敗: {name}',
   'questUi.logs.completed': 'クエスト完了: {name}',
   'questUi.logs.ready': '{name}（{status}）',
   'questUi.logs.progress': '{label}: {current}/{total}',

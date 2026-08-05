@@ -57,9 +57,13 @@ export function sanitizeRemovedZone1Content(state: CharacterState): {
   state: CharacterState;
   changed: boolean;
 } {
+  // Spread rather than whitelist the row's fields. This sanitizer's job is to DROP
+  // removed quests, not to decide which columns a quest row has: listing them by hand
+  // silently ate any field added later (it swallowed the timed-quest deadline until this
+  // was fixed). `counts` is still copied so the caller cannot alias the saved array.
   const questLog = state.questLog
     .filter((quest) => !REMOVED_QUESTS.has(quest.questId))
-    .map((quest) => ({ questId: quest.questId, counts: [...quest.counts], state: quest.state }));
+    .map((quest) => ({ ...quest, counts: [...quest.counts] }));
   const questsDone = state.questsDone.filter((questId) => !REMOVED_QUESTS.has(questId));
   const inventory = state.inventory.filter(keepItem).map((slot) => ({ ...slot }));
   const vendorBuyback = state.vendorBuyback?.filter(keepItem).map((slot) => ({ ...slot }));

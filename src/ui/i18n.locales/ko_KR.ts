@@ -1482,6 +1482,7 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'questUi.detail.requiresLevel': '{level}레벨 필요',
   'questUi.logs.accepted': '퀘스트 수락: {name}',
   'questUi.logs.abandoned': '퀘스트 포기: {name}',
+  'questUi.logs.failed': '퀘스트 실패: {name}',
   'questUi.logs.completed': '퀘스트 완료: {name}',
   'questUi.logs.ready': '{name} ({status})',
   'questUi.logs.progress': '{label}: {current}/{total}',

@@ -3705,6 +3705,7 @@ export const ru_RU: EnTranslations = {
     "logs": {
       "accepted": "Задание принято: {name}",
       "abandoned": "Задание отменено: {name}",
+      "failed": "Задание провалено: {name}",
       "completed": "Задание завершено: {name}",
       "ready": "{name} ({status})",
       "progress": "{label}: {current}/{total}"

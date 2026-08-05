@@ -250,6 +250,7 @@ import {
   onInventoryChangedForQuests,
   onMobKilledForQuests,
   onNpcInteractedForQuests,
+  onQuestDeadlinesForQuests,
   onReachCheckForQuests,
   onReputationChangedForQuests,
 } from './quests/quest_credit';
@@ -873,7 +874,12 @@ export interface CharacterState {
   // Long-process recipe cooldowns as seconds REMAINING at save time (never an absolute
   // clock stamp), rebased onto the current clock on load.
   craftCooldowns?: Record<string, number>;
-  questLog: { questId: string; counts: number[]; state: 'active' | 'ready' | 'done' }[];
+  questLog: {
+    questId: string;
+    counts: number[];
+    state: 'active' | 'ready' | 'done';
+    timeLeft?: number;
+  }[];
   questsDone: string[];
   // Persistent quest branch flags. Optional so pre-Phase-D saves load cleanly (default []).
   worldFlags?: string[];
@@ -1423,12 +1429,17 @@ export class Sim {
         if (left > 0) meta.craftReadyAt[id] = this.time + left;
       }
       for (const q of s.questLog) {
-        if (q.state !== 'done')
-          meta.questLog.set(q.questId, {
-            questId: q.questId,
-            counts: [...q.counts],
-            state: q.state,
-          });
+        if (q.state === 'done') continue;
+        // A timed quest whose clock ran out while the character was offline is simply
+        // gone: it is not re-armed with a fresh deadline, and not marked done, so the
+        // player can pick it up again.
+        if (q.timeLeft !== undefined && q.timeLeft <= 0) continue;
+        meta.questLog.set(q.questId, {
+          questId: q.questId,
+          counts: [...q.counts],
+          state: q.state,
+          ...(q.timeLeft === undefined ? {} : { expiresAt: this.time + q.timeLeft }),
+        });
       }
       for (const q of s.questsDone) meta.questsDone.add(q);
       if (s.worldFlags) for (const f of s.worldFlags) meta.worldFlags.add(f);
@@ -1646,6 +1657,12 @@ export class Sim {
         questId: q.questId,
         counts: [...q.counts],
         state: q.state,
+        // Saved as seconds REMAINING, not an absolute deadline: sim time restarts at 0
+        // on load, so an absolute stamp would expire instantly. Same shape as
+        // craftCooldowns above.
+        ...(q.expiresAt === undefined
+          ? {}
+          : { timeLeft: Math.max(0, Math.ceil(q.expiresAt - this.time)) }),
       })),
       questsDone: [...meta.questsDone],
       worldFlags: [...meta.worldFlags],
@@ -2298,6 +2315,7 @@ export class Sim {
         onNpcInteractedForQuests(sim.ctx, npcTemplateId, meta),
       onReachCheckForQuests: (meta) => onReachCheckForQuests(sim.ctx, meta),
       onReputationChangedForQuests: (meta) => onReputationChangedForQuests(sim.ctx, meta),
+      onQuestDeadlinesForQuests: (meta) => onQuestDeadlinesForQuests(sim.ctx, meta),
       countItem: sim.countItem.bind(sim),
       completeQuestForDev: (questId, pid) => completeQuestForDev(sim.ctx, questId, pid),
       completeCurrentQuestsForDev: (pid) => completeCurrentQuestsForDev(sim.ctx, pid),
@@ -2717,7 +2735,10 @@ export class Sim {
         // rather than all 20 ticks. Pure distance math, no rng, so the draw order (and
         // the parity gate) is unaffected; the cadence is derived from the sim clock so
         // it stays deterministic.
-        if (this.tickCount % REACH_CHECK_TICKS === 0) onReachCheckForQuests(this.ctx, meta);
+        if (this.tickCount % REACH_CHECK_TICKS === 0) {
+          onReachCheckForQuests(this.ctx, meta);
+          onQuestDeadlinesForQuests(this.ctx, meta);
+        }
       }
       updateTimers(p);
       updateAuras(this.ctx, p);

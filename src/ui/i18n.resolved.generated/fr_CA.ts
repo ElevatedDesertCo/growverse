@@ -3705,6 +3705,7 @@ export const fr_CA: EnTranslations = {
     "logs": {
       "accepted": "Quête acceptée : {name}",
       "abandoned": "Quête abandonnée : {name}",
+      "failed": "Quest failed: {name}",
       "completed": "Quête terminée : {name}",
       "ready": "{name} ({status})",
       "progress": "{label} : {current}/{total}"
