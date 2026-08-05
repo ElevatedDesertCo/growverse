@@ -3705,6 +3705,7 @@ export const en_XA: EnTranslations = {
     "logs": {
       "accepted": "[Ɋúéšţ áççéþţéð: {name}]",
       "abandoned": "[Ɋúéšţ áƀáñðóñéð: {name}]",
+      "failed": "[Ɋúéšţ ƒáíļéð: {name}]",
       "completed": "[Ɋúéšţ çóɱþļéţéð: {name}]",
       "ready": "[{name} ({status})]",
       "progress": "[{label}: {current}/{total}]"

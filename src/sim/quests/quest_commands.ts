@@ -107,7 +107,12 @@ export function finalizeQuestAccept(
   quest: QuestDef,
   meta: PlayerMeta,
 ): void {
-  meta.questLog.set(questId, { questId, counts: quest.objectives.map(() => 0), state: 'active' });
+  meta.questLog.set(questId, {
+    questId,
+    counts: quest.objectives.map(() => 0),
+    state: 'active',
+    ...(quest.timeLimit ? { expiresAt: ctx.time + quest.timeLimit } : {}),
+  });
   if (quest.setsFlagOnAccept) meta.worldFlags.add(quest.setsFlagOnAccept);
   for (const itemId of questFallbackGrants(quest, (id) => ctx.countItem(id, meta.entityId) > 0)) {
     ctx.addItem(itemId, 1, meta.entityId);

@@ -7707,6 +7707,8 @@ export class Hud {
     if (match) return t('questUi.logs.accepted', { name: questTitleFromSource(match[1]) });
     match = /^Quest abandoned: (.+)$/.exec(text);
     if (match) return t('questUi.logs.abandoned', { name: questTitleFromSource(match[1]) });
+    match = /^Quest failed: (.+)$/.exec(text);
+    if (match) return t('questUi.logs.failed', { name: questTitleFromSource(match[1]) });
     match = /^Quest completed: (.+)$/.exec(text);
     if (match) return t('questUi.logs.completed', { name: questTitleFromSource(match[1]) });
     match = /^(.+) accepted your shared quest\.$/.exec(text);

@@ -333,7 +333,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.revered",
     "hudChrome.trade.cutLabel",
     "hudChrome.trade.hint",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "questUi.logs.failed"
   ],
   "es_ES": [
     "abilityUi.cast.harvest",
@@ -659,7 +660,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.revered",
     "hudChrome.trade.cutLabel",
     "hudChrome.trade.hint",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "questUi.logs.failed"
   ],
   "fr_FR": [
     "abilityUi.cast.harvest",
@@ -985,7 +987,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.revered",
     "hudChrome.trade.cutLabel",
     "hudChrome.trade.hint",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "questUi.logs.failed"
   ],
   "fr_CA": [
     "abilityUi.cast.harvest",
@@ -1311,7 +1314,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.revered",
     "hudChrome.trade.cutLabel",
     "hudChrome.trade.hint",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "questUi.logs.failed"
   ],
   "en_CA": [],
   "it_IT": [
@@ -1638,7 +1642,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.revered",
     "hudChrome.trade.cutLabel",
     "hudChrome.trade.hint",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "questUi.logs.failed"
   ],
   "de_DE": [
     "abilityUi.cast.harvest",
@@ -1964,7 +1969,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.revered",
     "hudChrome.trade.cutLabel",
     "hudChrome.trade.hint",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "questUi.logs.failed"
   ],
   "zh_CN": [
     "entities.npcs.gravewarden_holt.name",
@@ -2346,7 +2352,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.revered",
     "hudChrome.trade.cutLabel",
     "hudChrome.trade.hint",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "questUi.logs.failed"
   ],
   "ru_RU": [
     "entities.npcs.gravewarden_holt.name",
@@ -2686,7 +2693,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.revered",
     "hudChrome.trade.cutLabel",
     "hudChrome.trade.hint",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "questUi.logs.failed"
   ],
   "pl_PL": [
     "abilityUi.cast.harvest",
@@ -3012,7 +3020,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.revered",
     "hudChrome.trade.cutLabel",
     "hudChrome.trade.hint",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "questUi.logs.failed"
   ],
   "id_ID": [
     "abilityUi.cast.harvest",
@@ -3338,7 +3347,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.revered",
     "hudChrome.trade.cutLabel",
     "hudChrome.trade.hint",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "questUi.logs.failed"
   ],
   "tr_TR": [
     "abilityUi.cast.harvest",
@@ -3664,7 +3674,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.revered",
     "hudChrome.trade.cutLabel",
     "hudChrome.trade.hint",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "questUi.logs.failed"
   ],
   "sv_SE": [
     "abilityUi.cast.harvest",
@@ -3990,7 +4001,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.revered",
     "hudChrome.trade.cutLabel",
     "hudChrome.trade.hint",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "questUi.logs.failed"
   ],
   "vi_VN": [
     "abilityUi.cast.harvest",
@@ -4316,7 +4328,8 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.revered",
     "hudChrome.trade.cutLabel",
     "hudChrome.trade.hint",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "questUi.logs.failed"
   ],
   "da_DK": [
     "abilityUi.cast.harvest",
@@ -4642,6 +4655,7 @@ export const pending: Record<string, readonly string[]> = {
     "hudChrome.reputation.tier.revered",
     "hudChrome.trade.cutLabel",
     "hudChrome.trade.hint",
-    "hudChrome.unitFrame.lvl"
+    "hudChrome.unitFrame.lvl",
+    "questUi.logs.failed"
   ]
 };

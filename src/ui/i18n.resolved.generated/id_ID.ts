@@ -3705,6 +3705,7 @@ export const id_ID: EnTranslations = {
     "logs": {
       "accepted": "Misi diterima: {name}",
       "abandoned": "Misi ditinggalkan: {name}",
+      "failed": "Quest failed: {name}",
       "completed": "Misi tuntas: {name}",
       "ready": "{name} ({status})",
       "progress": "{label}: {current}/{total}"

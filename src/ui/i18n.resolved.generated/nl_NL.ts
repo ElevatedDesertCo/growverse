@@ -3705,6 +3705,7 @@ export const nl_NL: EnTranslations = {
     "logs": {
       "accepted": "Quest aanvaard: {name}",
       "abandoned": "Quest opgegeven: {name}",
+      "failed": "Quest failed: {name}",
       "completed": "Quest voltooid: {name}",
       "ready": "{name} ({status})",
       "progress": "{label}: {current}/{total}"
