@@ -108,11 +108,12 @@ Each phase follows the master directive's required template.
 
 STATUS: B-1 (sim core + persistence) and B-2 (IWorld seam: `world.garden` +
 plantSeed/harvestPlot in both worlds + server dispatch + snapshot, all three seam gates
-green) are DONE and shipped. B-3 (the Garden UI window) is handed off: the IWorld
-surface is ready to consume, but the repo's UI contract requires visual + mobile
-portrait/landscape + a11y verification in a running client, which a headless env cannot
-do. UI-label i18n also hits the M16 gate (wordy `hudChrome.*` labels need five non-Latin
-fills), so build the UI where a browser and the localization batch are available.
+green) are DONE and shipped. B-3 (the Garden UI window) is also SHIPPED, and its
+running-client pass is done: the browser verification sweep drove the window in a real
+client and `scripts/mobile_touch_target_check.mjs` now gates the 40x40 tap-target floor,
+page-overflow, and the Tab-trap / return-focus contract in phone portrait AND landscape
+for every Growverse window. The wordy `hudChrome.*` labels shipped with their five
+non-Latin fills, so the M16 gate is satisfied.
 
 
 - **Objective:** Turn "growing" from theming into the signature mechanic: plant a seed at a
@@ -155,11 +156,15 @@ inventory is untouched). Delivered in five slices, all green:
   read-only IWorldReputation), both worlds + server dispatch/snapshot, all three seam gates.
 - C-3: the Breeding window UI (`breeding_view.ts` + `breeding_window.ts`), opened from the
   Grow Station, with the commune-standing header.
-Not done (deferred, out of the original scope): a phenotype-preview before a cross;
-cosmetic rep rewards; a relational genetics/rep DB table (state rides the existing
-`characters.state` JSONB blob). The Breeding window still needs a running-client visual +
-mobile + a11y pass (headless cannot verify), and the five non-Latin UI + item-name fills
-want a native-speaker review.
+- C-4: the phenotype preview (`traitOutlook` in `types.ts` + the Breeding window's cross
+  panel): before a cross is paid for it shows each trait's target tier, its mutation
+  ceiling, and the odds of at least matching the target. Deliberately withholds the parents'
+  raw genotypes, so the preview informs the choice without solving it.
+The Breeding window's running-client visual + mobile + a11y pass is DONE (same browser
+sweep and `mobile_touch_target_check.mjs` coverage as the Garden window).
+Not done (deferred, out of the original scope): cosmetic rep rewards; a relational
+genetics/rep DB table (state rides the existing `characters.state` JSONB blob). The five
+non-Latin UI + item-name fills want a native-speaker review.
 
 - **Objective:** Cross-breed strains for traits (bounded model: a few dominant/recessive
   traits, mutation chance, rare phenotypes); add Baked Beaver commune reputation that gates
@@ -182,6 +187,40 @@ want a native-speaker review.
   gains from commune activities unlock at least one gated strain/recipe.
 
 ### Phase D (P2/P3): Zone-by-zone divergence + quest depth
+
+STATUS: IN PROGRESS, landing in small batches as the gating note under QW4 recommends.
+- D-1 (the branching-quest ENGINE) is SHIPPED: `QuestDef.requiresFlag`/`forbidsFlag`/
+  `setsFlagOnAccept`/`setsFlagOnTurnIn` plus the persisted `PlayerMeta.worldFlags`, mirrored
+  onto `ClientWorld` and covered by `tests/quest_branching.test.ts`.
+- D-2a (zone 2, The Sunken Wastes) is SHIPPED: the grey-rot arc, the first REACHABLE
+  branching questline. `q_greyrot` traces the rot, then Warden Fenwick and Herbalist Yara
+  offer mutually exclusive answers (`q_burn_the_beds` vs `q_seed_the_shallows`); accepting
+  one locks the other out for good, and each turn-in opens only its own payoff
+  (`q_ash_and_water` vs `q_first_green`). Kill-only objectives on mobs that already spawn
+  there, so no camp/ground-object/loot change and the world-gen rng draw order (and the
+  parity gate) is untouched. Shipped WITH its five non-Latin fills, per M16.
+- D-2a also de-cloned the Guide bestiary category labels, the loudest inherited-IP strings
+  left in the wiki: Murlocs to Snappers, Kobolds to Gremlins, Trolls to Brutes, plus the
+  stale zone names/POI notes the earlier partial reskin left behind.
+- D-2b (zone 3, Thornreach Heights) is SHIPPED: the Gravewyrm is retired, closing the
+  definition-of-done item that named it. Zone 3 was already half-reskinned (its own header
+  comment reads "the Rift Cult feeds Korzul the Corrupted Wyrm", and the POIs have said Rift
+  Sanctum / Riftcrag / Deeproot Burrows / Spikeling Ridge for a while); the mobs, dungeon,
+  items and quests now follow it. Korzul the Corrupted Wyrm, the Rift Sanctum, Rift Cult
+  Zealots/Necromancers, Riftcrag Elementals, Deeproot Tunnelers, Thornreach Ogres/Crushers,
+  and the matching Rift/Riftscale item family. Ids and keys are untouched, so no key is
+  added: English-only per the contributor rule, M16 does not fire. The Aldren boss yell
+  moved at its emit site AND in every `sim_i18n.ts` locale block together, so S3 stays green.
+- NOT done yet: zone 4 and Hollowmere (Hollowmere is a DELIBERATE seasonal wing, not
+  inherited fantasy: leave the pumpkins and crones alone). The extended `QuestObjective`
+  union (escort/deliver/timed/reach/reputation) is also still open, as is a second branching
+  arc now that the pattern has a working reference.
+- Known debt this batch does not pay: the 20 locale overlays predate the whole rebrand
+  (they still say Eastbrook Vale / Mirefen Marsh / Mirefen Troll). Renames only red the
+  M16 gate when a value is byte-identical to English, so stale-but-different translations
+  pass. New copy here is written to match the overlays' EXISTING renderings so an objective
+  label never disagrees with the nameplate above it; a full locale refresh is a
+  maintainer-batch job.
 
 - **Objective:** Re-theme zones 2 to 4 + Hollowmere from generic fantasy to Growverse (the
   "Dry" antagonist arc), and extend the quest framework (new objective types + branching/choice).

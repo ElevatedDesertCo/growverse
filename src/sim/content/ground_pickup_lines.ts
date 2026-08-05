@@ -55,7 +55,7 @@ export const GROUND_PICKUP_LINES: Record<string, GroundPickupLines> = {
   },
   gravewyrm_sigil: {
     deny: 'Dark magic keeps the sigil rooted.',
-    enough: 'You already have enough Gravewyrm sigils.',
+    enough: 'You already have enough Rift sigils.',
   },
   sanctum_key_shard: {
     deny: 'The shard is dormant and locked in place.',

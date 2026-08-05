@@ -143,9 +143,9 @@ export const guideStrings = {
       cta: 'See the world',
       valeName: 'Bloomhaven Vale',
       valeBlurb: 'Green hills and old woods where every adventure begins.',
-      marshName: 'Mirefen Marsh',
-      marshBlurb: 'Sunken fens and tide-worn ruins, home to murlocs and worse.',
-      peaksName: 'Thornpeak Heights',
+      marshName: 'The Sunken Wastes',
+      marshBlurb: 'Sunken fens and tide-worn ruins, home to snappers and worse.',
+      peaksName: 'Thornreach Heights',
       peaksBlurb: "Wind-scoured ridges climbing toward the realm's coldest dangers.",
     },
 
@@ -535,14 +535,14 @@ export const guideStrings = {
       old_greyjaw:
         "A scarred old wolf no trap has held, blamed for three hounds and a stable boy's arm. He hunts the deep woods alone, and turns savage the longer a fight wears on.",
       grubjaw:
-        "A fen troll so greedy the other trolls will not dig beside him, said to have eaten a trader's last two pack-mules, harness and all.",
+        "A fen brute so greedy the other brutes will not dig beside him, said to have eaten a trader's last two pack-mules, harness and all.",
       shardlord_kazzix:
         'A storm elemental given shoulders, walking the far crags above Stormcrag with a heartshard worth braving the lightning for.',
       // Kept though Mirejaw Frenzy is no longer in the bestiary (it is a summon-only encounter
       // add now filtered out): the line is still translated in every locale overlay, and the
       // bestiary renders flavor only for creatures it lists, so an unused entry is harmless.
       mirejaw_frenzy:
-        'A marsh murloc that whips itself into a thrashing frenzy mid-fight, the loudest thing in a loud, territorial pack.',
+        'A marsh snapper that whips itself into a thrashing frenzy mid-fight, the loudest thing in a loud, territorial pack.',
       gravecaller_cultist:
         'Robed servants of the death-cult whose work fouls the graves from the Vale to the peaks. Where they gather, the dead do not rest.',
     },
@@ -557,20 +557,20 @@ export const guideStrings = {
       desc: 'Web-spinners and venomous lurkers that nest in dark, tangled places. Hunters can tame them, the same as beasts.',
     },
     murloc: {
-      name: 'Murlocs',
+      name: 'Snappers',
       desc: 'Amphibious marsh-dwellers that swarm the shallows in noisy, territorial packs.',
     },
     kobold: {
-      name: 'Kobolds',
-      desc: 'Candle-headed diggers that infest mines and burrows, fiercely guarding their ore.',
+      name: 'Gremlins',
+      desc: 'Candle-headed diggers that infest mines and burrows, fiercely guarding whatever they have hoarded.',
     },
     humanoid: {
       name: 'Humanoids',
       desc: 'Bandits, cultists, and others who took up the wrong trade. They fight with tactics, not just teeth.',
     },
     troll: {
-      name: 'Trolls',
-      desc: 'Hulking brutes that lair in the marshes of the fen.',
+      name: 'Brutes',
+      desc: 'Hulking marsh-dwellers that lair in the drowned reaches of the fen and dig where they are told.',
     },
     ogre: {
       name: 'Ogres',
@@ -602,9 +602,9 @@ export const guideStrings = {
     places: 'Notable places',
     residents: 'Who you will meet',
     valeBlurb:
-      'The green starting valley, where new heroes cut their teeth on wolves and bandits around the town of Bloomhaven.',
+      'The green starting valley, where new cultivators cut their teeth on coyotes and raiders around the commune town of Bloomhaven.',
     marshBlurb:
-      'A drowned country of fog and ruins. Murlocs swarm the shallows and something older stirs beneath the water, watched from the bridge-town of Fenbridge.',
+      'A drowned country of fog and ruins. Snappers swarm the shallows and something older stirs beneath the water, watched from the bridge-town of Fenbridge.',
     peaksBlurb:
       "Wind-scoured ridges and old mine-works climbing to the realm's coldest, highest dangers, held by the outpost of Highwatch.",
 
@@ -623,9 +623,9 @@ export const guideStrings = {
     valePlaceNotes:
       "Bloomhaven is your first home base. Coyote Wash and Javelina Flats are gentle hunting ground; Mirror Lake is quiet water to fish; the Mitewood and the Old Dig hide Bloom mites and Bloom-thieving gremlins; the Dry Camp and the Withered Bloom hold rougher work; Seedvault Hill drops into the Collapsed Reliquary, the realm's first delve; and Bloomwood Glade is a quiet, sunlit grove to the north.",
     marshPlaceNotes:
-      "Fenbridge guards the only dry road. The Prowler Reeds and Deepfen Shallows teem with marsh beasts and murlocs; the Widow Thicket is spun thick with web; the Drowned Chapel and the Troll Mounds keep older dangers; the Gravecaller Encampment is the cult dug in, and the Sunken Bastion is the marsh's instanced heart.",
+      "Fenbridge guards the only dry road. The Prowler Reeds and Deepfen Shallows teem with marsh beasts and snappers; the Broodmother Thicket is spun thick with web; the Drowned Chapel and the Brute Mounds keep older dangers; the Blight Cult Encampment is the cult dug in, and the Drowned Bastion is the marsh's instanced heart.",
     peaksPlaceNotes:
-      "Highwatch holds the wall. Stalker Ridge and the Deeprock Burrows belong to ridge cats and kobolds; the Ogre Foothills and Drogmar's War-Camp to brutes for hire; Stormcrag crackles with elementals and the Glimmermere glows below it; the Wyrmcult Tents and Revenant Fields ring the cult's high ground, with Gravewyrm Sanctum at its peak.",
+      "Highwatch holds the wall. Spikeling Ridge and the Deeproot Burrows belong to ridge cats and gremlins; the Brute Foothills and Drogmar's War-Camp to hired muscle; Riftcrag crackles with elementals and the Glimmermere glows below it; the Rift Cult Tents and Husk Fields ring the cult's high ground, with the Rift Sanctum at its peak.",
 
     // Bloomwood Glade vignette, distilled spoiler-safe.
     gladeTitle: 'A quiet corner: Bloomwood Glade',
@@ -687,7 +687,7 @@ export const guideStrings = {
       'In Mirefen the drownings are no accident. Someone is filling the fen like a tithing box, raising obedient dead from every traveler the water takes. Chase the orders up the chain to a Mistcaller in the drowned bastion, whose last words name something older still, stirring beneath the peaks.',
     sagaPeaksTitle: 'The peaks: what the tithe was for',
     sagaPeaksBody:
-      "On Thornpeak the whole scheme comes clear. Every soul stolen since the Vale was a tithe poured toward the cult's grim work in the mountain's heart. The trail that began in a chapel yard ends here, in a five-player descent to face the hand behind it all. We will let you find out who waits at the bottom.",
+      "On Thornreach the whole scheme comes clear. Every soul stolen since the Vale was a tithe poured toward the cult's grim work in the mountain's heart. The trail that began in a chapel yard ends here, in a five-player descent to face the hand behind it all. We will let you find out who waits at the bottom.",
 
     // Side-chains, called out as optional threads alongside the main story.
     sideTitle: 'Threads off the main road',
@@ -737,9 +737,9 @@ export const guideStrings = {
     templeName: 'The Drowned Temple',
     templeBody:
       'A moonlit shrine sunk beneath a glowing tarn high in the peaks, reached through a gate of cold light. A drowned cult still sings down there in its rotted vestments, and the warnings carved on the shore say something below only sleeps. A self-contained mystery, set apart from the main story, for the curious and the well-prepared.',
-    sanctumName: 'Gravewyrm Sanctum',
+    sanctumName: 'Rift Sanctum',
     sanctumBody:
-      "The dark heart of Thornpeak, where the cult's long work reaches its terrible peak.",
+      "The dark heart of Thornreach, where the cult's long work reaches its terrible peak.",
     raidName: 'The endgame raid',
     raidBody:
       'Beyond a sealed royal door waits a ten-player trial: a multi-phase fight and a deathless power the whole raid must shut down together. Earn your way in, then bring nine friends.',

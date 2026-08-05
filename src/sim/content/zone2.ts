@@ -663,6 +663,8 @@ export const ZONE2_NPCS: Record<string, NpcDef> = {
       'q_prowlers',
       'q_deepfen',
       'q_deepfen_purge',
+      'q_burn_the_beds',
+      'q_ash_and_water',
       'q_trolls',
       'q_deacon',
     ],
@@ -723,7 +725,7 @@ export const ZONE2_NPCS: Record<string, NpcDef> = {
     pos: { x: 10, z: 295 },
     facing: -Math.PI / 2,
     color: 0x7d3c98,
-    questIds: ['q_widows', 'q_broodmother'],
+    questIds: ['q_widows', 'q_broodmother', 'q_greyrot', 'q_seed_the_shallows', 'q_first_green'],
     greeting: 'Mind the thicket west of the road. The webs are thick as sailcloth this season.',
   },
   scout_maren: {
@@ -940,6 +942,105 @@ export const ZONE2_QUESTS: Record<string, QuestDef> = {
     copperReward: 500,
     itemRewards: {},
     requiresQuest: 'q_widows',
+  },
+  // --- The grey rot: zone 2's branching arc -------------------------------
+  // q_greyrot traces the rot, then the fen offers two mutually exclusive answers.
+  // Accepting either sets a flag the other forbids, so the choice is made once and
+  // endures; each branch's own payoff quest gates on the flag its turn-in sets.
+  // Kill-only objectives on mobs that already spawn here: no new camps, ground
+  // objects, or loot rows, so world-gen rng draw order is untouched.
+  q_greyrot: {
+    id: 'q_greyrot',
+    name: 'The Grey Rot',
+    giverNpcId: 'herbalist_yara',
+    turnInNpcId: 'herbalist_yara',
+    text: 'Bloom does not wither out here the way it does on the flats, $N. It drowns. It goes grey and soft and the rot walks root to root until a whole terrace is mush. And wherever a patch turns, the bog bloats are already drifting over it. Burst ten of them on the western shelf and tell me what comes out.',
+    completionText:
+      'Spores, you say, packed tight and all of a size. That is not weather, $N, and it is not luck. Someone is growing the rot and aiming it at our gardens.',
+    objectives: [{ type: 'kill', targetMobId: 'bog_bloat', count: 10, label: 'Bog Bloat slain' }],
+    xpReward: 1350,
+    copperReward: 500,
+    itemRewards: {},
+    minLevel: 9,
+    requiresQuest: 'q_widows',
+    setsFlagOnTurnIn: 'fen_rot_traced',
+  },
+  q_burn_the_beds: {
+    id: 'q_burn_the_beds',
+    name: 'Burn the Beds',
+    giverNpcId: 'warden_fenwick',
+    turnInNpcId: 'warden_fenwick',
+    text: 'Yara wants a season to breed something that out-grows the rot. I do not have a season. I have a causeway holding up two hundred people and a rot walking straight at it. Burn the bloat beds on the western shelf, $N. Twelve should break the drift. The fen will be poorer for it and I will sleep anyway.',
+    completionText:
+      'Shelf is ash and the drift has stopped dead at the water. That was the right call, and Yara will not speak to me for a month. Take your pay.',
+    objectives: [{ type: 'kill', targetMobId: 'bog_bloat', count: 12, label: 'Bog Bloat slain' }],
+    xpReward: 1500,
+    copperReward: 600,
+    itemRewards: {},
+    minLevel: 9,
+    requiresFlag: 'fen_rot_traced',
+    forbidsFlag: 'fen_shallows_seeded',
+    setsFlagOnAccept: 'fen_beds_burned',
+    setsFlagOnTurnIn: 'fen_beds_burned_done',
+  },
+  q_seed_the_shallows: {
+    id: 'q_seed_the_shallows',
+    name: 'Seed the Shallows',
+    giverNpcId: 'herbalist_yara',
+    turnInNpcId: 'herbalist_yara',
+    text: 'Fire clears a shelf and leaves it bare, and bare ground is where rot goes next. I would rather crowd it out. I have cuttings bred off the Bloomhaven stock that will root in standing water, but the deepfen snappers strip anything green from the shallows inside a day. Clear twelve of them off the east bank and I will get the cuttings in.',
+    completionText:
+      'Cuttings are in, and the water has not turned them yet. It is slower than the Warden would like, and slower still to prove. But if it holds, the fen keeps its green instead of trading it for ash.',
+    objectives: [
+      {
+        type: 'kill',
+        targetMobId: 'deepfen_murloc',
+        count: 12,
+        label: 'Deepfen Spore-Snapper slain',
+      },
+    ],
+    xpReward: 1500,
+    copperReward: 600,
+    itemRewards: {},
+    minLevel: 9,
+    requiresFlag: 'fen_rot_traced',
+    forbidsFlag: 'fen_beds_burned',
+    setsFlagOnAccept: 'fen_shallows_seeded',
+    setsFlagOnTurnIn: 'fen_shallows_seeded_done',
+  },
+  q_ash_and_water: {
+    id: 'q_ash_and_water',
+    name: 'Ash and Water',
+    giverNpcId: 'warden_fenwick',
+    turnInNpcId: 'warden_fenwick',
+    text: 'The burn worked, and it bought me a new problem, which is how this fen pays a debt. Smoke drew the drowned up out of the shallows and now they stand in the ash where the beds were, waiting on nothing. Put ten of them back down before they find the causeway.',
+    completionText:
+      'Ash, and the dead standing in it. I chose the fire, $N, and I would choose it again. But do not let anyone tell you it came free.',
+    objectives: [
+      { type: 'kill', targetMobId: 'drowned_dead', count: 10, label: 'Drowned Husk laid to rest' },
+    ],
+    xpReward: 1600,
+    copperReward: 650,
+    itemRewards: {},
+    minLevel: 10,
+    requiresFlag: 'fen_beds_burned_done',
+  },
+  q_first_green: {
+    id: 'q_first_green',
+    name: 'The First Green',
+    giverNpcId: 'herbalist_yara',
+    turnInNpcId: 'herbalist_yara',
+    text: 'The cuttings have taken, $N. Green in the shallows for the first time since the marsh rose, and the brutes have come down off the barrow-mounds to strip it by the handful. Drive ten of them back east. Every day those roots hold is a day the rot has to go around them.',
+    completionText:
+      'Still standing, still green. It will not save the fen this year. But my grandmother planted the Bloomhaven terrace and never saw it flower either, so I will take a shallow full of cuttings and call it a good season.',
+    objectives: [
+      { type: 'kill', targetMobId: 'fen_troll', count: 10, label: 'Sunken Wastes Brute slain' },
+    ],
+    xpReward: 1600,
+    copperReward: 650,
+    itemRewards: {},
+    minLevel: 10,
+    requiresFlag: 'fen_shallows_seeded_done',
   },
   q_drowned: {
     id: 'q_drowned',
@@ -1188,6 +1289,11 @@ export const ZONE2_QUEST_ORDER = [
   'q_deepfen_purge',
   'q_widows',
   'q_broodmother',
+  'q_greyrot',
+  'q_burn_the_beds',
+  'q_seed_the_shallows',
+  'q_ash_and_water',
+  'q_first_green',
   'q_drowned',
   'q_drowned_censers',
   'q_no_rest',
@@ -1234,7 +1340,7 @@ export const ZONE2_CAMPS: CampDef[] = [
   { mobId: 'gravecaller_mender', center: { x: 18, z: 472 }, radius: 8, count: 2 },
   { mobId: 'sister_nhalia', center: { x: 24, z: 492 }, radius: 5, count: 1 },
   { mobId: 'deacon_voss', center: { x: 0, z: 510 }, radius: 2, count: 1 },
-  // Bog Bloats: volatile gas-bags drifting the dry eastern shelf of the marsh.
+  // Bog Bloats: volatile gas-bags drifting the dry western shelf of the marsh.
   // Listed last so their spawn draws never perturb the other camps' placement.
   { mobId: 'bog_bloat', center: { x: 72, z: 428 }, radius: 11, count: 5 },
   { mobId: 'bog_bloat', center: { x: 110, z: 440 }, radius: 11, count: 4 },
@@ -1631,7 +1737,7 @@ export const ZONE2_ITEMS: Record<string, ItemDef> = {
   },
   trollhide_leggings: {
     id: 'trollhide_leggings',
-    name: 'Trollhide Leggings',
+    name: 'Brutehide Leggings',
     kind: 'armor',
     armorType: 'cloth',
     slot: 'legs',

@@ -2837,6 +2837,36 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
     '정말 죽었습니까? 그럼 덤불은 다시 나무일 뿐입니다. 빛이 그대의 검을 축복하기를, {playerName}이여.',
   'entities.quests.q_broodmother.objectives.0.label': '마이어펜 과부거미 처치',
   'entities.quests.q_broodmother.objectives.1.label': '거미어미 처치',
+  'entities.quests.q_greyrot.title': '잿빛 부패',
+  'entities.quests.q_greyrot.text':
+    '이곳의 블룸은 메마른 평지에서처럼 시들지 않습니다, {playerName}. 익사하지요. 잿빛으로 물러지고, 부패가 뿌리에서 뿌리로 걸어가 계단밭 하나를 통째로 진창으로 만듭니다. 그리고 색이 변한 자리 위에는 어김없이 늪 부푼괴물이 떠 있습니다. 서쪽 여울에서 열 마리를 터뜨리고, 안에서 무엇이 나왔는지 알려주세요.',
+  'entities.quests.q_greyrot.completion':
+    '포자군요. 그것도 빽빽하게 들어차고 크기까지 고른. 그건 날씨가 아닙니다, {playerName}. 운도 아니고요. 누군가 이 부패를 기르고 있고, 우리 밭을 겨누고 있습니다.',
+  'entities.quests.q_greyrot.objectives.0.label': '늪 부푼괴물 처치',
+  'entities.quests.q_burn_the_beds.title': '온상을 불태워라',
+  'entities.quests.q_burn_the_beds.text':
+    '야라는 부패를 이길 품종을 길러낼 한 철을 원하지. 내겐 한 철이 없다. 내겐 이백 명을 떠받치는 둑길과, 그리로 곧장 걸어오는 부패가 있을 뿐이다. 서쪽 여울의 부푼괴물 온상을 태워라, {playerName}. 열두 마리면 그 흐름은 끊긴다. 늪은 그만큼 메마르겠지만, 나는 그래도 잠들 것이다.',
+  'entities.quests.q_burn_the_beds.completion':
+    '여울은 재가 되었고 흐름은 물가에서 뚝 멈췄다. 옳은 판단이었고, 덕분에 야라는 한 달간 내게 말을 걸지 않겠지. 삯을 받아 가라.',
+  'entities.quests.q_burn_the_beds.objectives.0.label': '늪 부푼괴물 처치',
+  'entities.quests.q_seed_the_shallows.title': '여울에 심다',
+  'entities.quests.q_seed_the_shallows.text':
+    '불은 여울을 헐벗게 할 뿐이고, 헐벗은 땅이야말로 부패가 다음으로 향하는 곳입니다. 저는 차라리 초록으로 밀어내고 싶습니다. 블룸헤이븐 모주에서 길러낸, 고인 물에서도 뿌리내리는 삽수가 있습니다. 그런데 딥펜 무는이들이 여울의 푸른 것을 하루 만에 훑어 먹습니다. 동쪽 기슭에서 열두 마리를 치워주시면 삽수를 넣겠습니다.',
+  'entities.quests.q_seed_the_shallows.completion':
+    '삽수는 들어갔고, 물은 아직 그것을 상하게 하지 않았습니다. 감시관이 바라는 것보다 느리고, 쓸모를 증명하기는 더 느리지요. 하지만 버텨준다면 늪은 초록을 재와 맞바꾸지 않고 지켜냅니다.',
+  'entities.quests.q_seed_the_shallows.objectives.0.label': '딥펜 무는이 처치',
+  'entities.quests.q_ash_and_water.title': '재와 물',
+  'entities.quests.q_ash_and_water.text':
+    '불태우기는 통했다. 그리고 새 골칫거리를 사들였지. 이 늪이 빚을 갚는 방식이 그렇다. 연기가 익사한 자들을 얕은 물에서 끌어올렸고, 이제 그것들은 온상이 있던 자리의 재 위에 아무것도 기다리지 않는 얼굴로 서 있다. 둑길을 찾아내기 전에 열을 도로 눕혀라.',
+  'entities.quests.q_ash_and_water.completion':
+    '재와, 그 위에 선 망자라. 불을 고른 건 나다, {playerName}. 다시라도 같은 것을 고르겠다. 다만 그것이 공짜였다고는 누구에게도 말하게 두지 마라.',
+  'entities.quests.q_ash_and_water.objectives.0.label': '익사한 망자 안식시킴',
+  'entities.quests.q_first_green.title': '첫 초록',
+  'entities.quests.q_first_green.text':
+    '삽수가 뿌리를 내렸습니다, {playerName}. 늪이 차오른 이래 처음으로 여울에 초록이 있습니다. 그런데 트롤들이 봉분에서 내려와 그것을 한 움큼씩 뜯어 가고 있어요. 열 마리를 동쪽으로 몰아내 주세요. 저 뿌리가 버티는 하루하루가, 부패가 돌아가야 하는 하루입니다.',
+  'entities.quests.q_first_green.completion':
+    '아직 서 있고, 아직 초록입니다. 올해의 늪을 구하지는 못하겠지요. 하지만 제 할머니도 블룸헤이븐 계단밭을 심고 꽃을 보지 못했습니다. 그러니 여울 가득한 삽수를 받고, 좋은 철이었다고 부르겠습니다.',
+  'entities.quests.q_first_green.objectives.0.label': '마이어펜 트롤 처치',
   'entities.quests.q_drowned.title': '익사한 망자들',
   'entities.quests.q_drowned.text':
     '{playerName}이여, 둑길에서 익사한 여행자들이 수초를 두르고 호수에서 걸어 나옵니다. 익사한 망자 12구를 쉬게 하십시오.',

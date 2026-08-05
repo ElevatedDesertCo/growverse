@@ -348,7 +348,7 @@ export const en_CA: AdminTranslations = {
   "poi.thornpeak_heights.6": "The Glimmermere",
   "poi.thornpeak_heights.7": "Wyrmcult Tents",
   "poi.thornpeak_heights.8": "Revenant Fields",
-  "poi.thornpeak_heights.9": "Gravewyrm Sanctum",
+  "poi.thornpeak_heights.9": "Rift Sanctum",
   "location.kind.overworld": "Overworld",
   "location.kind.dungeon": "Dungeon",
   "location.kind.delve": "Delve",

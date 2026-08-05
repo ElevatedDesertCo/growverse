@@ -78,7 +78,7 @@ export const CRYPT_LAYOUT: DungeonLayout = {
   dais: { x: 0, z: 96, r: 9.5 },
 };
 
-// Gravewyrm Sanctum: a stretched three-chamber crypt (z -19..158) with
+// Rift Sanctum: a stretched three-chamber crypt (z -19..158) with
 // narrowed waists at z 67/115 leaving a ~10u centre passage at |x| <= 5.
 export const SANCTUM_LAYOUT: DungeonLayout = (() => {
   const pillars: GridPoint[] = [];

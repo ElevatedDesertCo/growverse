@@ -1294,9 +1294,9 @@ export const en_CA: EnTranslations = {
         "cta": "See the world",
         "valeName": "Bloomhaven Vale",
         "valeBlurb": "Green hills and old woods where every adventure begins.",
-        "marshName": "Mirefen Marsh",
-        "marshBlurb": "Sunken fens and tide-worn ruins, home to murlocs and worse.",
-        "peaksName": "Thornpeak Heights",
+        "marshName": "The Sunken Wastes",
+        "marshBlurb": "Sunken fens and tide-worn ruins, home to snappers and worse.",
+        "peaksName": "Thornreach Heights",
         "peaksBlurb": "Wind-scoured ridges climbing toward the realm's coldest dangers."
       },
       "group": {
@@ -1600,9 +1600,9 @@ export const en_CA: EnTranslations = {
       "notedLabel": "Of note",
       "flavor": {
         "old_greyjaw": "A scarred old wolf no trap has held, blamed for three hounds and a stable boy's arm. He hunts the deep woods alone, and turns savage the longer a fight wears on.",
-        "grubjaw": "A fen troll so greedy the other trolls will not dig beside him, said to have eaten a trader's last two pack-mules, harness and all.",
+        "grubjaw": "A fen brute so greedy the other brutes will not dig beside him, said to have eaten a trader's last two pack-mules, harness and all.",
         "shardlord_kazzix": "A storm elemental given shoulders, walking the far crags above Stormcrag with a heartshard worth braving the lightning for.",
-        "mirejaw_frenzy": "A marsh murloc that whips itself into a thrashing frenzy mid-fight, the loudest thing in a loud, territorial pack.",
+        "mirejaw_frenzy": "A marsh snapper that whips itself into a thrashing frenzy mid-fight, the loudest thing in a loud, territorial pack.",
         "gravecaller_cultist": "Robed servants of the death-cult whose work fouls the graves from the Vale to the peaks. Where they gather, the dead do not rest."
       }
     },
@@ -1616,20 +1616,20 @@ export const en_CA: EnTranslations = {
         "desc": "Web-spinners and venomous lurkers that nest in dark, tangled places. Hunters can tame them, the same as beasts."
       },
       "murloc": {
-        "name": "Murlocs",
+        "name": "Snappers",
         "desc": "Amphibious marsh-dwellers that swarm the shallows in noisy, territorial packs."
       },
       "kobold": {
-        "name": "Kobolds",
-        "desc": "Candle-headed diggers that infest mines and burrows, fiercely guarding their ore."
+        "name": "Gremlins",
+        "desc": "Candle-headed diggers that infest mines and burrows, fiercely guarding whatever they have hoarded."
       },
       "humanoid": {
         "name": "Humanoids",
         "desc": "Bandits, cultists, and others who took up the wrong trade. They fight with tactics, not just teeth."
       },
       "troll": {
-        "name": "Trolls",
-        "desc": "Hulking brutes that lair in the marshes of the fen."
+        "name": "Brutes",
+        "desc": "Hulking marsh-dwellers that lair in the drowned reaches of the fen and dig where they are told."
       },
       "ogre": {
         "name": "Ogres",
@@ -1656,8 +1656,8 @@ export const en_CA: EnTranslations = {
       "mapSub": "Three zones, south to north, each a step higher in level. Follow the quest trail and the land carries you from the valley to the peaks.",
       "places": "Notable places",
       "residents": "Who you will meet",
-      "valeBlurb": "The green starting valley, where new heroes cut their teeth on wolves and bandits around the town of Bloomhaven.",
-      "marshBlurb": "A drowned country of fog and ruins. Murlocs swarm the shallows and something older stirs beneath the water, watched from the bridge-town of Fenbridge.",
+      "valeBlurb": "The green starting valley, where new cultivators cut their teeth on coyotes and raiders around the commune town of Bloomhaven.",
+      "marshBlurb": "A drowned country of fog and ruins. Snappers swarm the shallows and something older stirs beneath the water, watched from the bridge-town of Fenbridge.",
       "peaksBlurb": "Wind-scoured ridges and old mine-works climbing to the realm's coldest, highest dangers, held by the outpost of Highwatch.",
       "valeGreeting": "Keep your blade close. The Vale is not what it was.",
       "valeGreeter": "Marshal Redbrook, Bloomhaven",
@@ -1666,8 +1666,8 @@ export const en_CA: EnTranslations = {
       "peaksGreeting": "Two hundred years this wall has held. It will not break on my watch, but it groans.",
       "peaksGreeter": "Captain Thessaly, Highwatch",
       "valePlaceNotes": "Bloomhaven is your first home base. Coyote Wash and Javelina Flats are gentle hunting ground; Mirror Lake is quiet water to fish; the Mitewood and the Old Dig hide Bloom mites and Bloom-thieving gremlins; the Dry Camp and the Withered Bloom hold rougher work; Seedvault Hill drops into the Collapsed Reliquary, the realm's first delve; and Bloomwood Glade is a quiet, sunlit grove to the north.",
-      "marshPlaceNotes": "Fenbridge guards the only dry road. The Prowler Reeds and Deepfen Shallows teem with marsh beasts and murlocs; the Widow Thicket is spun thick with web; the Drowned Chapel and the Troll Mounds keep older dangers; the Gravecaller Encampment is the cult dug in, and the Sunken Bastion is the marsh's instanced heart.",
-      "peaksPlaceNotes": "Highwatch holds the wall. Stalker Ridge and the Deeprock Burrows belong to ridge cats and kobolds; the Ogre Foothills and Drogmar's War-Camp to brutes for hire; Stormcrag crackles with elementals and the Glimmermere glows below it; the Wyrmcult Tents and Revenant Fields ring the cult's high ground, with Gravewyrm Sanctum at its peak.",
+      "marshPlaceNotes": "Fenbridge guards the only dry road. The Prowler Reeds and Deepfen Shallows teem with marsh beasts and snappers; the Broodmother Thicket is spun thick with web; the Drowned Chapel and the Brute Mounds keep older dangers; the Blight Cult Encampment is the cult dug in, and the Drowned Bastion is the marsh's instanced heart.",
+      "peaksPlaceNotes": "Highwatch holds the wall. Spikeling Ridge and the Deeproot Burrows belong to ridge cats and gremlins; the Brute Foothills and Drogmar's War-Camp to hired muscle; Riftcrag crackles with elementals and the Glimmermere glows below it; the Rift Cult Tents and Husk Fields ring the cult's high ground, with the Rift Sanctum at its peak.",
       "gladeTitle": "A quiet corner: Bloomwood Glade",
       "gladeBody": "Not every story in the Vale is about the dead. In the north, a sunlit grove called Bloomwood Glade keeps its own gentler rhythm, all quiet paths and dappled light beneath the boughs. It is a soft counterpoint to the trail you are following, and worth seeing when the road gives you room to wander."
     },
@@ -1704,7 +1704,7 @@ export const en_CA: EnTranslations = {
       "sagaMarshTitle": "The marsh: a tithe of souls",
       "sagaMarshBody": "In Mirefen the drownings are no accident. Someone is filling the fen like a tithing box, raising obedient dead from every traveler the water takes. Chase the orders up the chain to a Mistcaller in the drowned bastion, whose last words name something older still, stirring beneath the peaks.",
       "sagaPeaksTitle": "The peaks: what the tithe was for",
-      "sagaPeaksBody": "On Thornpeak the whole scheme comes clear. Every soul stolen since the Vale was a tithe poured toward the cult's grim work in the mountain's heart. The trail that began in a chapel yard ends here, in a five-player descent to face the hand behind it all. We will let you find out who waits at the bottom.",
+      "sagaPeaksBody": "On Thornreach the whole scheme comes clear. Every soul stolen since the Vale was a tithe poured toward the cult's grim work in the mountain's heart. The trail that began in a chapel yard ends here, in a five-player descent to face the hand behind it all. We will let you find out who waits at the bottom.",
       "sideTitle": "Threads off the main road",
       "sideWardenTitle": "Earning your name",
       "sideWardenBody": "Alongside the story, the marshals and wardens of the Vale and the fen hand out a standing bounty ladder. Work your way up it, foe by foe, the way every bounty hunter before you earned their place. It is honest leveling and a tour of each zone's worst troublemakers.",
@@ -1737,8 +1737,8 @@ export const en_CA: EnTranslations = {
       "bastionBody": "A flooded fortress lost to the marsh, held by drowned defenders and the rising tide itself.",
       "templeName": "The Drowned Temple",
       "templeBody": "A moonlit shrine sunk beneath a glowing tarn high in the peaks, reached through a gate of cold light. A drowned cult still sings down there in its rotted vestments, and the warnings carved on the shore say something below only sleeps. A self-contained mystery, set apart from the main story, for the curious and the well-prepared.",
-      "sanctumName": "Gravewyrm Sanctum",
-      "sanctumBody": "The dark heart of Thornpeak, where the cult's long work reaches its terrible peak.",
+      "sanctumName": "Rift Sanctum",
+      "sanctumBody": "The dark heart of Thornreach, where the cult's long work reaches its terrible peak.",
       "raidName": "The endgame raid",
       "raidBody": "Beyond a sealed royal door waits a ten-player trial: a multi-phase fight and a deathless power the whole raid must shut down together. Earn your way in, then bring nine friends.",
       "templeLoreTitle": "The Drowned Temple, a little deeper",
@@ -4874,13 +4874,13 @@ export const en_CA: EnTranslations = {
         "name": "Kazzix's Heartshard"
       },
       "wyrmcult_orders": {
-        "name": "Wyrmcult Orders"
+        "name": "Rift Cult Orders"
       },
       "ritual_phylactery": {
         "name": "Ritual Phylactery"
       },
       "gravewyrm_sigil": {
-        "name": "Gravewyrm Sigil"
+        "name": "Rift Sigil"
       },
       "blessed_embers": {
         "name": "Blessed Embers"
@@ -4934,10 +4934,10 @@ export const en_CA: EnTranslations = {
         "name": "Shadowmeld Tunic"
       },
       "gravewyrm_scale_hauberk": {
-        "name": "Gravewyrm Scale Hauberk"
+        "name": "Riftscale Hauberk"
       },
       "wyrmcult_grand_robe": {
-        "name": "Wyrmcult Grand Robe"
+        "name": "Rift Cult Grand Robe"
       },
       "wyrmscale_jerkin": {
         "name": "Wyrmscale Jerkin"
@@ -4946,7 +4946,7 @@ export const en_CA: EnTranslations = {
         "name": "Wyrmfang Greatblade"
       },
       "staff_of_the_gravewyrm": {
-        "name": "Staff of the Gravewyrm"
+        "name": "Staff of the Corrupted Wyrm"
       },
       "fang_of_korzul": {
         "name": "Fang of Korzul"
@@ -5315,10 +5315,10 @@ export const en_CA: EnTranslations = {
         "name": "Gravewoven Raiment"
       },
       "gravewyrm_sabatons": {
-        "name": "Gravewyrm Sabatons"
+        "name": "Riftscale Sabatons"
       },
       "gravewyrm_stalkers_treads": {
-        "name": "Gravewyrm Stalker's Treads"
+        "name": "Riftscale Stalker's Treads"
       },
       "greyjaw_hide_boots": {
         "name": "Greyjaw Hide Boots"
@@ -5402,7 +5402,7 @@ export const en_CA: EnTranslations = {
         "name": "Voss's Sanctified Mace"
       },
       "wyrmcult_soulsteps": {
-        "name": "Wyrmcult Soulsteps"
+        "name": "Rift Cult Soulsteps"
       },
       "wyrmshadow_harness": {
         "name": "Wyrmshadow Harness"
@@ -5672,7 +5672,7 @@ export const en_CA: EnTranslations = {
         "name": "Heartwood of the Deathless Crown"
       },
       "kingsbane_last_oath": {
-        "name": "Kingsbane, Last Oath of Thornpeak"
+        "name": "Kingsbane, Last Oath of Thornreach"
       },
       "crownforged_dreadhelm": {
         "name": "Crownforged Dreadhelm"
@@ -5827,28 +5827,28 @@ export const en_CA: EnTranslations = {
         "name": "Spikeling Prowler"
       },
       "deeprock_kobold": {
-        "name": "Deeprock Tunneler"
+        "name": "Deeproot Tunneler"
       },
       "thornpeak_ogre": {
-        "name": "Thornpeak Ogre"
+        "name": "Thornreach Ogre"
       },
       "ogre_crusher": {
-        "name": "Thornpeak Crusher"
+        "name": "Thornreach Crusher"
       },
       "warlord_drogmar": {
         "name": "Warlord Drogmar"
       },
       "stormcrag_elemental": {
-        "name": "Stormcrag Elemental"
+        "name": "Riftcrag Elemental"
       },
       "shardlord_kazzix": {
         "name": "Shardlord Kazzix"
       },
       "wyrmcult_zealot": {
-        "name": "Wyrmcult Zealot"
+        "name": "Rift Cult Zealot"
       },
       "wyrmcult_necromancer": {
-        "name": "Wyrmcult Necromancer"
+        "name": "Rift Cult Necromancer"
       },
       "boneclad_revenant": {
         "name": "Boneclad Revenant"
@@ -5899,7 +5899,7 @@ export const en_CA: EnTranslations = {
         "name": "Grand Necromancer Velkhar"
       },
       "korzul_the_gravewyrm": {
-        "name": "Korzul the Gravewyrm"
+        "name": "Korzul the Corrupted Wyrm"
       },
       "bog_bloat": {
         "name": "Bog Bloat"
@@ -6644,6 +6644,56 @@ export const en_CA: EnTranslations = {
           }
         }
       },
+      "q_greyrot": {
+        "title": "The Grey Rot",
+        "text": "Bloom does not wither out here the way it does on the flats, {playerName}. It drowns. It goes grey and soft and the rot walks root to root until a whole terrace is mush. And wherever a patch turns, the bog bloats are already drifting over it. Burst ten of them on the western shelf and tell me what comes out.",
+        "completion": "Spores, you say, packed tight and all of a size. That is not weather, {playerName}, and it is not luck. Someone is growing the rot and aiming it at our gardens.",
+        "objectives": {
+          "0": {
+            "label": "Bog Bloat slain"
+          }
+        }
+      },
+      "q_burn_the_beds": {
+        "title": "Burn the Beds",
+        "text": "Yara wants a season to breed something that out-grows the rot. I do not have a season. I have a causeway holding up two hundred people and a rot walking straight at it. Burn the bloat beds on the western shelf, {playerName}. Twelve should break the drift. The fen will be poorer for it and I will sleep anyway.",
+        "completion": "Shelf is ash and the drift has stopped dead at the water. That was the right call, and Yara will not speak to me for a month. Take your pay.",
+        "objectives": {
+          "0": {
+            "label": "Bog Bloat slain"
+          }
+        }
+      },
+      "q_seed_the_shallows": {
+        "title": "Seed the Shallows",
+        "text": "Fire clears a shelf and leaves it bare, and bare ground is where rot goes next. I would rather crowd it out. I have cuttings bred off the Bloomhaven stock that will root in standing water, but the deepfen snappers strip anything green from the shallows inside a day. Clear twelve of them off the east bank and I will get the cuttings in.",
+        "completion": "Cuttings are in, and the water has not turned them yet. It is slower than the Warden would like, and slower still to prove. But if it holds, the fen keeps its green instead of trading it for ash.",
+        "objectives": {
+          "0": {
+            "label": "Deepfen Spore-Snapper slain"
+          }
+        }
+      },
+      "q_ash_and_water": {
+        "title": "Ash and Water",
+        "text": "The burn worked, and it bought me a new problem, which is how this fen pays a debt. Smoke drew the drowned up out of the shallows and now they stand in the ash where the beds were, waiting on nothing. Put ten of them back down before they find the causeway.",
+        "completion": "Ash, and the dead standing in it. I chose the fire, {playerName}, and I would choose it again. But do not let anyone tell you it came free.",
+        "objectives": {
+          "0": {
+            "label": "Drowned Husk laid to rest"
+          }
+        }
+      },
+      "q_first_green": {
+        "title": "The First Green",
+        "text": "The cuttings have taken, {playerName}. Green in the shallows for the first time since the marsh rose, and the brutes have come down off the barrow-mounds to strip it by the handful. Drive ten of them back east. Every day those roots hold is a day the rot has to go around them.",
+        "completion": "Still standing, still green. It will not save the fen this year. But my grandmother planted the Bloomhaven terrace and never saw it flower either, so I will take a shallow full of cuttings and call it a good season.",
+        "objectives": {
+          "0": {
+            "label": "Sunken Wastes Brute slain"
+          }
+        }
+      },
       "q_drowned": {
         "title": "The Drowned Husks",
         "text": "Travelers lost on the causeway are walking out of the lakes, {playerName}, still hung with the weeds they died in. This is no restless haunting. The Corruption leaves no marks; it makes obedient husks. Someone is filling this fen like a tithing box. Return 12 of the Drowned Husks to their rest.",
@@ -6798,12 +6848,12 @@ export const en_CA: EnTranslations = {
         }
       },
       "q_kobold_tunnels": {
-        "title": "Deeprock Trouble",
-        "text": "The kobolds at Deeprock Burrows are digging deeper than any candle-rat has business digging - straight down, as if something were calling them. Their tunnels run beneath our wall, {playerName}. Collapse the matter: kill twelve Deeprock Tunnelers.",
-        "completion": "Straight down, every shaft of it - kobolds do not dig like that on their own. I must consult my books.",
+        "title": "Deeproot Trouble",
+        "text": "The gremlins at the Deeproot Burrows are digging deeper than any candle-rat has business digging - straight down, as if something were calling them. Their tunnels run beneath our wall, {playerName}. Collapse the matter: kill twelve Deeproot Tunnelers.",
+        "completion": "Straight down, every shaft of it, and gremlins do not dig like that on their own. I must consult my books.",
         "objectives": {
           "0": {
-            "label": "Deeprock Tunneler slain"
+            "label": "Deeproot Tunneler slain"
           }
         }
       },
@@ -6819,11 +6869,11 @@ export const en_CA: EnTranslations = {
       },
       "q_ogre_edges": {
         "title": "Ogres at the Foothills",
-        "text": "The Thornpeak clans never come this far east - yet here they are, camped in the eastern foothills with war paint on. Somebody is paying them, {playerName}, and ogres do not take promises. Cut twelve of them down while I find out who holds the purse.",
+        "text": "The Thornreach clans never come this far east - yet here they are, camped in the eastern foothills with war paint on. Somebody is paying them, {playerName}, and ogres do not take promises. Cut twelve of them down while I find out who holds the purse.",
         "completion": "Twelve down, and still they are not pulling back. Whoever bought them paid in something heavier than gold.",
         "objectives": {
           "0": {
-            "label": "Thornpeak Ogre slain"
+            "label": "Thornreach Ogre slain"
           }
         }
       },
@@ -6839,11 +6889,11 @@ export const en_CA: EnTranslations = {
       },
       "q_ogre_bounty": {
         "title": "The Captain's Bounty",
-        "text": "Maren's totems tell me all I need to know: the clans are bought, and my wall is their first errand. I will not wait for them to muster. Fourteen more Thornpeak Ogres, {playerName} - and I will pay bounty on every one.",
+        "text": "Maren's totems tell me all I need to know: the clans are bought, and my wall is their first errand. I will not wait for them to muster. Fourteen more Thornreach Ogres, {playerName} - and I will pay bounty on every one.",
         "completion": "Bounty paid in full. The foothills are quieter - now we deal with the ones doing the buying.",
         "objectives": {
           "0": {
-            "label": "Thornpeak Ogre slain"
+            "label": "Thornreach Ogre slain"
           }
         }
       },
@@ -6853,13 +6903,13 @@ export const en_CA: EnTranslations = {
         "completion": "Ten crushers down. The war-camp is a body without a spine - time to take the head.",
         "objectives": {
           "0": {
-            "label": "Thornpeak Crusher slain"
+            "label": "Thornreach Crusher slain"
           }
         }
       },
       "q_drogmar": {
         "title": "Warlord Drogmar",
-        "text": "Warlord Drogmar took the Wyrmcult's coin and swore the clans to the mountain's waking. He is the hammer they mean to swing at my wall - and when he slams the ground, {playerName}, do not be standing near him. Take your companions into the war-camp and end him, for Highwatch.",
+        "text": "Warlord Drogmar took the Rift Cult's coin and swore the clans to the mountain's waking. He is the hammer they mean to swing at my wall - and when he slams the ground, {playerName}, do not be standing near him. Take your companions into the war-camp and end him, for Highwatch.",
         "completion": "Drogmar, dead in his own camp. The clans will scatter to the high passes - you have bought my wall a winter, {playerName}.",
         "objectives": {
           "0": {
@@ -6869,11 +6919,11 @@ export const en_CA: EnTranslations = {
       },
       "q_elementals": {
         "title": "The Mountain Wakes",
-        "text": "Stormcrag has stood silent a thousand years, and now the very stones of it get up and walk. Elementals do not simply wake, {playerName} - something beneath this mountain is turning in its sleep. Put twelve of them down so I may study what remains.",
+        "text": "Riftcrag has stood silent a thousand years, and now the very stones of it get up and walk. Elementals do not simply wake, {playerName} - something beneath this mountain is turning in its sleep. Put twelve of them down so I may study what remains.",
         "completion": "The fragments hum like struck bells. The mountain is not angry, {playerName}... it is being disturbed.",
         "objectives": {
           "0": {
-            "label": "Stormcrag Elemental slain"
+            "label": "Riftcrag Elemental slain"
           }
         }
       },
@@ -6889,7 +6939,7 @@ export const en_CA: EnTranslations = {
       },
       "q_kazzix": {
         "title": "The Shardlord",
-        "text": "Among the elementals one burns brighter than the rest: Shardlord Kazzix, a storm given shoulders. Its heartshard would anchor every reading I have taken - if you can wrench it from the thing. It walks the far crags west of Stormcrag, beyond the second camp.",
+        "text": "Among the elementals one burns brighter than the rest: Shardlord Kazzix, a storm given shoulders. Its heartshard would anchor every reading I have taken - if you can wrench it from the thing. It walks the far crags west of Riftcrag, beyond the second camp.",
         "completion": "The heartshard! Still crackling - magnificent. Take these leggings; I sized them off a guess and a prayer.",
         "objectives": {
           "0": {
@@ -6899,11 +6949,11 @@ export const en_CA: EnTranslations = {
       },
       "q_zealots": {
         "title": "Chants on the Wind",
-        "text": "When the wind comes off the southern peaks, {playerName}, it carries chanting. The Wyrmcult no longer hides - they have raised tents below the Sanctum and they sing to what sleeps beneath it. Silence twelve zealots. Every voice stilled buys the mountain another night of sleep.",
+        "text": "When the wind comes off the southern peaks, {playerName}, it carries chanting. The Rift Cult no longer hides - they have raised tents below the Sanctum and they sing to what sleeps beneath it. Silence twelve zealots. Every voice stilled buys the mountain another night of sleep.",
         "completion": "The wind is quieter. But what troubles me is not the chanting, {playerName} - it is that something may be chanting back.",
         "objectives": {
           "0": {
-            "label": "Wyrmcult Zealot slain"
+            "label": "Rift Cult Zealot slain"
           }
         }
       },
@@ -6913,10 +6963,10 @@ export const en_CA: EnTranslations = {
         "completion": "This script... I last saw its like in Morthen's grimoire, in Bloomhaven. The same hand has guided every grave we have fought over, {playerName}.",
         "objectives": {
           "0": {
-            "label": "Wyrmcult Zealot slain"
+            "label": "Rift Cult Zealot slain"
           },
           "1": {
-            "label": "Wyrmcult Orders"
+            "label": "Rift Cult Orders"
           }
         }
       },
@@ -6926,7 +6976,7 @@ export const en_CA: EnTranslations = {
         "completion": "The Bloom forgive us. These hold the dead of the Vale and the fen, every corpse the Blightcallers ever raised, harvested. They were never building an army, {playerName}. They were gathering a tithe.",
         "objectives": {
           "0": {
-            "label": "Wyrmcult Necromancer slain"
+            "label": "Rift Cult Necromancer slain"
           },
           "1": {
             "label": "Ritual Phylactery"
@@ -6955,17 +7005,17 @@ export const en_CA: EnTranslations = {
       },
       "q_wyrm_sigils": {
         "title": "Sigils of the Wyrm",
-        "text": "It is time you knew the whole of it, {playerName}. The Blightcallers serve Korzul the Gravewyrm, an ancient dragon sealed beneath this mountain, and every soul they have stolen since Bloomhaven is a tithe poured into its waking. On the Sanctum Approach the cult has laid sigils to thin the seal. Bring me three; I would read the rite they are working.",
+        "text": "It is time you knew the whole of it, {playerName}. The Blightcallers serve Korzul the Corrupted Wyrm, an ancient dragon sealed beneath this mountain, and every soul they have stolen since Bloomhaven is a tithe poured into its waking. On the Sanctum Approach the cult has laid sigils to thin the seal. Bring me three; I would read the rite they are working.",
         "completion": "Yes... a waking-litany, generations in the writing. They are close, {playerName}. Closer than I dared fear.",
         "objectives": {
           "0": {
-            "label": "Gravewyrm Sigil"
+            "label": "Rift Sigil"
           }
         }
       },
       "q_breaking_the_seal": {
         "title": "Breaking the Seal",
-        "text": "The seal on the Sanctum was wrought with mountain-fire, and only mountain-fire will let us pass without tearing it wide open. The stormcrag elementals carry embers of that first forging in their cores. Bring me five Blessed Embers, {playerName} - for if the cult opens that gate first, they will not be careful, and the Wyrm will not wake gently.",
+        "text": "The seal on the Sanctum was wrought with mountain-fire, and only mountain-fire will let us pass without tearing it wide open. The riftcrag elementals carry embers of that first forging in their cores. Bring me five Blessed Embers, {playerName} - for if the cult opens that gate first, they will not be careful, and the Wyrm will not wake gently.",
         "completion": "They burn blue and clean - the mountain remembers its old oath. With these I can unbind the gate for us alone.",
         "objectives": {
           "0": {
@@ -6979,16 +7029,16 @@ export const en_CA: EnTranslations = {
         "completion": "The kneeling has stopped. We have not silenced the voice, {playerName} - only thinned its choir. It must be enough.",
         "objectives": {
           "0": {
-            "label": "Wyrmcult Zealot slain"
+            "label": "Rift Cult Zealot slain"
           },
           "1": {
-            "label": "Wyrmcult Necromancer slain"
+            "label": "Rift Cult Necromancer slain"
           }
         }
       },
       "q_sanctum_gate": {
         "title": "The Sanctum Gate",
-        "text": "This is the last threshold, {playerName}. The gate of the Gravewyrm Sanctum was locked with a keystone, and the cult shattered it into shards rather than see it turned against them. The shards lie scattered in the gate plaza, under the eyes of the boneclad dead. Bring me three, and I will open the way the Bloom intended, quietly.",
+        "text": "This is the last threshold, {playerName}. The gate of the Rift Sanctum was locked with a keystone, and the cult shattered it into shards rather than see it turned against them. The shards lie scattered in the gate plaza, under the eyes of the boneclad dead. Bring me three, and I will open the way the Bloom intended, quietly.",
         "completion": "The shards sit true... and the gate knows its key. The way below stands open, {playerName}. Gather the strongest companions you can find - what comes next, no one should face alone.",
         "objectives": {
           "0": {
@@ -7017,12 +7067,12 @@ export const en_CA: EnTranslations = {
         }
       },
       "q_gravewyrm": {
-        "title": "Korzul the Gravewyrm",
+        "title": "Korzul the Corrupted Wyrm",
         "text": "There is no rite left to stop, {playerName}, only the Wyrm itself, half-woken in its hollow, gorged on the dead of the Vale and the fen. If it rises, the wall, the marsh, Bloomhaven, everything we have defended falls in a single night. Take your companions into the Wyrm's Hollow and finish what we began in a chapel yard so long ago. The Bloom has carried you this far; carry it the rest of the way.",
         "completion": "It is over. The dead of three lands may rest, the mountain sleeps unhaunted, and it is your name, {playerName}, that every bell from here to Bloomhaven rings tonight.",
         "objectives": {
           "0": {
-            "label": "Korzul the Gravewyrm slain"
+            "label": "Korzul the Corrupted Wyrm slain"
           }
         }
       },
@@ -7038,7 +7088,7 @@ export const en_CA: EnTranslations = {
       },
       "q_nythraxis_restless_dead": {
         "title": "Unrest in the Bonefields",
-        "text": "Something has changed in Thornpeak Heights, {playerName}. The dead no longer wander aimlessly. They gather and march through the northern bonefields beyond Highwatch, where the old battlefield meets the cliff road. Go there, investigate the unrest among the Boneclad Revenants, and bring back any proof of what is driving them.",
+        "text": "Something has changed in Thornreach Heights, {playerName}. The dead no longer wander aimlessly. They gather and march through the northern bonefields beyond Highwatch, where the old battlefield meets the cliff road. Go there, investigate the unrest among the Boneclad Revenants, and bring back any proof of what is driving them.",
         "completion": "The same mark appears on every shard... a crown. I have seen this before, cut into old graves no Bloomhaven record remembers.",
         "objectives": {
           "0": {
@@ -7064,7 +7114,7 @@ export const en_CA: EnTranslations = {
       },
       "q_nythraxis_sealed_crypt": {
         "title": "The Abandoned Crypt",
-        "text": "The visions point to the abandoned crypt in the western cliff. There is an old legend that the crypt housed a king. Perhaps Thornpeak sealed him below after Malric's ritual twisted him into something deathless. Enter the crypt and see what remains inside.",
+        "text": "The visions point to the abandoned crypt in the western cliff. There is an old legend that the crypt housed a king. Perhaps Thornreach sealed him below after Malric's ritual twisted him into something deathless. Enter the crypt and see what remains inside.",
         "completion": "The keystone halves fit together, and Voss's diary names what they sealed: the signet of King Nythraxis. If the diary is true, that signet is the key to his tomb.",
         "objectives": {
           "0": {
@@ -7081,7 +7131,7 @@ export const en_CA: EnTranslations = {
       "q_nythraxis_bound_guardian": {
         "title": "The Bound Guardian",
         "text": "Voss wrote that the survivors sealed the King's Signet behind an ancient guardian, so no one could reach the tomb of Nythraxis by accident or ambition. Take the Crypt Keystone to the ritual circle on the flat ground east of the abandoned crypt and south-east of the western grave. Use it there, break the guardian, and bring back the signet.",
-        "completion": "The three relics tell the same story: Aldren fought to defend his king, Malric broke the boundary of death, and Voss tried to stop what followed. The seal is weakening, and this signet is the key to Nythraxis's tomb. You are now attuned to enter The Crypt of Nythraxis. Return to the abandoned crypt, unlock the royal door, and face Nythraxis before the old king's rage spills beyond Thornpeak.",
+        "completion": "The three relics tell the same story: Aldren fought to defend his king, Malric broke the boundary of death, and Voss tried to stop what followed. The seal is weakening, and this signet is the key to Nythraxis's tomb. You are now attuned to enter The Crypt of Nythraxis. Return to the abandoned crypt, unlock the royal door, and face Nythraxis before the old king's rage spills beyond Thornreach.",
         "objectives": {
           "0": {
             "label": "Crypt Keystone used at the ritual circle"
@@ -7096,8 +7146,8 @@ export const en_CA: EnTranslations = {
       },
       "q_nythraxis_scourges_end": {
         "title": "Scourge's End",
-        "text": "The signet has opened the way, {playerName}, but an open tomb is not a victory. Nythraxis was a king once, and the ruin beneath Thornpeak is still bound to his will. Enter the crypt with allies you trust. Break the deathless crown before its command reaches the battlefield above.",
-        "completion": "Then the crown is silent at last. Thornpeak will still carry its dead, but no king below it will call them to war again. You have ended what Aldren, Malric, and Voss could only contain.",
+        "text": "The signet has opened the way, {playerName}, but an open tomb is not a victory. Nythraxis was a king once, and the ruin beneath Thornreach is still bound to his will. Enter the crypt with allies you trust. Break the deathless crown before its command reaches the battlefield above.",
+        "completion": "Then the crown is silent at last. Thornreach will still carry its dead, but no king below it will call them to war again. You have ended what Aldren, Malric, and Voss could only contain.",
         "objectives": {
           "0": {
             "label": "Nythraxis slain"
@@ -7440,7 +7490,7 @@ export const en_CA: EnTranslations = {
         "leaveText": "You climb out of the drowning dark."
       },
       "gravewyrm_sanctum": {
-        "name": "Gravewyrm Sanctum",
+        "name": "Rift Sanctum",
         "enterText": "The air goes cold. Something vast breathes below...",
         "leaveText": "You stagger back into the mountain wind."
       },

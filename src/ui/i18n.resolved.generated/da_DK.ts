@@ -6644,6 +6644,56 @@ export const da_DK: EnTranslations = {
           }
         }
       },
+      "q_greyrot": {
+        "title": "The Grey Rot",
+        "text": "Bloom does not wither out here the way it does on the flats, {playerName}. It drowns. It goes grey and soft and the rot walks root to root until a whole terrace is mush. And wherever a patch turns, the bog bloats are already drifting over it. Burst ten of them on the western shelf and tell me what comes out.",
+        "completion": "Spores, you say, packed tight and all of a size. That is not weather, {playerName}, and it is not luck. Someone is growing the rot and aiming it at our gardens.",
+        "objectives": {
+          "0": {
+            "label": "Bog Bloat slain"
+          }
+        }
+      },
+      "q_burn_the_beds": {
+        "title": "Burn the Beds",
+        "text": "Yara wants a season to breed something that out-grows the rot. I do not have a season. I have a causeway holding up two hundred people and a rot walking straight at it. Burn the bloat beds on the western shelf, {playerName}. Twelve should break the drift. The fen will be poorer for it and I will sleep anyway.",
+        "completion": "Shelf is ash and the drift has stopped dead at the water. That was the right call, and Yara will not speak to me for a month. Take your pay.",
+        "objectives": {
+          "0": {
+            "label": "Bog Bloat slain"
+          }
+        }
+      },
+      "q_seed_the_shallows": {
+        "title": "Seed the Shallows",
+        "text": "Fire clears a shelf and leaves it bare, and bare ground is where rot goes next. I would rather crowd it out. I have cuttings bred off the Bloomhaven stock that will root in standing water, but the deepfen snappers strip anything green from the shallows inside a day. Clear twelve of them off the east bank and I will get the cuttings in.",
+        "completion": "Cuttings are in, and the water has not turned them yet. It is slower than the Warden would like, and slower still to prove. But if it holds, the fen keeps its green instead of trading it for ash.",
+        "objectives": {
+          "0": {
+            "label": "Deepfen Spore-Snapper slain"
+          }
+        }
+      },
+      "q_ash_and_water": {
+        "title": "Ash and Water",
+        "text": "The burn worked, and it bought me a new problem, which is how this fen pays a debt. Smoke drew the drowned up out of the shallows and now they stand in the ash where the beds were, waiting on nothing. Put ten of them back down before they find the causeway.",
+        "completion": "Ash, and the dead standing in it. I chose the fire, {playerName}, and I would choose it again. But do not let anyone tell you it came free.",
+        "objectives": {
+          "0": {
+            "label": "Drowned Husk laid to rest"
+          }
+        }
+      },
+      "q_first_green": {
+        "title": "The First Green",
+        "text": "The cuttings have taken, {playerName}. Green in the shallows for the first time since the marsh rose, and the brutes have come down off the barrow-mounds to strip it by the handful. Drive ten of them back east. Every day those roots hold is a day the rot has to go around them.",
+        "completion": "Still standing, still green. It will not save the fen this year. But my grandmother planted the Bloomhaven terrace and never saw it flower either, so I will take a shallow full of cuttings and call it a good season.",
+        "objectives": {
+          "0": {
+            "label": "Sunken Wastes Brute slain"
+          }
+        }
+      },
       "q_drowned": {
         "title": "De Druknede Døde",
         "text": "Rejsende, der druknede på dæmningsvejen, vandrer ud af søerne, {playerName} - stadig behængt med det tang, de døde i. Dette er ingen rastløs hjemsøgelse. Druknen efterlader ingen mærker; den gør lydige lig. Nogen fylder denne mose som en tiendekiste. Giv 12 af de Druknede Døde deres hvile tilbage.",

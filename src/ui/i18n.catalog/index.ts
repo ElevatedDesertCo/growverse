@@ -875,7 +875,7 @@ export const en = {
       kings_signet: { name: "King's Signet" },
       event_skin_token: { name: 'Mysterious Cosmetic Cache' },
       deathless_heartwood: { name: 'Heartwood of the Deathless Crown' },
-      kingsbane_last_oath: { name: 'Kingsbane, Last Oath of Thornpeak' },
+      kingsbane_last_oath: { name: 'Kingsbane, Last Oath of Thornreach' },
       crownforged_dreadhelm: { name: 'Crownforged Dreadhelm' },
       crownforged_warspaulders: { name: 'Crownforged Warspaulders' },
       nighttalon_crown: { name: 'Nighttalon Crown' },

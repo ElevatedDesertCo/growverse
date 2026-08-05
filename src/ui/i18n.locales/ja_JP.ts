@@ -2842,6 +2842,36 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
     '本当に死にましたか。なら茂みはただの木々に戻ります。{playerName}、光があなたの刃を祝福しますように。',
   'entities.quests.q_broodmother.objectives.0.label': 'マイアフェンのウィドウを討伐',
   'entities.quests.q_broodmother.objectives.1.label': '群れの母を討伐',
+  'entities.quests.q_greyrot.title': '灰腐り',
+  'entities.quests.q_greyrot.text':
+    'ここのブルームは、乾いた平地のようには枯れない、{playerName}。溺れるのだ。灰色にふやけ、腐りは根から根へと歩き、段々畑ひとつがまるごと泥になる。そして色の変わった区画には、必ず沼の膨れ者がもう漂っている。西の浅棚で十匹を裂き、中から何が出たか教えてくれ。',
+  'entities.quests.q_greyrot.completion':
+    '胞子か。しかもぎっしり詰まって、粒までそろっていたと。それは天候ではないし、運でもない、{playerName}。誰かがこの腐りを育て、我々の畑へ向けている。',
+  'entities.quests.q_greyrot.objectives.0.label': '沼の膨れ者を討伐',
+  'entities.quests.q_burn_the_beds.title': '苗床を焼き払え',
+  'entities.quests.q_burn_the_beds.text':
+    'ヤラは腐りに打ち勝つ品種を育てるのに一季ほしいと言う。私に一季はない。あるのは二百人を支える堤道と、そこへまっすぐ歩いてくる腐りだけだ。西の浅棚の膨れ者の苗床を焼け、{playerName}。十二匹も潰せば漂流は止まる。沼は痩せるだろうが、それでも私は眠る。',
+  'entities.quests.q_burn_the_beds.completion':
+    '浅棚は灰、漂流は水際でぴたりと止まった。正しい判断だった。おかげでヤラはひと月口をきいてくれまい。報酬を持っていけ。',
+  'entities.quests.q_burn_the_beds.objectives.0.label': '沼の膨れ者を討伐',
+  'entities.quests.q_seed_the_shallows.title': '浅瀬に挿す',
+  'entities.quests.q_seed_the_shallows.text':
+    '火は浅棚を裸にするだけ、そして裸の地こそ腐りが次に向かう先です。私はむしろ緑で押し出したい。ブルームヘイヴンの株から育てた、溜まり水でも根づく挿し穂があります。けれどディープフェンのスナッパーは、浅瀬の緑を一日で食い尽くす。東岸から十二匹を片づけてくれれば、挿し穂を入れます。',
+  'entities.quests.q_seed_the_shallows.completion':
+    '挿し穂は入りました。水はまだそれを腐らせていません。番人の望むより遅く、効くと証すのはもっと遅い。それでも保てば、沼は緑を灰に替えずに済みます。',
+  'entities.quests.q_seed_the_shallows.objectives.0.label': 'ディープフェンのスナッパーを討伐',
+  'entities.quests.q_ash_and_water.title': '灰と水',
+  'entities.quests.q_ash_and_water.text':
+    '焼き払いは効いた。そして新しい厄介事を買い込んだ。この沼はそうやって借りを返す。煙が溺れ死者を浅瀬から呼び上げ、今や苗床の焼け跡の灰の中に、何を待つでもなく立っている。堤道を見つけられる前に十体を戻してやれ。',
+  'entities.quests.q_ash_and_water.completion':
+    '灰と、その中に立つ死者か。火を選んだのは私だ、{playerName}。もう一度でも同じ道を選ぶ。だが、それが只で済んだなどと誰にも言わせるな。',
+  'entities.quests.q_ash_and_water.objectives.0.label': '溺れ死者を安息させる',
+  'entities.quests.q_first_green.title': '最初の緑',
+  'entities.quests.q_first_green.text':
+    '挿し穂が根づきました、{playerName}。沼が満ちて以来はじめて、浅瀬に緑があります。ところがトロルどもが塚から下りてきて、それを掴んでは剥ぎ取っていく。十匹を東へ追い返してください。あの根が保つ一日ごとに、腐りは一日遠回りを強いられます。',
+  'entities.quests.q_first_green.completion':
+    'まだ立っている、まだ緑です。今年の沼を救いはしないでしょう。けれど祖母もブルームヘイヴンの段々畑を植えて、花を見ることはなかった。ですから浅瀬いっぱいの挿し穂を受け取って、よい季節だったと呼びます。',
+  'entities.quests.q_first_green.objectives.0.label': 'マイアフェン・トロルを討伐',
   'entities.quests.q_drowned.title': '溺れし死者',
   'entities.quests.q_drowned.text':
     '{playerName}、土手道で溺れた旅人が、水草をまとって湖から歩き出しています。溺れ死者を12体眠らせてください。',

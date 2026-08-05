@@ -362,7 +362,7 @@ export const BASE_ITEMS: Record<string, ItemDef> = {
   },
   gravewyrm_mantle: {
     id: 'gravewyrm_mantle',
-    name: 'Gravewyrm Mantle',
+    name: 'Riftscale Mantle',
     kind: 'armor',
     armorType: 'mail',
     slot: 'shoulder',
@@ -372,7 +372,7 @@ export const BASE_ITEMS: Record<string, ItemDef> = {
   },
   gravewyrm_gauntlets: {
     id: 'gravewyrm_gauntlets',
-    name: 'Gravewyrm Gauntlets',
+    name: 'Riftscale Gauntlets',
     kind: 'armor',
     armorType: 'mail',
     slot: 'gloves',

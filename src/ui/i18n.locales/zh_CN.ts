@@ -2713,6 +2713,36 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
     '真的死了？那片灌木丛终于只是树了。{playerName}，愿圣光保佑你的利刃。',
   'entities.quests.q_broodmother.objectives.0.label': '击败泥沼寡妇蛛',
   'entities.quests.q_broodmother.objectives.1.label': '击败蛛母',
+  'entities.quests.q_greyrot.title': '灰腐',
+  'entities.quests.q_greyrot.text':
+    '在这里，绽放不像旱原上那样枯萎，{playerName}。它是被淹死的。先变灰、发软，腐烂顺着根须一路蔓延，一整片梯田都化成烂泥。哪一片开始变色，沼泽臃肿兽就已经飘在上头了。去西岸浅滩戳破十只，回来告诉我里面流出的是什么。',
+  'entities.quests.q_greyrot.completion':
+    '孢子，还是密密匝匝、大小一致的孢子。那不是天气，{playerName}，也不是运气。有人在养这种腐烂，并且把它对准了我们的园子。',
+  'entities.quests.q_greyrot.objectives.0.label': '击败沼泽臃肿兽',
+  'entities.quests.q_burn_the_beds.title': '烧掉温床',
+  'entities.quests.q_burn_the_beds.text':
+    '雅拉想要一整季的时间，去育出能压过腐烂的种。我没有一整季。我有一条撑着两百口人的堤道，还有一场正朝它走来的腐烂。把西岸浅滩的臃肿兽温床烧了，{playerName}。十二只应该就能断掉那股漂流。沼泽会因此更贫瘠，而我照样睡得着。',
+  'entities.quests.q_burn_the_beds.completion':
+    '浅滩成了灰烬，漂流在水边彻底停住。这个决定是对的，雅拉会有一个月不跟我说话。拿上你的酬劳。',
+  'entities.quests.q_burn_the_beds.objectives.0.label': '击败沼泽臃肿兽',
+  'entities.quests.q_seed_the_shallows.title': '在浅滩播种',
+  'entities.quests.q_seed_the_shallows.text':
+    '火烧过的浅滩只剩光地，而光地正是腐烂下一步要去的地方。我宁可用绿意把它挤走。我手上有从布鲁姆海文母株上育出的插条，能在死水里生根，可深沼的钳咬鱼人不出一天就会把浅滩里所有绿色的东西啃光。去东岸清掉十二只，我就把插条种下去。',
+  'entities.quests.q_seed_the_shallows.completion':
+    '插条种下去了，水还没把它们泡坏。这比守望者想要的慢，要证明它有用更慢。但只要撑得住，沼泽保住的就是绿色，而不是用绿色换来的灰烬。',
+  'entities.quests.q_seed_the_shallows.objectives.0.label': '击败深沼钳咬鱼人',
+  'entities.quests.q_ash_and_water.title': '灰与水',
+  'entities.quests.q_ash_and_water.text':
+    '火烧奏效了，也给我招来了新麻烦，这沼泽就是这么还债的。烟把溺亡死者从浅水里引了上来，如今它们就站在温床烧剩的灰里，什么也不等。趁它们还没摸到堤道，把十个放回去。',
+  'entities.quests.q_ash_and_water.completion':
+    '灰烬，还有站在灰里的死人。是我选了火，{playerName}，再来一次我还是选火。但别让谁告诉你这没有代价。',
+  'entities.quests.q_ash_and_water.objectives.0.label': '让溺亡死者安息',
+  'entities.quests.q_first_green.title': '第一抹绿',
+  'entities.quests.q_first_green.text':
+    '插条活了，{playerName}。自沼泽上涨以来，浅滩第一次有了绿色，而巨魔已经从坟丘上下来，成把成把地把它们扯走。把十只赶回东边去。那些根多撑一天，腐烂就得多绕一天路。',
+  'entities.quests.q_first_green.completion':
+    '还立着，还是绿的。今年它救不了这片沼泽。可我祖母种下布鲁姆海文那片梯田时，也没能亲眼看它开花，所以我愿意收下一浅滩插条，把这叫作一个好季节。',
+  'entities.quests.q_first_green.objectives.0.label': '击败泥沼巨魔',
   'entities.quests.q_drowned.title': '溺亡死者',
   'entities.quests.q_drowned.text':
     '在栈道淹死的旅人正披着水草从湖里走出。让12个溺亡死者安息，{playerName}。',
