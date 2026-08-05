@@ -1,6 +1,6 @@
 // Item sets and their equipped-piece bonuses (classic "tier set" style).
 //
-// The sets are the epic armor families that drop from the Gravewyrm Sanctum
+// The sets are the epic armor families that drop from the Rift Sanctum
 // (tier 1) and the Nythraxis raid (tier 2). Wearing enough pieces of a family
 // grants stacking 2- and 3-piece bonuses, resolved in `recalcPlayerStats`
 // (primary stats, attack power, crit) and, for caster sets, in
@@ -14,7 +14,7 @@
 
 import type { ItemSet, SetBonusEffect, SetBonusTier } from '../types';
 
-// Set ids. Tier-1 families drop from the Gravewyrm Sanctum; tier-2 from the
+// Set ids. Tier-1 families drop from the Rift Sanctum; tier-2 from the
 // Nythraxis raid. The string is also the `set` tag on each member item.
 export const SET_DEATHLORD = 'deathlord'; // t1 plate, Strength
 export const SET_WYRMSHADOW = 'wyrmshadow'; // t1 leather, Agility

@@ -255,7 +255,7 @@ export const DUNGEON_MOBS: Record<string, MobTemplate> = {
     color: 0x48c9b0,
   },
 
-  // ---- Gravewyrm Sanctum (5-player elite instance, L20 finale) ----
+  // ---- Rift Sanctum (5-player elite instance, L20 finale) ----
   sanctum_boneguard: {
     id: 'sanctum_boneguard',
     name: 'Sanctum Boneguard',
@@ -393,7 +393,7 @@ export const DUNGEON_MOBS: Record<string, MobTemplate> = {
   },
   korzul_the_gravewyrm: {
     id: 'korzul_the_gravewyrm',
-    name: 'Korzul the Gravewyrm',
+    name: 'Korzul the Corrupted Wyrm',
     minLevel: 20,
     maxLevel: 20,
     family: 'dragonkin',
@@ -804,7 +804,7 @@ const BASTION_SPAWN_LIST: DungeonSpawn[] = [
   { mobId: 'bastion_revenant', x: 4, z: 96 },
 ];
 
-// Gravewyrm Sanctum: three chambers — the Boneworks (z<60), the Ritual Vault
+// Rift Sanctum: three chambers — the Boneworks (z<60), the Ritual Vault
 // (75-115) and the Wyrm's Hollow (115+) — with Korgath holding the first
 // waist, Velkhar the second, and Korzul on the great dais at the end.
 const SANCTUM_SPAWN_LIST: DungeonSpawn[] = [
@@ -890,7 +890,7 @@ export const DUNGEON_DEFS: Record<string, DungeonDef> = {
   },
   gravewyrm_sanctum: {
     id: 'gravewyrm_sanctum',
-    name: 'Gravewyrm Sanctum',
+    name: 'Rift Sanctum',
     index: 2,
     doorPos: { x: 0, z: 880 }, // sealed gate at the head of the Sanctum Approach
     entry: { x: 0, z: 4 },

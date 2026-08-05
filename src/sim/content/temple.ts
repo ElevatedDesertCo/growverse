@@ -1,5 +1,5 @@
 // The Drowned Temple — a self-contained side-wing reached through a moongate
-// portal on the shore of the Glimmermere, a glowing tarn high in Thornpeak
+// portal on the shore of the Glimmermere, a glowing tarn high in Thornreach
 // Heights. Its own lore (the Pale Choir, who drowned worshipping Ysolei, the
 // Drowned Moon), its own mobs, quests, loot and instanced interior — nothing
 // here touches the Gravecaller storyline of zones 1-3.
@@ -28,7 +28,7 @@ const MAG: PlayerClass[] = ['mage', 'priest', 'warlock', 'druid'];
 const ROG: PlayerClass[] = ['rogue', 'hunter'];
 
 // The moongate sits on the south shore of the Glimmermere tarn (-70, 760) in
-// Thornpeak Heights; the surface camp and Ondrel cluster just south of it.
+// Thornreach Heights; the surface camp and Ondrel cluster just south of it.
 export const MOONGATE_POS = { x: -70, z: 792 };
 
 // ---------------------------------------------------------------------------

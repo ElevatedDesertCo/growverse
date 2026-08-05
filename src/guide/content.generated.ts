@@ -1369,7 +1369,7 @@ export const GUIDE_DUNGEONS: GuideDungeon[] = [
     "suggestedPlayers": 5,
     "min": 19,
     "max": 20,
-    "name": "Gravewyrm Sanctum"
+    "name": "Rift Sanctum"
   },
   {
     "id": "raid",
@@ -1572,7 +1572,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "still": "/guide-stills/mob_kobold__9c640c.webp"
       },
       {
-        "name": "Deeprock Tunneler",
+        "name": "Deeproot Tunneler",
         "min": 14,
         "max": 15,
         "rare": false,
@@ -1665,7 +1665,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "still": "/guide-stills/mob_dark_caster__884ea0.webp"
       },
       {
-        "name": "Wyrmcult Zealot",
+        "name": "Rift Cult Zealot",
         "min": 17,
         "max": 19,
         "rare": false,
@@ -1675,7 +1675,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
         "still": "/guide-stills/mob_bandit__6b3a32.webp"
       },
       {
-        "name": "Wyrmcult Necromancer",
+        "name": "Rift Cult Necromancer",
         "min": 18,
         "max": 19,
         "rare": false,
@@ -1715,7 +1715,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
     "family": "ogre",
     "creatures": [
       {
-        "name": "Thornpeak Ogre",
+        "name": "Thornreach Ogre",
         "min": 15,
         "max": 16,
         "rare": false,
@@ -1775,7 +1775,7 @@ export const GUIDE_FAMILIES: GuideFamily[] = [
     "family": "elemental",
     "creatures": [
       {
-        "name": "Stormcrag Elemental",
+        "name": "Riftcrag Elemental",
         "min": 17,
         "max": 18,
         "rare": false,

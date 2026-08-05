@@ -16,7 +16,7 @@ import type { PlayerClass } from '../../types';
  */
 export const LOCKPICK_ANTE_SCALES_DIFFICULTY = false;
 
-/** Per-delve-tier puzzle presets. Add Mirefen/Thornpeak bands when those delves
+/** Per-delve-tier puzzle presets. Add Mirefen/Thornreach bands when those delves
  * ship; today only the Collapsed Reliquary exists (tiers: normal, heroic). */
 export const LOCKPICK_TIER_PRESETS: Record<string, LockTierSpec> = {
   normal: {

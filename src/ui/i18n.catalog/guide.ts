@@ -687,7 +687,7 @@ export const guideStrings = {
       'In Mirefen the drownings are no accident. Someone is filling the fen like a tithing box, raising obedient dead from every traveler the water takes. Chase the orders up the chain to a Mistcaller in the drowned bastion, whose last words name something older still, stirring beneath the peaks.',
     sagaPeaksTitle: 'The peaks: what the tithe was for',
     sagaPeaksBody:
-      "On Thornpeak the whole scheme comes clear. Every soul stolen since the Vale was a tithe poured toward the cult's grim work in the mountain's heart. The trail that began in a chapel yard ends here, in a five-player descent to face the hand behind it all. We will let you find out who waits at the bottom.",
+      "On Thornreach the whole scheme comes clear. Every soul stolen since the Vale was a tithe poured toward the cult's grim work in the mountain's heart. The trail that began in a chapel yard ends here, in a five-player descent to face the hand behind it all. We will let you find out who waits at the bottom.",
 
     // Side-chains, called out as optional threads alongside the main story.
     sideTitle: 'Threads off the main road',
@@ -737,9 +737,9 @@ export const guideStrings = {
     templeName: 'The Drowned Temple',
     templeBody:
       'A moonlit shrine sunk beneath a glowing tarn high in the peaks, reached through a gate of cold light. A drowned cult still sings down there in its rotted vestments, and the warnings carved on the shore say something below only sleeps. A self-contained mystery, set apart from the main story, for the curious and the well-prepared.',
-    sanctumName: 'Gravewyrm Sanctum',
+    sanctumName: 'Rift Sanctum',
     sanctumBody:
-      "The dark heart of Thornpeak, where the cult's long work reaches its terrible peak.",
+      "The dark heart of Thornreach, where the cult's long work reaches its terrible peak.",
     raidName: 'The endgame raid',
     raidBody:
       'Beyond a sealed royal door waits a ten-player trial: a multi-phase fight and a deathless power the whole raid must shut down together. Earn your way in, then bring nine friends.',

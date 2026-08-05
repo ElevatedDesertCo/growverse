@@ -56,7 +56,7 @@ export const ZONE3_ROADS: { x: number; z: number }[][] = [
     { x: 6, z: 668 },
     { x: 70, z: 720 },
     { x: 110, z: 760 },
-  ], // -> Stormcrag
+  ], // -> Riftcrag
   [
     { x: 0, z: 676 },
     { x: 0, z: 780 },
@@ -65,7 +65,7 @@ export const ZONE3_ROADS: { x: number; z: number }[][] = [
 ];
 
 // ---------------------------------------------------------------------------
-// Mobs (overworld only — the Gravewyrm Sanctum mobs live in content/dungeons)
+// Mobs (overworld only — the Rift Sanctum mobs live in content/dungeons)
 // ---------------------------------------------------------------------------
 
 export const ZONE3_MOBS: Record<string, MobTemplate> = {
@@ -103,7 +103,7 @@ export const ZONE3_MOBS: Record<string, MobTemplate> = {
   },
   // The apex of the southern ridge: a grizzled, scar-pelted old cat that has
   // outlived three generations of its pack. A rare elite counterpart to the
-  // Ridge Stalkers, met first when climbing into Thornpeak. Reuses existing
+  // Ridge Stalkers, met first when climbing into Thornreach. Reuses existing
   // mechanics only: a rending pounce (aoePulse) and a wounded-beast enrage.
   old_cragmaw: {
     id: 'old_cragmaw',
@@ -137,7 +137,7 @@ export const ZONE3_MOBS: Record<string, MobTemplate> = {
   },
   deeprock_kobold: {
     id: 'deeprock_kobold',
-    name: 'Deeprock Tunneler',
+    name: 'Deeproot Tunneler',
     minLevel: 14,
     maxLevel: 15,
     family: 'kobold',
@@ -225,7 +225,7 @@ export const ZONE3_MOBS: Record<string, MobTemplate> = {
   },
   thornpeak_ogre: {
     id: 'thornpeak_ogre',
-    name: 'Thornpeak Ogre',
+    name: 'Thornreach Ogre',
     minLevel: 15,
     maxLevel: 16,
     family: 'ogre',
@@ -247,7 +247,7 @@ export const ZONE3_MOBS: Record<string, MobTemplate> = {
   },
   ogre_crusher: {
     id: 'ogre_crusher',
-    name: 'Thornpeak Crusher',
+    name: 'Thornreach Crusher',
     minLevel: 16,
     maxLevel: 17,
     family: 'ogre',
@@ -347,7 +347,7 @@ export const ZONE3_MOBS: Record<string, MobTemplate> = {
   },
   stormcrag_elemental: {
     id: 'stormcrag_elemental',
-    name: 'Stormcrag Elemental',
+    name: 'Riftcrag Elemental',
     minLevel: 17,
     maxLevel: 18,
     family: 'elemental',
@@ -410,7 +410,7 @@ export const ZONE3_MOBS: Record<string, MobTemplate> = {
   },
   wyrmcult_zealot: {
     id: 'wyrmcult_zealot',
-    name: 'Wyrmcult Zealot',
+    name: 'Rift Cult Zealot',
     minLevel: 17,
     maxLevel: 19,
     family: 'humanoid',
@@ -430,7 +430,7 @@ export const ZONE3_MOBS: Record<string, MobTemplate> = {
     // The zealot's fevered chanting claws at a caster's mind, draining Intellect
     // and shrinking their mana pool for a while.
     enfeeble: { chance: 0.3, int: 12, duration: 12, name: 'Maddening Whisper', school: 'shadow' },
-    // The Wyrmcult hoards their master's flame: a branding strike seals away the
+    // The Rift Cult hoards their master's flame: a branding strike seals away the
     // victim's fire magic so it can never rival the wyrm's, while leaving every
     // other school free (a single-school counterspell, distinct from a full silence).
     lockout: { chance: 0.25, duration: 6, name: 'Wyrmward Sigil', school: 'fire' },
@@ -439,7 +439,7 @@ export const ZONE3_MOBS: Record<string, MobTemplate> = {
   },
   wyrmcult_necromancer: {
     id: 'wyrmcult_necromancer',
-    name: 'Wyrmcult Necromancer',
+    name: 'Rift Cult Necromancer',
     minLevel: 18,
     maxLevel: 19,
     family: 'humanoid',
@@ -738,7 +738,7 @@ export const ZONE3_MOBS: Record<string, MobTemplate> = {
     scale: 1.0,
     color: 0xc9c2b5,
   },
-  // Voskar the Emberwing — a young drake the Wyrmcult chained above the Sanctum
+  // Voskar the Emberwing — a young drake the Rift Cult chained above the Sanctum
   // and starved into a weapon. The only dragonkin rare on the peaks: it breathes
   // fire in a wide cone, and its searing bite leaves wounds that refuse to close.
   voskar_emberwing: {
@@ -987,14 +987,14 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
   },
   q_kobold_tunnels: {
     id: 'q_kobold_tunnels',
-    name: 'Deeprock Trouble',
+    name: 'Deeproot Trouble',
     giverNpcId: 'loremaster_caddis',
     turnInNpcId: 'loremaster_caddis',
-    text: 'The kobolds at Deeprock Burrows are digging deeper than any candle-rat has business digging — straight down, as if something were calling them. Their tunnels run beneath our wall, $N. Collapse the matter: kill twelve Deeprock Tunnelers.',
+    text: 'The gremlins at the Deeproot Burrows are digging deeper than any candle-rat has business digging — straight down, as if something were calling them. Their tunnels run beneath our wall, $N. Collapse the matter: kill twelve Deeproot Tunnelers.',
     completionText:
-      'Straight down, every shaft of it — kobolds do not dig like that on their own. I must consult my books.',
+      'Straight down, every shaft of it, and gremlins do not dig like that on their own. I must consult my books.',
     objectives: [
-      { type: 'kill', targetMobId: 'deeprock_kobold', count: 12, label: 'Deeprock Tunneler slain' },
+      { type: 'kill', targetMobId: 'deeprock_kobold', count: 12, label: 'Deeproot Tunneler slain' },
     ],
     xpReward: 2500,
     copperReward: 1200,
@@ -1020,11 +1020,11 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     name: 'Ogres at the Foothills',
     giverNpcId: 'scout_maren_highwatch',
     turnInNpcId: 'scout_maren_highwatch',
-    text: 'The Thornpeak clans never come this far east — yet here they are, camped in the eastern foothills with war paint on. Somebody is paying them, $N, and ogres do not take promises. Cut twelve of them down while I find out who holds the purse.',
+    text: 'The Thornreach clans never come this far east — yet here they are, camped in the eastern foothills with war paint on. Somebody is paying them, $N, and ogres do not take promises. Cut twelve of them down while I find out who holds the purse.',
     completionText:
       'Twelve down, and still they are not pulling back. Whoever bought them paid in something heavier than gold.',
     objectives: [
-      { type: 'kill', targetMobId: 'thornpeak_ogre', count: 12, label: 'Thornpeak Ogre slain' },
+      { type: 'kill', targetMobId: 'thornpeak_ogre', count: 12, label: 'Thornreach Ogre slain' },
     ],
     xpReward: 2900,
     copperReward: 1400,
@@ -1050,11 +1050,11 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     name: "The Captain's Bounty",
     giverNpcId: 'captain_thessaly',
     turnInNpcId: 'captain_thessaly',
-    text: "Maren's totems tell me all I need to know: the clans are bought, and my wall is their first errand. I will not wait for them to muster. Fourteen more Thornpeak Ogres, $N — and I will pay bounty on every one.",
+    text: "Maren's totems tell me all I need to know: the clans are bought, and my wall is their first errand. I will not wait for them to muster. Fourteen more Thornreach Ogres, $N — and I will pay bounty on every one.",
     completionText:
       'Bounty paid in full. The foothills are quieter — now we deal with the ones doing the buying.',
     objectives: [
-      { type: 'kill', targetMobId: 'thornpeak_ogre', count: 14, label: 'Thornpeak Ogre slain' },
+      { type: 'kill', targetMobId: 'thornpeak_ogre', count: 14, label: 'Thornreach Ogre slain' },
     ],
     xpReward: 3000,
     copperReward: 1500,
@@ -1070,7 +1070,7 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     completionText:
       'Ten crushers down. The war-camp is a body without a spine — time to take the head.',
     objectives: [
-      { type: 'kill', targetMobId: 'ogre_crusher', count: 10, label: 'Thornpeak Crusher slain' },
+      { type: 'kill', targetMobId: 'ogre_crusher', count: 10, label: 'Thornreach Crusher slain' },
     ],
     xpReward: 3600,
     copperReward: 2000,
@@ -1083,7 +1083,7 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     name: 'Warlord Drogmar',
     giverNpcId: 'captain_thessaly',
     turnInNpcId: 'captain_thessaly',
-    text: "Warlord Drogmar took the Wyrmcult's coin and swore the clans to the mountain's waking. He is the hammer they mean to swing at my wall — and when he slams the ground, $N, do not be standing near him. Take your companions into the war-camp and end him, for Highwatch.",
+    text: "Warlord Drogmar took the Rift Cult's coin and swore the clans to the mountain's waking. He is the hammer they mean to swing at my wall — and when he slams the ground, $N, do not be standing near him. Take your companions into the war-camp and end him, for Highwatch.",
     completionText:
       'Drogmar, dead in his own camp. The clans will scatter to the high passes — you have bought my wall a winter, $N.',
     objectives: [
@@ -1104,7 +1104,7 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     name: 'The Mountain Wakes',
     giverNpcId: 'loremaster_caddis',
     turnInNpcId: 'loremaster_caddis',
-    text: 'Stormcrag has stood silent a thousand years, and now the very stones of it get up and walk. Elementals do not simply wake, $N — something beneath this mountain is turning in its sleep. Put twelve of them down so I may study what remains.',
+    text: 'Riftcrag has stood silent a thousand years, and now the very stones of it get up and walk. Elementals do not simply wake, $N — something beneath this mountain is turning in its sleep. Put twelve of them down so I may study what remains.',
     completionText:
       'The fragments hum like struck bells. The mountain is not angry, $N... it is being disturbed.',
     objectives: [
@@ -1112,7 +1112,7 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
         type: 'kill',
         targetMobId: 'stormcrag_elemental',
         count: 12,
-        label: 'Stormcrag Elemental slain',
+        label: 'Riftcrag Elemental slain',
       },
     ],
     xpReward: 3600,
@@ -1139,7 +1139,7 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     name: 'The Shardlord',
     giverNpcId: 'loremaster_caddis',
     turnInNpcId: 'loremaster_caddis',
-    text: 'Among the elementals one burns brighter than the rest: Shardlord Kazzix, a storm given shoulders. Its heartshard would anchor every reading I have taken — if you can wrench it from the thing. It walks the far crags west of Stormcrag, beyond the second camp.',
+    text: 'Among the elementals one burns brighter than the rest: Shardlord Kazzix, a storm given shoulders. Its heartshard would anchor every reading I have taken — if you can wrench it from the thing. It walks the far crags west of Riftcrag, beyond the second camp.',
     completionText:
       'The heartshard! Still crackling — magnificent. Take these leggings; I sized them off a guess and a prayer.',
     objectives: [
@@ -1159,11 +1159,11 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     name: 'Chants on the Wind',
     giverNpcId: 'brother_aldric_highwatch',
     turnInNpcId: 'brother_aldric_highwatch',
-    text: 'When the wind comes off the southern peaks, $N, it carries chanting. The Wyrmcult no longer hides — they have raised tents below the Sanctum and they sing to what sleeps beneath it. Silence twelve zealots. Every voice stilled buys the mountain another night of sleep.',
+    text: 'When the wind comes off the southern peaks, $N, it carries chanting. The Rift Cult no longer hides — they have raised tents below the Sanctum and they sing to what sleeps beneath it. Silence twelve zealots. Every voice stilled buys the mountain another night of sleep.',
     completionText:
       'The wind is quieter. But what troubles me is not the chanting, $N — it is that something may be chanting back.',
     objectives: [
-      { type: 'kill', targetMobId: 'wyrmcult_zealot', count: 12, label: 'Wyrmcult Zealot slain' },
+      { type: 'kill', targetMobId: 'wyrmcult_zealot', count: 12, label: 'Rift Cult Zealot slain' },
     ],
     xpReward: 4000,
     copperReward: 2000,
@@ -1179,8 +1179,8 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     completionText:
       "This script... I last saw its like in Morthen's grimoire, in Bloomhaven. The same hand has guided every grave we have fought over, $N.",
     objectives: [
-      { type: 'kill', targetMobId: 'wyrmcult_zealot', count: 8, label: 'Wyrmcult Zealot slain' },
-      { type: 'collect', itemId: 'wyrmcult_orders', count: 4, label: 'Wyrmcult Orders' },
+      { type: 'kill', targetMobId: 'wyrmcult_zealot', count: 8, label: 'Rift Cult Zealot slain' },
+      { type: 'collect', itemId: 'wyrmcult_orders', count: 4, label: 'Rift Cult Orders' },
     ],
     xpReward: 3800,
     copperReward: 1800,
@@ -1200,7 +1200,7 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
         type: 'kill',
         targetMobId: 'wyrmcult_necromancer',
         count: 8,
-        label: 'Wyrmcult Necromancer slain',
+        label: 'Rift Cult Necromancer slain',
       },
       { type: 'collect', itemId: 'ritual_phylactery', count: 3, label: 'Ritual Phylactery' },
     ],
@@ -1261,12 +1261,10 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     name: 'Sigils of the Wyrm',
     giverNpcId: 'brother_aldric_highwatch',
     turnInNpcId: 'brother_aldric_highwatch',
-    text: 'It is time you knew the whole of it, $N. The Blightcallers serve Korzul the Gravewyrm, an ancient dragon sealed beneath this mountain, and every soul they have stolen since Bloomhaven is a tithe poured into its waking. On the Sanctum Approach the cult has laid sigils to thin the seal. Bring me three; I would read the rite they are working.',
+    text: 'It is time you knew the whole of it, $N. The Blightcallers serve Korzul the Corrupted Wyrm, an ancient dragon sealed beneath this mountain, and every soul they have stolen since Bloomhaven is a tithe poured into its waking. On the Sanctum Approach the cult has laid sigils to thin the seal. Bring me three; I would read the rite they are working.',
     completionText:
       'Yes... a waking-litany, generations in the writing. They are close, $N. Closer than I dared fear.',
-    objectives: [
-      { type: 'collect', itemId: 'gravewyrm_sigil', count: 3, label: 'Gravewyrm Sigil' },
-    ],
+    objectives: [{ type: 'collect', itemId: 'gravewyrm_sigil', count: 3, label: 'Rift Sigil' }],
     xpReward: 3600,
     copperReward: 2000,
     itemRewards: {},
@@ -1278,7 +1276,7 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     name: 'Breaking the Seal',
     giverNpcId: 'brother_aldric_highwatch',
     turnInNpcId: 'brother_aldric_highwatch',
-    text: 'The seal on the Sanctum was wrought with mountain-fire, and only mountain-fire will let us pass without tearing it wide open. The stormcrag elementals carry embers of that first forging in their cores. Bring me five Blessed Embers, $N — for if the cult opens that gate first, they will not be careful, and the Wyrm will not wake gently.',
+    text: 'The seal on the Sanctum was wrought with mountain-fire, and only mountain-fire will let us pass without tearing it wide open. The riftcrag elementals carry embers of that first forging in their cores. Bring me five Blessed Embers, $N — for if the cult opens that gate first, they will not be careful, and the Wyrm will not wake gently.',
     completionText:
       'They burn blue and clean — the mountain remembers its old oath. With these I can unbind the gate for us alone.',
     objectives: [{ type: 'collect', itemId: 'blessed_embers', count: 5, label: 'Blessed Embers' }],
@@ -1296,12 +1294,12 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     completionText:
       'The kneeling has stopped. We have not silenced the voice, $N — only thinned its choir. It must be enough.',
     objectives: [
-      { type: 'kill', targetMobId: 'wyrmcult_zealot', count: 10, label: 'Wyrmcult Zealot slain' },
+      { type: 'kill', targetMobId: 'wyrmcult_zealot', count: 10, label: 'Rift Cult Zealot slain' },
       {
         type: 'kill',
         targetMobId: 'wyrmcult_necromancer',
         count: 6,
-        label: 'Wyrmcult Necromancer slain',
+        label: 'Rift Cult Necromancer slain',
       },
     ],
     xpReward: 4400,
@@ -1314,7 +1312,7 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     name: 'The Sanctum Gate',
     giverNpcId: 'brother_aldric_highwatch',
     turnInNpcId: 'brother_aldric_highwatch',
-    text: 'This is the last threshold, $N. The gate of the Gravewyrm Sanctum was locked with a keystone, and the cult shattered it into shards rather than see it turned against them. The shards lie scattered in the gate plaza, under the eyes of the boneclad dead. Bring me three, and I will open the way the Bloom intended, quietly.',
+    text: 'This is the last threshold, $N. The gate of the Rift Sanctum was locked with a keystone, and the cult shattered it into shards rather than see it turned against them. The shards lie scattered in the gate plaza, under the eyes of the boneclad dead. Bring me three, and I will open the way the Bloom intended, quietly.',
     completionText:
       'The shards sit true... and the gate knows its key. The way below stands open, $N. Gather the strongest companions you can find — what comes next, no one should face alone.',
     objectives: [
@@ -1381,7 +1379,7 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
   },
   q_gravewyrm: {
     id: 'q_gravewyrm',
-    name: 'Korzul the Gravewyrm',
+    name: 'Korzul the Corrupted Wyrm',
     giverNpcId: 'brother_aldric_highwatch',
     turnInNpcId: 'brother_aldric_highwatch',
     text: "There is no rite left to stop, $N, only the Wyrm itself, half-woken in its hollow, gorged on the dead of the Vale and the fen. If it rises, the wall, the marsh, Bloomhaven, everything we have defended falls in a single night. Take your companions into the Wyrm's Hollow and finish what we began in a chapel yard so long ago. The Bloom has carried you this far; carry it the rest of the way.",
@@ -1392,7 +1390,7 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
         type: 'kill',
         targetMobId: 'korzul_the_gravewyrm',
         count: 1,
-        label: 'Korzul the Gravewyrm slain',
+        label: 'Korzul the Corrupted Wyrm slain',
       },
     ],
     xpReward: 5300,
@@ -1414,7 +1412,7 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     name: 'Unrest in the Bonefields',
     giverNpcId: 'brother_aldric_highwatch',
     turnInNpcId: 'brother_aldric_highwatch',
-    text: 'Something has changed in Thornpeak Heights, $N. The dead no longer wander aimlessly. They gather and march through the northern bonefields beyond Highwatch, where the old battlefield meets the cliff road. Go there, investigate the unrest among the Boneclad Revenants, and bring back any proof of what is driving them.',
+    text: 'Something has changed in Thornreach Heights, $N. The dead no longer wander aimlessly. They gather and march through the northern bonefields beyond Highwatch, where the old battlefield meets the cliff road. Go there, investigate the unrest among the Boneclad Revenants, and bring back any proof of what is driving them.',
     completionText:
       'The same mark appears on every shard... a crown. I have seen this before, cut into old graves no Bloomhaven record remembers.',
     objectives: [
@@ -1464,7 +1462,7 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     name: 'The Abandoned Crypt',
     giverNpcId: 'brother_aldric_highwatch',
     turnInNpcId: 'brother_aldric_highwatch',
-    text: "The visions point to the abandoned crypt in the western cliff. There is an old legend that the crypt housed a king. Perhaps Thornpeak sealed him below after Malric's ritual twisted him into something deathless. Enter the crypt and see what remains inside.",
+    text: "The visions point to the abandoned crypt in the western cliff. There is an old legend that the crypt housed a king. Perhaps Thornreach sealed him below after Malric's ritual twisted him into something deathless. Enter the crypt and see what remains inside.",
     completionText:
       "The keystone halves fit together, and Voss's diary names what they sealed: the signet of King Nythraxis. If the diary is true, that signet is the key to his tomb.",
     objectives: [
@@ -1485,7 +1483,7 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     turnInNpcId: 'brother_aldric_highwatch',
     text: "Voss wrote that the survivors sealed the King's Signet behind an ancient guardian, so no one could reach the tomb of Nythraxis by accident or ambition. Take the Crypt Keystone to the ritual circle on the flat ground east of the abandoned crypt and south-east of the western grave. Use it there, break the guardian, and bring back the signet.",
     completionText:
-      "The three relics tell the same story: Aldren fought to defend his king, Malric broke the boundary of death, and Voss tried to stop what followed. The seal is weakening, and this signet is the key to Nythraxis's tomb. You are now attuned to enter The Crypt of Nythraxis. Return to the abandoned crypt, unlock the royal door, and face Nythraxis before the old king's rage spills beyond Thornpeak.",
+      "The three relics tell the same story: Aldren fought to defend his king, Malric broke the boundary of death, and Voss tried to stop what followed. The seal is weakening, and this signet is the key to Nythraxis's tomb. You are now attuned to enter The Crypt of Nythraxis. Return to the abandoned crypt, unlock the royal door, and face Nythraxis before the old king's rage spills beyond Thornreach.",
     objectives: [
       {
         type: 'interact',
@@ -1515,9 +1513,9 @@ export const ZONE3_QUESTS: Record<string, QuestDef> = {
     giverNpcId: 'brother_aldric_highwatch',
     turnInNpcId: 'brother_aldric_highwatch',
     turnInNpcIds: ['brother_aldric_highwatch', 'brother_aldric_raid'],
-    text: 'The signet has opened the way, $N, but an open tomb is not a victory. Nythraxis was a king once, and the ruin beneath Thornpeak is still bound to his will. Enter the crypt with allies you trust. Break the deathless crown before its command reaches the battlefield above.',
+    text: 'The signet has opened the way, $N, but an open tomb is not a victory. Nythraxis was a king once, and the ruin beneath Thornreach is still bound to his will. Enter the crypt with allies you trust. Break the deathless crown before its command reaches the battlefield above.',
     completionText:
-      'Then the crown is silent at last. Thornpeak will still carry its dead, but no king below it will call them to war again. You have ended what Aldren, Malric, and Voss could only contain.',
+      'Then the crown is silent at last. Thornreach will still carry its dead, but no king below it will call them to war again. You have ended what Aldren, Malric, and Voss could only contain.',
     objectives: [
       {
         type: 'kill',
@@ -1577,7 +1575,7 @@ export const ZONE3_CAMPS: CampDef[] = [
   { mobId: 'ridge_stalker', center: { x: -50, z: 590 }, radius: 22, count: 7 },
   { mobId: 'ridge_stalker', center: { x: 45, z: 600 }, radius: 20, count: 6 },
   { mobId: 'old_cragmaw', center: { x: -82, z: 575 }, radius: 5, count: 1 },
-  // Kobolds: Deeprock Burrows, west
+  // Kobolds: Deeproot Burrows, west
   { mobId: 'deeprock_kobold', center: { x: 75, z: 625 }, radius: 18, count: 8 },
   { mobId: 'deeprock_kobold', center: { x: 105, z: 600 }, radius: 14, count: 6 },
   { mobId: 'ironvein_foreman', center: { x: 100, z: 617 }, radius: 5, count: 1 },
@@ -1588,11 +1586,11 @@ export const ZONE3_CAMPS: CampDef[] = [
   { mobId: 'warlord_drogmar', center: { x: -132, z: 748 }, radius: 2, count: 1 },
   // A lone rare ogre prowls the ridge north of the warband
   { mobId: 'brutok_skullsmasher', center: { x: -45, z: 768 }, radius: 4, count: 1 },
-  // Elementals: Stormcrag, far west
+  // Elementals: Riftcrag, far west
   { mobId: 'stormcrag_elemental', center: { x: 110, z: 760 }, radius: 20, count: 8 },
   { mobId: 'stormcrag_elemental', center: { x: 135, z: 795 }, radius: 16, count: 6 },
   { mobId: 'shardlord_kazzix', center: { x: 145, z: 815 }, radius: 8, count: 1 },
-  // Wyrmcult: tents below the Sanctum. The (25, 845) pack's radius clipped the
+  // Rift Cult: tents below the Sanctum. The (25, 845) pack's radius clipped the
   // x=0 approach road, so it is nudged east to keep the central path clear; the
   // tents still flank the gate.
   { mobId: 'wyrmcult_zealot', center: { x: 55, z: 820 }, radius: 20, count: 8 },
@@ -1636,7 +1634,7 @@ export const ZONE3_OBJECTS: GroundObjectDef[] = [
   },
   {
     itemId: 'gravewyrm_sigil',
-    name: 'Gravewyrm Sigil',
+    name: 'Rift Sigil',
     positions: [
       { x: -8, z: 852 },
       { x: -3, z: 857 },
@@ -1726,7 +1724,7 @@ export const ZONE3_ITEMS: Record<string, ItemDef> = {
   },
   wyrmcult_orders: {
     id: 'wyrmcult_orders',
-    name: 'Wyrmcult Orders',
+    name: 'Rift Cult Orders',
     kind: 'quest',
     sellValue: 0,
     questId: 'q_cult_orders',
@@ -1740,7 +1738,7 @@ export const ZONE3_ITEMS: Record<string, ItemDef> = {
   },
   gravewyrm_sigil: {
     id: 'gravewyrm_sigil',
-    name: 'Gravewyrm Sigil',
+    name: 'Rift Sigil',
     kind: 'quest',
     sellValue: 0,
     questId: 'q_wyrm_sigils',
@@ -1884,7 +1882,7 @@ export const ZONE3_ITEMS: Record<string, ItemDef> = {
     stats: { armor: 44, agi: 5, sta: 3 },
     sellValue: 340,
   },
-  // --- Level-20 endgame loot: Korzul (5-player Gravewyrm Sanctum) and Nythraxis
+  // --- Level-20 endgame loot: Korzul (5-player Rift Sanctum) and Nythraxis
   // (10-player raid). Every piece below is NORMALIZED to the stat budget its item
   // level earns (see src/sim/item_level.ts): item level = level 20 + quality bonus,
   // plus a raid bonus for Nythraxis drops, so the raid set reads a tier above the
@@ -2165,7 +2163,7 @@ export const ZONE3_ITEMS: Record<string, ItemDef> = {
   },
   gravewyrm_scale_hauberk: {
     id: 'gravewyrm_scale_hauberk',
-    name: 'Gravewyrm Scale Hauberk',
+    name: 'Riftscale Hauberk',
     kind: 'armor',
     armorType: 'mail',
     slot: 'chest',
@@ -2176,7 +2174,7 @@ export const ZONE3_ITEMS: Record<string, ItemDef> = {
   },
   wyrmcult_grand_robe: {
     id: 'wyrmcult_grand_robe',
-    name: 'Wyrmcult Grand Robe',
+    name: 'Rift Cult Grand Robe',
     kind: 'armor',
     armorType: 'cloth',
     slot: 'chest',
@@ -2198,7 +2196,7 @@ export const ZONE3_ITEMS: Record<string, ItemDef> = {
   },
   gravewyrm_stalkers_treads: {
     id: 'gravewyrm_stalkers_treads',
-    name: "Gravewyrm Stalker's Treads",
+    name: "Riftscale Stalker's Treads",
     kind: 'armor',
     armorType: 'leather',
     slot: 'feet',
@@ -2209,7 +2207,7 @@ export const ZONE3_ITEMS: Record<string, ItemDef> = {
   },
   gravewyrm_sabatons: {
     id: 'gravewyrm_sabatons',
-    name: 'Gravewyrm Sabatons',
+    name: 'Riftscale Sabatons',
     kind: 'armor',
     armorType: 'mail',
     slot: 'feet',
@@ -2220,7 +2218,7 @@ export const ZONE3_ITEMS: Record<string, ItemDef> = {
   },
   wyrmcult_soulsteps: {
     id: 'wyrmcult_soulsteps',
-    name: 'Wyrmcult Soulsteps',
+    name: 'Rift Cult Soulsteps',
     kind: 'armor',
     armorType: 'cloth',
     slot: 'feet',
@@ -2351,7 +2349,7 @@ export const ZONE3_ITEMS: Record<string, ItemDef> = {
   },
   staff_of_the_gravewyrm: {
     id: 'staff_of_the_gravewyrm',
-    name: 'Staff of the Gravewyrm',
+    name: 'Staff of the Corrupted Wyrm',
     kind: 'weapon',
     slot: 'mainhand',
     quality: 'epic',
@@ -2424,7 +2422,7 @@ export const ZONE3_ITEMS: Record<string, ItemDef> = {
   },
   kingsbane_last_oath: {
     id: 'kingsbane_last_oath',
-    name: 'Kingsbane, Last Oath of Thornpeak',
+    name: 'Kingsbane, Last Oath of Thornreach',
     kind: 'weapon',
     slot: 'mainhand',
     quality: 'legendary',
@@ -2719,7 +2717,7 @@ export const ZONE3_PROPS: ZonePropsDef = {
     { x: -120, z: 733, rot: 0.5, scale: 1.3 },
     { x: -128, z: 744, rot: 2.0, scale: 1.3 },
     { x: -136, z: 752, rot: 1.0, scale: 1.5 },
-    // Wyrmcult tents below the Sanctum
+    // Rift Cult tents below the Sanctum
     { x: 50, z: 815, rot: 0.8, scale: 1 },
     { x: 58, z: 823, rot: -0.5, scale: 1 },
     { x: 60, z: 812, rot: 2.2, scale: 1 },
