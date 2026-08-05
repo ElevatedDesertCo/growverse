@@ -68,10 +68,15 @@ const CALLBACK_KEYS = [
   'partyOf',
   'removeFromParty',
   'dropPartyMarkers',
-  // Q1 quest-credit trio + the countItem it consumes.
+  // Q1 quest-credit trio + the countItem it consumes, plus the Phase D extended
+  // objective types (interact/deliver on NPC talk, the throttled reach poll, and the
+  // standing check awardReputation fires).
   'onMobKilledForQuests',
   'onInventoryChangedForQuests',
   'checkQuestReady',
+  'onNpcInteractedForQuests',
+  'onReachCheckForQuests',
+  'onReputationChangedForQuests',
   'countItem',
   'completeQuestForDev',
   'completeCurrentQuestsForDev',
@@ -313,6 +318,9 @@ function makeFakeHost() {
     onMobKilledForQuests: vi.fn(),
     onInventoryChangedForQuests: vi.fn(),
     checkQuestReady: vi.fn(),
+    onNpcInteractedForQuests: vi.fn(),
+    onReachCheckForQuests: vi.fn(),
+    onReputationChangedForQuests: vi.fn(),
     countItem: vi.fn(() => 0),
     completeQuestForDev: vi.fn(() => false),
     completeCurrentQuestsForDev: vi.fn(() => 0),

@@ -300,6 +300,13 @@ export interface SimContextCallbacks {
   onMobKilledForQuests(mob: Entity, meta: PlayerMeta): void;
   onInventoryChangedForQuests(meta: PlayerMeta): void;
   checkQuestReady(qp: QuestProgress, meta: PlayerMeta): void;
+  // Phase D extended objective types. onNpcInteracted covers `interact` + `deliver`
+  // (the NPC-talk path), onReachCheck is the throttled `reach` poll driven by the
+  // per-player tick loop, and onReputationChanged is fired by awardReputation so every
+  // rep source credits a standing objective without each call site knowing about quests.
+  onNpcInteractedForQuests(npcTemplateId: string, meta: PlayerMeta): boolean;
+  onReachCheckForQuests(meta: PlayerMeta): void;
+  onReputationChangedForQuests(meta: PlayerMeta): void;
   countItem(itemId: string, pid?: number): number;
   completeQuestForDev(questId: string, pid?: number): boolean;
   completeCurrentQuestsForDev(pid?: number): number;
@@ -785,6 +792,9 @@ export function createSimContext(host: SimContextHost): SimContext {
     onMobKilledForQuests: host.onMobKilledForQuests,
     onInventoryChangedForQuests: host.onInventoryChangedForQuests,
     checkQuestReady: host.checkQuestReady,
+    onNpcInteractedForQuests: host.onNpcInteractedForQuests,
+    onReachCheckForQuests: host.onReachCheckForQuests,
+    onReputationChangedForQuests: host.onReputationChangedForQuests,
     countItem: host.countItem,
     completeQuestForDev: host.completeQuestForDev,
     completeCurrentQuestsForDev: host.completeCurrentQuestsForDev,

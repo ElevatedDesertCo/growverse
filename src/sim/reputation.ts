@@ -107,6 +107,9 @@ export function awardReputation(
   meta.reputation[factionId] = after;
   if (tierIndexFor(after) > tierIndexFor(before)) {
     ctx.notice(meta.entityId, `You are now ${tierFor(after)} with ${FACTIONS[factionId].name}.`);
+    // A standing objective can only come due on a tier crossing, so credit it here rather
+    // than polling. Every rep source (harvest, breed, cup) routes through this one fn.
+    ctx.onReputationChangedForQuests(meta);
   }
   return after;
 }
