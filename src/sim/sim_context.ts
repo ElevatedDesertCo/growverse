@@ -310,6 +310,12 @@ export interface SimContextCallbacks {
   // Timed quests: fails and drops any quest past its deadline. Same throttled cadence
   // as the reach poll; reads only the sim clock.
   onQuestDeadlinesForQuests(meta: PlayerMeta): void;
+  // Escort objectives: the mob-AI dispatch predicate + per-tick follow brain (an
+  // escortee is owner-linked, so it must be claimed before the pet branch), plus the
+  // throttled arrival/death resolution.
+  isEscortMob(mob: Entity): boolean;
+  updateEscortMob(mob: Entity): void;
+  onEscortTickForQuests(meta: PlayerMeta): void;
   countItem(itemId: string, pid?: number): number;
   completeQuestForDev(questId: string, pid?: number): boolean;
   completeCurrentQuestsForDev(pid?: number): number;
@@ -799,6 +805,9 @@ export function createSimContext(host: SimContextHost): SimContext {
     onReachCheckForQuests: host.onReachCheckForQuests,
     onReputationChangedForQuests: host.onReputationChangedForQuests,
     onQuestDeadlinesForQuests: host.onQuestDeadlinesForQuests,
+    isEscortMob: host.isEscortMob,
+    updateEscortMob: host.updateEscortMob,
+    onEscortTickForQuests: host.onEscortTickForQuests,
     countItem: host.countItem,
     completeQuestForDev: host.completeQuestForDev,
     completeCurrentQuestsForDev: host.completeCurrentQuestsForDev,

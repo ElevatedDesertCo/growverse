@@ -1919,7 +1919,7 @@ export function emptyZoneProps(): ZonePropsDef {
 }
 
 export interface QuestObjective {
-  type: 'kill' | 'collect' | 'interact' | 'reach' | 'deliver' | 'reputation';
+  type: 'kill' | 'collect' | 'interact' | 'reach' | 'deliver' | 'reputation' | 'escort';
   targetMobId?: string; // for kill
   itemId?: string; // for collect, AND the payload for deliver
   targetObjectItemId?: string; // for interactable ground objects
@@ -1929,6 +1929,12 @@ export interface QuestObjective {
   // the check is pure distance math and draws no rng.
   reachPos?: { x: number; z: number };
   reachRadius?: number;
+  // escort: spawn `escortMobId` beside the player on accept; it follows them and is
+  // credited on reaching `escortTo`. If it dies the quest FAILS (same path as a timed
+  // quest running out), so this is the one objective that can lose you the quest.
+  escortMobId?: string;
+  escortTo?: { x: number; z: number };
+  escortRadius?: number;
   // reputation: credited once the player's standing with `requiredRep.factionId` reaches
   // `requiredRep.tier`. Same shape the crafting gate already uses (CraftRecipe.requiredRep).
   requiredRep?: { factionId: FactionId; tier: RepTier };
@@ -1992,6 +1998,11 @@ export interface QuestProgress {
   // (not a ticking countdown) on purpose: the snapshot JSON-diffs the whole quest log, so
   // a field that changed every tick would re-send it every tick for every player.
   expiresAt?: number;
+  // Live entity id of an in-flight escortee. Entities are not persisted, so this is
+  // deliberately NOT saved: on relog the escortee is gone, the escort tick sees a
+  // missing entity, and the quest fails. That is the honest outcome and needs no
+  // special-casing (logging out mid-escort abandons the escort).
+  escortEntityId?: number;
 }
 
 // Consumables restore their total over CONSUME_DURATION seconds while sitting,

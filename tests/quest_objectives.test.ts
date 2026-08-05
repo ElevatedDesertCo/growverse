@@ -13,6 +13,7 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { QUESTS } from '../src/sim/data';
 import { finalizeQuestAccept } from '../src/sim/quests/quest_commands';
 import {
+  onEscortTickForQuests,
   onNpcInteractedForQuests,
   onQuestDeadlinesForQuests,
   onReachCheckForQuests,
@@ -40,12 +41,22 @@ const q = (id: string, objectives: QuestObjective[]): QuestDef => ({
 
 // A quest-level deadline rather than an objective (see QuestDef.timeLimit).
 const timed = (id: string, timeLimit: number): QuestDef => ({
-  ...q(id, [{ type: 'kill', targetMobId: 'munchie_coyote', count: 1, label: 'Coyote slain' }]),
+  ...q(id, [{ type: 'kill', targetMobId: 'forest_wolf', count: 1, label: 'Coyote slain' }]),
   timeLimit,
 });
 
 const TEMP: QuestDef[] = [
   timed('q_obj_timed', 60),
+  q('q_obj_escort', [
+    {
+      type: 'escort',
+      escortMobId: 'forest_wolf',
+      escortTo: { x: 120, z: 120 },
+      escortRadius: 8,
+      count: 1,
+      label: 'Escortee delivered',
+    },
+  ]),
   q('q_obj_reach', [
     {
       type: 'reach',
@@ -314,5 +325,90 @@ describe('quest objectives: timed quests', () => {
     expect(metaOf(reloaded).questLog.has('q_obj_timed')).toBe(false);
     // and it is re-acceptable, not silently completed
     expect(metaOf(reloaded).questsDone.has('q_obj_timed')).toBe(false);
+  });
+});
+
+describe('quest objectives: escort', () => {
+  afterEach(uninstall);
+
+  it('spawns an escortee beside the player on accept and remembers it', () => {
+    install();
+    const sim = makeSim();
+    accept(sim, 'q_obj_escort');
+    const id = progressOf(sim, 'q_obj_escort')?.escortEntityId;
+    expect(id).toBeDefined();
+    const escortee = sim.entities.get(id as number);
+    expect(escortee).toBeDefined();
+    // Owner-linked and non-hostile, so it is never a valid target for its own escort.
+    expect(escortee?.ownerId).toBe(sim.playerId);
+    expect(escortee?.hostile).toBe(false);
+  });
+
+  it('trails the player rather than standing still', () => {
+    install();
+    const sim = makeSim();
+    accept(sim, 'q_obj_escort');
+    const escortee = sim.entities.get(progressOf(sim, 'q_obj_escort')?.escortEntityId as number);
+    if (!escortee) throw new Error('no escortee');
+    moveTo(sim, 60, 60);
+    const before = Math.hypot(escortee.pos.x - 60, escortee.pos.z - 60);
+    for (let i = 0; i < 40; i++) sim.tick();
+    const after = Math.hypot(escortee.pos.x - 60, escortee.pos.z - 60);
+    expect(after).toBeLessThan(before);
+  });
+
+  it('credits on arrival and retires the escortee', () => {
+    install();
+    const sim = makeSim();
+    accept(sim, 'q_obj_escort');
+    const id = progressOf(sim, 'q_obj_escort')?.escortEntityId as number;
+    const escortee = sim.entities.get(id);
+    if (escortee) {
+      escortee.pos.x = 120;
+      escortee.pos.z = 120;
+    }
+    onEscortTickForQuests(ctxOf(sim), metaOf(sim));
+    expect(progressOf(sim, 'q_obj_escort')?.counts[0]).toBe(1);
+    expect(progressOf(sim, 'q_obj_escort')?.state).toBe('ready');
+    // The escortee is despawned once delivered, not left following forever.
+    expect(sim.entities.has(id)).toBe(false);
+    expect(progressOf(sim, 'q_obj_escort')?.escortEntityId).toBeUndefined();
+  });
+
+  it('does not credit while the escortee is short of the destination', () => {
+    install();
+    const sim = makeSim();
+    accept(sim, 'q_obj_escort');
+    const escortee = sim.entities.get(progressOf(sim, 'q_obj_escort')?.escortEntityId as number);
+    if (escortee) {
+      escortee.pos.x = 120;
+      escortee.pos.z = 140; // 20yd out, radius is 8
+    }
+    onEscortTickForQuests(ctxOf(sim), metaOf(sim));
+    expect(progressOf(sim, 'q_obj_escort')?.counts[0]).toBe(0);
+  });
+
+  it('FAILS the quest when the escortee dies, and does not mark it done', () => {
+    install();
+    const sim = makeSim();
+    accept(sim, 'q_obj_escort');
+    const escortee = sim.entities.get(progressOf(sim, 'q_obj_escort')?.escortEntityId as number);
+    if (escortee) escortee.dead = true;
+    onEscortTickForQuests(ctxOf(sim), metaOf(sim));
+    expect(metaOf(sim).questLog.has('q_obj_escort')).toBe(false);
+    expect(metaOf(sim).questsDone.has('q_obj_escort')).toBe(false);
+  });
+
+  it('fails the quest on relog, since the escortee is not persisted', () => {
+    install();
+    const sim = makeSim();
+    accept(sim, 'q_obj_escort');
+    const saved = sim.serializeCharacter(sim.playerId)!;
+    const reloaded = new Sim({ seed: 42, playerClass: 'warrior', noPlayer: true });
+    reloaded.addPlayer('warrior', 'Test', { state: saved });
+    // The handle is deliberately not saved, so the escort simply has no escortee...
+    expect(progressOf(reloaded, 'q_obj_escort')?.escortEntityId).toBeUndefined();
+    // ...and the quest is still in the log until the tick resolves it, then dropped.
+    expect(metaOf(reloaded).questLog.has('q_obj_escort')).toBe(true);
   });
 });

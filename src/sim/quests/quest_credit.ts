@@ -12,7 +12,8 @@
 // game/net/DOM/Three, no Math.random/Date.now), so it runs unchanged in Node, the
 // browser, and the headless RL env.
 
-import { QUESTS } from '../data';
+import { MOBS, QUESTS } from '../data';
+import { createMob } from '../entity';
 import { meetsTier } from '../reputation';
 import type { PlayerMeta } from '../sim';
 import type { SimContext } from '../sim_context';
@@ -22,6 +23,11 @@ import type { Entity, QuestObjective, QuestProgress } from '../types';
 // enough that walking the road past a landmark counts, tight enough that it does not
 // fire from the next POI over.
 const DEFAULT_REACH_RADIUS = 12;
+// Escort tuning. The escortee trails the player at FOLLOW yards and is yanked forward if
+// it somehow falls TELEPORT yards behind (terrain snags), matching how the delve
+// companion keeps up. Arrival uses the reach radius unless the objective overrides it.
+const ESCORT_FOLLOW = 4;
+const ESCORT_TELEPORT_DISTANCE = 60;
 
 export function onMobKilledForQuests(ctx: SimContext, mob: Entity, meta: PlayerMeta): void {
   for (const qp of meta.questLog.values()) {
@@ -191,15 +197,101 @@ export function onQuestDeadlinesForQuests(ctx: SimContext, meta: PlayerMeta): vo
     expired.push(qp.questId);
   }
   if (!expired) return;
-  for (const questId of expired) {
-    meta.questLog.delete(questId);
-    ctx.emit({
-      type: 'log',
-      text: `Quest failed: ${QUESTS[questId].name}`,
-      color: '#f66',
-      pid: meta.entityId,
-    });
+  for (const questId of expired) failQuest(ctx, questId, meta);
+}
+
+// Spawn the escortee for any escort objective on a freshly accepted quest. Called from
+// finalizeQuestAccept, so it happens on a player action rather than world-gen: the golden
+// traces never accept these quests, so the extra entity id never shifts their draw order.
+export function spawnEscortsForQuest(ctx: SimContext, questId: string, meta: PlayerMeta): void {
+  const qp = meta.questLog.get(questId);
+  const quest = QUESTS[questId];
+  if (!qp || !quest) return;
+  const objective = quest.objectives.find((o) => o.type === 'escort' && o.escortMobId);
+  if (!objective?.escortMobId) return;
+  const owner = ctx.entities.get(meta.entityId);
+  const template = MOBS[objective.escortMobId];
+  if (!owner || !template) return;
+  const mob = createMob(
+    ctx.nextId++,
+    template,
+    owner.level,
+    ctx.groundPos(owner.pos.x + 1.5, owner.pos.z),
+  );
+  mob.ownerId = meta.entityId;
+  mob.hostile = false;
+  mob.aiState = 'idle';
+  ctx.addEntity(mob);
+  qp.escortEntityId = mob.id;
+}
+
+/** True for a mob that is somebody's in-flight escortee (the mob-AI dispatch predicate). */
+export function isEscortMob(ctx: SimContext, mob: Entity): boolean {
+  if (mob.ownerId === null) return false;
+  const meta = ctx.players.get(mob.ownerId);
+  if (!meta) return false;
+  for (const qp of meta.questLog.values()) if (qp.escortEntityId === mob.id) return true;
+  return false;
+}
+
+/** Per-tick escortee brain: trail the owner. Arrival and death are handled by the poll. */
+export function updateEscortMob(ctx: SimContext, mob: Entity): void {
+  const owner = mob.ownerId !== null ? ctx.entities.get(mob.ownerId) : null;
+  if (!owner || owner.dead) return;
+  const dx = owner.pos.x - mob.pos.x;
+  const dz = owner.pos.z - mob.pos.z;
+  const d = Math.hypot(dx, dz);
+  if (d > ESCORT_TELEPORT_DISTANCE) {
+    mob.pos = ctx.groundPos(owner.pos.x + 1.5, owner.pos.z);
+    return;
   }
+  if (d > ESCORT_FOLLOW) ctx.moveToward(mob, owner.pos, mob.moveSpeed);
+}
+
+// Escort resolution, run on the same throttled cadence as the reach poll: credit on
+// arrival, fail on death or on a missing escortee (the relog case).
+export function onEscortTickForQuests(ctx: SimContext, meta: PlayerMeta): void {
+  let failed: string[] | null = null;
+  for (const qp of meta.questLog.values()) {
+    if (qp.state === 'done' || qp.escortEntityId === undefined) continue;
+    const quest = QUESTS[qp.questId];
+    const i = quest.objectives.findIndex((o) => o.type === 'escort');
+    if (i < 0) continue;
+    const objective = quest.objectives[i];
+    const escortee = ctx.entities.get(qp.escortEntityId);
+    if (!escortee || escortee.dead) {
+      qp.escortEntityId = undefined;
+      if (!failed) failed = [];
+      failed.push(qp.questId);
+      continue;
+    }
+    if (qp.counts[i] >= objective.count || !objective.escortTo) continue;
+    const radius = objective.escortRadius ?? DEFAULT_REACH_RADIUS;
+    const dx = escortee.pos.x - objective.escortTo.x;
+    const dz = escortee.pos.z - objective.escortTo.z;
+    if (dx * dx + dz * dz > radius * radius) continue;
+    // Delivered: credit, then retire the escortee so it stops trailing the player.
+    creditObjective(ctx, qp, meta, objective, i, objective.count);
+    ctx.dropEntity(escortee.id);
+    qp.escortEntityId = undefined;
+    checkQuestReady(ctx, qp, meta);
+  }
+  if (failed) for (const questId of failed) failQuest(ctx, questId, meta);
+}
+
+/** Drop a quest from the log and announce it. Shared by the deadline and escort paths. */
+function failQuest(ctx: SimContext, questId: string, meta: PlayerMeta): void {
+  const qp = meta.questLog.get(questId);
+  if (qp?.escortEntityId !== undefined && ctx.entities.has(qp.escortEntityId)) {
+    ctx.dropEntity(qp.escortEntityId);
+  }
+  meta.questLog.delete(questId);
+  ctx.emit({
+    type: 'log',
+    text: `Quest failed: ${QUESTS[questId].name}`,
+    color: '#f66',
+    pid: meta.entityId,
+  });
 }
 
 export function checkQuestReady(ctx: SimContext, qp: QuestProgress, meta: PlayerMeta): void {

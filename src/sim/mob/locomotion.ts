@@ -99,6 +99,13 @@ export function updateMob(ctx: SimContext, mob: Entity): void {
       ctx.updateDelveCompanion(mob);
       return;
     }
+    // A quest escortee is owner-linked but is not a pet, so it must be claimed before
+    // the pet branch or updatePet would drive it. Only ever true for escort mobs, so
+    // no existing mob changes branch (and the rng draw order is untouched).
+    if (ctx.isEscortMob(mob)) {
+      ctx.updateEscortMob(mob);
+      return;
+    }
     ctx.updatePet(mob);
     return;
   }
