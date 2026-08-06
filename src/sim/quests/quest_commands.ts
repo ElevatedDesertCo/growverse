@@ -37,6 +37,7 @@ import {
   type QuestState,
   questTurnInNpcIds,
 } from '../types';
+import { spawnEscortsForQuest } from './quest_credit';
 
 // Pure quest-state computation, shared by the sim and the network client. Relocated
 // from sim.ts (W4) and re-exported from sim.ts so the ClientWorld import
@@ -114,6 +115,7 @@ export function finalizeQuestAccept(
     ...(quest.timeLimit ? { expiresAt: ctx.time + quest.timeLimit } : {}),
   });
   if (quest.setsFlagOnAccept) meta.worldFlags.add(quest.setsFlagOnAccept);
+  spawnEscortsForQuest(ctx, questId, meta);
   for (const itemId of questFallbackGrants(quest, (id) => ctx.countItem(id, meta.entityId) > 0)) {
     ctx.addItem(itemId, 1, meta.entityId);
   }
@@ -182,7 +184,12 @@ export function abandonQuest(ctx: SimContext, questId: string, pid?: number): vo
   const r = ctx.resolve(pid);
   if (!r) return;
   const { meta } = r;
-  if (!meta.questLog.has(questId)) return;
+  const abandoned = meta.questLog.get(questId);
+  if (!abandoned) return;
+  // An in-flight escortee has no reason to keep trailing a player who quit the quest.
+  if (abandoned.escortEntityId !== undefined && ctx.entities.has(abandoned.escortEntityId)) {
+    ctx.dropEntity(abandoned.escortEntityId);
+  }
   meta.questLog.delete(questId);
   ctx.emit({
     type: 'log',

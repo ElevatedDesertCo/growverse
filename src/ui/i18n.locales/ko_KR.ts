@@ -5464,6 +5464,25 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'entities.items.pressed_resin_prime.name': '최상급 압착 수지',
   'entities.items.infused_lozenge_fine.name': '상급 침출 정제',
   'entities.items.infused_lozenge_prime.name': '최상급 침출 정제',
+  'entities.quests.q_stock_run.title': '종자 수급',
+  'entities.quests.q_stock_run.text':
+    '그 상시 주문을 채웠으니, 이제 새 재배자에게 아무도 말해주지 않는 걸 알려주지. 좋은 원주는 여기 두지 않는다. 씨앗금고 언덕 아래에 있고, 지킴이들은 공동체가 이미 아는 얼굴에게만 문을 연다. 올라가서 얼굴을 보여라. 그쪽이 알아보면 돌아와.',
+  'entities.quests.q_stock_run.completion':
+    '이제 그들이 자네를 안다. 내가 쥐여줄 수 있는 어떤 씨앗보다 값지지. 물론 오래도 걸렸다만.',
+  'entities.quests.q_stock_run.objectives.0.label': '씨앗금고 언덕 방문',
+  'entities.quests.q_stock_run.objectives.1.label': '공동체에 이름 알리기',
+  'entities.quests.q_cuttings_for_the_lodge.title': '로지로 보낼 삽수',
+  'entities.quests.q_cuttings_for_the_lodge.text':
+    '로언이 로지에서 추출물 세 몫을 원하고, 그것도 오늘 원한다. 추출물은 오래 못 가니까. 곧장 내려가서 그녀 손에 직접 쥐여줘라. 도중에 코요테나 쏘러 새면, 도착할 즈음엔 아무 값어치도 없을 거다.',
+  'entities.quests.q_cuttings_for_the_lodge.completion':
+    '상하기 전에 전달했군. 그 한 가지도 못 해내는 재배자가 얼마나 많은지 알면 놀랄 거다.',
+  'entities.quests.q_cuttings_for_the_lodge.objectives.0.label': '로언에게 추출물 전달',
+  'entities.quests.q_walk_it_home.title': '걸려서 데려다줘라',
+  'entities.quests.q_walk_it_home.text':
+    '공동체 비버 한 마리가 건조 창고에 들어갔다가, 해 뜰 때부터 내 모판에 눌러앉아 아무짝에도 쓸모없이 있다. 천천히 걸으면 따라올 거다. 브라이트우드 숲에 있는 제 둑까지 데려다줘라. 가는 길에 잘 봐줘야 한다. 제 앞가림은 못 하는 놈이니까.',
+  'entities.quests.q_walk_it_home.completion':
+    '집에 갔고, 아직 숨도 쉰다. 둑에서도 고맙다 안 할 거고 비버도 안 할 테니, 내가 하지. 고맙다.',
+  'entities.quests.q_walk_it_home.objectives.0.label': '비버를 브라이트우드 숲까지 인솔',
   'entities.quests.q_first_harvest.title': '첫 수확',
   'entities.quests.q_first_harvest.text':
     '재배자는 누구나 같은 자리에서 시작하지. 이랑 하나, 씨앗 하나, 그리고 건드리지 않고 기다리는 인내심. 무언가를 심고, 끝까지 자라게 둔 다음, 거기서 나온 것을 내게 가져오게. 더 좋은 종자를 맡기기 전에 자네가 작물을 어떻게 다루는지부터 봐야겠어.',

@@ -5454,6 +5454,25 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'entities.items.pressed_resin_prime.name': '極上の圧搾樹脂',
   'entities.items.infused_lozenge_fine.name': '上質な浸出ロゼンジ',
   'entities.items.infused_lozenge_prime.name': '極上の浸出ロゼンジ',
+  'entities.quests.q_stock_run.title': '種の買い付け',
+  'entities.quests.q_stock_run.text':
+    '例の常設注文を埋めたな。では新入りの誰も教えてもらえないことを言おう。良い株はここには置いていない。シードヴォルトの丘の地下だ。そして番人は、共同体がすでに知っている顔にしか開かない。上まで歩いて、顔を見せてこい。向こうが覚えたら戻れ。',
+  'entities.quests.q_stock_run.completion':
+    '向こうはお前を覚えた。私が渡せるどんな種よりも価値がある。もっとも、ずいぶん時間はかかったがな。',
+  'entities.quests.q_stock_run.objectives.0.label': 'シードヴォルトの丘を訪れる',
+  'entities.quests.q_stock_run.objectives.1.label': '共同体に顔を知られる',
+  'entities.quests.q_cuttings_for_the_lodge.title': 'ロッジへの挿し穂',
+  'entities.quests.q_cuttings_for_the_lodge.text':
+    'ローワンがロッジで抽出物を三つ欲しがっている。しかも今日だ。抽出物は保たないからな。まっすぐ下って、彼女の手に直接渡せ。途中でコヨーテを撃ちに寄り道すれば、着く頃には何の価値もない。',
+  'entities.quests.q_cuttings_for_the_lodge.completion':
+    'まだ生きているうちに届いたか。その一事すらできない栽培者がどれだけいるか、驚くぞ。',
+  'entities.quests.q_cuttings_for_the_lodge.objectives.0.label': 'ローワンに抽出物を届ける',
+  'entities.quests.q_walk_it_home.title': '歩いて帰らせろ',
+  'entities.quests.q_walk_it_home.text':
+    '共同体のビーバーが乾燥小屋に入り込んで、日の出からずっと私の苗床に座り込んでいる。まるで役に立たん。ゆっくり歩けばついてくる。ブライトウッドの林間にある巣まで連れて行け。道中は見ていてやれ、自分では自分を見ていられん奴だからな。',
+  'entities.quests.q_walk_it_home.completion':
+    '無事に帰り着いたか。巣の連中も礼は言わんし、当のビーバーも言わん。だから私が言う。ありがとう。',
+  'entities.quests.q_walk_it_home.objectives.0.label': 'ビーバーをブライトウッドの林間まで送る',
   'entities.quests.q_first_harvest.title': '最初の収穫',
   'entities.quests.q_first_harvest.text':
     '育てる者は皆こうして始めるものだ。畝がひとつ、種がひとつ、そして手を出さずに待つ辛抱強さ。何かを植え、最後まで育て切って、そこから採れたものを持ってきてくれ。もっと良い種を預ける前に、君が作物をどう扱うか見ておきたい。',

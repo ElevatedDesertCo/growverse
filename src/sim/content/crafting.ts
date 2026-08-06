@@ -625,7 +625,14 @@ export const CRAFT_NPCS: Record<string, NpcDef> = {
     pos: { x: 60, z: 50 },
     facing: 0,
     color: 0x4e9a2f,
-    questIds: ['q_first_harvest', 'q_fine_supply', 'q_prime_order'],
+    questIds: [
+      'q_first_harvest',
+      'q_fine_supply',
+      'q_prime_order',
+      'q_stock_run',
+      'q_cuttings_for_the_lodge',
+      'q_walk_it_home',
+    ],
     vendorItems: CULTIVATOR_STOCK,
     crafting: 'grow',
     greeting:

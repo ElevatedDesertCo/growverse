@@ -5188,6 +5188,25 @@ export const zh_TW: Partial<Record<TranslationKey, string>> = {
   'entities.items.pressed_resin_prime.name': '極品壓製樹脂',
   'entities.items.infused_lozenge_fine.name': '優質浸製含片',
   'entities.items.infused_lozenge_prime.name': '極品浸製含片',
+  'entities.quests.q_stock_run.title': '調種之行',
+  'entities.quests.q_stock_run.text':
+    '你把那張長期訂單填上了，所以現在告訴你新手沒人會說的一件事：好種源不在這兒。它鎖在種庫山下面，而看守只對公社認得的面孔開門。上去讓他們看看你。等他們認下你了再回來。',
+  'entities.quests.q_stock_run.completion':
+    '他們認得你了。這比我能塞給你的任何一粒種子都值錢，而且你也確實花了夠久。',
+  'entities.quests.q_stock_run.objectives.0.label': '抵達種庫山',
+  'entities.quests.q_stock_run.objectives.1.label': '獲得公社認可',
+  'entities.quests.q_cuttings_for_the_lodge.title': '送往木屋的插條',
+  'entities.quests.q_cuttings_for_the_lodge.text':
+    '羅恩要三份萃取物送到木屋，而且今天就要，因為萃取物放不住。直接送下去，親手交到她手裡。你要是半路跑去打土狼，等你到了它就一文不值了。',
+  'entities.quests.q_cuttings_for_the_lodge.completion':
+    '趁著還沒壞就送到了。你不會相信有多少種植者連這一件事都辦不成。',
+  'entities.quests.q_cuttings_for_the_lodge.objectives.0.label': '把萃取物交給羅恩',
+  'entities.quests.q_walk_it_home.title': '把牠送回家',
+  'entities.quests.q_walk_it_home.text':
+    '公社有隻河狸鑽進了烘乾棚，從日出起就賴在我的苗床裡，什麼用也沒有。你走慢點牠就會跟著。把牠帶到明木林地牠的水壩那邊去，路上看著點，牠自己可不會看著自己。',
+  'entities.quests.q_walk_it_home.completion':
+    '到家了，還喘著氣。水壩那邊不會謝你，那隻河狸也不會，所以我來謝：謝了。',
+  'entities.quests.q_walk_it_home.objectives.0.label': '把河狸送到明木林地',
   'entities.quests.q_first_harvest.title': '初次收成',
   'entities.quests.q_first_harvest.text':
     '每個種植者都是這樣起步的：一畦土、一粒種，以及靜待其成的耐心。種下些什麼，讓它長足時候，再把收成帶來給我。在我把更好的種源交給你之前，我要先看看你怎麼侍弄一茬莊稼。',

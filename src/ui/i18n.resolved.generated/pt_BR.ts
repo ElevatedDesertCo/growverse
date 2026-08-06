@@ -6343,6 +6343,39 @@ export const pt_BR: EnTranslations = {
           }
         }
       },
+      "q_stock_run": {
+        "title": "Stock Run",
+        "text": "You have filled the standing order, so here is the part nobody tells a new grower: the good stock is not kept here. It is under Seedvault Hill, and the keepers only open up for a face the commune already knows. Walk up there and let them see you. Come back when they have.",
+        "completion": "They know you now. That is worth more than any seed I could hand you, and it took you long enough to earn it.",
+        "objectives": {
+          "0": {
+            "label": "Seedvault Hill visited"
+          },
+          "1": {
+            "label": "Known to the commune"
+          }
+        }
+      },
+      "q_cuttings_for_the_lodge": {
+        "title": "Cuttings for the Lodge",
+        "text": "Rowan wants three pulls of extract at the Lodge and she wants them today, because extract does not keep. Take it straight down and put it in her hands. If you wander off to shoot at coyotes it will be worth nothing by the time you arrive.",
+        "completion": "Delivered while it was still good. You would be amazed how many growers cannot manage that one thing.",
+        "objectives": {
+          "0": {
+            "label": "Extract delivered to Rowan"
+          }
+        }
+      },
+      "q_walk_it_home": {
+        "title": "Walk It Home",
+        "text": "One of the commune beavers got into the drying shed and has been sat in my beds since sunrise, entirely useless. It will follow you if you walk slow. Take it up to Bloomwood Glade where its dam is, and mind it on the way, because it will not mind itself.",
+        "completion": "Home, and still breathing. The dam will not thank you and neither will the beaver, so I will: thank you.",
+        "objectives": {
+          "0": {
+            "label": "Beaver walked to Bloomwood Glade"
+          }
+        }
+      },
       "q_fine_supply": {
         "title": "Something Finer",
         "text": "Common stock keeps the lamps lit, but it does not win anyone over. I need finer material, and I do not much care how you come by it. Breed for it yourself if you have the patience, or buy it off someone who did. A grower with coin is still a grower.",

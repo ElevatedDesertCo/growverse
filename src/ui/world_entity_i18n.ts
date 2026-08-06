@@ -162,6 +162,10 @@ const NPC_IDS = [
 
 const QUEST_IDS = [
   'q_first_harvest',
+  // Stock Run chain (Phase D objective types in-world)
+  'q_stock_run',
+  'q_cuttings_for_the_lodge',
+  'q_walk_it_home',
   'q_fine_supply',
   'q_prime_order',
   'q_wolves',

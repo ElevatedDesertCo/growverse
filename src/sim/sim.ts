@@ -247,12 +247,16 @@ import {
 import * as questCommands from './quests/quest_commands';
 import {
   checkQuestReady,
+  isEscortMob,
+  onEscortTickForQuests,
   onInventoryChangedForQuests,
   onMobKilledForQuests,
   onNpcInteractedForQuests,
   onQuestDeadlinesForQuests,
   onReachCheckForQuests,
   onReputationChangedForQuests,
+  spawnEscortsForQuest,
+  updateEscortMob,
 } from './quests/quest_credit';
 
 // computeQuestState (the pure quest-state fn) moved to quests/quest_commands.ts (W4);
@@ -2316,6 +2320,9 @@ export class Sim {
       onReachCheckForQuests: (meta) => onReachCheckForQuests(sim.ctx, meta),
       onReputationChangedForQuests: (meta) => onReputationChangedForQuests(sim.ctx, meta),
       onQuestDeadlinesForQuests: (meta) => onQuestDeadlinesForQuests(sim.ctx, meta),
+      isEscortMob: (mob) => isEscortMob(sim.ctx, mob),
+      updateEscortMob: (mob) => updateEscortMob(sim.ctx, mob),
+      onEscortTickForQuests: (meta) => onEscortTickForQuests(sim.ctx, meta),
       countItem: sim.countItem.bind(sim),
       completeQuestForDev: (questId, pid) => completeQuestForDev(sim.ctx, questId, pid),
       completeCurrentQuestsForDev: (pid) => completeCurrentQuestsForDev(sim.ctx, pid),
@@ -2738,6 +2745,7 @@ export class Sim {
         if (this.tickCount % REACH_CHECK_TICKS === 0) {
           onReachCheckForQuests(this.ctx, meta);
           onQuestDeadlinesForQuests(this.ctx, meta);
+          onEscortTickForQuests(this.ctx, meta);
         }
       }
       updateTimers(p);

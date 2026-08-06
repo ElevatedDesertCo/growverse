@@ -766,6 +766,80 @@ export const ZONE1_NPCS: Record<string, NpcDef> = {
 // ---------------------------------------------------------------------------
 
 export const ZONE1_QUESTS: Record<string, QuestDef> = {
+  // --- Stock Run: the first content to use the Phase D objective types ----------
+  // Marlow's grow chain continues into moving genetics around the vale, which is what
+  // finally exercises reach / reputation / deliver / timed / escort in-world rather
+  // than only in tests.
+  q_stock_run: {
+    id: 'q_stock_run',
+    name: 'Stock Run',
+    giverNpcId: 'cultivator_marlow',
+    turnInNpcId: 'cultivator_marlow',
+    text: 'You have filled the standing order, so here is the part nobody tells a new grower: the good stock is not kept here. It is under Seedvault Hill, and the keepers only open up for a face the commune already knows. Walk up there and let them see you. Come back when they have.',
+    completionText:
+      'They know you now. That is worth more than any seed I could hand you, and it took you long enough to earn it.',
+    objectives: [
+      { type: 'reach', reachPos: { x: -5, z: -52 }, count: 1, label: 'Seedvault Hill visited' },
+      {
+        type: 'reputation',
+        requiredRep: { factionId: 'baked_beaver', tier: 'friendly' },
+        count: 1,
+        label: 'Known to the commune',
+      },
+    ],
+    xpReward: 900,
+    copperReward: 400,
+    itemRewards: {},
+    requiresQuest: 'q_prime_order',
+  },
+  q_cuttings_for_the_lodge: {
+    id: 'q_cuttings_for_the_lodge',
+    name: 'Cuttings for the Lodge',
+    giverNpcId: 'cultivator_marlow',
+    turnInNpcId: 'cultivator_marlow',
+    text: 'Rowan wants three pulls of extract at the Lodge and she wants them today, because extract does not keep. Take it straight down and put it in her hands. If you wander off to shoot at coyotes it will be worth nothing by the time you arrive.',
+    completionText:
+      'Delivered while it was still good. You would be amazed how many growers cannot manage that one thing.',
+    objectives: [
+      {
+        type: 'deliver',
+        itemId: 'bloom_extract',
+        targetNpcId: 'rowan_sawtooth',
+        count: 3,
+        label: 'Extract delivered to Rowan',
+      },
+    ],
+    xpReward: 950,
+    copperReward: 450,
+    itemRewards: {},
+    // Ten minutes: a generous walk from the farm to the Lodge, tight enough that the
+    // "it does not keep" line in the text is a real constraint and not just flavor.
+    timeLimit: 600,
+    requiresQuest: 'q_stock_run',
+  },
+  q_walk_it_home: {
+    id: 'q_walk_it_home',
+    name: 'Walk It Home',
+    giverNpcId: 'cultivator_marlow',
+    turnInNpcId: 'cultivator_marlow',
+    text: 'One of the commune beavers got into the drying shed and has been sat in my beds since sunrise, entirely useless. It will follow you if you walk slow. Take it up to Bloomwood Glade where its dam is, and mind it on the way, because it will not mind itself.',
+    completionText:
+      'Home, and still breathing. The dam will not thank you and neither will the beaver, so I will: thank you.',
+    objectives: [
+      {
+        type: 'escort',
+        escortMobId: 'overbaked_beaver',
+        escortTo: { x: 40, z: 140 },
+        escortRadius: 10,
+        count: 1,
+        label: 'Beaver walked to Bloomwood Glade',
+      },
+    ],
+    xpReward: 1000,
+    copperReward: 500,
+    itemRewards: {},
+    requiresQuest: 'q_cuttings_for_the_lodge',
+  },
   q_wolves: {
     id: 'q_wolves',
     name: 'Munchie Coyotes',
@@ -1169,6 +1243,9 @@ export const ZONE1_QUESTS: Record<string, QuestDef> = {
 };
 
 export const ZONE1_QUEST_ORDER = [
+  'q_stock_run',
+  'q_cuttings_for_the_lodge',
+  'q_walk_it_home',
   'q_sluice_welcome',
   'q_sluice_pilings',
   'q_first_harvest',
