@@ -246,7 +246,9 @@ export const de_DE: EnTranslations = {
     "questTracker": {
       "count": "({count})",
       "collapseHint": "Quests einklappen",
-      "expandHint": "Quests ausklappen"
+      "expandHint": "Quests ausklappen",
+      "time": "{minutes}:{seconds}",
+      "timeLabel": "Time remaining: {time}"
     },
     "chatTimestamps": {
       "show": "Chat-Zeitstempel anzeigen",

@@ -246,7 +246,9 @@ export const tr_TR: EnTranslations = {
     "questTracker": {
       "count": "({count})",
       "collapseHint": "Görev takipçisini daralt",
-      "expandHint": "Görev takipçisini genişlet"
+      "expandHint": "Görev takipçisini genişlet",
+      "time": "{minutes}:{seconds}",
+      "timeLabel": "Time remaining: {time}"
     },
     "chatTimestamps": {
       "show": "Sohbet Zaman Damgalarını Göster",

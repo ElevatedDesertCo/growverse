@@ -246,7 +246,9 @@ export const ko_KR: EnTranslations = {
     "questTracker": {
       "count": "({count})",
       "collapseHint": "퀘스트 추적기 접기",
-      "expandHint": "퀘스트 추적기 펼치기"
+      "expandHint": "퀘스트 추적기 펼치기",
+      "time": "{minutes}:{seconds}",
+      "timeLabel": "남은 시간: {time}"
     },
     "chatTimestamps": {
       "show": "채팅 시각 표시",

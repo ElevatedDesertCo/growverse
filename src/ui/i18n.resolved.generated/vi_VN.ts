@@ -246,7 +246,9 @@ export const vi_VN: EnTranslations = {
     "questTracker": {
       "count": "({count})",
       "collapseHint": "Thu gọn bảng theo dõi nhiệm vụ",
-      "expandHint": "Mở rộng bảng theo dõi nhiệm vụ"
+      "expandHint": "Mở rộng bảng theo dõi nhiệm vụ",
+      "time": "{minutes}:{seconds}",
+      "timeLabel": "Time remaining: {time}"
     },
     "chatTimestamps": {
       "show": "Hiện Dấu Thời Gian Trò Chuyện",

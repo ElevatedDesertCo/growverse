@@ -3773,6 +3773,7 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'hudChrome.questTracker.count': '({count})',
   'hudChrome.questTracker.collapseHint': '퀘스트 추적기 접기',
   'hudChrome.questTracker.expandHint': '퀘스트 추적기 펼치기',
+  'hudChrome.questTracker.timeLabel': '남은 시간: {time}',
   // Modular bag filtering controls (hudChrome.bags.*).
   'hudChrome.bags.filterGroupAria': '가방을 분류별로 필터링',
   'hudChrome.bags.filterAll': '전체',

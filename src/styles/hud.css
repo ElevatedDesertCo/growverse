@@ -1932,6 +1932,19 @@
     margin-top: 8px;
     font-family: var(--title-font);
   }
+  #quest-tracker .qt-timer {
+    font-family: var(--title-font);
+    font-weight: 400;
+    font-size: 11px;
+    /* tabular figures so the countdown does not jitter as the digits change */
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text-overlay);
+    opacity: 0.85;
+  }
+  #quest-tracker .qt-timer.urgent {
+    color: var(--color-text-error);
+    opacity: 1;
+  }
   #quest-tracker .qt-obj {
     color: var(--color-text-overlay);
     font-size: 11px;

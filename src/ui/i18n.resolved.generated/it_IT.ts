@@ -246,7 +246,9 @@ export const it_IT: EnTranslations = {
     "questTracker": {
       "count": "({count})",
       "collapseHint": "Comprimi il riquadro Missioni",
-      "expandHint": "Espandi il riquadro Missioni"
+      "expandHint": "Espandi il riquadro Missioni",
+      "time": "{minutes}:{seconds}",
+      "timeLabel": "Time remaining: {time}"
     },
     "chatTimestamps": {
       "show": "Mostra orari della chat",

@@ -246,7 +246,9 @@ export const ja_JP: EnTranslations = {
     "questTracker": {
       "count": "（{count}）",
       "collapseHint": "クエストトラッカーを折りたたむ",
-      "expandHint": "クエストトラッカーを展開する"
+      "expandHint": "クエストトラッカーを展開する",
+      "time": "{minutes}:{seconds}",
+      "timeLabel": "残り時間: {time}"
     },
     "chatTimestamps": {
       "show": "チャットに時刻を表示",

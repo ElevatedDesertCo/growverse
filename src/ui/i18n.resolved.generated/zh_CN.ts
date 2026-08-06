@@ -246,7 +246,9 @@ export const zh_CN: EnTranslations = {
     "questTracker": {
       "count": "（{count}）",
       "collapseHint": "收起任务追踪器",
-      "expandHint": "展开任务追踪器"
+      "expandHint": "展开任务追踪器",
+      "time": "{minutes}:{seconds}",
+      "timeLabel": "剩余时间：{time}"
     },
     "chatTimestamps": {
       "show": "显示聊天时间戳",

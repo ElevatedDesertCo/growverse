@@ -246,7 +246,9 @@ export const en_XA: EnTranslations = {
     "questTracker": {
       "count": "[({count})]",
       "collapseHint": "[Çóļļáþšé ɋúéšţ ţŕáçķéŕ]",
-      "expandHint": "[Éẋþáñð ɋúéšţ ţŕáçķéŕ]"
+      "expandHint": "[Éẋþáñð ɋúéšţ ţŕáçķéŕ]",
+      "time": "[{minutes}:{seconds}]",
+      "timeLabel": "[Ţíɱé ŕéɱáíñíñĝ: {time}]"
     },
     "chatTimestamps": {
       "show": "[Šĥóŵ Çĥáţ Ţíɱéšţáɱþš]",

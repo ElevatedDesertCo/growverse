@@ -246,7 +246,9 @@ export const id_ID: EnTranslations = {
     "questTracker": {
       "count": "({count})",
       "collapseHint": "Ciutkan pelacak misi",
-      "expandHint": "Bentangkan pelacak misi"
+      "expandHint": "Bentangkan pelacak misi",
+      "time": "{minutes}:{seconds}",
+      "timeLabel": "Time remaining: {time}"
     },
     "chatTimestamps": {
       "show": "Tampilkan Cap Waktu Obrolan",

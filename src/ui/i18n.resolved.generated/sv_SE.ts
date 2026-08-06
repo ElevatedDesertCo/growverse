@@ -246,7 +246,9 @@ export const sv_SE: EnTranslations = {
     "questTracker": {
       "count": "({count})",
       "collapseHint": "Fäll ihop uppdragsspåraren",
-      "expandHint": "Fäll ut uppdragsspåraren"
+      "expandHint": "Fäll ut uppdragsspåraren",
+      "time": "{minutes}:{seconds}",
+      "timeLabel": "Time remaining: {time}"
     },
     "chatTimestamps": {
       "show": "Visa chattidsstämplar",

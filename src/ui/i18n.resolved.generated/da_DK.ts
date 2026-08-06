@@ -246,7 +246,9 @@ export const da_DK: EnTranslations = {
     "questTracker": {
       "count": "({count})",
       "collapseHint": "Fold opgavesporing sammen",
-      "expandHint": "Fold opgavesporing ud"
+      "expandHint": "Fold opgavesporing ud",
+      "time": "{minutes}:{seconds}",
+      "timeLabel": "Time remaining: {time}"
     },
     "chatTimestamps": {
       "show": "Vis chat-tidsstempler",

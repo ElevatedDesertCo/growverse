@@ -246,7 +246,9 @@ export const fr_CA: EnTranslations = {
     "questTracker": {
       "count": "({count})",
       "collapseHint": "Réduire le suivi des quêtes",
-      "expandHint": "Développer le suivi des quêtes"
+      "expandHint": "Développer le suivi des quêtes",
+      "time": "{minutes}:{seconds}",
+      "timeLabel": "Time remaining: {time}"
     },
     "chatTimestamps": {
       "show": "Afficher l'horodatage de la discussion",

@@ -23,6 +23,24 @@ export interface TrackedQuest {
   /** True when the quest is ready to turn in (the "(Complete)" state). */
   complete: boolean;
   objectives: readonly TrackedObjective[];
+  /**
+   * Seconds left on a timed quest, straight from IWorldQuests.questSecondsLeft:
+   * null (or absent) for a quest with no deadline, which is the common case.
+   */
+  secondsLeft?: number | null;
+}
+
+/**
+ * A deadline inside this many seconds reads as urgent. One minute is the classic
+ * "you are about to lose this" window: long enough to still run somewhere, short
+ * enough that the highlight means something.
+ */
+export const QUEST_TRACKER_URGENT_SECONDS = 60;
+
+export interface QuestTrackerTimer {
+  /** Whole seconds remaining, floored at zero. The consumer formats it. */
+  seconds: number;
+  urgent: boolean;
 }
 
 export interface QuestTrackerObjectiveRow extends TrackedObjective {
@@ -34,6 +52,8 @@ export interface QuestTrackerQuestRow {
   title: string;
   complete: boolean;
   objectives: QuestTrackerObjectiveRow[];
+  /** The countdown to render, or null when the quest has no deadline. */
+  timer: QuestTrackerTimer | null;
 }
 
 export interface QuestTrackerView {
@@ -46,10 +66,23 @@ export interface QuestTrackerView {
   quests: QuestTrackerQuestRow[];
 }
 
+/** Resolve a quest's countdown row. A quest that is already ready to turn in keeps
+ *  no timer: the deadline stopped mattering the moment the objectives were met, and
+ *  a ticking clock next to "(Complete)" would read as a threat that is not real. */
+function questTrackerTimer(quest: TrackedQuest): QuestTrackerTimer | null {
+  const left = quest.secondsLeft;
+  if (left === undefined || left === null || quest.complete) return null;
+  const seconds = Math.max(0, Math.floor(left));
+  return { seconds, urgent: seconds <= QUEST_TRACKER_URGENT_SECONDS };
+}
+
 /** Build the tracker view from the tracked quests + the collapse preference.
  *  Collapsed renders the header only (with the quest count); expanded renders
  *  every quest and objective, with each objective's done state computed. */
-export function questTrackerView(quests: readonly TrackedQuest[], collapsed: boolean): QuestTrackerView {
+export function questTrackerView(
+  quests: readonly TrackedQuest[],
+  collapsed: boolean,
+): QuestTrackerView {
   const count = quests.length;
   if (count === 0) return { visible: false, collapsed, count: 0, quests: [] };
   if (collapsed) return { visible: true, collapsed: true, count, quests: [] };
@@ -58,6 +91,7 @@ export function questTrackerView(quests: readonly TrackedQuest[], collapsed: boo
     title: q.title,
     complete: q.complete,
     objectives: q.objectives.map((o) => ({ ...o, done: o.current >= o.total })),
+    timer: questTrackerTimer(q),
   }));
   return { visible: true, collapsed: false, count, quests: questRows };
 }

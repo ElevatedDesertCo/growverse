@@ -111,6 +111,10 @@ export const hudChromeStrings = {
     count: '({count})',
     collapseHint: 'Collapse quest tracker',
     expandHint: 'Expand quest tracker',
+    // The countdown on a timed quest, always m:ss so the shape never changes as it
+    // ticks down. timeLabel is its accessible name (the digits alone say nothing).
+    time: '{minutes}:{seconds}',
+    timeLabel: 'Time remaining: {time}',
   },
   chatTimestamps: {
     show: 'Show Chat Timestamps',

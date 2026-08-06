@@ -3601,6 +3601,7 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'hudChrome.questTracker.count': '（{count}）',
   'hudChrome.questTracker.collapseHint': '收起任务追踪器',
   'hudChrome.questTracker.expandHint': '展开任务追踪器',
+  'hudChrome.questTracker.timeLabel': '剩余时间：{time}',
   // Modular bag filtering controls (hudChrome.bags.*).
   'hudChrome.bags.filterGroupAria': '按类别筛选背包',
   'hudChrome.bags.filterAll': '全部',

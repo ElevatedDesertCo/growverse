@@ -246,7 +246,9 @@ export const nl_NL: EnTranslations = {
     "questTracker": {
       "count": "({count})",
       "collapseHint": "Queestevolger inklappen",
-      "expandHint": "Queestevolger uitklappen"
+      "expandHint": "Queestevolger uitklappen",
+      "time": "{minutes}:{seconds}",
+      "timeLabel": "Time remaining: {time}"
     },
     "chatTimestamps": {
       "show": "Chat-tijdstempels tonen",

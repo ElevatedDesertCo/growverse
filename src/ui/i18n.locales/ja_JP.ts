@@ -3769,6 +3769,7 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'hudChrome.questTracker.count': '（{count}）',
   'hudChrome.questTracker.collapseHint': 'クエストトラッカーを折りたたむ',
   'hudChrome.questTracker.expandHint': 'クエストトラッカーを展開する',
+  'hudChrome.questTracker.timeLabel': '残り時間: {time}',
   // Modular bag filtering controls (hudChrome.bags.*).
   'hudChrome.bags.filterGroupAria': 'バッグをカテゴリーで絞り込む',
   'hudChrome.bags.filterAll': 'すべて',
