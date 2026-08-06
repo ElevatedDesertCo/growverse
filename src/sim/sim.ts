@@ -247,10 +247,10 @@ import {
 import * as questCommands from './quests/quest_commands';
 import {
   checkQuestReady,
-  onInventoryChangedForQuests,
-  onMobKilledForQuests,
   isEscortMob,
   onEscortTickForQuests,
+  onInventoryChangedForQuests,
+  onMobKilledForQuests,
   onNpcInteractedForQuests,
   onQuestDeadlinesForQuests,
   onReachCheckForQuests,
