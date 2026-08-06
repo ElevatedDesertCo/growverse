@@ -692,6 +692,9 @@ function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
 
+// Bucket (seconds) for the timed-quest countdown on the wire. See the qlog send site.
+const QUEST_TIME_BUCKET = 10;
+
 export class GameServer {
   sim: Sim;
   clients = new Map<number, ClientSession>(); // by pid
@@ -3237,7 +3240,20 @@ export class GameServer {
       maybe('prof', professionsView(meta.professions));
       maybe('equip', meta.equipment);
       maybe('cosmetics', anchorSession.accountCosmetics);
-      maybe('qlog', [...meta.questLog.values()]);
+      // Timed quests: `expiresAt` is absolute SERVER sim time, useless to a client with
+      // no shared clock, so strip it and send seconds-remaining BUCKETED to
+      // QUEST_TIME_BUCKET. maybe() JSON-diffs the whole quest log, so an exact
+      // per-tick value would re-send every player's entire log every tick; bucketing
+      // makes that at most one re-send per bucket, and the client counts down locally.
+      maybe(
+        'qlog',
+        [...meta.questLog.values()].map((q) => {
+          if (q.expiresAt === undefined) return q;
+          const { expiresAt, ...rest } = q;
+          const left = Math.max(0, expiresAt - this.sim.time);
+          return { ...rest, secondsLeft: Math.ceil(left / QUEST_TIME_BUCKET) * QUEST_TIME_BUCKET };
+        }),
+      );
       maybe('qdone', [...meta.questsDone]);
       maybe('flags', [...meta.worldFlags]);
       maybe('milestones', [...meta.unlockedMilestones]);

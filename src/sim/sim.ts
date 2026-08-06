@@ -255,7 +255,6 @@ import {
   onQuestDeadlinesForQuests,
   onReachCheckForQuests,
   onReputationChangedForQuests,
-  spawnEscortsForQuest,
   updateEscortMob,
 } from './quests/quest_credit';
 
@@ -4939,6 +4938,14 @@ export class Sim {
 
   acceptQuest(questId: string, pid?: number): void {
     questCommands.acceptQuest(this.ctx, questId, pid);
+  }
+
+  // Offline/authoritative answer: this world owns the clock the deadline was stamped
+  // against, so it is exact and needs no interpolation.
+  questSecondsLeft(questId: string, pid?: number): number | null {
+    const meta = pid === undefined ? this.primary : this.players.get(pid);
+    const expiresAt = meta?.questLog.get(questId)?.expiresAt;
+    return expiresAt === undefined ? null : Math.max(0, expiresAt - this.time);
   }
 
   acceptLinkedQuest(questId: string, sharerPid: number, pid?: number): void {

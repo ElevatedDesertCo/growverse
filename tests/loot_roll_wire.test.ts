@@ -34,6 +34,7 @@ function bareClient(pid: number): ClientWorld {
   c.accountCosmetics = { completedQuestIds: [], mechChromaIds: [] };
   c.copper = 0; c.xp = 0; c.known = [];
   c.questLog = new Map(); c.questsDone = new Set(); c.pendingQuestCommands = new Map();
+  c.questTimeAnchors = new Map();
   c.partyInfo = null; c.tradeInfo = null; c.duelInfo = null;
   c.lastSnapAt = 0; c.snapInterval = 50; c.missingSince = new Map();
   c.mouselookFacing = null; c.markers = {};

@@ -100,6 +100,7 @@ function bareClient(pid: number): ClientWorld {
   c.known = [];
   c.questLog = new Map();
   c.questsDone = new Set();
+  c.questTimeAnchors = new Map();
   c.partyInfo = null;
   c.tradeInfo = null;
   c.duelInfo = null;

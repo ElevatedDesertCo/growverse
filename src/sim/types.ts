@@ -1998,6 +1998,12 @@ export interface QuestProgress {
   // (not a ticking countdown) on purpose: the snapshot JSON-diffs the whole quest log, so
   // a field that changed every tick would re-send it every tick for every player.
   expiresAt?: number;
+  // CLIENT-SIDE ONLY mirror of the remaining time, in seconds. The sim never sets
+  // this: `expiresAt` is absolute SERVER sim time and means nothing to a client with
+  // no shared clock, so the server sends a BUCKETED seconds-remaining instead and the
+  // client counts down locally between updates. Bucketed so the snapshot's JSON diff
+  // does not re-send the whole quest log every tick.
+  secondsLeft?: number;
   // Live entity id of an in-flight escortee. Entities are not persisted, so this is
   // deliberately NOT saved: on relog the escortee is gone, the escort tick sees a
   // missing entity, and the quest fails. That is the honest outcome and needs no

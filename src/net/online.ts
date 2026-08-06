@@ -873,6 +873,12 @@ export class ClientWorld implements IWorld {
   loadouts: SavedLoadout[] = [];
   activeLoadout = -1;
   questLog = new Map<string, QuestProgress>();
+  // Local anchors for the timed-quest countdown, keyed by questId: the wall-clock
+  // instant a bucketed `secondsLeft` arrived. The server sends a COARSE value (see the
+  // qlog send site) so the snapshot does not churn, and we interpolate down from the
+  // anchor between updates. Every fresh value re-anchors, so this cannot drift.
+  // performance.now() is a UI clock, not a sim clock: the determinism ban is sim-only.
+  private questTimeAnchors = new Map<string, { secondsLeft: number; at: number }>();
   questsDone = new Set<string>();
   // Persistent quest branch flags (Phase D), mirrored from the self-snapshot so the local
   // computeQuestState display honors branch gates. Internal (not an IWorld member).
@@ -1549,8 +1555,20 @@ export class ClientWorld implements IWorld {
         this.accountCosmetics = normalizeAccountCosmetics(s.cosmetics);
         this.cosmeticsChanged = true;
       }
-      if (s.qlog !== undefined)
+      if (s.qlog !== undefined) {
         this.questLog = new Map((s.qlog as QuestProgress[]).map((q) => [q.questId, q]));
+        // Re-anchor every timed quest against the local clock, and drop anchors for
+        // quests that left the log (turned in, abandoned, or failed).
+        const now = performance.now();
+        for (const questId of [...this.questTimeAnchors.keys()]) {
+          if (!this.questLog.has(questId)) this.questTimeAnchors.delete(questId);
+        }
+        for (const q of this.questLog.values()) {
+          if (q.secondsLeft !== undefined) {
+            this.questTimeAnchors.set(q.questId, { secondsLeft: q.secondsLeft, at: now });
+          }
+        }
+      }
       if (s.qdone !== undefined) this.questsDone = new Set(s.qdone);
       if (s.flags !== undefined) this.worldFlags = new Set(s.flags);
       if (s.lockouts !== undefined) this.selfLockouts = s.lockouts as Record<string, number>;
@@ -1784,6 +1802,15 @@ export class ClientWorld implements IWorld {
     this.pendingQuestCommands.delete(questId);
     this.cmd({ cmd: 'abandon', quest: questId });
   }
+  // Interpolate down from the last bucketed value the server sent. Null when the quest
+  // has no deadline, so an untimed quest renders exactly as it always has.
+  questSecondsLeft(questId: string): number | null {
+    const anchor = this.questTimeAnchors.get(questId);
+    if (!anchor) return null;
+    const elapsed = (performance.now() - anchor.at) / 1000;
+    return Math.max(0, anchor.secondsLeft - elapsed);
+  }
+
   acceptLinkedQuest(questId: string, fromPid: number): void {
     this.cmd({ cmd: 'qlinkaccept', quest: questId, from: fromPid });
   }
