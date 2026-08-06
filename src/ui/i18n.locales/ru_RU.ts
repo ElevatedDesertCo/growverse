@@ -5572,6 +5572,25 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'entities.items.pressed_resin_prime.name': 'Отменная прессованная смола',
   'entities.items.infused_lozenge_fine.name': 'Отборная настоянная пастилка',
   'entities.items.infused_lozenge_prime.name': 'Отменная настоянная пастилка',
+  'entities.quests.q_stock_run.title': 'Ходка за стоком',
+  'entities.quests.q_stock_run.text':
+    'Ты закрыл тот постоянный заказ, так что вот чего новичкам не рассказывают: хороший маточник держат не здесь. Он под Холмом Семенохранилища, а хранители открывают только тому лицу, которое община уже знает. Поднимись туда и покажись им. Возвращайся, когда запомнят.',
+  'entities.quests.q_stock_run.completion':
+    'Теперь тебя знают. Это дороже любого семени, что я мог бы тебе сунуть, хотя времени ты на это угробил немало.',
+  'entities.quests.q_stock_run.objectives.0.label': 'Холм Семенохранилища: посещено',
+  'entities.quests.q_stock_run.objectives.1.label': 'Признание общины: получено',
+  'entities.quests.q_cuttings_for_the_lodge.title': 'Черенки для Дома',
+  'entities.quests.q_cuttings_for_the_lodge.text':
+    'Роуэн ждёт в Доме три порции экстракта, и ждёт их сегодня, потому что экстракт не хранится. Неси прямо вниз и вложи ей в руки. Если свернёшь пострелять койотов, к твоему приходу это будет стоить ровно ничего.',
+  'entities.quests.q_cuttings_for_the_lodge.completion':
+    'Донёс, пока был живой. Ты удивишься, сколько растильщиков не справляются даже с этим.',
+  'entities.quests.q_cuttings_for_the_lodge.objectives.0.label': 'Экстракт доставлен Роуэн',
+  'entities.quests.q_walk_it_home.title': 'Отведи домой',
+  'entities.quests.q_walk_it_home.text':
+    'Один общинный бобр забрался в сушильню и с рассвета сидит в моих грядках совершенно без толку. Пойдёшь медленно, и он потянется следом. Отведи его к плотине на Поляну Брайтвуда и приглядывай по дороге, потому что за собой он не приглядит.',
+  'entities.quests.q_walk_it_home.completion':
+    'Дома и дышит. На плотине тебя не поблагодарят, и бобр не поблагодарит, так что поблагодарю я: спасибо.',
+  'entities.quests.q_walk_it_home.objectives.0.label': 'Бобр доведён до Поляны Брайтвуда',
   'entities.quests.q_first_harvest.title': 'Первый урожай',
   'entities.quests.q_first_harvest.text':
     'Все садовники начинают одинаково: грядка, семя и терпение оставить всё как есть. Посади что-нибудь, дай дозреть и принеси мне то, что снимешь. Прежде чем доверить тебе стоящий материал, я хочу посмотреть, как ты обходишься с урожаем.',
