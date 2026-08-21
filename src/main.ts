@@ -121,6 +121,11 @@ import {
   validatePasswordChange,
 } from './ui/account_portal';
 import {
+  flushAppearanceStore,
+  initAppearanceMounts,
+  syncAppearanceUi,
+} from './ui/appearance_mount';
+import {
   handleKeyboardActivation,
   syncInputAriaState,
   togglePasswordVisibility,
@@ -2651,6 +2656,10 @@ function registerOfflineAutosave(sim: Sim, skin: number): void {
   if (!offlineAutosaveHooksBound) {
     window.addEventListener('pagehide', persistOfflineSession);
     window.addEventListener('beforeunload', persistOfflineSession);
+    // The customizer coalesces its localStorage writes, so a look edited in
+    // the last 200ms is still pending when the tab goes away.
+    window.addEventListener('pagehide', flushAppearanceStore);
+    window.addEventListener('beforeunload', flushAppearanceStore);
     offlineAutosaveHooksBound = true;
   }
 }
@@ -2844,6 +2853,16 @@ function syncPreviewAfterPanelLayout(): void {
     requestAnimationFrame(() => characterPreview?.syncSize());
   });
 }
+
+/** Host element per class-details panel that the appearance customizer mounts
+ *  into. Kept here (not in appearance_mount.ts) so the panel wiring stays
+ *  visible alongside the other per-panel maps below, and pinned by
+ *  tests/appearance_creator_rows.test.ts against the entry HTML. */
+const APPEARANCE_HOSTS: Record<string, string> = {
+  'charcreate-class-details': '#charcreate-appearance',
+  'offline-class-details': '#offline-appearance',
+};
+initAppearanceMounts(APPEARANCE_HOSTS);
 
 const currentlyRenderedClass: Record<string, PlayerClass | null> = {
   'offline-class-details': null,
@@ -4048,6 +4067,7 @@ function renderClassDetails(panelId: string, className: PlayerClass): void {
   if (characterPreview) {
     characterPreview.setClass(className);
   }
+  syncAppearanceUi(panelId, className);
 
   // Clear any active transitions for this panel to prevent stacked out-of-order renders
   if (
