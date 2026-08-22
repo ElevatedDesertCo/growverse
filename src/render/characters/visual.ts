@@ -14,6 +14,7 @@ import {
 } from './anim_state';
 import {
   applyMaterials,
+  applyModularSliderMorphs,
   assembleModel,
   ensureSkinTexture,
   prepareVisual,
@@ -25,6 +26,7 @@ import {
   tintedFarMaterials,
 } from './assets';
 import type { EmoteClipSpec, VisualDef, WeaponLayoutOverride } from './manifest';
+import type { ModularAppearance, ModularLook } from './modular';
 
 export type { AnimState, BaseState } from './anim_state';
 
@@ -112,12 +114,32 @@ export class CharacterVisual {
   private handBoneResolved = false;
   private bobPhase = Math.random() * Math.PI * 2;
 
+  /** Composition inputs for a `modular` def (null for a fixed class rig).
+   *  Changing a look means changing GEOMETRY, so callers rebuild the visual. */
+  private look: ModularLook | null = null;
+
+  /** The look this visual composed from, for callers that need to diff it. */
+  get modularLook(): ModularLook | null {
+    return this.look;
+  }
+
+  /** Push the face/body sliders onto the live body's morph targets. The creator
+   *  emits on every `input` event, so a slider drag must not dispose and
+   *  recompose the character per step; the sliders are deliberately outside the
+   *  rebuild signature. No-op on a fixed rig. */
+  applyModularSliders(app: ModularAppearance): void {
+    if (!this.look) return;
+    this.look = { ...this.look, app };
+    applyModularSliderMorphs(this.model, app);
+  }
+
   constructor(
     key: string,
     entityColor: number,
     skinIndex = 0,
     weaponItemId: string | null = null,
     weaponOverride: WeaponLayoutOverride | null = null,
+    look: ModularLook | null = null,
   ) {
     const prep = prepareVisual(key);
     // A cosmetic body (the Combat Mech) keeps its model/clips but can adopt the
@@ -136,7 +158,11 @@ export class CharacterVisual {
     // model: yaw/scale/feet normalization wrapper around the skinned clone. The
     // equipped mainhand item (if the class swaps; see VisualDef.weaponSlot) picks
     // the held weapon model, so the visual is born holding the right weapon.
-    this.model = assembleModel(this.def, weaponItemId);
+    // A look only means something to a `modular` def. Dropping it here for a
+    // fixed rig keeps the visual's own record honest, so nothing downstream can
+    // read a look the geometry never actually used.
+    this.look = this.def.modular ? look : null;
+    this.model = assembleModel(this.def, weaponItemId, this.look);
     applyMaterials(
       this.model,
       this.def,

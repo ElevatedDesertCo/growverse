@@ -2123,6 +2123,16 @@ export interface Entity {
   sitting: boolean;
   eating: Consuming | null;
   drinking: Consuming | null;
+  // Paperdoll eye toggle: the composed body renders without its kit's head
+  // piece. A standing wardrobe preference (never auto-cleared), so peers and
+  // portraits present the chosen look.
+  helmHidden: boolean;
+  // The authored modular-creator look. Deliberately opaque here: the sim never
+  // reads it, and typing it as the render layer's ModularAppearance would put a
+  // src/render import into the sim, which src/CLAUDE.md forbids. Consumers
+  // normalize it (normalizeAppearance) before composing.
+  // Null/absent = no authored look; the legacy class rig renders.
+  modularAppearance?: Record<string, unknown> | null;
   // mob AI
   aiState: AiState;
   tappedById: number | null; // first player to damage this mob owns loot/xp/quest credit

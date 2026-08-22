@@ -5,6 +5,7 @@ import * as THREE from 'three';
 import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
 import { type GLTF, GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
 import { RGBELoader } from 'three/addons/loaders/RGBELoader.js';
+import { ktx2Loader } from './ktx2_support';
 import { assetUrl } from './media';
 import { assetLoadStarted, recordAssetLoad } from './stats';
 
@@ -57,8 +58,16 @@ function scheduleLoad<T>(q: AssetQueue, run: () => Promise<T>): Promise<T> {
 
 function loader(): GLTFLoader {
   if (!gltfLoader) {
-    gltfLoader = new GLTFLoader();
-    gltfLoader.setMeshoptDecoder(MeshoptDecoder);
+    // Assemble into a local and publish LAST: a half-wired loader left behind
+    // by a throw here would fail every later KTX2 GLB with no way back.
+    const assembled = new GLTFLoader();
+    assembled.setMeshoptDecoder(MeshoptDecoder);
+    // The modular character library ships its textures as KTX2
+    // (KHR_texture_basisu), which the parser cannot read without a transcoder.
+    // Growverse's own models use EXT_texture_webp and need none, so this is
+    // additive: a webp GLB never touches the KTX2 path.
+    assembled.setKTX2Loader(ktx2Loader());
+    gltfLoader = assembled;
   }
   return gltfLoader;
 }

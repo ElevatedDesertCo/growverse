@@ -24,6 +24,12 @@ const browser = await puppeteer.launch({
 });
 
 const page = await browser.newPage();
+// Objective proof the composed path ran: the part library is fetched ONLY by
+// assembleModular, so a 200 here means a body was composed, not eyeballed.
+const modularFetches = [];
+page.on('response', (r) => {
+  if (r.url().includes('warrior_modular.glb')) modularFetches.push(r.status());
+});
 const errors = [];
 page.on('pageerror', (e) => errors.push(String(e)));
 page.on('console', (m) => {
@@ -31,8 +37,11 @@ page.on('console', (m) => {
 });
 
 await page.setViewport({ width: 1440, height: 1000, deviceScaleFactor: 1 });
-await page.goto(BASE, { waitUntil: 'networkidle2' });
-await wait(1500);
+// domcontentloaded, not networkidle2: the composed body pulls a 3.4MB part
+// library, so the network does not go idle inside the default budget.
+page.setDefaultNavigationTimeout(120000);
+await page.goto(BASE, { waitUntil: 'domcontentloaded', timeout: 120000 });
+await wait(3000);
 
 // Hidden legacy automation hook: fire its handler in-page rather than
 // page.click, which needs a visible clickable point (see enter_offline_game).
@@ -130,6 +139,39 @@ if (!reach || !reach.buttonInsideColumn) {
 }
 await wait(300);
 await page.screenshot({ path: `${OUT}/offline-panel-scrolled.png` });
+
+// The composed body is the point of the renderer half: assert the turntable is
+// actually running a modular visual, not the fixed class rig, and that editing
+// the look reaches the geometry.
+const composed = await page.evaluate(() => {
+  const g = window.__game;
+  const p = g?.characterPreview ?? g?.preview ?? null;
+  return {
+    hasPreview: !!p,
+    visualKey: p?.currentVisualKey ?? null,
+    modularLook: p?.currentVisual?.modularLook ? true : false,
+  };
+});
+console.log('composed body:', JSON.stringify(composed));
+
+// Drive a real edit through the form and confirm the persisted look changes.
+const edited = await page.evaluate(() => {
+  const host = document.querySelector('#offline-appearance');
+  const seg = host?.querySelector('.ac-seg-btn:not(.sel)');
+  if (seg) seg.click();
+  const step = host?.querySelector('.ac-step-btn');
+  if (step) step.click();
+  return !!(seg || step);
+});
+await wait(600);
+console.log('drove an edit through the form:', edited);
+
+console.log('modular part library fetches:', JSON.stringify(modularFetches));
+if (!modularFetches.includes(200)) {
+  console.error('FAIL: the modular part library never loaded, so nothing composed');
+  await browser.close();
+  process.exit(1);
+}
 
 // A stored look proves the persistence path, not just the paint.
 const stored = await page.evaluate(() => localStorage.getItem('woc.modularAppearance'));

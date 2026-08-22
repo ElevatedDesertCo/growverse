@@ -2862,7 +2862,11 @@ const APPEARANCE_HOSTS: Record<string, string> = {
   'charcreate-class-details': '#charcreate-appearance',
   'offline-class-details': '#offline-appearance',
 };
-initAppearanceMounts(APPEARANCE_HOSTS);
+// The preview hook is what makes an edit visible: the customizer emits a look,
+// the mount resolves the class kit, and the turntable composes from it.
+initAppearanceMounts(APPEARANCE_HOSTS, (app, worn, cls) => {
+  characterPreview?.setModular(app, worn, cls);
+});
 
 const currentlyRenderedClass: Record<string, PlayerClass | null> = {
   'offline-class-details': null,

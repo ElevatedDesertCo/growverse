@@ -770,6 +770,7 @@ function blankEntity(id: number): Entity {
     chargePath: [],
     followTargetId: null,
     sitting: false,
+    helmHidden: false,
     eating: null,
     drinking: null,
     aiState: 'idle',

@@ -157,6 +157,7 @@ export function syncAppearanceUi(panelId: string, cls: PlayerClass): void {
     // The panel survives class switches; poke it so live-coloured chips (the
     // outfit swatches read the class kit) repaint for the new class.
     existing.set({});
+    repaint(cls);
     return;
   }
   if (existing) {
@@ -187,6 +188,9 @@ export function syncAppearanceUi(panelId: string, cls: PlayerClass): void {
       armorSet: () => readStoredArmorSet(panelClass()),
     }),
   );
+  // The panel just mounted with the stored look; compose it now so the body
+  // matches the controls before the player touches anything.
+  repaint(cls);
 }
 
 /** Tear a panel's customizer down (panel closed / entry left). */

@@ -23,6 +23,7 @@ export const MEDIA_ASSETS: Record<string, string> =
   "models/chars/enemies/skeleton_minion.glb": "/media/models/chars/enemies/skeleton_minion.8adc2d39c581.glb",
   "models/chars/enemies/skeleton_rogue.glb": "/media/models/chars/enemies/skeleton_rogue.7ec02d186c26.glb",
   "models/chars/enemies/skeleton_warrior.glb": "/media/models/chars/enemies/skeleton_warrior.a17fbcc134a8.glb",
+  "models/chars/modular/warrior_modular.glb": "/media/models/chars/modular/warrior_modular.0c6a3a3df499.glb",
   "models/chars/players/Mech/characters/CombatMech.fbx": "/media/models/chars/players/Mech/characters/CombatMech.51bb345b166f.fbx",
   "models/chars/players/Mech/characters/CombatMech.glb": "/media/models/chars/players/Mech/characters/CombatMech.a96ef2a9ff5d.glb",
   "models/chars/players/Mech/textures/epics/combatmech_epic_imperial_crimson.png": "/media/models/chars/players/Mech/textures/epics/combatmech_epic_imperial_crimson.6550ae2f73f6.png",
