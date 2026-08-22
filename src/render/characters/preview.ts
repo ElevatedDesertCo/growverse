@@ -135,7 +135,6 @@ export class CharacterPreview {
     const partsChanged =
       !prev || modularBuildSignature(prev.app, prev.worn) !== modularBuildSignature(app, worn);
     if (rebuilt || partsChanged) {
-      this.currentVisualKey = key;
       this.setVisualKey(key, CLASSES[cls].startWeapon ?? null);
     }
     this.currentVisual?.applyModularSliders(app);
@@ -154,6 +153,10 @@ export class CharacterPreview {
       this.currentVisual = null;
     }
 
+    // Record the mounted key HERE, the one place a visual is built. setClass
+    // reaches setVisualKey directly, so tracking this in setModular alone left
+    // a stale key behind and skipped the rebuild back to a composed body.
+    this.currentVisualKey = visualKey;
     try {
       this.currentVisual = new CharacterVisual(
         visualKey,

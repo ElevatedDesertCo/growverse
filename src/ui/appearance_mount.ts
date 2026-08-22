@@ -193,6 +193,16 @@ export function syncAppearanceUi(panelId: string, cls: PlayerClass): void {
   repaint(cls);
 }
 
+/** Re-apply the stored look to the turntable for a class.
+ *
+ *  The creation panel mounts its customizer before the preview exists, so the
+ *  repaint on mount reaches nothing and the player is shown the fixed class rig
+ *  instead of the look they saved. Whoever creates the preview calls this once
+ *  it is live. */
+export function applyStoredLook(cls: PlayerClass): void {
+  repaint(cls);
+}
+
 /** Tear a panel's customizer down (panel closed / entry left). */
 export function destroyAppearanceUi(panelId: string): void {
   appearanceUis.get(panelId)?.destroy();

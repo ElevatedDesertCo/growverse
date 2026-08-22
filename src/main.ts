@@ -121,6 +121,7 @@ import {
   validatePasswordChange,
 } from './ui/account_portal';
 import {
+  applyStoredLook,
   flushAppearanceStore,
   initAppearanceMounts,
   syncAppearanceUi,
@@ -7446,6 +7447,10 @@ function wireStartScreens(): void {
       const selEl = document.querySelector(selSelector) as HTMLElement | null;
       const cls = selEl ? (selEl.dataset.class as PlayerClass) : 'warrior';
       characterPreview.setClass(cls);
+      // The panel mounted its customizer before this preview existed, so its
+      // repaint reached nothing. Compose the stored look now, or the player is
+      // greeted by the stock class rig rather than the character they saved.
+      applyStoredLook(cls);
     }
     decorateClassChips();
   });
