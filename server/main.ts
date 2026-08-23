@@ -815,14 +815,39 @@ async function handleApi(req: http.IncomingMessage, res: http.ServerResponse): P
       if (accountId === null) return;
       return json(res, 200, characterListPayload(await listCharacters(accountId)));
     }
-    // The one-shot redesign route is DELIBERATELY NOT REGISTERED YET.
-    //
-    // The authored look does not ride the entity identity wire, so a client
-    // never receives it and never composes a body from it. Registering the
-    // route now would let a player spend their single, non-refundable
-    // appearance_reroll_used token and see absolutely nothing change. The
-    // database half (spendAppearanceReroll) is written and tested; it goes live
-    // in the same change that adds the wire field and an admin reset path.
+    // One-shot redesign for a character that predates the creator. Every
+    // eligibility check lives in the UPDATE's WHERE arm (spendAppearanceReroll),
+    // so this never reads-then-writes and two concurrent posts cannot both
+    // spend the same token.
+    {
+      const m = /^\/api\/characters\/(\d+)\/appearance$/.exec(url);
+      if (m && req.method === 'POST') {
+        const accountId = await bearerActiveAccount(req, res);
+        if (accountId === null) return;
+        const characterId = Number(m[1]);
+        // An id past INT range would reach Postgres and 500; 409 is the same
+        // answer every other ineligible case gets.
+        if (!Number.isSafeInteger(characterId) || characterId > 2_147_483_647) {
+          return json(res, 409, { error: 'redesign not available' });
+        }
+        const body = await readBody(req);
+        const appearance = sanitizeAppearance(body.appearance);
+        // "Chose nothing" is a 400, never a spent token: the redesign's whole
+        // precondition is that the player authored a design. Sized AFTER
+        // sanitizing, against the ceiling that constant actually describes, so
+        // an extra unknown field sanitizes away instead of hard-failing.
+        if (!appearance) return json(res, 400, { error: 'invalid appearance' });
+        if (Buffer.byteLength(JSON.stringify(appearance), 'utf8') > APPEARANCE_MAX_WIRE_BYTES) {
+          return json(res, 400, { error: 'appearance payload too large' });
+        }
+        const ok = await spendAppearanceReroll(characterId, accountId, appearance);
+        // Deliberately ONE error for every failure mode (not owned, outside the
+        // window with a look already, already spent): distinguishing them would
+        // leak whether a character id exists on another account.
+        if (!ok) return json(res, 409, { error: 'redesign not available' });
+        return json(res, 200, { ok: true, appearance });
+      }
+    }
     if (url === '/api/characters') {
       const accountId = await bearerActiveAccount(req, res);
       if (accountId === null) return;

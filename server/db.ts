@@ -1739,6 +1739,24 @@ export async function appearanceRerollAvailable(
   return (res.rowCount ?? 0) > 0;
 }
 
+/** Restore a character's one-shot redesign token (support / moderation).
+ *
+ *  The token is otherwise non-refundable, so without this a mis-spent redesign
+ *  is unrecoverable and every "it did not save" report becomes a database
+ *  edit. Deliberately does NOT touch `appearance`: it hands back the CHOICE,
+ *  it does not silently restyle someone. Realm-scoped like every other write.
+ *  Returns whether a row was actually reset. */
+export async function resetAppearanceReroll(characterId: number): Promise<boolean> {
+  const res = await pool.query(
+    `UPDATE characters
+        SET appearance_reroll_used = FALSE,
+            updated_at = now()
+      WHERE id = $1 AND realm = $2 AND appearance_reroll_used = TRUE`,
+    [characterId, REALM],
+  );
+  return (res.rowCount ?? 0) > 0;
+}
+
 export async function createCharacterCapped(
   accountId: number,
   name: string,

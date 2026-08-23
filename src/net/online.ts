@@ -782,6 +782,7 @@ function blankEntity(id: number): Entity {
     followTargetId: null,
     sitting: false,
     helmHidden: false,
+    modularAppearance: null,
     eating: null,
     drinking: null,
     aiState: 'idle',
@@ -1294,6 +1295,14 @@ export class ClientWorld implements IWorld {
         e.skin = w.sk ?? 0;
         e.mainhandItemId = w.mh ?? null; // equipped mainhand → held weapon model (render-only)
         e.equippedItems = w.eq ?? {}; // full worn set (render-only), for the inspect window
+        // The authored modular look. Absent means "no authored look", which is
+        // what keeps every pre-creator character on the legacy class rig. Shape
+        // is re-checked here because the wire is untrusted at the boundary: the
+        // renderer normalizes it before composing.
+        e.modularAppearance =
+          w.app && typeof w.app === 'object' && !Array.isArray(w.app)
+            ? (w.app as Record<string, unknown>)
+            : null;
         e.skinCatalog = w.cat === 'mech' ? 'mech' : 'class';
         e.holderTier = w.ht ?? 0; // $WOC holder-tier flair (cosmetic, server-set)
         e.holderBalance = typeof w.hb === 'number' ? w.hb : undefined; // exact $WOC, for inspect
