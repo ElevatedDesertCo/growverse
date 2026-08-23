@@ -212,6 +212,12 @@ export const it_IT: Partial<Record<TranslationKey, string>> = {
   'auth.beardFull': 'Piena',
   'auth.beardChinpuff': 'Pizzetto',
   'auth.beard': 'Barba',
+  'character.redesignHint':
+    'Questo personaggio è precedente al nuovo creatore di personaggi. Hai un ridisegno gratuito; viene usato al salvataggio.',
+  'character.redesignCancel': 'Mantieni aspetto attuale',
+  'character.redesignSave': 'Salva nuovo aspetto',
+  'character.redesignTitle': 'Ridisegna {name}',
+  'character.redesign': 'Ridisegna',
   'entities.npcs.auctioneer_voss.greeting':
     'Il World Market e aperto anche qui, {className}. Compra da ogni avventuriero del reame, o metti in vendita le tue merci.',
   'entities.npcs.auctioneer_voss.name': 'Banditore Voss',

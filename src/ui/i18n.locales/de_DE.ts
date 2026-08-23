@@ -195,6 +195,12 @@ export const de_DE: Partial<Record<TranslationKey, string>> = {
   'auth.beardFull': 'Voll',
   'auth.beardChinpuff': 'Kinnbüschel',
   'auth.beard': 'Bart',
+  'character.redesignHint':
+    'Diese Figur stammt aus der Zeit vor dem neuen Charaktereditor. Ihr habt eine kostenlose Umgestaltung; sie wird beim Speichern verbraucht.',
+  'character.redesignCancel': 'Aktuelles Aussehen behalten',
+  'character.redesignSave': 'Neues Aussehen speichern',
+  'character.redesignTitle': '{name} umgestalten',
+  'character.redesign': 'Umgestalten',
   'entities.npcs.auctioneer_voss.greeting':
     'Der Weltmarkt ist auch hier geöffnet, {className}. Kauf bei jedem Abenteurer im Reich ein oder biete deine eigenen Waren feil.',
   'entities.npcs.auctioneer_voss.name': 'Auktionator Voss',

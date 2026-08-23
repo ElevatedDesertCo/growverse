@@ -192,6 +192,12 @@ export const id_ID: Partial<Record<TranslationKey, string>> = {
   'auth.beardFull': 'Penuh',
   'auth.beardChinpuff': 'Jambang Dagu',
   'auth.beard': 'Janggut',
+  'character.redesignHint':
+    'Karakter ini dibuat sebelum pembuat karakter baru. Anda punya satu desain ulang gratis; terpakai saat Anda menyimpan.',
+  'character.redesignCancel': 'Pertahankan Tampilan Saat Ini',
+  'character.redesignSave': 'Simpan Tampilan Baru',
+  'character.redesignTitle': 'Desain Ulang {name}',
+  'character.redesign': 'Desain Ulang',
   'entities.npcs.auctioneer_voss.greeting':
     'World Market juga buka di sini, {className}. Belilah dari setiap petualang di alam ini, atau gelarlah daganganmu sendiri.',
   'entities.npcs.auctioneer_voss.name': 'Pelelang Voss',

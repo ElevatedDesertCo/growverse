@@ -214,6 +214,12 @@ export const ko_KR: Partial<Record<TranslationKey, string>> = {
   'auth.beardFull': '풀 비어드',
   'auth.beardChinpuff': '턱수염 뭉치',
   'auth.beard': '수염',
+  'character.redesignHint':
+    '이 캐릭터는 새 캐릭터 편집기 이전에 생성되었습니다. 무료 재디자인 기회가 1회 있으며, 저장할 때 사용됩니다.',
+  'character.redesignCancel': '현재 외형 유지',
+  'character.redesignSave': '새 외형 저장',
+  'character.redesignTitle': '{name} 재디자인',
+  'character.redesign': '재디자인',
   'hudChrome.dailyRewards.title': '일일 보상',
   'hudChrome.fishing.caught': '{item}을(를) 낚았습니다!',
   'hudChrome.fishing.introHint': '트인 물을 향한 뒤 F 키를 눌러 낚싯줄을 던지세요.',

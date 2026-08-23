@@ -200,6 +200,12 @@ export const fr_FR: Partial<Record<TranslationKey, string>> = {
   'auth.beardFull': 'Complète',
   'auth.beardChinpuff': 'Touffe au menton',
   'auth.beard': 'Barbe',
+  'character.redesignHint':
+    'Ce personnage est antérieur au nouveau créateur de personnage. Vous disposez d’un remodelage gratuit ; il est utilisé lors de la sauvegarde.',
+  'character.redesignCancel': 'Conserver l’apparence actuelle',
+  'character.redesignSave': 'Enregistrer la nouvelle apparence',
+  'character.redesignTitle': 'Remodeler {name}',
+  'character.redesign': 'Remodeler',
   'entities.npcs.auctioneer_voss.greeting':
     'Le Marché du monde est ouvert ici aussi, {className}. Achetez auprès de chaque aventurier du royaume, ou proposez vos propres marchandises.',
   'entities.npcs.auctioneer_voss.name': 'Commissaire-priseur Voss',

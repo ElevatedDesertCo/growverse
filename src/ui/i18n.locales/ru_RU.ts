@@ -215,6 +215,12 @@ export const ru_RU: Partial<Record<TranslationKey, string>> = {
   'auth.beardFull': 'Полная',
   'auth.beardChinpuff': 'Клинышек',
   'auth.beard': 'Борода',
+  'character.redesignHint':
+    'Этот персонаж создан до появления нового редактора внешности. У вас есть одна бесплатная переделка; она расходуется при сохранении.',
+  'character.redesignCancel': 'Оставить текущий облик',
+  'character.redesignSave': 'Сохранить новый облик',
+  'character.redesignTitle': 'Переделать: {name}',
+  'character.redesign': 'Переделать',
   'hudChrome.dailyRewards.title': 'Ежедневные награды',
   'hudChrome.fishing.caught': 'Вы поймали: {item}!',
   'hudChrome.fishing.introHint': 'Повернитесь к открытой воде и нажмите F, чтобы забросить леску.',

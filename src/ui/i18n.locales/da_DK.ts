@@ -191,6 +191,12 @@ export const da_DK: Partial<Record<TranslationKey, string>> = {
   'auth.beardFull': 'Fuldskæg',
   'auth.beardChinpuff': 'Hagetot',
   'auth.beard': 'Skæg',
+  'character.redesignHint':
+    'Denne figur blev skabt før den nye figureditor. Du har ét gratis omdesign; det bruges, når du gemmer.',
+  'character.redesignCancel': 'Behold nuværende udseende',
+  'character.redesignSave': 'Gem nyt udseende',
+  'character.redesignTitle': 'Omdesign {name}',
+  'character.redesign': 'Omdesign',
   'entities.npcs.auctioneer_voss.greeting':
     'Verdensmarkedet er også åbent her, {className}. Køb fra alle eventyrere i riget, eller læg dine egne varer frem.',
   'entities.npcs.auctioneer_voss.name': 'Auktionarius Voss',

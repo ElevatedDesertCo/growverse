@@ -89,6 +89,11 @@ export interface CharacterSummary {
   forceRename: boolean;
   lastPlayed?: string | null;
   playtimeSeconds?: number;
+  /** The authored look, or null for a character that predates the creator. */
+  appearance?: Record<string, unknown> | null;
+  /** Whether the one-shot redesign is still available. Decides only whether the
+   *  entry point is OFFERED; the server re-checks on the write. */
+  canRedesign?: boolean;
 }
 
 function stringList(value: unknown): string[] {

@@ -199,6 +199,12 @@ export const vi_VN: Partial<Record<TranslationKey, string>> = {
   'auth.beardFull': 'Đầy Đủ',
   'auth.beardChinpuff': 'Chòm Cằm',
   'auth.beard': 'Râu',
+  'character.redesignHint':
+    'Nhân vật này có trước trình tạo nhân vật mới. Bạn có một lần thiết kế lại miễn phí; nó được dùng khi bạn lưu.',
+  'character.redesignCancel': 'Giữ Diện Mạo Hiện Tại',
+  'character.redesignSave': 'Lưu Diện Mạo Mới',
+  'character.redesignTitle': 'Thiết Kế Lại {name}',
+  'character.redesign': 'Thiết Kế Lại',
   'entities.npcs.auctioneer_voss.greeting':
     'World Market cũng mở cửa ở đây, {className}. Hãy mua từ mọi nhà thám hiểm trong vương quốc, hoặc bày bán hàng hóa của riêng ngươi.',
   'entities.npcs.auctioneer_voss.name': 'Người Đấu Giá Voss',

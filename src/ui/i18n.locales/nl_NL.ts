@@ -187,6 +187,12 @@ export const nl_NL: Partial<Record<TranslationKey, string>> = {
   'auth.beardFull': 'Vol',
   'auth.beardChinpuff': 'Kinbaardje',
   'auth.beard': 'Baard',
+  'character.redesignHint':
+    'Dit personage stamt van vóór de nieuwe personagemaker. Je hebt één gratis herontwerp; het wordt gebruikt zodra je opslaat.',
+  'character.redesignCancel': 'Huidig uiterlijk behouden',
+  'character.redesignSave': 'Nieuw uiterlijk opslaan',
+  'character.redesignTitle': '{name} herontwerpen',
+  'character.redesign': 'Herontwerpen',
   'entities.npcs.auctioneer_voss.greeting':
     'De Wereldmarkt is hier ook geopend, {className}. Koop van elke avonturier in het rijk, of stal je eigen waren uit.',
   'entities.npcs.auctioneer_voss.name': 'Veilingmeester Voss',

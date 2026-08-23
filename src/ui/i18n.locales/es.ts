@@ -210,6 +210,12 @@ export const es: Partial<Record<TranslationKey, string>> = {
   'auth.beardFull': 'Completa',
   'auth.beardChinpuff': 'Mosca',
   'auth.beard': 'Barba',
+  'character.redesignHint':
+    'Este personaje es anterior al nuevo creador de personajes. Tienes un rediseño gratuito; se consume al guardar.',
+  'character.redesignCancel': 'Conservar aspecto actual',
+  'character.redesignSave': 'Guardar nuevo aspecto',
+  'character.redesignTitle': 'Rediseñar a {name}',
+  'character.redesign': 'Rediseñar',
   'entities.npcs.auctioneer_voss.greeting':
     'El Mercado Mundial también está abierto aquí, {className}. Compra a cualquier aventurero del reino o pon a la venta tus propias mercancías.',
   'entities.npcs.auctioneer_voss.name': 'Subastador Voss',

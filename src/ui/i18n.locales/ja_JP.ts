@@ -214,6 +214,12 @@ export const ja_JP: Partial<Record<TranslationKey, string>> = {
   'auth.beardFull': 'フルビアード',
   'auth.beardChinpuff': 'あご下ひげ',
   'auth.beard': 'ひげ',
+  'character.redesignHint':
+    'このキャラクターは新しいキャラクターエディター以前に作成されました。無料の再デザインが1回できます。保存すると消費されます。',
+  'character.redesignCancel': '現在の外見を保持',
+  'character.redesignSave': '新しい外見を保存',
+  'character.redesignTitle': '{name}を再デザイン',
+  'character.redesign': '再デザイン',
   'hudChrome.dailyRewards.title': 'デイリー報酬',
   'hudChrome.fishing.caught': '{item} を釣り上げた！',
   'hudChrome.fishing.introHint': '開けた水辺を向いて F キーで仕掛けを投げましょう。',

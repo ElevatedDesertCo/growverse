@@ -210,6 +210,12 @@ export const zh_CN: Partial<Record<TranslationKey, string>> = {
   'auth.beardFull': '络腮胡',
   'auth.beardChinpuff': '下巴胡',
   'auth.beard': '胡须',
+  'character.redesignHint':
+    '该角色创建于新角色编辑器之前。你有一次免费重新设计的机会，保存时即会消耗。',
+  'character.redesignCancel': '保留当前外观',
+  'character.redesignSave': '保存新外观',
+  'character.redesignTitle': '重新设计{name}',
+  'character.redesign': '重新设计',
   'hudChrome.dailyRewards.title': '每日奖励',
   'hudChrome.fishing.caught': '你钓到了 {item}！',
   'hudChrome.fishing.introHint': '面向开阔水面并按 F 抛出鱼线。',

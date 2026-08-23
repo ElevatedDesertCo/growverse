@@ -193,6 +193,12 @@ export const sv_SE: Partial<Record<TranslationKey, string>> = {
   'auth.beardFull': 'Fullt',
   'auth.beardChinpuff': 'Hakskägg',
   'auth.beard': 'Skägg',
+  'character.redesignHint':
+    'Den här rollfiguren skapades före den nya figurskaparen. Du har en gratis omformning; den används när du sparar.',
+  'character.redesignCancel': 'Behåll nuvarande utseende',
+  'character.redesignSave': 'Spara nytt utseende',
+  'character.redesignTitle': 'Omforma {name}',
+  'character.redesign': 'Omforma',
   'entities.npcs.auctioneer_voss.greeting':
     'Growverse-marknaden är öppen även här, {className}. Köp från varje äventyrare i riket, eller lägg ut dina egna varor.',
   'entities.npcs.auctioneer_voss.name': 'Auktionsförrättare Voss',

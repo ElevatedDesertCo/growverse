@@ -138,6 +138,7 @@ import {
   validateForm,
 } from './ui/auth_utils';
 import { assembleBugReportMeta } from './ui/bug_report';
+import { CharselectRedesignEditor } from './ui/charselect_redesign';
 import { ChatCommandMenu } from './ui/chat_command_menu';
 import { chatInputSize } from './ui/chat_input_autosize';
 import { CLASS_DETAILS, SIGNATURE_ABILITIES } from './ui/class_details_data';
@@ -2888,6 +2889,39 @@ function localPlayerId(): number {
   return onlineWorldForLocalId ? onlineWorldForLocalId.playerId : activeLocalPlayerId;
 }
 
+/** The one-shot redesign editor for a character that predates the creator.
+ *  It owns no singletons: the 3D stage, the api client and the roster refresh
+ *  all arrive as deps, so the editor stays testable and this file stays a
+ *  firewall rather than a home. */
+const redesignEditor = new CharselectRedesignEditor({
+  previewModular: (app, worn, cls) => {
+    // This turntable resolves the class starter weapon itself. Upstream also
+    // threads a mainhand, an offhand and an Armory weapon skin through here;
+    // none of those are modelled by this preview, so they are dropped rather
+    // than faked.
+    characterPreview?.setModular(app, worn, cls);
+  },
+  restoreStage: () => {
+    // Back to whatever the roster selection is: renderClassDetails re-runs the
+    // class preview and re-syncs the customizer for that panel.
+    const sel = document.querySelector('#char-list .char-row.sel') as HTMLElement | null;
+    const cls = (sel?.dataset.class as PlayerClass | undefined) ?? 'warrior';
+    currentlyRenderedClass['charselect-class-details'] = null;
+    renderClassDetails('charselect-class-details', cls);
+  },
+  setPreviewName: (name) => {
+    const el = document.getElementById('charselect-preview-name');
+    if (el) el.textContent = name;
+  },
+  saveAppearance: async (characterId, app) => {
+    await api.redesignCharacter(characterId, app as unknown as Record<string, unknown>);
+  },
+  refreshRoster: async () => {
+    await refreshCharacters();
+  },
+  errorText: (err) => userFacingApiError(err),
+});
+
 const APPEARANCE_HOSTS: Record<string, string> = {
   'charcreate-class-details': '#charcreate-appearance',
   'offline-class-details': '#offline-appearance',
@@ -3929,12 +3963,31 @@ async function refreshCharacters(): Promise<void> {
             ? `<input class="rename-input" placeholder="${escapeHtml(t('character.newNamePlaceholder'))}" maxlength="16" /><span class="char-actions"><button class="btn btn-danger delete-char-btn" ${c.online ? 'disabled' : ''}>${escapeHtml(t('character.delete'))}</button><button class="btn rename-btn">${escapeHtml(t('character.rename'))}</button></span>`
             : c.online
               ? `<span class="char-actions"><button class="btn btn-danger delete-char-btn" disabled title="${escapeHtml(t('character.inWorldHint'))}">${escapeHtml(t('character.delete'))}</button><button class="btn take-over-btn" title="${escapeHtml(t('character.takeOverConfirm'))}" aria-label="${escapeHtml(t('character.takeOverConfirm'))}">${escapeHtml(t('character.takeOver'))}</button></span>`
-              : `<span class="char-actions"><button class="btn btn-danger delete-char-btn">${escapeHtml(t('character.delete'))}</button><button class="btn enter-world-btn">${escapeHtml(t('auth.enterWorld'))}</button></span>`
+              : `<span class="char-actions"><button class="btn btn-danger delete-char-btn">${escapeHtml(t('character.delete'))}</button>${
+                  c.canRedesign
+                    ? `<button class="btn redesign-btn" title="${escapeHtml(t('character.redesignHint'))}" aria-label="${escapeHtml(t('character.redesignTitle', { name: c.name }))}">${escapeHtml(t('character.redesign'))}</button>`
+                    : ''
+                }<button class="btn enter-world-btn">${escapeHtml(t('auth.enterWorld'))}</button></span>`
         }`;
 
       row.querySelector('.delete-char-btn')?.addEventListener('click', (e) => {
         e.stopPropagation();
         openDeleteCharacterDialog(c);
+      });
+
+      row.querySelector('.redesign-btn')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        $('#charselect-error').textContent = '';
+        redesignEditor.open(
+          {
+            id: c.id,
+            name: c.name,
+            class: c.class,
+            appearance: c.appearance ?? null,
+            helmHidden: false,
+          },
+          e.currentTarget as HTMLElement,
+        );
       });
 
       if (c.forceRename) {
@@ -6988,6 +7041,16 @@ function wireStartScreens(): void {
     }
   });
   $('#btn-charselect-back').addEventListener('click', () => show('#login-panel'));
+
+  // The redesign editor owns its draft and its panel, but not its chrome: the
+  // coordinator binds the actions, the same way it binds every other
+  // char-select button.
+  document
+    .getElementById('btn-reroll-save')
+    ?.addEventListener('click', () => void redesignEditor.save());
+  document
+    .getElementById('btn-reroll-cancel')
+    ?.addEventListener('click', () => redesignEditor.close(true));
 
   // Main Navigation View Switching
   const navBtnPlay = $('#nav-btn-play');
