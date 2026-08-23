@@ -4,7 +4,7 @@
 
 import { MECH_CHROMAS, type MechChroma } from '../../sim/content/skins';
 import { MOBS } from '../../sim/data';
-import type { Entity, PlayerClass } from '../../sim/types';
+import { ALL_CLASSES, type Entity, type PlayerClass } from '../../sim/types';
 import { ITEM_WEAPON_VARIANTS } from '../../ui/weapon_variants';
 import type { OverheadEmoteId } from '../../world_api';
 import { CUSTOM_BODIES } from './custom_bodies.generated';
@@ -52,6 +52,11 @@ export interface VisualDef {
   url: string;
   /** Optional extra GLBs that provide animation clips for static rig files. */
   animUrls?: string[];
+  /** This GLB is a modular PART LIBRARY, not a finished character: every body
+   *  part, hair style, face piece and armour slot piece lives in it, and the
+   *  visible set is picked per entity (see modular.ts). assembleModel composes
+   *  it rather than cloning the scene. */
+  modular?: boolean;
   /** world-unit height (pivot->crown) at e.scale = 1 */
   height: number;
   clips: ClipMap;
@@ -228,6 +233,8 @@ const WEAPONS = 'models/weapons';
 // KayKit-style bodies auto-rigged onto Rig_Medium from unrigged seasonal packs (Grinning
 // Jack, the Hedgewitch); textures baked in, so no tint. See docs/design/asset-expansion-plan.md.
 const SPOOKY = 'models/chars/spooky';
+/** Modular part library (one GLB, every part), see modular.ts. */
+const MODULAR = 'models/chars/modular';
 
 /** GLB url for an equipped mainhand item's held weapon model, or null if the item
  *  has no mapped model (then the class default attach is kept). Mirrors the bag
@@ -1163,6 +1170,48 @@ export function manifestUrlsForGraphics(standardMaterials: boolean): string[] {
  */
 export function characterPreloadUrls(_importTierStandardMaterials: boolean): string[] {
   return [...new Set([...manifestUrlsForGraphics(true), ...manifestUrlsForGraphics(false)])];
+}
+
+// ---------------------------------------------------------------------------
+// Modular player bodies, one `player_<class>_modular` def per class, derived
+// from the class def. The body is COMPOSED from the shared part library
+// (modular.ts) instead of cloned from the class GLB, but everything else, the
+// clips, the ability mapping and the held-weapon layout, is the class's own,
+// so a composed rogue garrotes and a composed hunter draws its bow exactly
+// like the fixed rigs do.
+//
+// The class GLB rides along as a pure CLIP source (first animUrl): the
+// per-class attacks exist only there, and every player body shares KayKit's
+// Rig_Medium, so its clips bind onto the modular skeleton by node name. No
+// extra fetch, since the class GLB is already preloaded as the fixed rig every
+// other entity still wears.
+//
+// Deliberately dropped from the class def:
+//  - `show`: a composed body has no baked accessory meshes to allowlist;
+//    hats and capes are armour-slot parts picked by the loadout instead.
+//  - `tint`/`tintStrength`: the class tints are how classes SHARING a stock
+//    model stay tellable apart. A composed body's colour belongs to the
+//    player's own skin and hair wheels, and a tint over the picked skin tone
+//    would repaint exactly what the player chose.
+//
+// Driven by ALL_CLASSES rather than a local copy: a tenth class would
+// otherwise silently get no modular def and fall back to the warrior's clips.
+// ---------------------------------------------------------------------------
+for (const cls of ALL_CLASSES) {
+  const classDef = VISUALS[`player_${cls}`];
+  if (!classDef) continue;
+  const { show: _show, tint: _tint, tintStrength: _tintStrength, ...base } = classDef;
+  VISUALS[`player_${cls}_modular`] = {
+    ...base,
+    url: `${MODULAR}/warrior_modular.glb`,
+    modular: true,
+    animUrls: [base.url, ...(base.animUrls ?? [])],
+  };
+}
+
+/** The composed-body variant of a class visual (every class has one). */
+export function modularVisualKey(cls: PlayerClass): string {
+  return `player_${cls}_modular`;
 }
 
 export function visibleAttachmentsForGraphics(

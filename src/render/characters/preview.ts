@@ -2,7 +2,9 @@ import * as THREE from 'three';
 import { CLASSES } from '../../sim/data';
 import type { PlayerClass } from '../../sim/types';
 import { trackWebGLContext } from '../context_release';
-import type { WeaponLayoutOverride } from './manifest';
+import { modularVisualKey, VISUALS, type WeaponLayoutOverride } from './manifest';
+import type { ArmorLoadout, ModularAppearance, ModularLook } from './modular';
+import { modularBuildSignature } from './modular';
 import { CharacterVisual } from './visual';
 
 const PREVIEW_ANIM_STATE = {
@@ -24,6 +26,7 @@ export class CharacterPreview {
   private camera: THREE.PerspectiveCamera;
   private characterGroup: THREE.Group;
   private currentVisual: CharacterVisual | null = null;
+  private currentVisualKey: string | null = null;
   private currentSkin = 0;
   private clock = new THREE.Clock();
   private animationFrameId: number | null = null;
@@ -113,6 +116,30 @@ export class CharacterPreview {
    *  turntable). The asset must already be loaded — callers preload first.
    *  `weaponOverride` lets a cosmetic body adopt a class hand layout (rogue mech
    *  dual-wields), matching the in-world render. */
+  /** Look handed to the next modular rebuild (setVisualKey reads it back). */
+  private pendingLook: ModularLook | null = null;
+
+  /** Compose the turntable from an authored look. Every class routes through
+   *  its own modular def, so this is what the creation panel drives. */
+  setModular(app: ModularAppearance, worn: ArmorLoadout = {}, cls: PlayerClass = 'warrior'): void {
+    if (this.destroyed) return;
+    const prev = this.pendingLook;
+    this.pendingLook = { app, worn };
+    const key = modularVisualKey(cls);
+    // The face/body sliders ride the LIVE body rather than a rebuild: the
+    // creator emits on every `input` event, so a drag would otherwise dispose
+    // and recompose the character per step. A rebuild is only needed when the
+    // picked PARTS change (a different hair, a different kit), which is what
+    // the part-name signature below detects.
+    const rebuilt = this.currentVisualKey !== key;
+    const partsChanged =
+      !prev || modularBuildSignature(prev.app, prev.worn) !== modularBuildSignature(app, worn);
+    if (rebuilt || partsChanged) {
+      this.setVisualKey(key, CLASSES[cls].startWeapon ?? null);
+    }
+    this.currentVisual?.applyModularSliders(app);
+  }
+
   setVisualKey(
     visualKey: string,
     weaponItemId: string | null = null,
@@ -126,6 +153,10 @@ export class CharacterPreview {
       this.currentVisual = null;
     }
 
+    // Record the mounted key HERE, the one place a visual is built. setClass
+    // reaches setVisualKey directly, so tracking this in setModular alone left
+    // a stale key behind and skipped the rebuild back to a composed body.
+    this.currentVisualKey = visualKey;
     try {
       this.currentVisual = new CharacterVisual(
         visualKey,
@@ -133,6 +164,7 @@ export class CharacterPreview {
         this.currentSkin,
         weaponItemId,
         weaponOverride,
+        VISUALS[visualKey]?.modular ? this.pendingLook : null,
       );
       this.characterGroup.add(this.currentVisual.root);
 

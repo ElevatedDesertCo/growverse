@@ -66,7 +66,10 @@ describe('held weapon models', () => {
     expect(players).toContain('player_mech');
     for (const key of players) {
       const def = VISUALS[key];
-      if (key === 'player_hunter') {
+      // The composed body derives from the class def, so a modular hunter is
+      // still a hunter and keeps the crossbow. Matched by prefix rather than
+      // equality so the rule covers `player_hunter_modular` too.
+      if (key === 'player_hunter' || key === 'player_hunter_modular') {
         expect(def.weaponSlots, 'hunter must keep its crossbow').toBeUndefined();
       } else {
         expect(def.weaponSlots?.includes(0), `${key} should swap its mainhand`).toBe(true);

@@ -1998,6 +1998,12 @@ export interface QuestProgress {
   // (not a ticking countdown) on purpose: the snapshot JSON-diffs the whole quest log, so
   // a field that changed every tick would re-send it every tick for every player.
   expiresAt?: number;
+  // CLIENT-SIDE ONLY mirror of the remaining time, in seconds. The sim never sets
+  // this: `expiresAt` is absolute SERVER sim time and means nothing to a client with
+  // no shared clock, so the server sends a BUCKETED seconds-remaining instead and the
+  // client counts down locally between updates. Bucketed so the snapshot's JSON diff
+  // does not re-send the whole quest log every tick.
+  secondsLeft?: number;
   // Live entity id of an in-flight escortee. Entities are not persisted, so this is
   // deliberately NOT saved: on relog the escortee is gone, the escort tick sees a
   // missing entity, and the quest fails. That is the honest outcome and needs no
@@ -2117,6 +2123,16 @@ export interface Entity {
   sitting: boolean;
   eating: Consuming | null;
   drinking: Consuming | null;
+  // Paperdoll eye toggle: the composed body renders without its kit's head
+  // piece. A standing wardrobe preference (never auto-cleared), so peers and
+  // portraits present the chosen look.
+  helmHidden: boolean;
+  // The authored modular-creator look. Deliberately opaque here: the sim never
+  // reads it, and typing it as the render layer's ModularAppearance would put a
+  // src/render import into the sim, which src/CLAUDE.md forbids. Consumers
+  // normalize it (normalizeAppearance) before composing.
+  // Null/absent = no authored look; the legacy class rig renders.
+  modularAppearance?: Record<string, unknown> | null;
   // mob AI
   aiState: AiState;
   tappedById: number | null; // first player to damage this mob owns loot/xp/quest credit

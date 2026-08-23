@@ -143,6 +143,16 @@ export const shellStrings = {
       profile: 'Profile',
       closeProfile: 'Close profile',
       sortBy: 'Sort',
+      // The one-shot redesign for a character that predates the creator.
+      // Upstream's key NAMES on purpose: it already ships these strings in
+      // every locale, so reusing the names takes the translations with them
+      // instead of minting new keys nobody has translated.
+      redesign: 'Redesign',
+      redesignTitle: 'Redesign {name}',
+      redesignSave: 'Save New Look',
+      redesignCancel: 'Keep Current Look',
+      redesignHint:
+        'This character predates the new character creator. You get one free redesign; it is used when you save.',
       sortByLabel: 'Sort characters',
       sortMenuLabel: 'Sort options',
       sortLevel: 'Level',

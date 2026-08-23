@@ -675,6 +675,7 @@ describe('ClientWorld path (online display reflects server state)', () => {
     c.known = [];
     c.questLog = new Map();
     c.questsDone = new Set();
+    c.questTimeAnchors = new Map();
     c.lastSnapAt = 0;
     c.snapInterval = 50;
     c.pendingFacingDelta = 0;

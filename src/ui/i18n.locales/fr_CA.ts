@@ -14,6 +14,13 @@ export const fr_CA: Partial<Record<TranslationKey, string>> = {
   // Stat tooltips inherit the fr_FR base: none of these strings has a genuine
   // Quebec-specific form, so per the divergence-only policy fr_CA carries no
   // hudChrome.statInfo.* overrides.
+  'auth.designCodeHint':
+    'Copiez ce code pour sauvegarder ou partager cette apparence. Collez un code ici et importez-le pour la charger.',
+  'auth.designCodeErrVersion': "Ce code d'apparence vient d'une version plus récente du jeu.",
+  'auth.designCodeErrMalformed':
+    "Ce code d'apparence est endommagé. Copiez le code au complet et réessayez.",
+  'auth.designCodeCopyManual':
+    'La copie automatique est bloquée ici. Le code est sélectionné; copiez-le avec votre clavier.',
   'seo.title': 'Growverse: MMO Web de style classique',
   'seo.description':
     "Partez à l'aventure dans Growverse, un micro-MMO de style classique jouable directement dans votre navigateur. Rejoignez un royaume partagé, faites progresser vos classes et terrassez des ennemis.",

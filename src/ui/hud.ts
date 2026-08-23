@@ -284,7 +284,12 @@ import { chatPlayerContextActions } from './player_context_menu';
 import { hydratePortraits, portraitChipHtml } from './portrait_chip';
 import { maskProfanity } from './profanity';
 import { encodeItemLink, encodeQuestLink, parseChatSegments } from './quest_link';
-import { type QuestTrackerView, questTrackerView, type TrackedQuest } from './quest_tracker';
+import {
+  type QuestTrackerTimer,
+  type QuestTrackerView,
+  questTrackerView,
+  type TrackedQuest,
+} from './quest_tracker';
 import { QuestLogWindow } from './questlog_window';
 import { lockoutParts, lockoutShape } from './raid_lockout';
 import { type RaidLockoutI18n, raidLockoutPanelHtml } from './raid_lockout_view';
@@ -5376,6 +5381,10 @@ export class Hud {
           current: qp.counts[i],
           total: obj.count,
         })),
+        // null for every untimed quest, which is nearly all of them. Both worlds
+        // answer this: the offline Sim exactly, ClientWorld by counting down from
+        // the last bucketed value the server sent.
+        secondsLeft: this.sim.questSecondsLeft(qp.questId),
       });
     }
     // Only persist the collapse choice while at least one quest is tracked: when
@@ -5420,12 +5429,41 @@ export class Hud {
       `<span class="qt-h-label">${esc(t('questUi.tracker.title'))}</span>${count}</button>`;
     let rows = '';
     for (const q of view.quests) {
-      rows += `<div class="qt-title">${esc(q.title)}${q.complete ? ` <span class="quest-complete">(${esc(t('questUi.tracker.complete'))})</span>` : ''}</div>`;
+      rows += `<div class="qt-title">${esc(q.title)}${q.complete ? ` <span class="quest-complete">(${esc(t('questUi.tracker.complete'))})</span>` : ''}${this.questTimerHtml(q.timer)}</div>`;
       for (const o of q.objectives) {
         rows += `<div class="qt-obj${o.done ? ' done' : ''}">- ${esc(this.questProgressText(o.label, o.current, o.total))}</div>`;
       }
     }
     return `${html}<div id="qt-list">${rows}</div>`;
+  }
+
+  /** Render a tracked quest's countdown, or nothing when it has no deadline. The
+   *  digits carry an accessible name because "0:45" on its own says nothing; the
+   *  urgent class is the only styling difference, so the text stays readable at
+   *  every tier (the countdown is actionable, never a cosmetic flourish). */
+  private questTimerHtml(timer: QuestTrackerTimer | null): string {
+    if (!timer) return '';
+    const time = this.questTimeText(timer.seconds);
+    const label = esc(t('hudChrome.questTracker.timeLabel', { time }));
+    return ` <span class="qt-timer${timer.urgent ? ' urgent' : ''}" title="${label}" aria-label="${label}">${esc(time)}</span>`;
+  }
+
+  /** Whole seconds as m:ss. Always the same shape as it ticks down, so the row
+   *  never reflows; the seconds pad through Intl rather than string padding so a
+   *  locale's own digits are used. */
+  private questTimeText(seconds: number): string {
+    const total = Math.max(0, Math.floor(seconds));
+    return t('hudChrome.questTracker.time', {
+      minutes: formatNumber(Math.floor(total / 60), {
+        maximumFractionDigits: 0,
+        useGrouping: false,
+      }),
+      seconds: formatNumber(total % 60, {
+        minimumIntegerDigits: 2,
+        maximumFractionDigits: 0,
+        useGrouping: false,
+      }),
+    });
   }
 
   /** Flip the persisted tracker-collapsed preference (the header click/keyboard

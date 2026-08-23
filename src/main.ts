@@ -83,8 +83,9 @@ import {
 // the feature is enabled + used.
 import type { WalletOption } from './net/wallet';
 import { assetsReady } from './render/assets/preload';
-import { CharacterPreview } from './render/characters';
+import { CharacterPreview, setModularLookProvider } from './render/characters';
 import { skinCount } from './render/characters/manifest';
+import { inWorldLookFor } from './render/characters/player_look_core';
 import {
   onPortraitsReady,
   playerPortraitDataUrl,
@@ -106,6 +107,7 @@ import { TAB_NEAR_RADIUS, TAB_QUERY_RADIUS, tabConeHalfAt } from './sim/tab_targ
 import {
   DT,
   dist2d,
+  type Entity,
   FISHING_CAST_ID,
   INTERACT_RANGE,
   MELEE_RANGE,
@@ -121,6 +123,14 @@ import {
   validatePasswordChange,
 } from './ui/account_portal';
 import {
+  applyStoredLook,
+  armorSetForEntity,
+  currentAppearance,
+  flushAppearanceStore,
+  initAppearanceMounts,
+  syncAppearanceUi,
+} from './ui/appearance_mount';
+import {
   handleKeyboardActivation,
   syncInputAriaState,
   togglePasswordVisibility,
@@ -128,6 +138,7 @@ import {
   validateForm,
 } from './ui/auth_utils';
 import { assembleBugReportMeta } from './ui/bug_report';
+import { CharselectRedesignEditor } from './ui/charselect_redesign';
 import { ChatCommandMenu } from './ui/chat_command_menu';
 import { chatInputSize } from './ui/chat_input_autosize';
 import { CLASS_DETAILS, SIGNATURE_ABILITIES } from './ui/class_details_data';
@@ -2566,6 +2577,16 @@ async function startOffline(
     sim.addPlayer(playerClass, name, { state: savedState });
   }
   sim.setPlayerSkin(sim.playerId, savedState?.skin ?? skin);
+  // Offline builds its own Sim rather than mirroring a server, so the authored
+  // look has to be hung on the local entity here or the world body falls back
+  // to the class rig while the creation turntable showed a composed one.
+  activeLocalPlayerId = sim.playerId;
+  onlineWorldForLocalId = null;
+  {
+    const offlineLook = currentAppearance() as unknown as Record<string, unknown>;
+    const self = sim.entities.get(sim.playerId);
+    if (self && offlineLook) self.modularAppearance = offlineLook;
+  }
   // Dev convenience: ?mech drops an offline session straight into the Combat Mech
   // cosmetic body holding a spread of class-usable weapons, to eyeball the held
   // weapon model on the mech (swap them in the bag to see each one). DEV builds
@@ -2651,6 +2672,10 @@ function registerOfflineAutosave(sim: Sim, skin: number): void {
   if (!offlineAutosaveHooksBound) {
     window.addEventListener('pagehide', persistOfflineSession);
     window.addEventListener('beforeunload', persistOfflineSession);
+    // The customizer coalesces its localStorage writes, so a look edited in
+    // the last 200ms is still pending when the tab goes away.
+    window.addEventListener('pagehide', flushAppearanceStore);
+    window.addEventListener('beforeunload', flushAppearanceStore);
     offlineAutosaveHooksBound = true;
   }
 }
@@ -2844,6 +2869,76 @@ function syncPreviewAfterPanelLayout(): void {
     requestAnimationFrame(() => characterPreview?.syncSize());
   });
 }
+
+/** Host element per class-details panel that the appearance customizer mounts
+ *  into. Kept here (not in appearance_mount.ts) so the panel wiring stays
+ *  visible alongside the other per-panel maps below, and pinned by
+ *  tests/appearance_creator_rows.test.ts against the entry HTML. */
+/** The local player's entity id for the session in progress, or -1 between
+ *  sessions. The look provider is installed once at import but the world that
+ *  answers "is this me" is built per session, so the id is held here rather
+ *  than captured. Only the local player may wear this machine's armour-set
+ *  override; a peer must always wear their class kit. */
+let activeLocalPlayerId = -1;
+/** The live online world, for reading its player id AFTER the handshake. Offline
+ *  sets activeLocalPlayerId directly, since its id is known at spawn. */
+let onlineWorldForLocalId: { playerId: number } | null = null;
+
+/** The local player's entity id right now, whichever host is running. */
+function localPlayerId(): number {
+  return onlineWorldForLocalId ? onlineWorldForLocalId.playerId : activeLocalPlayerId;
+}
+
+/** The one-shot redesign editor for a character that predates the creator.
+ *  It owns no singletons: the 3D stage, the api client and the roster refresh
+ *  all arrive as deps, so the editor stays testable and this file stays a
+ *  firewall rather than a home. */
+const redesignEditor = new CharselectRedesignEditor({
+  previewModular: (app, worn, cls) => {
+    // This turntable resolves the class starter weapon itself. Upstream also
+    // threads a mainhand, an offhand and an Armory weapon skin through here;
+    // none of those are modelled by this preview, so they are dropped rather
+    // than faked.
+    characterPreview?.setModular(app, worn, cls);
+  },
+  restoreStage: () => {
+    // Back to whatever the roster selection is: renderClassDetails re-runs the
+    // class preview and re-syncs the customizer for that panel.
+    const sel = document.querySelector('#char-list .char-row.sel') as HTMLElement | null;
+    const cls = (sel?.dataset.class as PlayerClass | undefined) ?? 'warrior';
+    currentlyRenderedClass['charselect-class-details'] = null;
+    renderClassDetails('charselect-class-details', cls);
+  },
+  setPreviewName: (name) => {
+    const el = document.getElementById('charselect-preview-name');
+    if (el) el.textContent = name;
+  },
+  saveAppearance: async (characterId, app) => {
+    await api.redesignCharacter(characterId, app as unknown as Record<string, unknown>);
+  },
+  refreshRoster: async () => {
+    await refreshCharacters();
+  },
+  errorText: (err) => userFacingApiError(err),
+});
+
+const APPEARANCE_HOSTS: Record<string, string> = {
+  'charcreate-class-details': '#charcreate-appearance',
+  'offline-class-details': '#offline-appearance',
+};
+// The preview hook is what makes an edit visible: the customizer emits a look,
+// the mount resolves the class kit, and the turntable composes from it.
+initAppearanceMounts(APPEARANCE_HOSTS, (app, worn, cls) => {
+  characterPreview?.setModular(app, worn, cls);
+});
+
+// Claim every player entity carrying an authored look, so the WORLD body is
+// composed too and not just the creation turntable. An entity without one
+// returns null and keeps its fixed class rig, which is the pre-creator
+// behaviour, so this is inert for characters that predate the creator.
+setModularLookProvider((e: Entity) =>
+  inWorldLookFor(e, armorSetForEntity(e.id === localPlayerId())),
+);
 
 const currentlyRenderedClass: Record<string, PlayerClass | null> = {
   'offline-class-details': null,
@@ -3868,12 +3963,31 @@ async function refreshCharacters(): Promise<void> {
             ? `<input class="rename-input" placeholder="${escapeHtml(t('character.newNamePlaceholder'))}" maxlength="16" /><span class="char-actions"><button class="btn btn-danger delete-char-btn" ${c.online ? 'disabled' : ''}>${escapeHtml(t('character.delete'))}</button><button class="btn rename-btn">${escapeHtml(t('character.rename'))}</button></span>`
             : c.online
               ? `<span class="char-actions"><button class="btn btn-danger delete-char-btn" disabled title="${escapeHtml(t('character.inWorldHint'))}">${escapeHtml(t('character.delete'))}</button><button class="btn take-over-btn" title="${escapeHtml(t('character.takeOverConfirm'))}" aria-label="${escapeHtml(t('character.takeOverConfirm'))}">${escapeHtml(t('character.takeOver'))}</button></span>`
-              : `<span class="char-actions"><button class="btn btn-danger delete-char-btn">${escapeHtml(t('character.delete'))}</button><button class="btn enter-world-btn">${escapeHtml(t('auth.enterWorld'))}</button></span>`
+              : `<span class="char-actions"><button class="btn btn-danger delete-char-btn">${escapeHtml(t('character.delete'))}</button>${
+                  c.canRedesign
+                    ? `<button class="btn redesign-btn" title="${escapeHtml(t('character.redesignHint'))}" aria-label="${escapeHtml(t('character.redesignTitle', { name: c.name }))}">${escapeHtml(t('character.redesign'))}</button>`
+                    : ''
+                }<button class="btn enter-world-btn">${escapeHtml(t('auth.enterWorld'))}</button></span>`
         }`;
 
       row.querySelector('.delete-char-btn')?.addEventListener('click', (e) => {
         e.stopPropagation();
         openDeleteCharacterDialog(c);
+      });
+
+      row.querySelector('.redesign-btn')?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        $('#charselect-error').textContent = '';
+        redesignEditor.open(
+          {
+            id: c.id,
+            name: c.name,
+            class: c.class,
+            appearance: c.appearance ?? null,
+            helmHidden: false,
+          },
+          e.currentTarget as HTMLElement,
+        );
       });
 
       if (c.forceRename) {
@@ -3993,6 +4107,11 @@ async function enterWorld(c: CharacterSummary, button?: HTMLButtonElement): Prom
     }
   }
   const world = new ClientWorld(api.token!, c.id, c.class, api.base, getClientSeed());
+  // NOT world.playerId here: ClientWorld starts at -1 and only learns its id
+  // from the server handshake, so reading it synchronously pins -1 forever and
+  // the local player never matches. Read it live instead.
+  activeLocalPlayerId = -1;
+  onlineWorldForLocalId = world;
   // Wire shareable player cards for this online session: publishing uploads the
   // composited PNG to this realm and returns an absolute public page URL, and
   // the referral provider feeds the card footer. Both are cleared on disconnect.
@@ -4048,6 +4167,7 @@ function renderClassDetails(panelId: string, className: PlayerClass): void {
   if (characterPreview) {
     characterPreview.setClass(className);
   }
+  syncAppearanceUi(panelId, className);
 
   // Clear any active transitions for this panel to prevent stacked out-of-order renders
   if (
@@ -6907,6 +7027,9 @@ function wireStartScreens(): void {
         name,
         clsEl.dataset.class as PlayerClass,
         selectedSkin('#online-skin-row', onlineSkin),
+        // The look the player just authored in this panel. Sanitized server
+        // side; sent as a plain record so the wire stays render-type-free.
+        currentAppearance() as unknown as Record<string, unknown>,
       );
       newCharNameInput.value = '';
       charselectError.textContent = '';
@@ -6918,6 +7041,16 @@ function wireStartScreens(): void {
     }
   });
   $('#btn-charselect-back').addEventListener('click', () => show('#login-panel'));
+
+  // The redesign editor owns its draft and its panel, but not its chrome: the
+  // coordinator binds the actions, the same way it binds every other
+  // char-select button.
+  document
+    .getElementById('btn-reroll-save')
+    ?.addEventListener('click', () => void redesignEditor.save());
+  document
+    .getElementById('btn-reroll-cancel')
+    ?.addEventListener('click', () => redesignEditor.close(true));
 
   // Main Navigation View Switching
   const navBtnPlay = $('#nav-btn-play');
@@ -7422,6 +7555,10 @@ function wireStartScreens(): void {
       const selEl = document.querySelector(selSelector) as HTMLElement | null;
       const cls = selEl ? (selEl.dataset.class as PlayerClass) : 'warrior';
       characterPreview.setClass(cls);
+      // The panel mounted its customizer before this preview existed, so its
+      // repaint reached nothing. Compose the stored look now, or the player is
+      // greeted by the stock class rig rather than the character they saved.
+      applyStoredLook(cls);
     }
     decorateClassChips();
   });

@@ -617,8 +617,19 @@ function dynamicFields(e: Entity): Record<string, unknown> {
   return out;
 }
 
+/** Splice an ALREADY-SERIALIZED value into an object's JSON under `key`, so a
+ *  hot path can reuse a cached fragment instead of re-stringifying it. */
+function jsonWithField(objJson: string, key: string, rawJson: string): string {
+  return objJson === '{}'
+    ? `{"${key}":${rawJson}}`
+    : `${objJson.slice(0, -1)},"${key}":${rawJson}}`;
+}
+
 export function wireEntity(e: Entity): Record<string, unknown> {
-  return { id: e.id, ...identityFields(e), ...dynamicFields(e) };
+  const out: Record<string, unknown> = { id: e.id, ...identityFields(e), ...dynamicFields(e) };
+  // Sparse: absent means "no authored look", which renders the legacy class rig.
+  if (e.modularAppearance) out.app = e.modularAppearance;
+  return out;
 }
 
 // npcs stay visible to the legacy radius (see the constants above);
@@ -659,6 +670,13 @@ function isUpdateDue(
 interface EntityWireCache {
   tick: number;
   idJson: string;
+  /** identityFields alone, before the authored look is spliced in. Kept so the
+   *  per-tick compare never walks the look (see wireCacheFor). */
+  baseIdJson: string;
+  /** The look serialized once, and the object it was minted from, so a change
+   *  of look invalidates it without re-stringifying every tick. */
+  appJson: string | null;
+  appSource: Record<string, unknown> | null;
   dynJson: string;
   idVer: number;
   dynVer: number;
@@ -691,6 +709,9 @@ function chatChannelHint(session: ClientSession, text: string): string {
 function delay(ms: number): Promise<void> {
   return new Promise((resolve) => setTimeout(resolve, ms));
 }
+
+// Bucket (seconds) for the timed-quest countdown on the wire. See the qlog send site.
+const QUEST_TIME_BUCKET = 10;
 
 export class GameServer {
   sim: Sim;
@@ -1447,6 +1468,10 @@ export class GameServer {
         chatStrikes?: number;
         isAdmin?: boolean;
         clientSeed?: string;
+        /** The character's authored look (characters.appearance), already
+         *  sanitized by the caller. Absent/null leaves the entity on the
+         *  legacy class rig. */
+        appearance?: Record<string, unknown> | null;
       } = {},
   ): ClientSession | { error: string } {
     if (this.sessionsByCharacterId.has(characterId)) return { error: 'character already in world' };
@@ -1463,6 +1488,13 @@ export class GameServer {
       }
     }
     const pid = this.sim.addPlayer(cls, name, { state: state ?? undefined, characterId });
+    // Hang the authored look on the entity so every client composing this
+    // player builds their real body. Opaque to the sim (see Entity), which
+    // never reads it.
+    if (meta.appearance) {
+      const e = this.sim.entities.get(pid);
+      if (e) e.modularAppearance = meta.appearance;
+    }
     if (isGm) {
       // GM characters: invulnerable, and always at the level cap (the row is
       // created without state, so the first join levels them up)
@@ -3075,6 +3107,9 @@ export class GameServer {
       cache = {
         tick: -1,
         idJson: '',
+        baseIdJson: '',
+        appJson: null,
+        appSource: null,
         dynJson: '',
         idVer: 0,
         dynVer: 0,
@@ -3086,14 +3121,24 @@ export class GameServer {
     if (cache.tick === this.sim.tickCount) return cache;
     cache.tick = this.sim.tickCount;
     const t0 = this.profileBroadcastPhases ? process.hrtime.bigint() : 0n;
-    const idJson = JSON.stringify(identityFields(e));
+    const baseIdJson = JSON.stringify(identityFields(e));
     const dynJson = JSON.stringify(dynamicFields(e));
     let changed = false;
-    if (idJson !== cache.idJson) {
-      cache.idJson = idJson;
+    // The authored look is SPLICED into the identity JSON rather than composed
+    // into identityFields, because that object is stringified every tick for
+    // every entity and the look is a deep record that would be walked each
+    // time. It is serialized once and reused until the look itself changes.
+    const appSource = e.modularAppearance ?? null;
+    if (baseIdJson !== cache.baseIdJson || appSource !== cache.appSource) {
+      cache.baseIdJson = baseIdJson;
+      cache.appSource = appSource;
+      cache.appJson = appSource ? JSON.stringify(appSource) : null;
+      cache.idJson =
+        cache.appJson === null ? baseIdJson : jsonWithField(baseIdJson, 'app', cache.appJson);
       cache.idVer++;
       changed = true;
     }
+    const idJson = cache.idJson;
     if (dynJson !== cache.dynJson) {
       cache.dynJson = dynJson;
       cache.dynVer++;
@@ -3237,7 +3282,20 @@ export class GameServer {
       maybe('prof', professionsView(meta.professions));
       maybe('equip', meta.equipment);
       maybe('cosmetics', anchorSession.accountCosmetics);
-      maybe('qlog', [...meta.questLog.values()]);
+      // Timed quests: `expiresAt` is absolute SERVER sim time, useless to a client with
+      // no shared clock, so strip it and send seconds-remaining BUCKETED to
+      // QUEST_TIME_BUCKET. maybe() JSON-diffs the whole quest log, so an exact
+      // per-tick value would re-send every player's entire log every tick; bucketing
+      // makes that at most one re-send per bucket, and the client counts down locally.
+      maybe(
+        'qlog',
+        [...meta.questLog.values()].map((q) => {
+          if (q.expiresAt === undefined) return q;
+          const { expiresAt, ...rest } = q;
+          const left = Math.max(0, expiresAt - this.sim.time);
+          return { ...rest, secondsLeft: Math.ceil(left / QUEST_TIME_BUCKET) * QUEST_TIME_BUCKET };
+        }),
+      );
       maybe('qdone', [...meta.questsDone]);
       maybe('flags', [...meta.worldFlags]);
       maybe('milestones', [...meta.unlockedMilestones]);

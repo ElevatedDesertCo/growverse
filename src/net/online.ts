@@ -89,6 +89,11 @@ export interface CharacterSummary {
   forceRename: boolean;
   lastPlayed?: string | null;
   playtimeSeconds?: number;
+  /** The authored look, or null for a character that predates the creator. */
+  appearance?: Record<string, unknown> | null;
+  /** Whether the one-shot redesign is still available. Decides only whether the
+   *  entry point is OFFERED; the server re-checks on the write. */
+  canRedesign?: boolean;
 }
 
 function stringList(value: unknown): string[] {
@@ -433,8 +438,19 @@ export class Api {
     return data.characters;
   }
 
-  async createCharacter(name: string, cls: PlayerClass, skin = 0): Promise<void> {
-    await this.post('/api/characters', { name, class: cls, skin });
+  async createCharacter(
+    name: string,
+    cls: PlayerClass,
+    skin = 0,
+    appearance: Record<string, unknown> | null = null,
+  ): Promise<void> {
+    await this.post('/api/characters', { name, class: cls, skin, appearance });
+  }
+
+  /** Spend a character's one-shot redesign. Throws on 409 (not available), which
+   *  the caller surfaces; the server owns eligibility, this is not a re-check. */
+  async redesignCharacter(characterId: number, appearance: Record<string, unknown>): Promise<void> {
+    await this.post(`/api/characters/${characterId}/appearance`, { appearance });
   }
 
   async renameCharacter(characterId: number, name: string): Promise<void> {
@@ -770,6 +786,8 @@ function blankEntity(id: number): Entity {
     chargePath: [],
     followTargetId: null,
     sitting: false,
+    helmHidden: false,
+    modularAppearance: null,
     eating: null,
     drinking: null,
     aiState: 'idle',
@@ -873,6 +891,12 @@ export class ClientWorld implements IWorld {
   loadouts: SavedLoadout[] = [];
   activeLoadout = -1;
   questLog = new Map<string, QuestProgress>();
+  // Local anchors for the timed-quest countdown, keyed by questId: the wall-clock
+  // instant a bucketed `secondsLeft` arrived. The server sends a COARSE value (see the
+  // qlog send site) so the snapshot does not churn, and we interpolate down from the
+  // anchor between updates. Every fresh value re-anchors, so this cannot drift.
+  // performance.now() is a UI clock, not a sim clock: the determinism ban is sim-only.
+  private questTimeAnchors = new Map<string, { secondsLeft: number; at: number }>();
   questsDone = new Set<string>();
   // Persistent quest branch flags (Phase D), mirrored from the self-snapshot so the local
   // computeQuestState display honors branch gates. Internal (not an IWorld member).
@@ -1276,6 +1300,14 @@ export class ClientWorld implements IWorld {
         e.skin = w.sk ?? 0;
         e.mainhandItemId = w.mh ?? null; // equipped mainhand → held weapon model (render-only)
         e.equippedItems = w.eq ?? {}; // full worn set (render-only), for the inspect window
+        // The authored modular look. Absent means "no authored look", which is
+        // what keeps every pre-creator character on the legacy class rig. Shape
+        // is re-checked here because the wire is untrusted at the boundary: the
+        // renderer normalizes it before composing.
+        e.modularAppearance =
+          w.app && typeof w.app === 'object' && !Array.isArray(w.app)
+            ? (w.app as Record<string, unknown>)
+            : null;
         e.skinCatalog = w.cat === 'mech' ? 'mech' : 'class';
         e.holderTier = w.ht ?? 0; // $WOC holder-tier flair (cosmetic, server-set)
         e.holderBalance = typeof w.hb === 'number' ? w.hb : undefined; // exact $WOC, for inspect
@@ -1549,8 +1581,20 @@ export class ClientWorld implements IWorld {
         this.accountCosmetics = normalizeAccountCosmetics(s.cosmetics);
         this.cosmeticsChanged = true;
       }
-      if (s.qlog !== undefined)
+      if (s.qlog !== undefined) {
         this.questLog = new Map((s.qlog as QuestProgress[]).map((q) => [q.questId, q]));
+        // Re-anchor every timed quest against the local clock, and drop anchors for
+        // quests that left the log (turned in, abandoned, or failed).
+        const now = performance.now();
+        for (const questId of [...this.questTimeAnchors.keys()]) {
+          if (!this.questLog.has(questId)) this.questTimeAnchors.delete(questId);
+        }
+        for (const q of this.questLog.values()) {
+          if (q.secondsLeft !== undefined) {
+            this.questTimeAnchors.set(q.questId, { secondsLeft: q.secondsLeft, at: now });
+          }
+        }
+      }
       if (s.qdone !== undefined) this.questsDone = new Set(s.qdone);
       if (s.flags !== undefined) this.worldFlags = new Set(s.flags);
       if (s.lockouts !== undefined) this.selfLockouts = s.lockouts as Record<string, number>;
@@ -1784,6 +1828,15 @@ export class ClientWorld implements IWorld {
     this.pendingQuestCommands.delete(questId);
     this.cmd({ cmd: 'abandon', quest: questId });
   }
+  // Interpolate down from the last bucketed value the server sent. Null when the quest
+  // has no deadline, so an untimed quest renders exactly as it always has.
+  questSecondsLeft(questId: string): number | null {
+    const anchor = this.questTimeAnchors.get(questId);
+    if (!anchor) return null;
+    const elapsed = (performance.now() - anchor.at) / 1000;
+    return Math.max(0, anchor.secondsLeft - elapsed);
+  }
+
   acceptLinkedQuest(questId: string, fromPid: number): void {
     this.cmd({ cmd: 'qlinkaccept', quest: questId, from: fromPid });
   }

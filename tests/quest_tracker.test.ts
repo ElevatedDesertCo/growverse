@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'vitest';
-import { questTrackerView, type TrackedQuest } from '../src/ui/quest_tracker';
+import {
+  QUEST_TRACKER_URGENT_SECONDS,
+  questTrackerView,
+  type TrackedQuest,
+} from '../src/ui/quest_tracker';
 
 // Titles/labels are already resolved before the tracker receives them.
 const QUESTS: TrackedQuest[] = [
@@ -93,5 +97,63 @@ describe('questTrackerView', () => {
     // returned shared references would be a bug; assert the copy is distinct.
     expect(v.quests[0]).not.toBe(input[0]);
     expect(v.quests[0].objectives[0]).not.toBe(input[0].objectives[0]);
+  });
+});
+
+// The timed-quest countdown. The core only decides WHETHER a countdown shows and
+// whether it reads as urgent; the m:ss formatting is the consumer's job (it needs
+// t() and formatNumber), so nothing here asserts on text.
+describe('questTrackerView: the timed-quest countdown', () => {
+  const timed = (secondsLeft: number | null | undefined, complete = false): TrackedQuest => ({
+    id: 'timed',
+    title: 'Beat the Clock',
+    complete,
+    objectives: [{ label: 'o', current: 0, total: 1 }],
+    secondsLeft,
+  });
+
+  it('carries no timer for an untimed quest, so nothing renders a countdown', () => {
+    expect(questTrackerView([timed(null)], false).quests[0].timer).toBeNull();
+    expect(questTrackerView([timed(undefined)], false).quests[0].timer).toBeNull();
+    // A quest record that never mentions a deadline at all is the common case.
+    const untimed: TrackedQuest = {
+      id: 'plain',
+      title: 'Plain',
+      complete: false,
+      objectives: [{ label: 'o', current: 0, total: 1 }],
+    };
+    expect(questTrackerView([untimed], false).quests[0].timer).toBeNull();
+  });
+
+  it('floors the remaining seconds so the countdown never shows a fraction', () => {
+    expect(questTrackerView([timed(91.8)], false).quests[0].timer).toEqual({
+      seconds: 91,
+      urgent: false,
+    });
+  });
+
+  it('clamps a passed deadline to zero rather than a negative countdown', () => {
+    expect(questTrackerView([timed(-5)], false).quests[0].timer).toEqual({
+      seconds: 0,
+      urgent: true,
+    });
+  });
+
+  it('flips to urgent at the threshold, not past it', () => {
+    const at = questTrackerView([timed(QUEST_TRACKER_URGENT_SECONDS)], false).quests[0].timer;
+    const justOver = questTrackerView([timed(QUEST_TRACKER_URGENT_SECONDS + 1)], false).quests[0]
+      .timer;
+    expect(at?.urgent).toBe(true);
+    expect(justOver?.urgent).toBe(false);
+  });
+
+  it('drops the countdown once the quest is ready to turn in', () => {
+    // The deadline stopped mattering when the objectives were met; a ticking clock
+    // beside "(Complete)" would read as a threat that is not real.
+    expect(questTrackerView([timed(30, true)], false).quests[0].timer).toBeNull();
+  });
+
+  it('renders no quest rows at all while collapsed, timers included', () => {
+    expect(questTrackerView([timed(30)], true).quests).toEqual([]);
   });
 });
