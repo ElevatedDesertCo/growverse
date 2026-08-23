@@ -13,6 +13,7 @@ import { Sim } from '../src/sim/sim';
 import type { PlayerClass } from '../src/sim/types';
 import { virtualLevel } from '../src/sim/types';
 import type { GuildLeaderboardEntry, LeaderboardEntry } from '../src/world_api';
+import { APPEARANCE_MAX_WIRE_BYTES, sanitizeAppearance } from '../src/world_api/appearance';
 import {
   handleAccount2faDisable,
   handleAccount2faEnable,
@@ -44,6 +45,7 @@ import { BUG_DESCRIPTION_MAX, BugReportRateLimitError, createBugReport } from '.
 import { characterSheet, type SheetRank } from './character_sheet';
 import { handleDailyRewardApi, handleDailyRewardInternalApi } from './daily_rewards';
 import {
+  APPEARANCE_CREATOR_CUTOFF,
   accountAndScopeForToken,
   accountById,
   accountForToken,
@@ -81,6 +83,7 @@ import {
   scopeAllowsMutation,
   searchCharacters,
   setAccountEmail,
+  spendAppearanceReroll,
   type TokenScope,
   topArenaRatings,
   topGuilds,
@@ -405,6 +408,8 @@ function characterListPayload(chars: CharacterRow[]): {
     forceRename: boolean;
     lastPlayed: string | null;
     playtimeSeconds: number;
+    appearance: Record<string, unknown> | null;
+    canRedesign: boolean;
   }[];
 } {
   return {
@@ -419,6 +424,17 @@ function characterListPayload(chars: CharacterRow[]): {
       forceRename: c.force_rename,
       lastPlayed: c.last_played ? new Date(c.last_played).toISOString() : null,
       playtimeSeconds: Number(c.playtime_seconds ?? 0),
+      // Sanitized on the way OUT as well as in: this column is JSONB and a row
+      // could predate the current key set, so the client is never handed a
+      // shape the creator cannot open.
+      appearance: sanitizeAppearance(c.appearance),
+      // Mirrors spendAppearanceReroll's WHERE arm, so the button is offered
+      // exactly when the write would succeed. The server still re-checks; this
+      // only decides whether the entry point is shown.
+      canRedesign:
+        c.appearance_reroll_used !== true &&
+        (c.appearance == null ||
+          (c.created_at != null && new Date(c.created_at) < APPEARANCE_CREATOR_CUTOFF)),
     })),
   };
 }
@@ -799,6 +815,14 @@ async function handleApi(req: http.IncomingMessage, res: http.ServerResponse): P
       if (accountId === null) return;
       return json(res, 200, characterListPayload(await listCharacters(accountId)));
     }
+    // The one-shot redesign route is DELIBERATELY NOT REGISTERED YET.
+    //
+    // The authored look does not ride the entity identity wire, so a client
+    // never receives it and never composes a body from it. Registering the
+    // route now would let a player spend their single, non-refundable
+    // appearance_reroll_used token and see absolutely nothing change. The
+    // database half (spendAppearanceReroll) is written and tested; it goes live
+    // in the same change that adds the wire field and an admin reset path.
     if (url === '/api/characters') {
       const accountId = await bearerActiveAccount(req, res);
       if (accountId === null) return;
@@ -827,6 +851,17 @@ async function handleApi(req: http.IncomingMessage, res: http.ServerResponse): P
           0,
           Math.min(7, Math.floor(typeof body.skin === 'number' ? body.skin : 0)),
         );
+        // Untrusted client input: cap the payload before parsing anything out of
+        // it, then keep only known keys. A look that sanitizes to null is simply
+        // not stored, which leaves the character on the legacy class rig rather
+        // than failing a creation the player would have to redo.
+        const rawLook = body.appearance;
+        const tooBig =
+          typeof rawLook === 'object' &&
+          rawLook !== null &&
+          Buffer.byteLength(JSON.stringify(rawLook), 'utf8') > APPEARANCE_MAX_WIRE_BYTES;
+        if (tooBig) return json(res, 400, { error: 'appearance payload too large' });
+        const appearance = sanitizeAppearance(rawLook);
         const create = () =>
           createCharacterCapped(
             accountId,
@@ -834,6 +869,7 @@ async function handleApi(req: http.IncomingMessage, res: http.ServerResponse): P
             body.class,
             10,
             initialCharacterState(body.class, name, skin),
+            appearance,
           );
         const created = (c: NonNullable<Awaited<ReturnType<typeof createCharacterCapped>>>) =>
           json(res, 200, {
@@ -843,6 +879,7 @@ async function handleApi(req: http.IncomingMessage, res: http.ServerResponse): P
             level: c.level,
             skin: c.state?.skin ?? skin,
             forceRename: c.force_rename,
+            appearance: c.appearance ?? null,
           });
         try {
           const c = await create();
@@ -1697,6 +1734,9 @@ async function main(): Promise<void> {
         accountCosmetics,
         isAdmin,
         clientSeed,
+        // Sanitized on the way out of the database as well as in: the column is
+        // JSONB and a row could predate the current key set.
+        appearance: sanitizeAppearance(character.appearance),
       },
     );
     if ('error' in result) {

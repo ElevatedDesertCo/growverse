@@ -1450,6 +1450,10 @@ export class GameServer {
         chatStrikes?: number;
         isAdmin?: boolean;
         clientSeed?: string;
+        /** The character's authored look (characters.appearance), already
+         *  sanitized by the caller. Absent/null leaves the entity on the
+         *  legacy class rig. */
+        appearance?: Record<string, unknown> | null;
       } = {},
   ): ClientSession | { error: string } {
     if (this.sessionsByCharacterId.has(characterId)) return { error: 'character already in world' };
@@ -1466,6 +1470,13 @@ export class GameServer {
       }
     }
     const pid = this.sim.addPlayer(cls, name, { state: state ?? undefined, characterId });
+    // Hang the authored look on the entity so every client composing this
+    // player builds their real body. Opaque to the sim (see Entity), which
+    // never reads it.
+    if (meta.appearance) {
+      const e = this.sim.entities.get(pid);
+      if (e) e.modularAppearance = meta.appearance;
+    }
     if (isGm) {
       // GM characters: invulnerable, and always at the level cap (the row is
       // created without state, so the first join levels them up)

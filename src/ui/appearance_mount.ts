@@ -19,6 +19,7 @@ import {
   type ModularAppearance,
   normalizeAppearance,
 } from '../render/characters/modular';
+import { armorSetSourceFor } from '../render/characters/player_look_core';
 import type { PlayerClass } from '../sim/types';
 import { type AppearanceCustomizer, mountAppearanceCustomizer } from './appearance_customizer';
 import {
@@ -191,6 +192,14 @@ export function syncAppearanceUi(panelId: string, cls: PlayerClass): void {
   // The panel just mounted with the stored look; compose it now so the body
   // matches the controls before the player touches anything.
   repaint(cls);
+}
+
+/** The armour-set source for an entity's composed body: the LOCAL player
+ *  honours this machine's per-class override, every peer wears the class kit.
+ *  Exposed so the world provider can be installed without main.ts reaching into
+ *  this module's storage. */
+export function armorSetForEntity(isSelf: boolean): (cls: PlayerClass) => ArmorSetId {
+  return armorSetSourceFor(isSelf, readStoredArmorSet, classArmorSet);
 }
 
 /** Re-apply the stored look to the turntable for a class.

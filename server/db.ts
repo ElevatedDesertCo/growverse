@@ -76,6 +76,16 @@ CREATE TABLE IF NOT EXISTS characters (
 );
 CREATE INDEX IF NOT EXISTS characters_account ON characters(account_id);
 ALTER TABLE characters ADD COLUMN IF NOT EXISTS realm TEXT NOT NULL DEFAULT '${REALM_SQL_DEFAULT}';
+-- The authored modular-creator look, per character (an alt is its own person).
+-- NULLABLE ON PURPOSE and never backfilled: NULL means "no authored look", which
+-- renders the legacy class rig, so every character that predates the creator
+-- keeps rendering exactly as it does today. Normalized by the caller before it
+-- lands here (untrusted client input, the hotbar_layout contract).
+ALTER TABLE characters ADD COLUMN IF NOT EXISTS appearance JSONB;
+-- One-shot redesign token for the creator's arrival: a character that existed
+-- before the cutoff never had a creator to author a look with, so it gets one
+-- redesign on the house. FALSE = unspent. See spendAppearanceReroll.
+ALTER TABLE characters ADD COLUMN IF NOT EXISTS appearance_reroll_used BOOLEAN NOT NULL DEFAULT FALSE;
 -- Max-Level XP Overflow leaderboard: indexed lifetime-XP sort key. The first
 -- index serves the realm-scoped in-game panel; the second serves the global
 -- (cross-realm) home-page board.
@@ -524,6 +534,12 @@ export async function ensureSchema(): Promise<void> {
   const client = await pool.connect();
   try {
     await client.query('BEGIN');
+    // The ALTER TABLEs below take ACCESS EXCLUSIVE and hold it until COMMIT, not
+    // just for the catalog update. Against a live table, one in-flight query
+    // holding even a weak lock makes the ALTER queue, and every later read then
+    // queues behind the pending exclusive request: one ALTER stalls the site.
+    // Fail fast instead and let boot retry, rather than blocking the server.
+    await client.query("SET LOCAL lock_timeout = '3s'");
     await client.query('SELECT pg_advisory_xact_lock($1)', [0x57_4f_43_01]); // "WOC\x01"
     await client.query(SCHEMA);
     await client.query(SOCIAL_SCHEMA);
@@ -1531,6 +1547,10 @@ export interface CharacterRow {
   force_rename: boolean;
   last_played?: Date | string | null;
   playtime_seconds?: string | number | null;
+  /** The authored look, or null for a character that predates the creator. */
+  appearance?: Record<string, unknown> | null;
+  appearance_reroll_used?: boolean;
+  created_at?: Date | string | null;
 }
 
 // The account's "top" character on this realm (highest level, then lifetime XP),
@@ -1557,6 +1577,7 @@ export async function highestCharacterForAccount(accountId: number): Promise<Cha
 export async function listCharacters(accountId: number): Promise<CharacterRow[]> {
   const res = await pool.query(
     `SELECT c.id, c.account_id, c.name, c.class, c.level, c.state, c.is_gm, c.force_rename,
+            c.appearance, c.appearance_reroll_used, c.created_at,
             ps.last_played, ps.playtime_seconds
        FROM characters c
        LEFT JOIN (
@@ -1579,7 +1600,7 @@ export async function getCharacter(
   characterId: number,
 ): Promise<CharacterRow | null> {
   const res = await pool.query(
-    'SELECT id, account_id, name, class, level, state, is_gm, force_rename FROM characters WHERE id = $1 AND account_id = $2 AND realm = $3',
+    'SELECT id, account_id, name, class, level, state, is_gm, force_rename, appearance FROM characters WHERE id = $1 AND account_id = $2 AND realm = $3',
     [characterId, accountId, REALM],
   );
   return res.rows[0] ?? null;
@@ -1646,12 +1667,76 @@ export async function createCharacter(
   name: string,
   cls: PlayerClass,
   state: CharacterState | null = null,
+  appearance: Record<string, unknown> | null = null,
 ): Promise<CharacterRow> {
   const res = await pool.query(
-    'INSERT INTO characters (account_id, name, class, realm, state) VALUES ($1, $2, $3, $4, $5) RETURNING id, account_id, name, class, level, state, is_gm, force_rename',
-    [accountId, name, cls, REALM, state ? JSON.stringify(state) : null],
+    'INSERT INTO characters (account_id, name, class, realm, state, appearance) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id, account_id, name, class, level, state, is_gm, force_rename, appearance',
+    [
+      accountId,
+      name,
+      cls,
+      REALM,
+      state ? JSON.stringify(state) : null,
+      appearance ? JSON.stringify(appearance) : null,
+    ],
   );
   return res.rows[0];
+}
+
+/** The creator's arrival cutoff. Every character created before this never had
+ *  a creator to author a look with, so it gets ONE redesign on the house.
+ *
+ *  A date alone is not enough, which is why spendAppearanceReroll also accepts
+ *  `appearance IS NULL`: if the deploy lands after this timestamp, a character
+ *  created in the gap by a client too old to post a look would have neither a
+ *  look nor any way to choose one. The OR can only widen eligibility, so the
+ *  window stays exactly what it says. */
+export const APPEARANCE_CREATOR_CUTOFF = new Date('2026-08-28T00:00:00Z');
+
+/** Spend a character's one-shot appearance redesign: write the new look and burn
+ *  the token in ONE statement, so two concurrent requests cannot both succeed.
+ *  Every eligibility check lives in the WHERE arm (ownership + realm, matching
+ *  getCharacter's scoping, plus the window and the unspent token), so the row is
+ *  only touched when all of them pass.
+ *
+ *  Returns whether the redesign was applied. False means not owned, or outside
+ *  the window with a look already, or already spent; the route maps that to its
+ *  error body without telling the caller which, since distinguishing them would
+ *  leak whether a character id exists on this account.
+ *
+ *  The look is already normalized by the caller (untrusted client input). */
+export async function spendAppearanceReroll(
+  characterId: number,
+  accountId: number,
+  appearance: Record<string, unknown>,
+): Promise<boolean> {
+  const res = await pool.query(
+    `UPDATE characters
+        SET appearance = $3::jsonb,
+            appearance_reroll_used = TRUE,
+            updated_at = now()
+      WHERE id = $1 AND account_id = $2 AND realm = $4
+        AND (created_at < $5 OR appearance IS NULL)
+        AND appearance_reroll_used = FALSE`,
+    [characterId, accountId, JSON.stringify(appearance), REALM, APPEARANCE_CREATOR_CUTOFF],
+  );
+  return (res.rowCount ?? 0) > 0;
+}
+
+/** Whether a character may still redesign: unspent token AND inside the window.
+ *  Drives whether character select offers the entry point at all. */
+export async function appearanceRerollAvailable(
+  characterId: number,
+  accountId: number,
+): Promise<boolean> {
+  const res = await pool.query(
+    `SELECT 1 FROM characters
+      WHERE id = $1 AND account_id = $2 AND realm = $3
+        AND (created_at < $4 OR appearance IS NULL)
+        AND appearance_reroll_used = FALSE`,
+    [characterId, accountId, REALM, APPEARANCE_CREATOR_CUTOFF],
+  );
+  return (res.rowCount ?? 0) > 0;
 }
 
 export async function createCharacterCapped(
@@ -1660,6 +1745,7 @@ export async function createCharacterCapped(
   cls: PlayerClass,
   limit = 10,
   state: CharacterState | null = null,
+  appearance: Record<string, unknown> | null = null,
 ): Promise<CharacterRow | null> {
   const client = await pool.connect();
   try {
@@ -1680,8 +1766,15 @@ export async function createCharacterCapped(
       return null;
     }
     const res = await client.query(
-      'INSERT INTO characters (account_id, name, class, realm, state) VALUES ($1, $2, $3, $4, $5) RETURNING id, account_id, name, class, level, state, is_gm, force_rename',
-      [accountId, name, cls, REALM, state ? JSON.stringify(state) : null],
+      'INSERT INTO characters (account_id, name, class, realm, state, appearance) VALUES ($1, $2, $3, $4, $5, $6) RETURNING id, account_id, name, class, level, state, is_gm, force_rename, appearance',
+      [
+        accountId,
+        name,
+        cls,
+        REALM,
+        state ? JSON.stringify(state) : null,
+        appearance ? JSON.stringify(appearance) : null,
+      ],
     );
     await client.query('COMMIT');
     return res.rows[0];

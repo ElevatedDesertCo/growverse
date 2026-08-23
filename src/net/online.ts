@@ -433,8 +433,19 @@ export class Api {
     return data.characters;
   }
 
-  async createCharacter(name: string, cls: PlayerClass, skin = 0): Promise<void> {
-    await this.post('/api/characters', { name, class: cls, skin });
+  async createCharacter(
+    name: string,
+    cls: PlayerClass,
+    skin = 0,
+    appearance: Record<string, unknown> | null = null,
+  ): Promise<void> {
+    await this.post('/api/characters', { name, class: cls, skin, appearance });
+  }
+
+  /** Spend a character's one-shot redesign. Throws on 409 (not available), which
+   *  the caller surfaces; the server owns eligibility, this is not a re-check. */
+  async redesignCharacter(characterId: number, appearance: Record<string, unknown>): Promise<void> {
+    await this.post(`/api/characters/${characterId}/appearance`, { appearance });
   }
 
   async renameCharacter(characterId: number, name: string): Promise<void> {

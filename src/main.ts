@@ -83,8 +83,9 @@ import {
 // the feature is enabled + used.
 import type { WalletOption } from './net/wallet';
 import { assetsReady } from './render/assets/preload';
-import { CharacterPreview } from './render/characters';
+import { CharacterPreview, setModularLookProvider } from './render/characters';
 import { skinCount } from './render/characters/manifest';
+import { inWorldLookFor } from './render/characters/player_look_core';
 import {
   onPortraitsReady,
   playerPortraitDataUrl,
@@ -106,6 +107,7 @@ import { TAB_NEAR_RADIUS, TAB_QUERY_RADIUS, tabConeHalfAt } from './sim/tab_targ
 import {
   DT,
   dist2d,
+  type Entity,
   FISHING_CAST_ID,
   INTERACT_RANGE,
   MELEE_RANGE,
@@ -122,6 +124,8 @@ import {
 } from './ui/account_portal';
 import {
   applyStoredLook,
+  armorSetForEntity,
+  currentAppearance,
   flushAppearanceStore,
   initAppearanceMounts,
   syncAppearanceUi,
@@ -2572,6 +2576,16 @@ async function startOffline(
     sim.addPlayer(playerClass, name, { state: savedState });
   }
   sim.setPlayerSkin(sim.playerId, savedState?.skin ?? skin);
+  // Offline builds its own Sim rather than mirroring a server, so the authored
+  // look has to be hung on the local entity here or the world body falls back
+  // to the class rig while the creation turntable showed a composed one.
+  activeLocalPlayerId = sim.playerId;
+  onlineWorldForLocalId = null;
+  {
+    const offlineLook = currentAppearance() as unknown as Record<string, unknown>;
+    const self = sim.entities.get(sim.playerId);
+    if (self && offlineLook) self.modularAppearance = offlineLook;
+  }
   // Dev convenience: ?mech drops an offline session straight into the Combat Mech
   // cosmetic body holding a spread of class-usable weapons, to eyeball the held
   // weapon model on the mech (swap them in the bag to see each one). DEV builds
@@ -2859,6 +2873,21 @@ function syncPreviewAfterPanelLayout(): void {
  *  into. Kept here (not in appearance_mount.ts) so the panel wiring stays
  *  visible alongside the other per-panel maps below, and pinned by
  *  tests/appearance_creator_rows.test.ts against the entry HTML. */
+/** The local player's entity id for the session in progress, or -1 between
+ *  sessions. The look provider is installed once at import but the world that
+ *  answers "is this me" is built per session, so the id is held here rather
+ *  than captured. Only the local player may wear this machine's armour-set
+ *  override; a peer must always wear their class kit. */
+let activeLocalPlayerId = -1;
+/** The live online world, for reading its player id AFTER the handshake. Offline
+ *  sets activeLocalPlayerId directly, since its id is known at spawn. */
+let onlineWorldForLocalId: { playerId: number } | null = null;
+
+/** The local player's entity id right now, whichever host is running. */
+function localPlayerId(): number {
+  return onlineWorldForLocalId ? onlineWorldForLocalId.playerId : activeLocalPlayerId;
+}
+
 const APPEARANCE_HOSTS: Record<string, string> = {
   'charcreate-class-details': '#charcreate-appearance',
   'offline-class-details': '#offline-appearance',
@@ -2868,6 +2897,14 @@ const APPEARANCE_HOSTS: Record<string, string> = {
 initAppearanceMounts(APPEARANCE_HOSTS, (app, worn, cls) => {
   characterPreview?.setModular(app, worn, cls);
 });
+
+// Claim every player entity carrying an authored look, so the WORLD body is
+// composed too and not just the creation turntable. An entity without one
+// returns null and keeps its fixed class rig, which is the pre-creator
+// behaviour, so this is inert for characters that predate the creator.
+setModularLookProvider((e: Entity) =>
+  inWorldLookFor(e, armorSetForEntity(e.id === localPlayerId())),
+);
 
 const currentlyRenderedClass: Record<string, PlayerClass | null> = {
   'offline-class-details': null,
@@ -4017,6 +4054,11 @@ async function enterWorld(c: CharacterSummary, button?: HTMLButtonElement): Prom
     }
   }
   const world = new ClientWorld(api.token!, c.id, c.class, api.base, getClientSeed());
+  // NOT world.playerId here: ClientWorld starts at -1 and only learns its id
+  // from the server handshake, so reading it synchronously pins -1 forever and
+  // the local player never matches. Read it live instead.
+  activeLocalPlayerId = -1;
+  onlineWorldForLocalId = world;
   // Wire shareable player cards for this online session: publishing uploads the
   // composited PNG to this realm and returns an absolute public page URL, and
   // the referral provider feeds the card footer. Both are cleared on disconnect.
@@ -6932,6 +6974,9 @@ function wireStartScreens(): void {
         name,
         clsEl.dataset.class as PlayerClass,
         selectedSkin('#online-skin-row', onlineSkin),
+        // The look the player just authored in this panel. Sanitized server
+        // side; sent as a plain record so the wire stays render-type-free.
+        currentAppearance() as unknown as Record<string, unknown>,
       );
       newCharNameInput.value = '';
       charselectError.textContent = '';
